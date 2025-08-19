@@ -1,5 +1,6 @@
 package com.hbm.explosion;
 
+import api.hbm.explosion.event.HbmExplosionHooks;
 import com.hbm.blocks.generic.DecoBlockAlt;
 
 import net.minecraft.init.Blocks;
@@ -7,7 +8,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
 public class ExplosionFleija {
-	
+
 	public int posX;
 	public int posY;
 	public int posZ;
@@ -75,6 +76,17 @@ public class ExplosionFleija {
 	}
 
 	public boolean update() {
+
+		// --- Safezone / claim protection ---
+		if (HbmExplosionHooks.pre(
+			this.worldObj,
+			this.posX + 0.5, this.posY + 0.5, this.posZ + 0.5,
+			(float) this.radius,
+			null, // no shooter reference here
+			"FLEIJA")) {
+			return true; // stop processing if blocked
+		}
+
 		breakColumn(this.lastposX, this.lastposZ);
 		this.shell = (int) Math.floor((Math.sqrt(n) + 1) / 2);
 		int shell2 = this.shell * 2;
@@ -89,12 +101,23 @@ public class ExplosionFleija {
 
 	private void breakColumn(int x, int z) {
 		int dist = this.radius2 - (x * x + z * z);
-		if(dist > 0) {
+		if (dist > 0) {
 			dist = (int) Math.sqrt(dist);
-			for(int y = (int) (dist / this.explosionCoefficient2); y > -dist / this.explosionCoefficient; y--) {
-				if(this.posY + y > 0 && !(this.worldObj.getBlock(this.posX + x, this.posY + y, this.posZ + z) instanceof DecoBlockAlt))
-					this.worldObj.setBlock(this.posX + x, this.posY + y, this.posZ + z, Blocks.air);
+			for (int y = (int) (dist / this.explosionCoefficient2); y > -dist / this.explosionCoefficient; y--) {
+				int bx = this.posX + x;
+				int by = this.posY + y;
+				int bz = this.posZ + z;
+
+				// Per-block safezone / claim protection
+				if (HbmExplosionHooks.blockDenied(this.worldObj, bx, by, bz, "FLEIJA")) {
+					continue; // skip this block if protected
+				}
+
+				if (by > 0 && !(this.worldObj.getBlock(bx, by, bz) instanceof DecoBlockAlt)) {
+					this.worldObj.setBlock(bx, by, bz, Blocks.air);
+				}
 			}
 		}
 	}
+
 }

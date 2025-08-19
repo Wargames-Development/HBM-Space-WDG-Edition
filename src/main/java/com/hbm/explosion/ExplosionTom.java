@@ -1,5 +1,6 @@
 package com.hbm.explosion;
 
+import api.hbm.explosion.event.HbmExplosionHooks;
 import com.hbm.blocks.ModBlocks;
 
 import net.minecraft.block.material.Material;
@@ -64,9 +65,17 @@ public class ExplosionTom {
 		this.radius2 = this.radius * this.radius;
 
 		this.nlimit = this.radius2 * 4;
+
+		// Global safezone/claim veto: cancel the whole operation up front
+		if (HbmExplosionHooks.pre(world, x + 0.5, y + 0.5, z + 0.5, rad, null, "TOM.ORIGIN")) {
+			this.n = this.nlimit + 1; // mark as finished
+		}
 	}
 
 	public boolean update() {
+		// If cancelled or already finished, no-op
+		if (this.n > this.nlimit) return true;
+
 		breakColumn(this.lastposX, this.lastposZ);
 		this.shell = (int) Math.floor((Math.sqrt(n) + 1) / 2);
 		int shell2 = this.shell * 2;
@@ -107,13 +116,15 @@ public class ExplosionTom {
 			while(y > threshold) {
 
 				if(y == 0) break;
-				
+
 				if(y <= craterFloor) {
 
-					if(worldObj.rand.nextInt(499) < 1) {
-						worldObj.setBlock(pX, y, pZ, ModBlocks.ore_tektite_osmiridium, 0, 2);
-					} else {
-						worldObj.setBlock(pX, y, pZ, ModBlocks.tektite, 0, 2);
+					if (!HbmExplosionHooks.blockDenied(worldObj, pX, y, pZ, "TOM.FILL")) {
+						if (worldObj.rand.nextInt(499) < 1) {
+							worldObj.setBlock(pX, y, pZ, ModBlocks.ore_tektite_osmiridium, 0, 2);
+						} else {
+							worldObj.setBlock(pX, y, pZ, ModBlocks.tektite, 0, 2);
+						}
 					}
 
 				} else {
@@ -124,28 +135,34 @@ public class ExplosionTom {
 								for(int j = -2; j < 3; j++) {
 									for(int k = -2; k < 3; k++) {
 										if(worldObj.getBlock(pX + i, y + j, pZ + k).getMaterial() == Material.water || worldObj.getBlock(pX + i, y + j, pZ + k).getMaterial() == Material.ice || worldObj.getBlock(pX + i, y + j, pZ + k).getMaterial() == Material.snow || worldObj.getBlock(pX + i, y + j, pZ + k).getMaterial().getCanBurn()) {
-											worldObj.setBlockToAir(pX + i, y + j, pZ + k);
-											worldObj.setBlockToAir(pX, y, pZ);
+											if (!HbmExplosionHooks.blockDenied(worldObj, pX + i, y + j, pZ + k, "TOM.CARVE"))
+												worldObj.setBlockToAir(pX + i, y + j, pZ + k);
+											if (!HbmExplosionHooks.blockDenied(worldObj, pX, y, pZ, "TOM.CARVE"))
+												worldObj.setBlockToAir(pX, y, pZ);
 										}
 									}
 								}
 							}
-							worldObj.setBlock(pX, y, pZ, Blocks.air, 0, 2);
+							if (!HbmExplosionHooks.blockDenied(worldObj, pX, y, pZ, "TOM.CARVE"))
+								worldObj.setBlock(pX, y, pZ, Blocks.air, 0, 2);
 						}
 					} else {
-						if(distance < 500) 
+						if(distance < 500)
 						{
 							for(int i = -2; i < 3; i++) {
 								for(int j = -2; j < 3; j++) {
 									for(int k = -2; k < 3; k++) {
 										if(worldObj.getBlock(pX + i, y + j, pZ + k).getMaterial() == Material.water || worldObj.getBlock(pX + i, y + j, pZ + k).getMaterial() == Material.ice || worldObj.getBlock(pX + i, y, pZ + k) == Blocks.air) {
-											worldObj.setBlock(pX + i, y, pZ + k, Blocks.lava, 0, 2);
-											worldObj.setBlock(pX, y, pZ, Blocks.lava, 0, 2);
+											if (!HbmExplosionHooks.blockDenied(worldObj, pX + i, y, pZ + k, "TOM.LAVA"))
+												worldObj.setBlock(pX + i, y, pZ + k, Blocks.lava, 0, 2);
+											if (!HbmExplosionHooks.blockDenied(worldObj, pX, y, pZ, "TOM.LAVA"))
+												worldObj.setBlock(pX, y, pZ, Blocks.lava, 0, 2);
 										}
 									}
 								}
 							}
-							worldObj.setBlock(pX, y, pZ, Blocks.lava, 0, 2);
+							if (!HbmExplosionHooks.blockDenied(worldObj, pX, y, pZ, "TOM.LAVA"))
+								worldObj.setBlock(pX, y, pZ, Blocks.lava, 0, 2);
 						}
 					}
 

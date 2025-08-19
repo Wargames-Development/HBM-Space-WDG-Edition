@@ -1,5 +1,6 @@
 package com.hbm.explosion.vanillant.standard;
 
+import api.hbm.explosion.event.HbmExplosionHooks;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.explosion.vanillant.ExplosionVNT;
 import com.hbm.explosion.vanillant.interfaces.IBlockMutator;
@@ -16,8 +17,11 @@ public class BlockMutatorBalefire implements IBlockMutator {
 
 		Block block = explosion.world.getBlock(x, y, z);
 		Block block1 = explosion.world.getBlock(x, y - 1, z);
-		if(block.getMaterial() == Material.air && block1.func_149730_j() && explosion.world.rand.nextInt(3) == 0) {
-			explosion.world.setBlock(x, y, z, ModBlocks.balefire);
+		if (block.getMaterial() == Material.air && block1.func_149730_j() && explosion.world.rand.nextInt(3) == 0) {
+			// Safezone/claim guard — skip placing balefire in protected coords
+			if (!HbmExplosionHooks.blockDenied(explosion.world, x, y, z, "VNT.MUT.BALEFIRE.PLACE")) {
+				explosion.world.setBlock(x, y, z, ModBlocks.balefire);
+			}
 		}
 	}
 }

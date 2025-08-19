@@ -2,6 +2,7 @@ package com.hbm.explosion;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+import api.hbm.explosion.event.HbmExplosionHooks;
 
 public class ExplosionSolinium
 {
@@ -20,7 +21,7 @@ public class ExplosionSolinium
 	private int element;
 	public float explosionCoefficient = 1.0F;
 	public float explosionCoefficient2 = 1.0F;
-	
+
 	public void saveToNbt(NBTTagCompound nbt, String name) {
 		nbt.setInteger(name + "posX", posX);
 		nbt.setInteger(name + "posY", posY);
@@ -37,7 +38,7 @@ public class ExplosionSolinium
 		nbt.setFloat(name + "explosionCoefficient", explosionCoefficient);
 		nbt.setFloat(name + "explosionCoefficient2", explosionCoefficient2);
 	}
-	
+
 	public void readFromNbt(NBTTagCompound nbt, String name) {
 		posX = nbt.getInteger(name + "posX");
 		posY = nbt.getInteger(name + "posY");
@@ -54,29 +55,33 @@ public class ExplosionSolinium
 		explosionCoefficient = nbt.getFloat(name + "explosionCoefficient");
 		explosionCoefficient2 = nbt.getFloat(name + "explosionCoefficient2");
 	}
-	
-	public ExplosionSolinium(int x, int y, int z, World world, int rad, float coefficient, float coefficient2)
-	{
+
+	public ExplosionSolinium(int x, int y, int z, World world, int rad, float coefficient, float coefficient2) {
 		this.posX = x;
 		this.posY = y;
 		this.posZ = z;
-		
 		this.worldObj = world;
-		
 		this.radius = rad;
 		this.radius2 = this.radius * this.radius;
-
 		this.explosionCoefficient = coefficient;
 		this.explosionCoefficient2 = coefficient2;
-		
 		this.nlimit = this.radius2 * 4;
+
+		// Optional: cancel entire operation if origin is in a protected zone
+		if (HbmExplosionHooks.pre(world, x + 0.5, y + 0.5, z + 0.5, rad, null, "SOLINIUM")) {
+			// Mark as finished so update() returns true immediately
+			this.n = this.nlimit + 1;
+		}
 	}
-	
+
 	public boolean update()
 	{
+		// If canceled (or already finished), do nothing
+		if (this.n > this.nlimit) return true;
+
 		breakColumn(this.lastposX, this.lastposZ);
 		this.shell = (int) Math.floor((Math.sqrt(n) + 1) / 2);
-		int shell2 = Math.max(this.shell * 2,1);
+		int shell2 = Math.max(this.shell * 2, 1);
 		this.leg = (int) Math.floor((this.n - (shell2 - 1) * (shell2 - 1)) / shell2);
 		this.element = (this.n - (shell2 - 1) * (shell2 - 1)) - shell2 * this.leg - this.shell + 1;
 		this.lastposX = this.leg == 0 ? this.shell : this.leg == 1 ? -this.element : this.leg == 2 ? -this.shell : this.element;
@@ -84,6 +89,7 @@ public class ExplosionSolinium
 		this.n++;
 		return this.n > this.nlimit;
 	}
+
 
 	private void breakColumn(int x, int z)
 	{

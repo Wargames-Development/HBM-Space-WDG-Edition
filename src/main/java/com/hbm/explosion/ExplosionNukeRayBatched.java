@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
+import api.hbm.explosion.event.HbmExplosionHooks;
 import com.hbm.interfaces.IExplosionRay;
 import com.hbm.util.fauxpointtwelve.BlockPos;
 
@@ -43,14 +44,26 @@ public class ExplosionNukeRayBatched implements IExplosionRay {
 		this.strength = strength;
 		this.speed = speed;
 		this.length = length;
+
+		// Safezone/claim: cancel the entire ray up front if its origin is protected
+		if (HbmExplosionHooks.pre(world, x + 0.5, y + 0.5, z + 0.5, strength, null, "RAY.BATCHED")) {
+			this.isAusf3Complete = true; // prevent any processing
+			this.gspNumMax = 0;
+			this.gspNum = 1;
+			this.gspX = 0.0;
+			this.gspY = 0.0;
+			return;
+		}
+
 		// Total number of points
-		this.gspNumMax = (int)(2.5 * Math.PI * Math.pow(this.strength,2));
+		this.gspNumMax = (int) (2.5 * Math.PI * Math.pow(this.strength, 2));
 		this.gspNum = 1;
 
 		// The beginning of the generalized spiral points
 		this.gspX = Math.PI;
 		this.gspY = 0.0;
 	}
+
 
 	private void generateGspUp(){
 		if (this.gspNum < this.gspNumMax) {
@@ -178,23 +191,22 @@ public class ExplosionNukeRayBatched implements IExplosionRay {
 
 	public void processChunk() {
 
-		if(this.perChunk.isEmpty()) return;
+		if (this.perChunk.isEmpty()) return;
 
 		ChunkCoordIntPair coord = orderedChunks.get(0);
 		List<FloatTriplet> list = perChunk.get(coord);
 		HashSet<BlockPos> toRem = new HashSet();
 		HashSet<BlockPos> toRemTips = new HashSet();
-		//List<BlockPos> toRem = new ArrayList();
 		int chunkX = coord.chunkXPos;
 		int chunkZ = coord.chunkZPos;
 
 		int enter = (int) (Math.min(
-				Math.abs(posX - (chunkX << 4)),
-				Math.abs(posZ - (chunkZ << 4)))) - 16; //jump ahead to cut back on NOPs
+			Math.abs(posX - (chunkX << 4)),
+			Math.abs(posZ - (chunkZ << 4)))) - 16; //jump ahead to cut back on NOPs
 
 		enter = Math.max(enter, 0);
 
-		for(FloatTriplet triplet : list) {
+		for (FloatTriplet triplet : list) {
 			float x = triplet.xCoord;
 			float y = triplet.yCoord;
 			float z = triplet.zCoord;
@@ -208,13 +220,13 @@ public class ExplosionNukeRayBatched implements IExplosionRay {
 			int tipZ = (int) Math.floor(z);
 
 			boolean inChunk = false;
-			for(int i = enter; i < vec.lengthVector(); i++) {
+			for (int i = enter; i < vec.lengthVector(); i++) {
 				int x0 = (int) Math.floor(posX + pX * i);
 				int y0 = (int) Math.floor(posY + pY * i);
 				int z0 = (int) Math.floor(posZ + pZ * i);
 
-				if(x0 >> 4 != chunkX || z0 >> 4 != chunkZ) {
-					if(inChunk) {
+				if (x0 >> 4 != chunkX || z0 >> 4 != chunkZ) {
+					if (inChunk) {
 						break;
 					} else {
 						continue;
@@ -223,11 +235,10 @@ public class ExplosionNukeRayBatched implements IExplosionRay {
 
 				inChunk = true;
 
-				if(!world.isAirBlock(x0, y0, z0)) {
-
+				if (!world.isAirBlock(x0, y0, z0)) {
 					BlockPos pos = new BlockPos(x0, y0, z0);
 
-					if(x0 == tipX && y0 == tipY && z0 == tipZ) {
+					if (x0 == tipX && y0 == tipY && z0 == tipZ) {
 						toRemTips.add(pos);
 					}
 					toRem.add(pos);
@@ -235,11 +246,18 @@ public class ExplosionNukeRayBatched implements IExplosionRay {
 			}
 		}
 
-		for(BlockPos pos : toRem) {
-			if(toRemTips.contains(pos)) {
-				this.handleTip(pos.getX(), pos.getY(), pos.getZ());
+		for (BlockPos pos : toRem) {
+			int x = pos.getX(), y = pos.getY(), z = pos.getZ();
+
+			// yRadar safezone/claim guard — block any edits at protected coords
+			if (HbmExplosionHooks.blockDenied(world, x, y, z,
+				toRemTips.contains(pos) ? "RAY.BATCHED.TIP" : "RAY.BATCHED.CARVE"))
+				continue;
+
+			if (toRemTips.contains(pos)) {
+				this.handleTip(x, y, z);
 			} else {
-				world.setBlock(pos.getX(), pos.getY(), pos.getZ(), Blocks.air, 0, 2);
+				world.setBlock(x, y, z, Blocks.air, 0, 2);
 			}
 		}
 
@@ -247,7 +265,12 @@ public class ExplosionNukeRayBatched implements IExplosionRay {
 		orderedChunks.remove(0);
 	}
 
+
 	protected void handleTip(int x, int y, int z) {
+		// Safezone/claim: block any edits at the ray tip inside protected areas
+		if (HbmExplosionHooks.blockDenied(world, x, y, z, "RAY.BATCHED.TIP"))
+			return;
+
 		world.setBlock(x, y, z, Blocks.air, 0, 3);
 	}
 

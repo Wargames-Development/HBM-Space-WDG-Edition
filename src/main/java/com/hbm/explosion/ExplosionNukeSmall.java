@@ -1,5 +1,6 @@
 package com.hbm.explosion;
 
+import api.hbm.explosion.event.HbmExplosionHooks;
 import com.hbm.config.BombConfig;
 import com.hbm.entity.logic.EntityNukeExplosionMK5;
 import com.hbm.explosion.ExplosionNT.ExAttrib;
@@ -17,7 +18,7 @@ import net.minecraft.world.World;
 
 	public static void explode(World world, double posX, double posY, double posZ, MukeParams params) {
 
-		// spawn particles, if present
+		// spawn particles, if present (visual only)
 		if(params.particle != null) {
 			NBTTagCompound data = new NBTTagCompound();
 			data.setString("type", params.particle);
@@ -28,13 +29,31 @@ import net.minecraft.world.World;
 			PacketThreading.createAllAroundThreadedPacket(new AuxParticlePacketNT(data, posX, posY + 0.5, posZ), new TargetPoint(world.provider.dimensionId, posX, posY, posZ, 250));
 		}
 
-		// play the sound in any case
+		// play the sound in any case (audio only)
 		world.playSoundEffect(posX, posY, posZ, "hbm:weapon.mukeExplosion", 15.0F, 1.0F);
 
-		if(params.shrapnelCount > 0) ExplosionLarge.spawnShrapnels(world, posX, posY, posZ, params.shrapnelCount);
-		if(params.miniNuke && !params.safe) new ExplosionNT(world, null, posX, posY, posZ, params.blastRadius).addAllAttrib(params.explosionAttribs).overrideResolution(params.resolution).explode();
-		if(params.killRadius > 0) ExplosionNukeGeneric.dealDamage(world, posX, posY, posZ, params.killRadius);
-		if(!params.miniNuke) WorldUtil.loadAndSpawnEntityInWorld(EntityNukeExplosionMK5.statFac(world, (int) params.blastRadius, posX, posY, posZ));
+		// ---- Global safezone/claim veto for harmful effects ----
+		float effRadius = Math.max(params.blastRadius, params.killRadius);
+		if(!params.miniNuke && effRadius <= 0) effRadius = BombConfig.fatmanRadius; // fallback for non-miniNuke
+		if (HbmExplosionHooks.pre(world, posX, posY, posZ, effRadius, null, "NUKESMALL.ORIGIN")) {
+			return; // no shrapnels, no NT, no damage, no radiation if origin protected
+		}
+		// --------------------------------------------------------
+
+		if(params.shrapnelCount > 0)
+			ExplosionLarge.spawnShrapnels(world, posX, posY, posZ, params.shrapnelCount);
+
+		if(params.miniNuke && !params.safe)
+			new ExplosionNT(world, null, posX, posY, posZ, params.blastRadius)
+				.addAllAttrib(params.explosionAttribs)
+				.overrideResolution(params.resolution)
+				.explode();
+
+		if(params.killRadius > 0)
+			ExplosionNukeGeneric.dealDamage(world, posX, posY, posZ, params.killRadius);
+
+		if(!params.miniNuke)
+			WorldUtil.loadAndSpawnEntityInWorld(EntityNukeExplosionMK5.statFac(world, (int) params.blastRadius, posX, posY, posZ));
 
 		if(params.miniNuke) {
 			float radMod = params.radiationLevel / 3F;
@@ -42,12 +61,21 @@ import net.minecraft.world.World;
 			for(int i = -2; i <= 2; i++) {
 				for(int j = -2; j <= 2; j++) {
 					if(Math.abs(i) + Math.abs(j) < 4) {
-						ChunkRadiationManager.proxy.incrementRad(world, (int) Math.floor(posX + i * 16), (int) Math.floor(posY), (int) Math.floor(posZ + j * 16), 50 / (Math.abs(i) + Math.abs(j) + 1) * radMod);
+						int rx = (int) Math.floor(posX + i * 16);
+						int ry = (int) Math.floor(posY);
+						int rz = (int) Math.floor(posZ + j * 16);
+
+						// Per-position veto: don't apply radiation inside protected zones
+						if (HbmExplosionHooks.blockDenied(world, rx, ry, rz, "NUKESMALL.RAD")) continue;
+
+						ChunkRadiationManager.proxy.incrementRad(world, rx, ry, rz,
+							50 / (Math.abs(i) + Math.abs(j) + 1) * radMod);
 					}
 				}
 			}
 		}
 	}
+
 
 	public static MukeParams PARAMS_SAFE = new MukeParams() {{ safe = true; killRadius = 45F; radiationLevel = 2F; }};
 	public static MukeParams PARAMS_TOTS = new MukeParams() {{ blastRadius = 10F; killRadius = 30F; particle = "tinytot"; shrapnelCount = 0; resolution = 32; radiationLevel = 1; }};

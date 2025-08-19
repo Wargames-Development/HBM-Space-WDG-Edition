@@ -5,6 +5,8 @@ import java.util.Random;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.util.ParticleUtil;
 
+import api.hbm.explosion.event.HbmExplosionHooks;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
@@ -41,7 +43,7 @@ public class ExplosionBalefire
 		nbt.setInteger(name + "element", element);
 		nbt.setBoolean(name + "antimatter", antimatter);
 	}
-	
+
 	public void readFromNbt(NBTTagCompound nbt, String name) {
 		posX = nbt.getInteger(name + "posX");
 		posY = nbt.getInteger(name + "posY");
@@ -57,32 +59,42 @@ public class ExplosionBalefire
 		element = nbt.getInteger(name + "element");
 		antimatter = nbt.getBoolean(name + "antimatter");
 	}
-	
+
 	public ExplosionBalefire(int x, int y, int z, World world, int rad, boolean antimatter)
 	{
 		this.posX = x;
 		this.posY = y;
 		this.posZ = z;
-		
+
 		this.worldObj = world;
-		
+
 		this.radius = rad;
 		this.radius2 = this.radius * this.radius;
 
 		this.nlimit = this.radius2 * 4;
 		this.antimatter=antimatter;
 	}
-	
+
 	public boolean update() {
-		
+
+		// === SAFEZONE HOOK: veto whole balefire blast before any block edits ===
+		if (HbmExplosionHooks.pre(this.worldObj,
+			this.posX + 0.5, this.posY + 0.5, this.posZ + 0.5,
+			(float) this.radius,
+			this,
+			"BALEFIRE")) {
+			// Returning true tells the caller "we're done" – aborts further columns.
+			return true;
+		}
+
 		if(n == 0) return true;
-		
+
 		breakColumn(this.lastposX, this.lastposZ);
 		this.shell = (int) Math.floor((Math.sqrt(n) + 1) / 2);
 		int shell2 = this.shell * 2;
-		
+
 		if(shell2 == 0) return true;
-		
+
 		this.leg = (int) Math.floor((this.n - (shell2 - 1) * (shell2 - 1)) / shell2);
 		this.element = (this.n - (shell2 - 1) * (shell2 - 1)) - shell2 * this.leg - this.shell + 1;
 		this.lastposX = this.leg == 0 ? this.shell : this.leg == 1 ? -this.element : this.leg == 2 ? -this.shell : this.element;
@@ -91,64 +103,73 @@ public class ExplosionBalefire
 		return this.n > this.nlimit;
 	}
 
-	private void breakColumn(int x, int z)
-	{
+	private void breakColumn(int x, int z) {
 		int dist = (int) (radius - Math.sqrt(x * x + z * z));
-		
 		if (dist > 0) {
 			int pX = posX + x;
 			int pZ = posZ + z;
-			
+
 			int y  = worldObj.getHeightValue(pX, pZ);
 			int maxdepth = (int) (10 + radius * 0.25);
-			int depth = (int) ((maxdepth * dist / radius) + (Math.sin(dist * 0.15 + 2) * 2));//
-			
+			int depth = (int) ((maxdepth * dist / radius) + (Math.sin(dist * 0.15 + 2) * 2));
 			depth = Math.max(y - depth, 0);
-			
-			while(y > depth) {
 
-				if(worldObj.getBlock(pX, y, pZ) == ModBlocks.block_schrabidium_cluster && !antimatter) {
-					
-					if(worldObj.rand.nextInt(10) == 0) {
-						worldObj.setBlock(pX, y + 1, pZ, ModBlocks.balefire);
-						worldObj.setBlock(pX, y, pZ, ModBlocks.block_euphemium_cluster, worldObj.getBlockMetadata(pX, y, pZ), 3);
+			while (y > depth) {
+
+				if (worldObj.getBlock(pX, y, pZ) == ModBlocks.block_schrabidium_cluster && !antimatter) {
+					if (worldObj.rand.nextInt(10) == 0) {
+						// balefire cap
+						if (!HbmExplosionHooks.blockDenied(worldObj, pX, y + 1, pZ, "BALEFIRE"))
+							worldObj.setBlock(pX, y + 1, pZ, ModBlocks.balefire);
+						// convert cluster
+						if (!HbmExplosionHooks.blockDenied(worldObj, pX, y, pZ, "BALEFIRE"))
+							worldObj.setBlock(pX, y, pZ, ModBlocks.block_euphemium_cluster, worldObj.getBlockMetadata(pX, y, pZ), 3);
 					}
 					return;
 				}
+
 				Material m = worldObj.getBlock(pX, y, pZ).getMaterial();
-				if((m==Material.craftedSnow || m==Material.snow || m==Material.ice || m==Material.packedIce) && antimatter)
-				{
-					//ExplosionChaos.plasma(worldObj, pX, y, pZ, 4);
+				if ((m == Material.craftedSnow || m == Material.snow || m == Material.ice || m == Material.packedIce) && antimatter) {
 					ParticleUtil.spawnGasFlame(worldObj, pX, y, pZ, x, y, z);
+					y--;
 					continue;
 				}
-				if(worldObj.getBlock(pX, y, pZ)!=ModBlocks.plasma)
-				{
-					worldObj.setBlockToAir(pX, y, pZ);
+
+				if (worldObj.getBlock(pX, y, pZ) != ModBlocks.plasma) {
+					// carve
+					if (!HbmExplosionHooks.blockDenied(worldObj, pX, y, pZ, "BALEFIRE"))
+						worldObj.setBlockToAir(pX, y, pZ);
 				}
-				
+
 				y--;
 			}
-			if(worldObj.rand.nextInt(10) == 0 && !antimatter) {
-				worldObj.setBlock(pX, depth + 1, pZ, ModBlocks.balefire);
-				
-				if(worldObj.getBlock(pX, y, pZ) == ModBlocks.block_schrabidium_cluster && !antimatter)
-					worldObj.setBlock(pX, y, pZ, ModBlocks.block_euphemium_cluster, worldObj.getBlockMetadata(pX, y, pZ), 3);
+
+			if (worldObj.rand.nextInt(10) == 0 && !antimatter) {
+				// surface balefire
+				if (!HbmExplosionHooks.blockDenied(worldObj, pX, depth + 1, pZ, "BALEFIRE"))
+					worldObj.setBlock(pX, depth + 1, pZ, ModBlocks.balefire);
+
+				if (worldObj.getBlock(pX, y, pZ) == ModBlocks.block_schrabidium_cluster && !antimatter) {
+					if (!HbmExplosionHooks.blockDenied(worldObj, pX, y, pZ, "BALEFIRE"))
+						worldObj.setBlock(pX, y, pZ, ModBlocks.block_euphemium_cluster, worldObj.getBlockMetadata(pX, y, pZ), 3);
+				}
 			}
 
-			for(int i = depth; i > depth - 5; i--) {
+			for (int i = depth; i > depth - 5; i--) {
 				Random rand = new Random();
-				double d = dist / 100;
-				double chance = 1-d;
-				if(rand.nextInt(dist) == 0 && antimatter) {
-					worldObj.setBlock(pX, depth, pZ, ModBlocks.volcanic_lava_block);
+				if (rand.nextInt(dist) == 0 && antimatter) {
+					if (!HbmExplosionHooks.blockDenied(worldObj, pX, depth, pZ, "BALEFIRE"))
+						worldObj.setBlock(pX, depth, pZ, ModBlocks.volcanic_lava_block);
 				}
-				
-				if(worldObj.getBlock(pX, i, pZ) == Blocks.stone)
-					worldObj.setBlock(pX, i, pZ, ModBlocks.sellafield_slaked);
+
+				if (worldObj.getBlock(pX, i, pZ) == Blocks.stone) {
+					if (!HbmExplosionHooks.blockDenied(worldObj, pX, i, pZ, "BALEFIRE"))
+						worldObj.setBlock(pX, i, pZ, ModBlocks.sellafield_slaked);
+				}
 			}
 		}
 	}
+
 
 	/*private void breakColumn(int x, int z)
 	{
@@ -157,16 +178,16 @@ public class ExplosionBalefire
 		{
 			int pX = posX + x;
 			int pZ = posZ + z;
-			
+
 			int y  = worldObj.getHeightValue(pX, pZ);
 			float strength = (float)dist / (float) this.radius;
-			
+
 			while(y > 0) {
-				
+
 				if(strength <= 10) {
 					if(worldObj.rand.nextInt(10) == 0) {
 						worldObj.setBlock(pX, y + 1, pZ, ModBlocks.balefire);
-						
+
 						if(worldObj.getBlock(pX, y, pZ) == ModBlocks.block_schrabidium_cluster)
 							worldObj.setBlock(pX, y, pZ, ModBlocks.block_euphemium_cluster, worldObj.getBlockMetadata(pX, y, pZ), 3);
 					}
@@ -181,19 +202,19 @@ public class ExplosionBalefire
 						worldObj.setBlock(pX, y - 3, pZ, ModBlocks.sellafield_slaked);
 					if(worldObj.getBlock(pX, y - 4, pZ) == Blocks.stone)
 						worldObj.setBlock(pX, y - 4, pZ, ModBlocks.sellafield_slaked);
-						
+
 					return;
 				}
-				
+
 				float hardness = worldObj.getBlock(pX, y, pZ).getBlockHardness(worldObj, pX, y, pZ);
-				
+
 				if(worldObj.getBlock(pX, y, pZ).getMaterial().isLiquid())
 					hardness = Blocks.air.getBlockHardness(worldObj, pX, y + 1, pZ);
-				
+
 				strength -= hardness;
-				
+
 				worldObj.setBlockToAir(pX, y, pZ);
-				
+
 				y--;
 			}
 		}

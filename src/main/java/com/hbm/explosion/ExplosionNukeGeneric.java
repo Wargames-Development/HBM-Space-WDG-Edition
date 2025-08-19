@@ -3,6 +3,7 @@ package com.hbm.explosion;
 import java.util.List;
 import java.util.Random;
 
+import api.hbm.explosion.event.HbmExplosionHooks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
@@ -40,6 +41,10 @@ public class ExplosionNukeGeneric {
 
 	public static void empBlast(World world, int x, int y, int z, int bombStartStrength) {
 		int r = bombStartStrength;
+
+		// Global veto: cancel entire EMP if origin is protected
+		if (HbmExplosionHooks.pre(world, x + 0.5, y + 0.5, z + 0.5, r, null, "NUKEGEN.EMPBLAST")) return;
+
 		int r2 = r * r;
 		int r22 = r2 / 2;
 		for (int xx = -r; xx < r; xx++) {
@@ -52,44 +57,43 @@ public class ExplosionNukeGeneric {
 					int Z = zz + z;
 					int ZZ = YY + zz * zz;
 					if (ZZ < r22) {
+
+						// Per-block veto: no EMP effects in protected coords
+						if (HbmExplosionHooks.blockDenied(world, X, Y, Z, "NUKEGEN.EMP")) continue;
+
 						emp(world, X, Y, Z);
 					}
 				}
 			}
 		}
 	}
-	
+
+
 	public static void dealDamage(World world, double x, double y, double z, double radius) {
 		dealDamage(world, x, y, z, radius, 250F);
 	}
-	
-	public static void dealDamage(World world, double x, double y, double z, double radius, float maxDamage) {
 
-		List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(null, AxisAlignedBB.getBoundingBox(x, y, z, x, y, z).expand(radius, radius, radius));
-		
-		for(Entity e : list) {
-			
+	public static void dealDamage(World world, double x, double y, double z, double radius, float maxDamage) {
+		List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(null,
+			AxisAlignedBB.getBoundingBox(x, y, z, x, y, z).expand(radius, radius, radius));
+
+		for (Entity e : list) {
 			double dist = e.getDistance(x, y, z);
-			
-			if(dist <= radius) {
-				
-				double entX = e.posX;
-				double entY = e.posY + e.getEyeHeight();
-				double entZ = e.posZ;
-				
-				if(!isExplosionExempt(e) && !Library.isObstructed(world, x, y, z, entX, entY, entZ)) {
+			if (dist <= radius) {
+				double entX = e.posX, entY = e.posY + e.getEyeHeight(), entZ = e.posZ;
+
+				if (!isExplosionExempt(e) && !Library.isObstructed(world, x, y, z, entX, entY, entZ)) {
+
+					// Per-entity veto: skip harmful effects in protected zones
+					if (HbmExplosionHooks.pre(world, e.posX, e.posY, e.posZ, 0F, e, "NUKEGEN.HIT"))
+						continue;
 
 					double damage = maxDamage * (radius - dist) / radius;
-					e.attackEntityFrom(ModDamageSource.nuclearBlast, (float)damage);
+					e.attackEntityFrom(ModDamageSource.nuclearBlast, (float) damage);
 					e.setFire(5);
-					
-					double knockX = e.posX - x;
-					double knockY = e.posY + e.getEyeHeight() - y;
-					double knockZ = e.posZ - z;
-					
-					Vec3 knock = Vec3.createVectorHelper(knockX, knockY, knockZ);
-					knock = knock.normalize();
-					
+
+					double knockX = e.posX - x, knockY = e.posY + e.getEyeHeight() - y, knockZ = e.posZ - z;
+					Vec3 knock = Vec3.createVectorHelper(knockX, knockY, knockZ).normalize();
 					e.motionX += knock.xCoord * 0.2D;
 					e.motionY += knock.yCoord * 0.2D;
 					e.motionZ += knock.zCoord * 0.2D;
@@ -97,10 +101,10 @@ public class ExplosionNukeGeneric {
 			}
 		}
 	}
-	
+
 	@Spaghetti("just look at it")
 	private static boolean isExplosionExempt(Entity e) {
-		
+
 		if (e instanceof EntityOcelot ||
 				e instanceof EntityGrenadeASchrab ||
 				e instanceof EntityGrenadeNuclear ||
@@ -110,11 +114,11 @@ public class ExplosionNukeGeneric {
 				ArmorUtil.checkArmor((EntityPlayer) e, ModItems.euphemium_helmet, ModItems.euphemium_plate, ModItems.euphemium_legs, ModItems.euphemium_boots)) {
 			return true;
 		}
-		
+
 		if (e instanceof EntityPlayerMP && ((EntityPlayerMP)e).theItemInWorldManager.getGameType() == GameType.CREATIVE) {
 			return true;
 		}
-		
+
 		return false;
 	}
 
@@ -131,8 +135,13 @@ public class ExplosionNukeGeneric {
 				for (int zz = -r; zz < r; zz++) {
 					int Z = zz + z;
 					int ZZ = YY + zz * zz;
-					if (ZZ < r22)
+					if (ZZ < r22) {
+						// Block edits inside claims/safezones
+						if (HbmExplosionHooks.blockDenied(world, X, Y, Z, "NUKEGEN.VAPOR"))
+							continue;
+
 						vaporDest(world, X, Y, Z);
+					}
 				}
 			}
 		}
@@ -141,10 +150,15 @@ public class ExplosionNukeGeneric {
 	public static int destruction(World world, int x, int y, int z) {
 		int rand;
 		if (!world.isRemote) {
-			Block b = world.getBlock(x,y,z);
-			if (b.getExplosionResistance(null)>=200f) {	//500 is the resistance of liquids
-				//blocks to be spared
-				int protection = (int)(b.getExplosionResistance(null)/300f);
+
+			// Block edits inside claims/safezones
+			if (HbmExplosionHooks.blockDenied(world, x, y, z, "NUKEGEN.DEST"))
+				return 0;
+
+			Block b = world.getBlock(x, y, z);
+			if (b.getExplosionResistance(null) >= 200f) { // 500 is the resistance of liquids
+				// blocks to be spared
+				int protection = (int) (b.getExplosionResistance(null) / 300f);
 				if (b == ModBlocks.brick_concrete) {
 					rand = random.nextInt(8);
 					if (rand == 0) {
@@ -156,8 +170,8 @@ public class ExplosionNukeGeneric {
 					if (rand == 0) {
 						world.setBlock(x, y, z, ModBlocks.waste_planks, 0, 3);
 						return 0;
-					}else if (rand == 1){
-						world.setBlock(x,y,z,ModBlocks.block_scrap,0,3);
+					} else if (rand == 1) {
+						world.setBlock(x, y, z, ModBlocks.block_scrap, 0, 3);
 						return 0;
 					}
 				} else if (b == ModBlocks.brick_obsidian) {
@@ -168,41 +182,52 @@ public class ExplosionNukeGeneric {
 				} else if (b == Blocks.obsidian) {
 					world.setBlock(x, y, z, ModBlocks.gravel_obsidian, 0, 3);
 					return 0;
-				} else if(random.nextInt(protection+3)==0){
-					world.setBlock(x, y, z, ModBlocks.block_scrap,0,3);
+				} else if (random.nextInt(protection + 3) == 0) {
+					world.setBlock(x, y, z, ModBlocks.block_scrap, 0, 3);
 				}
 				return protection;
-			}else{//otherwise, kill the block!
-				world.setBlock(x, y, z, Blocks.air,0, 2);
+			} else { // otherwise, kill the block!
+				world.setBlock(x, y, z, Blocks.air, 0, 2);
 			}
 		}
 		return 0;
 	}
 
+
 	public static int vaporDest(World world, int x, int y, int z) {
 		if (!world.isRemote) {
-			Block b = world.getBlock(x,y,z);
-			if (b.getExplosionResistance(null)<0.5f //most light things
-					|| b == Blocks.web || b == ModBlocks.red_cable
-					|| b instanceof BlockLiquid) {
-				world.setBlock(x, y, z, Blocks.air,0, 2);
+
+			// Block edits inside claims/safezones at the target cell
+			if (HbmExplosionHooks.blockDenied(world, x, y, z, "NUKEGEN.VAPORDEST"))
 				return 0;
-			} else if (b.getExplosionResistance(null)<=3.0f && !b.isOpaqueCube()){
-				if(b != Blocks.chest && b != Blocks.farmland){
-					//destroy all medium resistance blocks that aren't chests or farmland
-					world.setBlock(x, y, z, Blocks.air,0,2);
+
+			Block b = world.getBlock(x, y, z);
+			if (b.getExplosionResistance(null) < 0.5f  // most light things
+				|| b == Blocks.web || b == ModBlocks.red_cable
+				|| b instanceof BlockLiquid) {
+				world.setBlock(x, y, z, Blocks.air, 0, 2);
+				return 0;
+			} else if (b.getExplosionResistance(null) <= 3.0f && !b.isOpaqueCube()) {
+				if (b != Blocks.chest && b != Blocks.farmland) {
+					// destroy all medium resistance blocks that aren't chests or farmland
+					world.setBlock(x, y, z, Blocks.air, 0, 2);
 					return 0;
 				}
 			}
-			
+
 			if (b.isFlammable(world, x, y, z, ForgeDirection.UP)
-					&& world.getBlock(x, y + 1, z) == Blocks.air) {
-				world.setBlock(x, y + 1, z, Blocks.fire,0,2);
+				&& world.getBlock(x, y + 1, z) == Blocks.air) {
+
+				// Guard the destination cell for fire placement
+				if (!HbmExplosionHooks.blockDenied(world, x, y + 1, z, "NUKEGEN.VAPORDEST.FIRE")) {
+					world.setBlock(x, y + 1, z, Blocks.fire, 0, 2);
+				}
 			}
-			return (int)( b.getExplosionResistance(null)/300f);
+			return (int)(b.getExplosionResistance(null) / 300f);
 		}
 		return 0;
 	}
+
 
 	public static void waste(World world, int x, int y, int z, int radius) {
 		int r = radius;
@@ -218,6 +243,11 @@ public class ExplosionNukeGeneric {
 					int Z = zz + z;
 					int ZZ = YY + zz * zz;
 					if (ZZ < r22 + world.rand.nextInt(r22 / 5)) {
+
+						// Block edits inside claims/safezones
+						if (HbmExplosionHooks.blockDenied(world, X, Y, Z, "NUKEGEN.WASTE"))
+							continue;
+
 						if (world.getBlock(X, Y, Z) != Blocks.air)
 							wasteDest(world, X, Y, Z);
 					}
@@ -226,12 +256,18 @@ public class ExplosionNukeGeneric {
 		}
 	}
 
+
 	public static void wasteDest(World world, int x, int y, int z) {
 		if (!world.isRemote) {
+
+			// Block edits inside claims/safezones
+			if (HbmExplosionHooks.blockDenied(world, x, y, z, "NUKEGEN.WASTEDEST"))
+				return;
+
 			int rand;
-			Block b = world.getBlock(x,y,z);
+			Block b = world.getBlock(x, y, z);
 			if (b == Blocks.wooden_door || b == Blocks.iron_door) {
-				world.setBlock(x, y, z, Blocks.air,0,2);
+				world.setBlock(x, y, z, Blocks.air, 0, 2);
 			}
 
 			else if (b == Blocks.grass) {
@@ -278,7 +314,7 @@ public class ExplosionNukeGeneric {
 				if (world.getBlockMetadata(x, y, z) == 10) {
 					world.setBlock(x, y, z, ModBlocks.waste_log);
 				} else {
-					world.setBlock(x, y, z, Blocks.air,0,2);
+					world.setBlock(x, y, z, Blocks.air, 0, 2);
 				}
 			}
 
@@ -286,10 +322,10 @@ public class ExplosionNukeGeneric {
 				if (world.getBlockMetadata(x, y, z) == 10) {
 					world.setBlock(x, y, z, ModBlocks.waste_log);
 				} else {
-					world.setBlock(x, y, z, Blocks.air,0,2);
+					world.setBlock(x, y, z, Blocks.air, 0, 2);
 				}
 			}
-			
+
 			else if (b.getMaterial() == Material.wood && b.isOpaqueCube() && b != ModBlocks.waste_log) {
 				world.setBlock(x, y, z, ModBlocks.waste_planks);
 			}
@@ -320,7 +356,6 @@ public class ExplosionNukeGeneric {
 					world.setBlock(x, y, z, ModBlocks.ore_gneiss_uranium_scorched);
 				}
 			}
-
 		}
 	}
 
@@ -338,6 +373,11 @@ public class ExplosionNukeGeneric {
 					int Z = zz + z;
 					int ZZ = YY + zz * zz;
 					if (ZZ < r22 + world.rand.nextInt(r22 / 5)) {
+
+						// Block edits inside claims/safezones
+						if (HbmExplosionHooks.blockDenied(world, X, Y, Z, "NUKEGEN.WASTE"))
+							continue;
+
 						if (world.getBlock(X, Y, Z) != Blocks.air)
 							wasteDestNoSchrab(world, X, Y, Z);
 					}
@@ -346,13 +386,19 @@ public class ExplosionNukeGeneric {
 		}
 	}
 
+
 	public static void wasteDestNoSchrab(World world, int x, int y, int z) {
 		if (!world.isRemote) {
+
+			// Block edits inside claims/safezones
+			if (HbmExplosionHooks.blockDenied(world, x, y, z, "NUKEGEN.WASTEDEST"))
+				return;
+
 			int rand;
 
 			if (world.getBlock(x, y, z) == Blocks.glass || world.getBlock(x, y, z) == Blocks.stained_glass
-					|| world.getBlock(x, y, z) == Blocks.wooden_door || world.getBlock(x, y, z) == Blocks.iron_door
-					|| world.getBlock(x, y, z) == Blocks.leaves || world.getBlock(x, y, z) == Blocks.leaves2) {
+				|| world.getBlock(x, y, z) == Blocks.wooden_door || world.getBlock(x, y, z) == Blocks.iron_door
+				|| world.getBlock(x, y, z) == Blocks.leaves || world.getBlock(x, y, z) == Blocks.leaves2) {
 				world.setBlock(x, y, z, Blocks.air);
 			}
 
@@ -404,7 +450,7 @@ public class ExplosionNukeGeneric {
 				if (world.getBlockMetadata(x, y, z) == 10) {
 					world.setBlock(x, y, z, ModBlocks.waste_log);
 				} else {
-					world.setBlock(x, y, z, Blocks.air,0,2);
+					world.setBlock(x, y, z, Blocks.air, 0, 2);
 				}
 			}
 
@@ -412,21 +458,26 @@ public class ExplosionNukeGeneric {
 				if (world.getBlockMetadata(x, y, z) == 10) {
 					world.setBlock(x, y, z, ModBlocks.waste_log);
 				} else {
-					world.setBlock(x, y, z, Blocks.air,0,2);
+					world.setBlock(x, y, z, Blocks.air, 0, 2);
 				}
 			}
 		}
 	}
 
+
 	public static void emp(World world, int x, int y, int z) {
 		if (!world.isRemote) {
-			
-			Block b = world.getBlock(x,y,z);
+
+			// Block edits/effects inside claims/safezones
+			if (HbmExplosionHooks.blockDenied(world, x, y, z, "NUKEGEN.EMP"))
+				return;
+
+			Block b = world.getBlock(x, y, z);
 			TileEntity te = world.getTileEntity(x, y, z);
-			
+
 			if (te != null && te instanceof IEnergyHandlerMK2) {
 				((IEnergyHandlerMK2)te).setPower(0);
-				if(random.nextInt(5) < 1) world.setBlock(x, y, z, ModBlocks.block_electrical_scrap);
+				if (random.nextInt(5) < 1) world.setBlock(x, y, z, ModBlocks.block_electrical_scrap);
 			}
 			if (te != null && te instanceof IEnergyProvider) {
 
@@ -436,28 +487,35 @@ public class ExplosionNukeGeneric {
 				((IEnergyProvider)te).extractEnergy(ForgeDirection.SOUTH, ((IEnergyProvider)te).getEnergyStored(ForgeDirection.SOUTH), false);
 				((IEnergyProvider)te).extractEnergy(ForgeDirection.EAST, ((IEnergyProvider)te).getEnergyStored(ForgeDirection.EAST), false);
 				((IEnergyProvider)te).extractEnergy(ForgeDirection.WEST, ((IEnergyProvider)te).getEnergyStored(ForgeDirection.WEST), false);
-				
-				if(random.nextInt(5) <= 1)
+
+				if (random.nextInt(5) <= 1)
 					world.setBlock(x, y, z, ModBlocks.block_electrical_scrap);
 			}
-			if((b == ModBlocks.fusion_conductor || b == ModBlocks.fusion_motor || b == ModBlocks.fusion_heater) && random.nextInt(10) == 0)
+			if ((b == ModBlocks.fusion_conductor || b == ModBlocks.fusion_motor || b == ModBlocks.fusion_heater) && random.nextInt(10) == 0)
 				world.setBlock(x, y, z, ModBlocks.block_electrical_scrap);
 		}
 	}
 
+
 	public static void solinium(World world, int x, int y, int z) {
 		if (!world.isRemote) {
+
+			// Block edits inside claims/safezones
+			if (HbmExplosionHooks.blockDenied(world, x, y, z, "NUKEGEN.SOLINIUM"))
+				return;
+
 			Block b = world.getBlock(x,y,z);
 			Material m = b.getMaterial();
-			
+
 			if(b == Blocks.grass || b == Blocks.mycelium || b == ModBlocks.waste_earth || b == ModBlocks.waste_mycelium) {
 				world.setBlock(x, y, z, Blocks.dirt);
 				return;
 			}
-			
+
 			if(m == Material.cactus || m == Material.coral || m == Material.leaves || m == Material.plants || m == Material.sponge || m == Material.vine || m == Material.gourd || m == Material.wood) {
 				world.setBlockToAir(x, y, z);
 			}
 		}
 	}
+
 }
