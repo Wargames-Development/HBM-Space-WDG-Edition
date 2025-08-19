@@ -311,11 +311,30 @@ public class ChunkAtmosphereHandler {
 		worldBlobs.remove(event.world.provider.dimensionId);
 	}
 
-	public void receiveWorldTick(TickEvent.WorldTickEvent tick) {
-		if(tick.world.isRemote || tick.world.getTotalWorldTime() % 20 != 0) return;
-		HashMap<IAtmosphereProvider, AtmosphereBlob> blobs = worldBlobs.get(tick.world.provider.dimensionId);
-		for(AtmosphereBlob blob : blobs.values()) {
-			blob.checkGrowth();
+	public void receiveWorldTick(cpw.mods.fml.common.gameevent.TickEvent.WorldTickEvent tick) {
+		// server side only, once per second, run at END phase
+		if (tick.world.isRemote || tick.phase != cpw.mods.fml.common.gameevent.TickEvent.Phase.END) return;
+		if (tick.world.getTotalWorldTime() % 20 != 0) return;
+
+		final int dim = tick.world.provider.dimensionId;
+
+		// Get/create the blob map for this dimension
+		HashMap<IAtmosphereProvider, AtmosphereBlob> blobs = worldBlobs.get(dim);
+		if (blobs == null) {
+			// initialize to avoid future NPEs
+			blobs = new java.util.HashMap<IAtmosphereProvider, AtmosphereBlob>();
+			worldBlobs.put(dim, blobs);
+			return; // nothing to tick this time
+		}
+
+		if (blobs.isEmpty()) return;
+
+		// If checkGrowth() can add/remove entries, iterate a snapshot to avoid CME.
+		// If it never mutates, you can iterate blobs.values() directly.
+		for (AtmosphereBlob blob : new java.util.ArrayList<AtmosphereBlob>(blobs.values())) {
+			if (blob != null) {
+				blob.checkGrowth();
+			}
 		}
 	}
 

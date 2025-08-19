@@ -3,12 +3,12 @@ package com.hbm.explosion;
 import java.util.List;
 import java.util.Random;
 
+import api.hbm.explosion.event.HbmExplosionHooks;
 import com.hbm.entity.projectile.EntityRubble;
 import com.hbm.entity.projectile.EntityShrapnel;
 import com.hbm.main.MainRegistry;
 import com.hbm.packet.toclient.AuxParticlePacketNT;
 import com.hbm.handler.threading.PacketThreading;
-import com.hbm.packet.toclient.AuxParticlePacketNT;
 import com.hbm.util.ParticleUtil;
 
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
@@ -26,6 +26,8 @@ public class ExplosionLarge {
 
 	@Deprecated public static void spawnParticles(World world, double x, double y, double z, int count) {
 
+		if (HbmExplosionHooks.pre(world, x, y, z, 8F, null, "LARGE.SMOKE.CLOUD")) return;
+
 		NBTTagCompound data = new NBTTagCompound();
 		data.setString("type", "smoke");
 		data.setString("mode", "cloud");
@@ -34,6 +36,8 @@ public class ExplosionLarge {
 	}
 
 	public static void spawnParticlesRadial(World world, double x, double y, double z, int count) {
+
+		if (HbmExplosionHooks.pre(world, x, y, z, 8F, null, "LARGE.SMOKE.RADIAL")) return;
 
 		NBTTagCompound data = new NBTTagCompound();
 		data.setString("type", "smoke");
@@ -44,6 +48,8 @@ public class ExplosionLarge {
 
 	public static void spawnFoam(World world, double x, double y, double z, int count) {
 
+		if (HbmExplosionHooks.pre(world, x, y, z, 8F, null, "LARGE.FOAM")) return;
+
 		NBTTagCompound data = new NBTTagCompound();
 		data.setString("type", "smoke");
 		data.setString("mode", "foamSplash");
@@ -52,6 +58,8 @@ public class ExplosionLarge {
 	}
 
 	public static void spawnShock(World world, double x, double y, double z, int count, double strength) {
+
+		if (HbmExplosionHooks.pre(world, x, y, z, 8F, null, "LARGE.SHOCK")) return;
 
 		NBTTagCompound data = new NBTTagCompound();
 		data.setString("type", "smoke");
@@ -70,6 +78,8 @@ public class ExplosionLarge {
 
 	public static void spawnBurst(World world, double x, double y, double z, int count, double strength) {
 
+		if (HbmExplosionHooks.pre(world, x, y, z, 8F, null, "LARGE.BURST")) return;
+
 		Vec3 vec = Vec3.createVectorHelper(strength, 0, 0);
 		vec.rotateAroundY(rand.nextInt(360));
 
@@ -82,52 +92,78 @@ public class ExplosionLarge {
 
 	public static void spawnRubble(World world, double x, double y, double z, int count) {
 
-		for(int i = 0; i < count; i++) {
+		if (HbmExplosionHooks.pre(world, x, y, z, 8F, null, "LARGE.RUBBLE.SPAWN")) return;
+
+		for (int i = 0; i < count; i++) {
 			EntityRubble rubble = new EntityRubble(world);
 			rubble.posX = x;
 			rubble.posY = y;
 			rubble.posZ = z;
-			rubble.motionY = 0.75						* (1 + ((count + rand.nextInt(count * 5))) / 25);
-			rubble.motionX = rand.nextGaussian() * 0.75	* (1 + (count / 50));
-			rubble.motionZ = rand.nextGaussian() * 0.75	* (1 + (count / 50));
+			rubble.motionY = 0.75 * (1 + ((count + rand.nextInt(count * 5))) / 25);
+			rubble.motionX = rand.nextGaussian() * 0.75 * (1 + (count / 50));
+			rubble.motionZ = rand.nextGaussian() * 0.75 * (1 + (count / 50));
 			rubble.setMetaBasedOnBlock(Blocks.stone, 0);
+
+			int bx = (int) Math.floor(rubble.posX);
+			int by = (int) Math.floor(rubble.posY);
+			int bz = (int) Math.floor(rubble.posZ);
+			if (HbmExplosionHooks.blockDenied(world, bx, by, bz, "LARGE.RUBBLE.SPAWN")) continue;
+
 			world.spawnEntityInWorld(rubble);
 		}
 	}
 
 	public static void spawnShrapnels(World world, double x, double y, double z, int count) {
 
-		for(int i = 0; i < count; i++) {
+		if (HbmExplosionHooks.pre(world, x, y, z, 8F, null, "LARGE.SHRAPNEL.SPAWN")) return;
+
+		for (int i = 0; i < count; i++) {
 			EntityShrapnel shrapnel = new EntityShrapnel(world);
 			shrapnel.posX = x;
 			shrapnel.posY = y;
 			shrapnel.posZ = z;
 			shrapnel.motionY = ((rand.nextFloat() * 0.5) + 0.5) * (1 + (count / (15 + rand.nextInt(21)))) + (rand.nextFloat() / 50 * count);
-			shrapnel.motionX = rand.nextGaussian() * 1	* (1 + (count / 50));
-			shrapnel.motionZ = rand.nextGaussian() * 1	* (1 + (count / 50));
+			shrapnel.motionX = rand.nextGaussian() * 1 * (1 + (count / 50));
+			shrapnel.motionZ = rand.nextGaussian() * 1 * (1 + (count / 50));
 			shrapnel.setTrail(rand.nextInt(3) == 0);
+
+			int bx = (int) Math.floor(shrapnel.posX);
+			int by = (int) Math.floor(shrapnel.posY);
+			int bz = (int) Math.floor(shrapnel.posZ);
+			if (HbmExplosionHooks.blockDenied(world, bx, by, bz, "LARGE.SHRAPNEL.SPAWN")) continue;
+
 			world.spawnEntityInWorld(shrapnel);
 		}
 	}
 
 	public static void spawnTracers(World world, double x, double y, double z, int count) {
 
-		for(int i = 0; i < count; i++) {
+		if (HbmExplosionHooks.pre(world, x, y, z, 8F, null, "LARGE.TRACER.SPAWN")) return;
+
+		for (int i = 0; i < count; i++) {
 			EntityShrapnel shrapnel = new EntityShrapnel(world);
 			shrapnel.posX = x;
 			shrapnel.posY = y;
 			shrapnel.posZ = z;
 			shrapnel.motionY = ((rand.nextFloat() * 0.5) + 0.5) * (1 + (count / (15 + rand.nextInt(21)))) + (rand.nextFloat() / 50 * count) * 0.25F;
-			shrapnel.motionX = rand.nextGaussian() * 1	* (1 + (count / 50)) * 0.25F;
-			shrapnel.motionZ = rand.nextGaussian() * 1	* (1 + (count / 50)) * 0.25F;
+			shrapnel.motionX = rand.nextGaussian() * 1 * (1 + (count / 50)) * 0.25F;
+			shrapnel.motionZ = rand.nextGaussian() * 1 * (1 + (count / 50)) * 0.25F;
 			shrapnel.setTrail(true);
+
+			int bx = (int) Math.floor(shrapnel.posX);
+			int by = (int) Math.floor(shrapnel.posY);
+			int bz = (int) Math.floor(shrapnel.posZ);
+			if (HbmExplosionHooks.blockDenied(world, bx, by, bz, "LARGE.TRACER.SPAWN")) continue;
+
 			world.spawnEntityInWorld(shrapnel);
 		}
 	}
 
 	public static void spawnShrapnelShower(World world, double x, double y, double z, double motionX, double motionY, double motionZ, int count, double deviation) {
 
-		for(int i = 0; i < count; i++) {
+		if (HbmExplosionHooks.pre(world, x, y, z, 8F, null, "LARGE.SHRAPNEL.SHOWER")) return;
+
+		for (int i = 0; i < count; i++) {
 			EntityShrapnel shrapnel = new EntityShrapnel(world);
 			shrapnel.posX = x;
 			shrapnel.posY = y;
@@ -136,17 +172,25 @@ public class ExplosionLarge {
 			shrapnel.motionY = motionY + rand.nextGaussian() * deviation;
 			shrapnel.motionZ = motionZ + rand.nextGaussian() * deviation;
 			shrapnel.setTrail(rand.nextInt(3) == 0);
+
+			int bx = (int) Math.floor(shrapnel.posX);
+			int by = (int) Math.floor(shrapnel.posY);
+			int bz = (int) Math.floor(shrapnel.posZ);
+			if (HbmExplosionHooks.blockDenied(world, bx, by, bz, "LARGE.SHRAPNEL.SHOWER")) continue;
+
 			world.spawnEntityInWorld(shrapnel);
 		}
 	}
 
 	public static void spawnMissileDebris(World world, double x, double y, double z, double motionX, double motionY, double motionZ, double deviation, List<ItemStack> debris, ItemStack rareDrop) {
 
-		if(debris != null) {
-			for(int i = 0; i < debris.size(); i++) {
-				if(debris.get(i) != null) {
+		if (HbmExplosionHooks.pre(world, x, y, z, 8F, null, "LARGE.DEBRIS.SPAWN")) return;
+
+		if (debris != null) {
+			for (int i = 0; i < debris.size(); i++) {
+				if (debris.get(i) != null) {
 					int k = rand.nextInt(debris.get(i).stackSize + 1);
-					for(int j = 0; j < k; j++) {
+					for (int j = 0; j < k; j++) {
 						EntityItem item = new EntityItem(world, x, y, z, debris.get(i).copy());
 						item.motionX = (motionX + rand.nextGaussian() * deviation) * 0.85;
 						item.motionY = (motionY + rand.nextGaussian() * deviation) * 0.85;
@@ -155,23 +199,37 @@ public class ExplosionLarge {
 						item.posY = item.posY + item.motionY * 2;
 						item.posZ = item.posZ + item.motionZ * 2;
 
+						int bx = (int) Math.floor(item.posX);
+						int by = (int) Math.floor(item.posY);
+						int bz = (int) Math.floor(item.posZ);
+						if (HbmExplosionHooks.blockDenied(world, bx, by, bz, "LARGE.DEBRIS.SPAWN")) continue;
+
 						world.spawnEntityInWorld(item);
 					}
 				}
 			}
 		}
 
-		if(rareDrop != null && rand.nextInt(10) == 0) {
+		if (rareDrop != null && rand.nextInt(10) == 0) {
 			EntityItem item = new EntityItem(world, x, y, z, rareDrop.copy());
 			item.motionX = motionX + rand.nextGaussian() * deviation * 0.1;
 			item.motionY = motionY + rand.nextGaussian() * deviation * 0.1;
 			item.motionZ = motionZ + rand.nextGaussian() * deviation * 0.1;
 
-			world.spawnEntityInWorld(item);
+			int bx = (int) Math.floor(item.posX);
+			int by = (int) Math.floor(item.posY);
+			int bz = (int) Math.floor(item.posZ);
+			if (!HbmExplosionHooks.blockDenied(world, bx, by, bz, "LARGE.DEBRIS.SPAWN")) {
+				world.spawnEntityInWorld(item);
+			}
 		}
 	}
 
+
 	@Deprecated public static void explode(World world, double x, double y, double z, float strength, boolean cloud, boolean rubble, boolean shrapnel, Entity exploder) {
+
+		if (HbmExplosionHooks.pre(world, x, y, z, strength, exploder, "LARGE.EXPLODE")) return;
+
 		world.createExplosion(exploder, x, y, z, strength, true);
 		if(cloud)
 			spawnParticles(world, x, y, z, cloudFunction((int)strength));
@@ -182,6 +240,9 @@ public class ExplosionLarge {
 	}
 
 	@Deprecated public static void explode(World world, double x, double y, double z, float strength, boolean cloud, boolean rubble, boolean shrapnel) {
+
+		if (HbmExplosionHooks.pre(world, x, y, z, strength, null, "LARGE.EXPLODE")) return;
+
 		world.createExplosion(null, x, y, z, strength, true);
 		if(cloud)
 			spawnParticles(world, x, y, z, cloudFunction((int)strength));
@@ -192,6 +253,9 @@ public class ExplosionLarge {
 	}
 
 	@Deprecated public static void explodeFire(World world, double x, double y, double z, float strength, boolean cloud, boolean rubble, boolean shrapnel) {
+
+		if (HbmExplosionHooks.pre(world, x, y, z, strength, null, "LARGE.EXPLODE.FIRE")) return;
+
 		world.newExplosion((Entity)null, (float)x, (float)y, (float)z, strength, true, true);
 		if(cloud)
 			spawnParticles(world, x, y, z, cloudFunction((int)strength));
@@ -202,48 +266,59 @@ public class ExplosionLarge {
 	}
 
 	public static void buster(World world, double x, double y, double z, Vec3 vector, float strength, float depth) {
-
+		// no whole-cancel: let it proceed but skip protected steps
 		vector = vector.normalize();
+		for (int i = 0; i < depth; i += 2) {
+			double sx = x + vector.xCoord * i;
+			double sy = y + vector.yCoord * i;
+			double sz = z + vector.zCoord * i;
 
-		for(int i = 0; i < depth; i += 2) {
+			if (HbmExplosionHooks.pre(world, sx, sy, sz, strength, null, "LARGE.BUSTER.STEP")) continue;
 
-			world.createExplosion((Entity)null, x + vector.xCoord * i, y + vector.yCoord * i, z + vector.zCoord * i, strength, true);
+			world.createExplosion((Entity)null, sx, sy, sz, strength, true);
 		}
 	}
 
 	public static void jolt(World world, double posX, double posY, double posZ, double strength, int count, double vel) {
 
-		for(int j = 0; j < count; j++) {
-
+		for (int j = 0; j < count; j++) {
 			double phi = rand.nextDouble() * (Math.PI * 2);
 			double costheta = rand.nextDouble() * 2 - 1;
 			double theta = Math.acos(costheta);
-			double x = Math.sin( theta) * Math.cos( phi );
-			double y = Math.sin( theta) * Math.sin( phi );
-			double z = Math.cos( theta );
+			double x = Math.sin(theta) * Math.cos(phi);
+			double y = Math.sin(theta) * Math.sin(phi);
+			double z = Math.cos(theta);
 
 			Vec3 vec = Vec3.createVectorHelper(x, y, z);
 
-			for(int i = 0; i < strength; i ++) {
+			for (int i = 0; i < strength; i++) {
 				double x0 = posX + (vec.xCoord * i);
 				double y0 = posY + (vec.yCoord * i);
 				double z0 = posZ + (vec.zCoord * i);
 
-				if(!world.isRemote) {
-					if(world.getBlock((int)x0, (int)y0, (int)z0).getMaterial().isLiquid()) {
-						world.setBlock((int)x0, (int)y0, (int)z0, Blocks.air);
+				if (!world.isRemote) {
+					int bx = (int) x0;
+					int by = (int) y0;
+					int bz = (int) z0;
+
+					if (world.getBlock(bx, by, bz).getMaterial().isLiquid()) {
+						if (!HbmExplosionHooks.blockDenied(world, bx, by, bz, "LARGE.JOLT")) {
+							world.setBlock(bx, by, bz, Blocks.air);
+						}
 					}
 
-					if(world.getBlock((int)x0, (int)y0, (int)z0) != Blocks.air) {
-
-						if(world.getBlock((int)x0, (int)y0, (int)z0).getExplosionResistance(null, world, (int)x0, (int)y0, (int)z0, posX, posY, posZ) > 70)
+					if (world.getBlock(bx, by, bz) != Blocks.air) {
+						if (world.getBlock(bx, by, bz).getExplosionResistance(null, world, bx, by, bz, posX, posY, posZ) > 70)
 							continue;
 
-			            EntityRubble rubble = new EntityRubble(world);
+						if (HbmExplosionHooks.blockDenied(world, bx, by, bz, "LARGE.JOLT"))
+							continue;
+
+						EntityRubble rubble = new EntityRubble(world);
 						rubble.posX = x0 + 0.5F;
 						rubble.posY = y0 + 0.5F;
 						rubble.posZ = z0 + 0.5F;
-						rubble.setMetaBasedOnBlock(world.getBlock((int)x0, (int)y0, (int)z0), world.getBlockMetadata((int)x0, (int)y0, (int)z0));
+						rubble.setMetaBasedOnBlock(world.getBlock(bx, by, bz), world.getBlockMetadata(bx, by, bz));
 
 						Vec3 vec4 = Vec3.createVectorHelper(posX - rubble.posX, posY - rubble.posY, posZ - rubble.posZ);
 						vec4.normalize();
@@ -252,9 +327,13 @@ public class ExplosionLarge {
 						rubble.motionY = vec4.yCoord * vel;
 						rubble.motionZ = vec4.zCoord * vel;
 
-						world.spawnEntityInWorld(rubble);
-
-						world.setBlock((int)x0, (int)y0, (int)z0, Blocks.air);
+						int rbx = (int) Math.floor(rubble.posX);
+						int rby = (int) Math.floor(rubble.posY);
+						int rbz = (int) Math.floor(rubble.posZ);
+						if (!HbmExplosionHooks.blockDenied(world, rbx, rby, rbz, "LARGE.JOLT")) {
+							world.spawnEntityInWorld(rubble);
+							world.setBlock(bx, by, bz, Blocks.air);
+						}
 						break;
 					}
 				}

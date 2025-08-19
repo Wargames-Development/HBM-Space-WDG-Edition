@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
+import api.hbm.explosion.event.HbmExplosionHooks;
 import com.hbm.explosion.vanillant.interfaces.IBlockAllocator;
 import com.hbm.explosion.vanillant.interfaces.IBlockProcessor;
 import com.hbm.explosion.vanillant.interfaces.IEntityProcessor;
@@ -38,7 +39,7 @@ public class ExplosionVNT {
 	private IPlayerProcessor playerProcessor;
 	//since we want to reduce each effect to the bare minimum (sound, particles, etc. being separate) we definitely need multiple most of the time
 	private IExplosionSFX[] sfx;
-	
+
 	public World world;
 	public double posX;
 	public double posY;
@@ -48,11 +49,11 @@ public class ExplosionVNT {
 
 	private Map compatPlayers = new HashMap();
 	public Explosion compat;
-	
+
 	public ExplosionVNT(World world, double x, double y, double z, float size) {
 		this(world, x, y, z, size, null);
 	}
-	
+
 	public ExplosionVNT(World world, double x, double y, double z, float size, Entity exploder) {
 		this.world = world;
 		this.posX = x;
@@ -60,46 +61,53 @@ public class ExplosionVNT {
 		this.posZ = z;
 		this.size = size;
 		this.exploder = exploder;
-		
+
 		this.compat = new Explosion(world, exploder, x, y, z, size) {
-			
+
 			@Override
 			public Map func_77277_b() {
 				return ExplosionVNT.this.compatPlayers;
 			}
 		};
 	}
-	
+
 	public void explode() {
 
 		this.compat.exploder = this.exploder;
 		this.compat.explosionSize = this.size;
-		
+
+		// Global safezone/claim veto: block harmful processing if origin is protected.
+		// We still run SFX so clients get sound/particles even when damage is vetoed.
+		if (HbmExplosionHooks.pre(world, posX, posY, posZ, size, exploder, "VNT.ORIGIN")) {
+			if (sfx != null) for (IExplosionSFX fx : sfx) fx.doEffect(this, world, posX, posY, posZ, size);
+			return;
+		}
+
 		boolean processBlocks = blockAllocator != null && blockProcessor != null;
 		boolean processEntities = entityProcessor != null && playerProcessor != null;
-		
+
 		HashSet<ChunkPosition> affectedBlocks = null;
 		HashMap<EntityPlayer, Vec3> affectedPlayers = null;
-		
+
 		//allocation
 		if(processBlocks) affectedBlocks = blockAllocator.allocate(this, world, posX, posY, posZ, size);
 		if(processEntities) affectedPlayers = entityProcessor.process(this, world, posX, posY, posZ, size);
-		
+
 		//serverside processing
 		if(processBlocks) blockProcessor.process(this, world, posX, posY, posZ, affectedBlocks);
 		if(processEntities) playerProcessor.process(this, world, posX, posY, posZ, affectedPlayers);
-		
+
 		//compat
 		if(processBlocks) this.compat.affectedBlockPositions.addAll(affectedBlocks);
 		if(processEntities) this.compatPlayers.putAll(affectedPlayers);
-		
+
 		if(sfx != null) {
 			for(IExplosionSFX fx : sfx) {
 				fx.doEffect(this, world, posX, posY, posZ, size);
 			}
 		}
 	}
-	
+
 	public ExplosionVNT setBlockAllocator(IBlockAllocator blockAllocator) {
 		this.blockAllocator = blockAllocator;
 		return this;
@@ -120,7 +128,7 @@ public class ExplosionVNT {
 		this.sfx = sfx;
 		return this;
 	}
-	
+
 	public ExplosionVNT makeStandard() {
 		this.setBlockAllocator(new BlockAllocatorStandard());
 		this.setBlockProcessor(new BlockProcessorStandard());
@@ -129,7 +137,7 @@ public class ExplosionVNT {
 		this.setSFX(new ExplosionEffectStandard());
 		return this;
 	}
-	
+
 	public ExplosionVNT makeAmat() {
 		this.setBlockAllocator(new BlockAllocatorStandard(this.size < 15 ? 16 : 32));
 		this.setBlockProcessor(new BlockProcessorStandard()

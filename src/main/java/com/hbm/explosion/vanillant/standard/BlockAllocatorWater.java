@@ -2,6 +2,7 @@ package com.hbm.explosion.vanillant.standard;
 
 import java.util.HashSet;
 
+import api.hbm.explosion.event.HbmExplosionHooks;
 import com.hbm.explosion.vanillant.ExplosionVNT;
 import com.hbm.explosion.vanillant.interfaces.IBlockAllocator;
 
@@ -21,6 +22,12 @@ public class BlockAllocatorWater implements IBlockAllocator {
 
 	@Override
 	public HashSet<ChunkPosition> allocate(ExplosionVNT explosion, World world, double x, double y, double z, float size) {
+
+		// Global veto: skip allocation entirely if the origin is protected
+		if (HbmExplosionHooks.pre(world, x, y, z, size, explosion.exploder, "VNT.WATER.ALLOC.ORIGIN")) {
+			return new HashSet<ChunkPosition>();
+		}
+
 		HashSet<ChunkPosition> affectedBlocks = new HashSet<>();
 
 		for (int i = 0; i < this.resolution; ++i) {
@@ -49,19 +56,23 @@ public class BlockAllocatorWater implements IBlockAllocator {
 							Block block = world.getBlock(blockX, blockY, blockZ);
 							Material material = block.getMaterial();
 
-							// im braindead and copy code 🧃🐱‍👤
+							// attenuate only on non-air, non-liquid
 							if (material != Material.air && !material.isLiquid()) {
-								float blockResistance = explosion.exploder != null ?
-									explosion.exploder.func_145772_a(explosion.compat, world, blockX, blockY, blockZ, block) :
-									block.getExplosionResistance(null, world, blockX, blockY, blockZ, x, y, z);
+								float blockResistance = explosion.exploder != null
+									? explosion.exploder.func_145772_a(explosion.compat, world, blockX, blockY, blockZ, block)
+									: block.getExplosionResistance(null, world, blockX, blockY, blockZ, x, y, z);
 								powerRemaining -= (blockResistance + 0.3F) * stepSize;
 							}
 
 
-							if (powerRemaining > 0.0F &&
-								(explosion.exploder == null || explosion.exploder.func_145774_a(explosion.compat, world, blockX, blockY, blockZ, block, powerRemaining)) &&
-								!material.isLiquid()) {
-								affectedBlocks.add(new ChunkPosition(blockX, blockY, blockZ));
+							if (powerRemaining > 0.0F
+								&& (explosion.exploder == null || explosion.exploder.func_145774_a(explosion.compat, world, blockX, blockY, blockZ, block, powerRemaining))
+								&& !material.isLiquid()) {
+
+								// Per-block veto: don't add protected coordinates
+								if (!HbmExplosionHooks.blockDenied(world, blockX, blockY, blockZ, "VNT.WATER.ALLOC.BLOCK")) {
+									affectedBlocks.add(new ChunkPosition(blockX, blockY, blockZ));
+								}
 							}
 
 							currentX += d0 * (double) stepSize;

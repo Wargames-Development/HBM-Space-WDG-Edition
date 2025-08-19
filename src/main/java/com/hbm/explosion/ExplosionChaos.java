@@ -23,6 +23,8 @@ import com.hbm.util.ArmorRegistry;
 import com.hbm.util.ArmorUtil;
 import com.hbm.util.ArmorRegistry.HazardClass;
 
+import api.hbm.explosion.event.HbmExplosionHooks;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -47,6 +49,8 @@ public class ExplosionChaos { //TODO: destroy this entire class
 
 	public static void hardenVirus(World world, int x, int y, int z, int bombStartStrength) {
 
+		if (HbmExplosionHooks.pre(world, x + 0.5, y + 0.5, z + 0.5, bombStartStrength, null, "CHAOS.HARDEN")) return;
+
 		int r = bombStartStrength;
 		int r2 = r * r;
 		int r22 = r2 / 2;
@@ -60,8 +64,10 @@ public class ExplosionChaos { //TODO: destroy this entire class
 					int Z = zz + z;
 					int ZZ = YY + zz * zz;
 					if (ZZ < r22) {
-						if (world.getBlock(X, Y, Z) == ModBlocks.crystal_virus)
+						if (world.getBlock(X, Y, Z) == ModBlocks.crystal_virus) {
+							if (HbmExplosionHooks.blockDenied(world, X, Y, Z, "CHAOS.HARDEN")) continue;
 							world.setBlock(X, Y, Z, ModBlocks.crystal_hardened);
+						}
 					}
 				}
 			}
@@ -70,6 +76,8 @@ public class ExplosionChaos { //TODO: destroy this entire class
 
 	public static void spreadVirus(World world, int x, int y, int z, int bombStartStrength) {
 
+		if (HbmExplosionHooks.pre(world, x + 0.5, y + 0.5, z + 0.5, bombStartStrength, null, "CHAOS.SPREAD")) return;
+
 		int r = bombStartStrength;
 		int r2 = r * r;
 		int r22 = r2 / 2;
@@ -83,8 +91,10 @@ public class ExplosionChaos { //TODO: destroy this entire class
 					int Z = zz + z;
 					int ZZ = YY + zz * zz;
 					if (ZZ < r22) {
-						if (rand.nextInt(15) == 0 && world.getBlock(X, Y, Z) != Blocks.air)
+						if (rand.nextInt(15) == 0 && world.getBlock(X, Y, Z) != Blocks.air) {
+							if (HbmExplosionHooks.blockDenied(world, X, Y, Z, "CHAOS.SPREAD")) continue;
 							world.setBlock(X, Y, Z, ModBlocks.cheater_virus_seed);
+						}
 					}
 				}
 			}
@@ -93,6 +103,8 @@ public class ExplosionChaos { //TODO: destroy this entire class
 
 	public static void pulse(World world, int x, int y, int z, int bombStartStrength) {
 
+		if (HbmExplosionHooks.pre(world, x + 0.5, y + 0.5, z + 0.5, bombStartStrength, null, "CHAOS.PULSE")) return;
+
 		int r = bombStartStrength;
 		int r2 = r * r;
 		int r22 = r2 / 2;
@@ -106,9 +118,17 @@ public class ExplosionChaos { //TODO: destroy this entire class
 					int Z = zz + z;
 					int ZZ = YY + zz * zz;
 					if (ZZ < r22) {
-						
-						if(world.getBlock(X, Y, Z).getExplosionResistance(null) <= 70) {
-							EntityFallingBlockNT entityfallingblock = new EntityFallingBlockNT(world, X + 0.5, Y + 0.5, Z + 0.5, world.getBlock(X, Y, Z), world.getBlockMetadata(X, Y, Z));
+
+						if (world.getBlock(X, Y, Z).getExplosionResistance(null) <= 70) {
+							// per-block safezone / claim protection
+							if (HbmExplosionHooks.blockDenied(world, X, Y, Z, "CHAOS.PULSE")) continue;
+
+							EntityFallingBlockNT entityfallingblock = new EntityFallingBlockNT(
+								world,
+								X + 0.5, Y + 0.5, Z + 0.5,
+								world.getBlock(X, Y, Z),
+								world.getBlockMetadata(X, Y, Z)
+							);
 							world.spawnEntityInWorld(entityfallingblock);
 						}
 					}
@@ -117,7 +137,10 @@ public class ExplosionChaos { //TODO: destroy this entire class
 		}
 	}
 
+
 	public static void explodeZOMG(World world, int x, int y, int z, int bombStartStrength) {
+
+		if (HbmExplosionHooks.pre(world, x + 0.5, y + 0.5, z + 0.5, bombStartStrength, null, "CHAOS.ZOMG")) return;
 
 		int r = bombStartStrength;
 		int r2 = r * r;
@@ -132,13 +155,18 @@ public class ExplosionChaos { //TODO: destroy this entire class
 					int Z = zz + z;
 					int ZZ = YY + zz * zz;
 					if (ZZ < r22) {
-						if (!(world.getBlock(X, Y, Z) == Blocks.bedrock && Y <= 0))
+						if (!(world.getBlock(X, Y, Z) == Blocks.bedrock && Y <= 0)) {
+							// per-block safezone / claim protection
+							if (HbmExplosionHooks.blockDenied(world, X, Y, Z, "CHAOS.ZOMG")) continue;
+
 							world.setBlock(X, Y, Z, Blocks.air);
+						}
 					}
 				}
 			}
 		}
 	}
+
 
 	public static void decon(World world, int x, int y, int z, int radius) {
 
@@ -164,7 +192,7 @@ public class ExplosionChaos { //TODO: destroy this entire class
 
 	/**
 	 * Sets all flammable blocks on fire
-	 * 
+	 *
 	 * @param world
 	 * @param x
 	 * @param y
@@ -172,6 +200,8 @@ public class ExplosionChaos { //TODO: destroy this entire class
 	 * @param bound
 	 */
 	public static void flameDeath(World world, int x, int y, int z, int bound) {
+
+		if (HbmExplosionHooks.pre(world, x + 0.5, y + 0.5, z + 0.5, bound, null, "CHAOS.FLAME")) return;
 
 		int r = bound;
 		int r2 = r * r;
@@ -187,19 +217,23 @@ public class ExplosionChaos { //TODO: destroy this entire class
 					int ZZ = YY + zz * zz;
 					if (ZZ < r22) {
 						if (world.getBlock(X, Y, Z).isFlammable(world, XX, YY, ZZ, ForgeDirection.UP)
-								&& world.getBlock(X, Y + 1, Z) == Blocks.air) {
+							&& world.getBlock(X, Y + 1, Z) == Blocks.air) {
+
+							// per-block safezone / claim protection
+							if (HbmExplosionHooks.blockDenied(world, X, Y + 1, Z, "CHAOS.FLAME")) continue;
+
 							world.setBlock(X, Y + 1, Z, Blocks.fire);
 						}
 					}
 				}
 			}
 		}
-
 	}
+
 
 	/**
 	 * Sets all blocks on fire
-	 * 
+	 *
 	 * @param world
 	 * @param x
 	 * @param y
@@ -207,6 +241,8 @@ public class ExplosionChaos { //TODO: destroy this entire class
 	 * @param bound
 	 */
 	public static void burn(World world, int x, int y, int z, int bound) {
+
+		if (HbmExplosionHooks.pre(world, x + 0.5, y + 0.5, z + 0.5, bound, null, "CHAOS.BURN")) return;
 
 		int r = bound;
 		int r2 = r * r;
@@ -222,23 +258,30 @@ public class ExplosionChaos { //TODO: destroy this entire class
 					int ZZ = YY + zz * zz;
 					if (ZZ < r22) {
 						if ((world.getBlock(X, Y + 1, Z) == Blocks.air
-								|| world.getBlock(X, Y + 1, Z) == Blocks.snow_layer)
-								&& world.getBlock(X, Y, Z) != Blocks.air) {
+							|| world.getBlock(X, Y + 1, Z) == Blocks.snow_layer)
+							&& world.getBlock(X, Y, Z) != Blocks.air) {
+
+							// per-block safezone / claim protection
+							if (HbmExplosionHooks.blockDenied(world, X, Y + 1, Z, "CHAOS.BURN")) continue;
+
 							world.setBlock(X, Y + 1, Z, Blocks.fire);
 						}
 					}
 				}
 			}
 		}
-
 	}
 
+
 	@Deprecated public static void spawnPoisonCloud(World world, double x, double y, double z, int count, double speed, int type) {
-		
+
+		// NO direct set radius so attemptng 8F might need changes.
+		if (HbmExplosionHooks.pre(world, x, y, z, 8F, null, "CHAOS.CLOUD.SPAWN")) return;
+
 		for(int i = 0; i < count; i++) {
-			
+
 			EntityModFX fx = null;
-			
+
 			if(type == 1) {
 				fx = new EntityCloudFX(world, x, y, z, 0.0, 0.0, 0.0);
 			} else if(type == 2) {
@@ -246,7 +289,7 @@ public class ExplosionChaos { //TODO: destroy this entire class
 			} else {
 				fx = new EntityOrangeFX(world, x, y, z, 0.0, 0.0, 0.0);
 			}
-			
+
 			fx.motionY = rand.nextGaussian() * speed;
 			fx.motionX = rand.nextGaussian() * speed;
 			fx.motionZ = rand.nextGaussian() * speed;
@@ -255,21 +298,26 @@ public class ExplosionChaos { //TODO: destroy this entire class
 	}
 
 	public static void spawnVolley(World world, double x, double y, double z, int count, double speed) {
-		
+
+		if (HbmExplosionHooks.pre(world, x, y, z, 8F, null, "CHAOS.VOLLEY.SPAWN")) return;
+
 		for(int i = 0; i < count; i++) {
-			
+
 			EntityModFX fx = new EntityOrangeFX(world, x, y, z, 0.0, 0.0, 0.0);
-			
+
 			fx.motionX = rand.nextGaussian() * speed;
 			fx.motionZ = rand.nextGaussian() * speed;
-			
+
 			fx.motionY = rand.nextDouble() * speed * 7.5D;
-			
+
 			world.spawnEntityInWorld(fx);
 		}
 	}
 
+	//todo: check EntityRocket's onImpact to stop internal block damage of a zone.
 	public static void cluster(World world, int x, int y, int z, int count, int gravity) {
+
+		if (HbmExplosionHooks.pre(world, x + 0.5, y + 0.5, z + 0.5, 8F, null, "CHAOS.CLUSTER.SPAWN")) return;
 
 		double d1 = 0;
 		double d2 = 0;
@@ -297,6 +345,8 @@ public class ExplosionChaos { //TODO: destroy this entire class
 
 	public static void schrab(World world, int x, int y, int z, int count, int gravity) {
 
+		if (HbmExplosionHooks.pre(world, x + 0.5, y + 0.5, z + 0.5, 8F, null, "CHAOS.SCHRAB.SPAWN")) return;
+
 		double d1 = 0;
 		double d2 = 0;
 		double d3 = 0;
@@ -322,6 +372,8 @@ public class ExplosionChaos { //TODO: destroy this entire class
 	}
 
 	public static void frag(World world, int x, int y, int z, int count, boolean flame, Entity shooter) {
+
+		if (HbmExplosionHooks.pre(world, x + 0.5, y + 0.5, z + 0.5, 8F, shooter, "CHAOS.FRAG.SPAWN")) return;
 
 		double d1 = 0;
 		double d2 = 0;
@@ -360,15 +412,23 @@ public class ExplosionChaos { //TODO: destroy this entire class
 	}
 
 	public static void poison(World world, double x, double y, double z, double range) {
-		
-		List<EntityLivingBase> affected = world.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(x - range, y - range, z - range, x + range, y + range, z + range));
-		
-		for(EntityLivingBase entity : affected) {
-			
-			if(entity.getDistance(x, y, z) > range)
+
+		if (HbmExplosionHooks.pre(world, x, y, z, (float) range, null, "CHAOS.POISON")) return;
+
+		List<EntityLivingBase> affected = world.getEntitiesWithinAABB(
+			EntityLivingBase.class,
+			AxisAlignedBB.getBoundingBox(x - range, y - range, z - range, x + range, y + range, z + range)
+		);
+
+		for (EntityLivingBase entity : affected) {
+
+			if (entity.getDistance(x, y, z) > range) continue;
+
+			// Per-entity safezone/claim protection: skip entities inside protected areas
+			if (HbmExplosionHooks.pre(world, entity.posX, entity.posY, entity.posZ, 0F, entity, "CHAOS.POISON.HIT"))
 				continue;
-			
-			if(ArmorRegistry.hasAnyProtection(entity, 3, HazardClass.GAS_LUNG, HazardClass.GAS_BLISTERING)) {
+
+			if (ArmorRegistry.hasAnyProtection(entity, 3, HazardClass.GAS_LUNG, HazardClass.GAS_BLISTERING)) {
 				ArmorUtil.damageGasMaskFilter(entity, 1);
 			} else {
 				entity.addPotionEffect(new PotionEffect(Potion.blindness.getId(), 5 * 20, 0));
@@ -380,15 +440,24 @@ public class ExplosionChaos { //TODO: destroy this entire class
 		}
 	}
 
+
 	public static void pc(World world, double x, double y, double z, double range) {
-		
-		List<EntityLivingBase> affected = world.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(x - range, y - range, z - range, x + range, y + range, z + range));
-		
-		for(EntityLivingBase entity : affected) {
-			
-			if(entity.getDistance(x, y, z) > range)
+
+		if (HbmExplosionHooks.pre(world, x, y, z, (float) range, null, "CHAOS.PC")) return;
+
+		List<EntityLivingBase> affected = world.getEntitiesWithinAABB(
+			EntityLivingBase.class,
+			AxisAlignedBB.getBoundingBox(x - range, y - range, z - range, x + range, y + range, z + range)
+		);
+
+		for (EntityLivingBase entity : affected) {
+
+			if (entity.getDistance(x, y, z) > range) continue;
+
+			// Per-entity safezone protection
+			if (HbmExplosionHooks.pre(world, entity.posX, entity.posY, entity.posZ, 0F, entity, "CHAOS.PC.HIT"))
 				continue;
-			
+
 			ArmorUtil.damageSuit(entity, 0, 25);
 			ArmorUtil.damageSuit(entity, 1, 25);
 			ArmorUtil.damageSuit(entity, 2, 25);
@@ -397,33 +466,46 @@ public class ExplosionChaos { //TODO: destroy this entire class
 		}
 	}
 
+
 	public static void c(World world, double x, double y, double z, double range) {
-		
-		List<EntityLivingBase> affected = world.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(x - range, y - range, z - range, x + range, y + range, z + range));
-		
-		for(EntityLivingBase entity : affected) {
-			
-			if(entity.getDistance(x, y, z) > range)
+
+		if (HbmExplosionHooks.pre(world, x, y, z, (float) range, null, "CHAOS.CLOUD")) return;
+
+		List<EntityLivingBase> affected = world.getEntitiesWithinAABB(
+			EntityLivingBase.class,
+			AxisAlignedBB.getBoundingBox(x - range, y - range, z - range, x + range, y + range, z + range)
+		);
+
+		for (EntityLivingBase entity : affected) {
+
+			if (entity.getDistance(x, y, z) > range) continue;
+
+			// Per-entity safezone/claim protection
+			if (HbmExplosionHooks.pre(world, entity.posX, entity.posY, entity.posZ, 0F, entity, "CHAOS.CLOUD.HIT"))
 				continue;
-			
+
 			ArmorUtil.damageSuit(entity, 0, 25);
 			ArmorUtil.damageSuit(entity, 1, 25);
 			ArmorUtil.damageSuit(entity, 2, 25);
 			ArmorUtil.damageSuit(entity, 3, 25);
-			
-			if(ArmorUtil.checkForHazmat(entity))
+
+			if (ArmorUtil.checkForHazmat(entity))
 				continue;
-			
-			if(entity.isPotionActive(HbmPotion.taint.id)) {
+
+			if (entity.isPotionActive(HbmPotion.taint.id)) {
 				entity.removePotionEffect(HbmPotion.taint.id);
 				entity.addPotionEffect(new PotionEffect(HbmPotion.mutation.id, 1 * 60 * 60 * 20, 0, false));
 			}
-			
+
 			entity.attackEntityFrom(ModDamageSource.cloud, 5);
 		}
 	}
 
+
 	public static void floater(World world, int x, int y, int z, int radi, int height) {
+
+		// Global veto (unchanged)
+		if (HbmExplosionHooks.pre(world, x + 0.5, y + 0.5, z + 0.5, radi, null, "CHAOS.FLOATER")) return;
 
 		Block save;
 		int meta;
@@ -441,28 +523,44 @@ public class ExplosionChaos { //TODO: destroy this entire class
 					int Z = zz + z;
 					int ZZ = YY + zz * zz;
 					if (ZZ < r22) {
+
+						// Per-block guard for the source cell
+						if (HbmExplosionHooks.blockDenied(world, X, Y, Z, "CHAOS.FLOATER.BLOCK"))
+							continue;
+
 						save = world.getBlock(X, Y, Z);
 						meta = world.getBlockMetadata(X, Y, Z);
-						world.setBlock(X, Y, Z, Blocks.air);
+
 						if (save != Blocks.air) {
+							// Guard destination BEFORE touching the source
+							if (HbmExplosionHooks.blockDenied(world, X, Y + height, Z, "CHAOS.FLOATER.DEST"))
+								continue;
+
+							// Write destination first
 							world.setBlock(X, Y + height, Z, save);
 							world.setBlockMetadataWithNotify(X, Y + height, Z, meta, 2);
+
+							// Now clear source (moved down)
+							world.setBlock(X, Y, Z, Blocks.air);
+						} else {
+							// Nothing to move; ensure we don't clear/alter anything else
+							// (No-op)
 						}
 					}
 				}
 			}
 		}
-
 	}
 
+
+
 	public static void move(World world, int x, int y, int z, int radius, int a, int b, int c) {
+
+		if (HbmExplosionHooks.pre(world, x, y, z, (float) radius, null, "CHAOS.MOVE")) return;
+
 		float f = radius;
-		int i;
-		int j;
-		int k;
-		double d5;
-		double d6;
-		double d7;
+		int i, j, k;
+		double d5, d6, d7;
 		double wat = radius;
 		int rand = 0;
 
@@ -471,9 +569,12 @@ public class ExplosionChaos { //TODO: destroy this entire class
 		j = MathHelper.floor_double(x + wat + 1.0D);
 		k = MathHelper.floor_double(y - wat - 1.0D);
 		int i2 = MathHelper.floor_double(y + wat + 1.0D);
-		int l = MathHelper.floor_double(z - wat - 1.0D);
+		int l  = MathHelper.floor_double(z - wat - 1.0D);
 		int j2 = MathHelper.floor_double(z + wat + 1.0D);
-		List list = world.getEntitiesWithinAABBExcludingEntity(null, AxisAlignedBB.getBoundingBox(i, k, l, j, i2, j2));
+
+		List list = world.getEntitiesWithinAABBExcludingEntity(
+			null, AxisAlignedBB.getBoundingBox(i, k, l, j, i2, j2)
+		);
 
 		for (int i1 = 0; i1 < list.size(); ++i1) {
 			Entity entity = (Entity) list.get(i1);
@@ -483,13 +584,14 @@ public class ExplosionChaos { //TODO: destroy this entire class
 				d5 = entity.posX - x;
 				d6 = entity.posY + entity.getEyeHeight() - y;
 				d7 = entity.posZ - z;
+
+				// Per-entity safezone/claim protection: skip effects on protected entities
+				if (HbmExplosionHooks.pre(world, entity.posX, entity.posY, entity.posZ, 0F, entity, "CHAOS.MOVE.HIT"))
+					continue;
+
 				if (entity instanceof EntityLiving && !(entity instanceof EntitySheep)) {
 					rand = random.nextInt(2);
-					if (rand == 0) {
-						((EntityLiving) entity).setCustomNameTag("Dinnerbone");
-					} else {
-						((EntityLiving) entity).setCustomNameTag("Grumm");
-					}
+					((EntityLiving) entity).setCustomNameTag(rand == 0 ? "Dinnerbone" : "Grumm");
 				}
 
 				if (entity instanceof EntitySheep) {
@@ -506,7 +608,11 @@ public class ExplosionChaos { //TODO: destroy this entire class
 		radius = (int) f;
 	}
 
+
 	public static void plasma(World world, int x, int y, int z, int radius) {
+
+		if (HbmExplosionHooks.pre(world, x + 0.5, y + 0.5, z + 0.5, radius, null, "CHAOS.PLASMA")) return;
+
 		int r = radius;
 		int r2 = r * r;
 		int r22 = r2 / 2;
@@ -520,39 +626,37 @@ public class ExplosionChaos { //TODO: destroy this entire class
 					int Z = zz + z;
 					int ZZ = YY + zz * zz;
 					if (ZZ < r22 + world.rand.nextInt(r22 / 2)) {
-						if(world.getBlock(X, Y, Z) != ModBlocks.statue_elb_f)
+						if (world.getBlock(X, Y, Z) != ModBlocks.statue_elb_f) {
+
+							// per-block safezone / claim protection
+							if (HbmExplosionHooks.blockDenied(world, X, Y, Z, "CHAOS.PLASMA")) continue;
+
 							world.setBlock(X, Y, Z, ModBlocks.plasma);
+						}
 					}
 				}
 			}
 		}
 	}
 
-	public static void tauMeSinPi(World world, double x, double y, double z, int count, Entity shooter,
-			EntityGrenadeTau tau) {
 
-		double d1 = 0;
-		double d2 = 0;
-		double d3 = 0;
+	public static void tauMeSinPi(World world, double x, double y, double z, int count, Entity shooter, EntityGrenadeTau tau) {
+
+		// Cancel entire volley if the origin point is inside a safezone
+		if (HbmExplosionHooks.pre(world, x, y, z, 8F, shooter, "CHAOS.TAUMESINPI")) return;
+
+		double d1, d2, d3;
 		EntityBullet fragment;
 
-		if (shooter != null && shooter instanceof EntityPlayer)
+		if (shooter != null && shooter instanceof EntityPlayer) {
 			for (int i = 0; i < count; i++) {
 				d1 = rand.nextDouble();
 				d2 = rand.nextDouble();
 				d3 = rand.nextDouble();
 
-				if (rand.nextInt(2) == 0) {
-					d1 *= -1;
-				}
-
-				if (rand.nextInt(2) == 0) {
-					d2 *= -1;
-				}
-
-				if (rand.nextInt(2) == 0) {
-					d3 *= -1;
-				}
+				if (rand.nextInt(2) == 0) d1 *= -1;
+				if (rand.nextInt(2) == 0) d2 *= -1;
+				if (rand.nextInt(2) == 0) d3 *= -1;
 
 				if (rand.nextInt(5) == 0) {
 					fragment = new EntityBullet(world, (EntityPlayer) shooter, 3.0F, 35, 45, false, "tauDay", tau);
@@ -566,78 +670,98 @@ public class ExplosionChaos { //TODO: destroy this entire class
 				fragment.motionY = d2 * 5;
 				fragment.motionZ = d3 * 5;
 				fragment.shootingEntity = shooter;
-
 				fragment.setIsCritical(true);
+
+				// Convert projectile spawn location to block coords for safezone check
+				int bx = (int)Math.floor(fragment.posX);
+				int by = (int)Math.floor(fragment.posY);
+				int bz = (int)Math.floor(fragment.posZ);
+
+				if (HbmExplosionHooks.blockDenied(world, bx, by, bz, "CHAOS.TAUMESINPI"))
+					continue; // Skip spawning if target block is in protected zone
 
 				world.spawnEntityInWorld(fragment);
 			}
+		}
 	}
 
-	public static void zomgMeSinPi(World world, double x, double y, double z, int count, Entity shooter,
-			EntityGrenadeZOMG zomg) {
 
-		double d1 = 0;
-		double d2 = 0;
-		double d3 = 0;
+	public static void zomgMeSinPi(World world, double x, double y, double z, int count, Entity shooter, EntityGrenadeZOMG zomg) {
 
-		// if (shooter != null && shooter instanceof EntityPlayer)
+		// Cancel the whole volley if the origin point is in a safezone
+		if (HbmExplosionHooks.pre(world, x, y, z, 8F, shooter, "CHAOS.ZOMGMESINPI")) return;
+
+		double d1, d2, d3;
+
 		for (int i = 0; i < count; i++) {
 			d1 = rand.nextDouble();
 			d2 = rand.nextDouble();
 			d3 = rand.nextDouble();
 
-			if (rand.nextInt(2) == 0) {
-				d1 *= -1;
-			}
-
-			if (rand.nextInt(2) == 0) {
-				d2 *= -1;
-			}
-
-			if (rand.nextInt(2) == 0) {
-				d3 *= -1;
-			}
+			if (rand.nextInt(2) == 0) d1 *= -1;
+			if (rand.nextInt(2) == 0) d2 *= -1;
+			if (rand.nextInt(2) == 0) d3 *= -1;
 
 			EntityRainbow entityZomg = new EntityRainbow(world, (EntityPlayer) shooter, 1F, 10000, 100000, zomg);
 
-			entityZomg.motionX = d1;// * 5;
-			entityZomg.motionY = d2;// * 5;
-			entityZomg.motionZ = d3;// * 5;
+			entityZomg.motionX = d1; // original scaling kept
+			entityZomg.motionY = d2;
+			entityZomg.motionZ = d3;
 			entityZomg.shootingEntity = shooter;
+
+			// Safezone check before spawning
+			int bx = (int)Math.floor(entityZomg.posX);
+			int by = (int)Math.floor(entityZomg.posY);
+			int bz = (int)Math.floor(entityZomg.posZ);
+
+			if (HbmExplosionHooks.blockDenied(world, bx, by, bz, "CHAOS.ZOMGMESINPI"))
+				continue; // Skip if spawn position is protected
 
 			world.spawnEntityInWorld(entityZomg);
 			world.playSoundAtEntity(zomg, "hbm:weapon.zomgShoot", 10.0F, 0.8F + (rand.nextFloat() * 0.4F));
 		}
 	}
 
+
 	public static void levelDown(World world, int x, int y, int z, int radius) {
 
-		if(!world.isRemote)
-		for (int i = x - radius; i <= x + radius; i++)
-			for (int j = z - radius; j <= z + radius; j++) {
-				
-				Block b = world.getBlock(i, y, j);
-				float k = b.getExplosionResistance(null);
-						
-				if(k < 6000 && b != Blocks.air) {
-					
-					EntityRubble rubble = new EntityRubble(world);
-					rubble.posX = i + 0.5F;
-					rubble.posY = y;
-					rubble.posZ = j + 0.5F;
-					
-					rubble.motionY = 0.025F * 10 + 0.15F;
-					rubble.setMetaBasedOnBlock(b, world.getBlockMetadata(i, y, j));
-					
-					world.spawnEntityInWorld(rubble);
-					
-					world.setBlock(i, y, j, Blocks.air);
+		if (HbmExplosionHooks.pre(world, x + 0.5, y + 0.5, z + 0.5, radius, null, "CHAOS.LEVELDOWN")) return;
+
+		if (!world.isRemote) {
+			for (int i = x - radius; i <= x + radius; i++) {
+				for (int j = z - radius; j <= z + radius; j++) {
+
+					// Check if this block position is protected
+					if (HbmExplosionHooks.blockDenied(world, i, y, j, "CHAOS.LEVELDOWN")) {
+						continue; // Skip modifying this block if in safezone
+					}
+
+					Block b = world.getBlock(i, y, j);
+					float k = b.getExplosionResistance(null);
+
+					if (k < 6000 && b != Blocks.air) {
+
+						EntityRubble rubble = new EntityRubble(world);
+						rubble.posX = i + 0.5F;
+						rubble.posY = y;
+						rubble.posZ = j + 0.5F;
+
+						rubble.motionY = 0.025F * 10 + 0.15F;
+						rubble.setMetaBasedOnBlock(b, world.getBlockMetadata(i, y, j));
+
+						world.spawnEntityInWorld(rubble);
+
+						world.setBlock(i, y, j, Blocks.air);
+					}
 				}
 			}
+		}
 	}
 
+
+
 	public static void decontaminate(World world, int x, int y, int z) {
-		
+
 		Random random = new Random();
 
 		if (world.getBlock(x, y, z) == ModBlocks.waste_earth && random.nextInt(3) != 0) {
@@ -671,10 +795,10 @@ public class ExplosionChaos { //TODO: destroy this entire class
 		else if (world.getBlock(x, y, z) == ModBlocks.block_waste && random.nextInt(10) == 0) {
 			world.setBlock(x, y, z, ModBlocks.block_lead);
 		}
-		
+
 		else if(world.getBlock(x, y, z) == ModBlocks.sellafield) {
 			int meta = world.getBlockMetadata(x, y, z);
-			
+
 			if(meta > 0) {
 				if(meta == 5 && random.nextInt(10) == 0)
 					world.setBlockMetadataWithNotify(x, y, z, 4, 3);

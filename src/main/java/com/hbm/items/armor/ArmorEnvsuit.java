@@ -59,7 +59,7 @@ public class ArmorEnvsuit extends ArmorFSBPowered {
 
 		if(this.hasFSBArmor(player)) {
 
-			if(player.isSprinting()) player.getAttributeMap().applyAttributeModifiers(multimap);
+			// if(player.isSprinting()) player.getAttributeMap().applyAttributeModifiers(multimap);
 
 			if(player.isInWater()) {
 

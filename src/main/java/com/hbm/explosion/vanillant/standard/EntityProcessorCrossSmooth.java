@@ -1,5 +1,6 @@
 package com.hbm.explosion.vanillant.standard;
 
+import api.hbm.explosion.event.HbmExplosionHooks;
 import com.hbm.explosion.vanillant.ExplosionVNT;
 import com.hbm.items.weapon.sedna.BulletConfig;
 import com.hbm.items.weapon.sedna.factory.ConfettiUtil;
@@ -16,27 +17,33 @@ public class EntityProcessorCrossSmooth extends EntityProcessorCross {
 	protected float pierceDT = 0;
 	protected float pierceDR = 0;
 	protected DamageClass clazz = DamageClass.EXPLOSIVE;
-	
+
 	public EntityProcessorCrossSmooth(double nodeDist, float fixedDamage) {
 		super(nodeDist);
 		this.fixedDamage = fixedDamage;
 		this.setAllowSelfDamage();
 	}
-	
+
 	public EntityProcessorCrossSmooth setupPiercing(float pierceDT, float pierceDR) {
 		this.pierceDT = pierceDT;
 		this.pierceDR = pierceDR;
 		return this;
 	}
-	
+
 	public EntityProcessorCrossSmooth setDamageClass(DamageClass clazz) {
 		this.clazz = clazz;
 		return this;
 	}
-	
+
 	@Override
 	public void attackEntity(Entity entity, ExplosionVNT source, float amount) {
 		if(!entity.isEntityAlive()) return;
+
+		// Per-entity veto in case attackEntity is used directly
+		if (HbmExplosionHooks.pre(entity.worldObj, entity.posX, entity.posY, entity.posZ, 0F, entity, "VNT.ENTITY.DAMAGE")) {
+			return;
+		}
+
 		if(source.exploder == entity) amount *= 0.5F;
 		DamageSource dmg = BulletConfig.getDamage(null, source.exploder instanceof EntityLivingBase ? (EntityLivingBase) source.exploder : null, clazz);
 		if(!(entity instanceof EntityLivingBase)) {

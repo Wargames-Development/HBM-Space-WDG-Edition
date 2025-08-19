@@ -2,6 +2,7 @@ package com.hbm.explosion.vanillant.standard;
 
 import java.util.HashSet;
 
+import api.hbm.explosion.event.HbmExplosionHooks;
 import com.hbm.explosion.vanillant.ExplosionVNT;
 import com.hbm.explosion.vanillant.interfaces.IBlockAllocator;
 
@@ -26,43 +27,55 @@ public class BlockAllocatorStandard implements IBlockAllocator {
 	@Override
 	public HashSet<ChunkPosition> allocate(ExplosionVNT explosion, World world, double x, double y, double z, float size) {
 
+		// Global veto: skip allocation entirely if the origin is protected
+		if (HbmExplosionHooks.pre(world, x, y, z, size, explosion.exploder, "VNT.STD.ALLOC.ORIGIN")) {
+			return new HashSet<ChunkPosition>();
+		}
+
 		HashSet<ChunkPosition> affectedBlocks = new HashSet();
 
 		for(int i = 0; i < this.resolution; ++i) {
 			for(int j = 0; j < this.resolution; ++j) {
 				for(int k = 0; k < this.resolution; ++k) {
-					
+
 					if(i == 0 || i == this.resolution - 1 || j == 0 || j == this.resolution - 1 || k == 0 || k == this.resolution - 1) {
-						
+
 						double d0 = (double) ((float) i / ((float) this.resolution - 1.0F) * 2.0F - 1.0F);
 						double d1 = (double) ((float) j / ((float) this.resolution - 1.0F) * 2.0F - 1.0F);
 						double d2 = (double) ((float) k / ((float) this.resolution - 1.0F) * 2.0F - 1.0F);
 						double d3 = Math.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
-						
+
 						d0 /= d3;
 						d1 /= d3;
 						d2 /= d3;
-						
+
 						float powerRemaining = size * (0.7F + world.rand.nextFloat() * 0.6F);
 						double currentX = x;
 						double currentY = y;
 						double currentZ = z;
 
 						for(float stepSize = 0.3F; powerRemaining > 0.0F; powerRemaining -= stepSize * 0.75F) {
-							
+
 							int blockX = MathHelper.floor_double(currentX);
 							int blockY = MathHelper.floor_double(currentY);
 							int blockZ = MathHelper.floor_double(currentZ);
-							
+
 							Block block = world.getBlock(blockX, blockY, blockZ);
 
-							if(block.getMaterial() != Material.air) {
-								float blockResistance = explosion.exploder != null ? explosion.exploder.func_145772_a(explosion.compat, world, blockX, blockY, blockZ, block) : block.getExplosionResistance(explosion.exploder, world, blockX, blockY, blockZ, x, y, z);
+							if (block.getMaterial() != Material.air) {
+								float blockResistance = explosion.exploder != null
+									? explosion.exploder.func_145772_a(explosion.compat, world, blockX, blockY, blockZ, block)
+									: block.getExplosionResistance(explosion.exploder, world, blockX, blockY, blockZ, x, y, z);
 								powerRemaining -= (blockResistance + 0.3F) * stepSize;
 							}
 
-							if(powerRemaining > 0.0F && (explosion.exploder == null || explosion.exploder.func_145774_a(explosion.compat, world, blockX, blockY, blockZ, block, powerRemaining))) {
-								affectedBlocks.add(new ChunkPosition(blockX, blockY, blockZ));
+							if (powerRemaining > 0.0F
+								&& (explosion.exploder == null || explosion.exploder.func_145774_a(explosion.compat, world, blockX, blockY, blockZ, block, powerRemaining))) {
+
+								// Per-block veto: don't add protected coordinates
+								if (!HbmExplosionHooks.blockDenied(world, blockX, blockY, blockZ, "VNT.STD.ALLOC.BLOCK")) {
+									affectedBlocks.add(new ChunkPosition(blockX, blockY, blockZ));
+								}
 							}
 
 							currentX += d0 * (double) stepSize;
@@ -73,7 +86,7 @@ public class BlockAllocatorStandard implements IBlockAllocator {
 				}
 			}
 		}
-		
+
 		return affectedBlocks;
 	}
 }

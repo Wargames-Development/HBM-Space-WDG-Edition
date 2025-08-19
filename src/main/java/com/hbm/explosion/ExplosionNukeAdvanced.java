@@ -1,5 +1,6 @@
 package com.hbm.explosion;
 
+import api.hbm.explosion.event.HbmExplosionHooks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
@@ -67,14 +68,21 @@ public class ExplosionNukeAdvanced {
 	}
 
 	public boolean update() {
-		switch(this.type) {
-		case 0: breakColumn(this.lastposX, this.lastposZ); break;
-		case 1: vapor(this.lastposX, this.lastposZ); break;
-		case 2: waste(this.lastposX, this.lastposZ); break;
+		// Global veto: cancel entire advanced nuke if origin is protected
+		if (HbmExplosionHooks.pre(this.worldObj, this.posX + 0.5, this.posY + 0.5, this.posZ + 0.5,
+			this.radius, null, "NUKEADV")) {
+			this.n = this.nlimit + 1; // mark finished
+			return true;
 		}
-		this.shell = (int) Math.floor((Math.sqrt(n) + 1) / 2);
+
+		switch (this.type) {
+			case 0: breakColumn(this.lastposX, this.lastposZ); break;
+			case 1: vapor(this.lastposX, this.lastposZ); break;
+			case 2: waste(this.lastposX, this.lastposZ); break;
+		}
+		this.shell = (int)Math.floor((Math.sqrt(n) + 1) / 2);
 		int shell2 = this.shell * 2;
-		this.leg = (int) Math.floor((this.n - (shell2 - 1) * (shell2 - 1)) / shell2);
+		this.leg = (int)Math.floor((this.n - (shell2 - 1) * (shell2 - 1)) / shell2);
 		this.element = (this.n - (shell2 - 1) * (shell2 - 1)) - shell2 * this.leg - this.shell + 1;
 		this.lastposX = this.leg == 0 ? this.shell : this.leg == 1 ? -this.element : this.leg == 2 ? -this.shell : this.element;
 		this.lastposZ = this.leg == 0 ? this.element : this.leg == 1 ? this.shell : this.leg == 2 ? -this.element : -this.shell;
@@ -84,38 +92,66 @@ public class ExplosionNukeAdvanced {
 
 	private void breakColumn(int x, int z) {
 		int dist = this.radius2 - (x * x + z * z);
-		if(dist > 0) {
-			dist = (int) Math.sqrt(dist);
-			for(int y = dist; y > -dist * this.explosionCoefficient; y--) {
-				if(y < 8) {
-					y -= ExplosionNukeGeneric.destruction(this.worldObj, this.posX + x, this.posY + y, this.posZ + z);
+		if (dist > 0) {
+			dist = (int)Math.sqrt(dist);
+			for (int y = dist; y > -dist * this.explosionCoefficient; y--) {
+				int wx = this.posX + x;
+				int wy = this.posY + y;
+				int wz = this.posZ + z;
+
+				// Per-block veto: no destruction in protected coords
+				if (HbmExplosionHooks.blockDenied(this.worldObj, wx, wy, wz, "NUKEADV.BREAK"))
+					continue;
+
+				if (y < 8) {
+					// Keep the fast skip only when allowed
+					y -= ExplosionNukeGeneric.destruction(this.worldObj, wx, wy, wz);
 				} else {
-					ExplosionNukeGeneric.destruction(this.worldObj, this.posX + x, this.posY + y, this.posZ + z);
+					ExplosionNukeGeneric.destruction(this.worldObj, wx, wy, wz);
 				}
 			}
 		}
 	}
 
+
 	private void vapor(int x, int z) {
 		int dist = this.radius2 - (x * x + z * z);
-		if(dist > 0) {
-			dist = (int) Math.sqrt(dist);
-			for(int y = dist; y > -dist * this.explosionCoefficient; y--) {
-				y -= ExplosionNukeGeneric.vaporDest(this.worldObj, this.posX + x, this.posY + y, this.posZ + z);
+		if (dist > 0) {
+			dist = (int)Math.sqrt(dist);
+			for (int y = dist; y > -dist * this.explosionCoefficient; y--) {
+				int wx = this.posX + x;
+				int wy = this.posY + y;
+				int wz = this.posZ + z;
+
+				// Per-block veto: skip vaporization in protected coords
+				if (!HbmExplosionHooks.blockDenied(this.worldObj, wx, wy, wz, "NUKEADV.VAPOR")) {
+					// Only apply the bigger vertical skip when allowed
+					y -= ExplosionNukeGeneric.vaporDest(this.worldObj, wx, wy, wz);
+				}
 			}
 		}
 	}
 
+
 	private void waste(int x, int z) {
 		int dist = this.radius2 - (x * x + z * z);
-		if(dist > 0) {
-			dist = (int) Math.sqrt(dist);
-			for(int y = dist; y > -dist * this.explosionCoefficient; y--) {
-				if(radius >= 95)
-					ExplosionNukeGeneric.wasteDest(this.worldObj, this.posX + x, this.posY + y, this.posZ + z);
+		if (dist > 0) {
+			dist = (int)Math.sqrt(dist);
+			for (int y = dist; y > -dist * this.explosionCoefficient; y--) {
+				int wx = this.posX + x;
+				int wy = this.posY + y;
+				int wz = this.posZ + z;
+
+				// Per-block veto: no waste/rads in protected coords
+				if (HbmExplosionHooks.blockDenied(this.worldObj, wx, wy, wz, "NUKEADV.WASTE"))
+					continue;
+
+				if (radius >= 95)
+					ExplosionNukeGeneric.wasteDest(this.worldObj, wx, wy, wz);
 				else
-					ExplosionNukeGeneric.wasteDestNoSchrab(this.worldObj, this.posX + x, this.posY + y, this.posZ + z);
+					ExplosionNukeGeneric.wasteDestNoSchrab(this.worldObj, wx, wy, wz);
 			}
 		}
 	}
+
 }
