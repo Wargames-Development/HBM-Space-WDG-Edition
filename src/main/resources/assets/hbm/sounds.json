@@ -12,6 +12,7 @@
 	"misc.htrstop": {"category": "player", "sounds": [{"name": "misc/htrstop", "stream": false}]},
 	"misc.htrloop": {"category": "player", "sounds": [{"name": "misc/htrloop", "stream": false}]},
 	"misc.fireflash": {"category": "player", "sounds": [{"name": "misc/flashfire", "stream": false}]},
+	"misc.stationhum": {"category": "player", "sounds": [{"name": "misc/stationhum", "stream": false}]},
 
 	"misc.spinshot": {"category": "block", "sounds": ["misc/spinshot1", "misc/spinshot2"]},
 	"misc.spincharge": {"category": "block", "sounds": [{"name": "misc/spincharge", "stream": false}]},
@@ -91,6 +92,7 @@
     "block.assemblerStrike": {"category": "block", "sounds": ["block/assemblerStrike1", "block/assemblerStrike2"]},
     "block.assemblerStart": {"category": "block", "sounds": [{"name": "block/assemblerStart", "stream": false}]},
     "block.assemblerStop": {"category": "block", "sounds": [{"name": "block/assemblerStop", "stream": false}]},
+    "block.assemblerCut": {"category": "block", "sounds": [{"name": "block/assemblerCut", "stream": false}]},
 
     "door.TransitionSealOpen": {"category": "block", "sounds": [{"name": "block/door/transition_seal_open", "stream": true}]},
     "door.wghStart": {"category": "block", "sounds": [{"name": "block/door/wgh_start", "stream": true}]},

@@ -59,6 +59,7 @@ import com.hbm.render.util.RenderAccessoryUtility;
 import com.hbm.render.util.RenderOverhead;
 import com.hbm.render.util.RenderScreenOverlay;
 import com.hbm.render.util.SoyuzPronter;
+import com.hbm.sound.AudioWrapper;
 import com.hbm.sound.MovingSoundChopper;
 import com.hbm.sound.MovingSoundChopperMine;
 import com.hbm.sound.MovingSoundCrashing;
@@ -823,17 +824,6 @@ public class ModEventHandlerClient {
 		}
 
 		try {
-			CanneryBase cannery = Jars.canneries.get(comp);
-			if(cannery != null) {
-				list.add(EnumChatFormatting.GREEN + I18nUtil.resolveKey("cannery.f1"));
-				lastCannery = comp;
-				canneryTimestamp = Clock.get_ms();
-			}
-		} catch(Exception ex) {
-			list.add(EnumChatFormatting.RED + "Error loading cannery: " + ex.getLocalizedMessage());
-		}
-
-		try {
 			QuickManualAndWiki qmaw = QMAWLoader.triggers.get(comp);
 			if(qmaw == null) {
 				qmaw = QMAWLoader.triggers.get(new ComparableStack(comp.item, 1, OreDictionary.WILDCARD_VALUE));
@@ -842,6 +832,17 @@ public class ModEventHandlerClient {
 				list.add(EnumChatFormatting.YELLOW + I18nUtil.resolveKey("qmaw.tab", Keyboard.getKeyName(HbmKeybinds.qmaw.getKeyCode())));
 				lastQMAW = qmaw;
 				qmawTimestamp = Clock.get_ms();
+			}
+		} catch(Exception ex) {
+			list.add(EnumChatFormatting.RED + "Error loading cannery: " + ex.getLocalizedMessage());
+		}
+
+		try {
+			CanneryBase cannery = Jars.canneries.get(comp);
+			if(cannery != null) {
+				list.add(EnumChatFormatting.GREEN + I18nUtil.resolveKey("cannery.f1", Keyboard.getKeyName(Keyboard.KEY_LSHIFT) + " + " + Keyboard.getKeyName(HbmKeybinds.qmaw.getKeyCode())));
+				lastCannery = comp;
+				canneryTimestamp = Clock.get_ms();
 			}
 		} catch(Exception ex) {
 			list.add(EnumChatFormatting.RED + "Error loading cannery: " + ex.getLocalizedMessage());
@@ -990,7 +991,7 @@ public class ModEventHandlerClient {
 			}
 		}
 
-		if(Keyboard.isKeyDown(Keyboard.KEY_F1) && Minecraft.getMinecraft().currentScreen != null) {
+		if(Keyboard.isKeyDown(HbmKeybinds.qmaw.getKeyCode()) && Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) && Minecraft.getMinecraft().currentScreen != null) {
 
 			ComparableStack comp = canneryTimestamp > Clock.get_ms() - 100 ? lastCannery : null;
 
@@ -1008,7 +1009,7 @@ public class ModEventHandlerClient {
 			}
 		}
 
-		if(Keyboard.isKeyDown(HbmKeybinds.qmaw.getKeyCode()) && Minecraft.getMinecraft().currentScreen != null) {
+		if(Keyboard.isKeyDown(HbmKeybinds.qmaw.getKeyCode()) && !Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) && Minecraft.getMinecraft().currentScreen != null) {
 
 			QuickManualAndWiki qmaw = qmawTimestamp > Clock.get_ms() - 100 ? lastQMAW : null;
 
@@ -1194,6 +1195,8 @@ public class ModEventHandlerClient {
 	public static long lastLoadScreenReplacement = 0L;
 	public static int loadingScreenReplacementRetry = 0;
 
+	private static AudioWrapper shipHum;
+
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public void onClientTickLast(ClientTickEvent event) {
@@ -1228,6 +1231,19 @@ public class ModEventHandlerClient {
 						renderLodeStar = true;
 					}
 				}
+			}
+
+			if(player != null && world.provider instanceof WorldProviderOrbit && HbmLivingProps.hasGravity(player)) {
+				if(shipHum == null || !shipHum.isPlaying()) {
+					shipHum = MainRegistry.proxy.getLoopedSound("hbm:misc.stationhum", player, ClientConfig.AUDIO_SHIP_HUM_VOLUME.get(), 5.0F, 1.0F, 10);
+					shipHum.startSound();
+				}
+
+				shipHum.updateVolume(ClientConfig.AUDIO_SHIP_HUM_VOLUME.get());
+				shipHum.keepAlive();
+			} else if(shipHum != null) {
+				shipHum.stopSound();
+				shipHum = null;
 			}
 		}
 

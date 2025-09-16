@@ -737,6 +737,7 @@ public class MainRegistry {
 		event.registerServerCommand(new CommandReloadServer());
 		event.registerServerCommand(new CommandLocate());
 		event.registerServerCommand(new CommandTotalTime());
+		event.registerServerCommand(new CommandCustomize());
 		ArcFurnaceRecipes.registerFurnaceSmeltables(); // because we have to wait for other mods to take their merry ass time to register recipes
 	}
 
@@ -1501,6 +1502,9 @@ public class MainRegistry {
 		ignoreMappings.add("hbm:item.mp_f_20");
 		ignoreMappings.add("hbm:item.mp_thruster_10_kerosene_tec");
 		ignoreMappings.add("hbm:item.mp_thruster_15_kerosene_tec");
+		ignoreMappings.add("hbm:item.powder_platnium");
+		ignoreMappings.add("hbm:item.ingot_platnium");
+		ignoreMappings.add("hbm:item.nugget_platnium");
 
 		/// REMAP ///
 		remapItems.put("hbm:item.gadget_explosive8", ModItems.early_explosive_lenses);
