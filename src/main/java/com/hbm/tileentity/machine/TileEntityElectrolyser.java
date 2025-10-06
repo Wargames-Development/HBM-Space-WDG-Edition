@@ -227,6 +227,9 @@ public class TileEntityElectrolyser extends TileEntityMachineBase implements IEn
 				new DirPos(xCoord + dir.offsetX * 6 + rot.offsetX, yCoord, zCoord + dir.offsetZ * 6 + rot.offsetZ, dir),
 				new DirPos(xCoord + dir.offsetX * 6 - rot.offsetX, yCoord, zCoord + dir.offsetZ * 6 - rot.offsetZ, dir),
 				new DirPos(xCoord - rot.offsetX * 4, yCoord, zCoord - rot.offsetZ * 4, rot.getOpposite()),
+				new DirPos(xCoord + rot.offsetX * 2, yCoord, zCoord + rot.offsetZ * 2, rot),
+				new DirPos(xCoord - dir.offsetX * 5 + rot.offsetX * 2, yCoord, zCoord - dir.offsetZ * 5 + rot.offsetZ * 2, rot),
+				new DirPos(xCoord + dir.offsetX * 5 + rot.offsetX * 2, yCoord, zCoord + dir.offsetZ * 5 + rot.offsetZ * 2, rot),
 		};
 	}
 
@@ -267,12 +270,8 @@ public class TileEntityElectrolyser extends TileEntityMachineBase implements IEn
 		for(int i = 0; i < 4; i++) tanks[i].deserialize(buf);
 		boolean left = buf.readBoolean();
 		boolean right = buf.readBoolean();
-		if(left) {
-			this.leftStack = new MaterialStack(Mats.matById.get(buf.readInt()), buf.readInt());
-		}
-		if(right) {
-			this.rightStack = new MaterialStack(Mats.matById.get(buf.readInt()), buf.readInt());
-		}
+		this.leftStack = left ? new MaterialStack(Mats.matById.get(buf.readInt()), buf.readInt()) : null;
+		this.rightStack = right ? new MaterialStack(Mats.matById.get(buf.readInt()), buf.readInt()) : null;
 		this.lastSelectedGUI = buf.readInt();
 	}
 
