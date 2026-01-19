@@ -4,13 +4,16 @@ import com.hbm.blocks.ICustomBlockHighlight;
 import com.hbm.config.ClientConfig;
 import com.hbm.config.RadiationConfig;
 import com.hbm.dim.WorldProviderCelestial;
+import com.hbm.entity.missile.EntityRideableRocket;
 import com.hbm.extprop.HbmLivingProps;
 import com.hbm.handler.pollution.PollutionHandler.PollutionType;
 import com.hbm.items.IAnimatedItem;
+import com.hbm.items.ModItems;
 import com.hbm.items.armor.IArmorDisableModel;
 import com.hbm.items.armor.IArmorDisableModel.EnumPlayerPart;
 import com.hbm.items.weapon.sedna.ItemGunBaseNT;
 import com.hbm.items.armor.ItemModOxy;
+import com.hbm.items.weapon.sedna.factory.XFactoryDrill;
 import com.hbm.packet.PermaSyncHandler;
 import com.hbm.render.item.weapon.sedna.ItemRenderWeaponBase;
 import com.hbm.render.model.ModelMan;
@@ -20,6 +23,7 @@ import com.hbm.world.biome.BiomeGenCraterBase;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
+import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import cpw.mods.fml.common.gameevent.TickEvent.WorldTickEvent;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -66,7 +70,19 @@ public class ModEventHandlerRenderer {
 	private static boolean[] partsHidden = new boolean[7];
 
 	@SubscribeEvent
-	public void onRenderTickPre(TickEvent.RenderTickEvent event) { }
+	public void onRenderTickPre(TickEvent.RenderTickEvent event) {
+		Minecraft mc = Minecraft.getMinecraft();
+		EntityPlayer player = mc.thePlayer;
+
+		if(event.phase == Phase.START) {
+			// Zoom out third person view when inside a rocket
+			if(player != null && player.ridingEntity != null && player.ridingEntity instanceof EntityRideableRocket) {
+				mc.entityRenderer.thirdPersonDistance = 12.0F;
+			} else {
+				mc.entityRenderer.thirdPersonDistance = 4.0F;
+			}
+		}
+	}
 
 	@SubscribeEvent(priority = EventPriority.LOWEST, receiveCanceled = true)
 	public void onRenderPlayerPre(RenderPlayerEvent.Pre event) {
@@ -169,7 +185,7 @@ public class ModEventHandlerRenderer {
 					0.1F + biped.bipedHead.rotateAngleY;
 			renderer.modelArmorChestplate.bipedRightArm.rotateAngleY = renderer.modelArmor.bipedRightArm.rotateAngleY = biped.bipedRightArm.rotateAngleY =
 					-0.5F + biped.bipedHead.rotateAngleY;
-			
+
 			if(!isManly) {
 				AbstractClientPlayer acp = (AbstractClientPlayer) player;
 				Minecraft.getMinecraft().getTextureManager().bindTexture(acp.getLocationSkin());
@@ -210,6 +226,25 @@ public class ModEventHandlerRenderer {
 				getBoxFromType(renderer, type).isHidden = false;
 			}
 		}
+	}
+
+	private boolean wasRiding;
+
+	@SubscribeEvent(priority = EventPriority.HIGHEST)
+	public void onRenderRidingPlayerPre(RenderPlayerEvent.Pre event) {
+		wasRiding = event.entityPlayer.ridingEntity instanceof EntityRideableRocket;
+		if(!wasRiding) return;
+
+		GL11.glPushMatrix();
+
+		GL11.glRotated(-event.entityPlayer.ridingEntity.rotationPitch, 0, 0, 1);
+	}
+
+	@SubscribeEvent(priority = EventPriority.LOWEST)
+	public void onRenderRidingPlayerPost(RenderPlayerEvent.Post event) {
+		if(!wasRiding) return;
+
+		GL11.glPopMatrix();
 	}
 
 	@SubscribeEvent
@@ -417,6 +452,14 @@ public class ModEventHandlerRenderer {
 
 	@SubscribeEvent
 	public void onDrawHighlight(DrawBlockHighlightEvent event) {
+
+		EntityPlayer player = MainRegistry.proxy.me();
+		if(player.getHeldItem() != null && player.getHeldItem().getItem() == ModItems.gun_drill) {
+			XFactoryDrill.drawBlockHighlight(player, player.getHeldItem(), event.partialTicks);
+			event.setCanceled(true);
+			return;
+		}
+
 		MovingObjectPosition mop = event.target;
 
 		if(mop != null && mop.typeOfHit == MovingObjectType.BLOCK) {

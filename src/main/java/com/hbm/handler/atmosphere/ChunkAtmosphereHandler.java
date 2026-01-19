@@ -1,11 +1,14 @@
 package com.hbm.handler.atmosphere;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
+import com.hbm.blocks.ModBlocks;
 import com.hbm.config.GeneralConfig;
 import com.hbm.dim.CelestialBody;
 import com.hbm.dim.orbit.WorldProviderOrbit;
@@ -52,6 +55,7 @@ public class ChunkAtmosphereHandler {
 	//  * 200 crops (300s per stage)
 	public static final int TREE_GROWTH_CONVERSION = 400; // per sapling -> tree
 	public static final int CROP_GROWTH_CONVERSION = 15; // per stage
+	public static final int GRASS_GROWTH_CONVERSION = 100; // per block
 
 	/*
 	 * Methods to get information about the current atmosphere
@@ -170,7 +174,7 @@ public class ChunkAtmosphereHandler {
 	}
 
 	public boolean canBreathe(CBT_Atmosphere atmosphere) {
-		return atmosphere != null && (atmosphere.hasFluid(Fluids.AIR, 0.21) || atmosphere.hasFluid(Fluids.OXYGEN, 0.09));
+		return atmosphere != null && (atmosphere.hasFluid(Fluids.EARTHAIR, 0.21) || atmosphere.hasFluid(Fluids.OXYGEN, 0.09));
 	}
 
 	// Is the air pressure high enough to support liquids
@@ -204,7 +208,7 @@ public class ChunkAtmosphereHandler {
 
 		if(requiresO2) {
 			// Check for an atmosphere and destroy torches if there is insufficient oxygen
-			canExist = !(atmosphere == null || (!atmosphere.hasFluid(Fluids.OXYGEN, 0.09) && !atmosphere.hasFluid(Fluids.AIR, 0.21)));
+			canExist = !(atmosphere == null || (!atmosphere.hasFluid(Fluids.OXYGEN, 0.09) && !atmosphere.hasFluid(Fluids.EARTHAIR, 0.21)));
 		} else if(requiresPressure) {
 			canExist = hasLiquidPressure(atmosphere);
 		} else if(requiresCO2) {
@@ -212,7 +216,7 @@ public class ChunkAtmosphereHandler {
 			if(block instanceof IPlantableBreathing) {
 				canExist = ((IPlantableBreathing) block).canBreathe(atmosphere);
 			} else {
-				canExist = !(atmosphere == null || (!atmosphere.hasFluid(Fluids.OXYGEN, 0.01) && !atmosphere.hasFluid(Fluids.AIR, 0.1)));
+				canExist = !(atmosphere == null || (!atmosphere.hasFluid(Fluids.OXYGEN, 0.01) && !atmosphere.hasFluid(Fluids.EARTHAIR, 0.1)));
 			}
 		}
 
@@ -309,37 +313,25 @@ public class ChunkAtmosphereHandler {
 	public void receiveWorldLoad(WorldEvent.Load event) {
 		if(event.world.isRemote) return;
 		worldBlobs.put(event.world.provider.dimensionId, new HashMap<>());
+		growthMap.put(event.world.provider.dimensionId, new ArrayDeque<>());
 	}
 
 	public void receiveWorldUnload(WorldEvent.Unload event) {
 		if(event.world.isRemote) return;
 		worldBlobs.remove(event.world.provider.dimensionId);
+		growthMap.remove(event.world.provider.dimensionId);
 	}
 
-	public void receiveWorldTick(cpw.mods.fml.common.gameevent.TickEvent.WorldTickEvent tick) {
-		// server side only, once per second, run at END phase
-		if (tick.world.isRemote || tick.phase != cpw.mods.fml.common.gameevent.TickEvent.Phase.END) return;
-		if (tick.world.getTotalWorldTime() % 20 != 0) return;
+	public void receiveWorldTick(TickEvent.WorldTickEvent tick) {
+		if(tick.world.isRemote || tick.phase != Phase.END) return;
 
-		final int dim = tick.world.provider.dimensionId;
+		tickTerraforming(tick.world);
 
-		// Get/create the blob map for this dimension
-		HashMap<IAtmosphereProvider, AtmosphereBlob> blobs = worldBlobs.get(dim);
-		if (blobs == null) {
-			// initialize to avoid future NPEs
-			blobs = new java.util.HashMap<IAtmosphereProvider, AtmosphereBlob>();
-			worldBlobs.put(dim, blobs);
-			return; // nothing to tick this time
-		}
+		if(tick.world.getTotalWorldTime() % 20 != 0) return;
 
-		if (blobs.isEmpty()) return;
-
-		// If checkGrowth() can add/remove entries, iterate a snapshot to avoid CME.
-		// If it never mutates, you can iterate blobs.values() directly.
-		for (AtmosphereBlob blob : new java.util.ArrayList<AtmosphereBlob>(blobs.values())) {
-			if (blob != null) {
-				blob.checkGrowth();
-			}
+		HashMap<IAtmosphereProvider, AtmosphereBlob> blobs = worldBlobs.get(tick.world.provider.dimensionId);
+		for(AtmosphereBlob blob : blobs.values()) {
+			blob.checkGrowth();
 		}
 	}
 
@@ -422,6 +414,85 @@ public class ChunkAtmosphereHandler {
 				blob.addPlant(world, x, y, z);
 			}
 		}
+	}
+
+	private static HashMap<Integer, Queue<Growth>> growthMap = new HashMap<>();
+
+	private void tickTerraforming(World world) {
+		Queue<Growth> growths = growthMap.get(world.provider.dimensionId);
+
+		for(int g = 0; g < 64; g++) {
+			Growth growth = growths.poll();
+
+			if(growth == null) return;
+
+			for(int i = 0; i < 4; i++) {
+				ForgeDirection dir = ForgeDirection.VALID_DIRECTIONS[world.rand.nextInt(4) + 2];
+
+				int x = growth.x + dir.offsetX;
+				int z = growth.z + dir.offsetZ;
+
+				for(int y = growth.y + 1; y >= growth.y - 1; y--) {
+					Block block = world.getBlock(x, y, z);
+
+					boolean shouldReplace = growth.from != null
+						? block == growth.from
+						: block == Blocks.dirt || block == ModBlocks.waste_earth || block == ModBlocks.dirt_dead || block == ModBlocks.dirt_oily;
+
+					if(shouldReplace) {
+						world.setBlock(x, y, z, growth.into);
+
+						if(growth.into == Blocks.grass) world.playAuxSFX(2005, x, y + 1, z, 0);
+
+						if(growth.time > 0) addGrowth(world, growth.from, growth.into, x, y, z, growth.time - 1);
+
+						return;
+					}
+				}
+			}
+		}
+	}
+
+	public void addGrowth(World world, Block into, int x, int y, int z, int size) {
+		addGrowth(world, null, into, x, y, z, size);
+	}
+
+	public void addGrowth(World world, Block into, int x, int y, int z, int count, int size) {
+		addGrowth(world, null, into, x, y, z, count, size);
+	}
+
+	public void addGrowth(World world, Block from, Block into, int x, int y, int z, int size) {
+		Queue<Growth> growths = growthMap.get(world.provider.dimensionId);
+		growths.add(new Growth(from, into, x, y, z, size));
+	}
+
+	public void addGrowth(World world, Block from, Block into, int x, int y, int z, int count, int size) {
+		Queue<Growth> growths = growthMap.get(world.provider.dimensionId);
+		for(int i = 0; i < count; i++) {
+			growths.add(new Growth(from, into, x, y, z, size));
+		}
+	}
+
+	private static class Growth {
+
+		public final Block from;
+		public final Block into;
+		public final int time; // remaining
+
+		public final int x;
+		public final int y;
+		public final int z;
+
+		public Growth(Block from, Block into, int x, int y, int z, int time) {
+			this.from = from;
+			this.into = into;
+			this.time = time;
+
+			this.x = x;
+			this.y = y;
+			this.z = z;
+		}
+
 	}
 
 }

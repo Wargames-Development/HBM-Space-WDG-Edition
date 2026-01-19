@@ -18,10 +18,12 @@ import com.hbm.dim.trait.CelestialBodyTrait;
 import com.hbm.extprop.HbmLivingProps;
 import com.hbm.inventory.fluid.FluidType;
 import com.hbm.inventory.fluid.Fluids;
+import com.hbm.inventory.fluid.trait.FT_Gaseous;
 import com.hbm.items.ItemVOTVdrive.Target;
 import com.hbm.lib.RefStrings;
 import com.hbm.render.shader.Shader;
 import com.hbm.util.AstronomyUtil;
+import com.hbm.util.Tuple.Triplet;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
@@ -75,6 +77,8 @@ public class CelestialBody {
 	public float[] ringColor = new float[] {0.5F, 0.5F, 0.5F};
 	public float ringSize = 2;
 
+	public boolean hasIce = false; // has bedrock ice?
+
 	public FluidType gas;
 
 	public List<CelestialBody> satellites = new ArrayList<CelestialBody>(); // moon boyes
@@ -82,7 +86,8 @@ public class CelestialBody {
 
 	private HashMap<Class<? extends CelestialBodyTrait>, CelestialBodyTrait> traits = new HashMap<Class<? extends CelestialBodyTrait>, CelestialBodyTrait>();
 
-	public String stoneTexture = "stone";
+	public ResourceLocation stoneTexture;
+	public ResourceLocation surfaceTexture;
 	public SolarSystem.Body type;
 
 	@SideOnly(Side.CLIENT)
@@ -155,8 +160,9 @@ public class CelestialBody {
 		return this;
 	}
 
-	public CelestialBody withBlockTextures(String stone, String sand, String silt, String sravel) {
-		this.stoneTexture = stone;
+	public CelestialBody withBlockTextures(String stone, String surface) {
+		this.stoneTexture = new ResourceLocation(stone);
+		this.surfaceTexture = new ResourceLocation(surface);
 		return this;
 	}
 
@@ -205,6 +211,11 @@ public class CelestialBody {
 
 		shader = new Shader(fragmentShader);
 		shaderScale = scale;
+		return this;
+	}
+
+	public CelestialBody withIce(boolean hasIce) {
+		this.hasIce = hasIce;
 		return this;
 	}
 
@@ -311,17 +322,19 @@ public class CelestialBody {
 		setTraits(world, currentTraits);
 	}
 
-	public static void consumeGas(World world, FluidType fluid, double amount) {
+	public static boolean consumeGas(World world, FluidType fluid, double amount) {
 		HashMap<Class<? extends CelestialBodyTrait>, CelestialBodyTrait> currentTraits = getTraits(world);
 
 		CBT_Atmosphere atmosphere = (CBT_Atmosphere) currentTraits.get(CBT_Atmosphere.class);
-		if(atmosphere == null) return;
+		if(atmosphere == null) return false;
 
+		boolean didConsume = false;
 		int emptyIndex = -1;
 		for(int i = 0; i < atmosphere.fluids.size(); i++) {
 			FluidEntry entry = atmosphere.fluids.get(i);
 			if(entry.fluid == fluid) {
 				entry.pressure -= amount / AstronomyUtil.MB_PER_ATM;
+				didConsume = true;
 				emptyIndex = entry.pressure <= 0 ? i : -1;
 				break;
 			}
@@ -335,8 +348,9 @@ public class CelestialBody {
 			}
 		}
 
-
 		setTraits(world, currentTraits);
+
+		return didConsume;
 	}
 
 	public static void emitGas(World world, FluidType fluid, double amount) {
@@ -370,13 +384,39 @@ public class CelestialBody {
 		setTraits(world, currentTraits);
 	}
 
+	public static void reactAtmosphere(World world, FluidType product) {
+		HashMap<Class<? extends CelestialBodyTrait>, CelestialBodyTrait> currentTraits = getTraits(world);
+		CBT_Atmosphere atmosphere = (CBT_Atmosphere) currentTraits.get(CBT_Atmosphere.class);
+
+		Triplet<AtmoStack, AtmoStack, AtmoStack> recipe = AtmosphereRecipes.getOutput(product);
+
+		AtmoStack reactA = recipe.getY();
+		AtmoStack reactB = recipe.getZ();
+
+		boolean hasA = false, hasB = false;
+		for(CBT_Atmosphere.FluidEntry entry : atmosphere.fluids) {
+			if(entry.fluid == reactA.type && entry.pressure >= reactA.pressure / AstronomyUtil.MB_PER_ATM) hasA = true;
+			if(entry.fluid == reactB.type && entry.pressure >= reactB.pressure / AstronomyUtil.MB_PER_ATM) hasB = true;
+		}
+
+		if(!hasA || !hasB) return;
+
+		FT_Gaseous.capture(world, reactA.type, reactA.pressure);
+		FT_Gaseous.capture(world, reactB.type, reactB.pressure);
+
+
+		FT_Gaseous.release(world, product, 80000); //80000mb baseline
+
+		//System.out.println("Reaction complete: produced " + product.getName() + " (" + 80000 + " mB)");
+	}
+
 	public static void updateChemistry(World world) {
 		boolean hasUpdated = false;
 		HashMap<Class<? extends CelestialBodyTrait>, CelestialBodyTrait> currentTraits = getTraits(world);
+		CBT_Atmosphere atmosphere = (CBT_Atmosphere) currentTraits.get(CBT_Atmosphere.class);
 
 		CBT_Water water = (CBT_Water) currentTraits.get(CBT_Water.class);
 		if(water == null) {
-			CBT_Atmosphere atmosphere = (CBT_Atmosphere) currentTraits.get(CBT_Atmosphere.class);
 
 			if(atmosphere != null) {
 				double pressure = 0;
@@ -397,7 +437,16 @@ public class CelestialBody {
 			}
 		}
 
-		if(hasUpdated) setTraits(world, currentTraits);
+		if(atmosphere != null) {
+			for(FluidType product : AtmosphereRecipes.getRecipesMap().keySet()) {
+				reactAtmosphere(world, product);
+				hasUpdated = true;
+			}
+
+		}
+
+		if(hasUpdated)
+			setTraits(world, currentTraits);
 	}
 
 	// Called once per tick to attenuate swarm counts based on a swarm half-life

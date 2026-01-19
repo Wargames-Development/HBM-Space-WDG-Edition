@@ -336,7 +336,7 @@ public class TileEntityMachineExcavator extends TileEntityMachineBase implements
 			stacks.add(stack);
 
 			if(stack.getItem() == ModItems.bedrock_ore_base) {
-				ItemBedrockOreBase.setOreAmount(worldObj, stack, pos.getX(), pos.getZ());
+				ItemBedrockOreBase.setOreAmount(worldObj, stack, pos.getX(), pos.getZ(), 1D + this.getInstalledDrill().fortune * 0.1D);
 			}
 
 			ForgeDirection dir = ForgeDirection.getOrientation(this.getBlockMetadata() - 10);
@@ -664,6 +664,7 @@ public class TileEntityMachineExcavator extends TileEntityMachineBase implements
 
 					if(stack.stackSize <= 0) {
 						item.setDead();
+						item.delayBeforeCanPickup = 60; // seems fucking stupid, but prevents frame-perfect dupe exploit
 						continue outer;
 					}
 				}
@@ -678,6 +679,7 @@ public class TileEntityMachineExcavator extends TileEntityMachineBase implements
 
 					slots[i] = stack.copy();
 					item.setDead();
+					item.delayBeforeCanPickup = 60;
 					break;
 				}
 			}

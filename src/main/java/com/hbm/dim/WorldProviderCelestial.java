@@ -1,7 +1,6 @@
 package com.hbm.dim;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 
@@ -15,10 +14,8 @@ import com.hbm.handler.ImpactWorldHandler;
 import com.hbm.handler.atmosphere.ChunkAtmosphereManager;
 import com.hbm.inventory.FluidStack;
 import com.hbm.inventory.fluid.Fluids;
-import com.hbm.main.MainRegistry;
 import com.hbm.saveddata.SatelliteSavedData;
 import com.hbm.saveddata.satellites.Satellite;
-import com.hbm.saveddata.satellites.SatelliteRailgun;
 import com.hbm.saveddata.satellites.SatelliteWar;
 import com.hbm.util.Compat;
 
@@ -38,12 +35,12 @@ import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 import net.minecraft.util.WeightedRandomFishable;
-import net.minecraft.world.WorldProvider;
+import net.minecraft.world.WorldProviderSurface;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.client.IRenderHandler;
 import net.minecraftforge.client.event.EntityViewRenderEvent.FogDensity;
 
-public abstract class WorldProviderCelestial extends WorldProvider {
+public abstract class WorldProviderCelestial extends WorldProviderSurface {
 
 	public List<AstroMetric> metrics;
 
@@ -65,7 +62,7 @@ public abstract class WorldProviderCelestial extends WorldProvider {
 
 	// Should we generate bedrock ice
 	public boolean hasIce() {
-		return false;
+		return CelestialBody.getBody(worldObj).hasIce;
 	}
 
 	public boolean hasLife() {
@@ -80,30 +77,6 @@ public abstract class WorldProviderCelestial extends WorldProvider {
 	public void updateWeather() {
 		CBT_Atmosphere atmosphere = CelestialBody.getTrait(worldObj, CBT_Atmosphere.class);
 
-		// funi get world from world (don't do this pls)
-		// World world = DimensionManager.getWorld(worldObj.provider.dimensionId);
-
-		if(!worldObj.isRemote) {
-			HashMap<Integer, Satellite> sats = SatelliteSavedData.getData(worldObj).sats;
-			for(Map.Entry<Integer, Satellite> entry : sats.entrySet()) {
-				if(entry.getValue() instanceof SatelliteWar) {
-					SatelliteWar war = (SatelliteWar) entry.getValue();
-					war.fire();
-				}
-			}
-		} else {
-			for(Map.Entry<Integer, Satellite> entry : SatelliteSavedData.getClientSats().entrySet()) {
-				if(entry.getValue() instanceof SatelliteWar) {
-
-					SatelliteRailgun war = (SatelliteRailgun) entry.getValue();
-
-					if(war.getInterp() >= 1 && war.interp <= 9) {
-						MainRegistry.proxy.me().playSound("hbm:misc.fireflash", 10F, 1F);
-					}
-				}
-			}
-		}
-
 		double pressure = atmosphere != null ? atmosphere.getPressure() : 0;
 
 		// Will prevent water from existing, will be unset immediately before using a bucket if inside a pressurized room
@@ -114,12 +87,10 @@ public abstract class WorldProviderCelestial extends WorldProvider {
 			return;
 		}
 
-		this.worldObj.getWorldInfo().setRainTime(0);
-		this.worldObj.getWorldInfo().setRaining(false);
-		this.worldObj.getWorldInfo().setThunderTime(0);
-		this.worldObj.getWorldInfo().setThundering(false);
-		this.worldObj.rainingStrength = 0.0F;
-		this.worldObj.thunderingStrength = 0.0F;
+		worldObj.prevRainingStrength = 0.0F;
+		worldObj.rainingStrength = 0.0F;
+		worldObj.prevThunderingStrength = 0.0F;
+		worldObj.thunderingStrength = 0.0F;
 	}
 
 	// Can be overridden to provide fog changing events based on weather
@@ -201,21 +172,18 @@ public abstract class WorldProviderCelestial extends WorldProvider {
 		metrics = SolarSystem.calculateMetricsFromBody(worldObj, partialTicks, body, solarAngle);
 
 		// Get our eclipse amount
-		eclipseAmount = getEclipseFactor(metrics, sunSize);
+		eclipseAmount = getEclipseFactor(metrics, sunSize, SolarSystem.MAX_APPARENT_SIZE_SURFACE);
 	}
 
-	public static double getEclipseFactor(List<AstroMetric> metrics, double sunSize) {
+	public static double getEclipseFactor(List<AstroMetric> metrics, double sunSize, double maxSize) {
 		double factor = 0;
+		double sunArc = getArc(sunSize);
 
 		// Calculate eclipse
 		for(AstroMetric metric : metrics) {
 			if(metric.apparentSize < 1) continue;
 
-			double sizeToArc = 0.0028; // due to rendering, the arc is not exactly 1deg = 1deg, this converts from apparentSize to 0-1
-			double planetSize = MathHelper.clamp_double(metric.apparentSize, 0, 24);
-
-			double planetArc = planetSize * sizeToArc;
-			double sunArc = sunSize * sizeToArc;
+			double planetArc = getArc(MathHelper.clamp_double(metric.apparentSize, 0, maxSize));
 			double minPhase = 1 - (planetArc + sunArc);
 			double maxPhase = 1 - (planetArc - sunArc);
 			if(metric.phaseObscure < minPhase) continue;
@@ -226,6 +194,12 @@ public abstract class WorldProviderCelestial extends WorldProvider {
 		}
 
 		return factor;
+	}
+
+	// due to rendering, the arc is not exactly 1deg = 1deg, this converts from apparentSize to 0-1
+	// note that we are rendering flat quads, so the arc size is warped more the larger you get!
+	private static double getArc(double apparentSize) {
+		return apparentSize * 0.0017D + Math.sqrt(apparentSize * 0.00003D);
 	}
 
 	@Override
@@ -259,7 +233,7 @@ public abstract class WorldProviderCelestial extends WorldProvider {
 				fluidColor = Vec3.createVectorHelper(53F / 255F * sunR, 32F / 255F * sunG, 74F / 255F * sunB);
 			} else if(entry.fluid == Fluids.DUNAAIR || entry.fluid == Fluids.CARBONDIOXIDE) {
 				fluidColor = Vec3.createVectorHelper(212F / 255F * sunR, 112F / 255F * sunG, 78F / 255F * sunB);
-			} else if(entry.fluid == Fluids.AIR || entry.fluid == Fluids.OXYGEN || entry.fluid == Fluids.NITROGEN) {
+			} else if(entry.fluid == Fluids.EARTHAIR || entry.fluid == Fluids.OXYGEN || entry.fluid == Fluids.NITROGEN) {
 				// Default to regular ol' overworld
 				fluidColor = Vec3.createVectorHelper(0.7529412F * sunR, 0.84705883F * sunG, 1.0F * sunB);
 			} else {
@@ -368,7 +342,7 @@ public abstract class WorldProviderCelestial extends WorldProvider {
 				fluidColor = Vec3.createVectorHelper(53F / 255F * sun, 32F / 255F * sun, 74F / 255F * sun);
 			} else if(entry.fluid == Fluids.DUNAAIR || entry.fluid == Fluids.CARBONDIOXIDE) {
 				fluidColor = Vec3.createVectorHelper(212F / 255F * sun, 112F / 255F * sun, 78F / 255F * sun);
-			} else if(entry.fluid == Fluids.AIR || entry.fluid == Fluids.OXYGEN || entry.fluid == Fluids.NITROGEN) {
+			} else if(entry.fluid == Fluids.EARTHAIR || entry.fluid == Fluids.OXYGEN || entry.fluid == Fluids.NITROGEN) {
 				// Default to regular ol' overworld
 				fluidColor = super.getSkyColor(camera, partialTicks);
 			} else {
@@ -509,21 +483,13 @@ public abstract class WorldProviderCelestial extends WorldProvider {
 	@Override
 	public boolean canDoLightning(Chunk chunk) {
 		CBT_Atmosphere atmosphere = CelestialBody.getTrait(worldObj, CBT_Atmosphere.class);
-
-		if(atmosphere != null && atmosphere.getPressure() > 0.2)
-			return super.canDoLightning(chunk);
-
-		return false;
+		return atmosphere != null && atmosphere.getPressure() > 0.5;
 	}
 
 	@Override
 	public boolean canDoRainSnowIce(Chunk chunk) {
 		CBT_Atmosphere atmosphere = CelestialBody.getTrait(worldObj, CBT_Atmosphere.class);
-
-		if(atmosphere != null && atmosphere.getPressure() > 0.2)
-			return super.canDoRainSnowIce(chunk);
-
-		return false;
+		return atmosphere != null && atmosphere.getPressure() > 0.5;
 	}
 
 	// Stars do not show up during the day in a vacuum, common misconception:
@@ -779,7 +745,7 @@ public abstract class WorldProviderCelestial extends WorldProvider {
 		metrics = SolarSystem.calculateMetricsFromBody(worldObj, 0, body, solarAngle);
 
 		// Get our eclipse amount
-		return getEclipseFactor(metrics, sunSize) > 0.0;
+		return getEclipseFactor(metrics, sunSize, SolarSystem.MAX_APPARENT_SIZE_SURFACE) > 0.0;
 	}
 
 	@Override

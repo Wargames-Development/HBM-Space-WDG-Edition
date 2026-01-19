@@ -42,6 +42,10 @@ import com.hbm.entity.mob.EntityCyberCrab;
 import com.hbm.entity.projectile.EntityBulletBaseMK4;
 import com.hbm.entity.projectile.EntityBurningFOEQ;
 import com.hbm.entity.train.EntityRailCarBase;
+import com.hbm.explosion.vanillant.ExplosionVNT;
+import com.hbm.explosion.vanillant.standard.EntityProcessorCrossSmooth;
+import com.hbm.explosion.vanillant.standard.ExplosionEffectWeapon;
+import com.hbm.explosion.vanillant.standard.PlayerProcessorStandard;
 import com.hbm.extprop.HbmLivingProps;
 import com.hbm.extprop.HbmPlayerProps;
 import com.hbm.handler.ArmorModHandler;
@@ -67,6 +71,7 @@ import com.hbm.items.armor.ArmorFSB;
 import com.hbm.items.armor.IAttackHandler;
 import com.hbm.items.armor.IDamageHandler;
 import com.hbm.items.armor.ItemArmorMod;
+import com.hbm.items.armor.ItemModDefuser;
 import com.hbm.items.armor.ItemModRevive;
 import com.hbm.items.armor.ItemModShackles;
 import com.hbm.items.food.ItemConserve.EnumFoodType;
@@ -190,7 +195,7 @@ public class ModEventHandler {
 		if(!event.player.worldObj.isRemote) {
 
 			if(GeneralConfig.enableMOTD) {
-				event.player.addChatMessage(new ChatComponentText("Loaded world with JameH2's NTM: Space " + RefStrings.VERSION + " for Minecraft 1.7.10!"));
+				event.player.addChatMessage(new ChatComponentText("Loaded world with JamesH2 & Mellow's NTM: Space " + RefStrings.VERSION + " for Minecraft 1.7.10!"));
 
 				if(HTTPHandler.newVersion) {
 					event.player.addChatMessage(
@@ -663,6 +668,10 @@ public class ModEventHandler {
 	@SubscribeEvent
 	public void onLivingUpdate(LivingUpdateEvent event) {
 
+		if(event.entityLiving instanceof EntityCreeper && event.entityLiving.getEntityData().getBoolean("hfr_defused")) {
+			ItemModDefuser.defuse((EntityCreeper) event.entityLiving, null, false);
+		}
+
 		if(!event.entity.worldObj.isRemote && event.entityLiving.isPotionActive(HbmPotion.slippery.id)) {
 			if (event.entityLiving.onGround) {
 				double slipperiness = 0.6;
@@ -836,21 +845,26 @@ public class ModEventHandler {
 					// handle dismount events, or our players will splat upon leaving tall rockets
 					if(player.ridingEntity != null && player.ridingEntity instanceof EntityRideableRocket && player.isSneaking()) {
 						EntityRideableRocket rocket = (EntityRideableRocket) player.ridingEntity;
-						RocketState state = rocket.getState();
 
-						// Prevent leaving a rocket in motion, for safety
-						if(state != RocketState.LANDING && state != RocketState.LAUNCHING && state != RocketState.DOCKING && state != RocketState.UNDOCKING) {
-							boolean inOrbit = event.world.provider instanceof WorldProviderOrbit;
-							Entity ridingEntity = player.ridingEntity;
-							float prevHeight = ridingEntity.height;
+						if(player.isSneaking()) {
+							// Prevent leaving a rocket in motion, for safety
+							if(rocket.canExitCapsule() || rocket.forceExitTimer >= 60) {
+								boolean inOrbit = event.world.provider instanceof WorldProviderOrbit;
+								Entity ridingEntity = player.ridingEntity;
+								float prevHeight = ridingEntity.height;
 
-							ridingEntity.height = inOrbit ? ridingEntity.height + 1.0F : 1.0F;
-							player.mountEntity(null);
-							if(!inOrbit) player.setPositionAndUpdate(player.posX + 2, player.posY, player.posZ);
-							ridingEntity.height = prevHeight;
+								ridingEntity.height = inOrbit ? ridingEntity.height + 1.0F : 1.0F;
+								player.mountEntity(null);
+								if(!inOrbit) player.setPositionAndUpdate(player.posX + 2, player.posY, player.posZ);
+								ridingEntity.height = prevHeight;
+							} else {
+								rocket.forceExitTimer++;
+							}
+
+							player.setSneaking(false);
+						} else {
+							rocket.forceExitTimer = 0;
 						}
-
-						player.setSneaking(false);
 					}
 				}
 
@@ -1314,7 +1328,7 @@ public class ModEventHandler {
 
 		if(!player.worldObj.isRemote && event.phase == TickEvent.Phase.START) {
 			// Check for players attempting to cross over to another orbital grid
-			if(player.worldObj.provider instanceof WorldProviderOrbit) {
+			if(player.worldObj.provider instanceof WorldProviderOrbit && !(player.ridingEntity instanceof EntityRideableRocket)) {
 				double rx = Math.abs(player.posX) % OrbitalStation.STATION_SIZE;
 				double rz = Math.abs(player.posZ) % OrbitalStation.STATION_SIZE;
 
@@ -1682,12 +1696,30 @@ public class ModEventHandler {
 	}
 
 	@SubscribeEvent
-	public void onClickSign(PlayerInteractEvent event) {
+	public void onClickBlock(PlayerInteractEvent event) {
 
 		int x = event.x;
-		int y = event.z;
-		int z = event.y;
+		int y = event.y;
+		int z = event.z;
 		World world = event.world;
+		
+		if(GeneralConfig.enable528ExplosiveEnergistics && !world.isRemote && event.action == Action.RIGHT_CLICK_BLOCK) {
+			Block b = world.getBlock(x, y, z);
+			String name = Block.blockRegistry.getNameForObject(b);
+			if(name != null && name.startsWith("appliedenergistics2")) {
+				world.func_147480_a(x, y, z, false);
+				ExplosionVNT vnt = new ExplosionVNT(world, x + 0.5, y + 0.5, z + 0.5, 5, null);
+				vnt.setEntityProcessor(new EntityProcessorCrossSmooth(1, 20).setupPiercing(5, 0.2F));
+				vnt.setPlayerProcessor(new PlayerProcessorStandard());
+				vnt.setSFX(new ExplosionEffectWeapon(10, 2.5F, 1F));
+				vnt.explode();
+				event.setCanceled(true);
+			}
+		}
+
+		x = event.x;
+		y = event.z;
+		z = event.y;
 
 		if(!world.isRemote && event.action == Action.RIGHT_CLICK_BLOCK && world.getTileEntity(x, y, z) instanceof TileEntitySign) {
 

@@ -5,14 +5,12 @@ import java.util.Random;
 
 import com.hbm.blocks.ModBlocks;
 import com.hbm.entity.grenade.EntityGrenadeTau;
-import com.hbm.entity.grenade.EntityGrenadeZOMG;
 import com.hbm.entity.item.EntityFallingBlockNT;
 import com.hbm.entity.particle.EntityCloudFX;
 import com.hbm.entity.particle.EntityModFX;
 import com.hbm.entity.particle.EntityOrangeFX;
 import com.hbm.entity.particle.EntityPinkCloudFX;
 import com.hbm.entity.projectile.EntityBullet;
-import com.hbm.entity.projectile.EntityRainbow;
 import com.hbm.entity.projectile.EntityRocket;
 import com.hbm.entity.projectile.EntityRubble;
 import com.hbm.entity.projectile.EntitySchrab;
