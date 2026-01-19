@@ -29,3 +29,4 @@
 
 # Changelog backup
 /changelog.bak
+.DS_Store
