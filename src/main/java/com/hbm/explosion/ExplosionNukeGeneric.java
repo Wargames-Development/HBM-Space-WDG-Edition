@@ -472,7 +472,6 @@ public class ExplosionNukeGeneric {
 			if (HbmExplosionHooks.blockDenied(world, x, y, z, "NUKEGEN.EMP"))
 				return;
 
-			Block b = world.getBlock(x, y, z);
 			TileEntity te = world.getTileEntity(x, y, z);
 
 			if (te != null && te instanceof IEnergyHandlerMK2) {
@@ -491,8 +490,6 @@ public class ExplosionNukeGeneric {
 				if (random.nextInt(5) <= 1)
 					world.setBlock(x, y, z, ModBlocks.block_electrical_scrap);
 			}
-			if ((b == ModBlocks.fusion_conductor || b == ModBlocks.fusion_motor || b == ModBlocks.fusion_heater) && random.nextInt(10) == 0)
-				world.setBlock(x, y, z, ModBlocks.block_electrical_scrap);
 		}
 	}
 

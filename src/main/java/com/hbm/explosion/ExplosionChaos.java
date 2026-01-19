@@ -683,44 +683,6 @@ public class ExplosionChaos { //TODO: destroy this entire class
 		}
 	}
 
-
-	public static void zomgMeSinPi(World world, double x, double y, double z, int count, Entity shooter, EntityGrenadeZOMG zomg) {
-
-		// Cancel the whole volley if the origin point is in a safezone
-		if (HbmExplosionHooks.pre(world, x, y, z, 8F, shooter, "CHAOS.ZOMGMESINPI")) return;
-
-		double d1, d2, d3;
-
-		for (int i = 0; i < count; i++) {
-			d1 = rand.nextDouble();
-			d2 = rand.nextDouble();
-			d3 = rand.nextDouble();
-
-			if (rand.nextInt(2) == 0) d1 *= -1;
-			if (rand.nextInt(2) == 0) d2 *= -1;
-			if (rand.nextInt(2) == 0) d3 *= -1;
-
-			EntityRainbow entityZomg = new EntityRainbow(world, (EntityPlayer) shooter, 1F, 10000, 100000, zomg);
-
-			entityZomg.motionX = d1; // original scaling kept
-			entityZomg.motionY = d2;
-			entityZomg.motionZ = d3;
-			entityZomg.shootingEntity = shooter;
-
-			// Safezone check before spawning
-			int bx = (int)Math.floor(entityZomg.posX);
-			int by = (int)Math.floor(entityZomg.posY);
-			int bz = (int)Math.floor(entityZomg.posZ);
-
-			if (HbmExplosionHooks.blockDenied(world, bx, by, bz, "CHAOS.ZOMGMESINPI"))
-				continue; // Skip if spawn position is protected
-
-			world.spawnEntityInWorld(entityZomg);
-			world.playSoundAtEntity(zomg, "hbm:weapon.zomgShoot", 10.0F, 0.8F + (rand.nextFloat() * 0.4F));
-		}
-	}
-
-
 	public static void levelDown(World world, int x, int y, int z, int radius) {
 
 		if (HbmExplosionHooks.pre(world, x + 0.5, y + 0.5, z + 0.5, radius, null, "CHAOS.LEVELDOWN")) return;
