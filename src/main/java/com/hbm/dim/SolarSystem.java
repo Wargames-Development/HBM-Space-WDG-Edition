@@ -689,6 +689,8 @@ public class SolarSystem {
 			}
 		}
 
+		if(metricFrom == null || metricTo == null) return 0;
+
 		return getApparentAngleDegrees(metricFrom.position, metricTo.position);
 	}
 

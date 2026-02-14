@@ -80,6 +80,8 @@ public class PacketDispatcher {
 
 		wrapper.registerMessage(SatActivatePacket.Handler.class, SatActivatePacket.class, i++, Side.SERVER);
 
+		//Syncs muzzle flashes of SEDNA guns for clients from other entities/players
+		wrapper.registerMessage(MuzzleFlashPacket.Handler.class, MuzzleFlashPacket.class, i++, Side.CLIENT);
 	}
 
 }
