@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+import api.hbm.tile.IPartyOwned;
 import api.hbm.wgc.Integrations;
 import com.hbm.handler.CompatHandler;
 import com.hbm.tileentity.IFluidCopiable;
@@ -58,7 +59,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 @Optional.InterfaceList({@Optional.Interface(iface = "li.cil.oc.api.network.SimpleComponent", modid = "OpenComputers")})
-public abstract class TileEntityLaunchPadBase extends TileEntityMachineBase implements IEnergyReceiverMK2, IFluidStandardReceiver, IGUIProvider, IRadarCommandReceiver, SimpleComponent, CompatHandler.OCComponent, IFluidCopiable {
+public abstract class TileEntityLaunchPadBase extends TileEntityMachineBase implements IEnergyReceiverMK2, IFluidStandardReceiver, IGUIProvider, IRadarCommandReceiver, SimpleComponent, CompatHandler.OCComponent, IFluidCopiable, IPartyOwned {
 
 	/** Automatic instantiation of generic missiles, i.e. everything that both extends EntityMissileBaseNT and needs a designator */
 	public static final HashMap<ComparableStack, Class<? extends EntityMissileBaseNT>> missiles = new HashMap();
@@ -578,6 +579,14 @@ public abstract class TileEntityLaunchPadBase extends TileEntityMachineBase impl
 
 	@Override
 	public FluidTank getTankToPaste() {
+		return null;
+	}
+	@Override
+	public UUID getOwner(){
+		if(slots[1] != null && slots[1].getItem() instanceof IDesignatorItem) {
+			IDesignatorItem designator = (IDesignatorItem) slots[1].getItem();
+			return designator.getOwnerParty();
+		}
 		return null;
 	}
 }

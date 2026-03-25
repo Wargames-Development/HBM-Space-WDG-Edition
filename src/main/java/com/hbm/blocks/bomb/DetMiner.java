@@ -12,8 +12,10 @@ import com.hbm.explosion.ExplosionNT.ExAttrib;
 import com.hbm.interfaces.IBomb;
 
 import api.hbm.block.IFuckingExplode;
+import com.hbm.tileentity.bomb.TileEntityPartyOwned;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -22,7 +24,6 @@ import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
 public class DetMiner extends BlockPillar implements IBomb, IFuckingExplode {
-	private UUID ownerParty;
 
 	public DetMiner(Material mat, String top) {
 		super(mat, top);
@@ -37,7 +38,7 @@ public class DetMiner extends BlockPillar implements IBomb, IFuckingExplode {
 	public BombReturnCode explode(World world, int x, int y, int z) {
 
 		if(!world.isRemote) {
-			if(Integrations.canDetonateWGC(ownerParty, world, x, y, z)) {
+			if(Integrations.canDetonateWGC(getOwnerParty(world,x,y,z), world, x, y, z)) {
 				world.func_147480_a(x, y, z, false);
 				ExplosionNT explosion = new ExplosionNT(world, null, x + 0.5, y + 0.5, z + 0.5, 4);
 				explosion.atttributes.add(ExAttrib.ALLDROP);
@@ -58,7 +59,7 @@ public class DetMiner extends BlockPillar implements IBomb, IFuckingExplode {
 	@Override
 	public void onBlockDestroyedByExplosion(World world, int x, int y, int z, Explosion explosion) {
 		if(!world.isRemote) {
-			EntityTNTPrimedBase tntPrimed = new EntityTNTPrimedBase(world, x + 0.5D, y + 0.5D, z + 0.5D, explosion != null ? explosion.getExplosivePlacedBy() : null, this);
+			EntityTNTPrimedBase tntPrimed = new EntityTNTPrimedBase(world, x + 0.5D, y + 0.5D, z + 0.5D, explosion != null ? explosion.getExplosivePlacedBy() : null,getOwnerParty(world,x,y,z), this);
 			tntPrimed.fuse = 0;
 			tntPrimed.detonateOnCollision = false;
 			world.spawnEntityInWorld(tntPrimed);
@@ -78,10 +79,35 @@ public class DetMiner extends BlockPillar implements IBomb, IFuckingExplode {
 	}
 	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack itemStack) {
-		ownerParty = player.getUniqueID();
+		setOwnerParty(world,x,y,z,player.getUniqueID());
 	}
 
-	public UUID getOwnerParty() {
-		return ownerParty;
+	@Override
+	public boolean hasTileEntity(int metadata) {//Party Owned blocks will have a tileEntity.
+		return true;
+	}
+	@Override
+	public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
+		super.breakBlock(world, x, y, z, block, meta);
+	}
+
+	public TileEntity createNewTileEntity(World world, int meta) {
+		return new TileEntityPartyOwned();
+	}
+	public UUID getOwnerParty(World world, int x, int y, int z) {
+		TileEntity te = world.getTileEntity(x, y, z);
+		UUID owner = null;
+
+		if (te instanceof TileEntityPartyOwned) {
+			owner = ((TileEntityPartyOwned) te).ownerParty;
+		}
+		return owner;
+	}
+	public void setOwnerParty(World world, int x, int y, int z, UUID newOwner) {
+		TileEntity te = world.getTileEntity(x, y, z);
+
+		if (te instanceof TileEntityPartyOwned) {
+			((TileEntityPartyOwned) te).ownerParty = newOwner;
+		}
 	}
 }

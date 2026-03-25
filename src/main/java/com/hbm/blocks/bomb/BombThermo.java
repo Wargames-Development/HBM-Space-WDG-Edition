@@ -1,7 +1,6 @@
 package com.hbm.blocks.bomb;
 
 import java.util.Random;
-import java.util.UUID;
 
 import api.hbm.wgc.Integrations;
 import org.apache.logging.log4j.Level;
@@ -25,9 +24,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-public class BombThermo extends Block implements IBomb {
+public class BombThermo extends BlockPartyOwned implements IBomb {
 
-	UUID ownerParty;
 	@SideOnly(Side.CLIENT)
 	private IIcon iconTop;
 
@@ -77,7 +75,7 @@ public class BombThermo extends Block implements IBomb {
 
 	@Override
 	public BombReturnCode explode(World world, int x, int y, int z) {
-		if(!world.isRemote & Integrations.canDetonateWGC(ownerParty,world,x,y,z)){
+		if(!world.isRemote & Integrations.canDetonateWGC(getOwner(world,x,y,z),world,x,y,z)){
 			world.setBlock(x, y, z, Blocks.air);
 			if(this == ModBlocks.therm_endo) {
 				ExplosionThermo.freeze(world, x, y, z, 15);
@@ -100,10 +98,5 @@ public class BombThermo extends Block implements IBomb {
 			MainRegistry.logger.log(Level.INFO, "[BOMBPL]" + this.getLocalizedName() + " placed at " + x + " / " + y + " / " + z + "! " + "by "+ player.getCommandSenderName());
 		}
 	}
-	}
-
-	@Override
-	public UUID getOwnerParty() {
-		return ownerParty;
 	}
 }

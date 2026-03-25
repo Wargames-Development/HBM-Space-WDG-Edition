@@ -210,7 +210,7 @@ public class NukeMike extends BlockContainer implements IBomb {
 		return BombReturnCode.UNDEFINED;
 	}
 	@Override
-	public UUID getOwnerParty() {
+	public UUID getOwnerParty(World world, int x, int y, int z) {
 		return ownerParty;
 	}
 }

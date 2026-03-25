@@ -124,7 +124,7 @@ public class BlastDoor extends BlockContainer implements IBomb, IMultiblock {
 	}
 
 	@Override
-	public UUID getOwnerParty() {
+	public UUID getOwnerParty(World world, int x, int y, int z) {
 		return null;
 	}
 }

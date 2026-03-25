@@ -97,7 +97,18 @@ public class LaunchPad extends BlockDummyable implements IBomb {
 		this.makeExtra(world, x - 1, y, z - 1);
 	}
 	@Override
-	public UUID getOwnerParty(){
+	public UUID getOwnerParty(World world, int x, int y, int z){
+		if(!world.isRemote){
+
+			int[] corePos = findCore(world, x, y, z);
+			if(corePos != null){
+				TileEntity core = world.getTileEntity(corePos[0], corePos[1], corePos[2]);
+				if(core instanceof TileEntityLaunchPad){
+					TileEntityLaunchPad launchpad = (TileEntityLaunchPad)core;
+					return launchpad.getOwner();
+				}
+			}
+		}
 		return null;
 	}
 }

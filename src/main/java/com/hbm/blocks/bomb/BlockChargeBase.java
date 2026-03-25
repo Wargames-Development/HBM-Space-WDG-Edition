@@ -39,7 +39,6 @@ import net.minecraftforge.common.util.ForgeDirection;
 public abstract class BlockChargeBase extends BlockContainerBase implements IBomb, IToolable, ITooltipProvider, IFuckingExplode {
 
 	public static boolean safe = false;
-	public UUID ownerParty;
 
 	public BlockChargeBase() {
 		super(Material.tnt);
@@ -144,7 +143,19 @@ public abstract class BlockChargeBase extends BlockContainerBase implements IBom
 	@Override
 	public void onBlockDestroyedByExplosion(World world, int x, int y, int z, Explosion explosion) {
 		if(!world.isRemote) {
-			EntityTNTPrimedBase tntPrimed = new EntityTNTPrimedBase(world, x + 0.5D, y + 0.5D, z + 0.5D, explosion != null ? explosion.getExplosivePlacedBy() : null, this);
+			TileEntity te = world.getTileEntity(x, y, z);
+			UUID owner = null;
+
+			if (te instanceof TileEntityCharge) {
+				owner = ((TileEntityCharge) te).ownerParty;
+			}
+
+			EntityTNTPrimedBase tntPrimed =
+				new EntityTNTPrimedBase(world, x + 0.5D, y + 0.5D, z + 0.5D,
+					explosion != null ? explosion.getExplosivePlacedBy() : null,
+					owner,
+					this
+				);
 			tntPrimed.fuse = 0;
 			tntPrimed.detonateOnCollision = false;
 			world.spawnEntityInWorld(tntPrimed);
@@ -203,7 +214,11 @@ public abstract class BlockChargeBase extends BlockContainerBase implements IBom
 	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack itemStack) {
 		if(!world.isRemote) {
-			ownerParty = player.getUniqueID();
+			TileEntity te = world.getTileEntity(x, y, z);
+			if (te instanceof TileEntityCharge) {
+				((TileEntityCharge) te).ownerParty = player.getUniqueID();
+				te.markDirty();
+			}
 			if(GeneralConfig.enableExtendedLogging) {
 				MainRegistry.logger.info("[BOMBPL]" + this.getLocalizedName() + " placed at " + x + " / " + y + " / " + z + "! " + "by "+ player.getCommandSenderName());
 			}
@@ -211,7 +226,11 @@ public abstract class BlockChargeBase extends BlockContainerBase implements IBom
 	}
 
 	@Override
-	public UUID getOwnerParty() {
-		return ownerParty;
+	public UUID getOwnerParty(World world, int x, int y, int z) {
+		TileEntity te = world.getTileEntity(x, y, z);
+		if (te instanceof TileEntityCharge) {
+			return ((TileEntityCharge) te).ownerParty;
+		}
+		return null;
 	}
 }

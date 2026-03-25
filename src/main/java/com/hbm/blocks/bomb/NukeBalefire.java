@@ -82,7 +82,7 @@ public class NukeBalefire extends BlockMachineBase implements IBomb {
 	}
 
 	@Override
-	public UUID getOwnerParty() {
+	public UUID getOwnerParty(World world, int x, int y, int z) {
 		return ownerParty;
 	}
 }

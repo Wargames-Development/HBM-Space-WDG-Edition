@@ -26,7 +26,7 @@ public interface IBomb {
 	public default BombReturnCode explode(World world, int x, int y, int z, UUID ownerParty){
 		return explode(world, x, y, z);
 	}
-	public UUID getOwnerParty();
+	public UUID getOwnerParty(World world, int x, int y, int z);
 
 	public static enum BombReturnCode {
 		UNDEFINED(false, ""),										//non-null type for passing to clients that don't process the return code

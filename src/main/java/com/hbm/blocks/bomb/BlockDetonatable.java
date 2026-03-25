@@ -4,9 +4,11 @@ import com.hbm.blocks.generic.BlockFlammable;
 import com.hbm.entity.item.EntityTNTPrimedBase;
 
 import api.hbm.block.IFuckingExplode;
+import com.hbm.tileentity.bomb.TileEntityPartyOwned;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
@@ -17,7 +19,6 @@ public abstract class BlockDetonatable extends BlockFlammable implements IFuckin
 	protected int popFuse; // A shorter fuse for when this explosive is dinked by another
 	protected boolean detonateOnCollision;
 	protected boolean detonateOnShot;
-	protected UUID ownerParty;
 
 	public BlockDetonatable(Material mat, int en, int flam, int popFuse, boolean detonateOnCollision, boolean detonateOnShot) {
 		super(mat, en, flam);
@@ -29,7 +30,7 @@ public abstract class BlockDetonatable extends BlockFlammable implements IFuckin
 	@Override
 	public void onBlockDestroyedByExplosion(World world, int x, int y, int z, Explosion explosion) {
 		if(!world.isRemote) {
-			EntityTNTPrimedBase tntPrimed = new EntityTNTPrimedBase(world, x + 0.5D, y + 0.5D, z + 0.5D, explosion != null ? explosion.getExplosivePlacedBy() : null, this);
+			EntityTNTPrimedBase tntPrimed = new EntityTNTPrimedBase(world, x + 0.5D, y + 0.5D, z + 0.5D, explosion != null ? explosion.getExplosivePlacedBy() : null,getOwnerParty(world,x,y,z), this);
 			tntPrimed.fuse = popFuse <= 0 ? 0 : world.rand.nextInt(popFuse) + popFuse / 2;
 			tntPrimed.detonateOnCollision = detonateOnCollision;
 			world.spawnEntityInWorld(tntPrimed);
@@ -57,10 +58,37 @@ public abstract class BlockDetonatable extends BlockFlammable implements IFuckin
 	}
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entitylivingbase) {
 		if(!world.isRemote) {
-			ownerParty = entitylivingbase.getUniqueID();
+			setOwnerParty(world,x,y,z,entitylivingbase.getUniqueID());
 		}
 	}
+	@Override
+	public boolean hasTileEntity(int metadata) {//Detonatable blocks will have a tileEntity.
+		return true;
+	}
+	@Override
+	public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
+		super.breakBlock(world, x, y, z, block, meta);
+	}
 
-	public UUID getOwnerParty() {return ownerParty;}
+	public TileEntity createNewTileEntity(World world, int meta) {
+		return new TileEntityPartyOwned();
+	}
+
+	public UUID getOwnerParty(World world, int x, int y, int z) {
+		TileEntity te = world.getTileEntity(x, y, z);
+		UUID owner = null;
+
+		if (te instanceof TileEntityPartyOwned) {
+			owner = ((TileEntityPartyOwned) te).ownerParty;
+		}
+		return owner;
+	}
+	public void setOwnerParty(World world, int x, int y, int z, UUID newOwner) {
+		TileEntity te = world.getTileEntity(x, y, z);
+
+		if (te instanceof TileEntityPartyOwned) {
+			((TileEntityPartyOwned) te).ownerParty = newOwner;
+		}
+	}
 
 }

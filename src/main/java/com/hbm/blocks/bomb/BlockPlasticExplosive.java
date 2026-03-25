@@ -26,6 +26,8 @@ public class BlockPlasticExplosive extends BlockDetonatable implements IBomb {
 		super(mat, 0, 0, 0, false, false);
 	}
 
+
+
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister p_149651_1_) {
 		this.blockIcon = p_149651_1_.registerIcon(this.getTextureName());
@@ -78,7 +80,7 @@ public class BlockPlasticExplosive extends BlockDetonatable implements IBomb {
 	public BombReturnCode explode(World world, int x, int y, int z) {
 
 		if(!world.isRemote) {
-			new ExplosionVNT(world, x + 0.5, y + 0.5, z + 0.5, 20, ownerParty).makeStandard().setBlockProcessor(new BlockProcessorStandard().setNoDrop()).explode();
+			new ExplosionVNT(world, x + 0.5, y + 0.5, z + 0.5, 20, getOwnerParty(world,x,y,z)).makeStandard().setBlockProcessor(new BlockProcessorStandard().setNoDrop()).explode();
 		}
 
 		return BombReturnCode.DETONATED;

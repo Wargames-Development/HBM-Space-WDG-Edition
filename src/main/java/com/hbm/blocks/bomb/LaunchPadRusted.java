@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import com.hbm.blocks.BlockDummyable;
 import com.hbm.interfaces.IBomb;
+import com.hbm.tileentity.bomb.TileEntityLaunchPad;
 import com.hbm.tileentity.bomb.TileEntityLaunchPadRusted;
 
 import net.minecraft.block.Block;
@@ -88,8 +89,9 @@ public class LaunchPadRusted extends BlockDummyable implements IBomb {
 		super.onNeighborBlockChange( world, x, y, z, blockIn);
 	}
 
+
 	@Override
-	public UUID getOwnerParty() {
+	public UUID getOwnerParty(World world, int x, int y, int z){
 		return null;
 	}
 }

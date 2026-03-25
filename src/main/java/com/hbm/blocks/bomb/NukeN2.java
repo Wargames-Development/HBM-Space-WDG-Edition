@@ -4,7 +4,6 @@ import java.util.Random;
 import java.util.UUID;
 
 import api.hbm.wgc.Integrations;
-import com.hbm.world.gen.nbt.INBTBlockTransformable;
 import org.apache.logging.log4j.Level;
 
 import com.hbm.blocks.ModBlocks;
@@ -191,7 +190,7 @@ public class NukeN2 extends BlockContainer implements IBomb {
 		return BombReturnCode.UNDEFINED;
 	}
 	@Override
-	public UUID getOwnerParty() {
+	public UUID getOwnerParty(World world, int x, int y, int z) {
 		return ownerParty;
 	}
 }

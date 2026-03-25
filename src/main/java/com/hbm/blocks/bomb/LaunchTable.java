@@ -7,6 +7,7 @@ import com.hbm.blocks.ModBlocks;
 import com.hbm.interfaces.IBomb;
 import com.hbm.interfaces.IMultiblock;
 import com.hbm.main.MainRegistry;
+import com.hbm.tileentity.bomb.TileEntityLaunchPad;
 import com.hbm.tileentity.bomb.TileEntityLaunchTable;
 import com.hbm.tileentity.machine.TileEntityDummy;
 import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
@@ -221,8 +222,10 @@ public class LaunchTable extends BlockContainer implements IMultiblock, IBomb {
 		super.breakBlock(p_149749_1_, p_149749_2_, p_149749_3_, p_149749_4_, p_149749_5_, p_149749_6_);
 	}
 
+
 	@Override
-	public UUID getOwnerParty() {
-		return null;
+	public UUID getOwnerParty(World world, int x, int y, int z){
+		TileEntityLaunchTable entity = (TileEntityLaunchTable) world.getTileEntity(x, y, z);
+		return entity.getOwnerParty();
 	}
 }

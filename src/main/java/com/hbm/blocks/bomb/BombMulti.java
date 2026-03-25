@@ -36,7 +36,6 @@ import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 
 public class BombMulti extends BlockContainer implements IBomb {
 
-	private UUID ownerParty;
 	public final float explosionBaseValue = 8.0F;
 
 	private final Random field_149933_a = new Random();
@@ -208,7 +207,7 @@ public class BombMulti extends BlockContainer implements IBomb {
 	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack itemStack) {
 		int i = MathHelper.floor_double(player.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
-		ownerParty = player.getUniqueID();
+		BlockPartyOwned.setOwner(world,x,y,z,player.getUniqueID());
 		if(i == 0) {
 			world.setBlockMetadataWithNotify(x, y, z, 5, 2);
 		}
@@ -245,7 +244,7 @@ public class BombMulti extends BlockContainer implements IBomb {
 	@Override
 	public BombReturnCode explode(World world, int x, int y, int z) {
 
-		if(!world.isRemote & Integrations.canDetonateWGC(ownerParty,world,x,y,z)) {
+		if(!world.isRemote & Integrations.canDetonateWGC(BlockPartyOwned.getOwner(world, x, y, z),world,x,y,z)) {
 			TileEntityBombMulti entity = (TileEntityBombMulti) world.getTileEntity(x, y, z);
 
 			if(entity.isLoaded()) {
@@ -259,7 +258,7 @@ public class BombMulti extends BlockContainer implements IBomb {
 	}
 
 	@Override
-	public UUID getOwnerParty() {
-		return ownerParty;
+	public UUID getOwnerParty(World world, int x, int y, int z) {
+		return BlockPartyOwned.getOwner(world, x, y, z);
 	}
 }

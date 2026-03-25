@@ -175,7 +175,8 @@ public class CompactLauncher extends BlockContainer implements IMultiblock, IBom
 	}
 
 	@Override
-	public UUID getOwnerParty() {
-		return null;
+	public UUID getOwnerParty(World world, int x, int y, int z) {
+		TileEntityCompactLauncher entity = (TileEntityCompactLauncher) world.getTileEntity(x, y, z);
+		return entity.getOwnerParty();
 	}
 }

@@ -8,7 +8,6 @@ import com.hbm.config.GeneralConfig;
 import com.hbm.interfaces.IBomb;
 import com.hbm.main.MainRegistry;
 import com.hbm.tileentity.bomb.TileEntityAntimatter;
-import com.hbm.tileentity.bomb.TileEntityAntimatter;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -83,7 +82,7 @@ public class NukeAntimatter extends BlockMachineBase implements IBomb {
 	}
 
 	@Override
-	public UUID getOwnerParty() {
+	public UUID getOwnerParty(World world, int x, int y, int z) {
 		return ownerParty;
 	}
 }

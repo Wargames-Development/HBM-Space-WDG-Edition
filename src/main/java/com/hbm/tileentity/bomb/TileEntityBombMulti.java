@@ -1,5 +1,6 @@
 package com.hbm.tileentity.bomb;
 
+import api.hbm.tile.IPartyOwned;
 import com.hbm.inventory.container.ContainerBombMulti;
 import com.hbm.inventory.gui.GUIBombMulti;
 import com.hbm.items.ModItems;
@@ -20,10 +21,13 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 
-public class TileEntityBombMulti extends TileEntity implements ISidedInventory, IGUIProvider {
+import java.util.UUID;
+
+public class TileEntityBombMulti extends TileEntity implements ISidedInventory, IGUIProvider, IPartyOwned {
 
 	public ItemStack slots[];
 	private String customName;
+	private UUID ownerParty;
 
 	public TileEntityBombMulti() {
 		slots = new ItemStack[6];
@@ -54,7 +58,7 @@ public class TileEntityBombMulti extends TileEntity implements ISidedInventory, 
 			{
 				slots[i] = null;
 			}
-			
+
 			return itemStack1;
 		} else {
 			return null;
@@ -81,6 +85,10 @@ public class TileEntityBombMulti extends TileEntity implements ISidedInventory, 
 			itemStack.stackSize = getInventoryStackLimit();
 		}
 	}
+	@Override
+	public UUID getOwner() {
+		return ownerParty;
+	}
 
 	@Override
 	public String getInventoryName() {
@@ -91,7 +99,7 @@ public class TileEntityBombMulti extends TileEntity implements ISidedInventory, 
 	public boolean hasCustomInventoryName() {
 		return this.customName != null && this.customName.length() > 0;
 	}
-	
+
 	public void setCustomName(String name) {
 		this.customName = name;
 		markDirty();
@@ -114,12 +122,12 @@ public class TileEntityBombMulti extends TileEntity implements ISidedInventory, 
 
 	@Override
 	public void openInventory() {
-		
+
 	}
 
 	@Override
 	public void closeInventory() {
-		
+
 	}
 
 	@Override
@@ -141,13 +149,13 @@ public class TileEntityBombMulti extends TileEntity implements ISidedInventory, 
 	public boolean canExtractItem(int i, ItemStack itemStack, int j) {
 		return j != 0 || i != 1 || itemStack.getItem() == Items.bucket;
 	}
-	
+
 	@Override
 	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
 		NBTTagList list = nbt.getTagList("items", 10);
 		slots = new ItemStack[getSizeInventory()];
-		
+
 		for(int i = 0; i < list.tagCount(); i++)
 		{
 			NBTTagCompound nbt1 = list.getCompoundTagAt(i);
@@ -159,13 +167,20 @@ public class TileEntityBombMulti extends TileEntity implements ISidedInventory, 
 		}
 
 		customName = nbt.getString("name");
+
+		if (nbt.hasKey("ownerMost") && nbt.hasKey("ownerLeast")) {
+			this.ownerParty = new UUID(
+				nbt.getLong("ownerMost"),
+				nbt.getLong("ownerLeast")
+			);
+		}
 	}
-	
+
 	@Override
 	public void writeToNBT(NBTTagCompound nbt) {
 		super.writeToNBT(nbt);
 		NBTTagList list = new NBTTagList();
-		
+
 		for(int i = 0; i < slots.length; i++)
 		{
 			if(slots[i] != null)
@@ -177,25 +192,29 @@ public class TileEntityBombMulti extends TileEntity implements ISidedInventory, 
 			}
 		}
 		nbt.setTag("items", list);
-		
+
 		if (customName != null) {
 			nbt.setString("name", customName);
 		}
+		if (ownerParty != null) {
+			nbt.setLong("ownerMost", ownerParty.getMostSignificantBits());
+			nbt.setLong("ownerLeast", ownerParty.getLeastSignificantBits());
+		}
 	}
-	
+
 	public boolean isLoaded(){
-		
-		if(slots[0] != null && slots[0].getItem() == Item.getItemFromBlock(Blocks.tnt) && 
-				slots[1] != null && slots[1].getItem() == Item.getItemFromBlock(Blocks.tnt) && 
-				slots[3] != null && slots[3].getItem() == Item.getItemFromBlock(Blocks.tnt) && 
+
+		if(slots[0] != null && slots[0].getItem() == Item.getItemFromBlock(Blocks.tnt) &&
+				slots[1] != null && slots[1].getItem() == Item.getItemFromBlock(Blocks.tnt) &&
+				slots[3] != null && slots[3].getItem() == Item.getItemFromBlock(Blocks.tnt) &&
 				slots[4] != null && slots[4].getItem() == Item.getItemFromBlock(Blocks.tnt))
 		{
 			return true;
 		}
-			
+
 		return false;
 	}
-	
+
 	public int return2type() {
 
 		if(slots[2] != null)
@@ -204,27 +223,27 @@ public class TileEntityBombMulti extends TileEntity implements ISidedInventory, 
 		{
 			return 1;
 		}
-		
+
 		if(slots[2].getItem() == Item.getItemFromBlock(Blocks.tnt))
 		{
 			return 2;
 		}
-		
+
 		if(slots[2].getItem() == ModItems.pellet_cluster)
 		{
 			return 3;
 		}
-		
+
 		if(slots[2].getItem() == ModItems.powder_fire)
 		{
 			return 4;
 		}
-		
+
 		if(slots[2].getItem() == ModItems.powder_poison)
 		{
 			return 5;
 		}
-		
+
 		if(slots[2].getItem() == ModItems.pellet_gas)
 		{
 			return 6;
@@ -232,36 +251,36 @@ public class TileEntityBombMulti extends TileEntity implements ISidedInventory, 
 		}
 		return 0;
 	}
-	
+
 	public int return5type() {
-		
+
 		if(slots[5] != null)
 		{
 		if(slots[5].getItem() == Items.gunpowder)
 		{
 			return 1;
 		}
-		
+
 		if(slots[5].getItem() == Item.getItemFromBlock(Blocks.tnt))
 		{
 			return 2;
 		}
-		
+
 		if(slots[5].getItem() == ModItems.pellet_cluster)
 		{
 			return 3;
 		}
-		
+
 		if(slots[5].getItem() == ModItems.powder_fire)
 		{
 			return 4;
 		}
-		
+
 		if(slots[5].getItem() == ModItems.powder_poison)
 		{
 			return 5;
 		}
-		
+
 		if(slots[5].getItem() == ModItems.pellet_gas)
 		{
 			return 6;
@@ -269,19 +288,19 @@ public class TileEntityBombMulti extends TileEntity implements ISidedInventory, 
 		}
 		return 0;
 	}
-	
+
 	public void clearSlots() {
 		for(int i = 0; i < slots.length; i++)
 		{
 			slots[i] = null;
 		}
 	}
-	
+
 	@Override
 	public AxisAlignedBB getRenderBoundingBox() {
 		return TileEntity.INFINITE_EXTENT_AABB;
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public double getMaxRenderDistanceSquared()

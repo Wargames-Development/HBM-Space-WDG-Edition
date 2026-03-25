@@ -27,7 +27,7 @@ public class BlockAllocatorWater implements IBlockAllocator {
 	@Override
 	public HashSet<ChunkPosition> allocate(ExplosionVNT explosion, World world, double x, double y, double z, float size, UUID ownerParty) {
 
-		Set<ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(ownerParty,world,(int)x,(int)z,(int)Math.ceil(size));
+		Set<ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(ownerParty,world,(int)x,(int)z,(int)Math.ceil(size)+16);//Done to avoid weirdness at the edge of the radius
 
 		HashSet<ChunkPosition> affectedBlocks = new HashSet<>();
 
