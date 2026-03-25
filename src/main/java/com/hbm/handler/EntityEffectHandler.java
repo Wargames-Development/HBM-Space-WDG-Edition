@@ -115,7 +115,7 @@ public class EntityEffectHandler {
 				HbmLivingProps.setTimer(entity, timer - 1);
 
 				if(timer == 1) {
-					ExplosionNukeSmall.explode(entity.worldObj, entity.posX, entity.posY, entity.posZ, ExplosionNukeSmall.PARAMS_MEDIUM);
+					ExplosionNukeSmall.explode(entity.worldObj, entity.posX, entity.posY, entity.posZ,null,  ExplosionNukeSmall.PARAMS_MEDIUM);
 				}
 			}
 			//only sets players on fire so mod compatibility doesnt die

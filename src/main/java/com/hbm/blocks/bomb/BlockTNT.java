@@ -10,8 +10,9 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class BlockTNT extends BlockTNTBase {
+import java.util.UUID;
 
+public class BlockTNT extends BlockTNTBase {
 	@Override
 	public void explodeEntity(World world, double x, double y, double z, EntityTNTPrimedBase entity) {
 		world.createExplosion(entity, x, y, z, 10F, true);
@@ -19,9 +20,10 @@ public class BlockTNT extends BlockTNTBase {
 	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack itemStack) {
 	if(!world.isRemote) {
+		BlockPartyOwned.setOwner(world,x,y,z, player.getUniqueID());
 			if(GeneralConfig.enableExtendedLogging) {
 			MainRegistry.logger.log(Level.INFO, "[BOMBPL]" + this.getLocalizedName() + " placed at " + x + " / " + y + " / " + z + "! " + "by "+ player.getCommandSenderName());
-		}	
+		}
 	}
 	}
 }

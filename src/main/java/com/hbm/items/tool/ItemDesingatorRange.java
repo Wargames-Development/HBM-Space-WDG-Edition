@@ -1,6 +1,7 @@
 package com.hbm.items.tool;
 
 import java.util.List;
+import java.util.UUID;
 
 import com.hbm.blocks.bomb.LaunchPad;
 import com.hbm.lib.Library;
@@ -36,12 +37,18 @@ public class ItemDesingatorRange extends Item implements IDesignatorItem {
 		int z = pos.blockZ;
 
 		if(!(world.getBlock(x, y, z) instanceof LaunchPad)) {
-			
+			UUID ownerParty = player.getUniqueID();
 			if(stack.stackTagCompound == null)
 				stack.stackTagCompound = new NBTTagCompound();
 
+			if (ownerParty != null) {
+				stack.stackTagCompound.setLong("ownerMost", ownerParty.getMostSignificantBits());
+				stack.stackTagCompound.setLong("ownerLeast", ownerParty.getLeastSignificantBits());
+			}
+
 			stack.stackTagCompound.setInteger("xCoord", x);
 			stack.stackTagCompound.setInteger("zCoord", z);
+
 
 			if(world.isRemote) {
 				player.addChatMessage(new ChatComponentText("Position set to X:" + x + ", Z:" + z));
@@ -63,5 +70,16 @@ public class ItemDesingatorRange extends Item implements IDesignatorItem {
 	@Override
 	public Vec3 getCoords(World world, ItemStack stack, int x, int y, int z) {
 		return Vec3.createVectorHelper(stack.stackTagCompound.getInteger("xCoord"), 0, stack.stackTagCompound.getInteger("zCoord"));
+	}
+
+	public UUID getOwnerParty(ItemStack stack) {
+		UUID ownerParty = null;
+		if (stack.stackTagCompound.hasKey("ownerMost") && stack.stackTagCompound.hasKey("ownerLeast")) {
+			ownerParty = new UUID(
+				stack.stackTagCompound.getLong("ownerMost"),
+				stack.stackTagCompound.getLong("ownerLeast")
+			);
+		}
+		return ownerParty;
 	}
 }

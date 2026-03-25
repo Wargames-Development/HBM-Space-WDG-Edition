@@ -6,7 +6,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 public abstract class EntityThrowableInterp extends EntityThrowableNT {
-	
+
 	protected int turnProgress;
 	protected double syncPosX;
 	protected double syncPosY;
@@ -27,10 +27,10 @@ public abstract class EntityThrowableInterp extends EntityThrowableNT {
 	public EntityThrowableInterp(World world, double x, double y, double z) {
 		super(world, x, y, z);
 	}
-	
+
 	@Override
 	public void onUpdate() {
-		
+
 		if(!worldObj.isRemote) {
 			super.onUpdate();
 		} else {
@@ -51,14 +51,14 @@ public abstract class EntityThrowableInterp extends EntityThrowableNT {
 			}
 		}
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	public void setVelocity(double velX, double velY, double velZ) {
 		this.velocityX = this.motionX = velX;
 		this.velocityY = this.motionY = velY;
 		this.velocityZ = this.motionZ = velZ;
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	public void setPositionAndRotation2(double x, double y, double z, float yaw, float pitch, int theNumberThree) {
 		this.syncPosX = x;
@@ -71,7 +71,7 @@ public abstract class EntityThrowableInterp extends EntityThrowableNT {
 		this.motionY = this.velocityY;
 		this.motionZ = this.velocityZ;
 	}
-	
+
 	/**
 	 * @return a number added to the basic "3" of the approach progress value. Larger numbers make the approach smoother, but lagging behind the true value more.
 	 */

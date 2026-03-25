@@ -19,12 +19,12 @@ public class BlockFissureBomb extends BlockTNTBase {
 
 	@Override
 	public void explodeEntity(World world, double x, double y, double z, EntityTNTPrimedBase entity) {
-		ExplosionNukeSmall.explode(world, x, y, z, ExplosionNukeSmall.PARAMS_MEDIUM);
-		
+		ExplosionNukeSmall.explode(world, x, y, z,BlockPartyOwned.getOwner(world,(int)Math.floor(x),(int)Math.floor(y),(int)Math.floor(z)), ExplosionNukeSmall.PARAMS_MEDIUM);
+
 		int range = 5;
-		
+
 		boolean crater = world.getBiomeGenForCoords((int) Math.floor(x), (int) Math.floor(z)) instanceof BiomeGenCraterBase;
-		
+
 		for(int i = -range; i <= range; i++) {
 			for(int j = -range; j <= range; j++) {
 				for(int k = -range; k <= range; k++) {
@@ -32,9 +32,9 @@ public class BlockFissureBomb extends BlockTNTBase {
 					int a = (int) Math.floor(x + i);
 					int b = (int) Math.floor(y + j);
 					int c = (int) Math.floor(z + k);
-					
+
 					Block block = world.getBlock(a, b, c);
-					
+
 					if(block == ModBlocks.ore_bedrock) {
 						world.setBlock(a, b, c, ModBlocks.ore_volcano, crater ? 1 : 0, 3);
 					} else if(block == ModBlocks.ore_bedrock_oil) {
@@ -47,9 +47,10 @@ public class BlockFissureBomb extends BlockTNTBase {
 	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack itemStack) {
 	if(!world.isRemote) {
+		BlockPartyOwned.setOwner(world,x,y,z, player.getUniqueID());
 			if(GeneralConfig.enableExtendedLogging) {
 			MainRegistry.logger.log(Level.INFO, "[BOMBPL]" + this.getLocalizedName() + " placed at " + x + " / " + y + " / " + z + "! " + "by "+ player.getCommandSenderName());
-		}	
+		}
 	}
 	}
 }

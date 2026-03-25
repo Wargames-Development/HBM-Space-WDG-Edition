@@ -1,5 +1,6 @@
 package com.hbm.handler.ability;
 
+import api.hbm.wgc.Integrations;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.blocks.generic.BlockBobble.BobbleType;
 import com.hbm.items.ModItems;
@@ -76,6 +77,7 @@ public interface IWeaponAbility extends IBaseAbility {
 
 		@Override
 		public void onHit(int level, World world, EntityPlayer player, Entity victim, Item tool) {
+			if(victim instanceof EntityPlayer && !Integrations.canHarmPlayerWGC(player.getUniqueID(),victim.getUniqueID(), world)) return;
 			if(victim instanceof EntityLivingBase)
 				ContaminationUtil.contaminate((EntityLivingBase) victim, HazardType.RADIATION, ContaminationType.CREATIVE, radAtLevel[level]);
 		}
@@ -248,7 +250,7 @@ public interface IWeaponAbility extends IBaseAbility {
 		@Override
 		public void onHit(int level, World world, EntityPlayer player, Entity victim, Item tool) {
 			int divider = dividerAtLevel[level];
-			
+
 			if(victim instanceof EntityLivingBase) {
 				EntityLivingBase living = (EntityLivingBase) victim;
 
@@ -259,7 +261,7 @@ public interface IWeaponAbility extends IBaseAbility {
 						living.entityDropItem(new ItemStack(ModItems.nitra_small), 1);
 						world.spawnEntityInWorld(new EntityXPOrb(world, living.posX, living.posY, living.posZ, 1));
 					}
-					
+
 					ConfettiUtil.gib(living);
 					world.playSoundEffect(living.posX, living.posY + living.height * 0.5, living.posZ, "hbm:weapon.chainsaw", 0.5F, 1.0F);
 				}

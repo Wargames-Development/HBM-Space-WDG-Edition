@@ -2,7 +2,9 @@ package com.hbm.blocks.bomb;
 
 import com.hbm.blocks.BlockDummyable;
 import com.hbm.interfaces.IBomb;
+import com.hbm.main.ChunkLoaderManager;
 import com.hbm.tileentity.TileEntityProxyCombo;
+import com.hbm.tileentity.bomb.TileEntityLaunchPad;
 import com.hbm.tileentity.bomb.TileEntityLaunchPadLarge;
 
 import net.minecraft.block.Block;
@@ -12,6 +14,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import java.util.UUID;
 
 public class LaunchPadLarge extends BlockDummyable implements IBomb {
 
@@ -28,7 +32,7 @@ public class LaunchPadLarge extends BlockDummyable implements IBomb {
 		if(meta >= 6) return new TileEntityProxyCombo().inventory().power().fluid();
 		return new TileEntityProxyCombo().inventory();
 	}
-	
+
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
 		return this.standardOpenBehavior(world, x, y, z, player, 0);
@@ -46,27 +50,29 @@ public class LaunchPadLarge extends BlockDummyable implements IBomb {
 
 	@Override
 	public BombReturnCode explode(World world, int x, int y, int z) {
-		
+
 		if(!world.isRemote) {
-			
+
 			int[] corePos = findCore(world, x, y, z);
 			if(corePos != null){
 				TileEntity core = world.getTileEntity(corePos[0], corePos[1], corePos[2]);
 				if(core instanceof TileEntityLaunchPadLarge){
 					TileEntityLaunchPadLarge entity = (TileEntityLaunchPadLarge)core;
-					return entity.launchFromDesignator();
+					BombReturnCode code = entity.launchFromDesignator();
+					ChunkLoaderManager.unforceChunk(world, x, y, z);
+					return code;
 				}
 			}
+			ChunkLoaderManager.unforceChunk(world, x, y, z);
 		}
-		
 		return BombReturnCode.UNDEFINED;
 	}
-	
+
 	@Override
 	public void onNeighborBlockChange(World world, int x, int y, int z, Block blockIn){
-		
+
 		if(!world.isRemote){
-			
+
 			int[] corePos = findCore(world, x, y, z);
 			if(corePos != null){
 				TileEntity core = world.getTileEntity(corePos[0], corePos[1], corePos[2]);
@@ -94,5 +100,21 @@ public class LaunchPadLarge extends BlockDummyable implements IBomb {
 		this.makeExtra(world, x - 2, y, z + 4);
 		this.makeExtra(world, x + 2, y, z - 4);
 		this.makeExtra(world, x - 2, y, z - 4);
+	}
+
+
+	public UUID getOwnerParty(World world, int x, int y, int z){
+		if(!world.isRemote){
+
+			int[] corePos = findCore(world, x, y, z);
+			if(corePos != null){
+				TileEntity core = world.getTileEntity(corePos[0], corePos[1], corePos[2]);
+				if(core instanceof TileEntityLaunchPad){
+					TileEntityLaunchPad launchpad = (TileEntityLaunchPad)core;
+					return launchpad.getOwner();
+				}
+			}
+		}
+		return null;
 	}
 }

@@ -2,7 +2,6 @@ package com.hbm.explosion;
 
 import java.util.Random;
 
-import api.hbm.explosion.event.HbmExplosionHooks;
 import com.hbm.blocks.ModBlocks;
 
 import net.minecraft.block.Block;
@@ -18,11 +17,8 @@ public class NukeEnvironmentalEffect {
 	 * Args: world, x, y, z, radius, outer radius with random chance.
 	 */
 	@Deprecated // does not use scorched uranium, implementation is garbage anyway
+	//Yeah legitimately what the actual fuck is this.
 	public static void applyStandardAOE(World world, int x, int y, int z, int r, int j) {
-
-		// Global veto: cancel entire pass if the origin is protected
-		if (HbmExplosionHooks.pre(world, x + 0.5, y + 0.5, z + 0.5, r, null, "NUKEENV.AOE.ORIGIN"))
-			return;
 
 		int r2 = r * r;
 		int r22 = r2 / 2;
@@ -36,8 +32,6 @@ public class NukeEnvironmentalEffect {
 					int Z = zz + z;
 					int ZZ = YY + zz * zz;
 					if (ZZ < r22 + rand.nextInt(j)) {
-						// Per-block veto: skip protected coordinates
-						if (HbmExplosionHooks.blockDenied(world, X, Y, Z, "NUKEENV.AOE")) continue;
 						applyStandardEffect(world, X, Y, Z);
 					}
 				}
@@ -47,9 +41,6 @@ public class NukeEnvironmentalEffect {
 
 	public static void applyStandardEffect(World world, int x, int y, int z) {
 
-		// Per-block veto: don't modify protected coords
-		if (HbmExplosionHooks.blockDenied(world, x, y, z, "NUKEENV.APPLY"))
-			return;
 
 		int chance = 100;
 		Block b = null;

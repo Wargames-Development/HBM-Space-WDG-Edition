@@ -64,7 +64,7 @@ public class TileEntityGeysir extends TileEntity {
 	private void chlorine() {
 
 		for(int i = 0; i < 3; i++) {
-			EntityOrangeFX fx = new EntityOrangeFX(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, 0.0, 0.0, 0.0);
+			EntityOrangeFX fx = new EntityOrangeFX(null,worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, 0.0, 0.0, 0.0);
 
 			fx.motionX = worldObj.rand.nextGaussian() * 0.45;
 			fx.motionZ = worldObj.rand.nextGaussian() * 0.45;
@@ -97,10 +97,11 @@ public class TileEntityGeysir extends TileEntity {
 			return;
 
 		if(worldObj.rand.nextInt(3) == 0) {
-			EntityShrapnel fx = new EntityShrapnel(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5);
+			EntityShrapnel fx = new EntityShrapnel(worldObj,xCoord + 0.5, yCoord + 1.5, zCoord + 0.5);
 			fx.motionX = worldObj.rand.nextGaussian() * 0.05;
 			fx.motionZ = worldObj.rand.nextGaussian() * 0.05;
 			fx.motionY = 0.5 + worldObj.rand.nextDouble() * timer * 0.01;
+			fx.owner = null;
 
 			worldObj.spawnEntityInWorld(fx);
 		}

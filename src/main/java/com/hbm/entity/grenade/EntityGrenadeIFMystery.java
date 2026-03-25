@@ -1,11 +1,15 @@
 package com.hbm.entity.grenade;
 
+import api.hbm.wgc.Integrations;
 import com.hbm.explosion.ExplosionChaos;
 import com.hbm.items.ModItems;
 import com.hbm.items.weapon.ItemGrenade;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
+
+import java.util.UUID;
 
 public class EntityGrenadeIFMystery extends EntityGrenadeBouncyBase {
 
@@ -26,14 +30,18 @@ public class EntityGrenadeIFMystery extends EntityGrenadeBouncyBase {
 
     @Override
     public void explode() {
-    	
+
         if (!this.worldObj.isRemote)
         {
             this.setDead();
-    		
-    		worldObj.newExplosion(this, posX, posY, posZ, 10, false, false);
-    		
-    		ExplosionChaos.spawnVolley(worldObj, posX, posY, posZ, 100, 1.0D);
+			UUID party = null;
+			if(getThrower() instanceof EntityPlayer) party = getThrower().getUniqueID();
+
+			if(Integrations.canDetonateWGC(party,worldObj,(int)posX,(int)posY,(int)posZ)) {
+				worldObj.newExplosion(this, posX, posY, posZ, 10, false, false);
+
+				ExplosionChaos.spawnVolley(party, worldObj, posX, posY, posZ, 100, 1.0D);
+			}
         }
     }
 

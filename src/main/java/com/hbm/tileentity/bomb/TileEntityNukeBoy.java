@@ -1,5 +1,6 @@
 package com.hbm.tileentity.bomb;
 
+import api.hbm.tile.IPartyOwned;
 import com.hbm.inventory.container.ContainerNukeBoy;
 import com.hbm.inventory.gui.GUINukeBoy;
 import com.hbm.items.ModItems;
@@ -18,15 +19,17 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 
-public class TileEntityNukeBoy extends TileEntity implements ISidedInventory, IGUIProvider {
+import java.util.UUID;
+
+public class TileEntityNukeBoy extends TileEntityPartyOwned implements ISidedInventory, IGUIProvider, IPartyOwned {
 
 	private ItemStack slots[];
 	private String customName;
-	
+
 	public TileEntityNukeBoy() {
 		slots = new ItemStack[5];
 	}
-	
+
 	@Override
 	public int getSizeInventory() {
 		return slots.length;
@@ -52,7 +55,7 @@ public class TileEntityNukeBoy extends TileEntity implements ISidedInventory, IG
 			{
 				slots[i] = null;
 			}
-			
+
 			return itemStack1;
 		} else {
 			return null;
@@ -89,7 +92,7 @@ public class TileEntityNukeBoy extends TileEntity implements ISidedInventory, IG
 	public boolean hasCustomInventoryName() {
 		return this.customName != null && this.customName.length() > 0;
 	}
-	
+
 	public void setCustomName(String name) {
 		this.customName = name;
 		markDirty();
@@ -112,12 +115,12 @@ public class TileEntityNukeBoy extends TileEntity implements ISidedInventory, IG
 
 	@Override
 	public void openInventory() {
-		
+
 	}
 
 	@Override
 	public void closeInventory() {
-		
+
 	}
 
 	@Override
@@ -139,13 +142,13 @@ public class TileEntityNukeBoy extends TileEntity implements ISidedInventory, IG
 	public boolean canExtractItem(int i, ItemStack itemStack, int j) {
 		return j != 0 || i != 1 || itemStack.getItem() == Items.bucket;
 	}
-	
+
 	@Override
 	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
 		NBTTagList list = nbt.getTagList("items", 10);
 		slots = new ItemStack[getSizeInventory()];
-		
+
 		for(int i = 0; i < list.tagCount(); i++)
 		{
 			NBTTagCompound nbt1 = list.getCompoundTagAt(i);
@@ -158,12 +161,12 @@ public class TileEntityNukeBoy extends TileEntity implements ISidedInventory, IG
 
 		customName = nbt.getString("name");
 	}
-	
+
 	@Override
 	public void writeToNBT(NBTTagCompound nbt) {
 		super.writeToNBT(nbt);
 		NBTTagList list = new NBTTagList();
-		
+
 		for(int i = 0; i < slots.length; i++)
 		{
 			if(slots[i] != null)
@@ -175,12 +178,12 @@ public class TileEntityNukeBoy extends TileEntity implements ISidedInventory, IG
 			}
 		}
 		nbt.setTag("items", list);
-		
+
 		if (customName != null) {
 			nbt.setString("name", customName);
 		}
 	}
-	
+
 	public boolean isReady() {
 		if(slots[0] != null && slots[01] != null && slots[2] != null && slots[3] != null && slots[4] != null)
 		{
@@ -189,22 +192,22 @@ public class TileEntityNukeBoy extends TileEntity implements ISidedInventory, IG
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
-	
+
 	public void clearSlots() {
 		for(int i = 0; i < slots.length; i++)
 		{
 			slots[i] = null;
 		}
 	}
-	
+
 	@Override
 	public AxisAlignedBB getRenderBoundingBox() {
 		return TileEntity.INFINITE_EXTENT_AABB;
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public double getMaxRenderDistanceSquared()

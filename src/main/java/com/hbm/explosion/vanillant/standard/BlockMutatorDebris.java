@@ -1,6 +1,5 @@
 package com.hbm.explosion.vanillant.standard;
 
-import api.hbm.explosion.event.HbmExplosionHooks;
 import com.hbm.explosion.vanillant.ExplosionVNT;
 import com.hbm.explosion.vanillant.interfaces.IBlockMutator;
 import com.hbm.inventory.RecipesCommon.MetaBlock;
@@ -29,10 +28,8 @@ public class BlockMutatorDebris implements IBlockMutator {
 		for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
 			Block b = world.getBlock(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ);
 			if(b.isNormalCube() && (b != metaBlock.block || world.getBlockMetadata(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ) != metaBlock.meta)) {
-				// Safezone/claim guard — skip placing debris in protected coords
-				if (!HbmExplosionHooks.blockDenied(world, x, y, z, "VNT.MUT.DEBRIS.PLACE")) {
+
 					world.setBlock(x, y, z, metaBlock.block, metaBlock.meta, 3);
-				}
 				return;
 			}
 		}

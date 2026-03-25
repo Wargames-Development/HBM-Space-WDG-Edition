@@ -207,7 +207,7 @@ public class TileEntityOrbitalStation extends TileEntityMachineBase implements I
 	}
 
 	public void spawnRocket(ItemStack stack) {
-		EntityRideableRocket rocket = new EntityRideableRocket(worldObj, xCoord + 0.5F, yCoord + 1.5F, zCoord + 0.5F, stack);
+		EntityRideableRocket rocket = new EntityRideableRocket(worldObj, xCoord + 0.5F, yCoord + 1.5F, zCoord + 0.5F, stack, null);
 		rocket.posY -= rocket.height;
 		rocket.setState(rocket.isReusable() ? RocketState.NEEDSFUEL : RocketState.LANDED);
 		worldObj.spawnEntityInWorld(rocket);

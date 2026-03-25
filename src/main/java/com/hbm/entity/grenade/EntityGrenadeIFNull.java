@@ -1,12 +1,15 @@
 package com.hbm.entity.grenade;
 
 import java.util.List;
+import java.util.UUID;
 
+import api.hbm.wgc.Integrations;
 import com.hbm.items.ModItems;
 import com.hbm.items.weapon.ItemGrenade;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
@@ -30,25 +33,29 @@ public class EntityGrenadeIFNull extends EntityGrenadeBouncyBase {
 
 		if(!this.worldObj.isRemote) {
 			this.setDead();
-			
-			int range = 5;
+			UUID party = null;
+			if(getThrower() instanceof EntityPlayer) party = getThrower().getUniqueID();
 
-			for(int a = -range; a <= range; a++)
-				for(int b = -range; b <= range; b++)
-					for(int c = -range; c <= range; c++)
-						worldObj.setBlockToAir((int) Math.floor(posX + a), (int) Math.floor(posY + b), (int) Math.floor(posZ + c));
+			if(Integrations.canDetonateWGC(party,worldObj,(int)posX,(int)posY,(int)posZ)) {
+				int range = 5;
 
-			List list = worldObj.getEntitiesWithinAABBExcludingEntity(this,
+				for (int a = -range; a <= range; a++)
+					for (int b = -range; b <= range; b++)
+						for (int c = -range; c <= range; c++)
+							worldObj.setBlockToAir((int) Math.floor(posX + a), (int) Math.floor(posY + b), (int) Math.floor(posZ + c));
+
+				List list = worldObj.getEntitiesWithinAABBExcludingEntity(this,
 					AxisAlignedBB.getBoundingBox((int) posX + 0.5 - 3, (int) posY + 0.5 - 3, (int) posZ + 0.5 - 3, (int) posX + 0.5 + 3, (int) posY + 0.5 + 3, (int) posZ + 0.5 + 3));
 
-			for(Object o : list) {
-				if(o instanceof EntityLivingBase) {
-					EntityLivingBase e = (EntityLivingBase) o;
-					e.setHealth(0);
-					e.onDeath(DamageSource.outOfWorld);
-				} else if(o instanceof Entity) {
-					Entity e = (Entity) o;
-					e.setDead();
+				for (Object o : list) {
+					if (o instanceof EntityLivingBase) {
+						EntityLivingBase e = (EntityLivingBase) o;
+						e.setHealth(0);
+						e.onDeath(DamageSource.outOfWorld);
+					} else if (o instanceof Entity) {
+						Entity e = (Entity) o;
+						e.setDead();
+					}
 				}
 			}
 		}

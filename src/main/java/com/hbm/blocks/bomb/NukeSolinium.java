@@ -1,7 +1,9 @@
 package com.hbm.blocks.bomb;
 
 import java.util.Random;
+import java.util.UUID;
 
+import api.hbm.wgc.Integrations;
 import org.apache.logging.log4j.Level;
 
 import com.hbm.blocks.ModBlocks;
@@ -31,6 +33,7 @@ public class NukeSolinium extends BlockContainer implements IBomb {
 
 	private final Random field_149933_a = new Random();
 	private static boolean keepInventory = false;
+	private static final ThreadLocal<UUID> explosionOwnerCache = new ThreadLocal<>();
 
 	public NukeSolinium(Material p_i45386_1_) {
 		super(p_i45386_1_);
@@ -48,6 +51,7 @@ public class NukeSolinium extends BlockContainer implements IBomb {
 
 	@Override
 	public void breakBlock(World p_149749_1_, int p_149749_2_, int p_149749_3_, int p_149749_4_, Block p_149749_5_, int p_149749_6_) {
+		explosionOwnerCache.set(BlockPartyOwned.getOwner(p_149749_1_, p_149749_2_, p_149749_3_, p_149749_4_));
 		if(!keepInventory) {
 			TileEntityNukeSolinium tileentityfurnace = (TileEntityNukeSolinium) p_149749_1_.getTileEntity(p_149749_2_, p_149749_3_, p_149749_4_);
 
@@ -120,11 +124,12 @@ public class NukeSolinium extends BlockContainer implements IBomb {
 
 	public boolean igniteTestBomb(World world, int x, int y, int z, int r) {
 		if(!world.isRemote) {
+
 			EntityNukeExplosionMK3 ex = EntityNukeExplosionMK3.statFacFleija(world, x + 0.5, y + 0.5, z + 0.5, r).makeSol();
 			if(!ex.isDead) {
 				world.playSoundEffect(x, y, z, "random.explode", 1.0f, world.rand.nextFloat() * 0.1F + 0.9F);
 				world.spawnEntityInWorld(ex);
-	
+
 				EntityCloudSolinium cloud = new EntityCloudSolinium(world, r);
 				cloud.posX = x;
 				cloud.posY = y;
@@ -168,16 +173,17 @@ public class NukeSolinium extends BlockContainer implements IBomb {
 			world.setBlockMetadataWithNotify(x, y, z, 2, 2);
 		}
 		if(!world.isRemote) {
+			BlockPartyOwned.setOwner(world,x,y,z,player.getUniqueID());
 			if(GeneralConfig.enableExtendedLogging) {
 				MainRegistry.logger.log(Level.INFO, "[BOMBPL]" + this.getLocalizedName() + " placed at " + x + " / " + y + " / " + z + "! " + "by "+ player.getCommandSenderName());
-		}	
+		}
 	}
 }
 
 	@Override
 	public BombReturnCode explode(World world, int x, int y, int z) {
 
-		if(!world.isRemote) {
+		if(!world.isRemote & Integrations.canDetonateWGC(BlockPartyOwned.getOwner(world,x,y,z),world,x,y,z)) {
 			TileEntityNukeSolinium entity = (TileEntityNukeSolinium) world.getTileEntity(x, y, z);
 			if(entity.isReady()) {
 				this.onBlockDestroyedByPlayer(world, x, y, z, 1);
@@ -186,10 +192,13 @@ public class NukeSolinium extends BlockContainer implements IBomb {
 				igniteTestBomb(world, x, y, z, BombConfig.soliniumRadius);
 				return BombReturnCode.DETONATED;
 			}
-			
+
 			return BombReturnCode.ERROR_MISSING_COMPONENT;
 		}
 
 		return BombReturnCode.UNDEFINED;
+	}
+	public UUID getOwnerParty(World world, int x, int y, int z) {
+		return BlockPartyOwned.getOwner(world,x,y,z);
 	}
 }

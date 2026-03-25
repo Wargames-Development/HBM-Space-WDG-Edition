@@ -1,11 +1,14 @@
 package com.hbm.blocks.bomb;
 
-import com.hbm.explosion.ExplosionNT;
+import api.hbm.wgc.Integrations;
+import com.hbm.explosion.vanillant.ExplosionVNT;
 import com.hbm.particle.helper.ExplosionSmallCreator;
 
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+
+import java.util.UUID;
 
 public class BlockChargeDynamite extends BlockChargeBase {
 
@@ -13,10 +16,17 @@ public class BlockChargeDynamite extends BlockChargeBase {
 	public BombReturnCode explode(World world, int x, int y, int z) {
 
 		if(!world.isRemote) {
+			UUID owner = getOwner(world,x,y,z);
+			if(owner == null) {
+				owner = explosionOwnerCache.get();
+			}
+			if(!Integrations.canDetonateWGC(owner,world,x,y,z)) {
+				return BombReturnCode.ERROR_BLOCKED;
+			}
 			safe = true;
 			world.setBlockToAir(x, y, z);
 			safe = false;
-			ExplosionNT exp = new ExplosionNT(world, null, x + 0.5, y + 0.5, z + 0.5, 4F);
+			ExplosionVNT exp = new ExplosionVNT(world, x + 0.5, y + 0.5, z + 0.5, 4F, owner);
 			exp.explode();
 			ExplosionSmallCreator.composeEffect(world, x + 0.5, y + 0.5, z + 0.5, 15, 3F, 1.25F);
 

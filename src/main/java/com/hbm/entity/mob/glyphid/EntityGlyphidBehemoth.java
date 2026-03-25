@@ -23,7 +23,7 @@ public class EntityGlyphidBehemoth extends EntityGlyphid {
 		super(world);
 		this.setSize(2.5F, 1.5F);
 	}
-	
+
 	@Override
 	public ResourceLocation getSkin() {
 		return ResourceManager.glyphid_behemoth_tex;
@@ -41,11 +41,11 @@ public class EntityGlyphidBehemoth extends EntityGlyphid {
 		this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(GlyphidStats.getStats().getBehemoth().speed);
 		this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(GlyphidStats.getStats().getBehemoth().damage);
 	}
-	
+
 	public StatBundle getStats() {
 		return GlyphidStats.getStats().statsBehemoth;
 	}
-	
+
 	public int timer = 120;
 	int breathTime = 0;
 
@@ -75,7 +75,7 @@ public class EntityGlyphidBehemoth extends EntityGlyphid {
 	public void onDeath(DamageSource source) {
 		super.onDeath(source);
 		if (!worldObj.isRemote) {
-			EntityMist mist = new EntityMist(worldObj);
+			EntityMist mist = new EntityMist(worldObj,null);
 			mist.setType(Fluids.SULFURIC_ACID);
 			mist.setPosition(posX, posY, posZ);
 			mist.setArea(10, 4);

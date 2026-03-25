@@ -4,6 +4,8 @@ import com.hbm.entity.item.EntityTNTPrimedBase;
 
 import net.minecraft.world.World;
 
+import java.util.UUID;
+
 public interface IFuckingExplode {
 
 	// Anything that can be detonated by another explosion should implement this and spawn an EntityTNTPrimedBase when hit by an explosion
@@ -11,5 +13,6 @@ public interface IFuckingExplode {
 	// Note that the block can still safely immediately explode, as long as the source isn't another explosion
 
 	public void explodeEntity(World world, double x, double y, double z, EntityTNTPrimedBase entity);
+	public UUID getOwner(World world, int x, int y, int z);
 
 }

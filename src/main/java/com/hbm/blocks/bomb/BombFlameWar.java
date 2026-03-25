@@ -1,5 +1,6 @@
 package com.hbm.blocks.bomb;
 
+import api.hbm.wgc.Integrations;
 import org.apache.logging.log4j.Level;
 
 import com.hbm.config.GeneralConfig;
@@ -19,8 +20,9 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class BombFlameWar extends Block implements IBomb {
+import java.util.UUID;
 
+public class BombFlameWar extends BlockPartyOwned implements IBomb {
 	public BombFlameWar(Material p_i45394_1_) {
 		super(p_i45394_1_);
 	}
@@ -36,19 +38,19 @@ public class BombFlameWar extends Block implements IBomb {
 	@Override
 	public BombReturnCode explode(World world, int x, int y, int z) {
 
-		if(!world.isRemote) {
+		if(!world.isRemote & Integrations.canDetonateWGC(getOwnerParty(world,x,y,z),world,x,y,z)) {
 
 			world.func_147480_a(x, y, z, false);
 
 			for(int i = 0; i < 150; i++) {
-				ExplosionVNT vnt = new ExplosionVNT(world, x + world.rand.nextInt(51) - 25, y + world.rand.nextInt(11) - 5, z + world.rand.nextInt(51) - 25, 4, null);
+				ExplosionVNT vnt = new ExplosionVNT(world, x + world.rand.nextInt(51) - 25, y + world.rand.nextInt(11) - 5, z + world.rand.nextInt(51) - 25, 4, getOwnerParty(world,x,y,z));
 				vnt.setEntityProcessor(new EntityProcessorCrossSmooth(1, 25));
 				vnt.setPlayerProcessor(new PlayerProcessorStandard());
 				vnt.setSFX(new ExplosionEffectTiny());
 				vnt.explode();
 			}
 
-			ExplosionVNT xnt = new ExplosionVNT(world, x + 0.5, y + 0.5, z + 0.5, 15F);
+			ExplosionVNT xnt = new ExplosionVNT(world, x + 0.5, y + 0.5, z + 0.5, 15F, getOwnerParty(world,x,y,z));
 			xnt.setBlockAllocator(new BlockAllocatorStandard(32));
 			xnt.setBlockProcessor(new BlockProcessorStandard().setNoDrop());
 			xnt.setEntityProcessor(new EntityProcessorCrossSmooth(2, 200));
@@ -62,9 +64,13 @@ public class BombFlameWar extends Block implements IBomb {
 	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack itemStack) {
 	if(!world.isRemote) {
+		setOwner(world,x,y,z,player.getUniqueID());
 			if(GeneralConfig.enableExtendedLogging) {
 			MainRegistry.logger.log(Level.INFO, "[BOMBPL]" + this.getLocalizedName() + " placed at " + x + " / " + y + " / " + z + "! " + "by "+ player.getCommandSenderName());
 		}
 	}
+	}
+	public UUID getOwnerParty(World world, int x, int y, int z) {
+		return getOwner(world,x,y,z);
 	}
 }

@@ -110,7 +110,7 @@ public class TileEntityTurretFritz extends TileEntityTurretBaseNT implements IFl
 			vec.rotateAroundY((float) -(this.rotationYaw + Math.PI * 0.5));
 
 			float damage = Math.min((float) (trait.getHeatEnergy() / 500_000F), 20F);
-			EntityBulletBaseMK4 proj = new EntityBulletBaseMK4(worldObj, tank.getTankType() == Fluids.BALEFIRE ? XFactoryFlamer.flame_nograv_bf : XFactoryFlamer.flame_nograv, damage, 0.05F, (float) rotationYaw, (float) rotationPitch);
+			EntityBulletBaseMK4 proj = new EntityBulletBaseMK4(worldObj, tank.getTankType() == Fluids.BALEFIRE ? XFactoryFlamer.flame_nograv_bf : XFactoryFlamer.flame_nograv, damage, 0.05F, (float) rotationYaw, (float) rotationPitch,owningFaction);
 			proj.setPositionAndRotation(pos.xCoord + vec.xCoord, pos.yCoord + vec.yCoord, pos.zCoord + vec.zCoord, proj.rotationYaw, proj.rotationPitch);
 			worldObj.spawnEntityInWorld(proj);
 
@@ -128,7 +128,7 @@ public class TileEntityTurretFritz extends TileEntityTurretBaseNT implements IFl
 
 		if(!worldObj.isRemote) {
 			tank.setType(9, 9, slots);
-			
+
 			for(int i = 1; i < 9; i++) {
 				tank.loadTank(i, 9, slots);
 			}

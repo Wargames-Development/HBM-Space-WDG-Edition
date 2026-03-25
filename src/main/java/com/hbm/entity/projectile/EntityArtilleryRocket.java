@@ -2,6 +2,7 @@ package com.hbm.entity.projectile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import com.google.common.collect.ImmutableSet;
 import com.hbm.entity.logic.IChunkLoader;
@@ -30,6 +31,7 @@ import net.minecraftforge.common.ForgeChunkManager.Type;
 public class EntityArtilleryRocket extends EntityThrowableInterp implements IChunkLoader, IRadarDetectable {
 
 	private Ticket loaderTicket;
+	private UUID ownerParty;
 
 	//TODO: find satisfying solution for when an entity is unloaded and reloaded, possibly a custom entity lookup using persistent UUIDs
 	public Entity targetEntity = null;
@@ -61,6 +63,13 @@ public class EntityArtilleryRocket extends EntityThrowableInterp implements IChu
 	public EntityArtilleryRocket setType(int type) {
 		this.dataWatcher.updateObject(10, type);
 		return this;
+	}
+
+	public void setOwnerParty(UUID ownerParty) {
+		this.ownerParty = ownerParty;
+	}
+	public UUID getOwnerParty() {
+		return ownerParty;
 	}
 
 	public HIMARSRocket getType() {

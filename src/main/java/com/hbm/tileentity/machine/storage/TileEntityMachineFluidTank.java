@@ -50,10 +50,7 @@ import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 @Optional.InterfaceList({@Optional.Interface(iface = "li.cil.oc.api.network.SimpleComponent", modid = "opencomputers")})
 public class TileEntityMachineFluidTank extends TileEntityMachineBase implements SimpleComponent, OCComponent, IFluidStandardTransceiverMK2, IPersistentNBT, IOverpressurable, IGUIProvider, IRepairable, IFluidCopiable, IRORValueProvider, IRORInteractive {
@@ -61,6 +58,7 @@ public class TileEntityMachineFluidTank extends TileEntityMachineBase implements
 	protected FluidNode node;
 	protected FluidType lastType;
 
+	protected UUID ownerParty;
 	public FluidTank tank;
 	public short mode = 0;
 	public static final short modes = 4;
@@ -79,6 +77,13 @@ public class TileEntityMachineFluidTank extends TileEntityMachineBase implements
 	@Override
 	public String getName() {
 		return "container.fluidtank";
+	}
+
+	public void setOwnerParty(UUID ownerParty) {
+		this.ownerParty = ownerParty;
+	}
+	public UUID getOwnerParty() {
+		return ownerParty;
 	}
 
 	public byte getComparatorPower() {
@@ -173,7 +178,7 @@ public class TileEntityMachineFluidTank extends TileEntityMachineBase implements
 
 			if(tank.getFill() > 0) {
 				if(tank.getTankType().isAntimatter()) {
-					new ExplosionVNT(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, 5F).makeAmat().setBlockAllocator(null).setBlockProcessor(null).explode();
+					new ExplosionVNT(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, 5F,ownerParty).makeAmat().setBlockAllocator(null).setBlockProcessor(null).explode();
 					this.explode();
 					this.tank.setFill(0);
 				}
@@ -270,7 +275,7 @@ public class TileEntityMachineFluidTank extends TileEntityMachineBase implements
 		FluidType type = tank.getTankType();
 
 		if(type.hasTrait(FT_Amat.class)) {
-			new ExplosionVNT(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, 5F).makeAmat().setBlockAllocator(null).setBlockProcessor(null).explode();
+			new ExplosionVNT(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, 5F,ownerParty).makeAmat().setBlockAllocator(null).setBlockProcessor(null).explode();
 
 		} else if(type.hasTrait(FT_Flammable.class) && onFire) {
 			List<Entity> affected = worldObj.getEntitiesWithinAABB(Entity.class, AxisAlignedBB.getBoundingBox(xCoord - 1.5, yCoord, zCoord - 1.5, xCoord + 2.5, yCoord + 5, zCoord + 2.5));
@@ -567,10 +572,10 @@ public class TileEntityMachineFluidTank extends TileEntityMachineBase implements
 
 	@Override
 	public String runRORFunction(String name, String[] params) {
-		
+
 		if((PREFIX_FUNCTION + "setmode").equals(name) && params.length > 0) {
 			int mode = IRORInteractive.parseInt(params[0], 0, 3);
-			
+
 			if(mode != this.mode) {
 				this.mode = (short) mode;
 				this.markChanged();

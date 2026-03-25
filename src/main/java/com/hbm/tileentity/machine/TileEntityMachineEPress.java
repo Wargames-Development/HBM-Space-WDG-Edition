@@ -112,12 +112,16 @@ public class TileEntityMachineEPress extends TileEntityMachineBase implements IE
 								squish = "hbm:block.squeakyPain";
 
 								if(plushie.type == PlushieType.HUNDUN) {
+									//Look IDK why it explodes, but I'm commenting it out for now
+									//Fight me about it
+									/**
 									worldObj.func_147480_a(xCoord, yCoord, zCoord, false);
 									ExplosionVNT vnt = new ExplosionVNT(worldObj, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5, 5);
 									vnt.setEntityProcessor(new EntityProcessorCrossSmooth(1, 50));
 									vnt.setPlayerProcessor(new PlayerProcessorStandard());
 									vnt.setSFX(new ExplosionEffectWeapon(10, 2.5F, 1F));
 									vnt.explode();
+									 */
 								}
 							}
 							this.worldObj.playSoundEffect(this.xCoord, this.yCoord, this.zCoord, squish, getVolume(1.5F), 1.0F);

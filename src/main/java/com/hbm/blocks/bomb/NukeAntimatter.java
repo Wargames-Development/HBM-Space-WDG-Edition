@@ -1,12 +1,12 @@
 package com.hbm.blocks.bomb;
 
+import api.hbm.wgc.Integrations;
 import org.apache.logging.log4j.Level;
 
 import com.hbm.blocks.machine.BlockMachineBase;
 import com.hbm.config.GeneralConfig;
 import com.hbm.interfaces.IBomb;
 import com.hbm.main.MainRegistry;
-import com.hbm.tileentity.bomb.TileEntityAntimatter;
 import com.hbm.tileentity.bomb.TileEntityAntimatter;
 
 import net.minecraft.block.Block;
@@ -15,6 +15,8 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+
+import java.util.UUID;
 
 public class NukeAntimatter extends BlockMachineBase implements IBomb {
 
@@ -28,17 +30,17 @@ public class NukeAntimatter extends BlockMachineBase implements IBomb {
 	public TileEntity createNewTileEntity(World world, int meta) {
 		return new TileEntityAntimatter();
 	}
-	
+
 	@Override
 	public int getRenderType(){
 		return -1;
 	}
-	
+
 	@Override
 	public boolean isOpaqueCube() {
 		return false;
 	}
-	
+
 	@Override
 	public boolean renderAsNormalBlock() {
 		return false;
@@ -51,31 +53,36 @@ public class NukeAntimatter extends BlockMachineBase implements IBomb {
 			explode(world, x, y, z);
 		}
 	}
+
 	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack itemStack) {
 		if(!world.isRemote) {
+			BlockPartyOwned.setOwner(world,x,y,z, player.getUniqueID());
 			if(GeneralConfig.enableExtendedLogging) {
 				MainRegistry.logger.log(Level.INFO, "[BOMBPL]" + this.getLocalizedName() + " placed at " + x + " / " + y + " / " + z + "! " + "by "+ player.getCommandSenderName());
-		}	
+		}
 	}
 	}
 
 	@Override
 	public BombReturnCode explode(World world, int x, int y, int z) {
-		
-		if(!world.isRemote) {
+
+		if(!world.isRemote & Integrations.canDetonateWGC(BlockPartyOwned.getOwner(world, x, y, z), world, x, y, z)) {
 			TileEntityAntimatter bomb = (TileEntityAntimatter) world.getTileEntity(x, y, z);
-				
+
 			if(bomb.isLoaded()) {
 				bomb.explode();
 				return BombReturnCode.DETONATED;
 			}
-			
+
 			return BombReturnCode.ERROR_MISSING_COMPONENT;
 		}
-		
+
 		return BombReturnCode.UNDEFINED;
 	}
 
+	public UUID getOwnerParty(World world, int x, int y, int z) {
+		return BlockPartyOwned.getOwner(world, x, y, z);
+	}
 }
 

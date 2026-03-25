@@ -1,12 +1,16 @@
 package com.hbm.entity.grenade;
 
+import api.hbm.wgc.Integrations;
 import com.hbm.explosion.ExplosionChaos;
 import com.hbm.explosion.ExplosionLarge;
 import com.hbm.items.ModItems;
 import com.hbm.items.weapon.ItemGrenade;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
+
+import java.util.UUID;
 
 public class EntityGrenadePulse extends EntityGrenadeBouncyBase {
 
@@ -26,13 +30,18 @@ public class EntityGrenadePulse extends EntityGrenadeBouncyBase {
 
 	@Override
     public void explode() {
-    	
+
 
 		if (!this.worldObj.isRemote) {
 			this.setDead();
-			ExplosionChaos.pulse(this.worldObj, (int) this.posX, (int) this.posY, (int) this.posZ, 7);
-    		this.worldObj.playSoundEffect((int)this.posX, (int)this.posY, (int)this.posZ, "random.explode", 4.0F, (1.0F + (this.worldObj.rand.nextFloat() - this.worldObj.rand.nextFloat()) * 0.2F) * 0.7F);
-    		ExplosionLarge.spawnShock(worldObj, posX, posY, posZ, 24, 2);
+			UUID party = null;
+			if(getThrower() instanceof EntityPlayer) party = getThrower().getUniqueID();
+
+			if(Integrations.canDetonateWGC(party,worldObj,(int)posX,(int)posY,(int)posZ)) {
+				ExplosionChaos.pulse(party,this.worldObj, (int) this.posX, (int) this.posY, (int) this.posZ, 7);
+				this.worldObj.playSoundEffect((int) this.posX, (int) this.posY, (int) this.posZ, "random.explode", 4.0F, (1.0F + (this.worldObj.rand.nextFloat() - this.worldObj.rand.nextFloat()) * 0.2F) * 0.7F);
+				ExplosionLarge.spawnShock(worldObj, posX, posY, posZ, 24, 2);
+			}
 		}
     }
 

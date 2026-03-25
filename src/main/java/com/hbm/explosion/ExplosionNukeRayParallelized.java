@@ -1,6 +1,5 @@
 package com.hbm.explosion;
 
-import api.hbm.explosion.event.HbmExplosionHooks;
 import com.hbm.config.BombConfig;
 import com.hbm.interfaces.IExplosionRay;
 import com.hbm.main.MainRegistry;
@@ -74,30 +73,6 @@ public class ExplosionNukeRayParallelized implements IExplosionRay {
 		this.strength = strength;
 		this.radius = radius;
 
-		// ---- Global safezone/claim veto (before starting any workers/futures) ----
-		if (HbmExplosionHooks.pre(world, x + 0.5, y + 0.5, z + 0.5, strength, null, "RAY.PAR")) {
-			this.latch = new java.util.concurrent.CountDownLatch(0);
-			this.rayQueue = new java.util.concurrent.LinkedBlockingQueue<RayTask>();
-			this.highPriorityReactiveQueue = new java.util.concurrent.LinkedBlockingQueue<>();
-			this.lowPriorityProactiveIterator = java.util.Collections.<SubChunkKey>emptyList().iterator();
-
-			this.destructionMap = new java.util.concurrent.ConcurrentHashMap<>();
-			this.damageMap = new java.util.concurrent.ConcurrentHashMap<>();
-			this.snapshots = new java.util.concurrent.ConcurrentHashMap<>();
-			this.waitingRoom = new java.util.concurrent.ConcurrentHashMap<>();
-			this.orderedChunks = new java.util.ArrayList<>();
-
-			this.pool = java.util.concurrent.ForkJoinPool.commonPool();
-			this.directionsFuture = java.util.concurrent.CompletableFuture.completedFuture(
-				java.util.Collections.<net.minecraft.util.Vec3>emptyList()
-			);
-			this.latchWatcherThread = new Thread(() -> {}, "ExplosionNuke-LatchWatcher-Noop");
-
-			this.collectFinished = true;
-			this.consolidationFinished = true;
-			this.destroyFinished = true;
-			return;
-		}
 
 		// ------------------------------------------------------------------------
 
@@ -248,8 +223,6 @@ public class ExplosionNukeRayParallelized implements IExplosionRay {
 					int zLocal = zGlobal & 0xF;
 					if (storage.getBlockByExtId(xLocal, yLocal, zLocal) != Blocks.air) {
 
-						// Safezone/claim guard — skip edits at protected coords
-						if (!HbmExplosionHooks.blockDenied(world, xGlobal, yGlobal, zGlobal, "RAY.PAR.CARVE")) {
 
 							if (world.getTileEntity(xGlobal, yGlobal, zGlobal) != null) {
 								world.removeTileEntity(xGlobal, yGlobal, zGlobal);
@@ -264,7 +237,7 @@ public class ExplosionNukeRayParallelized implements IExplosionRay {
 
 							world.updateLightByType(EnumSkyBlock.Sky, xGlobal, yGlobal, zGlobal);
 							world.updateLightByType(EnumSkyBlock.Block, xGlobal, yGlobal, zGlobal);
-						}
+
 					}
 					bs.clear(bit);
 					bit = bs.nextSetBit(bit + 1);
@@ -509,8 +482,6 @@ public class ExplosionNukeRayParallelized implements IExplosionRay {
 							energy -= damageDealt;
 							if (damageDealt > 0) {
 
-								// Safezone/claim: don't record hits inside protected coords
-								if (!HbmExplosionHooks.blockDenied(world, x, y, z, "RAY.PAR.CARVE")) {
 									int bitIndex = ((WORLD_HEIGHT - 1 - y) << 8) | ((x & 0xF) << 4) | (z & 0xF);
 									ChunkCoordIntPair chunkPos = currentSubChunkKey.getPos();
 									if (BombConfig.explosionAlgorithm == 2) {
@@ -523,7 +494,6 @@ public class ExplosionNukeRayParallelized implements IExplosionRay {
 											.computeIfAbsent(chunkPos, posKey -> new ConcurrentBitSet(BITSET_SIZE))
 											.set(bitIndex);
 									}
-								}
 							}
 						}
 					}

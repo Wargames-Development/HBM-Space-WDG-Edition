@@ -2,8 +2,10 @@ package com.hbm.explosion;
 
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
+import java.util.UUID;
 
-import api.hbm.explosion.event.HbmExplosionHooks;
+import api.hbm.wgc.Integrations;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
@@ -15,8 +17,10 @@ import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Vec3;
+import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldSettings.GameType;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import com.hbm.blocks.ModBlocks;
@@ -39,29 +43,23 @@ public class ExplosionNukeGeneric {
 
 	private final static Random random = new Random();
 
-	public static void empBlast(World world, int x, int y, int z, int bombStartStrength) {
+	public static void empBlast(UUID party, World world, int x, int y, int z, int bombStartStrength) {
 		int r = bombStartStrength;
-
-		// Global veto: cancel entire EMP if origin is protected
-		if (HbmExplosionHooks.pre(world, x + 0.5, y + 0.5, z + 0.5, r, null, "NUKEGEN.EMPBLAST")) return;
-
+		Set<ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(party, world, x, z,r+16);
 		int r2 = r * r;
 		int r22 = r2 / 2;
 		for (int xx = -r; xx < r; xx++) {
 			int X = xx + x;
 			int XX = xx * xx;
-			for (int yy = -r; yy < r; yy++) {
-				int Y = yy + y;
-				int YY = XX + yy * yy;
-				for (int zz = -r; zz < r; zz++) {
-					int Z = zz + z;
-					int ZZ = YY + zz * zz;
-					if (ZZ < r22) {
-
-						// Per-block veto: no EMP effects in protected coords
-						if (HbmExplosionHooks.blockDenied(world, X, Y, Z, "NUKEGEN.EMP")) continue;
-
-						emp(world, X, Y, Z);
+			for (int zz = -r; zz < r; zz++) {
+				int Z = zz + z;
+				if(protectedChunks.contains(new ChunkCoordIntPair(X>>4, Z>>4))) continue;
+				int ZZ = XX + zz * zz;
+				for (int yy = -r; yy < r; yy++) {
+					int Y = yy + y;
+					int YY = ZZ + yy * yy;
+					if (YY < r22) {
+							emp(world, X, Y, Z);
 					}
 				}
 			}
@@ -69,24 +67,26 @@ public class ExplosionNukeGeneric {
 	}
 
 
-	public static void dealDamage(World world, double x, double y, double z, double radius) {
-		dealDamage(world, x, y, z, radius, 250F);
+	public static void dealDamage(UUID party, World world, double x, double y, double z, double radius) {
+		dealDamage(party, world, x, y, z, radius, 250F);
 	}
 
-	public static void dealDamage(World world, double x, double y, double z, double radius, float maxDamage) {
+	public static void dealDamage(UUID party, World world, double x, double y, double z, double radius, float maxDamage) {
 		List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(null,
 			AxisAlignedBB.getBoundingBox(x, y, z, x, y, z).expand(radius, radius, radius));
 
 		for (Entity e : list) {
+			if(e instanceof EntityPlayer){
+				if(Integrations.canHarmPlayerWGC(party,e.getUniqueID(),world)){
+					continue;
+				}
+			}
 			double dist = e.getDistance(x, y, z);
 			if (dist <= radius) {
 				double entX = e.posX, entY = e.posY + e.getEyeHeight(), entZ = e.posZ;
 
 				if (!isExplosionExempt(e) && !Library.isObstructed(world, x, y, z, entX, entY, entZ)) {
 
-					// Per-entity veto: skip harmful effects in protected zones
-					if (HbmExplosionHooks.pre(world, e.posX, e.posY, e.posZ, 0F, e, "NUKEGEN.HIT"))
-						continue;
 
 					double damage = maxDamage * (radius - dist) / radius;
 					e.attackEntityFrom(ModDamageSource.nuclearBlast, (float) damage);
@@ -122,25 +122,23 @@ public class ExplosionNukeGeneric {
 		return false;
 	}
 
-	public static void vapor(World world, int x, int y, int z, int bombStartStrength) {
+	public static void vapor(UUID party, World world, int x, int y, int z, int bombStartStrength) {
 		int r = bombStartStrength * 2;
+		Set<ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(party, world, x, z,r+16);
 		int r2 = r * r;
 		int r22 = r2 / 2;
 		for (int xx = -r; xx < r; xx++) {
 			int X = xx + x;
 			int XX = xx * xx;
-			for (int yy = -r; yy < r; yy++) {
-				int Y = yy + y;
-				int YY = XX + yy * yy;
-				for (int zz = -r; zz < r; zz++) {
-					int Z = zz + z;
-					int ZZ = YY + zz * zz;
-					if (ZZ < r22) {
-						// Block edits inside claims/safezones
-						if (HbmExplosionHooks.blockDenied(world, X, Y, Z, "NUKEGEN.VAPOR"))
-							continue;
-
-						vaporDest(world, X, Y, Z);
+			for (int zz = -r; zz < r; zz++) {
+				int Z = zz + z;
+				if(protectedChunks.contains(new ChunkCoordIntPair(X>>4, Z>>4))) continue;
+				int ZZ = XX + zz * zz;
+				for (int yy = -r; yy < r; yy++) {
+					int Y = yy + y;
+					int YY = ZZ + yy * yy;
+					if (YY < r22) {
+							vaporDest(world, X, Y, Z);
 					}
 				}
 			}
@@ -151,9 +149,6 @@ public class ExplosionNukeGeneric {
 		int rand;
 		if (!world.isRemote) {
 
-			// Block edits inside claims/safezones
-			if (HbmExplosionHooks.blockDenied(world, x, y, z, "NUKEGEN.DEST"))
-				return 0;
 
 			Block b = world.getBlock(x, y, z);
 			if (b.getExplosionResistance(null) >= 200f) { // 500 is the resistance of liquids
@@ -197,9 +192,6 @@ public class ExplosionNukeGeneric {
 	public static int vaporDest(World world, int x, int y, int z) {
 		if (!world.isRemote) {
 
-			// Block edits inside claims/safezones at the target cell
-			if (HbmExplosionHooks.blockDenied(world, x, y, z, "NUKEGEN.VAPORDEST"))
-				return 0;
 
 			Block b = world.getBlock(x, y, z);
 			if (b.getExplosionResistance(null) < 0.5f  // most light things
@@ -218,10 +210,7 @@ public class ExplosionNukeGeneric {
 			if (b.isFlammable(world, x, y, z, ForgeDirection.UP)
 				&& world.getBlock(x, y + 1, z) == Blocks.air) {
 
-				// Guard the destination cell for fire placement
-				if (!HbmExplosionHooks.blockDenied(world, x, y + 1, z, "NUKEGEN.VAPORDEST.FIRE")) {
 					world.setBlock(x, y + 1, z, Blocks.fire, 0, 2);
-				}
 			}
 			return (int)(b.getExplosionResistance(null) / 300f);
 		}
@@ -229,26 +218,22 @@ public class ExplosionNukeGeneric {
 	}
 
 
-	public static void waste(World world, int x, int y, int z, int radius) {
+	public static void waste(UUID party, World world, int x, int y, int z, int radius) {
 		int r = radius;
+		Set<ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(party, world, x, z,r+16);
 		int r2 = r * r;
 		int r22 = r2 / 2;
 		for (int xx = -r; xx < r; xx++) {
 			int X = xx + x;
 			int XX = xx * xx;
-			for (int yy = -r; yy < r; yy++) {
-				int Y = yy + y;
-				int YY = XX + yy * yy;
-				for (int zz = -r; zz < r; zz++) {
-					int Z = zz + z;
-					int ZZ = YY + zz * zz;
-					if (ZZ < r22 + world.rand.nextInt(r22 / 5)) {
-
-						// Block edits inside claims/safezones
-						if (HbmExplosionHooks.blockDenied(world, X, Y, Z, "NUKEGEN.WASTE"))
-							continue;
-
-						if (world.getBlock(X, Y, Z) != Blocks.air)
+			for (int zz = -r; zz < r; zz++) {
+				int Z = zz + z;
+				if(protectedChunks.contains(new ChunkCoordIntPair(X>>4, Z>>4))) continue;
+				int ZZ = XX + zz * zz;
+				for (int yy = -r; yy < r; yy++) {
+					int Y = yy + y;
+					int YY = ZZ + yy * yy;
+					if (YY < r22+ world.rand.nextInt(r22 / 5)) {
 							wasteDest(world, X, Y, Z);
 					}
 				}
@@ -260,9 +245,6 @@ public class ExplosionNukeGeneric {
 	public static void wasteDest(World world, int x, int y, int z) {
 		if (!world.isRemote) {
 
-			// Block edits inside claims/safezones
-			if (HbmExplosionHooks.blockDenied(world, x, y, z, "NUKEGEN.WASTEDEST"))
-				return;
 
 			int rand;
 			Block b = world.getBlock(x, y, z);
@@ -359,26 +341,22 @@ public class ExplosionNukeGeneric {
 		}
 	}
 
-	public static void wasteNoSchrab(World world, int x, int y, int z, int radius) {
+	public static void wasteNoSchrab(UUID party, World world, int x, int y, int z, int radius) {
 		int r = radius;
+		Set<ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(party, world, x, z,r+16);
 		int r2 = r * r;
 		int r22 = r2 / 2;
 		for (int xx = -r; xx < r; xx++) {
 			int X = xx + x;
 			int XX = xx * xx;
-			for (int yy = -r; yy < r; yy++) {
-				int Y = yy + y;
-				int YY = XX + yy * yy;
-				for (int zz = -r; zz < r; zz++) {
-					int Z = zz + z;
-					int ZZ = YY + zz * zz;
-					if (ZZ < r22 + world.rand.nextInt(r22 / 5)) {
-
-						// Block edits inside claims/safezones
-						if (HbmExplosionHooks.blockDenied(world, X, Y, Z, "NUKEGEN.WASTE"))
-							continue;
-
-						if (world.getBlock(X, Y, Z) != Blocks.air)
+			for (int zz = -r; zz < r; zz++) {
+				int Z = zz + z;
+				if(protectedChunks.contains(new ChunkCoordIntPair(X>>4, Z>>4))) continue;
+				int ZZ = XX + zz * zz;
+				for (int yy = -r; yy < r; yy++) {
+					int Y = yy + y;
+					int YY = ZZ + yy * yy;
+					if (YY < r22+ world.rand.nextInt(r22 / 5)) {
 							wasteDestNoSchrab(world, X, Y, Z);
 					}
 				}
@@ -390,9 +368,6 @@ public class ExplosionNukeGeneric {
 	public static void wasteDestNoSchrab(World world, int x, int y, int z) {
 		if (!world.isRemote) {
 
-			// Block edits inside claims/safezones
-			if (HbmExplosionHooks.blockDenied(world, x, y, z, "NUKEGEN.WASTEDEST"))
-				return;
 
 			int rand;
 
@@ -468,10 +443,6 @@ public class ExplosionNukeGeneric {
 	public static void emp(World world, int x, int y, int z) {
 		if (!world.isRemote) {
 
-			// Block edits/effects inside claims/safezones
-			if (HbmExplosionHooks.blockDenied(world, x, y, z, "NUKEGEN.EMP"))
-				return;
-
 			TileEntity te = world.getTileEntity(x, y, z);
 
 			if (te != null && te instanceof IEnergyHandlerMK2) {
@@ -497,9 +468,6 @@ public class ExplosionNukeGeneric {
 	public static void solinium(World world, int x, int y, int z) {
 		if (!world.isRemote) {
 
-			// Block edits inside claims/safezones
-			if (HbmExplosionHooks.blockDenied(world, x, y, z, "NUKEGEN.SOLINIUM"))
-				return;
 
 			Block b = world.getBlock(x,y,z);
 			Material m = b.getMaterial();

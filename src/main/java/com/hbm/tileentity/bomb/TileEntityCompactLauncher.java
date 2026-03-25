@@ -1,7 +1,9 @@
 package com.hbm.tileentity.bomb;
 
 import java.util.List;
+import java.util.UUID;
 
+import api.hbm.wgc.Integrations;
 import com.hbm.entity.missile.EntityMissileCustom;
 import com.hbm.handler.MissileStruct;
 import com.hbm.inventory.container.ContainerCompactLauncher;
@@ -60,6 +62,7 @@ public class TileEntityCompactLauncher extends TileEntityLoadedBase implements I
 	private static final int[] access = new int[] { 0 };
 
 	private String customName;
+	private UUID ownerParty;
 
 	public TileEntityCompactLauncher() {
 		slots = new ItemStack[8];
@@ -307,8 +310,9 @@ public class TileEntityCompactLauncher extends TileEntityLoadedBase implements I
 				Vec3 coords = designator.getCoords(worldObj, slots[1], xCoord, yCoord, zCoord);
 				int tX = (int) Math.floor(coords.xCoord);
 				int tZ = (int) Math.floor(coords.zCoord);
-
-				this.launchTo(tX, tZ);
+				if(Integrations.canTargetBlockWGC(ownerParty,worldObj,tX,0,tZ)) {
+					this.launchTo(tX, tZ);
+				}
 			}
 		}
 	}
@@ -403,6 +407,7 @@ public class TileEntityCompactLauncher extends TileEntityLoadedBase implements I
 	public boolean hasDesignator() {
 
 		if(slots[1] != null && slots[1].getItem() instanceof IDesignatorItem && ((IDesignatorItem)slots[1].getItem()).isReady(worldObj, slots[1], xCoord, yCoord, zCoord)) {
+			ownerParty = ((IDesignatorItem) slots[1].getItem()).getOwnerParty(slots[1]);
 			return true;
 		}
 
@@ -554,7 +559,7 @@ public class TileEntityCompactLauncher extends TileEntityLoadedBase implements I
 			}
 		}
 		nbt.setTag("items", list);
-		
+
 		if (customName != null) {
 			nbt.setString("name", customName);
 		}
@@ -646,5 +651,9 @@ public class TileEntityCompactLauncher extends TileEntityLoadedBase implements I
 	@SideOnly(Side.CLIENT)
 	public Object provideGUI(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		return new GUIMachineCompactLauncher(player.inventory, this);
+	}
+
+	public UUID getOwnerParty() {
+		return ownerParty;
 	}
 }

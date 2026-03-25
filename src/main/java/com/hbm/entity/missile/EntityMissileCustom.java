@@ -75,8 +75,8 @@ public class EntityMissileCustom extends EntityMissileBaseNT implements IChunkLo
 	protected void killMissile() {
 		if(!this.isDead) {
 			this.setDead();
-			ExplosionLarge.explode(worldObj, posX, posY, posZ, 5, true, false, true);
-			ExplosionLarge.spawnShrapnelShower(worldObj, posX, posY, posZ, motionX, motionY, motionZ, 15, 0.075);
+			ExplosionLarge.explode(ownerParty,worldObj, posX, posY, posZ, 5, true, false, true);
+			ExplosionLarge.spawnShrapnelShower(worldObj, posX, posY, posZ, motionX, motionY, motionZ, 15, 0.075,ownerParty);
 		}
 	}
 
@@ -178,11 +178,11 @@ public class EntityMissileCustom extends EntityMissileBaseNT implements IChunkLo
 
 		switch(type) {
 		case HE:
-			ExplosionLarge.explode(worldObj, posX, posY, posZ, strength, true, false, true);
+			ExplosionLarge.explode(ownerParty,worldObj, posX, posY, posZ, strength, true, false, true);
 			ExplosionLarge.jolt(worldObj, posX, posY, posZ, strength, (int) (strength * 50), 0.25);
 			break;
 		case INC:
-			ExplosionLarge.explodeFire(worldObj, posX, posY, posZ, strength, true, false, true);
+			ExplosionLarge.explodeFire(ownerParty,worldObj, posX, posY, posZ, strength, true, false, true);
 			ExplosionLarge.jolt(worldObj, posX, posY, posZ, strength * 1.5, (int) (strength * 50), 0.25);
 			break;
 		case CLUSTER:
@@ -192,11 +192,12 @@ public class EntityMissileCustom extends EntityMissileBaseNT implements IChunkLo
 			break;
 		case NUCLEAR:
 		case TX:
-			worldObj.spawnEntityInWorld(EntityNukeExplosionMK5.statFac(worldObj, (int) strength, posX, posY, posZ));
+			worldObj.spawnEntityInWorld(EntityNukeExplosionMK5.statFac(worldObj, (int) strength, posX, posY, posZ, ownerParty));
 			EntityNukeTorex.statFacStandard(worldObj, posX, posY, posZ, strength);
 			break;
 		case BALEFIRE:
 			EntityBalefire bf = new EntityBalefire(worldObj);
+			bf.ownerParty = ownerParty;
 			bf.posX = this.posX;
 			bf.posY = this.posY;
 			bf.posZ = this.posZ;
@@ -205,7 +206,7 @@ public class EntityMissileCustom extends EntityMissileBaseNT implements IChunkLo
 			EntityNukeTorex.statFacBale(worldObj, posX, posY, posZ, strength);
 			break;
 		case N2:
-			worldObj.spawnEntityInWorld(EntityNukeExplosionMK5.statFacNoRad(worldObj, (int) strength, posX, posY, posZ));
+			worldObj.spawnEntityInWorld(EntityNukeExplosionMK5.statFacNoRad(worldObj, (int) strength, posX, posY, posZ, ownerParty));
 			EntityNukeTorex.statFacStandard(worldObj, posX, posY, posZ, strength);
 			break;
 		case TAINT:
@@ -222,15 +223,15 @@ public class EntityMissileCustom extends EntityMissileBaseNT implements IChunkLo
 			break;
 		case CLOUD:
 			this.worldObj.playAuxSFX(2002, (int) Math.round(this.posX), (int) Math.round(this.posY), (int) Math.round(this.posZ), 0);
-			ExplosionChaos.spawnPoisonCloud(worldObj, posX - motionX, posY - motionY, posZ - motionZ, 750, 2.5, 2);
+			ExplosionChaos.spawnPoisonCloud(ownerParty,worldObj, posX - motionX, posY - motionY, posZ - motionZ, 750, 2.5, 2);
 			break;
 		case TURBINE:
-			ExplosionLarge.explode(worldObj, posX, posY, posZ, 10, true, false, true);
+			ExplosionLarge.explode(ownerParty,worldObj, posX, posY, posZ, 10, true, false, true);
 			int count = (int) strength;
 			Vec3 vec = Vec3.createVectorHelper(0.5, 0, 0);
 
 			for(int i = 0; i < count; i++) {
-				EntityBulletBaseNT blade = new EntityBulletBaseNT(worldObj, BulletConfigSyncingUtil.TURBINE);
+				EntityBulletBaseNT blade = new EntityBulletBaseNT(ownerParty,worldObj, BulletConfigSyncingUtil.TURBINE);
 				blade.setPositionAndRotation(this.posX - this.motionX, this.posY - this.motionY + rand.nextGaussian(), this.posZ - this.motionZ, 0, 0);
 				blade.motionX = vec.xCoord;
 				blade.motionZ = vec.zCoord;

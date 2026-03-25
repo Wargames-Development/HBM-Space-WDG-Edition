@@ -153,7 +153,7 @@ public class EntityCyberCrab extends EntityMob implements IRangedAttackMob, IRad
 
 	@Override
 	public void attackEntityWithRangedAttack(EntityLivingBase entity, float f) {
-		EntityBullet bullet = new EntityBullet(worldObj, this, entity, 1.6F, 2);
+		EntityBullet bullet = new EntityBullet(null, worldObj, this, entity, 1.6F, 2);
 		bullet.setIsCritical(true);
 		bullet.setTau(true);
 		bullet.damage = 3;

@@ -1,7 +1,9 @@
 package com.hbm.blocks.generic;
 
 import java.util.Random;
+import java.util.UUID;
 
+import api.hbm.wgc.Integrations;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.blocks.bomb.BlockDetonatable;
 import com.hbm.blocks.machine.BlockFluidBarrel;
@@ -94,18 +96,20 @@ public class YellowBarrel extends BlockDetonatable {
 	@Override
 	public void explodeEntity(World world, double x, double y, double z, EntityTNTPrimedBase entity) {
 		int ix = MathHelper.floor_double(x), iy = MathHelper.floor_double(y), iz = MathHelper.floor_double(z);
-
+		UUID owner = getOwner(world,ix,iy,iz);
 		if(rand.nextInt(3) == 0) {
 			world.setBlock(ix, iy, iz, ModBlocks.toxic_block);
 		} else {
 			world.createExplosion(entity, x, y, z, 12.0F, true);
 		}
-		ExplosionNukeGeneric.waste(world, ix, iy, iz, 35);
+		if(Integrations.canDetonateWGC(owner,world,ix,iy,iz)) {
+			ExplosionNukeGeneric.waste(owner, world, ix, iy, iz, 35);
+		}
 
 		for(int i = -5; i <= 5; i++) {
 			for(int j = -5; j <= 5; j++) {
 				for(int k = -5; k <= 5; k++) {
-					
+
 					if(world.rand.nextInt(5) == 0 && world.getBlock(ix + i, iy + j, iz + k) == Blocks.air)
 						world.setBlock(ix + i, iy + j, iz + k, ModBlocks.gas_radon_dense);
 				}

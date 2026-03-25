@@ -1,7 +1,9 @@
 package com.hbm.entity.logic;
 
 import java.util.List;
+import java.util.UUID;
 
+import api.hbm.wgc.Integrations;
 import org.apache.logging.log4j.Level;
 
 import com.hbm.config.GeneralConfig;
@@ -28,6 +30,7 @@ public class EntityBalefire extends EntityExplosionChunkloading {
 	public int speed = 1;
 	public boolean did = false;
 	public boolean antimatter = false;
+	public UUID ownerParty;
 
 	@Override
 	protected void readEntityFromNBT(NBTTagCompound nbt) {
@@ -36,8 +39,14 @@ public class EntityBalefire extends EntityExplosionChunkloading {
 		speed = nbt.getInteger("speed");
 		did = nbt.getBoolean("did");
 		antimatter = nbt.getBoolean("antimatter");
+		if (nbt.hasKey("ownerMost") && nbt.hasKey("ownerLeast")) {
+			this.ownerParty = new UUID(
+				nbt.getLong("ownerMost"),
+				nbt.getLong("ownerLeast")
+			);
+		}
 
-		exp = new ExplosionBalefire((int) this.posX, (int) this.posY, (int) this.posZ, this.worldObj, this.destructionRange, this.antimatter);
+		exp = new ExplosionBalefire(ownerParty,(int) this.posX, (int) this.posY, (int) this.posZ, this.worldObj, this.destructionRange, this.antimatter);
 		exp.readFromNbt(nbt, "exp_");
 
 		this.did = true;
@@ -50,6 +59,10 @@ public class EntityBalefire extends EntityExplosionChunkloading {
 		nbt.setInteger("speed", speed);
 		nbt.setBoolean("did", did);
 		nbt.setBoolean("antimatter", antimatter);
+		if (ownerParty != null) {
+			nbt.setLong("ownerMost", ownerParty.getMostSignificantBits());
+			nbt.setLong("ownerLeast", ownerParty.getLeastSignificantBits());
+		}
 
 		if(exp != null)
 			exp.saveToNbt(nbt, "exp_");
@@ -68,7 +81,7 @@ public class EntityBalefire extends EntityExplosionChunkloading {
 			if(GeneralConfig.enableExtendedLogging && !worldObj.isRemote)
 				MainRegistry.logger.log(Level.INFO, "[NUKE] Initialized BF explosion at " + posX + " / " + posY + " / " + posZ + " with strength " + destructionRange + "!");
 
-			exp = new ExplosionBalefire((int)this.posX, (int)this.posY, (int)this.posZ, this.worldObj, this.destructionRange, this.antimatter);
+			exp = new ExplosionBalefire(ownerParty,(int)this.posX, (int)this.posY, (int)this.posZ, this.worldObj, this.destructionRange, this.antimatter);
 
 			this.did = true;
 		}
@@ -92,7 +105,7 @@ public class EntityBalefire extends EntityExplosionChunkloading {
 
 		if(!flag) {
 			this.worldObj.playSoundEffect(this.posX, this.posY, this.posZ, "ambient.weather.thunder", 10000.0F, 0.8F + this.rand.nextFloat() * 0.2F);
-			ExplosionNukeGeneric.dealDamage(this.worldObj, this.posX, this.posY, this.posZ, this.destructionRange * 2);
+			ExplosionNukeGeneric.dealDamage(ownerParty,this.worldObj, this.posX, this.posY, this.posZ, this.destructionRange * 2);
 		}
 
 		age++;
@@ -103,6 +116,9 @@ public class EntityBalefire extends EntityExplosionChunkloading {
 		List<EntityLivingBase> entities = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(posX, posY, posZ, posX, posY, posZ).expand(range, range, range));
 
 		for(EntityLivingBase e : entities) {
+			if(e instanceof EntityPlayer && !Integrations.canHarmPlayerWGC(ownerParty,e.getUniqueID(),worldObj)) {
+				continue;
+			}
 
 			Vec3 vec = Vec3.createVectorHelper(e.posX - posX, (e.posY + e.getEyeHeight()) - posY, e.posZ - posZ);
 			double len = vec.lengthVector();

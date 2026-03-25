@@ -121,11 +121,11 @@ public class EntitySchrab extends Entity implements IProjectile
     	this.posX = x + 0.5F;
     	this.posY = y + 0.5F;
     	this.posZ = z + 0.5F;
-    	
+
     	this.motionX = mx;
     	this.motionY = my;
     	this.motionZ = mz;
-    	
+
     	this.gravity = grav;
     }
 
@@ -256,10 +256,10 @@ public class EntitySchrab extends Entity implements IProjectile
             if (!this.worldObj.isRemote)
             {
             	this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, 2.5F, true);
-            	ExplosionChaos.burn(this.worldObj, (int)this.posX, (int)this.posY, (int)this.posZ, 10);
-            	ExplosionChaos.flameDeath(this.worldObj, (int)this.posX, (int)this.posY, (int)this.posZ, 20);
-            	ExplosionNukeGeneric.wasteNoSchrab(this.worldObj, (int)this.posX, (int)this.posY, (int)this.posZ, 20);
-            	ExplosionChaos.poison(this.worldObj, (int)this.posX, (int)this.posY, (int)this.posZ, 20);
+            	ExplosionChaos.burn(null,this.worldObj, (int)this.posX, (int)this.posY, (int)this.posZ, 10);
+            	ExplosionChaos.flameDeath(null,this.worldObj, (int)this.posX, (int)this.posY, (int)this.posZ, 20);
+            	ExplosionNukeGeneric.wasteNoSchrab(null,this.worldObj, (int)this.posX, (int)this.posY, (int)this.posZ, 20);
+            	ExplosionChaos.poison(null,this.worldObj, (int)this.posX, (int)this.posY, (int)this.posZ, 20);
             }
             this.worldObj.spawnEntityInWorld(new EntityLightningBolt(this.worldObj, this.posX, this.posY, this.posZ));
         	this.setDead();

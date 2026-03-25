@@ -2,8 +2,10 @@ package com.hbm.explosion;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
-import api.hbm.explosion.event.HbmExplosionHooks;
+import api.hbm.wgc.Integrations;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.util.ArmorUtil;
 
@@ -18,16 +20,14 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
+import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
 
 public class ExplosionThermo {
 
-	public static void freeze(World world, int x, int y, int z, int bombStartStrength) {
+	public static void freeze(UUID party, World world, int x, int y, int z, int bombStartStrength) {
 		int r = bombStartStrength * 2;
-
-		// Global veto: cancel the entire freeze effect if origin is protected
-		if (HbmExplosionHooks.pre(world, x + 0.5, y + 0.5, z + 0.5, r, null, "THERMO.FREEZE")) return;
-
+		Set<ChunkCoordIntPair> protChunks = Integrations.getExplosionProtectedChunksWGC(party,world,x,z,r+16);
 		int r2 = r * r;
 		int r22 = r2 / 2;
 		for (int xx = -r; xx < r; xx++) {
@@ -38,11 +38,9 @@ public class ExplosionThermo {
 				int YY = XX + yy * yy;
 				for (int zz = -r; zz < r; zz++) {
 					int Z = zz + z;
+					if(protChunks.contains(new ChunkCoordIntPair(X << 4, Z <<4))){continue;}
 					int ZZ = YY + zz * zz;
 					if (ZZ < r22 + world.rand.nextInt(r22 / 2)) {
-
-						// Per-block veto: skip freezing inside protected coords
-						if (HbmExplosionHooks.blockDenied(world, X, Y, Z, "THERMO.FREEZE")) continue;
 
 						freezeDest(world, X, Y, Z);
 					}
@@ -51,13 +49,10 @@ public class ExplosionThermo {
 		}
 	}
 
-	public static void snow(World world, int x, int y, int z, int bound) {
+	public static void snow(UUID party, World world, int x, int y, int z, int bound) {
 
 		int r = bound;
-
-		// Global veto: cancel the whole snow effect if origin is protected
-		if (HbmExplosionHooks.pre(world, x + 0.5, y + 0.5, z + 0.5, r, null, "THERMO.SNOW")) return;
-
+		Set<ChunkCoordIntPair> protChunks = Integrations.getExplosionProtectedChunksWGC(party,world,x,z,r+16);
 		int r2 = r * r;
 		int r22 = r2 / 2;
 		for (int xx = -r; xx < r; xx++) {
@@ -68,11 +63,9 @@ public class ExplosionThermo {
 				int YY = XX + yy * yy;
 				for (int zz = -r; zz < r; zz++) {
 					int Z = zz + z;
+					if(protChunks.contains(new ChunkCoordIntPair(X << 4, Z <<4))){continue;}
 					int ZZ = YY + zz * zz;
 					if (ZZ < r22) {
-						// Only modify the block at (X, Y+1, Z); guard that coordinate
-						if (HbmExplosionHooks.blockDenied(world, X, Y + 1, Z, "THERMO.SNOW.PLACE"))
-							continue;
 
 						if (Blocks.snow_layer.canPlaceBlockAt(world, X, Y + 1, Z)
 							&& (world.getBlock(X, Y + 1, Z) == Blocks.air || world.getBlock(X, Y + 1, Z) == Blocks.fire)) {
@@ -85,12 +78,9 @@ public class ExplosionThermo {
 	}
 
 
-	public static void scorch(World world, int x, int y, int z, int bombStartStrength) {
+	public static void scorch(UUID party, World world, int x, int y, int z, int bombStartStrength) {
 		int r = bombStartStrength * 2;
-
-		// Global veto: cancel entire scorch effect if origin is protected
-		if (HbmExplosionHooks.pre(world, x + 0.5, y + 0.5, z + 0.5, r, null, "THERMO.SCORCH")) return;
-
+		Set<ChunkCoordIntPair> protChunks = Integrations.getExplosionProtectedChunksWGC(party,world,x,z,r+16);
 		int r2 = r * r;
 		int r22 = r2 / 2;
 		for (int xx = -r; xx < r; xx++) {
@@ -101,11 +91,9 @@ public class ExplosionThermo {
 				int YY = XX + yy * yy;
 				for (int zz = -r; zz < r; zz++) {
 					int Z = zz + z;
+					if(protChunks.contains(new ChunkCoordIntPair(X << 4, Z <<4))){continue;}
 					int ZZ = YY + zz * zz;
 					if (ZZ < r22 + world.rand.nextInt(r22 / 2)) {
-
-						// Per-block veto: skip scorch changes inside protected coords
-						if (HbmExplosionHooks.blockDenied(world, X, Y, Z, "THERMO.SCORCH")) continue;
 
 						scorchDest(world, X, Y, Z);
 					}
@@ -115,12 +103,9 @@ public class ExplosionThermo {
 	}
 
 
-	public static void scorchLight(World world, int x, int y, int z, int bombStartStrength) {
+	public static void scorchLight(UUID party, World world, int x, int y, int z, int bombStartStrength) {
 		int r = bombStartStrength * 2;
-
-		// Global veto: cancel entire scorch-light pass if origin is protected
-		if (HbmExplosionHooks.pre(world, x + 0.5, y + 0.5, z + 0.5, r, null, "THERMO.SCORCH_LIGHT")) return;
-
+		Set<ChunkCoordIntPair> protChunks = Integrations.getExplosionProtectedChunksWGC(party,world,x,z,r+16);
 		int r2 = r * r;
 		int r22 = r2 / 2;
 		for (int xx = -r; xx < r; xx++) {
@@ -131,11 +116,9 @@ public class ExplosionThermo {
 				int YY = XX + yy * yy;
 				for (int zz = -r; zz < r; zz++) {
 					int Z = zz + z;
+					if(protChunks.contains(new ChunkCoordIntPair(X << 4, Z <<4))){continue;}
 					int ZZ = YY + zz * zz;
 					if (ZZ < r22 + world.rand.nextInt(r22 / 2)) {
-
-						// Per-block veto: skip edits in protected coords
-						if (HbmExplosionHooks.blockDenied(world, X, Y, Z, "THERMO.SCORCH_LIGHT")) continue;
 
 						scorchDestLight(world, X, Y, Z);
 					}
@@ -146,8 +129,6 @@ public class ExplosionThermo {
 
 
 	public static void freezeDest(World world, int x, int y, int z) {
-		// Safezone/claim guard — skip any edits at protected coords
-		if (HbmExplosionHooks.blockDenied(world, x, y, z, "THERMO.FREEZE")) return;
 
 		Block block = world.getBlock(x, y, z);
 
@@ -238,8 +219,6 @@ public class ExplosionThermo {
 	}
 
 	public static void scorchDest(World world, int x, int y, int z) {
-		// Safezone/claim guard — skip edits at protected coords
-		if (HbmExplosionHooks.blockDenied(world, x, y, z, "THERMO.SCORCH")) return;
 
 		Block block = world.getBlock(x, y, z);
 
@@ -345,8 +324,6 @@ public class ExplosionThermo {
 	}
 
 	public static void scorchDestLight(World world, int x, int y, int z) {
-		// Safezone/claim guard — skip edits at protected coords
-		if (HbmExplosionHooks.blockDenied(world, x, y, z, "THERMO.SCORCH_LIGHT")) return;
 
 		Block block = world.getBlock(x, y, z);
 
@@ -447,9 +424,7 @@ public class ExplosionThermo {
 		}
 	}
 
-	public static void freezer(World world, int x, int y, int z, int bombStartStrength) {
-		// Global veto: cancel whole effect if origin is protected
-		if (HbmExplosionHooks.pre(world, x + 0.5, y + 0.5, z + 0.5, bombStartStrength, null, "THERMO.FREEZER.ORIGIN")) return;
+	public static void freezer(UUID party, World world, int x, int y, int z, int bombStartStrength) {
 
 		float f = bombStartStrength;
 		new HashSet();
@@ -473,6 +448,9 @@ public class ExplosionThermo {
 		for (int i1 = 0; i1 < list.size(); ++i1)
 		{
 			Entity entity = (Entity)list.get(i1);
+			if(entity instanceof EntityPlayer && !Integrations.canHarmPlayerWGC(party,entity.getUniqueID(),world)){
+				continue;
+			}
 			double d4 = entity.getDistance(x, y, z) / bombStartStrength;
 
 			if (d4 <= 1.0D)
@@ -483,8 +461,6 @@ public class ExplosionThermo {
 				double d9 = MathHelper.sqrt_double(d5 * d5 + d6 * d6 + d7 * d7);
 				if (d9 < wat && !(entity instanceof EntityOcelot) && entity instanceof EntityLivingBase)
 				{
-					// Per-entity veto: skip effects in protected zones
-					if (HbmExplosionHooks.pre(world, entity.posX, entity.posY, entity.posZ, 0F, entity, "THERMO.FREEZER.EFFECT")) continue;
 
 					for(int a = (int) entity.posX - 2; a < (int) entity.posX + 1; a++)
 					{
@@ -492,8 +468,6 @@ public class ExplosionThermo {
 						{
 							for(int c = (int) entity.posZ - 1; c < (int) entity.posZ + 2; c++)
 							{
-								// Per-block veto: don’t place ice in protected coords
-								if (HbmExplosionHooks.blockDenied(world, a, b, c, "THERMO.FREEZER.CAGE")) continue;
 								world.setBlock(a, b, c, Blocks.ice);
 							}
 						}
@@ -510,10 +484,7 @@ public class ExplosionThermo {
 	}
 
 
-	public static void setEntitiesOnFire(World world, double x, double y, double z, int radius) {
-
-		// Global veto: cancel the whole effect if the origin is protected
-		if (HbmExplosionHooks.pre(world, x, y, z, radius, null, "THERMO.FIRE.ORIGIN")) return;
+	public static void setEntitiesOnFire(UUID party, World world, double x, double y, double z, int radius) {
 
 		List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(
 			null,
@@ -521,10 +492,12 @@ public class ExplosionThermo {
 		);
 
 		for (Entity e : list) {
+
+			if(e instanceof EntityPlayer && !Integrations.canHarmPlayerWGC(party,e.getUniqueID(),world)){
+				continue;
+			}
 			if (e.getDistance(x, y, z) <= radius) {
 
-				// Per-entity veto: skip harmful effects in protected zones
-				if (HbmExplosionHooks.pre(world, e.posX, e.posY, e.posZ, 0F, e, "THERMO.FIRE.HIT")) continue;
 
 				if (!(e instanceof EntityPlayer && ArmorUtil.checkForAsbestos((EntityPlayer) e))) {
 					if (e instanceof EntityLivingBase)

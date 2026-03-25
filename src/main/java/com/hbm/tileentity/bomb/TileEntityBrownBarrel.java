@@ -4,8 +4,8 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.tileentity.TileEntity;
 
-public class TileEntityBrownBarrel extends TileEntity {
-	
+public class TileEntityBrownBarrel extends TileEntityPartyOwned{
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public double getMaxRenderDistanceSquared()

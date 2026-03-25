@@ -3,6 +3,7 @@ package com.hbm.tileentity.turret;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 import java.util.function.BiFunction;
 
 import com.hbm.blocks.BlockDummyable;
@@ -56,9 +57,12 @@ import net.minecraft.potion.Potion;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Vec3;
+import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import static api.hbm.wgc.Integrations.*;
 
 /**
  * More over-engineered than ever, but chopping this thing into the smallest possible pieces makes it easier for my demented brain to comprehend
@@ -104,6 +108,8 @@ public abstract class TileEntityTurretBaseNT extends TileEntityMachineBase imple
 
 	public long power;
 
+	protected UUID owningFaction;
+
 	public boolean targetPlayers = false;
 	public boolean targetAnimals = false;
 	public boolean targetMobs = true;
@@ -131,6 +137,7 @@ public abstract class TileEntityTurretBaseNT extends TileEntityMachineBase imple
 
 	public TileEntityTurretBaseNT() {
 		super(11);
+		owningFaction = null;
 	}
 
 	@Override
@@ -144,6 +151,7 @@ public abstract class TileEntityTurretBaseNT extends TileEntityMachineBase imple
 		this.targetMobs = nbt.getBoolean("targetMobs");
 		this.targetMachines = nbt.getBoolean("targetMachines");
 		this.stattrak = nbt.getInteger("stattrak");
+		this.owningFaction = UUID.fromString(nbt.getString("factionid"));
 	}
 
 	@Override
@@ -157,6 +165,7 @@ public abstract class TileEntityTurretBaseNT extends TileEntityMachineBase imple
 		nbt.setBoolean("targetMobs", this.targetMobs);
 		nbt.setBoolean("targetMachines", this.targetMachines);
 		nbt.setInteger("stattrak", this.stattrak);
+		nbt.setString("factionid", owningFaction.toString());
 	}
 
 	public void manualSetup() { }
@@ -264,7 +273,7 @@ public abstract class TileEntityTurretBaseNT extends TileEntityMachineBase imple
 		buf.writeBoolean(this.targetAnimals);
 		buf.writeBoolean(this.targetMobs);
 		buf.writeBoolean(this.targetMachines);
-		buf.writeInt(this.stattrak);
+		buf.writeInt(this.stattrak);//TODO I'll be honest idk why we do serialization but I can't pass the UUID. Hopefully it's fine.
 	}
 
 	@Override
@@ -348,7 +357,7 @@ public abstract class TileEntityTurretBaseNT extends TileEntityMachineBase imple
 		vec.rotateAroundZ((float) -this.rotationPitch);
 		vec.rotateAroundY((float) -(this.rotationYaw + Math.PI * 0.5));
 
-		EntityBulletBaseMK4 proj = new EntityBulletBaseMK4(worldObj, bullet, baseDamage, bullet.spread, (float) rotationYaw, (float) rotationPitch);
+		EntityBulletBaseMK4 proj = new EntityBulletBaseMK4(worldObj, bullet, baseDamage, bullet.spread, (float) rotationYaw, (float) rotationPitch, owningFaction);
 		proj.setPositionAndRotation(pos.xCoord + vec.xCoord, pos.yCoord + vec.yCoord, pos.zCoord + vec.zCoord, proj.rotationYaw, proj.rotationPitch);
 		worldObj.spawnEntityInWorld(proj);
 
@@ -644,7 +653,9 @@ public abstract class TileEntityTurretBaseNT extends TileEntityMachineBase imple
 		if(targetPlayers ) {
 
 			if(e instanceof FakePlayer) return false;
-			if(e instanceof EntityPlayer) return true;
+			if(e instanceof EntityPlayer){
+				return canTargetPlayerWGC(owningFaction,e.getUniqueID(),worldObj);
+			}
 			for(Class c : CompatExternal.turretTargetPlayer) if(c.isAssignableFrom(e.getClass())) return true;
 		}
 

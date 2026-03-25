@@ -1,11 +1,15 @@
 package com.hbm.entity.grenade;
 
+import api.hbm.wgc.Integrations;
 import com.hbm.explosion.ExplosionChaos;
 import com.hbm.items.ModItems;
 import com.hbm.items.weapon.ItemGrenade;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
+
+import java.util.UUID;
 
 public class EntityGrenadeSchrabidium extends EntityGrenadeBouncyBase {
 
@@ -26,8 +30,13 @@ public class EntityGrenadeSchrabidium extends EntityGrenadeBouncyBase {
 
 		if(!this.worldObj.isRemote) {
 			this.setDead();
-			ExplosionChaos.schrab(this.worldObj, (int) this.posX, (int) this.posY, (int) this.posZ, 50, 50);
-			this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, 1.5F, true);
+			UUID party = null;
+			if(getThrower() instanceof EntityPlayer) party = getThrower().getUniqueID();
+
+			if(Integrations.canDetonateWGC(party,worldObj,(int)posX,(int)posY,(int)posZ)) {
+				ExplosionChaos.schrab(party,this.worldObj, (int) this.posX, (int) this.posY, (int) this.posZ, 50, 50);
+				this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, 1.5F, true);
+			}
 		}
 	}
 

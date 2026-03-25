@@ -54,7 +54,7 @@ public class XFactoryCatapult {
 		if(bullet.isDead) return;
 		bullet.setDead();
 
-		ExplosionVNT vnt = new ExplosionVNT(bullet.worldObj, mop.hitVec.xCoord, mop.hitVec.yCoord, mop.hitVec.zCoord, 10);
+		ExplosionVNT vnt = new ExplosionVNT(bullet.worldObj, mop.hitVec.xCoord, mop.hitVec.yCoord, mop.hitVec.zCoord, 10, bullet.getOwnerParty());
 		vnt.setEntityProcessor(new EntityProcessorCrossSmooth(2, bullet.damage).withRangeMod(1.5F));
 		vnt.setPlayerProcessor(new PlayerProcessorStandard());
 		vnt.explode();
@@ -68,7 +68,7 @@ public class XFactoryCatapult {
 		if(bullet.isDead) return;
 		bullet.setDead();
 
-		ExplosionVNT vnt = new ExplosionVNT(bullet.worldObj, mop.hitVec.xCoord, mop.hitVec.yCoord, mop.hitVec.zCoord, 15);
+		ExplosionVNT vnt = new ExplosionVNT(bullet.worldObj, mop.hitVec.xCoord, mop.hitVec.yCoord, mop.hitVec.zCoord, 15, bullet.getOwnerParty());
 		vnt.setBlockAllocator(new BlockAllocatorStandard(64));
 		vnt.setBlockProcessor(new BlockProcessorStandard().withBlockEffect(new BlockMutatorFire()));
 		vnt.setEntityProcessor(new EntityProcessorCrossSmooth(2, bullet.damage).withRangeMod(1.5F));
@@ -83,7 +83,7 @@ public class XFactoryCatapult {
 		if(mop.typeOfHit == mop.typeOfHit.ENTITY && bullet.ticksExisted < 3 && mop.entityHit == bullet.getThrower()) return;
 		if(bullet.isDead) return;
 		bullet.setDead();
-		bullet.worldObj.spawnEntityInWorld(EntityNukeExplosionMK5.statFac(bullet.worldObj, 35, mop.hitVec.xCoord, mop.hitVec.yCoord, mop.hitVec.zCoord));
+		bullet.worldObj.spawnEntityInWorld(EntityNukeExplosionMK5.statFac(bullet.worldObj, 35, mop.hitVec.xCoord, mop.hitVec.yCoord, mop.hitVec.zCoord,bullet.getOwnerParty()));
 		spawnMush(bullet, mop);
 	};
 
@@ -92,7 +92,7 @@ public class XFactoryCatapult {
 		if(bullet.isDead) return;
 		bullet.setDead();
 
-		ExplosionVNT vnt = new ExplosionVNT(bullet.worldObj, mop.hitVec.xCoord, mop.hitVec.yCoord, mop.hitVec.zCoord, 10);
+		ExplosionVNT vnt = new ExplosionVNT(bullet.worldObj, mop.hitVec.xCoord, mop.hitVec.yCoord, mop.hitVec.zCoord, 10, bullet.getOwnerParty());
 		vnt.setBlockAllocator(new BlockAllocatorStandard(64));
 		vnt.setBlockProcessor(new BlockProcessorStandard().withBlockEffect(new BlockMutatorBalefire()));
 		vnt.setEntityProcessor(new EntityProcessorCrossSmooth(2, bullet.damage).withRangeMod(1.5F));
@@ -130,7 +130,7 @@ public class XFactoryCatapult {
 		if(bullet.isDead) return;
 		bullet.setDead();
 
-		ExplosionVNT vnt = new ExplosionVNT(bullet.worldObj, mop.hitVec.xCoord, mop.hitVec.yCoord, mop.hitVec.zCoord, 5);
+		ExplosionVNT vnt = new ExplosionVNT(bullet.worldObj, mop.hitVec.xCoord, mop.hitVec.yCoord, mop.hitVec.zCoord, 5, bullet.getOwnerParty());
 		vnt.setEntityProcessor(new EntityProcessorCrossSmooth(2, bullet.damage).withRangeMod(1.5F));
 		vnt.setPlayerProcessor(new PlayerProcessorStandard());
 		vnt.explode();
@@ -147,7 +147,7 @@ public class XFactoryCatapult {
 		if(mop.typeOfHit == mop.typeOfHit.ENTITY && bullet.ticksExisted < 3 && mop.entityHit == bullet.getThrower()) return;
 		if(bullet.isDead) return;
 		bullet.setDead();
-		ExplosionVNT vnt = new ExplosionVNT(bullet.worldObj, mop.hitVec.xCoord, mop.hitVec.yCoord, mop.hitVec.zCoord, 5);
+		ExplosionVNT vnt = new ExplosionVNT(bullet.worldObj, mop.hitVec.xCoord, mop.hitVec.yCoord, mop.hitVec.zCoord, 5, bullet.getOwnerParty());
 		vnt.setEntityProcessor(new EntityProcessorCrossSmooth(1, bullet.damage).withRangeMod(1.5F));
 		vnt.setPlayerProcessor(new PlayerProcessorStandard());
 		vnt.setSFX(new ExplosionEffectWeapon(10, 2.5F, 1F));

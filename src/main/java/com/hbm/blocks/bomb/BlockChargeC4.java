@@ -1,7 +1,9 @@
 package com.hbm.blocks.bomb;
 
 import java.util.List;
+import java.util.UUID;
 
+import api.hbm.wgc.Integrations;
 import com.hbm.main.MainRegistry;
 import com.hbm.config.GeneralConfig;
 import com.hbm.explosion.vanillant.ExplosionVNT;
@@ -23,11 +25,19 @@ public class BlockChargeC4 extends BlockChargeBase {
 	public BombReturnCode explode(World world, int x, int y, int z) {
 
 		if(!world.isRemote) {
+
+			UUID owner = getOwner(world,x,y,z);
+			if(owner == null) {
+				owner = explosionOwnerCache.get();
+			}
+			if(!Integrations.canDetonateWGC(owner,world,x,y,z)) {
+				return BombReturnCode.ERROR_BLOCKED;
+			}
 			safe = true;
 			world.setBlockToAir(x, y, z);
 			safe = false;
 
-			ExplosionVNT xnt = new ExplosionVNT(world, x + 0.5, y + 0.5, z + 0.5, 15F);
+			ExplosionVNT xnt = new ExplosionVNT(world, x + 0.5, y + 0.5, z + 0.5, 15F, owner);
 			xnt.setBlockAllocator(new BlockAllocatorStandard(32));
 			xnt.setBlockProcessor(new BlockProcessorStandard().setNoDrop());
 			xnt.setEntityProcessor(new EntityProcessorStandard());

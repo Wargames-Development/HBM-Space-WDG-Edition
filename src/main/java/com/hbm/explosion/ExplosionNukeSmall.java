@@ -1,6 +1,5 @@
 package com.hbm.explosion;
 
-import api.hbm.explosion.event.HbmExplosionHooks;
 import com.hbm.config.BombConfig;
 import com.hbm.entity.logic.EntityNukeExplosionMK5;
 import com.hbm.explosion.ExplosionNT.ExAttrib;
@@ -14,9 +13,11 @@ import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
+import java.util.UUID;
+
 @Deprecated public class ExplosionNukeSmall {
 
-	public static void explode(World world, double posX, double posY, double posZ, MukeParams params) {
+	public static void explode(World world, double posX, double posY, double posZ, UUID party, MukeParams params) {
 
 		// spawn particles, if present (visual only)
 		if(params.particle != null) {
@@ -35,13 +36,10 @@ import net.minecraft.world.World;
 		// ---- Global safezone/claim veto for harmful effects ----
 		float effRadius = Math.max(params.blastRadius, params.killRadius);
 		if(!params.miniNuke && effRadius <= 0) effRadius = BombConfig.fatmanRadius; // fallback for non-miniNuke
-		if (HbmExplosionHooks.pre(world, posX, posY, posZ, effRadius, null, "NUKESMALL.ORIGIN")) {
-			return; // no shrapnels, no NT, no damage, no radiation if origin protected
-		}
 		// --------------------------------------------------------
 
 		if(params.shrapnelCount > 0)
-			ExplosionLarge.spawnShrapnels(world, posX, posY, posZ, params.shrapnelCount);
+			ExplosionLarge.spawnShrapnels(world, posX, posY, posZ, params.shrapnelCount,party);
 
 		if(params.miniNuke && !params.safe)
 			new ExplosionNT(world, null, posX, posY, posZ, params.blastRadius)
@@ -50,10 +48,10 @@ import net.minecraft.world.World;
 				.explode();
 
 		if(params.killRadius > 0)
-			ExplosionNukeGeneric.dealDamage(world, posX, posY, posZ, params.killRadius);
+			ExplosionNukeGeneric.dealDamage(party,world, posX, posY, posZ, params.killRadius);
 
 		if(!params.miniNuke)
-			WorldUtil.loadAndSpawnEntityInWorld(EntityNukeExplosionMK5.statFac(world, (int) params.blastRadius, posX, posY, posZ));
+			WorldUtil.loadAndSpawnEntityInWorld(EntityNukeExplosionMK5.statFac(world, (int) params.blastRadius, posX, posY, posZ,party));
 
 		if(params.miniNuke) {
 			float radMod = params.radiationLevel / 3F;
@@ -65,8 +63,6 @@ import net.minecraft.world.World;
 						int ry = (int) Math.floor(posY);
 						int rz = (int) Math.floor(posZ + j * 16);
 
-						// Per-position veto: don't apply radiation inside protected zones
-						if (HbmExplosionHooks.blockDenied(world, rx, ry, rz, "NUKESMALL.RAD")) continue;
 
 						ChunkRadiationManager.proxy.incrementRad(world, rx, ry, rz,
 							50 / (Math.abs(i) + Math.abs(j) + 1) * radMod);

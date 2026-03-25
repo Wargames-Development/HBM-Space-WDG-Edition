@@ -1,12 +1,8 @@
 package com.hbm.explosion;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
-import api.hbm.explosion.event.HbmExplosionHooks;
+import api.hbm.wgc.Integrations;
 import com.hbm.interfaces.IExplosionRay;
 import com.hbm.util.fauxpointtwelve.BlockPos;
 
@@ -20,6 +16,7 @@ public class ExplosionNukeRayBatched implements IExplosionRay {
 
 	public HashMap<ChunkCoordIntPair, List<FloatTriplet>> perChunk = new HashMap(); //for future: optimize blockmap further by using sub-chunks instead of chunks
 	public List<ChunkCoordIntPair> orderedChunks = new ArrayList();
+	private Set<ChunkCoordIntPair> protectedChunks = new HashSet();
 	private CoordComparator comparator = new CoordComparator();
 	int posX;
 	int posY;
@@ -36,7 +33,7 @@ public class ExplosionNukeRayBatched implements IExplosionRay {
 
 	public boolean isAusf3Complete = false;
 
-	public ExplosionNukeRayBatched(World world, int x, int y, int z, int strength, int speed, int length) {
+	public ExplosionNukeRayBatched(World world, int x, int y, int z, int strength, int speed, int length, UUID party) {
 		this.world = world;
 		this.posX = x;
 		this.posY = y;
@@ -44,16 +41,7 @@ public class ExplosionNukeRayBatched implements IExplosionRay {
 		this.strength = strength;
 		this.speed = speed;
 		this.length = length;
-
-		// Safezone/claim: cancel the entire ray up front if its origin is protected
-		if (HbmExplosionHooks.pre(world, x + 0.5, y + 0.5, z + 0.5, strength, null, "RAY.BATCHED")) {
-			this.isAusf3Complete = true; // prevent any processing
-			this.gspNumMax = 0;
-			this.gspNum = 1;
-			this.gspX = 0.0;
-			this.gspY = 0.0;
-			return;
-		}
+		this.protectedChunks = Integrations.getExplosionProtectedChunksWGC(party,world,x,z,strength/2+16);
 
 		// Total number of points
 		this.gspNumMax = (int) (2.5 * Math.PI * Math.pow(this.strength, 2));
@@ -117,6 +105,11 @@ public class ExplosionNukeRayBatched implements IExplosionRay {
 				int iX = (int) Math.floor(x0);
 				int iY = (int) Math.floor(y0);
 				int iZ = (int) Math.floor(z0);
+
+				// Per-block veto: skip rest of checks if the block is in a protected chunk.
+				if(Integrations.isProtected(iX,iZ,protectedChunks)){
+					break;
+				}
 
 				double fac = 100 - ((double) i) / ((double) length) * 100;
 				fac *= 0.07D;
@@ -249,11 +242,6 @@ public class ExplosionNukeRayBatched implements IExplosionRay {
 		for (BlockPos pos : toRem) {
 			int x = pos.getX(), y = pos.getY(), z = pos.getZ();
 
-			// yRadar safezone/claim guard — block any edits at protected coords
-			if (HbmExplosionHooks.blockDenied(world, x, y, z,
-				toRemTips.contains(pos) ? "RAY.BATCHED.TIP" : "RAY.BATCHED.CARVE"))
-				continue;
-
 			if (toRemTips.contains(pos)) {
 				this.handleTip(x, y, z);
 			} else {
@@ -267,10 +255,6 @@ public class ExplosionNukeRayBatched implements IExplosionRay {
 
 
 	protected void handleTip(int x, int y, int z) {
-		// Safezone/claim: block any edits at the ray tip inside protected areas
-		if (HbmExplosionHooks.blockDenied(world, x, y, z, "RAY.BATCHED.TIP"))
-			return;
-
 		world.setBlock(x, y, z, Blocks.air, 0, 3);
 	}
 

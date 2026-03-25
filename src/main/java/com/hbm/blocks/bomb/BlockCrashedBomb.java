@@ -1,5 +1,6 @@
 package com.hbm.blocks.bomb;
 
+import api.hbm.wgc.Integrations;
 import com.hbm.blocks.BlockEnumMulti;
 import com.hbm.config.BombConfig;
 import com.hbm.entity.logic.EntityBalefire;
@@ -28,8 +29,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
+import java.util.UUID;
+
 public class BlockCrashedBomb extends BlockEnumMulti implements ITileEntityProvider, IBomb {
-	
+
+
 	public static enum EnumDudType {
 		BALEFIRE, CONVENTIONAL, NUKE, SALTED
 	}
@@ -51,7 +55,7 @@ public class BlockCrashedBomb extends BlockEnumMulti implements ITileEntityProvi
 		if(world.isRemote) return true;
 
 		if(player.getHeldItem() != null && player.getHeldItem().getItem() == ModItems.defuser) {
-			
+
 			EnumDudType type = EnumUtil.grabEnumSafely(EnumDudType.class, world.getBlockMetadata(x, y, z));
 
 			if(type == type.BALEFIRE) {
@@ -73,7 +77,7 @@ public class BlockCrashedBomb extends BlockEnumMulti implements ITileEntityProvi
 						new ItemStack(ModItems.billet_plutonium, 2),
 						new ItemStack(ModItems.ingot_cobalt, 12));
 			}
-			
+
 			world.func_147480_a(x, y, z, false);
 			return true;
 		}
@@ -88,7 +92,7 @@ public class BlockCrashedBomb extends BlockEnumMulti implements ITileEntityProvi
 	@Override
 	public BombReturnCode explode(World world, int x, int y, int z) {
 
-		if(!world.isRemote) {
+		if(!world.isRemote & Integrations.canDetonateWGC(null,world,x,y,z)) {
 
 			EnumDudType type = EnumUtil.grabEnumSafely(EnumDudType.class, world.getBlockMetadata(x, y, z));
 			world.setBlockToAir(x, y, z);
@@ -96,13 +100,14 @@ public class BlockCrashedBomb extends BlockEnumMulti implements ITileEntityProvi
 			if(type == type.BALEFIRE) {
 				EntityBalefire bf = new EntityBalefire(world);
 				bf.setPosition(x, y, z);
+				bf.ownerParty = null;
 				bf.destructionRange = (int) (BombConfig.fatmanRadius * 1.25);
 				world.spawnEntityInWorld(bf);
 				spawnMush(world, x, y, z, true);
 			}
 
 			if(type == type.CONVENTIONAL) {
-				ExplosionVNT xnt = new ExplosionVNT(world, x + 0.5, y + 0.5, z + 0.5, 35F);
+				ExplosionVNT xnt = new ExplosionVNT(world, x + 0.5, y + 0.5, z + 0.5, 35F, null);
 				xnt.setBlockAllocator(new BlockAllocatorStandard(24));
 				xnt.setBlockProcessor(new BlockProcessorStandard().setNoDrop());
 				xnt.setEntityProcessor(new EntityProcessorCross(5D).withRangeMod(1.5F));
@@ -110,26 +115,29 @@ public class BlockCrashedBomb extends BlockEnumMulti implements ITileEntityProvi
 				xnt.explode();
 				ExplosionCreator.composeEffectLarge(world, x + 0.5, y + 0.5, z + 0.5);
 			}
-			
+
 			if(type == type.NUKE) {
-				world.spawnEntityInWorld(EntityNukeExplosionMK5.statFac(world, 35, x + 0.5, y + 0.5, z + 0.5));
+				world.spawnEntityInWorld(EntityNukeExplosionMK5.statFac(world, 35, x + 0.5, y + 0.5, z + 0.5, null));
 				spawnMush(world, x, y, z, MainRegistry.polaroidID == 11 || world.rand.nextInt(100) == 0);
 			}
-			
+
 			if(type == type.SALTED) {
-				world.spawnEntityInWorld(EntityNukeExplosionMK5.statFac(world, 25, x + 0.5, y + 0.5, z + 0.5).moreFallout(25));
+				world.spawnEntityInWorld(EntityNukeExplosionMK5.statFac(world, 25, x + 0.5, y + 0.5, z + 0.5, null).moreFallout(25));
 				spawnMush(world, x, y, z, MainRegistry.polaroidID == 11 || world.rand.nextInt(100) == 0);
 			}
 		}
 
 		return BombReturnCode.DETONATED;
 	}
-	
+
 	public static void spawnMush(World world, int x, int y, int z, boolean balefire) {
 		world.playSoundEffect(x + 0.5, y + 0.5, z + 0.5, "hbm:weapon.mukeExplosion", 15.0F, 1.0F);
 		NBTTagCompound data = new NBTTagCompound();
 		data.setString("type", "muke");
 		data.setBoolean("balefire", balefire);
 		PacketThreading.createAllAroundThreadedPacket(new AuxParticlePacketNT(data, x + 0.5, y + 0.5, z + 0.5), new TargetPoint(world.provider.dimensionId, x + 0.5, y + 0.5, z + 0.5, 250));
+	}
+	public UUID getOwnerParty(World world, int x, int y, int z) {
+		return null;
 	}
 }

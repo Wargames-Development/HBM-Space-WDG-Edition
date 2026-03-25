@@ -9,6 +9,7 @@ import static net.minecraftforge.common.util.ForgeDirection.WEST;
 
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 import com.hbm.config.GeneralConfig;
 import com.hbm.blocks.BlockContainerBase;
@@ -36,9 +37,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public abstract class BlockChargeBase extends BlockContainerBase implements IBomb, IToolable, ITooltipProvider, IFuckingExplode {
-	
+
 	public static boolean safe = false;
-	
+	protected static final ThreadLocal<UUID> explosionOwnerCache = new ThreadLocal<>();
+
 	public BlockChargeBase() {
 		super(Material.tnt);
 	}
@@ -47,27 +49,27 @@ public abstract class BlockChargeBase extends BlockContainerBase implements IBom
 	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
 		return new TileEntityCharge();
 	}
-	
+
 	@Override
 	public boolean isOpaqueCube() {
 		return false;
 	}
-	
+
 	@Override
 	public boolean renderAsNormalBlock() {
 		return false;
 	}
-	
+
 	@Override
 	public int onBlockPlaced(World world, int x, int y, int z, int side, float fX, float fY, float fZ, int meta) {
 		return side;
 	}
-	
+
 	@Override
 	public Item getItemDropped(int i, Random rand, int j) {
 		return null;
 	}
-	
+
 	@Override
 	public boolean canPlaceBlockOnSide(World world, int x, int y, int z, int side) {
 		ForgeDirection dir = ForgeDirection.getOrientation(side);
@@ -78,28 +80,28 @@ public abstract class BlockChargeBase extends BlockContainerBase implements IBom
 				(dir == WEST && world.isSideSolid(x + 1, y, z, WEST)) ||
 				(dir == EAST && world.isSideSolid(x - 1, y, z, EAST));
 	}
-	
+
 	@Override
 	public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
-		
+
 		ForgeDirection dir = ForgeDirection.getOrientation(world.getBlockMetadata(x, y, z));
-		
+
 		if(!world.isSideSolid(x - dir.offsetX, y - dir.offsetY, z - dir.offsetZ, dir)) {
 			world.setBlockToAir(x, y, z);
 			//this.explode(world, x, y, z);
 		}
 	}
-	
+
 	@Override
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
 		return null;
 	}
-	
+
 	@Override
 	public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z) {
-		
+
 		float f = 0.0625F;
-		
+
 		switch(world.getBlockMetadata(x, y, z)) {
 		case 0: this.setBlockBounds(0.0F, 10 * f, 0.0F, 1.0F, 1.0F, 1.0F); break;
 		case 1: this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 6 * f, 1.0F); break;
@@ -109,15 +111,15 @@ public abstract class BlockChargeBase extends BlockContainerBase implements IBom
 		case 5: this.setBlockBounds(0.0F, 0.0F, 0.0F, 6 * f, 1.0F, 1.0F); break;
 		}
 	}
-	
+
 	@Override
 	public boolean onScrew(World world, EntityPlayer player, int x, int y, int z, int side, float fX, float fY, float fZ, ToolType tool) {
-		
+
 		if(tool != ToolType.DEFUSER)
 			return false;
 
 		TileEntityCharge charge = (TileEntityCharge) world.getTileEntity(x, y, z);
-		
+
 		if(charge.started) {
 			charge.started = !charge.started;
 			world.playSoundEffect(x, y, z, "hbm:weapon.fstbmbStart", 1.0F, 1.0F);
@@ -127,22 +129,30 @@ public abstract class BlockChargeBase extends BlockContainerBase implements IBom
 			this.dismantle(world, x, y, z);
 			safe = false;
 		}
-		
+
 		return true;
 	}
-	
+
 	@Override
 	public void breakBlock(World world, int x, int y, int z, Block block, int i) {
+		explosionOwnerCache.set(getOwner(world, x, y, z));
 		super.breakBlock(world, x, y, z, block, i);
-		
+
 		if(!safe)
 			explode(world, x, y, z);
 	}
-	
+
 	@Override
 	public void onBlockDestroyedByExplosion(World world, int x, int y, int z, Explosion explosion) {
 		if(!world.isRemote) {
-			EntityTNTPrimedBase tntPrimed = new EntityTNTPrimedBase(world, x + 0.5D, y + 0.5D, z + 0.5D, explosion != null ? explosion.getExplosivePlacedBy() : null, this);
+			UUID owner = explosionOwnerCache.get();
+
+			EntityTNTPrimedBase tntPrimed =
+				new EntityTNTPrimedBase(world, x + 0.5D, y + 0.5D, z + 0.5D,
+					explosion != null ? explosion.getExplosivePlacedBy() : null,
+					owner,
+					this
+				);
 			tntPrimed.fuse = 0;
 			tntPrimed.detonateOnCollision = false;
 			world.spawnEntityInWorld(tntPrimed);
@@ -153,14 +163,14 @@ public abstract class BlockChargeBase extends BlockContainerBase implements IBom
 	public void explodeEntity(World world, double x, double y, double z, EntityTNTPrimedBase entity) {
 		explode(world, MathHelper.floor_double(x), MathHelper.floor_double(y), MathHelper.floor_double(z));
 	}
-	
+
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean ext) {
 		list.add(EnumChatFormatting.YELLOW + "Right-click to change timer.");
 		list.add(EnumChatFormatting.YELLOW + "Sneak-click to arm.");
 		list.add(EnumChatFormatting.RED + "Can only be disarmed and removed with defuser.");
 	}
-	
+
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
 		if(world.isRemote) {
@@ -170,15 +180,15 @@ public abstract class BlockChargeBase extends BlockContainerBase implements IBom
 			TileEntityCharge charge = (TileEntityCharge) world.getTileEntity(x, y, z);
 
 			if(!charge.started) {
-				
+
 				if(player.isSneaking()) {
-					
+
 					if(charge.timer > 0) {
 						charge.started = true;
 						world.playSoundEffect(x, y, z, "hbm:weapon.fstbmbStart", 1.0F, 1.0F);
 					}
 				} else {
-					
+
 					if(charge.timer == 0) { charge.timer = 100; }
 					else if(charge.timer == 100) { charge.timer = 200; }
 					else if(charge.timer == 200) { charge.timer = 300; }
@@ -187,13 +197,13 @@ public abstract class BlockChargeBase extends BlockContainerBase implements IBom
 					else if(charge.timer == 1200) { charge.timer = 3600; }
 					else if(charge.timer == 3600) { charge.timer = 6000; }
 					else { charge.timer = 0; }
-					
+
 					world.playSoundEffect(x, y, z, "hbm:item.techBoop", 1.0F, 1.0F);
 				}
-				
+
 				charge.markDirty();
 			}
-			
+
 			return false;
 		}
 	}
@@ -201,10 +211,23 @@ public abstract class BlockChargeBase extends BlockContainerBase implements IBom
 	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack itemStack) {
 		if(!world.isRemote) {
+			TileEntity te = world.getTileEntity(x, y, z);
+			if (te instanceof TileEntityCharge) {
+				((TileEntityCharge) te).ownerParty = player.getUniqueID();
+				te.markDirty();
+			}
 			if(GeneralConfig.enableExtendedLogging) {
 				MainRegistry.logger.info("[BOMBPL]" + this.getLocalizedName() + " placed at " + x + " / " + y + " / " + z + "! " + "by "+ player.getCommandSenderName());
 			}
 		}
 	}
-	
+
+	@Override
+	public UUID getOwner(World world, int x, int y, int z) {
+		TileEntity te = world.getTileEntity(x, y, z);
+		if (te instanceof TileEntityCharge) {
+			return ((TileEntityCharge) te).ownerParty;
+		}
+		return null;
+	}
 }

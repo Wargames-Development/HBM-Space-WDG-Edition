@@ -3,6 +3,7 @@ package com.hbm.entity.projectile;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import com.hbm.blocks.bomb.BlockDetonatable;
 import com.hbm.entity.effect.EntityCloudFleijaRainbow;
@@ -75,20 +76,23 @@ public class EntityBulletBaseNT extends EntityThrowableInterp implements IBullet
 	public BulletConfiguration getConfig() {
 		return config;
 	}
+	public UUID ownerParty;
 
 	public EntityBulletBaseNT(World world) {
 		super(world);
 		this.renderDistanceWeight = 10.0D;
 		this.setSize(0.5F, 0.5F);
+		this.ownerParty = null;
 	}
 
-	public EntityBulletBaseNT(World world, int config) {
+	public EntityBulletBaseNT( UUID ownerParty, World world, int config) {
 		super(world);
 		this.config = BulletConfigSyncingUtil.pullConfig(config);
 		this.dataWatcher.updateObject(18, config);
 		this.dataWatcher.updateObject(16, (byte)this.config.style);
 		this.dataWatcher.updateObject(17, (byte)this.config.trail);
 		this.renderDistanceWeight = 10.0D;
+		this.ownerParty = ownerParty;
 
 		if(this.config == null) {
 			this.setDead();
@@ -98,13 +102,14 @@ public class EntityBulletBaseNT extends EntityThrowableInterp implements IBullet
 		this.setSize(0.5F, 0.5F);
 	}
 
-	public EntityBulletBaseNT(World world, int config, EntityLivingBase entity) {
+	public EntityBulletBaseNT(UUID ownerParty, World world, int config, EntityLivingBase entity) {
 		super(world);
 		this.config = BulletConfigSyncingUtil.pullConfig(config);
 		this.dataWatcher.updateObject(18, config);
 		this.dataWatcher.updateObject(16, (byte)this.config.style);
 		this.dataWatcher.updateObject(17, (byte)this.config.trail);
 		thrower = entity;
+		this.ownerParty = ownerParty;
 
 		boolean offsetShot = true;
 		boolean accuracyBoost = false;
@@ -132,7 +137,7 @@ public class EntityBulletBaseNT extends EntityThrowableInterp implements IBullet
 		this.setThrowableHeading(this.motionX, this.motionY, this.motionZ, 1.0F, this.config.spread * (accuracyBoost ? 0.25F : 1F));
 	}
 
-	public EntityBulletBaseNT(World world, int config, EntityLivingBase entity, EntityLivingBase target, float motion, float deviation) {
+	public EntityBulletBaseNT(UUID ownerParty, World world, int config, EntityLivingBase entity, EntityLivingBase target, float motion, float deviation) {
 		super(world);
 
 		this.config = BulletConfigSyncingUtil.pullConfig(config);
@@ -140,6 +145,7 @@ public class EntityBulletBaseNT extends EntityThrowableInterp implements IBullet
 		this.dataWatcher.updateObject(16, (byte)this.config.style);
 		this.dataWatcher.updateObject(17, (byte)this.config.trail);
 		this.thrower = entity;
+		this.ownerParty = ownerParty;
 
 		this.renderDistanceWeight = 10.0D;
 		this.setSize(0.5F, 0.5F);
@@ -395,7 +401,7 @@ public class EntityBulletBaseNT extends EntityThrowableInterp implements IBullet
 		}
 
 		if(config.emp > 0)
-			ExplosionNukeGeneric.empBlast(this.worldObj, (int)(this.posX + 0.5D), (int)(this.posY + 0.5D), (int)(this.posZ + 0.5D), config.emp);
+			ExplosionNukeGeneric.empBlast(ownerParty,this.worldObj, (int)(this.posX + 0.5D), (int)(this.posY + 0.5D), (int)(this.posZ + 0.5D), config.emp);
 
 		if(config.emp > 3) {
 			if (!this.worldObj.isRemote) {
@@ -414,7 +420,7 @@ public class EntityBulletBaseNT extends EntityThrowableInterp implements IBullet
 
 		if(config.explosive > 0 && !worldObj.isRemote) {
 			//worldObj.newExplosion(this.thrower, posX, posY, posZ, config.explosive, config.incendiary > 0, config.blockDamage);
-			ExplosionVNT vnt = new ExplosionVNT(worldObj, posX, posY, posZ, config.explosive, this.thrower);
+			ExplosionVNT vnt = new ExplosionVNT(worldObj, posX, posY, posZ, config.explosive, thrower.getUniqueID(), this.thrower); //TODO
 			vnt.setBlockAllocator(new BlockAllocatorStandard());
 			if(config.blockDamage)	vnt.setBlockProcessor(new BlockProcessorStandard().withBlockEffect(config.incendiary > 0 ? new BlockMutatorFire() : null));
 			else					vnt.setBlockProcessor(new BlockProcessorNoDamage().withBlockEffect(config.incendiary > 0 ? new BlockMutatorFire() : null));
@@ -425,7 +431,7 @@ public class EntityBulletBaseNT extends EntityThrowableInterp implements IBullet
 		}
 
 		if(config.shrapnel > 0 && !worldObj.isRemote)
-			ExplosionLarge.spawnShrapnels(worldObj, posX, posY, posZ, config.shrapnel);
+			ExplosionLarge.spawnShrapnels(worldObj, posX, posY, posZ, config.shrapnel,ownerParty);
 
 		if(config.rainbow > 0 && !worldObj.isRemote) {
 			EntityNukeExplosionMK3 ex = EntityNukeExplosionMK3.statFacFleija(worldObj, posX, posY, posZ, config.rainbow);
@@ -442,7 +448,7 @@ public class EntityBulletBaseNT extends EntityThrowableInterp implements IBullet
 		}
 
 		if(config.nuke > 0 && !worldObj.isRemote) {
-			worldObj.spawnEntityInWorld(EntityNukeExplosionMK5.statFac(worldObj, config.nuke, posX, posY, posZ));
+			worldObj.spawnEntityInWorld(EntityNukeExplosionMK5.statFac(worldObj, config.nuke, posX, posY, posZ,thrower.getUniqueID()));
 			NBTTagCompound data = new NBTTagCompound();
 			data.setString("type", "muke");
 			if(MainRegistry.polaroidID == 11 || rand.nextInt(100) == 0) data.setBoolean("balefire", true);

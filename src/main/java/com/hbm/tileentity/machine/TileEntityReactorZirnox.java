@@ -382,7 +382,7 @@ public class TileEntityReactorZirnox extends TileEntityMachineBase implements IC
 		worldObj.playSoundEffect(xCoord, yCoord + 2, zCoord, "hbm:block.rbmk_explosion", 10.0F, 1.0F);
 		worldObj.createExplosion(null, this.xCoord, this.yCoord + 3, this.zCoord, 12.0F, true);
 		zirnoxDebris();
-		ExplosionNukeGeneric.waste(worldObj, this.xCoord, this.yCoord, this.zCoord, 35);
+		ExplosionNukeGeneric.waste(null,worldObj, this.xCoord, this.yCoord, this.zCoord, 35);
 
 		List<EntityPlayer> players = worldObj.getEntitiesWithinAABB(EntityPlayer.class,
 				AxisAlignedBB.getBoundingBox(xCoord + 0.5, yCoord + 0.5, zCoord + 0.5, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5).expand(100, 100, 100));

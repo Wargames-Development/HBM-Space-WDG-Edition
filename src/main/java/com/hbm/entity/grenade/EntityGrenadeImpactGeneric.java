@@ -1,12 +1,16 @@
 package com.hbm.entity.grenade;
 
+import api.hbm.wgc.Integrations;
 import com.hbm.items.ModItems;
 import com.hbm.items.weapon.ItemGenericGrenade;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+
+import java.util.UUID;
 
 public class EntityGrenadeImpactGeneric extends EntityGrenadeBase implements IGenericGrenade {
 
@@ -21,12 +25,12 @@ public class EntityGrenadeImpactGeneric extends EntityGrenadeBase implements IGe
 	public EntityGrenadeImpactGeneric(World p_i1775_1_, double p_i1775_2_, double p_i1775_4_, double p_i1775_6_) {
 		super(p_i1775_1_, p_i1775_2_, p_i1775_4_, p_i1775_6_);
 	}
-	
+
 	public EntityGrenadeImpactGeneric setType(ItemGenericGrenade grenade) {
 		this.dataWatcher.updateObject(12, Item.getIdFromItem(grenade));
 		return this;
 	}
-	
+
 	@Override
 	public ItemGenericGrenade getGrenade() {
 		ItemGenericGrenade gren = (ItemGenericGrenade) Item.getItemById(this.dataWatcher.getWatchableObjectInt(12));
@@ -42,8 +46,13 @@ public class EntityGrenadeImpactGeneric extends EntityGrenadeBase implements IGe
 	public void explode() {
 
 		if(!this.worldObj.isRemote && getGrenade() != null) {
-			getGrenade().explode(this, this.getThrower(), worldObj, posX, posY, posZ);
-			this.setDead();
+			UUID party = null;
+			if(getThrower() instanceof EntityPlayer) party = getThrower().getUniqueID();
+
+			if(Integrations.canDetonateWGC(party,worldObj,(int)posX,(int)posY,(int)posZ)) {
+				getGrenade().explode(this, this.getThrower(), worldObj, posX, posY, posZ);
+				this.setDead();
+			}
 		}
 	}
 
