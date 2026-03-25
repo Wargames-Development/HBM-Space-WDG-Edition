@@ -7,6 +7,7 @@ import api.hbm.redstoneoverradio.IRORInteractive;
 import api.hbm.redstoneoverradio.IRORValueProvider;
 
 import java.util.HashSet;
+import java.util.UUID;
 
 import com.hbm.blocks.ModBlocks;
 import com.hbm.entity.effect.EntityCloudFleija;
@@ -58,6 +59,8 @@ public class TileEntityBarrel extends TileEntityMachineBase implements SimpleCom
 	protected FluidNode node;
 	protected FluidType lastType;
 
+	protected UUID ownerParty;
+
 	public boolean hasExploded = false;
 	public FluidTank tank;
 	public short mode = 0;
@@ -93,6 +96,12 @@ public class TileEntityBarrel extends TileEntityMachineBase implements SimpleCom
 		return type == tank.getTankType() ? tank.getMaxFill() - tank.getFill() : 0;
 	}
 
+	public void setOwnerParty(UUID ownerParty) {
+		this.ownerParty = ownerParty;
+	}
+	public UUID getOwnerParty() {
+		return ownerParty;
+	}
 	@Override
 	public void updateEntity() {
 
@@ -243,7 +252,7 @@ public class TileEntityBarrel extends TileEntityMachineBase implements SimpleCom
 		//for when you fill antimatter into a matter tank
 		if(b != ModBlocks.barrel_antimatter && tank.getTankType().isAntimatter()) {
 			worldObj.func_147480_a(xCoord, yCoord, zCoord, false);
-			new ExplosionVNT(worldObj, xCoord, yCoord, zCoord, 5).makeAmat().explode();
+			new ExplosionVNT(worldObj, xCoord, yCoord, zCoord, 5,ownerParty).makeAmat().explode();
 			//worldObj.newExplosion(null, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5, 5, true, true);
 		}
 
@@ -409,7 +418,7 @@ public class TileEntityBarrel extends TileEntityMachineBase implements SimpleCom
 						EntityNukeTorex.startFacAnti(worldObj, xCoord, yCoord, zCoord, amat * 1.5F);
 						return;
 					} else {
-						new ExplosionVNT(worldObj, xCoord, yCoord, zCoord, amat).makeAmat().explode();
+						new ExplosionVNT(worldObj, xCoord, yCoord, zCoord, amat,ownerParty).makeAmat().explode();//TODO Figure out this interaction
 					}
 				}
 				if(aschrab > 0) {

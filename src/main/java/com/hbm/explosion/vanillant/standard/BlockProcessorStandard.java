@@ -53,12 +53,6 @@ public class BlockProcessorStandard implements IBlockProcessor {
 
 			if(block.getMaterial() != Material.air) {
 
-				// Safezone/claim guard — skip all edits/drops at protected coords
-				if (HbmExplosionHooks.blockDenied(world, blockX, blockY, blockZ, "VNT.STD.BLOCK")) {
-					iterator.remove(); // also keep it out of compat effects
-					continue;
-				}
-
 				if(block.canDropFromExplosion(null)) {
 
 					if(chance != null) {

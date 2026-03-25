@@ -181,7 +181,7 @@ public class EntityGlyphid extends EntityMob implements IResistanceProvider, ISu
 			} else if (getCurrentTask() == TASK_DIG && ticksExisted % 20 == 0 && isAtDestination()) {
 				swingItem();
 
-				ExplosionVNT vnt = new ExplosionVNT(worldObj, taskX, taskY + 2, taskZ, blastSize, this);
+				ExplosionVNT vnt = new ExplosionVNT(worldObj, taskX, taskY + 2, taskZ, blastSize, null, this);
 				vnt.setBlockAllocator(new BlockAllocatorGlyphidDig(blastResToDig));
 				vnt.setBlockProcessor(new BlockProcessorStandard().setNoDrop());
 				vnt.setEntityProcessor(null);

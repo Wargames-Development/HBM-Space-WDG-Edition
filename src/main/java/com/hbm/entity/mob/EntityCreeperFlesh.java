@@ -32,8 +32,8 @@ public class EntityCreeperFlesh extends EntityCreeper {
 			PacketDispatcher.wrapper.sendToAllAround(new AuxParticlePacketNT(vdat, posX, posY + height * 0.5, posZ), new TargetPoint(dimension, posX, posY + height * 0.5, posZ, 150));
 
 			this.setDead();
-			
-			ExplosionVNT vnt = new ExplosionVNT(worldObj, posX, posY, posZ, this.getPowered() ? 7 : 4, this);
+
+			ExplosionVNT vnt = new ExplosionVNT(worldObj, posX, posY, posZ, this.getPowered() ? 7 : 4, null, this);
 			vnt.setBlockAllocator(new BlockAllocatorBulkie(30, this.getPowered() ? 16 : 8));
 			vnt.setBlockProcessor(new BlockProcessorStandard().withBlockEffect(new BlockMutatorBulkie(ModBlocks.tumor)));
 			vnt.setEntityProcessor(new EntityProcessorStandard().withRangeMod(0.25F));
@@ -42,5 +42,5 @@ public class EntityCreeperFlesh extends EntityCreeper {
 			vnt.explode();
 		}
 	}
-	
+
 }

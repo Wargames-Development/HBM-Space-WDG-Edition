@@ -1,6 +1,7 @@
 package com.hbm.items.tool;
 
 import java.util.List;
+import java.util.UUID;
 
 import com.hbm.blocks.bomb.LaunchPad;
 import com.hbm.lib.Library;
@@ -16,6 +17,7 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
 public class ItemDesingatorRange extends Item implements IDesignatorItem {
+	private UUID ownerParty;
 
 	@Override
 	public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean bool) {
@@ -36,7 +38,7 @@ public class ItemDesingatorRange extends Item implements IDesignatorItem {
 		int z = pos.blockZ;
 
 		if(!(world.getBlock(x, y, z) instanceof LaunchPad)) {
-			
+			ownerParty = player.getUniqueID();
 			if(stack.stackTagCompound == null)
 				stack.stackTagCompound = new NBTTagCompound();
 
@@ -63,5 +65,9 @@ public class ItemDesingatorRange extends Item implements IDesignatorItem {
 	@Override
 	public Vec3 getCoords(World world, ItemStack stack, int x, int y, int z) {
 		return Vec3.createVectorHelper(stack.stackTagCompound.getInteger("xCoord"), 0, stack.stackTagCompound.getInteger("zCoord"));
+	}
+
+	public UUID getOwnerParty(){
+		return ownerParty;
 	}
 }

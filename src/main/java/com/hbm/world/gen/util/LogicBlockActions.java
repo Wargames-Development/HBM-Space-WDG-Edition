@@ -283,7 +283,8 @@ public class LogicBlockActions {
 						200,
 						z + tile.direction.offsetZ * 300,
 						x + parallel.offsetX * 30 + tile.direction.offsetX * 30,
-						z + parallel.offsetZ * 30 + tile.direction.offsetZ * 30);
+						z + parallel.offsetZ * 30 + tile.direction.offsetZ * 30,
+						null);//TODO exp rework
 		WorldUtil.loadAndSpawnEntityInWorld(missile);
 
 		world.setBlock(x,y,z, ModBlocks.block_electrical_scrap);

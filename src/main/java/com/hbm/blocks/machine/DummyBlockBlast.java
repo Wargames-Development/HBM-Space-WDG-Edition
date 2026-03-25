@@ -1,6 +1,7 @@
 package com.hbm.blocks.machine;
 
 import java.util.Random;
+import java.util.UUID;
 
 import com.hbm.blocks.ModBlocks;
 import com.hbm.interfaces.IBomb;
@@ -42,7 +43,7 @@ public class DummyBlockBlast extends BlockContainer implements IDummy, IBomb {
     			int a = ((TileEntityDummy)te).targetX;
     			int b = ((TileEntityDummy)te).targetY;
     			int c = ((TileEntityDummy)te).targetZ;
-    		
+
     			if(!world.isRemote)
     				world.func_147480_a(a, b, c, true);
     		}
@@ -64,7 +65,7 @@ public class DummyBlockBlast extends BlockContainer implements IDummy, IBomb {
 	public boolean renderAsNormalBlock() {
 		return false;
 	}
-	
+
 	@Override
 	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_)
     {
@@ -77,7 +78,7 @@ public class DummyBlockBlast extends BlockContainer implements IDummy, IBomb {
     {
         return Item.getItemFromBlock(ModBlocks.blast_door);
     }
-	
+
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
 		if(world.isRemote)
@@ -85,7 +86,7 @@ public class DummyBlockBlast extends BlockContainer implements IDummy, IBomb {
 			return true;
 		} else if(player.getHeldItem() != null && (player.getHeldItem().getItem() instanceof ItemLock || player.getHeldItem().getItem() == ModItems.key_kit)) {
 			return false;
-			
+
 		} else if(!player.isSneaking())
 		{
 			TileEntity til = world.getTileEntity(x, y, z);
@@ -93,7 +94,7 @@ public class DummyBlockBlast extends BlockContainer implements IDummy, IBomb {
 				int a = ((TileEntityDummy)til).targetX;
 				int b = ((TileEntityDummy)til).targetY;
 				int c = ((TileEntityDummy)til).targetZ;
-						
+
 				TileEntityBlastDoor entity = (TileEntityBlastDoor) world.getTileEntity(a, b, c);
 				if(entity != null)
 				{
@@ -101,34 +102,38 @@ public class DummyBlockBlast extends BlockContainer implements IDummy, IBomb {
 						entity.tryToggle();
 				}
 			}
-			
+
 			return true;
 		}
-		
+
 		return true;
 	}
 
 	@Override
 	public BombReturnCode explode(World world, int x, int y, int z) {
-		
+
 		if(!world.isRemote) {
-			
+
 			TileEntity te = world.getTileEntity(x, y, z);
 			if(te != null && te instanceof TileEntityDummy) {
 				int a = ((TileEntityDummy)te).targetX;
 				int b = ((TileEntityDummy)te).targetY;
 				int c = ((TileEntityDummy)te).targetZ;
-				
+
 				TileEntityBlastDoor entity = (TileEntityBlastDoor) world.getTileEntity(a, b, c);
 				if(entity != null && !entity.isLocked()) {
 					entity.tryToggle();
 					return BombReturnCode.TRIGGERED;
 				}
 			}
-			
+
 			return BombReturnCode.ERROR_INCOMPATIBLE;
 		}
-		
+
 		return BombReturnCode.UNDEFINED;
+	}
+	@Override
+	public UUID getOwnerParty() {
+		return null;
 	}
 }

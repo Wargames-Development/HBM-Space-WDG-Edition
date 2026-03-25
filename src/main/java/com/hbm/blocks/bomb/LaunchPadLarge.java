@@ -13,6 +13,8 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import java.util.UUID;
+
 public class LaunchPadLarge extends BlockDummyable implements IBomb {
 
 	public LaunchPadLarge(Material mat) {
@@ -28,7 +30,7 @@ public class LaunchPadLarge extends BlockDummyable implements IBomb {
 		if(meta >= 6) return new TileEntityProxyCombo().inventory().power().fluid();
 		return new TileEntityProxyCombo().inventory();
 	}
-	
+
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
 		return this.standardOpenBehavior(world, x, y, z, player, 0);
@@ -46,9 +48,9 @@ public class LaunchPadLarge extends BlockDummyable implements IBomb {
 
 	@Override
 	public BombReturnCode explode(World world, int x, int y, int z) {
-		
+
 		if(!world.isRemote) {
-			
+
 			int[] corePos = findCore(world, x, y, z);
 			if(corePos != null){
 				TileEntity core = world.getTileEntity(corePos[0], corePos[1], corePos[2]);
@@ -58,15 +60,15 @@ public class LaunchPadLarge extends BlockDummyable implements IBomb {
 				}
 			}
 		}
-		
+
 		return BombReturnCode.UNDEFINED;
 	}
-	
+
 	@Override
 	public void onNeighborBlockChange(World world, int x, int y, int z, Block blockIn){
-		
+
 		if(!world.isRemote){
-			
+
 			int[] corePos = findCore(world, x, y, z);
 			if(corePos != null){
 				TileEntity core = world.getTileEntity(corePos[0], corePos[1], corePos[2]);
@@ -94,5 +96,10 @@ public class LaunchPadLarge extends BlockDummyable implements IBomb {
 		this.makeExtra(world, x - 2, y, z + 4);
 		this.makeExtra(world, x + 2, y, z - 4);
 		this.makeExtra(world, x - 2, y, z - 4);
+	}
+
+	@Override
+	public UUID getOwnerParty() {
+		return null;
 	}
 }

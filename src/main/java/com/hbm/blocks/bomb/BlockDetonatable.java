@@ -6,14 +6,18 @@ import com.hbm.entity.item.EntityTNTPrimedBase;
 import api.hbm.block.IFuckingExplode;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
+
+import java.util.UUID;
 
 public abstract class BlockDetonatable extends BlockFlammable implements IFuckingExplode {
 
 	protected int popFuse; // A shorter fuse for when this explosive is dinked by another
 	protected boolean detonateOnCollision;
 	protected boolean detonateOnShot;
+	protected UUID ownerParty;
 
 	public BlockDetonatable(Material mat, int en, int flam, int popFuse, boolean detonateOnCollision, boolean detonateOnShot) {
 		super(mat, en, flam);
@@ -51,5 +55,12 @@ public abstract class BlockDetonatable extends BlockFlammable implements IFuckin
 		world.setBlockToAir(x, y, z);
 		explodeEntity(world, x, y, z, null); // insta-explod
 	}
+	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entitylivingbase) {
+		if(!world.isRemote) {
+			ownerParty = entitylivingbase.getUniqueID();
+		}
+	}
+
+	public UUID getOwnerParty() {return ownerParty;}
 
 }

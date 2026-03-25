@@ -3,6 +3,7 @@ package com.hbm.explosion.vanillant;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.UUID;
 
 import api.hbm.explosion.event.HbmExplosionHooks;
 import com.hbm.explosion.vanillant.interfaces.IBlockAllocator;
@@ -47,20 +48,22 @@ public class ExplosionVNT {
 	public float size;
 	public Entity exploder;
 
+	private UUID ownerParty;
 	private Map compatPlayers = new HashMap();
 	public Explosion compat;
 
-	public ExplosionVNT(World world, double x, double y, double z, float size) {
-		this(world, x, y, z, size, null);
+	public ExplosionVNT(World world, double x, double y, double z, float size, UUID ownerParty) {
+		this(world, x, y, z, size, ownerParty, null);
 	}
 
-	public ExplosionVNT(World world, double x, double y, double z, float size, Entity exploder) {
+	public ExplosionVNT(World world, double x, double y, double z, float size, UUID ownerParty, Entity exploder) {
 		this.world = world;
 		this.posX = x;
 		this.posY = y;
 		this.posZ = z;
 		this.size = size;
 		this.exploder = exploder;
+		this.ownerParty = ownerParty;
 
 		this.compat = new Explosion(world, exploder, x, y, z, size) {
 
@@ -90,16 +93,16 @@ public class ExplosionVNT {
 		HashMap<EntityPlayer, Vec3> affectedPlayers = null;
 
 		//allocation
-		if(processBlocks) affectedBlocks = blockAllocator.allocate(this, world, posX, posY, posZ, size);
+		if(processBlocks) affectedBlocks = blockAllocator.allocate(this, world, posX, posY, posZ, size, ownerParty);
 		if(processBlocks) this.compat.affectedBlockPositions.addAll(affectedBlocks);
 		if(processEntities) affectedPlayers = entityProcessor.process(this, world, posX, posY, posZ, size);
 		// technically not necessary, as the affected entity list is a separate parameter during the Detonate event
 		if(processEntities) this.compatPlayers.putAll(affectedPlayers);
-		
+
 		//serverside processing
 		if(processBlocks) blockProcessor.process(this, world, posX, posY, posZ, affectedBlocks);
 		if(processEntities) playerProcessor.process(this, world, posX, posY, posZ, affectedPlayers);
-		
+
 		if(sfx != null) {
 			for(IExplosionSFX fx : sfx) {
 				fx.doEffect(this, world, posX, posY, posZ, size);

@@ -1,6 +1,7 @@
 package com.hbm.items.tool;
 
 import java.util.List;
+import java.util.UUID;
 
 import com.hbm.blocks.bomb.LaunchPad;
 
@@ -14,7 +15,7 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
 public class ItemDesingator extends Item implements IDesignatorItem {
-
+	private UUID ownerParty;
 	@Override
 	public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean bool) {
 		if(itemstack.stackTagCompound != null) {
@@ -28,15 +29,15 @@ public class ItemDesingator extends Item implements IDesignatorItem {
 
 	@Override
 	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
-		
-		if(!(world.getBlock(x, y, z) instanceof LaunchPad)) {
 
+		if(!(world.getBlock(x, y, z) instanceof LaunchPad)) {
+			ownerParty = player.getUniqueID();
 			if(stack.stackTagCompound == null)
 				stack.stackTagCompound = new NBTTagCompound();
-			
+
 			stack.stackTagCompound.setInteger("xCoord", x);
 			stack.stackTagCompound.setInteger("zCoord", z);
-			
+
 			if(world.isRemote) {
 				player.addChatMessage(new ChatComponentText("Position set!"));
 			}
@@ -57,5 +58,9 @@ public class ItemDesingator extends Item implements IDesignatorItem {
 	@Override
 	public Vec3 getCoords(World world, ItemStack stack, int x, int y, int z) {
 		return Vec3.createVectorHelper(stack.stackTagCompound.getInteger("xCoord"), 0, stack.stackTagCompound.getInteger("zCoord"));
+	}
+
+	public UUID getOwnerParty() {
+		return ownerParty;
 	}
 }

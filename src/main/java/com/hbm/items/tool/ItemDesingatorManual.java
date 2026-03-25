@@ -1,6 +1,7 @@
 package com.hbm.items.tool;
 
 import java.util.List;
+import java.util.UUID;
 
 import com.hbm.inventory.gui.GUIScreenDesignator;
 import com.hbm.main.MainRegistry;
@@ -17,10 +18,10 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
 public class ItemDesingatorManual extends Item implements IDesignatorItem, IGUIProvider {
-
+	private UUID ownerParty;
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-
+		ownerParty = player.getUniqueID();
 		if(world.isRemote)
 			player.openGui(MainRegistry.instance, 0, world, 0, 0, 0);
 
@@ -57,5 +58,9 @@ public class ItemDesingatorManual extends Item implements IDesignatorItem, IGUIP
 	@SideOnly(Side.CLIENT)
 	public Object provideGUI(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		return new GUIScreenDesignator(player);
+	}
+
+	public UUID getOwnerParty() {
+		return ownerParty;
 	}
 }

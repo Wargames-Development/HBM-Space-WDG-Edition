@@ -1,7 +1,9 @@
 package com.hbm.blocks.bomb;
 
 import java.util.Random;
+import java.util.UUID;
 
+import api.hbm.wgc.Integrations;
 import org.apache.logging.log4j.Level;
 
 import com.hbm.blocks.ModBlocks;
@@ -29,7 +31,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 public class NukeBoy extends BlockContainer implements IBomb {
-
+	private UUID ownerParty;
 	public TileEntityNukeBoy tetn = new TileEntityNukeBoy();
 
 	private static boolean keepInventory = false;
@@ -129,7 +131,7 @@ public class NukeBoy extends BlockContainer implements IBomb {
 
 			world.spawnEntityInWorld(EntityNukeExplosionMK5.statFac(world, BombConfig.boyRadius, x + 0.5, y + 0.5, z + 0.5));
 			//world.spawnEntityInWorld(EntityNukeCloudSmall.statFac(world, x, y, z, BombConfig.boyRadius));
-			
+
 			EntityNukeTorex torex = new EntityNukeTorex(world);
 			torex.setPositionAndRotation(x + 0.5, y + 1, z + 0.5, 0, 0);
 			torex.getDataWatcher().updateObject(10, 1.5F);
@@ -171,18 +173,19 @@ public class NukeBoy extends BlockContainer implements IBomb {
 			world.setBlockMetadataWithNotify(x, y, z, 2, 2);
 		}
 		if(!world.isRemote) {
+			ownerParty = player.getUniqueID();
 			if(GeneralConfig.enableExtendedLogging) {
 				MainRegistry.logger.log(Level.INFO, "[BOMBPL]" + this.getLocalizedName() + " placed at " + x + " / " + y + " / " + z + "! " + "by "+ player.getCommandSenderName());
-		}	
+		}
 	}
 }
 
 	@Override
 	public BombReturnCode explode(World world, int x, int y, int z) {
 
-		if(!world.isRemote) {
+		if(!world.isRemote & Integrations.canDetonateWGC(ownerParty, world, x, y, z)) {
 			TileEntityNukeBoy entity = (TileEntityNukeBoy) world.getTileEntity(x, y, z);
-			
+
 			if(entity.isReady()) {
 				this.onBlockDestroyedByPlayer(world, x, y, z, 1);
 				entity.clearSlots();
@@ -190,10 +193,14 @@ public class NukeBoy extends BlockContainer implements IBomb {
 				igniteTestBomb(world, x, y, z);
 				return BombReturnCode.DETONATED;
 			}
-			
+
 			return BombReturnCode.ERROR_MISSING_COMPONENT;
 		}
 
 		return BombReturnCode.UNDEFINED;
+	}
+	@Override
+	public UUID getOwnerParty() {
+		return ownerParty;
 	}
 }

@@ -1,5 +1,6 @@
 package com.hbm.blocks.bomb;
 
+import api.hbm.wgc.Integrations;
 import org.apache.logging.log4j.Level;
 
 import com.hbm.blocks.machine.BlockMachineBase;
@@ -15,8 +16,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
+import java.util.UUID;
+
 public class NukeBalefire extends BlockMachineBase implements IBomb {
 
+	private UUID ownerParty;
 	public NukeBalefire(Material mat) {
 		super(mat, 0);
 		rotatable = true;
@@ -27,17 +31,17 @@ public class NukeBalefire extends BlockMachineBase implements IBomb {
 	public TileEntity createNewTileEntity(World world, int meta) {
 		return new TileEntityNukeBalefire();
 	}
-	
+
 	@Override
 	public int getRenderType(){
 		return -1;
 	}
-	
+
 	@Override
 	public boolean isOpaqueCube() {
 		return false;
 	}
-	
+
 	@Override
 	public boolean renderAsNormalBlock() {
 		return false;
@@ -53,28 +57,33 @@ public class NukeBalefire extends BlockMachineBase implements IBomb {
 	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack itemStack) {
 		if(!world.isRemote) {
+			ownerParty = player.getUniqueID();
 			if(GeneralConfig.enableExtendedLogging) {
 				MainRegistry.logger.log(Level.INFO, "[BOMBPL]" + this.getLocalizedName() + " placed at " + x + " / " + y + " / " + z + "! " + "by "+ player.getCommandSenderName());
-		}	
+		}
 	}
 	}
 
 	@Override
 	public BombReturnCode explode(World world, int x, int y, int z) {
-		
-		if(!world.isRemote) {
+
+		if(!world.isRemote & Integrations.canDetonateWGC(ownerParty, world, x, y, z)) {
 			TileEntityNukeBalefire bomb = (TileEntityNukeBalefire) world.getTileEntity(x, y, z);
-				
+
 			if(bomb.isLoaded()) {
 				bomb.explode();
 				return BombReturnCode.DETONATED;
 			}
-			
+
 			return BombReturnCode.ERROR_MISSING_COMPONENT;
 		}
-		
+
 		return BombReturnCode.UNDEFINED;
 	}
 
+	@Override
+	public UUID getOwnerParty() {
+		return ownerParty;
+	}
 }
 

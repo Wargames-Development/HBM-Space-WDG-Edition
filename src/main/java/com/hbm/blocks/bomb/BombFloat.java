@@ -1,5 +1,6 @@
 package com.hbm.blocks.bomb;
 
+import api.hbm.wgc.Integrations;
 import org.apache.logging.log4j.Level;
 
 import com.hbm.blocks.ModBlocks;
@@ -22,9 +23,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
+import java.util.UUID;
+
 public class BombFloat extends Block implements IBomb {
 
 	public World worldObj;
+
+	public UUID ownerParty;
 
 	@SideOnly(Side.CLIENT)
 	private IIcon iconTop;
@@ -54,9 +59,10 @@ public class BombFloat extends Block implements IBomb {
 	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack itemStack) {
 	if(!world.isRemote) {
+		ownerParty = player.getUniqueID();
 			if(GeneralConfig.enableExtendedLogging) {
 			MainRegistry.logger.log(Level.INFO, "[BOMBPL]" + this.getLocalizedName() + " placed at " + x + " / " + y + " / " + z + "! " + "by "+ player.getCommandSenderName());
-		}	
+		}
 	}
 	}
 
@@ -72,7 +78,7 @@ public class BombFloat extends Block implements IBomb {
 	public BombReturnCode explode(World world, int x, int y, int z) {
 		world.playSoundEffect(x, y, z, "hbm:weapon.sparkShoot", 5.0f, world.rand.nextFloat() * 0.2F + 0.9F);
 
-		if(!world.isRemote) {
+		if(!world.isRemote & Integrations.canDetonateWGC(ownerParty,world,x,y,z)) {
 			world.setBlock(x, y, z, Blocks.air);
 			if(this == ModBlocks.float_bomb) {
 				ExplosionChaos.floater(world, x, y, z, 15, 50);
@@ -87,8 +93,12 @@ public class BombFloat extends Block implements IBomb {
 				world.spawnEntityInWorld(wave);
 			}
 		}
-		
+
 		return BombReturnCode.DETONATED;
 	}
 
+	@Override
+	public UUID getOwnerParty() {
+		return ownerParty;
+	}
 }

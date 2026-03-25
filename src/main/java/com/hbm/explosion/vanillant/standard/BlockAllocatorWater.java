@@ -1,14 +1,18 @@
 package com.hbm.explosion.vanillant.standard;
 
 import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 import api.hbm.explosion.event.HbmExplosionHooks;
+import api.hbm.wgc.Integrations;
 import com.hbm.explosion.vanillant.ExplosionVNT;
 import com.hbm.explosion.vanillant.interfaces.IBlockAllocator;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.World;
 
@@ -21,12 +25,9 @@ public class BlockAllocatorWater implements IBlockAllocator {
 	}
 
 	@Override
-	public HashSet<ChunkPosition> allocate(ExplosionVNT explosion, World world, double x, double y, double z, float size) {
+	public HashSet<ChunkPosition> allocate(ExplosionVNT explosion, World world, double x, double y, double z, float size, UUID ownerParty) {
 
-		// Global veto: skip allocation entirely if the origin is protected
-		if (HbmExplosionHooks.pre(world, x, y, z, size, explosion.exploder, "VNT.WATER.ALLOC.ORIGIN")) {
-			return new HashSet<ChunkPosition>();
-		}
+		Set<ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(ownerParty,world,(int)x,(int)z,(int)Math.ceil(size));
 
 		HashSet<ChunkPosition> affectedBlocks = new HashSet<>();
 
@@ -53,6 +54,11 @@ public class BlockAllocatorWater implements IBlockAllocator {
 							int blockY = MathHelper.floor_double(currentY);
 							int blockZ = MathHelper.floor_double(currentZ);
 
+							// Per-block veto: skip rest of checks if the block is in a protected chunk.
+							if(Integrations.isProtected(blockX,blockZ,protectedChunks)){
+								break;
+							}
+
 							Block block = world.getBlock(blockX, blockY, blockZ);
 							Material material = block.getMaterial();
 
@@ -69,10 +75,7 @@ public class BlockAllocatorWater implements IBlockAllocator {
 								&& (explosion.exploder == null || explosion.exploder.func_145774_a(explosion.compat, world, blockX, blockY, blockZ, block, powerRemaining))
 								&& !material.isLiquid()) {
 
-								// Per-block veto: don't add protected coordinates
-								if (!HbmExplosionHooks.blockDenied(world, blockX, blockY, blockZ, "VNT.WATER.ALLOC.BLOCK")) {
-									affectedBlocks.add(new ChunkPosition(blockX, blockY, blockZ));
-								}
+								affectedBlocks.add(new ChunkPosition(blockX, blockY, blockZ));
 							}
 
 							currentX += d0 * (double) stepSize;

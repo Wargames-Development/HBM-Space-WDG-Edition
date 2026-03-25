@@ -1,7 +1,9 @@
 package com.hbm.blocks.bomb;
 
 import java.util.Random;
+import java.util.UUID;
 
+import api.hbm.wgc.Integrations;
 import org.apache.logging.log4j.Level;
 
 import net.minecraft.block.Block;
@@ -34,6 +36,7 @@ import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 
 public class BombMulti extends BlockContainer implements IBomb {
 
+	private UUID ownerParty;
 	public final float explosionBaseValue = 8.0F;
 
 	private final Random field_149933_a = new Random();
@@ -205,7 +208,7 @@ public class BombMulti extends BlockContainer implements IBomb {
 	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack itemStack) {
 		int i = MathHelper.floor_double(player.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
-
+		ownerParty = player.getUniqueID();
 		if(i == 0) {
 			world.setBlockMetadataWithNotify(x, y, z, 5, 2);
 		}
@@ -242,7 +245,7 @@ public class BombMulti extends BlockContainer implements IBomb {
 	@Override
 	public BombReturnCode explode(World world, int x, int y, int z) {
 
-		if(!world.isRemote) {
+		if(!world.isRemote & Integrations.canDetonateWGC(ownerParty,world,x,y,z)) {
 			TileEntityBombMulti entity = (TileEntityBombMulti) world.getTileEntity(x, y, z);
 
 			if(entity.isLoaded()) {
@@ -255,4 +258,8 @@ public class BombMulti extends BlockContainer implements IBomb {
 		return BombReturnCode.UNDEFINED;
 	}
 
+	@Override
+	public UUID getOwnerParty() {
+		return ownerParty;
+	}
 }

@@ -1,14 +1,18 @@
 package com.hbm.explosion.vanillant.standard;
 
 import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 import api.hbm.explosion.event.HbmExplosionHooks;
+import api.hbm.wgc.Integrations;
 import com.hbm.explosion.vanillant.ExplosionVNT;
 import com.hbm.explosion.vanillant.interfaces.IBlockAllocator;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.World;
 
@@ -27,12 +31,7 @@ public class BlockAllocatorBulkie implements IBlockAllocator {
 	}
 
 	@Override
-	public HashSet<ChunkPosition> allocate(ExplosionVNT explosion, World world, double x, double y, double z, float size) {
-
-		// Global veto: skip allocation completely if origin is protected
-		if (HbmExplosionHooks.pre(world, x, y, z, size, explosion.exploder, "VNT.ALLOC.ORIGIN")) {
-			return new HashSet<ChunkPosition>();
-		}
+	public HashSet<ChunkPosition> allocate(ExplosionVNT explosion, World world, double x, double y, double z, float size, UUID ownerParty) {
 
 		HashSet<ChunkPosition> affectedBlocks = new HashSet();
 
@@ -79,11 +78,8 @@ public class BlockAllocatorBulkie implements IBlockAllocator {
 								}
 							}
 
-							// Per-block veto: don't add protected coordinates to the affected set
-							if(!HbmExplosionHooks.blockDenied(world, blockX, blockY, blockZ, "VNT.ALLOC.BLOCK")) {
-								if(explosion.exploder == null || explosion.exploder.func_145774_a(explosion.compat, world, blockX, blockY, blockZ, block, explosion.size)) {
-									affectedBlocks.add(new ChunkPosition(blockX, blockY, blockZ));
-								}
+							if(explosion.exploder == null || explosion.exploder.func_145774_a(explosion.compat, world, blockX, blockY, blockZ, block, explosion.size)) {
+								affectedBlocks.add(new ChunkPosition(blockX, blockY, blockZ));
 							}
 
 							currentX += d0 * (double) stepSize;

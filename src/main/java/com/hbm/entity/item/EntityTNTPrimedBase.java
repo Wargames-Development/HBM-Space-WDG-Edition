@@ -1,6 +1,8 @@
 package com.hbm.entity.item;
 
 import api.hbm.block.IFuckingExplode;
+import api.hbm.wgc.Integrations;
+import api.hbm.wgc.Integrations.*;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -9,8 +11,9 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
-public class EntityTNTPrimedBase extends Entity {
+import java.util.UUID;
 
+public class EntityTNTPrimedBase extends Entity {
 	public boolean detonateOnCollision;
 	public int fuse;
 	private EntityLivingBase tntPlacedBy;
@@ -95,7 +98,9 @@ public class EntityTNTPrimedBase extends Entity {
 	}
 
 	private void explode() {
-		this.getBomb().explodeEntity(worldObj, posX, posY, posZ, this);
+		if(Integrations.canDetonateWGC(tntPlacedBy.getUniqueID(),worldObj,(int)posX,(int)posY,(int)posZ)) {
+			this.getBomb().explodeEntity(worldObj, posX, posY, posZ, this);
+		}
 	}
 
 	public IFuckingExplode getBomb() {

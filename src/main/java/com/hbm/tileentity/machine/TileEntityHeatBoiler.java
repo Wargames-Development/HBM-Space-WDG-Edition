@@ -245,7 +245,7 @@ public class TileEntityHeatBoiler extends TileEntityLoadedBase implements IBufPa
 					}
 					worldObj.setBlockToAir(xCoord, yCoord + 1, zCoord);
 
-					ExplosionVNT xnt = new ExplosionVNT(worldObj, xCoord + 0.5, yCoord + 2, zCoord + 0.5, 5F);
+					ExplosionVNT xnt = new ExplosionVNT(worldObj, xCoord + 0.5, yCoord + 2, zCoord + 0.5, 5F,null);//TODO Check this doesn't break shit
 					xnt.setEntityProcessor(new EntityProcessorStandard().withRangeMod(3F));
 					xnt.setPlayerProcessor(new PlayerProcessorStandard());
 					xnt.setSFX(new ExplosionEffectStandard());

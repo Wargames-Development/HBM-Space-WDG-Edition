@@ -1,7 +1,10 @@
 package com.hbm.blocks.bomb;
 
 import java.util.Random;
+import java.util.UUID;
 
+import api.hbm.wgc.Integrations;
+import com.hbm.world.gen.nbt.INBTBlockTransformable;
 import org.apache.logging.log4j.Level;
 
 import com.hbm.blocks.ModBlocks;
@@ -28,7 +31,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 public class NukeN2 extends BlockContainer implements IBomb {
-
+	private UUID ownerParty;
 	private final Random field_149933_a = new Random();
 	private static boolean keepInventory = false;
 
@@ -161,29 +164,34 @@ public class NukeN2 extends BlockContainer implements IBomb {
 			world.setBlockMetadataWithNotify(x, y, z, 2, 2);
 		}
 		if(!world.isRemote) {
+			ownerParty = player.getUniqueID();
 			if(GeneralConfig.enableExtendedLogging) {
 				MainRegistry.logger.log(Level.INFO, "[BOMBPL]" + this.getLocalizedName() + " placed at " + x + " / " + y + " / " + z + "! " + "by "+ player.getCommandSenderName());
-		}	
+		}
 	}
 }
 
 	@Override
 	public BombReturnCode explode(World world, int x, int y, int z) {
 
-		if(!world.isRemote) {
+		if(!world.isRemote & Integrations.canDetonateWGC(ownerParty,world,x,y,z)) {
 			TileEntityNukeN2 entity = (TileEntityNukeN2) world.getTileEntity(x, y, z);
 			if(entity.isReady()) {
 				this.onBlockDestroyedByPlayer(world, x, y, z, 1);
 				entity.clearSlots();
 				world.setBlockToAir(x, y, z);
 				igniteTestBomb(world, x, y, z, BombConfig.n2Radius);
-				
+
 				return BombReturnCode.DETONATED;
 			}
-			
+
 			return BombReturnCode.ERROR_MISSING_COMPONENT;
 		}
 
 		return BombReturnCode.UNDEFINED;
+	}
+	@Override
+	public UUID getOwnerParty() {
+		return ownerParty;
 	}
 }

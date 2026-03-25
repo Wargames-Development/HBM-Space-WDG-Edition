@@ -1,6 +1,7 @@
 package com.hbm.blocks.bomb;
 
 import java.util.Random;
+import java.util.UUID;
 
 import com.hbm.blocks.ModBlocks;
 import com.hbm.interfaces.IBomb;
@@ -158,18 +159,18 @@ public class LaunchTable extends BlockContainer implements IMultiblock, IBomb {
 
 	@Override
 	public BombReturnCode explode(World world, int x, int y, int z) {
-		
+
 		if(!world.isRemote) {
 			TileEntityLaunchTable entity = (TileEntityLaunchTable) world.getTileEntity(x, y, z);
-	
+
 			if(entity.canLaunch()) {
 				entity.launchFromDesignator();
 				return BombReturnCode.LAUNCHED;
 			}
-			
+
 			return BombReturnCode.ERROR_MISSING_COMPONENT;
 		}
-		
+
 		return BombReturnCode.UNDEFINED;
 	}
 
@@ -220,4 +221,8 @@ public class LaunchTable extends BlockContainer implements IMultiblock, IBomb {
 		super.breakBlock(p_149749_1_, p_149749_2_, p_149749_3_, p_149749_4_, p_149749_5_, p_149749_6_);
 	}
 
+	@Override
+	public UUID getOwnerParty() {
+		return null;
+	}
 }

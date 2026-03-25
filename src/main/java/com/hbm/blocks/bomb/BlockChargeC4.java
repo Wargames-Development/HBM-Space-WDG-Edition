@@ -27,7 +27,7 @@ public class BlockChargeC4 extends BlockChargeBase {
 			world.setBlockToAir(x, y, z);
 			safe = false;
 
-			ExplosionVNT xnt = new ExplosionVNT(world, x + 0.5, y + 0.5, z + 0.5, 15F);
+			ExplosionVNT xnt = new ExplosionVNT(world, x + 0.5, y + 0.5, z + 0.5, 15F, ownerParty);
 			xnt.setBlockAllocator(new BlockAllocatorStandard(32));
 			xnt.setBlockProcessor(new BlockProcessorStandard().setNoDrop());
 			xnt.setEntityProcessor(new EntityProcessorStandard());

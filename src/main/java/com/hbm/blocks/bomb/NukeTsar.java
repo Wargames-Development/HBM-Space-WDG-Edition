@@ -1,7 +1,9 @@
 package com.hbm.blocks.bomb;
 
 import java.util.Random;
+import java.util.UUID;
 
+import api.hbm.wgc.Integrations;
 import org.apache.logging.log4j.Level;
 
 import com.hbm.blocks.ModBlocks;
@@ -28,6 +30,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 public class NukeTsar extends BlockContainer implements IBomb {
+	private UUID ownerParty;
 
 	public TileEntityNukeTsar tetn = new TileEntityNukeTsar();
 
@@ -170,16 +173,17 @@ public class NukeTsar extends BlockContainer implements IBomb {
 			world.setBlockMetadataWithNotify(x, y, z, 2, 2);
 		}
 		if(!world.isRemote) {
+			ownerParty = player.getUniqueID();
 			if(GeneralConfig.enableExtendedLogging) {
 				MainRegistry.logger.log(Level.INFO, "[BOMBPL]" + this.getLocalizedName() + " placed at " + x + " / " + y + " / " + z + "! " + "by "+ player.getCommandSenderName());
-		}	
+		}
 	}
 }
 
 	@Override
 	public BombReturnCode explode(World world, int x, int y, int z) {
 
-		if(!world.isRemote) {
+		if(!world.isRemote & Integrations.canDetonateWGC(ownerParty,world,x,y,z)) {
 			TileEntityNukeTsar entity = (TileEntityNukeTsar) world.getTileEntity(x, y, z);
 			if(entity.isReady() && !entity.isFilled()) {
 				this.onBlockDestroyedByPlayer(world, x, y, z, 1);
@@ -196,11 +200,14 @@ public class NukeTsar extends BlockContainer implements IBomb {
 				igniteTestBomb(world, x, y, z, BombConfig.tsarRadius);
 				return BombReturnCode.DETONATED;
 			}
-			
+
 			return BombReturnCode.ERROR_MISSING_COMPONENT;
 		}
 
 		return BombReturnCode.UNDEFINED;
 	}
-
+	@Override
+	public UUID getOwnerParty() {
+		return ownerParty;
+	}
 }

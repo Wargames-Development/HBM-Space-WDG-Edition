@@ -53,11 +53,6 @@ public class EntityProcessorStandard implements IEntityProcessor {
 
 			Entity entity = (Entity) list.get(index);
 
-			// Per-entity safezone/claim veto: skip harmful effects in protected areas
-			if (HbmExplosionHooks.pre(entity.worldObj, entity.posX, entity.posY, entity.posZ, 0F, entity, "VNT.ENTITY.HIT")) {
-				continue;
-			}
-
 			double distanceScaled = entity.getDistance(x, y, z) / size;
 
 			if(distanceScaled <= 1.0D) {

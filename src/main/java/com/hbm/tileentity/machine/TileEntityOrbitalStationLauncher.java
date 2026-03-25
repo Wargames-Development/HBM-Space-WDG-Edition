@@ -210,7 +210,7 @@ public class TileEntityOrbitalStationLauncher extends TileEntityMachineBase impl
 
 		ItemStack stack = ItemCustomRocket.build(rocket);
 
-		EntityRideableRocket rocket = new EntityRideableRocket(worldObj, xCoord + 0.5F, yCoord + 1.5F, zCoord + 0.5F, stack).withProgram(slots[0]).launchedBy(player);
+		EntityRideableRocket rocket = new EntityRideableRocket(worldObj, xCoord + 0.5F, yCoord + 1.5F, zCoord + 0.5F, stack,player.getUniqueID()).withProgram(slots[0]).launchedBy(player);
 		rocket.posY -= rocket.height;
 		worldObj.spawnEntityInWorld(rocket);
 

@@ -3,6 +3,7 @@ package com.hbm.entity.missile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import com.hbm.explosion.ExplosionNT;
 import com.hbm.explosion.ExplosionNT.ExAttrib;
@@ -24,8 +25,8 @@ public class EntityMissileShuttle extends EntityMissileBaseNT {
 		super(p_i1582_1_);
 	}
 
-	public EntityMissileShuttle(World world, float x, float y, float z, int a, int b) {
-		super(world, x, y, z, a, b);
+	public EntityMissileShuttle(World world, float x, float y, float z, int a, int b, UUID ownerParty) {
+		super(world, x, y, z, a, b, ownerParty);
 	}
 
 	@Override

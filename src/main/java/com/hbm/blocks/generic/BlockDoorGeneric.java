@@ -1,6 +1,7 @@
 package com.hbm.blocks.generic;
 
 import java.util.List;
+import java.util.UUID;
 
 import com.hbm.blocks.BlockDummyable;
 import com.hbm.handler.atmosphere.IBlockSealable;
@@ -83,11 +84,11 @@ public class BlockDoorGeneric extends BlockDummyable implements IBomb, IBlockSea
 	@Override
 	public boolean onScrew(World world, EntityPlayer player, int x, int y, int z, int side, float fX, float fY, float fZ, ToolType tool) {
 		if(tool != ToolType.SCREWDRIVER || !player.isSneaking()) return false;
-		
+
 		int[] pos1 = findCore(world, x, y, z);
 		if(pos1 == null) return false;
 		TileEntityDoorGeneric door = (TileEntityDoorGeneric) world.getTileEntity(pos1[0], pos1[1], pos1[2]);
-		
+
 		if(door == null || !door.getDoorType().hasSkins()) return false;
 		if(world.isRemote) return true;
 		door.cycleSkinIndex();
@@ -202,20 +203,24 @@ public class BlockDoorGeneric extends BlockDummyable implements IBomb, IBlockSea
 	@Override
 	public boolean checkRequirement(World world, int x, int y, int z, ForgeDirection dir, int o) {
 		if(!MultiblockHandlerXR.checkSpace(world, x + dir.offsetX * o, y + dir.offsetY * o, z + dir.offsetZ * o, getDimensions(), x, y, z, dir)) return false;
-		
+
 		if(type.getExtraDimensions() != null) for(int[] dims : type.getExtraDimensions()) {
 			if(!MultiblockHandlerXR.checkSpace(world, x + dir.offsetX * o, y + dir.offsetY * o, z + dir.offsetZ * o, dims, x, y, z, dir)) return false;
 		}
-		
+
 		return true;
 	}
 
 	@Override
 	public void fillSpace(World world, int x, int y, int z, ForgeDirection dir, int o) {
 		MultiblockHandlerXR.fillSpace(world, x + dir.offsetX * o, y + dir.offsetY * o, z + dir.offsetZ * o, getDimensions(), this, dir);
-		
+
 		if(type.getExtraDimensions() != null) for(int[] dims : type.getExtraDimensions()) {
 			MultiblockHandlerXR.fillSpace(world, x + dir.offsetX * o, y + dir.offsetY * o, z + dir.offsetZ * o, dims, this, dir);
 		}
+	}
+	@Override
+	public UUID getOwnerParty() {
+		return null;
 	}
 }

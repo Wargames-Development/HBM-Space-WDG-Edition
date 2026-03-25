@@ -2,6 +2,7 @@ package com.hbm.entity.missile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import com.hbm.explosion.ExplosionChaos;
 import com.hbm.explosion.ExplosionLarge;
@@ -16,7 +17,7 @@ import net.minecraft.world.World;
 public abstract class EntityMissileTier1 extends EntityMissileBaseNT {
 
 	public EntityMissileTier1(World world) { super(world); }
-	public EntityMissileTier1(World world, float x, float y, float z, int a, int b) { super(world, x, y, z, a, b); }
+	public EntityMissileTier1(World world, float x, float y, float z, int a, int b, UUID ownerParty) { super(world, x, y, z, a, b, ownerParty); }
 
 	@Override
 	public List<ItemStack> getDebris() {
@@ -33,7 +34,7 @@ public abstract class EntityMissileTier1 extends EntityMissileBaseNT {
 
 	public static class EntityMissileGeneric extends EntityMissileTier1 {
 		public EntityMissileGeneric(World world) { super(world); }
-		public EntityMissileGeneric(World world, float x, float y, float z, int a, int b) { super(world, x, y, z, a, b); }
+		public EntityMissileGeneric(World world, float x, float y, float z, int a, int b, UUID ownerParty) { super(world, x, y, z, a, b, ownerParty); }
 		@Override public void onMissileImpact(MovingObjectPosition mop) { this.explodeStandard(15F, 24, false); ExplosionCreator.composeEffectSmall(worldObj, posX, posY, posZ); }
 		@Override public ItemStack getDebrisRareDrop() { return new ItemStack(ModItems.warhead_generic_small); }
 		@Override public ItemStack getMissileItemForInfo() { return new ItemStack(ModItems.missile_generic); }
@@ -41,7 +42,7 @@ public abstract class EntityMissileTier1 extends EntityMissileBaseNT {
 
 	public static class EntityMissileDecoy extends EntityMissileTier1 {
 		public EntityMissileDecoy(World world) { super(world); }
-		public EntityMissileDecoy(World world, float x, float y, float z, int a, int b) { super(world, x, y, z, a, b); }
+		public EntityMissileDecoy(World world, float x, float y, float z, int a, int b, UUID ownerParty) { super(world, x, y, z, a, b, ownerParty); }
 		@Override public void onMissileImpact(MovingObjectPosition mop) { worldObj.newExplosion(this, posX, posY, posZ, 4F, false, false); }
 		@Override public ItemStack getDebrisRareDrop() { return new ItemStack(ModItems.ingot_steel); }
 		@Override public String getUnlocalizedName() { return "radar.target.tier4"; }
@@ -51,7 +52,7 @@ public abstract class EntityMissileTier1 extends EntityMissileBaseNT {
 
 	public static class EntityMissileIncendiary extends EntityMissileTier1 {
 		public EntityMissileIncendiary(World world) { super(world); }
-		public EntityMissileIncendiary(World world, float x, float y, float z, int a, int b) { super(world, x, y, z, a, b); }
+		public EntityMissileIncendiary(World world, float x, float y, float z, int a, int b, UUID ownerParty) { super(world, x, y, z, a, b, ownerParty); }
 		@Override public void onMissileImpact(MovingObjectPosition mop) { this.explodeStandard(15F, 24, true); ExplosionCreator.composeEffectSmall(worldObj, posX, posY, posZ); }
 		@Override public ItemStack getDebrisRareDrop() { return new ItemStack(ModItems.warhead_incendiary_small); }
 		@Override public ItemStack getMissileItemForInfo() { return new ItemStack(ModItems.missile_incendiary); }
@@ -59,7 +60,7 @@ public abstract class EntityMissileTier1 extends EntityMissileBaseNT {
 
 	public static class EntityMissileCluster extends EntityMissileTier1 {
 		public EntityMissileCluster(World world) { super(world); }
-		public EntityMissileCluster(World world, float x, float y, float z, int a, int b) { super(world, x, y, z, a, b); this.isCluster = true; }
+		public EntityMissileCluster(World world, float x, float y, float z, int a, int b, UUID ownerParty) { super(world, x, y, z, a, b, ownerParty); this.isCluster = true; }
 		@Override public void onMissileImpact(MovingObjectPosition mop) {
 			this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, 5F, true);
 			ExplosionChaos.cluster(this.worldObj, (int)this.posX, (int)this.posY, (int)this.posZ, 25, 100);
@@ -71,7 +72,7 @@ public abstract class EntityMissileTier1 extends EntityMissileBaseNT {
 
 	public static class EntityMissileBunkerBuster extends EntityMissileTier1 {
 		public EntityMissileBunkerBuster(World world) { super(world); }
-		public EntityMissileBunkerBuster(World world, float x, float y, float z, int a, int b) { super(world, x, y, z, a, b); }
+		public EntityMissileBunkerBuster(World world, float x, float y, float z, int a, int b, UUID ownerParty) { super(world, x, y, z, a, b, ownerParty); }
 		@Override public void onMissileImpact(MovingObjectPosition mop) {
 			for(int i = 0; i < 15; i++) this.worldObj.createExplosion(this, this.posX, this.posY - i, this.posZ, 5F, true);
 			ExplosionLarge.spawnParticles(worldObj, this.posX, this.posY, this.posZ, 5);

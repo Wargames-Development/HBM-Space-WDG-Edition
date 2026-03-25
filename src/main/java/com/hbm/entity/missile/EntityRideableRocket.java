@@ -2,6 +2,7 @@ package com.hbm.entity.missile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import com.hbm.blocks.ILookOverlay;
 import com.hbm.config.SpaceConfig;
@@ -114,8 +115,8 @@ public class EntityRideableRocket extends EntityMissileBaseNT implements ILookOv
 		targetZ = (int)posZ;
 	}
 
-	public EntityRideableRocket(World world, float x, float y, float z, ItemStack stack) {
-		super(world, x, y, z, (int)x + 10000, (int)z);
+	public EntityRideableRocket(World world, float x, float y, float z, ItemStack stack, UUID ownerParty) {
+		super(world, x, y, z, (int)x + 10000, (int)z, ownerParty);
 		RocketStruct rocket = ItemCustomRocket.get(stack);
 		satFreq = ISatChip.getFreqS(stack);
 

@@ -1,7 +1,9 @@
 package com.hbm.blocks.bomb;
 
 import java.util.Random;
+import java.util.UUID;
 
+import api.hbm.wgc.Integrations;
 import org.apache.logging.log4j.Level;
 
 import com.hbm.blocks.ModBlocks;
@@ -25,6 +27,7 @@ import net.minecraft.world.World;
 
 public class BombThermo extends Block implements IBomb {
 
+	UUID ownerParty;
 	@SideOnly(Side.CLIENT)
 	private IIcon iconTop;
 
@@ -74,18 +77,20 @@ public class BombThermo extends Block implements IBomb {
 
 	@Override
 	public BombReturnCode explode(World world, int x, int y, int z) {
-		world.setBlock(x, y, z, Blocks.air);
-		if(this == ModBlocks.therm_endo) {
-			ExplosionThermo.freeze(world, x, y, z, 15);
-			ExplosionThermo.freezer(world, x, y, z, 20);
-		}
+		if(!world.isRemote & Integrations.canDetonateWGC(ownerParty,world,x,y,z)){
+			world.setBlock(x, y, z, Blocks.air);
+			if(this == ModBlocks.therm_endo) {
+				ExplosionThermo.freeze(world, x, y, z, 15);
+				ExplosionThermo.freezer(world, x, y, z, 20);
+			}
 
-		if(this == ModBlocks.therm_exo) {
-			ExplosionThermo.scorch(world, x, y, z, 15);
-			ExplosionThermo.setEntitiesOnFire(world, x, y, z, 20);
-		}
+			if(this == ModBlocks.therm_exo) {
+				ExplosionThermo.scorch(world, x, y, z, 15);
+				ExplosionThermo.setEntitiesOnFire(world, x, y, z, 20);
+			}
 
-		world.createExplosion(null, x, y, z, 5.0F, true);
+			world.createExplosion(null, x, y, z, 5.0F, true);
+			}
 		return BombReturnCode.DETONATED;
 	}
 	@Override
@@ -93,7 +98,12 @@ public class BombThermo extends Block implements IBomb {
 	if(!world.isRemote) {
 			if(GeneralConfig.enableExtendedLogging) {
 			MainRegistry.logger.log(Level.INFO, "[BOMBPL]" + this.getLocalizedName() + " placed at " + x + " / " + y + " / " + z + "! " + "by "+ player.getCommandSenderName());
-		}	
+		}
 	}
-}
+	}
+
+	@Override
+	public UUID getOwnerParty() {
+		return ownerParty;
+	}
 }

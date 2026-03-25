@@ -111,7 +111,7 @@ public class TileEntityLaunchPadRusted extends TileEntityMachineBase implements 
 					int targetX = (int) Math.floor(coords.xCoord);
 					int targetZ = (int) Math.floor(coords.zCoord);
 
-					EntityMissileDoomsdayRusted missile = new EntityMissileDoomsdayRusted(worldObj, xCoord + 0.5F, yCoord + 1F, zCoord + 0.5F, targetX, targetZ);
+					EntityMissileDoomsdayRusted missile = new EntityMissileDoomsdayRusted(worldObj, xCoord + 0.5F, yCoord + 1F, zCoord + 0.5F, targetX, targetZ,null);
 					worldObj.spawnEntityInWorld(missile);
 					TrackerUtil.setTrackingRange(worldObj, missile, 500);
 					worldObj.playSoundEffect(xCoord + 0.5, yCoord, zCoord + 0.5, "hbm:weapon.missileTakeOff", 2.0F, 1.0F);

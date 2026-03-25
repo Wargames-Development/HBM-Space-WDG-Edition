@@ -50,7 +50,7 @@ public class EntityBombletZeta extends EntityThrowable {
 		if(this.worldObj.getBlock((int) this.posX, (int) this.posY, (int) this.posZ) != Blocks.air) {
 			if(!this.worldObj.isRemote) {
 				if(type == 0) {
-					ExplosionVNT vnt = new ExplosionVNT(worldObj, this.posX + 0.5F, this.posY + 1.5F, this.posZ + 0.5F, 4F);
+					ExplosionVNT vnt = new ExplosionVNT(worldObj, this.posX + 0.5F, this.posY + 1.5F, this.posZ + 0.5F, 4F,null);
 					vnt.setBlockAllocator(new BlockAllocatorStandard());
 					vnt.setBlockProcessor(new BlockProcessorStandard());
 					vnt.setEntityProcessor(new EntityProcessorCrossSmooth(1, 100));
@@ -60,7 +60,7 @@ public class EntityBombletZeta extends EntityThrowable {
 				}
 				if(type == 1) {
 
-					ExplosionVNT vnt = new ExplosionVNT(worldObj, this.posX + 0.5F, this.posY + 1.5F, this.posZ + 0.5F, 4F);
+					ExplosionVNT vnt = new ExplosionVNT(worldObj, this.posX + 0.5F, this.posY + 1.5F, this.posZ + 0.5F, 4F,null);
 					vnt.setBlockAllocator(new BlockAllocatorStandard());
 					vnt.setBlockProcessor(new BlockProcessorStandard().withBlockEffect(new BlockMutatorFire()));
 					vnt.setEntityProcessor(new EntityProcessorCrossSmooth(1, 100));
@@ -88,7 +88,7 @@ public class EntityBombletZeta extends EntityThrowable {
 					worldObj.playSoundEffect(posX, posY, posZ, "hbm:weapon.mukeExplosion", 15.0F, 1.0F);
 				}
 				if(type == 9) {
-					ExplosionVNT vnt = new ExplosionVNT(worldObj, this.posX + 0.5F, this.posY + 1.5F, this.posZ + 0.5F, 4F);
+					ExplosionVNT vnt = new ExplosionVNT(worldObj, this.posX + 0.5F, this.posY + 1.5F, this.posZ + 0.5F, 4F,null);
 					vnt.setEntityProcessor(new EntityProcessorCrossSmooth(1, 100));
 					vnt.setPlayerProcessor(new PlayerProcessorStandard());
 					vnt.setSFX(new ExplosionEffectWeapon(15, 3.5F, 1.25F));

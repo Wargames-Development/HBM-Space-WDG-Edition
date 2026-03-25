@@ -2,7 +2,9 @@ package com.hbm.entity.missile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
+import api.hbm.wgc.Integrations;
 import com.google.common.collect.ImmutableSet;
 import com.hbm.entity.logic.IChunkLoader;
 import com.hbm.entity.projectile.EntityThrowableInterp;
@@ -33,9 +35,10 @@ import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.ForgeChunkManager.Ticket;
 import net.minecraftforge.common.ForgeChunkManager.Type;
+import scala.Int;
 
 public abstract class EntityMissileBaseNT extends EntityThrowableInterp implements IChunkLoader, IRadarDetectableNT {
-	
+
 	public int startX;
 	public int startZ;
 	public int targetX;
@@ -46,6 +49,7 @@ public abstract class EntityMissileBaseNT extends EntityThrowableInterp implemen
 	public boolean isCluster = false;
 	private Ticket loaderTicket;
 	public int health = 50;
+	private UUID ownerParty;
 
 	public EntityMissileBaseNT(World world) {
 		super(world);
@@ -56,7 +60,7 @@ public abstract class EntityMissileBaseNT extends EntityThrowableInterp implemen
 		targetZ = (int) posZ;
 	}
 
-	public EntityMissileBaseNT(World world, float x, float y, float z, int a, int b) {
+	public EntityMissileBaseNT(World world, float x, float y, float z, int a, int b,UUID ownerParty) {
 		super(world);
 		this.ignoreFrustumCheck = true;
 		this.setLocationAndAngles(x, y, z, 0, 0);
@@ -65,31 +69,32 @@ public abstract class EntityMissileBaseNT extends EntityThrowableInterp implemen
 		targetX = a;
 		targetZ = b;
 		this.motionY = 2;
-		
+		this.ownerParty = ownerParty;
+
 		Vec3 vector = Vec3.createVectorHelper(targetX - startX, 0, targetZ - startZ);
 		accelXZ = decelY = 1 / vector.lengthVector();
 		decelY *= 2;
 		velocity = 0;
-		
+
 		this.rotationYaw = (float) (Math.atan2(targetX - posX, targetZ - posZ) * 180.0D / Math.PI);
 
 		this.setSize(1.5F, 1.5F);
 	}
-	
+
 	/** Auto-generates radar blip level and all that from the item */
 	public abstract ItemStack getMissileItemForInfo();
-	
+
 	@Override
 	public boolean canBeSeenBy(Object radar) {
 		return true;
 	}
-	
+
 	@Override
 	public boolean paramsApplicable(RadarScanParams params) {
 		if(!params.scanMissiles) return false;
 		return true;
 	}
-	
+
 	@Override
 	public boolean suppliesRedstone(RadarScanParams params) {
 		if(params.smartMode && this.motionY >= 0) return false;
@@ -112,31 +117,31 @@ public abstract class EntityMissileBaseNT extends EntityThrowableInterp implemen
 	public boolean doesImpactEntities() {
 		return false;
 	}
-	
+
 	@Override
 	public void onUpdate() {
 		this.lastTickPosX = this.posX;
 		this.lastTickPosY = this.posY;
 		this.lastTickPosZ = this.posZ;
 		super.onUpdate();
-		
+
 		if(velocity < 4) velocity += MathHelper.clamp_double(this.ticksExisted / 60D * 0.05D, 0, 0.05);
-		
+
 		if(!worldObj.isRemote) {
 
 			if(hasPropulsion()) {
 				this.motionY -= decelY * velocity;
-	
+
 				Vec3 vector = Vec3.createVectorHelper(targetX - startX, 0, targetZ - startZ);
 				vector = vector.normalize();
 				vector.xCoord *= accelXZ;
 				vector.zCoord *= accelXZ;
-	
+
 				if(motionY > 0) {
 					motionX += vector.xCoord * velocity;
 					motionZ += vector.zCoord * velocity;
 				}
-	
+
 				if(motionY < 0) {
 					motionX -= vector.xCoord * velocity;
 					motionZ -= vector.zCoord * velocity;
@@ -148,37 +153,37 @@ public abstract class EntityMissileBaseNT extends EntityThrowableInterp implemen
 				if(motionY > -1.5)
 					motionY -= 0.05;
 			}
-	
+
 			if(motionY < -velocity && this.isCluster) {
 				cluster();
 				this.setDead();
 				return;
 			}
-			
+
 			this.rotationYaw = (float) (Math.atan2(targetX - posX, targetZ - posZ) * 180.0D / Math.PI);
 			float f2 = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
 			for(this.rotationPitch = (float) (Math.atan2(this.motionY, f2) * 180.0D / Math.PI) - 90; this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F);
 			EntityTrackerEntry tracker = TrackerUtil.getTrackerEntry((WorldServer) worldObj, this.getEntityId());
 			if(tracker != null) tracker.lastYaw += 100; //coax the tracker into sending smother updates
-			
+
 			loadNeighboringChunks((int) Math.floor(posX / 16), (int) Math.floor(posZ / 16));
 		} else {
 			this.spawnContrail();
 		}
-		
+
 		while(this.rotationPitch - this.prevRotationPitch >= 180.0F) this.prevRotationPitch += 360.0F;
 		while(this.rotationYaw - this.prevRotationYaw < -180.0F) this.prevRotationYaw -= 360.0F;
 		while(this.rotationYaw - this.prevRotationYaw >= 180.0F) this.prevRotationYaw += 360.0F;
 	}
-	
+
 	public boolean hasPropulsion() {
 		return true;
 	}
-	
+
 	protected void spawnContrail() {
 		this.spawnContraolWithOffset(0, 0, 0);
 	}
-	
+
 	protected void spawnContraolWithOffset(double offsetX, double offsetY, double offsetZ) {
 		Vec3 vec = Vec3.createVectorHelper(this.lastTickPosX - this.posX, this.lastTickPosY - this.posY, this.lastTickPosZ - this.posZ);
 		double len = vec.lengthVector();
@@ -186,7 +191,7 @@ public abstract class EntityMissileBaseNT extends EntityThrowableInterp implemen
 		Vec3 thrust = Vec3.createVectorHelper(0, 1, 0);
 		thrust.rotateAroundZ(this.rotationPitch * (float) Math.PI / 180F);
 		thrust.rotateAroundY((this.rotationYaw + 90) * (float) Math.PI / 180F);
-		
+
 		for(int i = 0; i < Math.max(Math.min(len, 10), 1); i++) {
 			double j = i - len;
 			NBTTagCompound data = new NBTTagCompound();
@@ -202,7 +207,7 @@ public abstract class EntityMissileBaseNT extends EntityThrowableInterp implemen
 			MainRegistry.proxy.effectNT(data);
 		}
 	}
-	
+
 	protected float getContrailScale() {
 		return 1F;
 	}
@@ -242,7 +247,7 @@ public abstract class EntityMissileBaseNT extends EntityThrowableInterp implemen
 		nbt.setInteger("sZ", startZ);
 		nbt.setDouble("veloc", velocity);
 	}
-	
+
 	public boolean canBeCollidedWith() {
 		return true;
 	}
@@ -266,12 +271,14 @@ public abstract class EntityMissileBaseNT extends EntityThrowableInterp implemen
 	protected void killMissile() {
 		if(!this.isDead) {
 			this.setDead();
-			ExplosionLarge.explode(worldObj, posX, posY, posZ, 5, true, false, true);
-			ExplosionLarge.spawnShrapnelShower(worldObj, posX, posY, posZ, motionX, motionY, motionZ, 15, 0.075);
-			ExplosionLarge.spawnMissileDebris(worldObj, posX, posY, posZ, motionX, motionY, motionZ, 0.25, getDebris(), getDebrisRareDrop());
+			if(Integrations.canDetonateWGC(ownerParty,worldObj,(int)posX,(int)posY,(int)posZ)) {
+				ExplosionLarge.explode(worldObj, posX, posY, posZ, 5, true, false, true);
+				ExplosionLarge.spawnShrapnelShower(worldObj, posX, posY, posZ, motionX, motionY, motionZ, 15, 0.075);
+				ExplosionLarge.spawnMissileDebris(worldObj, posX, posY, posZ, motionX, motionY, motionZ, 0.25, getDebris(), getDebrisRareDrop());
+			}
 		}
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public boolean isInRangeToRenderDist(double distance) {
@@ -305,7 +312,7 @@ public abstract class EntityMissileBaseNT extends EntityThrowableInterp implemen
 	protected float getWaterDrag() {
 		return 1F;
 	}
-	
+
 	@Override
 	public void init(Ticket ticket) {
 		if(!worldObj.isRemote) {
@@ -342,29 +349,31 @@ public abstract class EntityMissileBaseNT extends EntityThrowableInterp implemen
 			}
 		}
 	}
-	
+
 	@Override
 	public void setDead() {
 		super.setDead();
 		this.clearChunkLoader();
 	}
-	
+
 	public void clearChunkLoader() {
 		if(!worldObj.isRemote && loaderTicket != null) {
 			ForgeChunkManager.releaseTicket(loaderTicket);
 			this.loaderTicket = null;
 		}
 	}
-	
+
 	public void explodeStandard(float strength, int resolution, boolean fire) {
-		ExplosionVNT xnt = new ExplosionVNT(worldObj, posX, posY, posZ, strength);
-		xnt.setBlockAllocator(new BlockAllocatorStandard(resolution));
-		xnt.setBlockProcessor(new BlockProcessorStandard().setNoDrop().withBlockEffect(fire ? new BlockMutatorFire() : null));
-		xnt.setEntityProcessor(new EntityProcessorCross(7.5D).withRangeMod(2));
-		xnt.setPlayerProcessor(new PlayerProcessorStandard());
-		xnt.explode();
+		if(Integrations.canDetonateWGC(ownerParty,worldObj,(int)posX,(int)posY,(int)posZ)) {
+			ExplosionVNT xnt = new ExplosionVNT(worldObj, posX, posY, posZ, strength, ownerParty);
+			xnt.setBlockAllocator(new BlockAllocatorStandard(resolution));
+			xnt.setBlockProcessor(new BlockProcessorStandard().setNoDrop().withBlockEffect(fire ? new BlockMutatorFire() : null));
+			xnt.setEntityProcessor(new EntityProcessorCross(7.5D).withRangeMod(2));
+			xnt.setPlayerProcessor(new PlayerProcessorStandard());
+			xnt.explode();
+		}
 	}
-	
+
 	@Override
 	public String getUnlocalizedName() {
 		ItemStack item = this.getMissileItemForInfo();
@@ -379,10 +388,10 @@ public abstract class EntityMissileBaseNT extends EntityThrowableInterp implemen
 			default: return "Unknown";
 			}
 		}
-		
+
 		return "Unknown";
 	}
-	
+
 	@Override
 	public int getBlipLevel() {
 		ItemStack item = this.getMissileItemForInfo();
@@ -397,7 +406,7 @@ public abstract class EntityMissileBaseNT extends EntityThrowableInterp implemen
 			default: return IRadarDetectableNT.SPECIAL;
 			}
 		}
-		
+
 		return IRadarDetectableNT.SPECIAL;
 	}
 }

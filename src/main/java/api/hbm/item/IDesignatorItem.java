@@ -4,6 +4,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
+import java.util.UUID;
+
 public interface IDesignatorItem {
 
 	/**
@@ -16,7 +18,8 @@ public interface IDesignatorItem {
 	 * @return
 	 */
 	public boolean isReady(World world, ItemStack stack, int x, int y, int z);
-	
+	public UUID getOwnerParty();
+
 	/**
 	 * The target position if the designator is ready
 	 * @param world

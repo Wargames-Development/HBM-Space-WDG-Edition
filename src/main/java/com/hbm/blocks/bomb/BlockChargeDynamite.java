@@ -1,6 +1,6 @@
 package com.hbm.blocks.bomb;
 
-import com.hbm.explosion.ExplosionNT;
+import com.hbm.explosion.vanillant.ExplosionVNT;
 import com.hbm.particle.helper.ExplosionSmallCreator;
 
 import cpw.mods.fml.client.registry.RenderingRegistry;
@@ -16,7 +16,7 @@ public class BlockChargeDynamite extends BlockChargeBase {
 			safe = true;
 			world.setBlockToAir(x, y, z);
 			safe = false;
-			ExplosionNT exp = new ExplosionNT(world, null, x + 0.5, y + 0.5, z + 0.5, 4F);
+			ExplosionVNT exp = new ExplosionVNT(world, x + 0.5, y + 0.5, z + 0.5, 4F, ownerParty);
 			exp.explode();
 			ExplosionSmallCreator.composeEffect(world, x + 0.5, y + 0.5, z + 0.5, 15, 3F, 1.25F);
 
