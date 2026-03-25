@@ -1,8 +1,13 @@
 package com.hbm.entity.grenade;
 
+import api.hbm.wgc.Integrations;
 import com.hbm.explosion.ExplosionLarge;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
+
+import java.util.UUID;
 
 public class EntityGrenadeIFImpact extends EntityGrenadeBase {
 
@@ -23,13 +28,19 @@ public class EntityGrenadeIFImpact extends EntityGrenadeBase {
 
     @Override
     public void explode() {
-    	
+
         if (!this.worldObj.isRemote)
         {
             this.setDead();
-    		
-    		ExplosionLarge.jolt(worldObj, posX, posY, posZ, 5, 200, 0.25);
-    		ExplosionLarge.explode(worldObj, posX, posY, posZ, 5, true, true, true);
+			Entity thrower = getThrower();
+			UUID party = null;
+			if(thrower instanceof EntityPlayer) party = thrower.getUniqueID();
+
+			if(Integrations.canDetonateWGC(party,worldObj,(int)posX,(int)posY,(int)posZ)) {
+
+				ExplosionLarge.jolt(worldObj, posX, posY, posZ, 5, 200, 0.25);
+				ExplosionLarge.explode(thrower.getUniqueID(),worldObj, posX, posY, posZ, 5, true, true, true);
+			}
         }
     }
 }

@@ -72,7 +72,7 @@ public class XFactoryEnergy {
 			mop.hitVec.zCoord += dir.offsetZ * 0.5;
 		}
 
-		ExplosionVNT vnt = new ExplosionVNT(beam.worldObj, mop.hitVec.xCoord, mop.hitVec.yCoord, mop.hitVec.zCoord, 2F, beam.getThrower());
+		ExplosionVNT vnt = new ExplosionVNT(beam.worldObj, mop.hitVec.xCoord, mop.hitVec.yCoord, mop.hitVec.zCoord, 2F, beam.getThrower().getUniqueID(), beam.getThrower());
 		vnt.setEntityProcessor(new EntityProcessorCrossSmooth(1, beam.damage).setDamageClass(beam.config.dmgClass));
 		vnt.setPlayerProcessor(new PlayerProcessorStandard());
 		vnt.explode();

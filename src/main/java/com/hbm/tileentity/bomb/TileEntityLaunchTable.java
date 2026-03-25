@@ -1,7 +1,9 @@
 package com.hbm.tileentity.bomb;
 
 import java.util.List;
+import java.util.UUID;
 
+import api.hbm.wgc.Integrations;
 import com.hbm.entity.missile.EntityMissileCustom;
 import com.hbm.handler.CompatHandler;
 import com.hbm.handler.MissileStruct;
@@ -67,6 +69,7 @@ public class TileEntityLaunchTable extends TileEntityLoadedBase implements ISide
 	private static final int[] access = new int[] { 0 };
 
 	private String customName;
+	private UUID ownerParty;
 
 	public TileEntityLaunchTable() {
 		slots = new ItemStack[8];
@@ -298,13 +301,13 @@ public class TileEntityLaunchTable extends TileEntityLoadedBase implements ISide
 
 		if(slots[1] != null && slots[1].getItem() instanceof IDesignatorItem) {
 			IDesignatorItem designator = (IDesignatorItem) slots[1].getItem();
-
 			if(designator.isReady(worldObj, slots[1], xCoord, yCoord, zCoord)) {
 				Vec3 coords = designator.getCoords(worldObj, slots[1], xCoord, yCoord, zCoord);
 				int tX = (int) Math.floor(coords.xCoord);
 				int tZ = (int) Math.floor(coords.zCoord);
-
-				this.launchTo(tX, tZ);
+				if(Integrations.canTargetBlockWGC(designator.getOwnerParty(slots[1]),worldObj, xCoord, yCoord, zCoord)) {
+					this.launchTo(tX, tZ);
+				}
 			}
 		}
 	}
@@ -396,6 +399,7 @@ public class TileEntityLaunchTable extends TileEntityLoadedBase implements ISide
 	public boolean hasDesignator() {
 
 		if(slots[1] != null && slots[1].getItem() instanceof IDesignatorItem && ((IDesignatorItem)slots[1].getItem()).isReady(worldObj, slots[1], xCoord, yCoord, zCoord)) {
+			ownerParty = ((IDesignatorItem)slots[1].getItem()).getOwnerParty(slots[1]);
 			return true;
 		}
 
@@ -545,7 +549,7 @@ public class TileEntityLaunchTable extends TileEntityLoadedBase implements ISide
 			}
 		}
 		nbt.setTag("items", list);
-		
+
 		if (customName != null) {
 			nbt.setString("name", customName);
 		}
@@ -738,5 +742,9 @@ public class TileEntityLaunchTable extends TileEntityLoadedBase implements ISide
 	@SideOnly(Side.CLIENT)
 	public Object provideGUI(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		return new GUIMachineLaunchTable(player.inventory, this);
+	}
+
+	public UUID getOwnerParty() {
+		return ownerParty;
 	}
 }

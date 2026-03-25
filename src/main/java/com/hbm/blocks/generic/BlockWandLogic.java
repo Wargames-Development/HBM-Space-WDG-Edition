@@ -42,6 +42,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class BlockWandLogic extends BlockContainer implements ILookOverlay, IToolable, ITooltipProvider, IBlockSideRotation, IBomb {
 

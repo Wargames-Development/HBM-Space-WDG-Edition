@@ -200,6 +200,7 @@ public class TileEntityTurretArty extends TileEntityTurretBaseArtillery implemen
 		proj.setPositionAndRotation(pos.xCoord + vec.xCoord, pos.yCoord + vec.yCoord, pos.zCoord + vec.zCoord, 0.0F, 0.0F);
 		proj.setThrowableHeading(vec.xCoord, vec.yCoord, vec.zCoord, (float) getV0(), 0.0F);
 		proj.setTarget((int) tPos.xCoord, (int) tPos.yCoord, (int) tPos.zCoord);
+		proj.setOwnerParty(owningFaction);
 		proj.setType(type.getItemDamage());
 
 		if(type.getItemDamage() == 8 && type.hasTagCompound()) {
@@ -435,7 +436,7 @@ public class TileEntityTurretArty extends TileEntityTurretBaseArtillery implemen
 		Vec3 spawn = this.getCasingSpawnPos();
 		float yaw = (float) Math.toDegrees(rotationYaw);
 		float pitch = (float) -Math.toDegrees(this.rotationPitch);
-		
+
 		CasingCreator.composeEffect(worldObj,
 				spawn.xCoord, spawn.yCoord, spawn.zCoord,
 				yaw, pitch,
@@ -443,7 +444,7 @@ public class TileEntityTurretArty extends TileEntityTurretBaseArtillery implemen
 				0.01, worldObj.rand.nextFloat() * 20F - 10F, 0,
 				cachedCasingConfig.getName(),
 				true, 200, 1, 20);
-		
+
 		cachedCasingConfig = null;
 	}
 

@@ -1,6 +1,5 @@
 package com.hbm.explosion;
 
-import api.hbm.explosion.event.HbmExplosionHooks;
 import com.hbm.blocks.generic.DecoBlockAlt;
 
 import net.minecraft.init.Blocks;
@@ -77,16 +76,6 @@ public class ExplosionFleija {
 
 	public boolean update() {
 
-		// --- Safezone / claim protection ---
-		if (HbmExplosionHooks.pre(
-			this.worldObj,
-			this.posX + 0.5, this.posY + 0.5, this.posZ + 0.5,
-			(float) this.radius,
-			null, // no shooter reference here
-			"FLEIJA")) {
-			return true; // stop processing if blocked
-		}
-
 		breakColumn(this.lastposX, this.lastposZ);
 		this.shell = (int) Math.floor((Math.sqrt(n) + 1) / 2);
 		int shell2 = this.shell * 2;
@@ -107,11 +96,6 @@ public class ExplosionFleija {
 				int bx = this.posX + x;
 				int by = this.posY + y;
 				int bz = this.posZ + z;
-
-				// Per-block safezone / claim protection
-				if (HbmExplosionHooks.blockDenied(this.worldObj, bx, by, bz, "FLEIJA")) {
-					continue; // skip this block if protected
-				}
 
 				if (by > 0 && !(this.worldObj.getBlock(bx, by, bz) instanceof DecoBlockAlt)) {
 					this.worldObj.setBlock(bx, by, bz, Blocks.air);

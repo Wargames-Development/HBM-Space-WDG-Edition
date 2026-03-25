@@ -110,7 +110,8 @@ public class TileEntityMachinePress extends TileEntityMachineBase implements IGU
 						if(tile instanceof TileEntityPlushie) {
 							TileEntityPlushie plushie = (TileEntityPlushie) tile;
 							squish = "hbm:block.squeakyPain";
-
+							//Tell me why this is here and I'll implement it properly
+							/**
 							if(plushie.type == PlushieType.HUNDUN) {
 								worldObj.func_147480_a(xCoord, yCoord, zCoord, false);
 								ExplosionVNT vnt = new ExplosionVNT(worldObj, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5, 5);
@@ -119,6 +120,7 @@ public class TileEntityMachinePress extends TileEntityMachineBase implements IGU
 								vnt.setSFX(new ExplosionEffectWeapon(10, 2.5F, 1F));
 								vnt.explode();
 							}
+							 */
 						}
 						this.worldObj.playSoundEffect(this.xCoord, this.yCoord, this.zCoord, squish, getVolume(1.5F), 1.0F);
 						ItemStack output = PressRecipes.getOutput(slots[2], slots[1]);

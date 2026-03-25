@@ -1,11 +1,15 @@
 package com.hbm.entity.grenade;
 
+import api.hbm.wgc.Integrations;
 import com.hbm.config.BombConfig;
 import com.hbm.entity.effect.EntityCloudFleija;
 import com.hbm.entity.logic.EntityNukeExplosionMK3;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
+
+import java.util.UUID;
 
 public class EntityGrenadeASchrab extends EntityGrenadeBase {
 
@@ -25,18 +29,23 @@ public class EntityGrenadeASchrab extends EntityGrenadeBase {
 	public void explode() {
 
 		if (!this.worldObj.isRemote) {
-			EntityNukeExplosionMK3 ex = EntityNukeExplosionMK3.statFacFleija(worldObj, posX, posY, posZ, BombConfig.aSchrabRadius);
-			if(!ex.isDead) {
-				this.worldObj.playSoundEffect(this.posX, this.posY, this.posZ, "random.explode", 100.0F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
-				worldObj.spawnEntityInWorld(ex);
-	
-				EntityCloudFleija cloud = new EntityCloudFleija(this.worldObj, BombConfig.aSchrabRadius);
-				cloud.posX = this.posX;
-				cloud.posY = this.posY;
-				cloud.posZ = this.posZ;
-				this.worldObj.spawnEntityInWorld(cloud);
+			UUID party = null;
+			if(getThrower() instanceof EntityPlayer) party = getThrower().getUniqueID();
+
+			if(Integrations.canDetonateWGC(party,worldObj,(int)posX,(int)posY,(int)posZ)) {
+				EntityNukeExplosionMK3 ex = EntityNukeExplosionMK3.statFacFleija(worldObj, posX, posY, posZ, BombConfig.aSchrabRadius);
+				if (!ex.isDead) {
+					this.worldObj.playSoundEffect(this.posX, this.posY, this.posZ, "random.explode", 100.0F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
+					worldObj.spawnEntityInWorld(ex);
+
+					EntityCloudFleija cloud = new EntityCloudFleija(this.worldObj, BombConfig.aSchrabRadius);
+					cloud.posX = this.posX;
+					cloud.posY = this.posY;
+					cloud.posZ = this.posZ;
+					this.worldObj.spawnEntityInWorld(cloud);
+				}
 			}
-			
+
 			this.setDead();
 		}
 	}

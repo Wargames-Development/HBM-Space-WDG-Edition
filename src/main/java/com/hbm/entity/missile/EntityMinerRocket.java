@@ -24,7 +24,7 @@ public class EntityMinerRocket extends Entity {
 		this.dataWatcher.addObject(16, 0);
 		this.dataWatcher.addObject(17, 0);
 	}
-	
+
 	@Override
 	public void onUpdate() {
 		if(dataWatcher.getWatchableObjectInt(16) == 0)
@@ -33,10 +33,10 @@ public class EntityMinerRocket extends Entity {
 			motionY = 0;
 		if(dataWatcher.getWatchableObjectInt(16) == 2)
 			motionY = 1;
-		
+
 		motionX = 0;
 		motionZ = 0;
-		
+
 		this.setPositionAndRotation(posX + motionX, posY + motionY, posZ + motionZ, 0.0F, 0.0F);
 
 		if(dataWatcher.getWatchableObjectInt(16) == 0 && worldObj.getBlock((int)(posX - 0.5), (int)(posY - 0.5), (int)(posZ - 0.5)) == ModBlocks.sat_dock) {
@@ -45,25 +45,25 @@ public class EntityMinerRocket extends Entity {
 			posY = (int)posY;
 		} else if(worldObj.getBlock((int)(posX - 0.5), (int)(posY + 1), (int)(posZ - 0.5)).getMaterial() != Material.air && !worldObj.isRemote && dataWatcher.getWatchableObjectInt(16) != 1) {
 			this.setDead();
-			ExplosionLarge.explodeFire(worldObj, posX - 0.5, posY, posZ - 0.5, 10F, true, false, true);
+			ExplosionLarge.explodeFire(null,worldObj, posX - 0.5, posY, posZ - 0.5, 10F, true, false, true);//TODO
 			//worldObj.setBlock((int)(posX - 0.5), (int)(posY + 0.5), (int)(posZ - 0.5), Blocks.dirt);
 		}
-		
+
 		if(dataWatcher.getWatchableObjectInt(16) == 1) {
 			if(!worldObj.isRemote && ticksExisted % 4 == 0)
 				ExplosionLarge.spawnShock(worldObj, posX, posY, posZ, 1 + rand.nextInt(3), 1 + rand.nextGaussian());
-			
+
 			timer++;
-			
+
 			if(timer > 100) {
 				dataWatcher.updateObject(16, 2);
 			}
 		}
-		
+
 		if(dataWatcher.getWatchableObjectInt(16) != 1 && !worldObj.isRemote && ticksExisted % 2 == 0) {
 			ParticleUtil.spawnGasFlame(worldObj, posX, posY - 0.5, posZ, 0.0, -1.0, 0.0);
 		}
-		
+
 		if(dataWatcher.getWatchableObjectInt(16) == 2 && posY > 300)
 			this.setDead();
 	}

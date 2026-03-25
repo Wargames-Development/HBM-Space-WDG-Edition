@@ -1,5 +1,6 @@
 package com.hbm.blocks.bomb;
 
+import api.hbm.wgc.Integrations;
 import org.apache.logging.log4j.Level;
 
 import com.hbm.blocks.ModBlocks;
@@ -22,7 +23,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-public class BombFloat extends Block implements IBomb {
+import java.util.UUID;
+
+public class BombFloat extends BlockPartyOwned implements IBomb {
 
 	public World worldObj;
 
@@ -54,9 +57,10 @@ public class BombFloat extends Block implements IBomb {
 	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack itemStack) {
 	if(!world.isRemote) {
+		setOwner(world,x,y,z,player.getUniqueID());
 			if(GeneralConfig.enableExtendedLogging) {
 			MainRegistry.logger.log(Level.INFO, "[BOMBPL]" + this.getLocalizedName() + " placed at " + x + " / " + y + " / " + z + "! " + "by "+ player.getCommandSenderName());
-		}	
+		}
 	}
 	}
 
@@ -71,15 +75,15 @@ public class BombFloat extends Block implements IBomb {
 	@Override
 	public BombReturnCode explode(World world, int x, int y, int z) {
 		world.playSoundEffect(x, y, z, "hbm:weapon.sparkShoot", 5.0f, world.rand.nextFloat() * 0.2F + 0.9F);
-
-		if(!world.isRemote) {
+		UUID owner = getOwnerParty(world,x,y,z);
+		if(!world.isRemote & Integrations.canDetonateWGC(owner,world,x,y,z)) {
 			world.setBlock(x, y, z, Blocks.air);
 			if(this == ModBlocks.float_bomb) {
-				ExplosionChaos.floater(world, x, y, z, 15, 50);
-				ExplosionChaos.move(world, x, y, z, 15, 0, 50, 0);
+				ExplosionChaos.floater(owner,world, x, y, z, 15, 50);
+				ExplosionChaos.move(owner,world, x, y, z, 15, 0, 50, 0);
 			}
 			if(this == ModBlocks.emp_bomb) {
-				ExplosionNukeGeneric.empBlast(world, x, y, z, 50);
+				ExplosionNukeGeneric.empBlast(owner,world, x, y, z, 50);
 				EntityEMPBlast wave = new EntityEMPBlast(world, 50);
 				wave.posX = x + 0.5;
 				wave.posY = y + 0.5;
@@ -87,8 +91,10 @@ public class BombFloat extends Block implements IBomb {
 				world.spawnEntityInWorld(wave);
 			}
 		}
-		
+
 		return BombReturnCode.DETONATED;
 	}
-
+	public UUID getOwnerParty(World world, int x, int y, int z) {
+		return getOwner(world,x,y,z);
+	}
 }

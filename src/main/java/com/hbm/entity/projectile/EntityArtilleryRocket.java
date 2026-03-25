@@ -2,6 +2,7 @@ package com.hbm.entity.projectile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import com.google.common.collect.ImmutableSet;
 import com.hbm.entity.logic.IChunkLoader;
@@ -29,6 +30,7 @@ import net.minecraftforge.common.ForgeChunkManager.Type;
 public class EntityArtilleryRocket extends EntityThrowableInterp implements IChunkLoader, IRadarDetectable {
 
 	private Ticket loaderTicket;
+	private UUID ownerParty;
 
 	//TODO: find satisfying solution for when an entity is unloaded and reloaded, possibly a custom entity lookup using persistent UUIDs
 	public Entity targetEntity = null;
@@ -60,6 +62,13 @@ public class EntityArtilleryRocket extends EntityThrowableInterp implements IChu
 	public EntityArtilleryRocket setType(int type) {
 		this.dataWatcher.updateObject(10, type);
 		return this;
+	}
+
+	public void setOwnerParty(UUID ownerParty) {
+		this.ownerParty = ownerParty;
+	}
+	public UUID getOwnerParty() {
+		return ownerParty;
 	}
 
 	public HIMARSRocket getType() {
@@ -101,7 +110,7 @@ public class EntityArtilleryRocket extends EntityThrowableInterp implements IChu
 			//shitty hack, figure out what's happening here
 			if(this.targeting == null) this.targeting = new RocketTargetingPredictive();
 			if(this.steering == null) this.steering = new RocketSteeringBallisticArc();
-			
+
 			if(this.targetEntity == null) {
 				Vec3 delta = Vec3.createVectorHelper(this.lastTargetPos.xCoord - this.posX, this.lastTargetPos.yCoord - this.posY, this.lastTargetPos.zCoord - this.posZ);
 				if(delta.lengthVector() <= 15D) {
@@ -109,7 +118,7 @@ public class EntityArtilleryRocket extends EntityThrowableInterp implements IChu
 					this.steering = null;
 				}
 			}
-			
+
 			if(this.targeting != null && this.targetEntity != null) this.targeting.recalculateTargetPosition(this, this.targetEntity);
 			if(this.steering != null) this.steering.adjustCourse(this, 25D, 15D);
 

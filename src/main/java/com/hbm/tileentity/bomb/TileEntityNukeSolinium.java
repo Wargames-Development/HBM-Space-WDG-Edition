@@ -1,5 +1,6 @@
 package com.hbm.tileentity.bomb;
 
+import api.hbm.tile.IPartyOwned;
 import com.hbm.inventory.container.ContainerNukeSolinium;
 import com.hbm.inventory.gui.GUINukeSolinium;
 import com.hbm.items.ModItems;
@@ -18,15 +19,15 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 
-public class TileEntityNukeSolinium extends TileEntity implements ISidedInventory, IGUIProvider {
+public class TileEntityNukeSolinium extends TileEntityPartyOwned implements ISidedInventory, IGUIProvider, IPartyOwned {
 
 	public ItemStack slots[];
 	private String customName;
-	
+
 	public TileEntityNukeSolinium() {
 		slots = new ItemStack[9];
 	}
-	
+
 	@Override
 	public int getSizeInventory() {
 		return slots.length;
@@ -52,7 +53,7 @@ public class TileEntityNukeSolinium extends TileEntity implements ISidedInventor
 			{
 				slots[i] = null;
 			}
-			
+
 			return itemStack1;
 		} else {
 			return null;
@@ -89,7 +90,7 @@ public class TileEntityNukeSolinium extends TileEntity implements ISidedInventor
 	public boolean hasCustomInventoryName() {
 		return this.customName != null && this.customName.length() > 0;
 	}
-	
+
 	public void setCustomName(String name) {
 		this.customName = name;
 		markDirty();
@@ -112,12 +113,12 @@ public class TileEntityNukeSolinium extends TileEntity implements ISidedInventor
 
 	@Override
 	public void openInventory() {
-		
+
 	}
 
 	@Override
 	public void closeInventory() {
-		
+
 	}
 
 	@Override
@@ -139,13 +140,13 @@ public class TileEntityNukeSolinium extends TileEntity implements ISidedInventor
 	public boolean canExtractItem(int i, ItemStack itemStack, int j) {
 		return j != 0 || i != 1 || itemStack.getItem() == Items.bucket;
 	}
-	
+
 	@Override
 	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
 		NBTTagList list = nbt.getTagList("items", 10);
 		slots = new ItemStack[getSizeInventory()];
-		
+
 		for(int i = 0; i < list.tagCount(); i++)
 		{
 			NBTTagCompound nbt1 = list.getCompoundTagAt(i);
@@ -158,12 +159,12 @@ public class TileEntityNukeSolinium extends TileEntity implements ISidedInventor
 
 		customName = nbt.getString("name");
 	}
-	
+
 	@Override
 	public void writeToNBT(NBTTagCompound nbt) {
 		super.writeToNBT(nbt);
 		NBTTagList list = new NBTTagList();
-		
+
 		for(int i = 0; i < slots.length; i++)
 		{
 			if(slots[i] != null)
@@ -175,43 +176,43 @@ public class TileEntityNukeSolinium extends TileEntity implements ISidedInventor
 			}
 		}
 		nbt.setTag("items", list);
-		
+
 		if (customName != null) {
 			nbt.setString("name", customName);
 		}
 	}
-	
+
 	public boolean isReady() {
-		
+
 		if(slots[0] != null && slots[1] != null && slots[2] != null && slots[3] != null && slots[4] != null && slots[5] != null && slots[6] != null && slots[7] != null && slots[8] != null)
-			if(slots[0].getItem() == ModItems.solinium_igniter && 
-			slots[1].getItem() == ModItems.solinium_propellant && 
-			slots[2].getItem() == ModItems.solinium_propellant && 
-			slots[3].getItem() == ModItems.solinium_igniter && 
-			slots[4].getItem() == ModItems.solinium_core && 
-			slots[5].getItem() == ModItems.solinium_igniter && 
-			slots[6].getItem() == ModItems.solinium_propellant && 
-			slots[7].getItem() == ModItems.solinium_propellant && 
+			if(slots[0].getItem() == ModItems.solinium_igniter &&
+			slots[1].getItem() == ModItems.solinium_propellant &&
+			slots[2].getItem() == ModItems.solinium_propellant &&
+			slots[3].getItem() == ModItems.solinium_igniter &&
+			slots[4].getItem() == ModItems.solinium_core &&
+			slots[5].getItem() == ModItems.solinium_igniter &&
+			slots[6].getItem() == ModItems.solinium_propellant &&
+			slots[7].getItem() == ModItems.solinium_propellant &&
 			slots[8].getItem() == ModItems.solinium_igniter)
 			{
 				return true;
 			}
-		
+
 		return false;
 	}
-	
+
 	public void clearSlots() {
 		for(int i = 0; i < slots.length; i++)
 		{
 			slots[i] = null;
 		}
 	}
-	
+
 	@Override
 	public AxisAlignedBB getRenderBoundingBox() {
 		return TileEntity.INFINITE_EXTENT_AABB;
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public double getMaxRenderDistanceSquared()

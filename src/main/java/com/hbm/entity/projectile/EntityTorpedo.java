@@ -50,7 +50,7 @@ public class EntityTorpedo extends EntityThrowable {
 			if(!worldObj.isRemote) {
 				this.setDead();
 				ExplosionCreator.composeEffectStandard(worldObj, posX, posY + 1, posZ);
-				ExplosionVNT vnt = new ExplosionVNT(worldObj, posX, posY, posZ, 20F);
+				ExplosionVNT vnt = new ExplosionVNT(worldObj, posX, posY, posZ, 20F,null);
 				vnt.makeStandard();
 				vnt.explode();
 			}

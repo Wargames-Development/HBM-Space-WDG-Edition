@@ -1,6 +1,7 @@
 package com.hbm.blocks.machine;
 
 import java.util.Random;
+import java.util.UUID;
 
 import com.hbm.blocks.ModBlocks;
 import com.hbm.interfaces.IBomb;
@@ -224,10 +225,10 @@ public class BlockSeal extends Block implements IBomb {
 				} else {
 					BlockSeal.closeSeal(world, x, y, z, i);
 				}
-				
+
 				return BombReturnCode.TRIGGERED;
 			}
-			
+
 			return BombReturnCode.ERROR_INCOMPATIBLE;
 		}
 
@@ -256,5 +257,4 @@ public class BlockSeal extends Block implements IBomb {
 			}
 		}
 	}
-
 }

@@ -2,6 +2,7 @@ package com.hbm.entity.missile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import com.hbm.inventory.OreDictManager.DictFrame;
 import com.hbm.inventory.material.Mats;
@@ -16,7 +17,7 @@ import net.minecraft.world.World;
 public class EntityMissileStealth extends EntityMissileBaseNT {
 
 	public EntityMissileStealth(World world) { super(world); }
-	public EntityMissileStealth(World world, float x, float y, float z, int a, int b) { super(world, x, y, z, a, b); }
+	public EntityMissileStealth(World world, float x, float y, float z, int a, int b, UUID ownerParty) { super(world, x, y, z, a, b, ownerParty); }
 
 	@Override
 	public List<ItemStack> getDebris() {
@@ -27,7 +28,7 @@ public class EntityMissileStealth extends EntityMissileBaseNT {
 
 	@Override public ItemStack getMissileItemForInfo() { return new ItemStack(ModItems.missile_stealth); }
 	@Override public boolean canBeSeenBy(Object radar) { return false; }
-	
+
 	@Override public void onMissileImpact(MovingObjectPosition mop) { this.explodeStandard(20F, 24, false); ExplosionCreator.composeEffectStandard(worldObj, posX, posY, posZ); }
 	@Override public ItemStack getDebrisRareDrop() { return DictFrame.fromOne(ModItems.powder_ash, EnumAshType.MISC); }
 

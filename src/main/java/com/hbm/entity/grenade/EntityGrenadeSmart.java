@@ -1,12 +1,17 @@
 package com.hbm.entity.grenade;
 
+import api.hbm.wgc.Integrations;
 import com.hbm.explosion.ExplosionLarge;
 import com.hbm.items.ModItems;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+
+import java.util.UUID;
 
 public class EntityGrenadeSmart extends EntityGrenadeBase {
 
@@ -27,15 +32,23 @@ public class EntityGrenadeSmart extends EntityGrenadeBase {
 
     @Override
     public void explode() {
-    	
-        if (!this.worldObj.isRemote)
-        {
-            this.setDead();
-            
-            if(this.ticksExisted > 10)
-            	ExplosionLarge.explode(worldObj, posX, posY, posZ, 5.0F, true, false, false);
-            else
-            	worldObj.spawnEntityInWorld(new EntityItem(worldObj, posX, posY, posZ, new ItemStack(ModItems.grenade_smart)));
-        }
+
+        if (!this.worldObj.isRemote) {
+			this.setDead();
+
+			if (this.ticksExisted > 10) {
+				Entity thrown = this.getThrower();
+				UUID party = null;
+				if (thrown instanceof EntityPlayer) party = thrown.getUniqueID();
+				if (owner != null){
+					party = owner;
+				}
+
+				if (Integrations.canDetonateWGC(party, worldObj, (int) posX, (int) posY, (int) posZ)) {
+					ExplosionLarge.explode(party, worldObj, posX, posY, posZ, 5.0F, true, false, false);
+				} else
+					worldObj.spawnEntityInWorld(new EntityItem(worldObj, posX, posY, posZ, new ItemStack(ModItems.grenade_smart)));
+			}
+		}
     }
 }

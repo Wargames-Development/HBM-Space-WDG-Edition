@@ -113,6 +113,8 @@ dependencies {
 	implementation "li.cil.oc:OpenComputers:MC1.7.10-1.5.+:api"
 
 	compileOnly "com.github.GTNewHorizons:Applied-Energistics-2-Unofficial:rv3-beta.56-GTNH:dev"
+
+	compile fileTree(dir: 'lib', include: ['*.jar'])
 }
 
 processResources {

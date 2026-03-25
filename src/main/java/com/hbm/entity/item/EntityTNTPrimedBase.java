@@ -1,6 +1,8 @@
 package com.hbm.entity.item;
 
 import api.hbm.block.IFuckingExplode;
+import api.hbm.wgc.Integrations;
+import api.hbm.wgc.Integrations.*;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -9,11 +11,13 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
-public class EntityTNTPrimedBase extends Entity {
+import java.util.UUID;
 
+public class EntityTNTPrimedBase extends Entity {
 	public boolean detonateOnCollision;
 	public int fuse;
 	private EntityLivingBase tntPlacedBy;
+	protected UUID ownerParty;
 	private boolean doesSpin; // SSSSSSSPEEEEEEEEEEEEEEEEEEEEEEEN
 	private float momentumPitch;
 	private float momentumYaw;
@@ -31,7 +35,7 @@ public class EntityTNTPrimedBase extends Entity {
 		momentumYaw =(float) (world.rand.nextGaussian() * 10F);
 	}
 
-	public EntityTNTPrimedBase(World world, double x, double y, double z, EntityLivingBase entity, Block bomb) {
+	public EntityTNTPrimedBase(World world, double x, double y, double z, EntityLivingBase entity, UUID ownerParty, Block bomb) {
 		this(world);
 		this.setPosition(x, y, z);
 		float f = (float) (Math.random() * Math.PI * 2.0D);
@@ -42,6 +46,7 @@ public class EntityTNTPrimedBase extends Entity {
 		this.prevPosY = y;
 		this.prevPosZ = z;
 		this.tntPlacedBy = entity;
+		this.ownerParty = ownerParty;
 		this.dataWatcher.updateObject(12, Block.getIdFromBlock(bomb));
 	}
 
@@ -95,7 +100,9 @@ public class EntityTNTPrimedBase extends Entity {
 	}
 
 	private void explode() {
-		this.getBomb().explodeEntity(worldObj, posX, posY, posZ, this);
+		if(Integrations.canDetonateWGC(ownerParty,worldObj,(int)posX,(int)posY,(int)posZ)) {
+			this.getBomb().explodeEntity(worldObj, posX, posY, posZ, this);
+		}
 	}
 
 	public IFuckingExplode getBomb() {

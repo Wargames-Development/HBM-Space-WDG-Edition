@@ -148,7 +148,7 @@ public class WeaponSpecial extends ItemSword {
 			}
 
 			if(entityPlayer.fallDistance >= 20 && !((EntityPlayer) entityPlayer).capabilities.isCreativeMode) {
-				ExplosionVNT vnt = new ExplosionVNT(world, entity.posX, entity.posY + entity.height / 2D, entity.posZ, 15, entityPlayer);
+				ExplosionVNT vnt = new ExplosionVNT(world, entity.posX, entity.posY + entity.height / 2D, entity.posZ, 15, entityPlayer.getUniqueID(),entityPlayer);
 				vnt.setEntityProcessor(new EntityProcessorCrossSmooth(1, 150).setupPiercing(25, 0.5F));
 				vnt.setPlayerProcessor(new PlayerProcessorStandard());
 				ExplosionCreator.composeEffectSmall(world, entity.posX, entity.posY + entity.height / 2D, entity.posZ);

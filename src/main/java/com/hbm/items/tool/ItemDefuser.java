@@ -25,31 +25,31 @@ public class ItemDefuser extends ItemTooling {
 
 	@Override
 	public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer player, EntityLivingBase entity) {
-		
+
 		if(entity instanceof EntityCreeper) {
 			return ItemModDefuser.defuse((EntityCreeper) entity, player, true);
 		}
-		
+
 		if(entity instanceof EntityGlyphidNuclear) {
 			EntityGlyphidNuclear john = (EntityGlyphidNuclear) entity;
-			
+
 			if(!player.worldObj.isRemote && john.deathTicks > 0) {
 				john.setDead();
-				
-				ExplosionVNT vnt = new ExplosionVNT(john.worldObj, john.posX, john.posY, john.posZ, 5F, john);
+
+				ExplosionVNT vnt = new ExplosionVNT(john.worldObj, john.posX, john.posY, john.posZ, 5F, player.getUniqueID(), john);
 				vnt.setEntityProcessor(new EntityProcessorCrossSmooth(1, 20).setupPiercing(10F, 0.2F));
 				vnt.setPlayerProcessor(new PlayerProcessorStandard());
 				vnt.setSFX(new ExplosionEffectWeapon(10, 2.5F, 1F));
 				vnt.explode();
-				
+
 				ConfettiUtil.gib(john);
-				
+
 				john.entityDropItem(DictFrame.fromOne(ModItems.ammo_standard, EnumAmmo.NUKE_DEMO), 1.5F);
 			}
-			
+
 			return true;
 		}
-		
+
 		return false;
 	}
 }

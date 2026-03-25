@@ -14,13 +14,14 @@ import net.minecraft.world.World;
 
 @NotableComments
 public class EntityBomber extends EntityPlaneBase {
-	
+
 	/* This was probably the dumbest fucking way that I could have handled this. Not gonna change it now, be glad I made a superclass at all. */
+	//Your effort is appreciated.
 	int bombStart = 75;
 	int bombStop = 125;
 	int bombRate = 3;
 	int type = 0;
-	
+
 	protected AudioWrapper audio;
 
 	public EntityBomber(World world) {
@@ -34,12 +35,12 @@ public class EntityBomber extends EntityPlaneBase {
 		super.entityInit();
 		this.dataWatcher.addObject(16, Byte.valueOf((byte) 0));
 	}
-	
+
 	/** This sucks balls. Too bad! */
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
-		
+
 		if(worldObj.isRemote) {
 			if(this.getDataWatcher().getWatchableObjectFloat(17) > 0) {
 				if(audio == null || !audio.isPlaying()) {
@@ -61,12 +62,12 @@ public class EntityBomber extends EntityPlaneBase {
 				}
 			}
 		}
-		
+
 		if(!worldObj.isRemote && this.health > 0 && this.ticksExisted > bombStart && this.ticksExisted < bombStop && this.ticksExisted % bombRate == 0) {
-			
+
 			if(type == 3) {
 				worldObj.playSoundEffect((double) (posX + 0.5F), (double) (posY + 0.5F), (double) (posZ + 0.5F), "random.fizz", 5.0F, 2.6F + (rand.nextFloat() - rand.nextFloat()) * 0.8F);
-				ExplosionChaos.spawnPoisonCloud(worldObj, this.posX, this.posY - 1F, this.posZ, 10, 0.5, 3);
+				ExplosionChaos.spawnPoisonCloud(null,worldObj, this.posX, this.posY - 1F, this.posZ, 10, 0.5, 3);
 
 			} else if(type == 5) {
 
@@ -80,8 +81,8 @@ public class EntityBomber extends EntityPlaneBase {
 
 			} else if(type == 7) {
 				worldObj.playSoundEffect((double) (posX + 0.5F), (double) (posY + 0.5F), (double) (posZ + 0.5F), "random.fizz", 5.0F, 2.6F + (rand.nextFloat() - rand.nextFloat()) * 0.8F);
-				ExplosionChaos.spawnPoisonCloud(worldObj, this.posX, worldObj.getHeightValue((int) this.posX, (int) this.posZ) + 2, this.posZ, 10, 1, 2);
-			
+				ExplosionChaos.spawnPoisonCloud(null,worldObj, this.posX, worldObj.getHeightValue((int) this.posX, (int) this.posZ) + 2, this.posZ, 10, 1, 2);
+
 			} else {
 				worldObj.playSoundEffect((double) (posX + 0.5F), (double) (posY + 0.5F), (double) (posZ + 0.5F), "hbm:entity.bombWhistle", 10.0F, 0.9F + rand.nextFloat() * 0.2F);
 				EntityBombletZeta zeta = new EntityBombletZeta(worldObj);
@@ -113,12 +114,12 @@ public class EntityBomber extends EntityPlaneBase {
 		this.motionX = vector.xCoord;
 		this.motionZ = vector.zCoord;
 		this.motionY = 0.0D;
-			
+
 		if(type == 9) {
 			this.motionX = vector.xCoord * 1.5;
 			this.motionZ = vector.zCoord * 1.5;
 		}
-		
+
 		this.rotation();
 
 		int i = 1;
@@ -252,21 +253,21 @@ public class EntityBomber extends EntityPlaneBase {
 
     public static EntityBomber statFacCV(World world, double x, double y, double z) {
     	EntityBomber bomber = new EntityBomber(world);
-    	
+
     	bomber.timer = 200;
     	bomber.bombStart = 75;
     	bomber.bombStop = 125;
     	bomber.bombRate = 90000;
 
     	bomber.fac(world, x, y+16, z); //adding the y value breaks things, sorry bluehat
-    	
+
     	bomber.getDataWatcher().updateObject(16, (byte)9);
-    	
+
     	bomber.type = 8;
-    	
+
     	return bomber;
     }
-    
+
 	public static EntityBomber statFacCarpetJet(World world, double x, double y, double z) {
 		EntityBomber bomber = new EntityBomber(world);
 

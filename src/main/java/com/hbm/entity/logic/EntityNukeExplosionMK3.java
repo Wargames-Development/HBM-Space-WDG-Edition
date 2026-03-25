@@ -3,6 +3,7 @@ package com.hbm.entity.logic;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
+import java.util.UUID;
 
 import com.hbm.handler.threading.PacketThreading;
 import org.apache.logging.log4j.Level;
@@ -43,6 +44,7 @@ public class EntityNukeExplosionMK3 extends EntityExplosionChunkloading {
 	public boolean waste = true;
 	//Extended Type
 	public int extType = 0;
+	public UUID ownedParty;
 
 	@Override
 	protected void readEntityFromNBT(NBTTagCompound nbt) {
@@ -63,12 +65,20 @@ public class EntityNukeExplosionMK3 extends EntityExplosionChunkloading {
 			this.setDead();
 		}
 
+		if(nbt.hasKey("ownerMost")&&nbt.hasKey("ownerLeast"))
+		{
+			this.ownedParty = new UUID(
+				nbt.getLong("ownerMost"),
+				nbt.getLong("ownerLeast")
+			);
+		}
+
 		if(this.waste) {
-			exp = new ExplosionNukeAdvanced((int) this.posX, (int) this.posY, (int) this.posZ, this.worldObj, this.destructionRange, this.coefficient, 0);
+			exp = new ExplosionNukeAdvanced(ownedParty,(int) this.posX, (int) this.posY, (int) this.posZ, this.worldObj, this.destructionRange, this.coefficient, 0);
 			exp.readFromNbt(nbt, "exp_");
-			wst = new ExplosionNukeAdvanced((int) this.posX, (int) this.posY, (int) this.posZ, this.worldObj, (int) (this.destructionRange * 1.8), this.coefficient, 2);
+			wst = new ExplosionNukeAdvanced(ownedParty,(int) this.posX, (int) this.posY, (int) this.posZ, this.worldObj, (int) (this.destructionRange * 1.8), this.coefficient, 2);
 			wst.readFromNbt(nbt, "wst_");
-			vap = new ExplosionNukeAdvanced((int) this.posX, (int) this.posY, (int) this.posZ, this.worldObj, (int) (this.destructionRange * 2.5), this.coefficient, 1);
+			vap = new ExplosionNukeAdvanced(ownedParty,(int) this.posX, (int) this.posY, (int) this.posZ, this.worldObj, (int) (this.destructionRange * 2.5), this.coefficient, 1);
 			vap.readFromNbt(nbt, "vap_");
 		} else {
 
@@ -77,7 +87,7 @@ public class EntityNukeExplosionMK3 extends EntityExplosionChunkloading {
 				expl.readFromNbt(nbt, "expl_");
 			}
 			if(extType == 1) {
-				sol = new ExplosionSolinium((int) this.posX, (int) this.posY, (int) this.posZ, this.worldObj, this.destructionRange, this.coefficient, this.coefficient2);
+				sol = new ExplosionSolinium(ownedParty,(int) this.posX, (int) this.posY, (int) this.posZ, this.worldObj, this.destructionRange, this.coefficient, this.coefficient2);
 				sol.readFromNbt(nbt, "sol_");
 			}
 		}
@@ -110,6 +120,10 @@ public class EntityNukeExplosionMK3 extends EntityExplosionChunkloading {
 			expl.saveToNbt(nbt, "expl_");
 		if(sol != null)
 			sol.saveToNbt(nbt, "sol_");
+		if (ownedParty != null) {
+			nbt.setLong("ownerMost", ownedParty.getMostSignificantBits());
+			nbt.setLong("ownerLeast", ownedParty.getLeastSignificantBits());
+		}
 
 	}
 
@@ -133,14 +147,14 @@ public class EntityNukeExplosionMK3 extends EntityExplosionChunkloading {
 
         	if(this.waste)
         	{
-            	exp = new ExplosionNukeAdvanced((int)this.posX, (int)this.posY, (int)this.posZ, this.worldObj, this.destructionRange, this.coefficient, 0);
-        		wst = new ExplosionNukeAdvanced((int)this.posX, (int)this.posY, (int)this.posZ, this.worldObj, (int)(this.destructionRange * 1.8), this.coefficient, 2);
-        		vap = new ExplosionNukeAdvanced((int)this.posX, (int)this.posY, (int)this.posZ, this.worldObj, (int)(this.destructionRange * 2.5), this.coefficient, 1);
+            	exp = new ExplosionNukeAdvanced(ownedParty,(int)this.posX, (int)this.posY, (int)this.posZ, this.worldObj, this.destructionRange, this.coefficient, 0);
+        		wst = new ExplosionNukeAdvanced(ownedParty,(int)this.posX, (int)this.posY, (int)this.posZ, this.worldObj, (int)(this.destructionRange * 1.8), this.coefficient, 2);
+        		vap = new ExplosionNukeAdvanced(ownedParty,(int)this.posX, (int)this.posY, (int)this.posZ, this.worldObj, (int)(this.destructionRange * 2.5), this.coefficient, 1);
         	} else {
         		if(extType == 0)
         			expl = new ExplosionFleija((int)this.posX, (int)this.posY, (int)this.posZ, this.worldObj, this.destructionRange, this.coefficient, this.coefficient2);
         		if(extType == 1)
-        			sol = new ExplosionSolinium((int)this.posX, (int)this.posY, (int)this.posZ, this.worldObj, this.destructionRange, this.coefficient, this.coefficient2);
+        			sol = new ExplosionSolinium(ownedParty,(int)this.posX, (int)this.posY, (int)this.posZ, this.worldObj, this.destructionRange, this.coefficient, this.coefficient2);
         	}
 
         	this.did = true;
@@ -182,7 +196,7 @@ public class EntityNukeExplosionMK3 extends EntityExplosionChunkloading {
         	this.worldObj.playSoundEffect(this.posX, this.posY, this.posZ, "ambient.weather.thunder", 10000.0F, 0.8F + this.rand.nextFloat() * 0.2F);
 
         	if(waste || extType != 1) {
-        		ExplosionNukeGeneric.dealDamage(this.worldObj, this.posX, this.posY, this.posZ, this.destructionRange * 2);
+        		ExplosionNukeGeneric.dealDamage(ownedParty,this.worldObj, this.posX, this.posY, this.posZ, this.destructionRange * 2);
         	} else {
         		ExplosionHurtUtil.doRadiation(worldObj, posX, posY, posZ, 15000, 250000, this.destructionRange);
         	}
@@ -193,6 +207,7 @@ public class EntityNukeExplosionMK3 extends EntityExplosionChunkloading {
 				fallout.posX = this.posX;
 				fallout.posY = this.posY;
 				fallout.posZ = this.posZ;
+				fallout.owner = this.ownedParty;
 				fallout.setScale((int)(this.destructionRange * 1.8));
 
 				this.worldObj.spawnEntityInWorld(fallout);
@@ -259,7 +274,7 @@ public class EntityNukeExplosionMK3 extends EntityExplosionChunkloading {
 				break;
 			}
 		}
-		
+
 		if(!entity.isDead) {
 			entity.loadChunk((int) Math.floor(x / 16D), (int) Math.floor(z / 16D));
 		}

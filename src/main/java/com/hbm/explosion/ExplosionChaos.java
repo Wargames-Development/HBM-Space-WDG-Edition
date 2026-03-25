@@ -2,7 +2,10 @@ package com.hbm.explosion;
 
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
+import java.util.UUID;
 
+import api.hbm.wgc.Integrations;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.entity.grenade.EntityGrenadeTau;
 import com.hbm.entity.item.EntityFallingBlockNT;
@@ -21,8 +24,6 @@ import com.hbm.util.ArmorRegistry;
 import com.hbm.util.ArmorUtil;
 import com.hbm.util.ArmorRegistry.HazardClass;
 
-import api.hbm.explosion.event.HbmExplosionHooks;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -35,6 +36,8 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.Vec3;
+import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -45,25 +48,24 @@ public class ExplosionChaos { //TODO: destroy this entire class
 	private final static Random random = new Random();
 	private static Random rand = new Random();
 
-	public static void hardenVirus(World world, int x, int y, int z, int bombStartStrength) {
+	public static void hardenVirus(UUID party, World world, int x, int y, int z, int bombStartStrength) {
 
-		if (HbmExplosionHooks.pre(world, x + 0.5, y + 0.5, z + 0.5, bombStartStrength, null, "CHAOS.HARDEN")) return;
+
 
 		int r = bombStartStrength;
 		int r2 = r * r;
 		int r22 = r2 / 2;
-		for (int xx = -r; xx < r; xx++) {
+		for (int xx = -r; xx < r; xx++) {//Because not going columnwise is beyond stupid
 			int X = xx + x;
 			int XX = xx * xx;
-			for (int yy = -r; yy < r; yy++) {
-				int Y = yy + y;
-				int YY = XX + yy * yy;
-				for (int zz = -r; zz < r; zz++) {
-					int Z = zz + z;
-					int ZZ = YY + zz * zz;
-					if (ZZ < r22) {
+			for (int zz = -r; zz < r; zz++) {
+				int Z = zz + z;
+				int ZZ = XX + zz * zz;
+				for (int yy = -r; yy < r; yy++) {
+					int Y = yy + y;
+					int YY = ZZ + yy * yy;
+					if (YY < r22) {
 						if (world.getBlock(X, Y, Z) == ModBlocks.crystal_virus) {
-							if (HbmExplosionHooks.blockDenied(world, X, Y, Z, "CHAOS.HARDEN")) continue;
 							world.setBlock(X, Y, Z, ModBlocks.crystal_hardened);
 						}
 					}
@@ -72,9 +74,8 @@ public class ExplosionChaos { //TODO: destroy this entire class
 		}
 	}
 
-	public static void spreadVirus(World world, int x, int y, int z, int bombStartStrength) {
+	public static void spreadVirus(UUID party, World world, int x, int y, int z, int bombStartStrength) {
 
-		if (HbmExplosionHooks.pre(world, x + 0.5, y + 0.5, z + 0.5, bombStartStrength, null, "CHAOS.SPREAD")) return;
 
 		int r = bombStartStrength;
 		int r2 = r * r;
@@ -82,15 +83,14 @@ public class ExplosionChaos { //TODO: destroy this entire class
 		for (int xx = -r; xx < r; xx++) {
 			int X = xx + x;
 			int XX = xx * xx;
-			for (int yy = -r; yy < r; yy++) {
-				int Y = yy + y;
-				int YY = XX + yy * yy;
-				for (int zz = -r; zz < r; zz++) {
-					int Z = zz + z;
-					int ZZ = YY + zz * zz;
-					if (ZZ < r22) {
+			for (int zz = -r; zz < r; zz++) {
+				int Z = zz + z;
+				int ZZ = XX + zz * zz;
+				for (int yy = -r; yy < r; yy++) {
+					int Y = yy + y;
+					int YY = ZZ + yy * yy;
+					if (YY < r22) {
 						if (rand.nextInt(15) == 0 && world.getBlock(X, Y, Z) != Blocks.air) {
-							if (HbmExplosionHooks.blockDenied(world, X, Y, Z, "CHAOS.SPREAD")) continue;
 							world.setBlock(X, Y, Z, ModBlocks.cheater_virus_seed);
 						}
 					}
@@ -99,27 +99,25 @@ public class ExplosionChaos { //TODO: destroy this entire class
 		}
 	}
 
-	public static void pulse(World world, int x, int y, int z, int bombStartStrength) {
-
-		if (HbmExplosionHooks.pre(world, x + 0.5, y + 0.5, z + 0.5, bombStartStrength, null, "CHAOS.PULSE")) return;
+	public static void pulse(UUID party, World world, int x, int y, int z, int bombStartStrength) {
 
 		int r = bombStartStrength;
+		Set<ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(party, world, x, z,r+16);
 		int r2 = r * r;
 		int r22 = r2 / 2;
 		for (int xx = -r; xx < r; xx++) {
 			int X = xx + x;
 			int XX = xx * xx;
-			for (int yy = -r; yy < r; yy++) {
-				int Y = yy + y;
-				int YY = XX + yy * yy;
-				for (int zz = -r; zz < r; zz++) {
-					int Z = zz + z;
-					int ZZ = YY + zz * zz;
-					if (ZZ < r22) {
+			for (int zz = -r; zz < r; zz++) {
+				int Z = zz + z;
+				if(protectedChunks.contains(new ChunkCoordIntPair(X>>4, Z>>4))) continue;
+				int ZZ = XX + zz * zz;
+				for (int yy = -r; yy < r; yy++) {
+					int Y = yy + y;
+					int YY = ZZ + yy * yy;
+					if (YY < r22) {
 
 						if (world.getBlock(X, Y, Z).getExplosionResistance(null) <= 70) {
-							// per-block safezone / claim protection
-							if (HbmExplosionHooks.blockDenied(world, X, Y, Z, "CHAOS.PULSE")) continue;
 
 							EntityFallingBlockNT entityfallingblock = new EntityFallingBlockNT(
 								world,
@@ -136,26 +134,24 @@ public class ExplosionChaos { //TODO: destroy this entire class
 	}
 
 
-	public static void explodeZOMG(World world, int x, int y, int z, int bombStartStrength) {
-
-		if (HbmExplosionHooks.pre(world, x + 0.5, y + 0.5, z + 0.5, bombStartStrength, null, "CHAOS.ZOMG")) return;
+	public static void explodeZOMG(UUID party, World world, int x, int y, int z, int bombStartStrength) {
 
 		int r = bombStartStrength;
+		Set<ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(party, world, x, z,r+16);
 		int r2 = r * r;
 		int r22 = r2 / 2;
 		for (int xx = -r; xx < r; xx++) {
 			int X = xx + x;
 			int XX = xx * xx;
-			for (int yy = -r; yy < r; yy++) {
-				int Y = yy + y;
-				int YY = XX + yy * yy;
-				for (int zz = -r; zz < r; zz++) {
-					int Z = zz + z;
-					int ZZ = YY + zz * zz;
-					if (ZZ < r22) {
+			for (int zz = -r; zz < r; zz++) {
+				int Z = zz + z;
+				if(protectedChunks.contains(new ChunkCoordIntPair(X>>4, Z>>4))) continue;
+				int ZZ = XX + zz * zz;
+				for (int yy = -r; yy < r; yy++) {
+					int Y = yy + y;
+					int YY = ZZ + yy * yy;
+					if (YY < r22) {
 						if (!(world.getBlock(X, Y, Z) == Blocks.bedrock && Y <= 0)) {
-							// per-block safezone / claim protection
-							if (HbmExplosionHooks.blockDenied(world, X, Y, Z, "CHAOS.ZOMG")) continue;
 
 							world.setBlock(X, Y, Z, Blocks.air);
 						}
@@ -166,21 +162,23 @@ public class ExplosionChaos { //TODO: destroy this entire class
 	}
 
 
-	public static void decon(World world, int x, int y, int z, int radius) {
+	public static void decon(UUID party, World world, int x, int y, int z, int radius) {
 
 		int r = radius;
+		Set<ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(party, world, x, z,r+16);
 		int r2 = r * r;
 		int r22 = r2 / 2;
 		for (int xx = -r; xx < r; xx++) {
 			int X = xx + x;
 			int XX = xx * xx;
-			for (int yy = -r; yy < r; yy++) {
-				int Y = yy + y;
-				int YY = XX + yy * yy;
-				for (int zz = -r; zz < r; zz++) {
-					int Z = zz + z;
-					int ZZ = YY + zz * zz;
-					if (ZZ < r22) {
+			for (int zz = -r; zz < r; zz++) {
+				int Z = zz + z;
+				if(protectedChunks.contains(new ChunkCoordIntPair(X>>4, Z>>4))) continue;
+				int ZZ = XX + zz * zz;
+				for (int yy = -r; yy < r; yy++) {
+					int Y = yy + y;
+					int YY = ZZ + yy * yy;
+					if (YY < r22) {
 						decontaminate(world, X, Y, Z);
 					}
 				}
@@ -197,28 +195,25 @@ public class ExplosionChaos { //TODO: destroy this entire class
 	 * @param z
 	 * @param bound
 	 */
-	public static void flameDeath(World world, int x, int y, int z, int bound) {
-
-		if (HbmExplosionHooks.pre(world, x + 0.5, y + 0.5, z + 0.5, bound, null, "CHAOS.FLAME")) return;
+	public static void flameDeath(UUID party, World world, int x, int y, int z, int bound) {
 
 		int r = bound;
+		Set<ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(party, world, x, z,r+16);
 		int r2 = r * r;
 		int r22 = r2 / 2;
 		for (int xx = -r; xx < r; xx++) {
 			int X = xx + x;
 			int XX = xx * xx;
-			for (int yy = -r; yy < r; yy++) {
-				int Y = yy + y;
-				int YY = XX + yy * yy;
-				for (int zz = -r; zz < r; zz++) {
-					int Z = zz + z;
-					int ZZ = YY + zz * zz;
-					if (ZZ < r22) {
+			for (int zz = -r; zz < r; zz++) {
+				int Z = zz + z;
+				if(protectedChunks.contains(new ChunkCoordIntPair(X>>4, Z>>4))) continue;
+				int ZZ = XX + zz * zz;
+				for (int yy = -r; yy < r; yy++) {
+					int Y = yy + y;
+					int YY = ZZ + yy * yy;
+					if (YY < r22) {
 						if (world.getBlock(X, Y, Z).isFlammable(world, XX, YY, ZZ, ForgeDirection.UP)
 							&& world.getBlock(X, Y + 1, Z) == Blocks.air) {
-
-							// per-block safezone / claim protection
-							if (HbmExplosionHooks.blockDenied(world, X, Y + 1, Z, "CHAOS.FLAME")) continue;
 
 							world.setBlock(X, Y + 1, Z, Blocks.fire);
 						}
@@ -238,29 +233,27 @@ public class ExplosionChaos { //TODO: destroy this entire class
 	 * @param z
 	 * @param bound
 	 */
-	public static void burn(World world, int x, int y, int z, int bound) {
-
-		if (HbmExplosionHooks.pre(world, x + 0.5, y + 0.5, z + 0.5, bound, null, "CHAOS.BURN")) return;
+	public static void burn(UUID party, World world, int x, int y, int z, int bound) {
 
 		int r = bound;
+		Set<ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(party, world, x, z,r+16);
 		int r2 = r * r;
 		int r22 = r2 / 2;
 		for (int xx = -r; xx < r; xx++) {
 			int X = xx + x;
 			int XX = xx * xx;
-			for (int yy = -r; yy < r; yy++) {
-				int Y = yy + y;
-				int YY = XX + yy * yy;
-				for (int zz = -r; zz < r; zz++) {
-					int Z = zz + z;
-					int ZZ = YY + zz * zz;
-					if (ZZ < r22) {
+			for (int zz = -r; zz < r; zz++) {
+				int Z = zz + z;
+				if(protectedChunks.contains(new ChunkCoordIntPair(X>>4, Z>>4))) continue;
+				int ZZ = XX + zz * zz;
+				for (int yy = -r; yy < r; yy++) {
+					int Y = yy + y;
+					int YY = ZZ + yy * yy;
+					if (YY < r22) {
 						if ((world.getBlock(X, Y + 1, Z) == Blocks.air
 							|| world.getBlock(X, Y + 1, Z) == Blocks.snow_layer)
 							&& world.getBlock(X, Y, Z) != Blocks.air) {
 
-							// per-block safezone / claim protection
-							if (HbmExplosionHooks.blockDenied(world, X, Y + 1, Z, "CHAOS.BURN")) continue;
 
 							world.setBlock(X, Y + 1, Z, Blocks.fire);
 						}
@@ -271,21 +264,18 @@ public class ExplosionChaos { //TODO: destroy this entire class
 	}
 
 
-	@Deprecated public static void spawnPoisonCloud(World world, double x, double y, double z, int count, double speed, int type) {
-
-		// NO direct set radius so attemptng 8F might need changes.
-		if (HbmExplosionHooks.pre(world, x, y, z, 8F, null, "CHAOS.CLOUD.SPAWN")) return;
+	@Deprecated public static void spawnPoisonCloud(UUID party, World world, double x, double y, double z, int count, double speed, int type) {
 
 		for(int i = 0; i < count; i++) {
 
 			EntityModFX fx = null;
 
 			if(type == 1) {
-				fx = new EntityCloudFX(world, x, y, z, 0.0, 0.0, 0.0);
+				fx = new EntityCloudFX(party,world, x, y, z, 0.0, 0.0, 0.0);
 			} else if(type == 2) {
-				fx = new EntityPinkCloudFX(world, x, y, z, 0.0, 0.0, 0.0);
+				fx = new EntityPinkCloudFX(party,world, x, y, z, 0.0, 0.0, 0.0);
 			} else {
-				fx = new EntityOrangeFX(world, x, y, z, 0.0, 0.0, 0.0);
+				fx = new EntityOrangeFX(party,world, x, y, z, 0.0, 0.0, 0.0);
 			}
 
 			fx.motionY = rand.nextGaussian() * speed;
@@ -295,13 +285,11 @@ public class ExplosionChaos { //TODO: destroy this entire class
 		}
 	}
 
-	public static void spawnVolley(World world, double x, double y, double z, int count, double speed) {
-
-		if (HbmExplosionHooks.pre(world, x, y, z, 8F, null, "CHAOS.VOLLEY.SPAWN")) return;
+	public static void spawnVolley(UUID party, World world, double x, double y, double z, int count, double speed) {
 
 		for(int i = 0; i < count; i++) {
 
-			EntityModFX fx = new EntityOrangeFX(world, x, y, z, 0.0, 0.0, 0.0);
+			EntityModFX fx = new EntityOrangeFX(party,world, x, y, z, 0.0, 0.0, 0.0);
 
 			fx.motionX = rand.nextGaussian() * speed;
 			fx.motionZ = rand.nextGaussian() * speed;
@@ -313,9 +301,7 @@ public class ExplosionChaos { //TODO: destroy this entire class
 	}
 
 	//todo: check EntityRocket's onImpact to stop internal block damage of a zone.
-	public static void cluster(World world, int x, int y, int z, int count, int gravity) {
-
-		if (HbmExplosionHooks.pre(world, x + 0.5, y + 0.5, z + 0.5, 8F, null, "CHAOS.CLUSTER.SPAWN")) return;
+	public static void cluster(UUID party, World world, int x, int y, int z, int count, Vec3 initialvel, int gravity) {
 
 		double d1 = 0;
 		double d2 = 0;
@@ -334,16 +320,17 @@ public class ExplosionChaos { //TODO: destroy this entire class
 			if (rand.nextInt(2) == 0) {
 				d3 *= -1;
 			}
+			d1 += initialvel.xCoord;
+			d2 = initialvel.yCoord - d2;
+			d3 += initialvel.zCoord;
 
-			fragment = new EntityRocket(world, x, y, z, d1, d2, d3, 0.0125D);
+			fragment = new EntityRocket(party,world, x, y, z, d1, d2, d3, 0.0125D);
 
 			world.spawnEntityInWorld(fragment);
 		}
 	}
 
-	public static void schrab(World world, int x, int y, int z, int count, int gravity) {
-
-		if (HbmExplosionHooks.pre(world, x + 0.5, y + 0.5, z + 0.5, 8F, null, "CHAOS.SCHRAB.SPAWN")) return;
+	public static void schrab(UUID party, World world, int x, int y, int z, int count, int gravity) {
 
 		double d1 = 0;
 		double d2 = 0;
@@ -369,9 +356,7 @@ public class ExplosionChaos { //TODO: destroy this entire class
 		}
 	}
 
-	public static void frag(World world, int x, int y, int z, int count, boolean flame, Entity shooter) {
-
-		if (HbmExplosionHooks.pre(world, x + 0.5, y + 0.5, z + 0.5, 8F, shooter, "CHAOS.FRAG.SPAWN")) return;
+	public static void frag(UUID party,World world, int x, int y, int z, int count, boolean flame, Entity shooter) {
 
 		double d1 = 0;
 		double d2 = 0;
@@ -391,7 +376,7 @@ public class ExplosionChaos { //TODO: destroy this entire class
 				d3 *= -1;
 			}
 
-			fragment = new EntityArrow(world, x, y, z);
+			fragment = new EntityArrow(world, x, y, z); //TODO May need to implement a class to allow proper control of this
 
 			fragment.motionX = d1;
 			fragment.motionY = d2;
@@ -409,9 +394,7 @@ public class ExplosionChaos { //TODO: destroy this entire class
 		}
 	}
 
-	public static void poison(World world, double x, double y, double z, double range) {
-
-		if (HbmExplosionHooks.pre(world, x, y, z, (float) range, null, "CHAOS.POISON")) return;
+	public static void poison(UUID party,World world, double x, double y, double z, double range) {
 
 		List<EntityLivingBase> affected = world.getEntitiesWithinAABB(
 			EntityLivingBase.class,
@@ -419,12 +402,10 @@ public class ExplosionChaos { //TODO: destroy this entire class
 		);
 
 		for (EntityLivingBase entity : affected) {
+			if(entity instanceof EntityPlayer && !Integrations.canHarmPlayerWGC(party,entity.getUniqueID(),world)) {continue;}
 
 			if (entity.getDistance(x, y, z) > range) continue;
 
-			// Per-entity safezone/claim protection: skip entities inside protected areas
-			if (HbmExplosionHooks.pre(world, entity.posX, entity.posY, entity.posZ, 0F, entity, "CHAOS.POISON.HIT"))
-				continue;
 
 			if (ArmorRegistry.hasAnyProtection(entity, 3, HazardClass.GAS_LUNG, HazardClass.GAS_BLISTERING)) {
 				ArmorUtil.damageGasMaskFilter(entity, 1);
@@ -439,9 +420,7 @@ public class ExplosionChaos { //TODO: destroy this entire class
 	}
 
 
-	public static void pc(World world, double x, double y, double z, double range) {
-
-		if (HbmExplosionHooks.pre(world, x, y, z, (float) range, null, "CHAOS.PC")) return;
+	public static void pc(UUID party,World world, double x, double y, double z, double range) {
 
 		List<EntityLivingBase> affected = world.getEntitiesWithinAABB(
 			EntityLivingBase.class,
@@ -449,12 +428,9 @@ public class ExplosionChaos { //TODO: destroy this entire class
 		);
 
 		for (EntityLivingBase entity : affected) {
-
+			if(entity instanceof EntityPlayer && !Integrations.canHarmPlayerWGC(party,entity.getUniqueID(),world)) {continue;}
 			if (entity.getDistance(x, y, z) > range) continue;
 
-			// Per-entity safezone protection
-			if (HbmExplosionHooks.pre(world, entity.posX, entity.posY, entity.posZ, 0F, entity, "CHAOS.PC.HIT"))
-				continue;
 
 			ArmorUtil.damageSuit(entity, 0, 25);
 			ArmorUtil.damageSuit(entity, 1, 25);
@@ -465,9 +441,7 @@ public class ExplosionChaos { //TODO: destroy this entire class
 	}
 
 
-	public static void c(World world, double x, double y, double z, double range) {
-
-		if (HbmExplosionHooks.pre(world, x, y, z, (float) range, null, "CHAOS.CLOUD")) return;
+	public static void c(UUID party,World world, double x, double y, double z, double range) {
 
 		List<EntityLivingBase> affected = world.getEntitiesWithinAABB(
 			EntityLivingBase.class,
@@ -475,12 +449,8 @@ public class ExplosionChaos { //TODO: destroy this entire class
 		);
 
 		for (EntityLivingBase entity : affected) {
-
+			if(entity instanceof EntityPlayer && !Integrations.canHarmPlayerWGC(party,entity.getUniqueID(),world)) {continue;}
 			if (entity.getDistance(x, y, z) > range) continue;
-
-			// Per-entity safezone/claim protection
-			if (HbmExplosionHooks.pre(world, entity.posX, entity.posY, entity.posZ, 0F, entity, "CHAOS.CLOUD.HIT"))
-				continue;
 
 			ArmorUtil.damageSuit(entity, 0, 25);
 			ArmorUtil.damageSuit(entity, 1, 25);
@@ -500,39 +470,33 @@ public class ExplosionChaos { //TODO: destroy this entire class
 	}
 
 
-	public static void floater(World world, int x, int y, int z, int radi, int height) {
+	public static void floater(UUID party,World world, int x, int y, int z, int radi, int height) {
 
-		// Global veto (unchanged)
-		if (HbmExplosionHooks.pre(world, x + 0.5, y + 0.5, z + 0.5, radi, null, "CHAOS.FLOATER")) return;
 
 		Block save;
 		int meta;
 
 		int r = radi;
+		Set<ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(party, world, x, z,r+16);
 		int r2 = r * r;
 		int r22 = r2 / 2;
 		for (int xx = -r; xx < r; xx++) {
 			int X = xx + x;
 			int XX = xx * xx;
-			for (int yy = -r; yy < r; yy++) {
-				int Y = yy + y;
-				int YY = XX + yy * yy;
-				for (int zz = -r; zz < r; zz++) {
-					int Z = zz + z;
-					int ZZ = YY + zz * zz;
-					if (ZZ < r22) {
+			for (int zz = -r; zz < r; zz++) {
+				int Z = zz + z;
+				if(protectedChunks.contains(new ChunkCoordIntPair(X>>4, Z>>4))) continue;
+				int ZZ = XX + zz * zz;
+				for (int yy = -r; yy < r; yy++) {
+					int Y = yy + y;
+					int YY = ZZ + yy * yy;
+					if (YY < r22) {
 
-						// Per-block guard for the source cell
-						if (HbmExplosionHooks.blockDenied(world, X, Y, Z, "CHAOS.FLOATER.BLOCK"))
-							continue;
 
 						save = world.getBlock(X, Y, Z);
 						meta = world.getBlockMetadata(X, Y, Z);
 
 						if (save != Blocks.air) {
-							// Guard destination BEFORE touching the source
-							if (HbmExplosionHooks.blockDenied(world, X, Y + height, Z, "CHAOS.FLOATER.DEST"))
-								continue;
 
 							// Write destination first
 							world.setBlock(X, Y + height, Z, save);
@@ -552,9 +516,8 @@ public class ExplosionChaos { //TODO: destroy this entire class
 
 
 
-	public static void move(World world, int x, int y, int z, int radius, int a, int b, int c) {
+	public static void move(UUID party,World world, int x, int y, int z, int radius, int a, int b, int c) {
 
-		if (HbmExplosionHooks.pre(world, x, y, z, (float) radius, null, "CHAOS.MOVE")) return;
 
 		float f = radius;
 		int i, j, k;
@@ -573,19 +536,19 @@ public class ExplosionChaos { //TODO: destroy this entire class
 		List list = world.getEntitiesWithinAABBExcludingEntity(
 			null, AxisAlignedBB.getBoundingBox(i, k, l, j, i2, j2)
 		);
+		Set<ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(party, world, x, z,radius+16);
 
 		for (int i1 = 0; i1 < list.size(); ++i1) {
 			Entity entity = (Entity) list.get(i1);
 			double d4 = entity.getDistance(x, y, z) / radius;
+			//Skip entities inside protected chunks
+			if(protectedChunks.contains(new ChunkCoordIntPair(((int)Math.floor(entity.posX))>>4, ((int)Math.floor(entity.posZ))>>4))) continue;
 
 			if (d4 <= 1.0D) {
 				d5 = entity.posX - x;
 				d6 = entity.posY + entity.getEyeHeight() - y;
 				d7 = entity.posZ - z;
 
-				// Per-entity safezone/claim protection: skip effects on protected entities
-				if (HbmExplosionHooks.pre(world, entity.posX, entity.posY, entity.posZ, 0F, entity, "CHAOS.MOVE.HIT"))
-					continue;
 
 				if (entity instanceof EntityLiving && !(entity instanceof EntitySheep)) {
 					rand = random.nextInt(2);
@@ -607,27 +570,24 @@ public class ExplosionChaos { //TODO: destroy this entire class
 	}
 
 
-	public static void plasma(World world, int x, int y, int z, int radius) {
-
-		if (HbmExplosionHooks.pre(world, x + 0.5, y + 0.5, z + 0.5, radius, null, "CHAOS.PLASMA")) return;
+	public static void plasma(UUID party,World world, int x, int y, int z, int radius) {
 
 		int r = radius;
+		Set<ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(party, world, x, z,r+16);
 		int r2 = r * r;
 		int r22 = r2 / 2;
 		for (int xx = -r; xx < r; xx++) {
 			int X = xx + x;
 			int XX = xx * xx;
-			for (int yy = -r; yy < r; yy++) {
-				int Y = yy + y;
-				int YY = XX + yy * yy;
-				for (int zz = -r; zz < r; zz++) {
-					int Z = zz + z;
-					int ZZ = YY + zz * zz;
-					if (ZZ < r22 + world.rand.nextInt(r22 / 2)) {
+			for (int zz = -r; zz < r; zz++) {
+				int Z = zz + z;
+				if(protectedChunks.contains(new ChunkCoordIntPair(X>>4, Z>>4))) continue;
+				int ZZ = XX + zz * zz;
+				for (int yy = -r; yy < r; yy++) {
+					int Y = yy + y;
+					int YY = ZZ + yy * yy;
+					if (YY < r22 + world.rand.nextInt(r22 / 2)) {
 						if (world.getBlock(X, Y, Z) != ModBlocks.statue_elb_f) {
-
-							// per-block safezone / claim protection
-							if (HbmExplosionHooks.blockDenied(world, X, Y, Z, "CHAOS.PLASMA")) continue;
 
 							world.setBlock(X, Y, Z, ModBlocks.plasma);
 						}
@@ -638,10 +598,8 @@ public class ExplosionChaos { //TODO: destroy this entire class
 	}
 
 
-	public static void tauMeSinPi(World world, double x, double y, double z, int count, Entity shooter, EntityGrenadeTau tau) {
+	public static void tauMeSinPi(UUID party, World world, double x, double y, double z, int count, Entity shooter, EntityGrenadeTau tau) {
 
-		// Cancel entire volley if the origin point is inside a safezone
-		if (HbmExplosionHooks.pre(world, x, y, z, 8F, shooter, "CHAOS.TAUMESINPI")) return;
 
 		double d1, d2, d3;
 		EntityBullet fragment;
@@ -657,10 +615,10 @@ public class ExplosionChaos { //TODO: destroy this entire class
 				if (rand.nextInt(2) == 0) d3 *= -1;
 
 				if (rand.nextInt(5) == 0) {
-					fragment = new EntityBullet(world, (EntityPlayer) shooter, 3.0F, 35, 45, false, "tauDay", tau);
+					fragment = new EntityBullet(party, world, (EntityPlayer) shooter, 3.0F, 35, 45, false, "tauDay", tau);
 					fragment.setDamage(rand.nextInt(301) + 100);
 				} else {
-					fragment = new EntityBullet(world, (EntityPlayer) shooter, 3.0F, 35, 45, false, "eyyOk", tau);
+					fragment = new EntityBullet(party, world, (EntityPlayer) shooter, 3.0F, 35, 45, false, "eyyOk", tau);
 					fragment.setDamage(rand.nextInt(11) + 35);
 				}
 
@@ -675,8 +633,6 @@ public class ExplosionChaos { //TODO: destroy this entire class
 				int by = (int)Math.floor(fragment.posY);
 				int bz = (int)Math.floor(fragment.posZ);
 
-				if (HbmExplosionHooks.blockDenied(world, bx, by, bz, "CHAOS.TAUMESINPI"))
-					continue; // Skip spawning if target block is in protected zone
 
 				world.spawnEntityInWorld(fragment);
 			}
@@ -685,16 +641,11 @@ public class ExplosionChaos { //TODO: destroy this entire class
 
 	public static void levelDown(World world, int x, int y, int z, int radius) {
 
-		if (HbmExplosionHooks.pre(world, x + 0.5, y + 0.5, z + 0.5, radius, null, "CHAOS.LEVELDOWN")) return;
 
 		if (!world.isRemote) {
 			for (int i = x - radius; i <= x + radius; i++) {
 				for (int j = z - radius; j <= z + radius; j++) {
 
-					// Check if this block position is protected
-					if (HbmExplosionHooks.blockDenied(world, i, y, j, "CHAOS.LEVELDOWN")) {
-						continue; // Skip modifying this block if in safezone
-					}
 
 					Block b = world.getBlock(i, y, j);
 					float k = b.getExplosionResistance(null);

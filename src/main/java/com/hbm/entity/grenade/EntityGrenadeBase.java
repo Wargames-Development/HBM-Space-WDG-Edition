@@ -13,8 +13,11 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
+import java.util.UUID;
+
 @Deprecated
 public abstract class EntityGrenadeBase extends EntityThrowable {
+	public UUID owner;
 
 	public EntityGrenadeBase(World p_i1773_1_) {
 		super(p_i1773_1_);
@@ -72,5 +75,6 @@ public abstract class EntityGrenadeBase extends EntityThrowable {
 	}
 
 	public abstract void explode();
+
 
 }

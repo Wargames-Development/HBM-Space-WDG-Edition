@@ -1,5 +1,6 @@
 package com.hbm.tileentity.bomb;
 
+import api.hbm.tile.IPartyOwned;
 import com.hbm.entity.effect.EntityNukeTorex;
 import com.hbm.entity.logic.EntityBalefire;
 import com.hbm.inventory.container.ContainerNukeAntimatter;
@@ -18,11 +19,14 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 
-public class TileEntityAntimatter extends TileEntityMachineBase implements IGUIProvider {
+import java.util.UUID;
+
+public class TileEntityAntimatter extends TileEntityMachineBase implements IGUIProvider, IPartyOwned {
 
 	public boolean loaded;
 	public boolean started;
 	public int timer;
+	public UUID ownerParty;
 
 	public TileEntityAntimatter() {
 		super(8);
@@ -36,20 +40,20 @@ public class TileEntityAntimatter extends TileEntityMachineBase implements IGUIP
 
 	@Override
 	public void updateEntity() {
-		
+
 		if(!worldObj.isRemote) {
-			
+
 			if(!this.isLoaded()) {
 				started = false;
 			}
-			
+
 			if(started) {
 				timer--;
-				
+
 				if(timer % 20 == 0)
 					worldObj.playSoundEffect(xCoord, yCoord, zCoord, "hbm:weapon.fstbmbPing", 5.0F, 1.0F);
 			}
-			
+
 			if(timer <= 0) {
 				explode();
 			}
@@ -71,55 +75,56 @@ public class TileEntityAntimatter extends TileEntityMachineBase implements IGUIP
 		loaded = buf.readBoolean();
 		started = buf.readBoolean();
 	}
-	
+
 	public void handleButtonPacket(int value, int meta) {
-		
+
 		if(meta == 0 && this.isLoaded()) {
 			worldObj.playSoundEffect(xCoord, yCoord, zCoord, "hbm:weapon.fstbmbStart", 5.0F, 1.0F);
 			started = true;
 		}
-		
+
 		if(meta == 1)
 			timer = value * 20;
 	}
-	
+
 	public boolean isLoaded() {
-		
+
 		return hasAmatCore() && hasRest();
 	}
-	
+
 	public boolean hasAmatCore() {
-		
+
 		if(slots[2] != null && slots[2].getItem() == ModItems.pellet_antimatter) {
 			return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	public boolean hasRest() {
-		
+
 		return getRest() > 0;
 	}
-	
+
 	public int getRest() {
-		
-		if(slots[0] != null && slots[1] != null && slots[3] != null && slots[4] != null && slots[1].getItem() == ModItems.particle_lead && slots[0].getItem() == ModItems.particle_lead && 
+
+		if(slots[0] != null && slots[1] != null && slots[3] != null && slots[4] != null && slots[1].getItem() == ModItems.particle_lead && slots[0].getItem() == ModItems.particle_lead &&
 				slots[3].getItem() == ModItems.ingot_hafnium && slots[4].getItem() == ModItems.ingot_hafnium) {
 			return 1;
 		}
-		
+
 		return 0;
 	}
-	
+
 	public void explode() {
-		
+
 		for(int i = 0; i < slots.length; i++)
 			slots[i] = null;
-		
+
 		worldObj.func_147480_a(xCoord, yCoord, zCoord, false);
-		
+
 		EntityBalefire bf = new EntityBalefire(worldObj);
+		bf.ownerParty = ownerParty;
 		bf.antimatter();
 		bf.posX = xCoord + 0.5;
 		bf.posY = yCoord + 0.5;
@@ -128,48 +133,68 @@ public class TileEntityAntimatter extends TileEntityMachineBase implements IGUIP
 		worldObj.spawnEntityInWorld(bf);
 		EntityNukeTorex.startFacAnti(worldObj, xCoord + 0.5, yCoord + 5, zCoord + 0.5, 1000);
 	}
-	
+
 	public String getMinutes() {
-		
+
 		String mins = "" + (timer / 1200);
-		
+
 		if(mins.length() == 1)
 			mins = "0" + mins;
-		
+
 		return mins;
 	}
-	
+
 	public String getSeconds() {
-		
+
 		String mins = "" + ((timer / 20) % 60);
-		
+
 		if(mins.length() == 1)
 			mins = "0" + mins;
-		
+
 		return mins;
 	}
-	
+
 	@Override
 	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
-		
+
 		started = nbt.getBoolean("started");
 		timer = nbt.getInteger("timer");
+		if (nbt.hasKey("ownerMost") && nbt.hasKey("ownerLeast")) {
+			this.ownerParty = new UUID(
+				nbt.getLong("ownerMost"),
+				nbt.getLong("ownerLeast")
+			);
+		}
 	}
-	
+
 	@Override
 	public void writeToNBT(NBTTagCompound nbt) {
 		super.writeToNBT(nbt);
-		
+
 		nbt.setBoolean("started", started);
 		nbt.setInteger("timer", timer);
+		if (ownerParty != null) {
+			nbt.setLong("ownerMost", ownerParty.getMostSignificantBits());
+			nbt.setLong("ownerLeast", ownerParty.getLeastSignificantBits());
+		}
 	}
-	
+
+
+	public UUID getOwner() {
+		return ownerParty;
+	}
+
+	public void setOwner(UUID owner){
+		ownerParty = owner;
+	}
+
+
 	@Override
 	public AxisAlignedBB getRenderBoundingBox() {
 		return TileEntity.INFINITE_EXTENT_AABB;
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public double getMaxRenderDistanceSquared()

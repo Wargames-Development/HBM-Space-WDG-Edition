@@ -2,8 +2,9 @@ package com.hbm.explosion.vanillant.standard;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
-import api.hbm.explosion.event.HbmExplosionHooks;
+import api.hbm.wgc.Integrations;
 import com.hbm.explosion.vanillant.ExplosionVNT;
 import com.hbm.explosion.vanillant.interfaces.ICustomDamageHandler;
 import com.hbm.explosion.vanillant.interfaces.IEntityProcessor;
@@ -48,15 +49,10 @@ public class EntityProcessorStandard implements IEntityProcessor {
 
 		ForgeEventFactory.onExplosionDetonate(world, explosion.compat, list, size);
 		Vec3 vec3 = Vec3.createVectorHelper(x, y, z);
-
+		UUID party = explosion.getOwnerParty();
 		for(int index = 0; index < list.size(); ++index) {
 
 			Entity entity = (Entity) list.get(index);
-
-			// Per-entity safezone/claim veto: skip harmful effects in protected areas
-			if (HbmExplosionHooks.pre(entity.worldObj, entity.posX, entity.posY, entity.posZ, 0F, entity, "VNT.ENTITY.HIT")) {
-				continue;
-			}
 
 			double distanceScaled = entity.getDistance(x, y, z) / size;
 
@@ -75,8 +71,9 @@ public class EntityProcessorStandard implements IEntityProcessor {
 
 					double density = world.getBlockDensity(vec3, entity.boundingBox);
 					double knockback = (1.0D - distanceScaled) * density;
-
-					entity.attackEntityFrom(setExplosionSource(explosion.compat), calculateDamage(distanceScaled, density, knockback, size));
+					if(!(entity instanceof EntityPlayer && !Integrations.canHarmPlayerWGC(party,entity.getUniqueID(),world)) ) {
+						entity.attackEntityFrom(setExplosionSource(explosion.compat), calculateDamage(distanceScaled, density, knockback, size));
+					}
 
 					double enchKnockback = EnchantmentProtection.func_92092_a(entity, knockback);
 
@@ -84,7 +81,7 @@ public class EntityProcessorStandard implements IEntityProcessor {
 					entity.motionY += deltaY * enchKnockback;
 					entity.motionZ += deltaZ * enchKnockback;
 
-					if(entity instanceof EntityPlayer) {
+					if(entity instanceof EntityPlayer && Integrations.canHarmPlayerWGC(party,entity.getUniqueID(),world)) {
 						affectedPlayers.put((EntityPlayer) entity, Vec3.createVectorHelper(deltaX * knockback, deltaY * knockback, deltaZ * knockback));
 					}
 

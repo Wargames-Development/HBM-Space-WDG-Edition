@@ -136,7 +136,7 @@ public class EntityGlyphidNuclear extends EntityGlyphid {
 		if(this.deathTicks == 100) {
 
 			if(!worldObj.isRemote) {
-				ExplosionVNT vnt = new ExplosionVNT(worldObj, posX, posY, posZ, 25, this);
+				ExplosionVNT vnt = new ExplosionVNT(worldObj, posX, posY, posZ, 25, null, this);
 
 				if(this.dataWatcher.getWatchableObjectByte(DW_SUBTYPE) == TYPE_INFECTED) {
 					int j = 15 + this.rand.nextInt(6);
