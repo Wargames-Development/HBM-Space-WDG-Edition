@@ -149,7 +149,7 @@ public class ItemAmmoHIMARS extends Item {
 
 	public static void standardExplosion(EntityArtilleryRocket rocket, MovingObjectPosition mop, float size, float rangeMod, boolean breaksBlocks, Block slag, int slagMeta) {
 		Vec3 vec = Vec3.createVectorHelper(rocket.motionX, rocket.motionY, rocket.motionZ).normalize();
-		ExplosionVNT xnt = new ExplosionVNT(rocket.worldObj, mop.hitVec.xCoord - vec.xCoord, mop.hitVec.yCoord - vec.yCoord, mop.hitVec.zCoord - vec.zCoord, size);
+		ExplosionVNT xnt = new ExplosionVNT(rocket.worldObj, mop.hitVec.xCoord - vec.xCoord, mop.hitVec.yCoord - vec.yCoord, mop.hitVec.zCoord - vec.zCoord, size,rocket.getOwnerParty());
 		if(breaksBlocks) {
 			xnt.setBlockAllocator(new BlockAllocatorStandard(48));
 			xnt.setBlockProcessor(new BlockProcessorStandard().setNoDrop().withBlockEffect(new BlockMutatorDebris(slag, slagMeta)));
@@ -178,7 +178,7 @@ public class ItemAmmoHIMARS extends Item {
 			public void onImpact(EntityArtilleryRocket rocket, MovingObjectPosition mop) {
 				rocket.killAndClear();
 				Vec3 vec = Vec3.createVectorHelper(rocket.motionX, rocket.motionY, rocket.motionZ).normalize();
-				ExplosionNukeSmall.explode(rocket.worldObj, mop.hitVec.xCoord - vec.xCoord, mop.hitVec.yCoord - vec.yCoord, mop.hitVec.zCoord - vec.zCoord, ExplosionNukeSmall.PARAMS_MEDIUM);
+				ExplosionNukeSmall.explode(rocket.worldObj, mop.hitVec.xCoord - vec.xCoord, mop.hitVec.yCoord - vec.yCoord, mop.hitVec.zCoord - vec.zCoord,rocket.getOwnerParty(), ExplosionNukeSmall.PARAMS_MEDIUM);
 			}
 		};
 
@@ -186,8 +186,8 @@ public class ItemAmmoHIMARS extends Item {
 			public void onImpact(EntityArtilleryRocket rocket, MovingObjectPosition mop) {
 				rocket.worldObj.playSoundEffect(rocket.posX, rocket.posY, rocket.posZ, "hbm:weapon.explosionMedium", 20.0F, 0.9F + rocket.worldObj.rand.nextFloat() * 0.2F);
 				standardExplosion(rocket, mop, 20F, 3F, false, ModBlocks.block_slag, 1);
-				ExplosionLarge.spawnShrapnels(rocket.worldObj, (int) mop.hitVec.xCoord, (int) mop.hitVec.yCoord, (int) mop.hitVec.zCoord, 30);
-				ExplosionChaos.burn(rocket.worldObj, (int) mop.hitVec.xCoord, (int) mop.hitVec.yCoord, (int) mop.hitVec.zCoord, 20);
+				ExplosionLarge.spawnShrapnels(rocket.worldObj, (int) mop.hitVec.xCoord, (int) mop.hitVec.yCoord, (int) mop.hitVec.zCoord, 30,rocket.getOwnerParty());
+				ExplosionChaos.burn(rocket.getOwnerParty(),rocket.worldObj, (int) mop.hitVec.xCoord, (int) mop.hitVec.yCoord, (int) mop.hitVec.zCoord, 20);
 				int radius = 30;
 				List<Entity> hit = rocket.worldObj.getEntitiesWithinAABBExcludingEntity(rocket, AxisAlignedBB.getBoundingBox(rocket.posX - radius, rocket.posY - radius, rocket.posZ - radius, rocket.posX + radius, rocket.posY + radius, rocket.posZ + radius));
 				for(Entity e : hit) {
@@ -210,7 +210,7 @@ public class ItemAmmoHIMARS extends Item {
 			public void onImpact(EntityArtilleryRocket rocket, MovingObjectPosition mop) {
 				rocket.worldObj.playSoundEffect(rocket.posX, rocket.posY, rocket.posZ, "hbm:weapon.explosionMedium", 20.0F, 0.9F + rocket.worldObj.rand.nextFloat() * 0.2F);
 				standardExplosion(rocket, mop, 20F, 10F, true, ModBlocks.block_slag, 1);
-				ExplosionLarge.spawnShrapnels(rocket.worldObj, (int) mop.hitVec.xCoord, (int) mop.hitVec.yCoord, (int) mop.hitVec.zCoord, 30);
+				ExplosionLarge.spawnShrapnels(rocket.worldObj, (int) mop.hitVec.xCoord, (int) mop.hitVec.yCoord, (int) mop.hitVec.zCoord, 30,rocket.getOwnerParty());
 				standardMush(rocket, mop, 20);
 			}};
 
@@ -218,7 +218,7 @@ public class ItemAmmoHIMARS extends Item {
 			public void onImpact(EntityArtilleryRocket rocket, MovingObjectPosition mop) {
 				rocket.worldObj.playSoundEffect(rocket.posX, rocket.posY, rocket.posZ, "hbm:weapon.explosionMedium", 20.0F, 0.9F + rocket.worldObj.rand.nextFloat() * 0.2F);
 				standardExplosion(rocket, mop, 50F, 12F, true, ModBlocks.block_slag, 1);
-				ExplosionLarge.spawnShrapnels(rocket.worldObj, (int) mop.hitVec.xCoord, (int) mop.hitVec.yCoord, (int) mop.hitVec.zCoord, 30);
+				ExplosionLarge.spawnShrapnels(rocket.worldObj, (int) mop.hitVec.xCoord, (int) mop.hitVec.yCoord, (int) mop.hitVec.zCoord, 30,rocket.getOwnerParty());
 				standardMush(rocket, mop, 35);
 			}};
 		}

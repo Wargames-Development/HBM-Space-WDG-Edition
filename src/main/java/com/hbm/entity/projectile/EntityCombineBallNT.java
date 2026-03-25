@@ -3,10 +3,12 @@ package com.hbm.entity.projectile;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.world.World;
 
+import java.util.UUID;
+
 public class EntityCombineBallNT extends EntityBulletBaseNT {
 
-	public EntityCombineBallNT(World world, int config, EntityLivingBase shooter) {
-		super(world, config, shooter);
+	public EntityCombineBallNT(UUID owner, World world, int config, EntityLivingBase shooter) {
+		super(owner, world, config, shooter);
 		overrideDamage = 1000;
 	}
 

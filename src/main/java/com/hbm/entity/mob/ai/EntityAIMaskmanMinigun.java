@@ -9,7 +9,7 @@ import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.util.Vec3;
 
 public class EntityAIMaskmanMinigun extends EntityAIBase {
-	
+
 	private EntityCreature owner;
     private EntityLivingBase target;
     int delay;
@@ -23,19 +23,19 @@ public class EntityAIMaskmanMinigun extends EntityAIBase {
 
 	@Override
 	public boolean shouldExecute() {
-		
+
         EntityLivingBase entity = this.owner.getAttackTarget();
 
         if(entity == null) {
             return false;
-            
+
         } else {
             this.target = entity;
             double dist = Vec3.createVectorHelper(target.posX - owner.posX, target.posY - owner.posY, target.posZ - owner.posZ).lengthVector();
             return dist > 5 && dist < 10;
         }
 	}
-	
+
 	@Override
     public boolean continueExecuting() {
         return this.shouldExecute() || !this.owner.getNavigator().noPath();
@@ -43,17 +43,17 @@ public class EntityAIMaskmanMinigun extends EntityAIBase {
 
 	@Override
     public void updateTask() {
-    	
+
 		timer--;
-		
+
 		if(timer <= 0) {
 			timer = delay;
 
-			EntityBulletBaseNT bullet = new EntityBulletBaseNT(owner.worldObj, BulletConfigSyncingUtil.MASKMAN_BULLET, owner, target, 1.0F, 0);
+			EntityBulletBaseNT bullet = new EntityBulletBaseNT(null,owner.worldObj, BulletConfigSyncingUtil.MASKMAN_BULLET, owner, target, 1.0F, 0);
 			owner.worldObj.spawnEntityInWorld(bullet);
 			owner.playSound("hbm:weapon.calShoot", 1.0F, 1.0F);
 		}
-		
+
 		this.owner.rotationYaw = this.owner.rotationYawHead;
     }
 }

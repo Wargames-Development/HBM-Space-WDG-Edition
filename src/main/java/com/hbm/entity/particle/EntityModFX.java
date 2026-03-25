@@ -9,6 +9,8 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
+import java.util.UUID;
+
 public class EntityModFX extends Entity
 {
     public int particleTextureIndexX;
@@ -34,21 +36,23 @@ public class EntityModFX extends Entity
     float smokeParticleScale;
     public int particleAge;
     public int maxAge;
+	public UUID owner;
 
     public EntityModFX(World world) {
     	super(world);
     }
 
-    protected EntityModFX(World p_i1218_1_, double p_i1218_2_, double p_i1218_4_, double p_i1218_6_)
+    protected EntityModFX(UUID owner, World world, double posX, double posY, double posZ)
     {
-        super(p_i1218_1_);
+        super(world);
+		this.owner = owner;
         this.particleAlpha = 1.0F;
         this.setSize(0.2F, 0.2F);
         this.yOffset = this.height / 2.0F;
-        this.setPosition(p_i1218_2_, p_i1218_4_, p_i1218_6_);
-        this.lastTickPosX = p_i1218_2_;
-        this.lastTickPosY = p_i1218_4_;
-        this.lastTickPosZ = p_i1218_6_;
+        this.setPosition(posX, posY, posZ);
+        this.lastTickPosX = posX;
+        this.lastTickPosY = posY;
+        this.lastTickPosZ = posZ;
         this.particleRed = this.particleGreen = this.particleBlue = 1.0F;
         this.particleTextureJitterX = this.rand.nextFloat() * 3.0F;
         this.particleTextureJitterY = this.rand.nextFloat() * 3.0F;
@@ -58,12 +62,12 @@ public class EntityModFX extends Entity
         this.ignoreFrustumCheck = true;
     }
 
-    public EntityModFX(World p_i1219_1_, double p_i1219_2_, double p_i1219_4_, double p_i1219_6_, double p_i1219_8_, double p_i1219_10_, double p_i1219_12_)
+    public EntityModFX(UUID owner, World world, double posX, double posY, double posZ, double velX, double velY, double velZ)
     {
-        this(p_i1219_1_, p_i1219_2_, p_i1219_4_, p_i1219_6_);
-        this.motionX = p_i1219_8_ + (float)(Math.random() * 2.0D - 1.0D) * 0.4F;
-        this.motionY = p_i1219_10_ + (float)(Math.random() * 2.0D - 1.0D) * 0.4F;
-        this.motionZ = p_i1219_12_ + (float)(Math.random() * 2.0D - 1.0D) * 0.4F;
+        this(owner, world, posX, posY, posZ);
+        this.motionX = velX + (float)(Math.random() * 2.0D - 1.0D) * 0.4F;
+        this.motionY = velY + (float)(Math.random() * 2.0D - 1.0D) * 0.4F;
+        this.motionZ = velZ + (float)(Math.random() * 2.0D - 1.0D) * 0.4F;
         float f = (float)(Math.random() + Math.random() + 1.0D) * 0.15F;
         float f1 = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
         this.motionX = this.motionX / f1 * f * 0.4000000059604645D;
@@ -71,34 +75,34 @@ public class EntityModFX extends Entity
         this.motionZ = this.motionZ / f1 * f * 0.4000000059604645D;
     }
 
-    public EntityModFX multiplyVelocity(float p_70543_1_)
+    public EntityModFX multiplyVelocity(float velmod)
     {
-        this.motionX *= p_70543_1_;
-        this.motionY = (this.motionY - 0.10000000149011612D) * p_70543_1_ + 0.10000000149011612D;
-        this.motionZ *= p_70543_1_;
+        this.motionX *= velmod;
+        this.motionY = (this.motionY - 0.10000000149011612D) * velmod + 0.10000000149011612D;
+        this.motionZ *= velmod;
         return this;
     }
 
-    public EntityModFX multipleParticleScaleBy(float p_70541_1_)
+    public EntityModFX multipleParticleScaleBy(float scale)
     {
-        this.setSize(0.2F * p_70541_1_, 0.2F * p_70541_1_);
-        this.particleScale *= p_70541_1_;
+        this.setSize(0.2F * scale, 0.2F * scale);
+        this.particleScale *= scale;
         return this;
     }
 
-    public void setRBGColorF(float p_70538_1_, float p_70538_2_, float p_70538_3_)
+    public void setRBGColorF(float r, float g, float b)
     {
-        this.particleRed = p_70538_1_;
-        this.particleGreen = p_70538_2_;
-        this.particleBlue = p_70538_3_;
+        this.particleRed = r;
+        this.particleGreen = g;
+        this.particleBlue = b;
     }
 
     /**
      * Sets the particle alpha (float)
      */
-    public void setAlphaF(float p_82338_1_)
+    public void setAlphaF(float alpha)
     {
-        this.particleAlpha = p_82338_1_;
+        this.particleAlpha = alpha;
     }
 
     public float getRedColorF()
@@ -192,16 +196,27 @@ public class EntityModFX extends Entity
      * (abstract) Protected helper method to write subclass entity data to NBT.
      */
     @Override
-	public void writeEntityToNBT(NBTTagCompound p_70014_1_) {
-        p_70014_1_.setShort("age", (short)this.particleAge);
+	public void writeEntityToNBT(NBTTagCompound nbt) {
+        nbt.setShort("age", (short)this.particleAge);
+		if (owner != null) {
+			nbt.setLong("ownerMost", owner.getMostSignificantBits());
+			nbt.setLong("ownerLeast", owner.getLeastSignificantBits());
+		}
     }
 
     /**
      * (abstract) Protected helper method to read subclass entity data from NBT.
      */
     @Override
-	public void readEntityFromNBT(NBTTagCompound p_70037_1_) {
-        this.particleAge = p_70037_1_.getShort("age");
+	public void readEntityFromNBT(NBTTagCompound nbt) {
+        this.particleAge = nbt.getShort("age");
+		if(nbt.hasKey("ownerMost")&&nbt.hasKey("ownerLeast"))
+		{
+			owner = new UUID(
+				nbt.getLong("ownerMost"),
+				nbt.getLong("ownerLeast")
+			);
+		}
     }
 
     public void setParticleIcon(IIcon p_110125_1_)

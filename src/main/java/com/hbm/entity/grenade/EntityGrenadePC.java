@@ -1,9 +1,13 @@
 package com.hbm.entity.grenade;
 
+import api.hbm.wgc.Integrations;
 import com.hbm.explosion.ExplosionChaos;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
+
+import java.util.UUID;
 
 public class EntityGrenadePC extends EntityGrenadeBase {
 
@@ -24,9 +28,13 @@ public class EntityGrenadePC extends EntityGrenadeBase {
 
 		if (!this.worldObj.isRemote) {
 			this.setDead();
+			UUID party = null;
+			if(getThrower() instanceof EntityPlayer) party = getThrower().getUniqueID();
 
-            this.worldObj.playAuxSFX(2002, (int)Math.round(this.posX), (int)Math.round(this.posY), (int)Math.round(this.posZ), 0);
-			ExplosionChaos.spawnPoisonCloud(worldObj, posX, posY, posZ, 500, 2, 2);
+			if(Integrations.canDetonateWGC(party,worldObj,(int)posX,(int)posY,(int)posZ)) {
+				this.worldObj.playAuxSFX(2002, (int) Math.round(this.posX), (int) Math.round(this.posY), (int) Math.round(this.posZ), 0);
+				ExplosionChaos.spawnPoisonCloud(party,worldObj, posX, posY, posZ, 500, 2, 2);
+			}
 		}
 	}
 }

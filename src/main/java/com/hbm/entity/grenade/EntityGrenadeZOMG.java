@@ -1,5 +1,6 @@
 package com.hbm.entity.grenade;
 
+import api.hbm.wgc.Integrations;
 import com.hbm.config.BombConfig;
 import com.hbm.entity.effect.EntityCloudFleijaRainbow;
 import com.hbm.entity.logic.EntityNukeExplosionMK3;
@@ -7,7 +8,10 @@ import com.hbm.items.ModItems;
 import com.hbm.items.weapon.ItemGrenade;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
+
+import java.util.UUID;
 
 public class EntityGrenadeZOMG extends EntityGrenadeBouncyBase {
 
@@ -28,24 +32,28 @@ public class EntityGrenadeZOMG extends EntityGrenadeBouncyBase {
 
 		if(!this.worldObj.isRemote) {
 			this.setDead();
-			
-			EntityNukeExplosionMK3 ex = new EntityNukeExplosionMK3(worldObj);
-			ex.posX = posX;
-			ex.posY = posY;
-			ex.posZ = posZ;
-			ex.destructionRange = 50;
-			ex.speed = BombConfig.blastSpeed;
-			ex.coefficient = 1.0F;
-			ex.waste = false;
-			worldObj.spawnEntityInWorld(ex);
-			
-			worldObj.playSoundEffect(this.posX, this.posY, this.posZ, "random.explode", 100000.0F, 1.0F);
-			
-			EntityCloudFleijaRainbow cloud = new EntityCloudFleijaRainbow(worldObj, 50);
-			cloud.posX = posX;
-			cloud.posY = posY;
-			cloud.posZ = posZ;
-			worldObj.spawnEntityInWorld(cloud);
+			UUID party = null;
+			if(thrower instanceof EntityPlayer) party = thrower.getUniqueID();
+
+			if(Integrations.canDetonateWGC(party,worldObj,(int)posX,(int)posY,(int)posZ)) {
+				EntityNukeExplosionMK3 ex = new EntityNukeExplosionMK3(worldObj);
+				ex.posX = posX;
+				ex.posY = posY;
+				ex.posZ = posZ;
+				ex.destructionRange = 50;
+				ex.speed = BombConfig.blastSpeed;
+				ex.coefficient = 1.0F;
+				ex.waste = false;
+				worldObj.spawnEntityInWorld(ex);
+
+				worldObj.playSoundEffect(this.posX, this.posY, this.posZ, "random.explode", 100000.0F, 1.0F);
+
+				EntityCloudFleijaRainbow cloud = new EntityCloudFleijaRainbow(worldObj, 50);
+				cloud.posX = posX;
+				cloud.posY = posY;
+				cloud.posZ = posZ;
+				worldObj.spawnEntityInWorld(cloud);
+			}
 		}
 	}
 

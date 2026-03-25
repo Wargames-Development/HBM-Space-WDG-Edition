@@ -66,7 +66,7 @@ public class GunNPCFactory {
 				Vec3 motion = Vec3.createVectorHelper(player.posX - bulletnt.posX, (player.posY + player.getEyeHeight()) - bulletnt.posY, player.posZ - bulletnt.posZ);
 				motion = motion.normalize();
 
-				EntityBulletBaseNT bolt = new EntityBulletBaseNT(bulletnt.worldObj, BulletConfigSyncingUtil.MASKMAN_BOLT);
+				EntityBulletBaseNT bolt = new EntityBulletBaseNT(null,bulletnt.worldObj, BulletConfigSyncingUtil.MASKMAN_BOLT);
 				bolt.setThrower(bulletnt.getThrower());
 				bolt.setPosition(bulletnt.posX, bulletnt.posY, bulletnt.posZ);
 				bolt.setThrowableHeading(motion.xCoord, motion.yCoord, motion.zCoord, 0.5F, 0.05F);
@@ -145,7 +145,7 @@ public class GunNPCFactory {
 			if(bulletnt.worldObj.isRemote)
 				return;
 
-			EntityBulletBaseNT meteor = new EntityBulletBaseNT(bulletnt.worldObj, BulletConfigSyncingUtil.MASKMAN_METEOR);
+			EntityBulletBaseNT meteor = new EntityBulletBaseNT(null,bulletnt.worldObj, BulletConfigSyncingUtil.MASKMAN_METEOR);
 			meteor.setPosition(bulletnt.posX, bulletnt.posY + 30 + meteor.worldObj.rand.nextInt(10), bulletnt.posZ);
 			meteor.motionY = -1D;
 			meteor.setThrower(bulletnt.getThrower());
@@ -326,7 +326,7 @@ public class GunNPCFactory {
 
 			bulletnt.worldObj.playSoundEffect(bulletnt.posX, bulletnt.posY, bulletnt.posZ, "hbm:entity.ufoBlast", 5.0F, 0.9F + bulletnt.worldObj.rand.nextFloat() * 0.2F);
 			bulletnt.worldObj.playSoundEffect(bulletnt.posX, bulletnt.posY, bulletnt.posZ, "fireworks.blast", 5.0F, 0.5F);
-			ExplosionNukeGeneric.dealDamage(bulletnt.worldObj, bulletnt.posX, bulletnt.posY, bulletnt.posZ, 10, 50);
+			ExplosionNukeGeneric.dealDamage(bulletnt.ownerParty,bulletnt.worldObj, bulletnt.posX, bulletnt.posY, bulletnt.posZ, 10, 50);
 
 			for(int i = 0; i < 3; i++) {
 				NBTTagCompound data = new NBTTagCompound();

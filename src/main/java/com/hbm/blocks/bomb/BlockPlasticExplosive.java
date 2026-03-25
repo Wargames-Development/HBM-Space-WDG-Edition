@@ -18,13 +18,15 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class BlockPlasticExplosive extends BlockDetonatable implements IBomb {
-	
+
 	@SideOnly(Side.CLIENT)
 	private IIcon topIcon;
 
 	public BlockPlasticExplosive(Material mat) {
 		super(mat, 0, 0, 0, false, false);
 	}
+
+
 
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister p_149651_1_) {
@@ -52,18 +54,18 @@ public class BlockPlasticExplosive extends BlockDetonatable implements IBomb {
 
 		if(MathHelper.abs((float) player.posX - (float) x) < 2.0F && MathHelper.abs((float) player.posZ - (float) z) < 2.0F) {
 			double d0 = player.posY + 1.82D - (double) player.yOffset;
-			
+
 			if(d0 - (double) y > 2.0D) {
 				return 0;
 			}
-			
+
 			if((double) y - d0 > 0.0D) {
 				return 1;
 			}
 		}
-		
+
 		int l = MathHelper.floor_double((double) (player.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
-		
+
 		return l == 0 ? 3 : (l == 1 ? 4 : (l == 2 ? 2 : (l == 3 ? 5 : 1)));
 	}
 
@@ -76,11 +78,11 @@ public class BlockPlasticExplosive extends BlockDetonatable implements IBomb {
 
 	@Override
 	public BombReturnCode explode(World world, int x, int y, int z) {
-		
+
 		if(!world.isRemote) {
-			new ExplosionVNT(world, x + 0.5, y + 0.5, z + 0.5, 20).makeStandard().setBlockProcessor(new BlockProcessorStandard().setNoDrop()).explode();
+			new ExplosionVNT(world, x + 0.5, y + 0.5, z + 0.5, 20, getOwner(world,x,y,z)).makeStandard().setBlockProcessor(new BlockProcessorStandard().setNoDrop()).explode();
 		}
-		
+
 		return BombReturnCode.DETONATED;
 	}
 

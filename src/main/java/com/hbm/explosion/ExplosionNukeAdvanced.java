@@ -1,8 +1,12 @@
 package com.hbm.explosion;
 
-import api.hbm.explosion.event.HbmExplosionHooks;
+import api.hbm.wgc.Integrations;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
+
+import java.util.Set;
+import java.util.UUID;
 
 public class ExplosionNukeAdvanced {
 	public int posX;
@@ -20,6 +24,9 @@ public class ExplosionNukeAdvanced {
 	private int element;
 	public float explosionCoefficient = 1.0F;
 	public int type = 0;
+	public UUID ownedParty;
+	private Set<ChunkCoordIntPair> expProtectedChunks;
+	private Set<ChunkCoordIntPair> contamProtectedChunks;
 
 	public void saveToNbt(NBTTagCompound nbt, String name) {
 		nbt.setInteger(name + "posX", posX);
@@ -36,6 +43,10 @@ public class ExplosionNukeAdvanced {
 		nbt.setInteger(name + "element", element);
 		nbt.setFloat(name + "explosionCoefficient", explosionCoefficient);
 		nbt.setInteger(name + "type", type);
+		if (ownedParty != null) {
+			nbt.setLong("ownerMost", ownedParty.getMostSignificantBits());
+			nbt.setLong("ownerLeast", ownedParty.getLeastSignificantBits());
+		}
 	}
 
 	public void readFromNbt(NBTTagCompound nbt, String name) {
@@ -53,9 +64,17 @@ public class ExplosionNukeAdvanced {
 		element = nbt.getInteger(name + "element");
 		explosionCoefficient = nbt.getFloat(name + "explosionCoefficient");
 		type = nbt.getInteger(name + "type");
+		if(nbt.hasKey("ownerMost")&&nbt.hasKey("ownerLeast"))
+		{
+			this.ownedParty = new UUID(
+				nbt.getLong("ownerMost"),
+				nbt.getLong("ownerLeast")
+			);
+		}
 	}
 
-	public ExplosionNukeAdvanced(int x, int y, int z, World world, int rad, float coefficient, int typ) {
+	public ExplosionNukeAdvanced(UUID party,int x, int y, int z, World world, int rad, float coefficient, int typ) {
+		this.ownedParty = party;
 		this.posX = x;
 		this.posY = y;
 		this.posZ = z;
@@ -65,16 +84,11 @@ public class ExplosionNukeAdvanced {
 		this.explosionCoefficient = Math.min(Math.max((rad + coefficient * (y - 60)) / (coefficient * rad), 1 / coefficient), 1.0f);
 		this.type = typ;
 		this.nlimit = this.radius2 * 4;
+		this.expProtectedChunks = Integrations.getExplosionProtectedChunksWGC(party,world,x,z,rad+16);
+		this.contamProtectedChunks = Integrations.getContamProtectedChunksWGC(party,world,x,z,rad+16);
 	}
 
 	public boolean update() {
-		// Global veto: cancel entire advanced nuke if origin is protected
-		if (HbmExplosionHooks.pre(this.worldObj, this.posX + 0.5, this.posY + 0.5, this.posZ + 0.5,
-			this.radius, null, "NUKEADV")) {
-			this.n = this.nlimit + 1; // mark finished
-			return true;
-		}
-
 		switch (this.type) {
 			case 0: breakColumn(this.lastposX, this.lastposZ); break;
 			case 1: vapor(this.lastposX, this.lastposZ); break;
@@ -91,6 +105,8 @@ public class ExplosionNukeAdvanced {
 	}
 
 	private void breakColumn(int x, int z) {
+		if(expProtectedChunks.contains(new ChunkCoordIntPair(x>>4, z>>4))) return;
+
 		int dist = this.radius2 - (x * x + z * z);
 		if (dist > 0) {
 			dist = (int)Math.sqrt(dist);
@@ -98,10 +114,6 @@ public class ExplosionNukeAdvanced {
 				int wx = this.posX + x;
 				int wy = this.posY + y;
 				int wz = this.posZ + z;
-
-				// Per-block veto: no destruction in protected coords
-				if (HbmExplosionHooks.blockDenied(this.worldObj, wx, wy, wz, "NUKEADV.BREAK"))
-					continue;
 
 				if (y < 8) {
 					// Keep the fast skip only when allowed
@@ -115,6 +127,8 @@ public class ExplosionNukeAdvanced {
 
 
 	private void vapor(int x, int z) {
+		if(expProtectedChunks.contains(new ChunkCoordIntPair(x>>4, z>>4))) return;
+
 		int dist = this.radius2 - (x * x + z * z);
 		if (dist > 0) {
 			dist = (int)Math.sqrt(dist);
@@ -123,17 +137,16 @@ public class ExplosionNukeAdvanced {
 				int wy = this.posY + y;
 				int wz = this.posZ + z;
 
-				// Per-block veto: skip vaporization in protected coords
-				if (!HbmExplosionHooks.blockDenied(this.worldObj, wx, wy, wz, "NUKEADV.VAPOR")) {
 					// Only apply the bigger vertical skip when allowed
 					y -= ExplosionNukeGeneric.vaporDest(this.worldObj, wx, wy, wz);
-				}
 			}
 		}
 	}
 
 
 	private void waste(int x, int z) {
+		if(contamProtectedChunks.contains(new ChunkCoordIntPair(x>>4, z>>4))) return;
+
 		int dist = this.radius2 - (x * x + z * z);
 		if (dist > 0) {
 			dist = (int)Math.sqrt(dist);
@@ -141,10 +154,6 @@ public class ExplosionNukeAdvanced {
 				int wx = this.posX + x;
 				int wy = this.posY + y;
 				int wz = this.posZ + z;
-
-				// Per-block veto: no waste/rads in protected coords
-				if (HbmExplosionHooks.blockDenied(this.worldObj, wx, wy, wz, "NUKEADV.WASTE"))
-					continue;
 
 				if (radius >= 95)
 					ExplosionNukeGeneric.wasteDest(this.worldObj, wx, wy, wz);

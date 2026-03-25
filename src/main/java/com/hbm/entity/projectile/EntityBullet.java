@@ -2,6 +2,7 @@ package com.hbm.entity.projectile;
 
 import java.lang.reflect.Field;
 import java.util.List;
+import java.util.UUID;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -79,8 +80,8 @@ public class EntityBullet extends Entity implements IProjectile {
 		this.yOffset = 0.0F;
 	}
 
-	public EntityBullet(World p_i1755_1_, EntityLivingBase p_i1755_2_, EntityLivingBase p_i1755_3_, float p_i1755_4_,
-			float p_i1755_5_) {
+	public EntityBullet(UUID party, World p_i1755_1_, EntityLivingBase p_i1755_2_, EntityLivingBase p_i1755_3_, float p_i1755_4_,
+						float p_i1755_5_) {
 		super(p_i1755_1_);
 		this.renderDistanceWeight = 10.0D;
 		this.shootingEntity = p_i1755_2_;
@@ -107,7 +108,7 @@ public class EntityBullet extends Entity implements IProjectile {
 		}
 	}
 
-	public EntityBullet(World p_i1756_1_, EntityLivingBase p_i1756_2_, float p_i1756_3_, int dmgMin, int dmgMax,
+	public EntityBullet(UUID party, World p_i1756_1_, EntityLivingBase p_i1756_2_, float p_i1756_3_, int dmgMin, int dmgMax,
 			boolean instakill, boolean rad) {
 		super(p_i1756_1_);
 		this.renderDistanceWeight = 10.0D;
@@ -163,7 +164,7 @@ public class EntityBullet extends Entity implements IProjectile {
 		this.setThrowableHeading2(this.motionX, this.motionY, this.motionZ, p_i1756_3_ * 1.5F, 1.0F);
 	}
 
-	public EntityBullet(World p_i1756_1_, EntityLivingBase p_i1756_2_, float p_i1756_3_, int dmgMin, int dmgMax,
+	public EntityBullet(UUID party, World p_i1756_1_, EntityLivingBase p_i1756_2_, float p_i1756_3_, int dmgMin, int dmgMax,
 			boolean instakill, String isTau) {
 		super(p_i1756_1_);
 		this.renderDistanceWeight = 10.0D;
@@ -190,9 +191,9 @@ public class EntityBullet extends Entity implements IProjectile {
 		this.setChopper(isTau == "chopper");
 		this.setIsCritical(isTau != "chopper");
 	}
-	
+
 	//why the living shit did i make isTau a string? who knows, who cares.
-	public EntityBullet(World p_i1756_1_, EntityLivingBase p_i1756_2_, float p_i1756_3_, int dmgMin, int dmgMax,
+	public EntityBullet(UUID party, World p_i1756_1_, EntityLivingBase p_i1756_2_, float p_i1756_3_, int dmgMin, int dmgMax,
 			boolean instakill, String isTau, EntityGrenadeTau grenade) {
 		super(p_i1756_1_);
 		this.renderDistanceWeight = 10.0D;
@@ -264,7 +265,7 @@ public class EntityBullet extends Entity implements IProjectile {
 		this.prevRotationPitch = this.rotationPitch = (float) (Math.atan2(p_70186_3_, f3) * 180.0D / Math.PI);
 		this.ticksInGround = 0;
 	}
-	
+
 	public void setThrowableHeading2(double p_70186_1_, double p_70186_3_, double p_70186_5_, float p_70186_7_,
 			float p_70186_8_) {
 		float f2 = MathHelper.sqrt_double(p_70186_1_ * p_70186_1_ + p_70186_3_ * p_70186_3_ + p_70186_5_ * p_70186_5_);
@@ -350,7 +351,7 @@ public class EntityBullet extends Entity implements IProjectile {
 					&& !this.getIsCritical()) {
 				this.inGround = true;
 			}
-			
+
 			if(block instanceof BlockDetonatable) {
 				((BlockDetonatable) block).onShot(worldObj, this.tileX, this.tileY, this.tileZ);
 			}
@@ -369,7 +370,7 @@ public class EntityBullet extends Entity implements IProjectile {
 
 		if (this.inGround && !this.getIsCritical()) {
 			this.setDead();
-			
+
 		} else {
 			++this.ticksInAir;
 			Vec3 vec31 = Vec3.createVectorHelper(this.posX, this.posY, this.posZ);
@@ -452,13 +453,13 @@ public class EntityBullet extends Entity implements IProjectile {
 						//R: Chop
 						//X: NOT
 						//O: Direct
-						
+
 						//   X X   Bullet
 						//    \|
 						//   O-X   Tau
-						//   |/ 
+						//   |/
 						//   X-O   Displacer
-						
+
 						if (!this.getIsCritical() && !this.getIsChopper()) {
 							if (this.shootingEntity == null) {
 								damagesource = ModDamageSource.causeBulletDamage(this, this);
@@ -514,10 +515,10 @@ public class EntityBullet extends Entity implements IProjectile {
 										entitylivingbase.addPotionEffect(new PotionEffect(Potion.moveSlowdown.getId(), 1 * 60 * 20, 1));
 									}
 								}
-								
+
 								if(antidote)
 									entitylivingbase.clearActivePotions();
-								
+
 								if (this.knockbackStrength > 0) {
 									f4 = MathHelper
 											.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
@@ -558,24 +559,24 @@ public class EntityBullet extends Entity implements IProjectile {
 									;
 							}
 						} else {
-							
+
 							if(movingobjectposition.entityHit instanceof EntityLivingBase) {
-								
+
 								try {
 									Field lastDamage = ReflectionHelper.findField(EntityLivingBase.class, "lastDamage", "field_110153_bc");
-									
+
 									float dmg = (float) damage + lastDamage.getFloat(movingobjectposition.entityHit);
-									
+
 									movingobjectposition.entityHit.attackEntityFrom(damagesource, dmg);
 								} catch (Exception x) { }
 							}
-							
+
 						}
-						
-						
-						
-						
-						
+
+
+
+
+
 						/* else {
 							if (movingobjectposition.entityHit instanceof EntityLivingBase && !(movingobjectposition.entityHit instanceof EntityHunterChopper)) {
 								EntityLivingBase target = (EntityLivingBase) movingobjectposition.entityHit;
@@ -643,10 +644,10 @@ public class EntityBullet extends Entity implements IProjectile {
 			/*
 			 * while (this.rotationPitch - this.prevRotationPitch >= 180.0F) {
 			 * this.prevRotationPitch += 360.0F; }
-			 * 
+			 *
 			 * while (this.rotationYaw - this.prevRotationYaw < -180.0F) {
 			 * this.prevRotationYaw -= 360.0F; }
-			 * 
+			 *
 			 * while (this.rotationYaw - this.prevRotationYaw >= 180.0F) {
 			 * this.prevRotationYaw += 360.0F; }
 			 */
@@ -831,7 +832,7 @@ public class EntityBullet extends Entity implements IProjectile {
 		byte b0 = this.dataWatcher.getWatchableObjectByte(18);
 		return (b0 & 1) != 0;
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public int getBrightnessForRender(float p_70070_1_) {

@@ -1,17 +1,22 @@
 package com.hbm.explosion;
 
 import java.util.Random;
+import java.util.Set;
+import java.util.UUID;
 
+import api.hbm.wgc.Integrations;
 import com.hbm.blocks.ModBlocks;
+import com.hbm.interfaces.Spaghetti;
 import com.hbm.util.ParticleUtil;
-
-import api.hbm.explosion.event.HbmExplosionHooks;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
 
+//Dead Puppy here
+@Spaghetti("No superclass? No bitches.")
 public class ExplosionBalefire
 {
 	public int posX;
@@ -28,6 +33,9 @@ public class ExplosionBalefire
 	private int leg;
 	private int element;
 	private boolean antimatter = false;
+	public UUID ownerParty;
+	private Set<ChunkCoordIntPair> expProtectedChunks;
+
 	public void saveToNbt(NBTTagCompound nbt, String name) {
 		nbt.setInteger(name + "posX", posX);
 		nbt.setInteger(name + "posY", posY);
@@ -60,7 +68,7 @@ public class ExplosionBalefire
 		antimatter = nbt.getBoolean(name + "antimatter");
 	}
 
-	public ExplosionBalefire(int x, int y, int z, World world, int rad, boolean antimatter)
+	public ExplosionBalefire(UUID party, int x, int y, int z, World world, int rad, boolean antimatter)
 	{
 		this.posX = x;
 		this.posY = y;
@@ -73,23 +81,20 @@ public class ExplosionBalefire
 
 		this.nlimit = this.radius2 * 4;
 		this.antimatter=antimatter;
+		ownerParty = party;
+
 	}
 
 	public boolean update() {
-
-		// === SAFEZONE HOOK: veto whole balefire blast before any block edits ===
-		if (HbmExplosionHooks.pre(this.worldObj,
-			this.posX + 0.5, this.posY + 0.5, this.posZ + 0.5,
-			(float) this.radius,
-			this,
-			"BALEFIRE")) {
-			// Returning true tells the caller "we're done" – aborts further columns.
-			return true;
+		if(expProtectedChunks == null){
+			expProtectedChunks = Integrations.getExplosionProtectedChunksWGC(ownerParty,worldObj,posX,posZ,radius+16);
 		}
 
 		if(n == 0) return true;
 
-		breakColumn(this.lastposX, this.lastposZ);
+		if(!expProtectedChunks.contains(Integrations.getChunkCoordIntPair(posX,posZ))){//yk i probably should have made a helper class for this
+			breakColumn(this.lastposX, this.lastposZ);
+		}
 		this.shell = (int) Math.floor((Math.sqrt(n) + 1) / 2);
 		int shell2 = this.shell * 2;
 
@@ -118,12 +123,8 @@ public class ExplosionBalefire
 
 				if (worldObj.getBlock(pX, y, pZ) == ModBlocks.block_schrabidium_cluster && !antimatter) {
 					if (worldObj.rand.nextInt(10) == 0) {
-						// balefire cap
-						if (!HbmExplosionHooks.blockDenied(worldObj, pX, y + 1, pZ, "BALEFIRE"))
-							worldObj.setBlock(pX, y + 1, pZ, ModBlocks.balefire);
-						// convert cluster
-						if (!HbmExplosionHooks.blockDenied(worldObj, pX, y, pZ, "BALEFIRE"))
-							worldObj.setBlock(pX, y, pZ, ModBlocks.block_euphemium_cluster, worldObj.getBlockMetadata(pX, y, pZ), 3);
+						worldObj.setBlock(pX, y + 1, pZ, ModBlocks.balefire);
+						worldObj.setBlock(pX, y, pZ, ModBlocks.block_euphemium_cluster, worldObj.getBlockMetadata(pX, y, pZ), 3);
 					}
 					return;
 				}
@@ -137,7 +138,6 @@ public class ExplosionBalefire
 
 				if (worldObj.getBlock(pX, y, pZ) != ModBlocks.plasma) {
 					// carve
-					if (!HbmExplosionHooks.blockDenied(worldObj, pX, y, pZ, "BALEFIRE"))
 						worldObj.setBlockToAir(pX, y, pZ);
 				}
 
@@ -146,11 +146,9 @@ public class ExplosionBalefire
 
 			if (worldObj.rand.nextInt(10) == 0 && !antimatter) {
 				// surface balefire
-				if (!HbmExplosionHooks.blockDenied(worldObj, pX, depth + 1, pZ, "BALEFIRE"))
 					worldObj.setBlock(pX, depth + 1, pZ, ModBlocks.balefire);
 
 				if (worldObj.getBlock(pX, y, pZ) == ModBlocks.block_schrabidium_cluster && !antimatter) {
-					if (!HbmExplosionHooks.blockDenied(worldObj, pX, y, pZ, "BALEFIRE"))
 						worldObj.setBlock(pX, y, pZ, ModBlocks.block_euphemium_cluster, worldObj.getBlockMetadata(pX, y, pZ), 3);
 				}
 			}
@@ -158,12 +156,10 @@ public class ExplosionBalefire
 			for (int i = depth; i > depth - 5; i--) {
 				Random rand = new Random();
 				if (rand.nextInt(dist) == 0 && antimatter) {
-					if (!HbmExplosionHooks.blockDenied(worldObj, pX, depth, pZ, "BALEFIRE"))
 						worldObj.setBlock(pX, depth, pZ, ModBlocks.volcanic_lava_block);
 				}
 
 				if (worldObj.getBlock(pX, i, pZ) == Blocks.stone) {
-					if (!HbmExplosionHooks.blockDenied(worldObj, pX, i, pZ, "BALEFIRE"))
 						worldObj.setBlock(pX, i, pZ, ModBlocks.sellafield_slaked);
 				}
 			}

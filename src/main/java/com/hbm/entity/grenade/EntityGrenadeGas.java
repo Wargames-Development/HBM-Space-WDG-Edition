@@ -1,9 +1,12 @@
 package com.hbm.entity.grenade;
 
+import api.hbm.wgc.Integrations;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
 import java.util.Random;
+import java.util.UUID;
 
 import com.hbm.entity.effect.EntityMist;
 import com.hbm.inventory.fluid.Fluids;
@@ -30,13 +33,18 @@ public class EntityGrenadeGas extends EntityGrenadeBouncyBase {
 
 		if (!this.worldObj.isRemote) {
 			this.setDead();
-			this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, 0.0F, true);
-			
-			EntityMist mist = new EntityMist(worldObj);
-			mist.setType(Fluids.CHLORINE);
-			mist.setPosition(posX, posY - 5, posZ);
-			mist.setArea(15, 10);
-			worldObj.spawnEntityInWorld(mist);
+			UUID party = null;
+			if(getThrower() instanceof EntityPlayer) party = getThrower().getUniqueID();
+
+			if(Integrations.canDetonateWGC(party,worldObj,(int)posX,(int)posY,(int)posZ)) {
+				this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, 0.0F, true);
+
+				EntityMist mist = new EntityMist(worldObj,party);
+				mist.setType(Fluids.CHLORINE);
+				mist.setPosition(posX, posY - 5, posZ);
+				mist.setArea(15, 10);
+				worldObj.spawnEntityInWorld(mist);
+			}
 		}
 	}
 

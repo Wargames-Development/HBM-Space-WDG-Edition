@@ -1,6 +1,7 @@
 package com.hbm.blocks.bomb;
 
 import java.util.Random;
+import java.util.UUID;
 
 import com.hbm.blocks.ModBlocks;
 import com.hbm.interfaces.IBomb;
@@ -171,5 +172,10 @@ public class CompactLauncher extends BlockContainer implements IMultiblock, IBom
 			p_149749_1_.func_147453_f(p_149749_2_, p_149749_3_, p_149749_4_, p_149749_5_);
 		}
 		super.breakBlock(p_149749_1_, p_149749_2_, p_149749_3_, p_149749_4_, p_149749_5_, p_149749_6_);
+	}
+
+	public UUID getOwnerParty(World world, int x, int y, int z) {
+		TileEntityCompactLauncher entity = (TileEntityCompactLauncher) world.getTileEntity(x, y, z);
+		return entity.getOwnerParty();
 	}
 }

@@ -171,7 +171,7 @@ public class HbmPotion extends Potion {
 			entity.setHealth(0.0F);
 			//World world = Minecraft.getMinecraft().theWorld;
 
-			new ExplosionVNT(entity.worldObj, entity.posX, entity.posY, entity.posZ, 12).makeAmat().explode();
+			new ExplosionVNT(entity.worldObj, entity.posX, entity.posY, entity.posZ, 12, entity.getUniqueID()).makeAmat().explode();
 			entity.worldObj.playSoundEffect(entity.posX, entity.posY, entity.posZ, "hbm:weapon.mukeExplosion", 100.0F, 1.0F);
 
 			if (!(entity instanceof EntityPlayer))

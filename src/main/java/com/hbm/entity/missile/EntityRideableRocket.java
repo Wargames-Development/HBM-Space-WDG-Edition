@@ -2,6 +2,7 @@ package com.hbm.entity.missile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import com.hbm.blocks.ILookOverlay;
 import com.hbm.config.SpaceConfig;
@@ -114,8 +115,8 @@ public class EntityRideableRocket extends EntityMissileBaseNT implements ILookOv
 		targetZ = (int)posZ;
 	}
 
-	public EntityRideableRocket(World world, float x, float y, float z, ItemStack stack) {
-		super(world, x, y, z, (int)x + 10000, (int)z);
+	public EntityRideableRocket(World world, float x, float y, float z, ItemStack stack, UUID ownerParty) {
+		super(world, x, y, z, (int)x + 10000, (int)z, ownerParty);
 		RocketStruct rocket = ItemCustomRocket.get(stack);
 		satFreq = ISatChip.getFreqS(stack);
 
@@ -375,8 +376,8 @@ public class EntityRideableRocket extends EntityMissileBaseNT implements ILookOv
 
 					if(willExplode) {
 						dropNDie(null);
-						ExplosionLarge.explode(worldObj, posX, posY, posZ, 5, true, false, true);
-						ExplosionLarge.spawnShrapnelShower(worldObj, posX, posY, posZ, motionX, motionY, motionZ, 15, 0.075);
+						ExplosionLarge.explode(ownerParty,worldObj, posX, posY, posZ, 5, true, false, true);
+						ExplosionLarge.spawnShrapnelShower(worldObj, posX, posY, posZ, motionX, motionY, motionZ, 15, 0.075,ownerParty);
 
 						worldObj.playSoundEffect(posX, posY, posZ, "hbm:entity.pipefail", 10_000, 0.8F + this.worldObj.rand.nextFloat() * 0.4F);
 					}

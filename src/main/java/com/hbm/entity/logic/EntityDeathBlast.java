@@ -37,7 +37,7 @@ public class EntityDeathBlast extends Entity {
 		if(this.ticksExisted >= maxAge && !worldObj.isRemote) {
 			this.setDead();
 
-			worldObj.spawnEntityInWorld(EntityNukeExplosionMK5.statFacNoRad(worldObj, 40, posX, posY, posZ));
+			worldObj.spawnEntityInWorld(EntityNukeExplosionMK5.statFacNoRad(worldObj, 40, posX, posY, posZ,null));
 
 			int count = 100;
 			for(int i = 0; i < count; i++) {
@@ -45,7 +45,7 @@ public class EntityDeathBlast extends Entity {
 				Vec3 vec = Vec3.createVectorHelper(0.2, 0, 0);
 				vec.rotateAroundY((float)(2 * Math.PI * i / (float)count));
 
-				EntityBulletBaseNT laser = new EntityBulletBaseNT(worldObj, BulletConfigSyncingUtil.MASKMAN_BOLT);
+				EntityBulletBaseNT laser = new EntityBulletBaseNT(null,worldObj, BulletConfigSyncingUtil.MASKMAN_BOLT);
 				laser.setPosition(posX, posY + 2, posZ);
 				laser.motionX = vec.xCoord;
 				laser.motionZ = vec.zCoord;

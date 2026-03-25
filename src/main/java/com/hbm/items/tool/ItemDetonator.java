@@ -2,6 +2,9 @@ package com.hbm.items.tool;
 
 import java.util.List;
 
+import com.hbm.blocks.bomb.*;
+import com.hbm.main.ChunkLoaderManager;
+import net.minecraftforge.common.ForgeChunkManager;
 import org.apache.logging.log4j.Level;
 
 import com.hbm.config.GeneralConfig;
@@ -74,17 +77,22 @@ public class ItemDetonator extends Item {
 			if(world.getBlock(x, y, z) instanceof IBomb) {
 				world.playSoundAtEntity(player, "hbm:item.techBleep", 1.0F, 1.0F);
 				if(!world.isRemote) {
-					BombReturnCode ret = ((IBomb) world.getBlock(x, y, z)).explode(world, x, y, z);
+					IBomb bomb = (IBomb)world.getBlock(x, y, z);
+					if(isLaunchpad(bomb)){
+						System.out.println("Loading chunk...");
+						ChunkLoaderManager.forceChunk(world, x, y, z);
+					}
+					BombReturnCode ret = bomb.explode(world, x, y, z);
 
 					if(GeneralConfig.enableExtendedLogging)
 						MainRegistry.logger.log(Level.INFO, "[DET] Tried to detonate block at " + x + " / " + y + " / " + z + " by " + player.getDisplayName() + "!");
-					
+
 					player.addChatMessage(ChatBuilder.start("[").color(EnumChatFormatting.DARK_AQUA)
 							.nextTranslation(this.getUnlocalizedName() + ".name").color(EnumChatFormatting.DARK_AQUA)
 							.next("] ").color(EnumChatFormatting.DARK_AQUA)
 							.nextTranslation(ret.getUnlocalizedMessage()).color(ret.wasSuccessful() ? EnumChatFormatting.YELLOW : EnumChatFormatting.RED).flush());
 				}
-				
+
 			} else {
 				if(!world.isRemote) {
 					player.addChatMessage(ChatBuilder.start("[").color(EnumChatFormatting.DARK_AQUA)
@@ -97,6 +105,18 @@ public class ItemDetonator extends Item {
 
 		return stack;
 
+	}
+	private boolean isLaunchpad(IBomb bomb){
+		if(bomb instanceof LaunchPad){
+			return true;
+		}
+		if(bomb instanceof LaunchTable){
+			return true;
+		}
+		if(bomb instanceof LaunchPadLarge){
+			return true;
+		}
+		return false;
 	}
 
 }

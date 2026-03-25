@@ -18,6 +18,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.IIcon;
@@ -78,13 +79,13 @@ public class SchrabidicBlock extends BlockFluidClassic {
 
 	@Override
 	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
-		
+
 		if(entity instanceof EntityLivingBase)
 		{
 			if(entity.motionY < -0.2)
 				entity.motionY *= 0.5;
 			entity.attackEntityFrom(ModDamageSource.acid, 10F);
-			ContaminationUtil.contaminate((EntityLivingBase)entity, HazardType.RADIATION, ContaminationType.CREATIVE, 1.0F);	
+			ContaminationUtil.contaminate((EntityLivingBase)entity, HazardType.RADIATION, ContaminationType.CREATIVE, 1.0F);
 		}
 	}
 
@@ -96,7 +97,7 @@ public class SchrabidicBlock extends BlockFluidClassic {
 			getReaction(world, x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ);
 		}
 	}*/
-	
+
 	public void getReaction(World world, int x, int y, int z) {
 		Block b = world.getBlock(x, y, z);
 		double dx= (double) ((float) x + rand.nextFloat());
@@ -118,10 +119,10 @@ public class SchrabidicBlock extends BlockFluidClassic {
 		    world.playSound((double)x,(double)y,(double)z,"random.fizz", 0.2F, 1F,false);
 		    world.setBlock(x, y, z, Blocks.air);
 		}
-		else if ((b == Blocks.stone || 
-				b == Blocks.stone_brick_stairs || 
-				b == Blocks.stonebrick || 
-				b == Blocks.stone_slab || 
+		else if ((b == Blocks.stone ||
+				b == Blocks.stone_brick_stairs ||
+				b == Blocks.stonebrick ||
+				b == Blocks.stone_slab ||
 				b == Blocks.stone) && rand.nextInt(4) == 0) {
 			world.playSound((double)x,(double)y,(double)z,"random.fizz", 0.2F, 1F,false);
 			world.setBlock(x, y, z, Blocks.cobblestone);
@@ -141,7 +142,7 @@ public class SchrabidicBlock extends BlockFluidClassic {
 		else if((b == Blocks.sandstone || b == Blocks.end_stone) && rand.nextInt(4) == 0) {
 			world.playSound((double)x,(double)y,(double)z,"random.fizz", 0.2F, 1F,false);
 			world.setBlock(x, y, z, Blocks.sand);
-		} 
+		}
 		else if (b.getExplosionResistance(null) < 1.2F && b != ModBlocks.block_polymer && b != ModBlocks.gravel_obsidian && b != Blocks.sand && b != Blocks.clay) {
 			world.playSound((double)x,(double)y,(double)z,"random.fizz", 0.2F, 1F,false);
 			world.spawnParticle("cloud", dx, dy, dz, 0.0, 0.0, 0.0);
@@ -151,13 +152,13 @@ public class SchrabidicBlock extends BlockFluidClassic {
 
 	@Override
 	public void updateTick(World world, int x, int y, int z, Random rand) {
-		
+
 		super.updateTick(world, x, y, z, rand);
 		for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
 			getReaction(world, x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ);
 		}
 	}
-	
+
 	@Override
 	public int tickRate(World p_149738_1_) {
 		return 15;

@@ -285,7 +285,7 @@ public class Lego {
 
 	public static void standardExplode(EntityBulletBaseMK4 bullet, MovingObjectPosition mop, float range) { standardExplode(bullet, mop, range, 1F); }
 	public static void standardExplode(EntityBulletBaseMK4 bullet, MovingObjectPosition mop, float range, float damageMod) {
-		ExplosionVNT vnt = new ExplosionVNT(bullet.worldObj, mop.hitVec.xCoord, mop.hitVec.yCoord, mop.hitVec.zCoord, range, bullet.getThrower());
+		ExplosionVNT vnt = new ExplosionVNT(bullet.worldObj, mop.hitVec.xCoord, mop.hitVec.yCoord, mop.hitVec.zCoord, range, bullet.getOwnerParty() ,bullet.getThrower());
 		vnt.setEntityProcessor(new EntityProcessorCrossSmooth(1, bullet.damage * damageMod).setupPiercing(bullet.config.armorThresholdNegation, bullet.config.armorPiercingPercent));
 		vnt.setPlayerProcessor(new PlayerProcessorStandard());
 		vnt.setSFX(new ExplosionEffectWeapon(10, 2.5F, 1F));
@@ -298,7 +298,7 @@ public class Lego {
 		double x = mop.hitVec.xCoord + dir.offsetX * 0.25D;
 		double y = mop.hitVec.yCoord + dir.offsetY * 0.25D;
 		double z = mop.hitVec.zCoord + dir.offsetZ * 0.25D;
-		ExplosionVNT vnt = new ExplosionVNT(bullet.worldObj, x, y, z, range, bullet.getThrower());
+		ExplosionVNT vnt = new ExplosionVNT(bullet.worldObj, x, y, z, range, bullet.getOwnerParty() ,bullet.getThrower());
 		vnt.setEntityProcessor(new EntityProcessorCrossSmooth(1, bullet.damage * damageMod)
 				.setupPiercing(bullet.config.armorThresholdNegation, bullet.config.armorPiercingPercent).setKnockback(0.25D));
 		vnt.setPlayerProcessor(new PlayerProcessorStandard());

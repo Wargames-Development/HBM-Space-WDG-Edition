@@ -1,7 +1,9 @@
 package com.hbm.blocks.bomb;
 
 import java.util.List;
+import java.util.UUID;
 
+import api.hbm.wgc.Integrations;
 import com.hbm.config.GeneralConfig;
 import com.hbm.explosion.vanillant.ExplosionVNT;
 import com.hbm.explosion.vanillant.standard.BlockAllocatorStandard;
@@ -17,23 +19,32 @@ public class BlockChargeSemtex extends BlockChargeBase {
 
 	@Override
 	public BombReturnCode explode(World world, int x, int y, int z) {
-		
+
 		if(!world.isRemote) {
+			UUID owner = getOwner(world,x,y,z);
+			if(owner == null) {
+				owner = explosionOwnerCache.get();
+			}
+
 			safe = true;
 			world.setBlockToAir(x, y, z);
 			safe = false;
-			
-			ExplosionVNT xnt = new ExplosionVNT(world, x + 0.5, y + 0.5, z + 0.5, 10F);
+
+			if(!Integrations.canDetonateWGC(owner,world,x,y,z)) {
+				return BombReturnCode.ERROR_BLOCKED;
+			}
+
+			ExplosionVNT xnt = new ExplosionVNT(world, x + 0.5, y + 0.5, z + 0.5, 10F, owner);
 			xnt.setBlockAllocator(new BlockAllocatorStandard(32));
 			xnt.setBlockProcessor(new BlockProcessorStandard()
 					.setAllDrop()
 					.setFortune(3));
 			xnt.explode();
 			ExplosionCreator.composeEffectSmall(world, x + 0.5, y + 1, z + 0.5);
-			
+
 			return BombReturnCode.DETONATED;
 		}
-		
+
 		return BombReturnCode.UNDEFINED;
 	}
 
@@ -41,7 +52,7 @@ public class BlockChargeSemtex extends BlockChargeBase {
 	public int getRenderType() {
 		return BlockChargeC4.renderID;
 	}
-	
+
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean ext) {
 		super.addInformation(stack, player, list, ext);
@@ -50,5 +61,5 @@ public class BlockChargeSemtex extends BlockChargeBase {
 		list.add(EnumChatFormatting.BLUE + "");
 		list.add(EnumChatFormatting.LIGHT_PURPLE + "Fortune III");
 	}
-	
+
 }

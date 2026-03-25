@@ -1,11 +1,15 @@
 package com.hbm.entity.grenade;
 
+import api.hbm.wgc.Integrations;
 import com.hbm.entity.effect.EntityRagingVortex;
 import com.hbm.items.ModItems;
 import com.hbm.items.weapon.ItemGrenade;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
+
+import java.util.UUID;
 
 public class EntityGrenadeIFSpark extends EntityGrenadeBouncyBase {
 
@@ -26,16 +30,20 @@ public class EntityGrenadeIFSpark extends EntityGrenadeBouncyBase {
 
     @Override
     public void explode() {
-    	
+
         if (!this.worldObj.isRemote)
         {
             this.setDead();
-    		
-    		EntityRagingVortex vortex = new EntityRagingVortex(worldObj, 1.5F);
-    		vortex.posX = posX;
-    		vortex.posY = posY;
-    		vortex.posZ = posZ;
-    		worldObj.spawnEntityInWorld(vortex);
+			UUID party = null;
+			if(getThrower() instanceof EntityPlayer) party = getThrower().getUniqueID();
+
+			if(Integrations.canDetonateWGC(party,worldObj,(int)posX,(int)posY,(int)posZ)) {
+				EntityRagingVortex vortex = new EntityRagingVortex(worldObj, 1.5F);
+				vortex.posX = posX;
+				vortex.posY = posY;
+				vortex.posZ = posZ;
+				worldObj.spawnEntityInWorld(vortex);
+			}
         }
     }
 

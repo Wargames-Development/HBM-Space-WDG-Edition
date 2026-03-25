@@ -191,7 +191,7 @@ public class CompatExternal {
 	public static void setWarheadLabel(WarheadType type, String label) { type.labelCustom = label; }
 	public static void setWarheadImpact(WarheadType type, Consumer<EntityMissileCustom> impact) { type.impactCustom = impact; }
 	public static void setWarheadUpdate(WarheadType type, Consumer<EntityMissileCustom> update) { type.updateCustom = update; }
-	
+
 	/**
 	 * Registers an IRecipeRegisterListener to the recipe system. The listener is called every time a SerializableRecipe instance has its recipes loaded, before the
 	 * config files are written, but after the defaults are initialized.
@@ -200,7 +200,7 @@ public class CompatExternal {
 	public static void registerRecipeRegisterListener(IRecipeRegisterListener listener) {
 		SerializableRecipe.additionalListeners.add(listener);
 	}
-	
+
 	/**
 	 * Registers an IFluidRegisterListener which is called every time the fluid list is loaded, either during startup or when the refresh command is used.
 	 * Ensures that fluids are registered when they should, instead of being purged permanently when the system reloads.
@@ -224,7 +224,7 @@ public class CompatExternal {
 		//configures CUSTOM0 to have a custom label and impact effect
 		CompatExternal.setWarheadLabel(WarheadType.CUSTOM0, EnumChatFormatting.YELLOW + "Micro Nuke");
 		CompatExternal.setWarheadImpact(WarheadType.CUSTOM0, (missile) -> {
-			ExplosionNukeSmall.explode(missile.worldObj, missile.posX, missile.posY + 0.5, missile.posZ, ExplosionNukeSmall.PARAMS_MEDIUM);
+			ExplosionNukeSmall.explode(missile.worldObj, missile.posX, missile.posY + 0.5, missile.posZ, null, ExplosionNukeSmall.PARAMS_MEDIUM);
 		});
 	}
 }

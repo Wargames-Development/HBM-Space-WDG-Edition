@@ -1,11 +1,15 @@
 package com.hbm.entity.grenade;
 
+import api.hbm.wgc.Integrations;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
 import com.hbm.entity.effect.EntityBlackHole;
 import com.hbm.items.ModItems;
 import com.hbm.items.weapon.ItemGrenade;
+
+import java.util.UUID;
 
 public class EntityGrenadeBlackHole extends EntityGrenadeBouncyBase
 {
@@ -26,17 +30,22 @@ public class EntityGrenadeBlackHole extends EntityGrenadeBouncyBase
 
     @Override
     public void explode() {
-    	
+
         if (!this.worldObj.isRemote)
         {
             this.setDead();
-            this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, 1.5F, true);
+			UUID party = null;
+			if(getThrower() instanceof EntityPlayer) party = getThrower().getUniqueID();
 
-        	EntityBlackHole bl = new EntityBlackHole(this.worldObj, 1.5F);
-        	bl.posX = this.posX;
-        	bl.posY = this.posY;
-        	bl.posZ = this.posZ;
-        	this.worldObj.spawnEntityInWorld(bl);
+			if(Integrations.canDetonateWGC(party,worldObj,(int)posX,(int)posY,(int)posZ)) {
+				this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, 1.5F, true);
+
+				EntityBlackHole bl = new EntityBlackHole(this.worldObj, 1.5F);
+				bl.posX = this.posX;
+				bl.posY = this.posY;
+				bl.posZ = this.posZ;
+				this.worldObj.spawnEntityInWorld(bl);
+			}
         }
     }
 

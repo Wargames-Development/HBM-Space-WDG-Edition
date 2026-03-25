@@ -19,7 +19,7 @@ public class EntityGlyphidBrenda extends EntityGlyphid {
 		this.setSize(2.5F, 1.75F);
 		this.isImmuneToFire = true;
 	}
-	
+
 	@Override
 	public ResourceLocation getSkin() {
 		return ResourceManager.glyphid_brenda_tex;
@@ -37,7 +37,7 @@ public class EntityGlyphidBrenda extends EntityGlyphid {
 		this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(GlyphidStats.getStats().getBrenda().speed);
 		this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(GlyphidStats.getStats().getBrenda().damage);
 	}
-	
+
 	public StatBundle getStats() {
 		return GlyphidStats.getStats().statsBrenda;
 	}
@@ -52,7 +52,7 @@ public class EntityGlyphidBrenda extends EntityGlyphid {
 	public void onDeath(DamageSource source) {
 		super.onDeath(source);
 		if(!this.worldObj.isRemote && this.getHealth() <= 0.0F) {
-			EntityMist mist = new EntityMist(worldObj);
+			EntityMist mist = new EntityMist(worldObj,null);
 			mist.setType(Fluids.PHEROMONE);
 			mist.setPosition(posX, posY, posZ);
 			mist.setArea(14, 6);
