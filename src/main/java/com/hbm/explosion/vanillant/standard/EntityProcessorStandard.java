@@ -3,7 +3,6 @@ package com.hbm.explosion.vanillant.standard;
 import java.util.HashMap;
 import java.util.List;
 
-import api.hbm.explosion.event.HbmExplosionHooks;
 import com.hbm.explosion.vanillant.ExplosionVNT;
 import com.hbm.explosion.vanillant.interfaces.ICustomDamageHandler;
 import com.hbm.explosion.vanillant.interfaces.IEntityProcessor;

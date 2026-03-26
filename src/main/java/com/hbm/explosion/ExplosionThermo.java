@@ -3,7 +3,6 @@ package com.hbm.explosion;
 import java.util.HashSet;
 import java.util.List;
 
-import api.hbm.explosion.event.HbmExplosionHooks;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.util.ArmorUtil;
 
@@ -25,8 +24,6 @@ public class ExplosionThermo {
 	public static void freeze(World world, int x, int y, int z, int bombStartStrength) {
 		int r = bombStartStrength * 2;
 
-		// Global veto: cancel the entire freeze effect if origin is protected
-		if (HbmExplosionHooks.pre(world, x + 0.5, y + 0.5, z + 0.5, r, null, "THERMO.FREEZE")) return;
 
 		int r2 = r * r;
 		int r22 = r2 / 2;
@@ -41,8 +38,6 @@ public class ExplosionThermo {
 					int ZZ = YY + zz * zz;
 					if (ZZ < r22 + world.rand.nextInt(r22 / 2)) {
 
-						// Per-block veto: skip freezing inside protected coords
-						if (HbmExplosionHooks.blockDenied(world, X, Y, Z, "THERMO.FREEZE")) continue;
 
 						freezeDest(world, X, Y, Z);
 					}
@@ -54,9 +49,6 @@ public class ExplosionThermo {
 	public static void snow(World world, int x, int y, int z, int bound) {
 
 		int r = bound;
-
-		// Global veto: cancel the whole snow effect if origin is protected
-		if (HbmExplosionHooks.pre(world, x + 0.5, y + 0.5, z + 0.5, r, null, "THERMO.SNOW")) return;
 
 		int r2 = r * r;
 		int r22 = r2 / 2;
@@ -70,9 +62,6 @@ public class ExplosionThermo {
 					int Z = zz + z;
 					int ZZ = YY + zz * zz;
 					if (ZZ < r22) {
-						// Only modify the block at (X, Y+1, Z); guard that coordinate
-						if (HbmExplosionHooks.blockDenied(world, X, Y + 1, Z, "THERMO.SNOW.PLACE"))
-							continue;
 
 						if (Blocks.snow_layer.canPlaceBlockAt(world, X, Y + 1, Z)
 							&& (world.getBlock(X, Y + 1, Z) == Blocks.air || world.getBlock(X, Y + 1, Z) == Blocks.fire)) {
@@ -88,9 +77,6 @@ public class ExplosionThermo {
 	public static void scorch(World world, int x, int y, int z, int bombStartStrength) {
 		int r = bombStartStrength * 2;
 
-		// Global veto: cancel entire scorch effect if origin is protected
-		if (HbmExplosionHooks.pre(world, x + 0.5, y + 0.5, z + 0.5, r, null, "THERMO.SCORCH")) return;
-
 		int r2 = r * r;
 		int r22 = r2 / 2;
 		for (int xx = -r; xx < r; xx++) {
@@ -103,9 +89,6 @@ public class ExplosionThermo {
 					int Z = zz + z;
 					int ZZ = YY + zz * zz;
 					if (ZZ < r22 + world.rand.nextInt(r22 / 2)) {
-
-						// Per-block veto: skip scorch changes inside protected coords
-						if (HbmExplosionHooks.blockDenied(world, X, Y, Z, "THERMO.SCORCH")) continue;
 
 						scorchDest(world, X, Y, Z);
 					}
@@ -118,9 +101,6 @@ public class ExplosionThermo {
 	public static void scorchLight(World world, int x, int y, int z, int bombStartStrength) {
 		int r = bombStartStrength * 2;
 
-		// Global veto: cancel entire scorch-light pass if origin is protected
-		if (HbmExplosionHooks.pre(world, x + 0.5, y + 0.5, z + 0.5, r, null, "THERMO.SCORCH_LIGHT")) return;
-
 		int r2 = r * r;
 		int r22 = r2 / 2;
 		for (int xx = -r; xx < r; xx++) {
@@ -134,9 +114,6 @@ public class ExplosionThermo {
 					int ZZ = YY + zz * zz;
 					if (ZZ < r22 + world.rand.nextInt(r22 / 2)) {
 
-						// Per-block veto: skip edits in protected coords
-						if (HbmExplosionHooks.blockDenied(world, X, Y, Z, "THERMO.SCORCH_LIGHT")) continue;
-
 						scorchDestLight(world, X, Y, Z);
 					}
 				}
@@ -146,8 +123,6 @@ public class ExplosionThermo {
 
 
 	public static void freezeDest(World world, int x, int y, int z) {
-		// Safezone/claim guard — skip any edits at protected coords
-		if (HbmExplosionHooks.blockDenied(world, x, y, z, "THERMO.FREEZE")) return;
 
 		Block block = world.getBlock(x, y, z);
 
@@ -238,8 +213,6 @@ public class ExplosionThermo {
 	}
 
 	public static void scorchDest(World world, int x, int y, int z) {
-		// Safezone/claim guard — skip edits at protected coords
-		if (HbmExplosionHooks.blockDenied(world, x, y, z, "THERMO.SCORCH")) return;
 
 		Block block = world.getBlock(x, y, z);
 
@@ -345,8 +318,6 @@ public class ExplosionThermo {
 	}
 
 	public static void scorchDestLight(World world, int x, int y, int z) {
-		// Safezone/claim guard — skip edits at protected coords
-		if (HbmExplosionHooks.blockDenied(world, x, y, z, "THERMO.SCORCH_LIGHT")) return;
 
 		Block block = world.getBlock(x, y, z);
 
@@ -448,8 +419,6 @@ public class ExplosionThermo {
 	}
 
 	public static void freezer(World world, int x, int y, int z, int bombStartStrength) {
-		// Global veto: cancel whole effect if origin is protected
-		if (HbmExplosionHooks.pre(world, x + 0.5, y + 0.5, z + 0.5, bombStartStrength, null, "THERMO.FREEZER.ORIGIN")) return;
 
 		float f = bombStartStrength;
 		new HashSet();
@@ -483,8 +452,6 @@ public class ExplosionThermo {
 				double d9 = MathHelper.sqrt_double(d5 * d5 + d6 * d6 + d7 * d7);
 				if (d9 < wat && !(entity instanceof EntityOcelot) && entity instanceof EntityLivingBase)
 				{
-					// Per-entity veto: skip effects in protected zones
-					if (HbmExplosionHooks.pre(world, entity.posX, entity.posY, entity.posZ, 0F, entity, "THERMO.FREEZER.EFFECT")) continue;
 
 					for(int a = (int) entity.posX - 2; a < (int) entity.posX + 1; a++)
 					{
@@ -492,8 +459,6 @@ public class ExplosionThermo {
 						{
 							for(int c = (int) entity.posZ - 1; c < (int) entity.posZ + 2; c++)
 							{
-								// Per-block veto: don’t place ice in protected coords
-								if (HbmExplosionHooks.blockDenied(world, a, b, c, "THERMO.FREEZER.CAGE")) continue;
 								world.setBlock(a, b, c, Blocks.ice);
 							}
 						}
@@ -512,9 +477,6 @@ public class ExplosionThermo {
 
 	public static void setEntitiesOnFire(World world, double x, double y, double z, int radius) {
 
-		// Global veto: cancel the whole effect if the origin is protected
-		if (HbmExplosionHooks.pre(world, x, y, z, radius, null, "THERMO.FIRE.ORIGIN")) return;
-
 		List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(
 			null,
 			AxisAlignedBB.getBoundingBox(x - radius, y - radius, z - radius, x + radius, y + radius, z + radius)
@@ -523,8 +485,6 @@ public class ExplosionThermo {
 		for (Entity e : list) {
 			if (e.getDistance(x, y, z) <= radius) {
 
-				// Per-entity veto: skip harmful effects in protected zones
-				if (HbmExplosionHooks.pre(world, e.posX, e.posY, e.posZ, 0F, e, "THERMO.FIRE.HIT")) continue;
 
 				if (!(e instanceof EntityPlayer && ArmorUtil.checkForAsbestos((EntityPlayer) e))) {
 					if (e instanceof EntityLivingBase)

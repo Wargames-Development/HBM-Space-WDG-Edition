@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.UUID;
 
-import api.hbm.explosion.event.HbmExplosionHooks;
 import com.hbm.explosion.vanillant.interfaces.IBlockAllocator;
 import com.hbm.explosion.vanillant.interfaces.IBlockProcessor;
 import com.hbm.explosion.vanillant.interfaces.IEntityProcessor;
@@ -78,13 +77,6 @@ public class ExplosionVNT {
 
 		this.compat.exploder = this.exploder;
 		this.compat.explosionSize = this.size;
-
-		// Global safezone/claim veto: block harmful processing if origin is protected.
-		// We still run SFX so clients get sound/particles even when damage is vetoed.
-		if (HbmExplosionHooks.pre(world, posX, posY, posZ, size, exploder, "VNT.ORIGIN")) {
-			if (sfx != null) for (IExplosionSFX fx : sfx) fx.doEffect(this, world, posX, posY, posZ, size);
-			return;
-		}
 
 		boolean processBlocks = blockAllocator != null && blockProcessor != null;
 		boolean processEntities = entityProcessor != null && playerProcessor != null;

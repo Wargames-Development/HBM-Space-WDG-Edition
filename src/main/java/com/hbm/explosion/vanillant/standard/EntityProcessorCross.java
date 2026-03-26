@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
-import api.hbm.explosion.event.HbmExplosionHooks;
 import com.hbm.entity.projectile.EntityBulletBaseMK4;
 import com.hbm.explosion.vanillant.ExplosionVNT;
 import com.hbm.explosion.vanillant.interfaces.ICustomDamageHandler;
@@ -57,10 +56,6 @@ public class EntityProcessorCross implements IEntityProcessor {
 			size = range.mutateRange(explosion, size);
 		}
 
-		// Global safezone/claim veto for entity processing at the origin
-		if (HbmExplosionHooks.pre(world, x, y, z, size, explosion.exploder, "VNT.ENTITY.ORIGIN")) {
-			return affectedPlayers;
-		}
 
 		double minX = x - (double) size - 1.0D;
 		double maxX = x + (double) size + 1.0D;
@@ -93,11 +88,6 @@ public class EntityProcessorCross implements IEntityProcessor {
 			double distanceScaled = dist / size;
 
 			if(distanceScaled <= 1.0D) {
-
-				// Per-entity safezone/claim veto
-				if (HbmExplosionHooks.pre(world, entity.posX, entity.posY, entity.posZ, 0F, entity, "VNT.ENTITY.HIT")) {
-					continue;
-				}
 
 				double deltaX = entity.posX - x;
 				double deltaY = entity.posY + entity.getEyeHeight() - y;

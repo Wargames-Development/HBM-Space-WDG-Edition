@@ -2,7 +2,6 @@ package com.hbm.explosion;
 
 import java.util.*;
 
-import api.hbm.explosion.event.HbmExplosionHooks;
 import api.hbm.wgc.Integrations;
 import com.hbm.interfaces.IExplosionRay;
 import com.hbm.util.fauxpointtwelve.BlockPos;

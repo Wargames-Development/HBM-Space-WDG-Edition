@@ -1,19 +1,15 @@
 package com.hbm.explosion.vanillant.standard;
 
-import api.hbm.explosion.event.HbmExplosionHooks;
-import api.hbm.wgc.Integrations;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.explosion.vanillant.ExplosionVNT;
 import com.hbm.explosion.vanillant.interfaces.IBlockAllocator;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.MathHelper;
-import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.World;
 
 import java.util.HashSet;
-import java.util.Set;
 import java.util.UUID;
 
 public class BlockAllocatorGlyphidDig implements IBlockAllocator {

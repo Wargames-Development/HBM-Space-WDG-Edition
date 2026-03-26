@@ -1,6 +1,5 @@
 package com.hbm.explosion;
 
-import api.hbm.explosion.event.HbmExplosionHooks;
 import com.hbm.config.BombConfig;
 import com.hbm.entity.logic.EntityNukeExplosionMK5;
 import com.hbm.explosion.ExplosionNT.ExAttrib;
@@ -37,9 +36,6 @@ import java.util.UUID;
 		// ---- Global safezone/claim veto for harmful effects ----
 		float effRadius = Math.max(params.blastRadius, params.killRadius);
 		if(!params.miniNuke && effRadius <= 0) effRadius = BombConfig.fatmanRadius; // fallback for non-miniNuke
-		if (HbmExplosionHooks.pre(world, posX, posY, posZ, effRadius, null, "NUKESMALL.ORIGIN")) {
-			return; // no shrapnels, no NT, no damage, no radiation if origin protected
-		}
 		// --------------------------------------------------------
 
 		if(params.shrapnelCount > 0)
@@ -67,8 +63,6 @@ import java.util.UUID;
 						int ry = (int) Math.floor(posY);
 						int rz = (int) Math.floor(posZ + j * 16);
 
-						// Per-position veto: don't apply radiation inside protected zones
-						if (HbmExplosionHooks.blockDenied(world, rx, ry, rz, "NUKESMALL.RAD")) continue;
 
 						ChunkRadiationManager.proxy.incrementRad(world, rx, ry, rz,
 							50 / (Math.abs(i) + Math.abs(j) + 1) * radMod);

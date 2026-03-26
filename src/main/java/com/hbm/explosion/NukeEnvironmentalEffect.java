@@ -2,7 +2,6 @@ package com.hbm.explosion;
 
 import java.util.Random;
 
-import api.hbm.explosion.event.HbmExplosionHooks;
 import com.hbm.blocks.ModBlocks;
 
 import net.minecraft.block.Block;

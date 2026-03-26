@@ -2,7 +2,6 @@ package com.hbm.explosion;
 
 import java.util.List;
 
-import api.hbm.explosion.event.HbmExplosionHooks;
 import com.hbm.util.ContaminationUtil;
 import com.hbm.util.ContaminationUtil.ContaminationType;
 import com.hbm.util.ContaminationUtil.HazardType;
@@ -26,7 +25,6 @@ public class ExplosionHurtUtil {
 	 */
 	public static void doRadiation(World world, double x, double y, double z, float outer, float inner, double radius) {
 		if (radius <= 0) return;
-		if (HbmExplosionHooks.pre(world, x, y, z, (float) radius, null, "RADIATION")) return;
 		if (world.isRemote) return;
 
 		List<EntityLivingBase> entities = world.getEntitiesWithinAABB(
@@ -39,8 +37,6 @@ public class ExplosionHurtUtil {
 			double dist = v.lengthVector();
 			if (dist > radius) continue;
 
-			// per-entity veto
-			if (HbmExplosionHooks.pre(world, entity.posX, entity.posY, entity.posZ, 0F, entity, "RADIATION.HIT")) continue;
 
 			double t = 1.0 - (dist / radius);
 			float rad = (float)(outer + (inner - outer) * t);

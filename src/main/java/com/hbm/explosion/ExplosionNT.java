@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
-import api.hbm.explosion.event.HbmExplosionHooks;
 import com.hbm.blocks.ModBlocks;
 
 import net.minecraft.block.Block;
@@ -67,10 +66,6 @@ public class ExplosionNT extends Explosion {
 	}
 
 	public void explode() {
-		// yRadar safezone/claims — global veto
-		if (HbmExplosionHooks.pre(this.worldObj, this.explosionX, this.explosionY, this.explosionZ,
-			this.explosionSize, this.exploder, "NT"))
-			return;
 
 		doExplosionA();
 		doExplosionB(false);
@@ -171,9 +166,6 @@ public class ExplosionNT extends Explosion {
 						double d10 = (double)this.worldObj.getBlockDensity(vec3, entity.boundingBox);
 						double d11 = (1.0D - d4) * d10;
 
-						// yRadar safezone/claims — per-entity veto
-						if (HbmExplosionHooks.pre(this.worldObj, entity.posX, entity.posY, entity.posZ, 0F, entity, "NT.HIT"))
-							continue;
 
 						entity.attackEntityFrom(setExplosionSource(this), (float)((int)((d11 * d11 + d11) / 2.0D * 8.0D * (double)this.explosionSize + 1.0D)));
 						double d8 = EnchantmentProtection.func_92092_a(entity, d11);
@@ -249,9 +241,6 @@ public class ExplosionNT extends Explosion {
 					this.worldObj.spawnParticle("smoke", d0, d1, d2, d3, d4, d5);
 				}
 
-				// yRadar safezone/claims — per-block veto for destruction & replacements
-				if (HbmExplosionHooks.blockDenied(this.worldObj, i, j, k, "NT.BLOCK"))
-					continue;
 
 				if(block.getMaterial() != Material.air) {
 
@@ -322,9 +311,6 @@ public class ExplosionNT extends Explosion {
 				block = this.worldObj.getBlock(i, j, k);
 				Block block1 = this.worldObj.getBlock(i, j - 1, k);
 
-				// yRadar safezone/claims — per-block veto for post fire/lava/balefire placement
-				if (HbmExplosionHooks.blockDenied(this.worldObj, i, j, k, "NT.BLOCK"))
-					continue;
 
 				boolean shouldReplace = true;
 

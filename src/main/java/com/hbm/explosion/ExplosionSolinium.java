@@ -2,7 +2,6 @@ package com.hbm.explosion;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-import api.hbm.explosion.event.HbmExplosionHooks;
 
 public class ExplosionSolinium
 {
@@ -67,11 +66,6 @@ public class ExplosionSolinium
 		this.explosionCoefficient2 = coefficient2;
 		this.nlimit = this.radius2 * 4;
 
-		// Optional: cancel entire operation if origin is in a protected zone
-		if (HbmExplosionHooks.pre(world, x + 0.5, y + 0.5, z + 0.5, rad, null, "SOLINIUM")) {
-			// Mark as finished so update() returns true immediately
-			this.n = this.nlimit + 1;
-		}
 	}
 
 	public boolean update()

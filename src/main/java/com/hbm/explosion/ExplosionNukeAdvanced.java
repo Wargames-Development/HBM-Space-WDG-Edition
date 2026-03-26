@@ -1,6 +1,5 @@
 package com.hbm.explosion;
 
-import api.hbm.explosion.event.HbmExplosionHooks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
@@ -68,12 +67,6 @@ public class ExplosionNukeAdvanced {
 	}
 
 	public boolean update() {
-		// Global veto: cancel entire advanced nuke if origin is protected
-		if (HbmExplosionHooks.pre(this.worldObj, this.posX + 0.5, this.posY + 0.5, this.posZ + 0.5,
-			this.radius, null, "NUKEADV")) {
-			this.n = this.nlimit + 1; // mark finished
-			return true;
-		}
 
 		switch (this.type) {
 			case 0: breakColumn(this.lastposX, this.lastposZ); break;
@@ -99,10 +92,6 @@ public class ExplosionNukeAdvanced {
 				int wy = this.posY + y;
 				int wz = this.posZ + z;
 
-				// Per-block veto: no destruction in protected coords
-				if (HbmExplosionHooks.blockDenied(this.worldObj, wx, wy, wz, "NUKEADV.BREAK"))
-					continue;
-
 				if (y < 8) {
 					// Keep the fast skip only when allowed
 					y -= ExplosionNukeGeneric.destruction(this.worldObj, wx, wy, wz);
@@ -123,11 +112,8 @@ public class ExplosionNukeAdvanced {
 				int wy = this.posY + y;
 				int wz = this.posZ + z;
 
-				// Per-block veto: skip vaporization in protected coords
-				if (!HbmExplosionHooks.blockDenied(this.worldObj, wx, wy, wz, "NUKEADV.VAPOR")) {
 					// Only apply the bigger vertical skip when allowed
 					y -= ExplosionNukeGeneric.vaporDest(this.worldObj, wx, wy, wz);
-				}
 			}
 		}
 	}
@@ -141,10 +127,6 @@ public class ExplosionNukeAdvanced {
 				int wx = this.posX + x;
 				int wy = this.posY + y;
 				int wz = this.posZ + z;
-
-				// Per-block veto: no waste/rads in protected coords
-				if (HbmExplosionHooks.blockDenied(this.worldObj, wx, wy, wz, "NUKEADV.WASTE"))
-					continue;
 
 				if (radius >= 95)
 					ExplosionNukeGeneric.wasteDest(this.worldObj, wx, wy, wz);

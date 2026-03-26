@@ -3,7 +3,6 @@ package com.hbm.explosion.vanillant.standard;
 import java.util.HashSet;
 import java.util.Iterator;
 
-import api.hbm.explosion.event.HbmExplosionHooks;
 import com.hbm.explosion.vanillant.ExplosionVNT;
 import com.hbm.explosion.vanillant.interfaces.IBlockMutator;
 import com.hbm.explosion.vanillant.interfaces.IBlockProcessor;
@@ -66,7 +65,7 @@ public class BlockProcessorStandard implements IBlockProcessor {
 
 				block.onBlockExploded(world, blockX, blockY, blockZ, explosion.compat);
 
-				if(this.convert != null && !HbmExplosionHooks.blockDenied(world, blockX, blockY, blockZ, "VNT.STD.PRE")) {
+				if(this.convert != null) {
 					this.convert.mutatePre(explosion, block, world.getBlockMetadata(blockX, blockY, blockZ), blockX, blockY, blockZ);
 				}
 			} else {
@@ -86,10 +85,7 @@ public class BlockProcessorStandard implements IBlockProcessor {
 				Block block = world.getBlock(blockX, blockY, blockZ);
 
 				if(block.getMaterial() == Material.air) {
-					// Safezone/claim guard for post-placement too
-					if (!HbmExplosionHooks.blockDenied(world, blockX, blockY, blockZ, "VNT.STD.POST")) {
 						this.convert.mutatePost(explosion, blockX, blockY, blockZ);
-					}
 				}
 			}
 		}
