@@ -175,6 +175,65 @@ public abstract class EntityMissileBaseNT extends EntityThrowableInterp implemen
 		while(this.rotationYaw - this.prevRotationYaw < -180.0F) this.prevRotationYaw -= 360.0F;
 		while(this.rotationYaw - this.prevRotationYaw >= 180.0F) this.prevRotationYaw += 360.0F;
 	}
+	@Override
+	public double onUpdateAP(double inPen) {
+		this.lastTickPosX = this.posX;
+		this.lastTickPosY = this.posY;
+		this.lastTickPosZ = this.posZ;
+		double pen = super.onUpdateAP(inPen);
+
+		if(velocity < 4) velocity += MathHelper.clamp_double(this.ticksExisted / 60D * 0.05D, 0, 0.05);
+
+		if(!worldObj.isRemote) {
+
+			if(hasPropulsion()) {
+				this.motionY -= decelY * velocity;
+
+				Vec3 vector = Vec3.createVectorHelper(targetX - startX, 0, targetZ - startZ);
+				vector = vector.normalize();
+				vector.xCoord *= accelXZ;
+				vector.zCoord *= accelXZ;
+
+				if(motionY > 0) {
+					motionX += vector.xCoord * velocity;
+					motionZ += vector.zCoord * velocity;
+				}
+
+				if(motionY < 0) {
+					motionX -= vector.xCoord * velocity;
+					motionZ -= vector.zCoord * velocity;
+				}
+			} else {
+				motionX *= 0.99;
+				motionZ *= 0.99;
+
+				if(motionY > -1.5)
+					motionY -= 0.05;
+			}
+
+			if(motionY < -velocity && this.isCluster) {
+				cluster();
+				this.setDead();
+				return pen;
+			}
+
+			this.rotationYaw = (float) (Math.atan2(targetX - posX, targetZ - posZ) * 180.0D / Math.PI);
+			float f2 = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
+			for(this.rotationPitch = (float) (Math.atan2(this.motionY, f2) * 180.0D / Math.PI) - 90; this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F);
+			EntityTrackerEntry tracker = TrackerUtil.getTrackerEntry((WorldServer) worldObj, this.getEntityId());
+			if(tracker != null) tracker.lastYaw += 100; //coax the tracker into sending smother updates
+
+			loadNeighboringChunks((int) Math.floor(posX / 16), (int) Math.floor(posZ / 16));
+		} else {
+			this.spawnContrail();
+		}
+
+		while(this.rotationPitch - this.prevRotationPitch >= 180.0F) this.prevRotationPitch += 360.0F;
+		while(this.rotationYaw - this.prevRotationYaw < -180.0F) this.prevRotationYaw -= 360.0F;
+		while(this.rotationYaw - this.prevRotationYaw >= 180.0F) this.prevRotationYaw += 360.0F;
+
+		return pen;
+	}
 
 	public boolean hasPropulsion() {
 		return true;
@@ -349,6 +408,7 @@ public abstract class EntityMissileBaseNT extends EntityThrowableInterp implemen
 			}
 		}
 	}
+
 
 	@Override
 	public void setDead() {

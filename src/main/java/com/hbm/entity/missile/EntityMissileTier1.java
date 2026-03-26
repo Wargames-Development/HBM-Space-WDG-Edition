@@ -71,13 +71,22 @@ public abstract class EntityMissileTier1 extends EntityMissileBaseNT {
 	}
 
 	public static class EntityMissileBunkerBuster extends EntityMissileTier1 {
-		public EntityMissileBunkerBuster(World world) { super(world); }
-		public EntityMissileBunkerBuster(World world, float x, float y, float z, int a, int b, UUID ownerParty) { super(world, x, y, z, a, b, ownerParty); }
+		private static final double DEFPEN = 200.0;
+		private double penetration;
+		public EntityMissileBunkerBuster(World world) {
+			super(world);
+			penetration = DEFPEN;
+		}
+		public EntityMissileBunkerBuster(World world, float x, float y, float z, int a, int b, UUID ownerParty) {
+			super(world, x, y, z, a, b, ownerParty);
+			penetration = DEFPEN;
+		}
 		@Override public void onMissileImpact(MovingObjectPosition mop) {
-			for(int i = 0; i < 15; i++) this.worldObj.createExplosion(this, this.posX, this.posY - i, this.posZ, 5F, true);
-			ExplosionLarge.spawnParticles(worldObj, this.posX, this.posY, this.posZ, 5);
-			ExplosionLarge.spawnShrapnels(worldObj, this.posX, this.posY, this.posZ, 5);
-			ExplosionLarge.spawnRubble(worldObj, this.posX, this.posY, this.posZ, 5);
+			this.explodeStandard(15F, 24, false);
+			ExplosionCreator.composeEffectSmall(worldObj, posX, posY, posZ);
+		}
+		@Override public void onUpdate(){
+			penetration = super.onUpdateAP(penetration);
 		}
 		@Override public ItemStack getDebrisRareDrop() { return new ItemStack(ModItems.warhead_buster_small); }
 		@Override public ItemStack getMissileItemForInfo() { return new ItemStack(ModItems.missile_buster); }

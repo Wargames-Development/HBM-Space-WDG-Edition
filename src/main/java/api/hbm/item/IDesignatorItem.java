@@ -18,7 +18,7 @@ public interface IDesignatorItem {
 	 * @return
 	 */
 	public boolean isReady(World world, ItemStack stack, int x, int y, int z);
-	public UUID getOwnerParty();
+	public UUID getOwnerParty(ItemStack stack);
 
 	/**
 	 * The target position if the designator is ready

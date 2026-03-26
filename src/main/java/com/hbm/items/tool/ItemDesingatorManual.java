@@ -14,14 +14,18 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
 public class ItemDesingatorManual extends Item implements IDesignatorItem, IGUIProvider {
-	private UUID ownerParty;
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-		ownerParty = player.getUniqueID();
+		UUID ownerParty = player.getUniqueID();
+		if (ownerParty != null) {
+			stack.stackTagCompound.setLong("ownerMost", ownerParty.getMostSignificantBits());
+			stack.stackTagCompound.setLong("ownerLeast", ownerParty.getLeastSignificantBits());
+		}
 		if(world.isRemote)
 			player.openGui(MainRegistry.instance, 0, world, 0, 0, 0);
 
@@ -60,7 +64,14 @@ public class ItemDesingatorManual extends Item implements IDesignatorItem, IGUIP
 		return new GUIScreenDesignator(player);
 	}
 
-	public UUID getOwnerParty() {
+	public UUID getOwnerParty(ItemStack stack) {
+		UUID ownerParty = null;
+		if (stack.stackTagCompound.hasKey("ownerMost") && stack.stackTagCompound.hasKey("ownerLeast")) {
+			ownerParty = new UUID(
+				stack.stackTagCompound.getLong("ownerMost"),
+				stack.stackTagCompound.getLong("ownerLeast")
+			);
+		}
 		return ownerParty;
 	}
 }

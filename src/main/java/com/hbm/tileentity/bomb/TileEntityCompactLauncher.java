@@ -407,7 +407,7 @@ public class TileEntityCompactLauncher extends TileEntityLoadedBase implements I
 	public boolean hasDesignator() {
 
 		if(slots[1] != null && slots[1].getItem() instanceof IDesignatorItem && ((IDesignatorItem)slots[1].getItem()).isReady(worldObj, slots[1], xCoord, yCoord, zCoord)) {
-			ownerParty = ((IDesignatorItem) slots[1].getItem()).getOwnerParty();
+			ownerParty = ((IDesignatorItem) slots[1].getItem()).getOwnerParty(slots[1]);
 			return true;
 		}
 

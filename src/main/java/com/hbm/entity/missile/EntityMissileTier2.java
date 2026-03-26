@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import com.hbm.entity.logic.EntityEMP;
+import com.hbm.entity.logic.EntityNukeExplosionMK5;
 import com.hbm.explosion.ExplosionChaos;
 import com.hbm.explosion.ExplosionLarge;
 import com.hbm.items.ModItems;
@@ -74,13 +75,24 @@ public abstract class EntityMissileTier2 extends EntityMissileBaseNT {
 	}
 
 	public static class EntityMissileBusterStrong extends EntityMissileTier2 {
-		public EntityMissileBusterStrong(World world) { super(world); }
-		public EntityMissileBusterStrong(World world, float x, float y, float z, int a, int b, UUID ownerParty) { super(world, x, y, z, a, b, ownerParty);}
+		private static final double DEFPEN = 2000.0;
+		private double penetration;
+		public EntityMissileBusterStrong(World world){
+			super(world);
+			penetration = DEFPEN;
+		}
+		public EntityMissileBusterStrong(World world, float x, float y, float z, int a, int b, UUID ownerParty) {
+			super(world, x, y, z, a, b, ownerParty);
+			penetration = DEFPEN;
+		}
 		@Override public void onMissileImpact(MovingObjectPosition mop) {
-			for(int i = 0; i < 20; i++) this.worldObj.createExplosion(this, this.posX, this.posY - i, this.posZ, 7.5F, true);
+			worldObj.spawnEntityInWorld(EntityNukeExplosionMK5.statFacNoRad(worldObj, 45, this.posX, this.posY, this.posZ,ownerParty));
 			ExplosionLarge.spawnParticles(worldObj, this.posX, this.posY, this.posZ, 8);
 			ExplosionLarge.spawnShrapnels(worldObj, this.posX, this.posY, this.posZ, 8);
 			ExplosionLarge.spawnRubble(worldObj, this.posX, this.posY, this.posZ, 8);
+		}
+		@Override public void onUpdate(){
+			penetration = super.onUpdateAP(penetration);
 		}
 		@Override public ItemStack getDebrisRareDrop() { return new ItemStack(ModItems.warhead_buster_medium); }
 		@Override public ItemStack getMissileItemForInfo() { return new ItemStack(ModItems.missile_buster_strong); }

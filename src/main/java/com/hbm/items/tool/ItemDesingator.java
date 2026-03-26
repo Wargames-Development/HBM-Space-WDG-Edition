@@ -15,7 +15,6 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
 public class ItemDesingator extends Item implements IDesignatorItem {
-	private UUID ownerParty;
 	@Override
 	public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean bool) {
 		if(itemstack.stackTagCompound != null) {
@@ -31,9 +30,14 @@ public class ItemDesingator extends Item implements IDesignatorItem {
 	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
 
 		if(!(world.getBlock(x, y, z) instanceof LaunchPad)) {
-			ownerParty = player.getUniqueID();
+			UUID ownerParty = player.getUniqueID();
 			if(stack.stackTagCompound == null)
 				stack.stackTagCompound = new NBTTagCompound();
+
+			if (ownerParty != null) {
+				stack.stackTagCompound.setLong("ownerMost", ownerParty.getMostSignificantBits());
+				stack.stackTagCompound.setLong("ownerLeast", ownerParty.getLeastSignificantBits());
+			}
 
 			stack.stackTagCompound.setInteger("xCoord", x);
 			stack.stackTagCompound.setInteger("zCoord", z);
@@ -60,7 +64,14 @@ public class ItemDesingator extends Item implements IDesignatorItem {
 		return Vec3.createVectorHelper(stack.stackTagCompound.getInteger("xCoord"), 0, stack.stackTagCompound.getInteger("zCoord"));
 	}
 
-	public UUID getOwnerParty() {
+	public UUID getOwnerParty(ItemStack stack) {
+		UUID ownerParty = null;
+		if (stack.stackTagCompound.hasKey("ownerMost") && stack.stackTagCompound.hasKey("ownerLeast")) {
+			ownerParty = new UUID(
+				stack.stackTagCompound.getLong("ownerMost"),
+				stack.stackTagCompound.getLong("ownerLeast")
+			);
+		}
 		return ownerParty;
 	}
 }

@@ -388,7 +388,7 @@ public abstract class TileEntityLaunchPadBase extends TileEntityMachineBase impl
 
 		if(slots[1] != null && slots[1].getItem() instanceof IDesignatorItem) {
 			IDesignatorItem designator = (IDesignatorItem) slots[1].getItem();
-			ownerParty = designator.getOwnerParty();
+			ownerParty = designator.getOwnerParty(slots[1]);
 			if(needsDesignator) {
 				if(!designator.isReady(worldObj, slots[1], xCoord, yCoord, zCoord)) return BombReturnCode.ERROR_MISSING_COMPONENT;
 
@@ -585,7 +585,7 @@ public abstract class TileEntityLaunchPadBase extends TileEntityMachineBase impl
 	public UUID getOwner(){
 		if(slots[1] != null && slots[1].getItem() instanceof IDesignatorItem) {
 			IDesignatorItem designator = (IDesignatorItem) slots[1].getItem();
-			return designator.getOwnerParty();
+			return designator.getOwnerParty(slots[1]);
 		}
 		return null;
 	}

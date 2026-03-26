@@ -305,7 +305,7 @@ public class TileEntityLaunchTable extends TileEntityLoadedBase implements ISide
 				Vec3 coords = designator.getCoords(worldObj, slots[1], xCoord, yCoord, zCoord);
 				int tX = (int) Math.floor(coords.xCoord);
 				int tZ = (int) Math.floor(coords.zCoord);
-				if(Integrations.canTargetBlockWGC(designator.getOwnerParty(),worldObj, xCoord, yCoord, zCoord)) {
+				if(Integrations.canTargetBlockWGC(designator.getOwnerParty(slots[1]),worldObj, xCoord, yCoord, zCoord)) {
 					this.launchTo(tX, tZ);
 				}
 			}
@@ -399,7 +399,7 @@ public class TileEntityLaunchTable extends TileEntityLoadedBase implements ISide
 	public boolean hasDesignator() {
 
 		if(slots[1] != null && slots[1].getItem() instanceof IDesignatorItem && ((IDesignatorItem)slots[1].getItem()).isReady(worldObj, slots[1], xCoord, yCoord, zCoord)) {
-			ownerParty = ((IDesignatorItem)slots[1].getItem()).getOwnerParty();
+			ownerParty = ((IDesignatorItem)slots[1].getItem()).getOwnerParty(slots[1]);
 			return true;
 		}
 
