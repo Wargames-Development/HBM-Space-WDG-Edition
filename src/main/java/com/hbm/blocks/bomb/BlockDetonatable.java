@@ -19,6 +19,7 @@ public abstract class BlockDetonatable extends BlockFlammable implements IFuckin
 	protected int popFuse; // A shorter fuse for when this explosive is dinked by another
 	protected boolean detonateOnCollision;
 	protected boolean detonateOnShot;
+	private static final ThreadLocal<UUID> explosionOwnerCache = new ThreadLocal<>();
 
 	public BlockDetonatable(Material mat, int en, int flam, int popFuse, boolean detonateOnCollision, boolean detonateOnShot) {
 		super(mat, en, flam);
@@ -29,8 +30,9 @@ public abstract class BlockDetonatable extends BlockFlammable implements IFuckin
 
 	@Override
 	public void onBlockDestroyedByExplosion(World world, int x, int y, int z, Explosion explosion) {
+		UUID owner = explosionOwnerCache.get();
 		if(!world.isRemote) {
-			EntityTNTPrimedBase tntPrimed = new EntityTNTPrimedBase(world, x + 0.5D, y + 0.5D, z + 0.5D, explosion != null ? explosion.getExplosivePlacedBy() : null,getOwnerParty(world,x,y,z), this);
+			EntityTNTPrimedBase tntPrimed = new EntityTNTPrimedBase(world, x + 0.5D, y + 0.5D, z + 0.5D, explosion != null ? explosion.getExplosivePlacedBy() : null, owner, this);
 			tntPrimed.fuse = popFuse <= 0 ? 0 : world.rand.nextInt(popFuse) + popFuse / 2;
 			tntPrimed.detonateOnCollision = detonateOnCollision;
 			world.spawnEntityInWorld(tntPrimed);
@@ -67,14 +69,16 @@ public abstract class BlockDetonatable extends BlockFlammable implements IFuckin
 	}
 	@Override
 	public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
+		explosionOwnerCache.set(BlockPartyOwned.getOwner(world, x, y, z));
 		super.breakBlock(world, x, y, z, block, meta);
 	}
 
-	public TileEntity createNewTileEntity(World world, int meta) {
+	@Override
+	public TileEntity createTileEntity(World world, int meta) {
 		return new TileEntityPartyOwned();
 	}
 
-	public UUID getOwnerParty(World world, int x, int y, int z) {
+	public UUID getOwner(World world, int x, int y, int z) {
 		TileEntity te = world.getTileEntity(x, y, z);
 		UUID owner = null;
 

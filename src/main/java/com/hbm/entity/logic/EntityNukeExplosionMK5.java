@@ -1,6 +1,7 @@
 package com.hbm.entity.logic;
 
 import java.util.List;
+import java.util.UUID;
 
 import com.hbm.interfaces.IExplosionRay;
 import org.apache.logging.log4j.Level;
@@ -32,6 +33,8 @@ public class EntityNukeExplosionMK5 extends EntityExplosionChunkloading {
 	private long explosionStart;
 	public boolean fallout = true;
 	public boolean salted = false;
+
+	public UUID ownedParty;
 
 	private int falloutAdd = 0;
 
@@ -74,7 +77,7 @@ public class EntityNukeExplosionMK5 extends EntityExplosionChunkloading {
 			//if(BombConfig.explosionAlgorithm == 1 || BombConfig.explosionAlgorithm == 2) {
 			//	explosion = new ExplosionNukeRayParallelized(worldObj, posX, posY, posZ, strength, speed, length);
 			//} else {
-				explosion = new ExplosionNukeRayBatched(worldObj, (int) posX, (int) posY, (int) posZ, strength, speed, length);
+				explosion = new ExplosionNukeRayBatched(worldObj, (int) posX, (int) posY, (int) posZ, strength, speed, length, ownedParty);
 			//}
 		}
 
@@ -89,6 +92,7 @@ public class EntityNukeExplosionMK5 extends EntityExplosionChunkloading {
 				fallout.posX = this.posX;
 				fallout.posY = this.posY;
 				fallout.posZ = this.posZ;
+				fallout.owner = this.ownedParty;
 				fallout.setScale((int)(this.length * 2.5 + falloutAdd) * BombConfig.falloutRange / 100);
 				this.worldObj.spawnEntityInWorld(fallout);
 			}
@@ -146,7 +150,7 @@ public class EntityNukeExplosionMK5 extends EntityExplosionChunkloading {
 		nbt.setInteger("ticksExisted", this.ticksExisted);
 	}
 
-	public static EntityNukeExplosionMK5 statFac(World world, int r, double x, double y, double z) {
+	public static EntityNukeExplosionMK5 statFac(World world, int r, double x, double y, double z, UUID party) {
 
 		if(GeneralConfig.enableExtendedLogging && !world.isRemote)
 			MainRegistry.logger.log(Level.INFO, "[NUKE] Initialized explosion at {} / {} / {} with strength {}!", x, y, z, r);
@@ -161,20 +165,21 @@ public class EntityNukeExplosionMK5 extends EntityExplosionChunkloading {
 		mk5.speed = (int)Math.ceil(100000 / mk5.strength);
 		mk5.setPosition(x, y, z);
 		mk5.length = mk5.strength / 2;
+		mk5.ownedParty = party;
 		mk5.loadChunk((int) Math.floor(x / 16D), (int) Math.floor(z / 16D));
 		return mk5;
 	}
 
-	public static EntityNukeExplosionMK5 statFacNoRad(World world, int r, double x, double y, double z) {
+	public static EntityNukeExplosionMK5 statFacNoRad(World world, int r, double x, double y, double z, UUID party) {
 
-		EntityNukeExplosionMK5 mk5 = statFac(world, r, x, y ,z);
+		EntityNukeExplosionMK5 mk5 = statFac(world, r, x, y ,z, party);
 		mk5.fallout = false;
 		return mk5;
 	}
 
-	public static EntityNukeExplosionMK5 statFacSalted(World world, int r, double x, double y, double z) {
+	public static EntityNukeExplosionMK5 statFacSalted(World world, int r, double x, double y, double z, UUID party) {
 
-		EntityNukeExplosionMK5 mk5 = statFac(world, r, x, y ,z);
+		EntityNukeExplosionMK5 mk5 = statFac(world, r, x, y ,z, party);
 		mk5.salted = true;
 		return mk5;
 	}

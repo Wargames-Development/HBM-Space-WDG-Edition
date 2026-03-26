@@ -178,7 +178,7 @@ public class ItemAmmoHIMARS extends Item {
 			public void onImpact(EntityArtilleryRocket rocket, MovingObjectPosition mop) {
 				rocket.killAndClear();
 				Vec3 vec = Vec3.createVectorHelper(rocket.motionX, rocket.motionY, rocket.motionZ).normalize();
-				ExplosionNukeSmall.explode(rocket.worldObj, mop.hitVec.xCoord - vec.xCoord, mop.hitVec.yCoord - vec.yCoord, mop.hitVec.zCoord - vec.zCoord, ExplosionNukeSmall.PARAMS_MEDIUM);
+				ExplosionNukeSmall.explode(rocket.worldObj, mop.hitVec.xCoord - vec.xCoord, mop.hitVec.yCoord - vec.yCoord, mop.hitVec.zCoord - vec.zCoord,rocket.getOwnerParty(), ExplosionNukeSmall.PARAMS_MEDIUM);
 			}
 		};
 

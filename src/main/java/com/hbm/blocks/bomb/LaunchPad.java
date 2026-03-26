@@ -96,7 +96,6 @@ public class LaunchPad extends BlockDummyable implements IBomb {
 		this.makeExtra(world, x - 1, y, z + 1);
 		this.makeExtra(world, x - 1, y, z - 1);
 	}
-	@Override
 	public UUID getOwnerParty(World world, int x, int y, int z){
 		if(!world.isRemote){
 

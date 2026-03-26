@@ -302,7 +302,7 @@ public class EntityBFAngel extends EntityFlying implements IMob, IBossDisplayDat
 
 			    float delta = net.minecraft.util.MathHelper.wrapAngleTo180_float(targetYaw - this.rotationYaw);
 			    this.rotationYaw += delta * 0.15F;
-			    
+
 			    double dist = Math.sqrt(dx * dx + dz * dz);
 			    float targetPitch = (float)(-(Math.atan2(dy, dist) * -180D / Math.PI));
 			    this.rotationPitch += (targetPitch - this.rotationPitch) * 0.1F;
@@ -322,11 +322,11 @@ public class EntityBFAngel extends EntityFlying implements IMob, IBossDisplayDat
 
 		if(this.deathTime == 19 && !worldObj.isRemote) {
 			worldObj.newExplosion(this, posX, posY, posZ, 10F, true, true);
-			ExplosionNukeSmall.explode(worldObj, posX, posY, posZ, ExplosionNukeSmall.PARAMS_MEDIUM);
+			ExplosionNukeSmall.explode(worldObj, posX, posY, posZ,null, ExplosionNukeSmall.PARAMS_MEDIUM);
 
 			List<EntityPlayer> players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, this.boundingBox.expand(200, 200, 200));
 
-			
+
 			for(EntityPlayer player : players) {
 				player.addChatComponentMessage(new ChatComponentText("Stars are starting to flicker...").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
 				player.triggerAchievement(MainRegistry.bossUFO);

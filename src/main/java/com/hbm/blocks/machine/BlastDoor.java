@@ -122,9 +122,4 @@ public class BlastDoor extends BlockContainer implements IBomb, IMultiblock {
 			te.placeDummy(x, y + 6, z)))
 			world.func_147480_a(x, y, z, true);
 	}
-
-	@Override
-	public UUID getOwnerParty(World world, int x, int y, int z) {
-		return null;
-	}
 }

@@ -39,6 +39,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 public abstract class BlockChargeBase extends BlockContainerBase implements IBomb, IToolable, ITooltipProvider, IFuckingExplode {
 
 	public static boolean safe = false;
+	protected static final ThreadLocal<UUID> explosionOwnerCache = new ThreadLocal<>();
 
 	public BlockChargeBase() {
 		super(Material.tnt);
@@ -134,6 +135,7 @@ public abstract class BlockChargeBase extends BlockContainerBase implements IBom
 
 	@Override
 	public void breakBlock(World world, int x, int y, int z, Block block, int i) {
+		explosionOwnerCache.set(getOwner(world, x, y, z));
 		super.breakBlock(world, x, y, z, block, i);
 
 		if(!safe)
@@ -143,12 +145,7 @@ public abstract class BlockChargeBase extends BlockContainerBase implements IBom
 	@Override
 	public void onBlockDestroyedByExplosion(World world, int x, int y, int z, Explosion explosion) {
 		if(!world.isRemote) {
-			TileEntity te = world.getTileEntity(x, y, z);
-			UUID owner = null;
-
-			if (te instanceof TileEntityCharge) {
-				owner = ((TileEntityCharge) te).ownerParty;
-			}
+			UUID owner = explosionOwnerCache.get();
 
 			EntityTNTPrimedBase tntPrimed =
 				new EntityTNTPrimedBase(world, x + 0.5D, y + 0.5D, z + 0.5D,
@@ -226,7 +223,7 @@ public abstract class BlockChargeBase extends BlockContainerBase implements IBom
 	}
 
 	@Override
-	public UUID getOwnerParty(World world, int x, int y, int z) {
+	public UUID getOwner(World world, int x, int y, int z) {
 		TileEntity te = world.getTileEntity(x, y, z);
 		if (te instanceof TileEntityCharge) {
 			return ((TileEntityCharge) te).ownerParty;

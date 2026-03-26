@@ -1,6 +1,7 @@
 package com.hbm.blocks.bomb;
 
 import java.util.List;
+import java.util.UUID;
 
 import com.hbm.main.MainRegistry;
 import com.hbm.config.GeneralConfig;
@@ -27,7 +28,12 @@ public class BlockChargeC4 extends BlockChargeBase {
 			world.setBlockToAir(x, y, z);
 			safe = false;
 
-			ExplosionVNT xnt = new ExplosionVNT(world, x + 0.5, y + 0.5, z + 0.5, 15F, ownerParty);
+			UUID owner = getOwner(world,x,y,z);
+			if(owner == null) {
+				owner = explosionOwnerCache.get();
+			}
+
+			ExplosionVNT xnt = new ExplosionVNT(world, x + 0.5, y + 0.5, z + 0.5, 15F, owner);
 			xnt.setBlockAllocator(new BlockAllocatorStandard(32));
 			xnt.setBlockProcessor(new BlockProcessorStandard().setNoDrop());
 			xnt.setEntityProcessor(new EntityProcessorStandard());

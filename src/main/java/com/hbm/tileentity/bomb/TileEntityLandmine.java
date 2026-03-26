@@ -87,6 +87,9 @@ public class TileEntityLandmine extends TileEntity implements IPartyOwned {
 	public UUID getOwner() {
 		return ownerParty;
 	}
+	public void setOwner(UUID owner) {
+		ownerParty = owner;
+	}
 
 	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);

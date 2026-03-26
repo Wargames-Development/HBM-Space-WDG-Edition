@@ -23,6 +23,12 @@ public class Integrations {
 		return canTargetBlock(party, world, x, y, z);
 	}
 	public static boolean canDetonateWGC(UUID party, World world, int x, int y, int z){
+		if(party == null){
+			System.out.println("Null UUID!");
+		}
+		else {
+			System.out.println("Detonate UUID:" + party.toString());
+		}
 		return canDetonate(party, world, x, y, z);
 	}
 	public static Set<ChunkCoordIntPair> getExplosionProtectedChunksWGC(UUID party, World world, int x, int z, int r){

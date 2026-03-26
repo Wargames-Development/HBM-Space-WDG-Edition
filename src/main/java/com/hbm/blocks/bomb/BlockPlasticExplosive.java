@@ -80,7 +80,7 @@ public class BlockPlasticExplosive extends BlockDetonatable implements IBomb {
 	public BombReturnCode explode(World world, int x, int y, int z) {
 
 		if(!world.isRemote) {
-			new ExplosionVNT(world, x + 0.5, y + 0.5, z + 0.5, 20, getOwnerParty(world,x,y,z)).makeStandard().setBlockProcessor(new BlockProcessorStandard().setNoDrop()).explode();
+			new ExplosionVNT(world, x + 0.5, y + 0.5, z + 0.5, 20, getOwner(world,x,y,z)).makeStandard().setBlockProcessor(new BlockProcessorStandard().setNoDrop()).explode();
 		}
 
 		return BombReturnCode.DETONATED;

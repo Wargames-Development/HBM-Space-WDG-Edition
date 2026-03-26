@@ -7,16 +7,22 @@ import cpw.mods.fml.client.registry.RenderingRegistry;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
+import java.util.UUID;
+
 public class BlockChargeDynamite extends BlockChargeBase {
 
 	@Override
 	public BombReturnCode explode(World world, int x, int y, int z) {
 
 		if(!world.isRemote) {
+			UUID owner = getOwner(world,x,y,z);
+			if(owner == null) {
+				owner = explosionOwnerCache.get();
+			}
 			safe = true;
 			world.setBlockToAir(x, y, z);
 			safe = false;
-			ExplosionVNT exp = new ExplosionVNT(world, x + 0.5, y + 0.5, z + 0.5, 4F, ownerParty);
+			ExplosionVNT exp = new ExplosionVNT(world, x + 0.5, y + 0.5, z + 0.5, 4F, owner);
 			exp.explode();
 			ExplosionSmallCreator.composeEffect(world, x + 0.5, y + 0.5, z + 0.5, 15, 3F, 1.25F);
 

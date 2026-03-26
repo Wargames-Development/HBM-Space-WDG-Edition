@@ -67,7 +67,7 @@ public abstract class EntityMissileTier4 extends EntityMissileBaseNT {
 		public EntityMissileNuclear(World world) { super(world); }
 		public EntityMissileNuclear(World world, float x, float y, float z, int a, int b, UUID ownerParty) { super(world, x, y, z, a, b, ownerParty); }
 		@Override public void onMissileImpact(MovingObjectPosition mop) {
-			WorldUtil.loadAndSpawnEntityInWorld(EntityNukeExplosionMK5.statFac(worldObj, BombConfig.missileRadius, posX, posY, posZ));
+			WorldUtil.loadAndSpawnEntityInWorld(EntityNukeExplosionMK5.statFac(worldObj, BombConfig.missileRadius, posX, posY, posZ,ownerParty));
 			EntityNukeTorex.statFacStandard(worldObj, posX, posY, posZ, BombConfig.missileRadius);
 		}
 		@Override public ItemStack getDebrisRareDrop() { return new ItemStack(ModItems.warhead_nuclear); }
@@ -78,7 +78,7 @@ public abstract class EntityMissileTier4 extends EntityMissileBaseNT {
 		public EntityMissileMirv(World world) { super(world); }
 		public EntityMissileMirv(World world, float x, float y, float z, int a, int b, UUID ownerParty) { super(world, x, y, z, a, b, ownerParty); }
 		@Override public void onMissileImpact(MovingObjectPosition mop) {
-			WorldUtil.loadAndSpawnEntityInWorld(EntityNukeExplosionMK5.statFac(worldObj, BombConfig.missileRadius * 2, posX, posY, posZ));
+			WorldUtil.loadAndSpawnEntityInWorld(EntityNukeExplosionMK5.statFac(worldObj, BombConfig.missileRadius * 2, posX, posY, posZ,ownerParty));
 			EntityNukeTorex.statFacStandard(worldObj, posX, posY, posZ, BombConfig.missileRadius * 2);
 		}
 		@Override public List<ItemStack> getDebris() {
@@ -109,7 +109,7 @@ public abstract class EntityMissileTier4 extends EntityMissileBaseNT {
 		public EntityMissileDoomsday(World world) { super(world); }
 		public EntityMissileDoomsday(World world, float x, float y, float z, int a, int b, UUID ownerParty) { super(world, x, y, z, a, b, ownerParty);}
 		@Override public void onMissileImpact(MovingObjectPosition mop) {
-			WorldUtil.loadAndSpawnEntityInWorld(EntityNukeExplosionMK5.statFac(worldObj, BombConfig.missileRadius * 2, posX, posY, posZ).moreFallout(100));
+			WorldUtil.loadAndSpawnEntityInWorld(EntityNukeExplosionMK5.statFac(worldObj, BombConfig.missileRadius * 2, posX, posY, posZ,ownerParty).moreFallout(100));
 			EntityNukeTorex.statFacStandard(worldObj, posX, posY, posZ, BombConfig.missileRadius * 2);
 		}
 		@Override public List<ItemStack> getDebris() { return null; }
@@ -122,7 +122,7 @@ public abstract class EntityMissileTier4 extends EntityMissileBaseNT {
 		public EntityMissileDoomsdayRusted(World world) { super(world); }
 		public EntityMissileDoomsdayRusted(World world, float x, float y, float z, int a, int b, UUID ownerParty) { super(world, x, y, z, a, b, ownerParty); }
 		@Override public void onMissileImpact(MovingObjectPosition mop) {
-			WorldUtil.loadAndSpawnEntityInWorld(EntityNukeExplosionMK5.statFac(worldObj, BombConfig.missileRadius, posX, posY, posZ).moreFallout(100));
+			WorldUtil.loadAndSpawnEntityInWorld(EntityNukeExplosionMK5.statFac(worldObj, BombConfig.missileRadius, posX, posY, posZ,ownerParty).moreFallout(100));
 			EntityNukeTorex.statFacStandard(worldObj, posX, posY, posZ, BombConfig.missileRadius);
 		}
 		@Override public ItemStack getMissileItemForInfo() { return new ItemStack(ModItems.missile_doomsday_rusted); }

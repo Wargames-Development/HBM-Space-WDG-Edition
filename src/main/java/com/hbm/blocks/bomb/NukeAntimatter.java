@@ -20,7 +20,6 @@ import java.util.UUID;
 
 public class NukeAntimatter extends BlockMachineBase implements IBomb {
 
-	private UUID ownerParty;
 	public NukeAntimatter(Material mat) {
 		super(mat, 0);
 		rotatable = true;
@@ -54,10 +53,11 @@ public class NukeAntimatter extends BlockMachineBase implements IBomb {
 			explode(world, x, y, z);
 		}
 	}
+
 	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack itemStack) {
 		if(!world.isRemote) {
-			ownerParty = player.getUniqueID();
+			BlockPartyOwned.setOwner(world,x,y,z, player.getUniqueID());
 			if(GeneralConfig.enableExtendedLogging) {
 				MainRegistry.logger.log(Level.INFO, "[BOMBPL]" + this.getLocalizedName() + " placed at " + x + " / " + y + " / " + z + "! " + "by "+ player.getCommandSenderName());
 		}
@@ -67,7 +67,7 @@ public class NukeAntimatter extends BlockMachineBase implements IBomb {
 	@Override
 	public BombReturnCode explode(World world, int x, int y, int z) {
 
-		if(!world.isRemote & Integrations.canDetonateWGC(ownerParty, world, x, y, z)) {
+		if(!world.isRemote & Integrations.canDetonateWGC(BlockPartyOwned.getOwner(world, x, y, z), world, x, y, z)) {
 			TileEntityAntimatter bomb = (TileEntityAntimatter) world.getTileEntity(x, y, z);
 
 			if(bomb.isLoaded()) {
@@ -81,9 +81,8 @@ public class NukeAntimatter extends BlockMachineBase implements IBomb {
 		return BombReturnCode.UNDEFINED;
 	}
 
-	@Override
 	public UUID getOwnerParty(World world, int x, int y, int z) {
-		return ownerParty;
+		return BlockPartyOwned.getOwner(world, x, y, z);
 	}
 }
 

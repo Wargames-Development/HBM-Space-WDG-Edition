@@ -581,12 +581,14 @@ public abstract class TileEntityLaunchPadBase extends TileEntityMachineBase impl
 	public FluidTank getTankToPaste() {
 		return null;
 	}
-	@Override
+
 	public UUID getOwner(){
 		if(slots[1] != null && slots[1].getItem() instanceof IDesignatorItem) {
 			IDesignatorItem designator = (IDesignatorItem) slots[1].getItem();
 			return designator.getOwnerParty();
 		}
 		return null;
+	}
+	public void setOwner(UUID owner){
 	}
 }

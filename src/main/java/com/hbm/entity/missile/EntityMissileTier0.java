@@ -83,7 +83,7 @@ public abstract class EntityMissileTier0 extends EntityMissileBaseNT {
 	public static class EntityMissileMicro extends EntityMissileTier0 {
 		public EntityMissileMicro(World world) { super(world); }
 		public EntityMissileMicro(World world, float x, float y, float z, int a, int b, UUID ownerParty) { super(world, x, y, z, a, b, ownerParty); }
-		@Override public void onMissileImpact(MovingObjectPosition mop) { ExplosionNukeSmall.explode(worldObj, posX, posY + 0.5, posZ, ExplosionNukeSmall.PARAMS_HIGH); }
+		@Override public void onMissileImpact(MovingObjectPosition mop) { ExplosionNukeSmall.explode(worldObj, posX, posY + 0.5, posZ,ownerParty, ExplosionNukeSmall.PARAMS_HIGH); }
 		@Override public ItemStack getDebrisRareDrop() { return DictFrame.fromOne(ModItems.ammo_standard, EnumAmmo.NUKE_HIGH); }
 		@Override public ItemStack getMissileItemForInfo() { return new ItemStack(ModItems.missile_micro); }
 	}

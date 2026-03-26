@@ -18,19 +18,19 @@ public class TestCore extends Block {
 
 	@Override
 	public void updateTick(World world, int x, int y, int z, Random rand) {
-		
+
 		if(!world.isRemote) {
-			
+
 			int meta = world.getBlockMetadata(x, y, z);
-			
+
 			if(meta >= 6) {
 
 				world.setBlockToAir(x, y, z);
-				world.spawnEntityInWorld(EntityNukeExplosionMK5.statFac(world, BombConfig.missileRadius, x + 0.5, y + 0.5, z + 0.5));
+				world.spawnEntityInWorld(EntityNukeExplosionMK5.statFac(world, BombConfig.missileRadius, x + 0.5, y + 0.5, z + 0.5,null));
 				EntityNukeTorex.statFacStandard(world, x + 0.5, y + 0.5, z + 0.5, BombConfig.missileRadius);
-				
+
 			} else if(meta > 0) {
-				
+
 				world.newExplosion(null, x + 0.5, y + 0.5, z + 0.5, 5.0F, false, true);
 			}
 		}

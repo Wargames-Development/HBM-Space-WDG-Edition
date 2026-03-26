@@ -1,6 +1,7 @@
 package com.hbm.blocks.bomb;
 
 import java.util.List;
+import java.util.UUID;
 
 import com.hbm.config.GeneralConfig;
 import com.hbm.explosion.vanillant.ExplosionVNT;
@@ -19,11 +20,15 @@ public class BlockChargeSemtex extends BlockChargeBase {
 	public BombReturnCode explode(World world, int x, int y, int z) {
 
 		if(!world.isRemote) {
+			UUID owner = getOwner(world,x,y,z);
+			if(owner == null) {
+				owner = explosionOwnerCache.get();
+			}
 			safe = true;
 			world.setBlockToAir(x, y, z);
 			safe = false;
 
-			ExplosionVNT xnt = new ExplosionVNT(world, x + 0.5, y + 0.5, z + 0.5, 10F, ownerParty);
+			ExplosionVNT xnt = new ExplosionVNT(world, x + 0.5, y + 0.5, z + 0.5, 10F, owner);
 			xnt.setBlockAllocator(new BlockAllocatorStandard(32));
 			xnt.setBlockProcessor(new BlockProcessorStandard()
 					.setAllDrop()

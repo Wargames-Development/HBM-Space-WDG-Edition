@@ -14,9 +14,11 @@ import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
+import java.util.UUID;
+
 @Deprecated public class ExplosionNukeSmall {
 
-	public static void explode(World world, double posX, double posY, double posZ, MukeParams params) {
+	public static void explode(World world, double posX, double posY, double posZ, UUID party, MukeParams params) {
 
 		// spawn particles, if present (visual only)
 		if(params.particle != null) {
@@ -53,7 +55,7 @@ import net.minecraft.world.World;
 			ExplosionNukeGeneric.dealDamage(world, posX, posY, posZ, params.killRadius);
 
 		if(!params.miniNuke)
-			WorldUtil.loadAndSpawnEntityInWorld(EntityNukeExplosionMK5.statFac(world, (int) params.blastRadius, posX, posY, posZ));
+			WorldUtil.loadAndSpawnEntityInWorld(EntityNukeExplosionMK5.statFac(world, (int) params.blastRadius, posX, posY, posZ,party));
 
 		if(params.miniNuke) {
 			float radMod = params.radiationLevel / 3F;

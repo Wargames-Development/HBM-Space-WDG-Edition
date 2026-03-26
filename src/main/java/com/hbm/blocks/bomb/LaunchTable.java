@@ -223,7 +223,6 @@ public class LaunchTable extends BlockContainer implements IMultiblock, IBomb {
 	}
 
 
-	@Override
 	public UUID getOwnerParty(World world, int x, int y, int z){
 		TileEntityLaunchTable entity = (TileEntityLaunchTable) world.getTileEntity(x, y, z);
 		return entity.getOwnerParty();

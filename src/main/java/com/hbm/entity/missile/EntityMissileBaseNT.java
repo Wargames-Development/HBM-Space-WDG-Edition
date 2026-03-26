@@ -49,7 +49,7 @@ public abstract class EntityMissileBaseNT extends EntityThrowableInterp implemen
 	public boolean isCluster = false;
 	private Ticket loaderTicket;
 	public int health = 50;
-	private UUID ownerParty;
+	protected UUID ownerParty;
 
 	public EntityMissileBaseNT(World world) {
 		super(world);

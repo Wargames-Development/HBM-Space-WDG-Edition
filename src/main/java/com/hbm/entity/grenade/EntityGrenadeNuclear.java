@@ -26,8 +26,8 @@ public class EntityGrenadeNuclear extends EntityGrenadeBouncyBase {
 
 		if(!this.worldObj.isRemote) {
 			this.setDead();
-			
-			ExplosionNukeSmall.explode(worldObj, posX, posY + 0.5, posZ, ExplosionNukeSmall.PARAMS_TOTS);
+
+			ExplosionNukeSmall.explode(worldObj, posX, posY + 0.5, posZ, thrower.getUniqueID(),ExplosionNukeSmall.PARAMS_TOTS);
 		}
 	}
 

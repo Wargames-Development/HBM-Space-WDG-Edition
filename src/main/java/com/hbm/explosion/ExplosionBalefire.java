@@ -77,15 +77,6 @@ public class ExplosionBalefire
 
 	public boolean update() {
 
-		// === SAFEZONE HOOK: veto whole balefire blast before any block edits ===
-		if (HbmExplosionHooks.pre(this.worldObj,
-			this.posX + 0.5, this.posY + 0.5, this.posZ + 0.5,
-			(float) this.radius,
-			this,
-			"BALEFIRE")) {
-			// Returning true tells the caller "we're done" – aborts further columns.
-			return true;
-		}
 
 		if(n == 0) return true;
 
@@ -118,12 +109,8 @@ public class ExplosionBalefire
 
 				if (worldObj.getBlock(pX, y, pZ) == ModBlocks.block_schrabidium_cluster && !antimatter) {
 					if (worldObj.rand.nextInt(10) == 0) {
-						// balefire cap
-						if (!HbmExplosionHooks.blockDenied(worldObj, pX, y + 1, pZ, "BALEFIRE"))
-							worldObj.setBlock(pX, y + 1, pZ, ModBlocks.balefire);
-						// convert cluster
-						if (!HbmExplosionHooks.blockDenied(worldObj, pX, y, pZ, "BALEFIRE"))
-							worldObj.setBlock(pX, y, pZ, ModBlocks.block_euphemium_cluster, worldObj.getBlockMetadata(pX, y, pZ), 3);
+						worldObj.setBlock(pX, y + 1, pZ, ModBlocks.balefire);
+						worldObj.setBlock(pX, y, pZ, ModBlocks.block_euphemium_cluster, worldObj.getBlockMetadata(pX, y, pZ), 3);
 					}
 					return;
 				}
@@ -137,7 +124,6 @@ public class ExplosionBalefire
 
 				if (worldObj.getBlock(pX, y, pZ) != ModBlocks.plasma) {
 					// carve
-					if (!HbmExplosionHooks.blockDenied(worldObj, pX, y, pZ, "BALEFIRE"))
 						worldObj.setBlockToAir(pX, y, pZ);
 				}
 
@@ -146,11 +132,9 @@ public class ExplosionBalefire
 
 			if (worldObj.rand.nextInt(10) == 0 && !antimatter) {
 				// surface balefire
-				if (!HbmExplosionHooks.blockDenied(worldObj, pX, depth + 1, pZ, "BALEFIRE"))
 					worldObj.setBlock(pX, depth + 1, pZ, ModBlocks.balefire);
 
 				if (worldObj.getBlock(pX, y, pZ) == ModBlocks.block_schrabidium_cluster && !antimatter) {
-					if (!HbmExplosionHooks.blockDenied(worldObj, pX, y, pZ, "BALEFIRE"))
 						worldObj.setBlock(pX, y, pZ, ModBlocks.block_euphemium_cluster, worldObj.getBlockMetadata(pX, y, pZ), 3);
 				}
 			}
@@ -158,12 +142,10 @@ public class ExplosionBalefire
 			for (int i = depth; i > depth - 5; i--) {
 				Random rand = new Random();
 				if (rand.nextInt(dist) == 0 && antimatter) {
-					if (!HbmExplosionHooks.blockDenied(worldObj, pX, depth, pZ, "BALEFIRE"))
 						worldObj.setBlock(pX, depth, pZ, ModBlocks.volcanic_lava_block);
 				}
 
 				if (worldObj.getBlock(pX, i, pZ) == Blocks.stone) {
-					if (!HbmExplosionHooks.blockDenied(worldObj, pX, i, pZ, "BALEFIRE"))
 						worldObj.setBlock(pX, i, pZ, ModBlocks.sellafield_slaked);
 				}
 			}

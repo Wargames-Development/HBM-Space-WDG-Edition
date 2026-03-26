@@ -9,7 +9,7 @@ import net.minecraft.world.World;
 
 import java.util.UUID;
 
-public class BlockPartyOwned extends Block implements ITileEntityProvider {
+public class BlockPartyOwned extends Block{
 	protected BlockPartyOwned(Material p_i45394_1_) {
 		super(p_i45394_1_);
 	}
@@ -22,13 +22,19 @@ public class BlockPartyOwned extends Block implements ITileEntityProvider {
 	public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
 		super.breakBlock(world, x, y, z, block, meta);
 	}
-
-	public TileEntity createNewTileEntity(World world, int meta) {
+	@Override
+	public TileEntity createTileEntity(World world, int meta) {
 		return new TileEntityPartyOwned();
 	}
 
 	public static UUID getOwner(World world, int x, int y, int z) {
 		TileEntity te = world.getTileEntity(x, y, z);
+		if(te == null) {
+			System.out.println("getOwner didn't find a tile entity");
+		}
+		else{
+			System.out.println("getOwner found a tile entity, type: " + te.getClass().getSimpleName());
+		}
 		UUID owner = null;
 
 		if (te instanceof TileEntityPartyOwned) {
@@ -39,24 +45,16 @@ public class BlockPartyOwned extends Block implements ITileEntityProvider {
 	public static void setOwner(World world, int x, int y, int z, UUID newOwner) {
 		TileEntity te = world.getTileEntity(x, y, z);
 
-		if (te instanceof TileEntityPartyOwned) {
-			((TileEntityPartyOwned) te).ownerParty = newOwner;
+		if(te == null) {
+			System.out.println("setOwner didn't find a tile entity");
 		}
-	}
-	public UUID getOwnerParty(World world, int x, int y, int z) {
-		TileEntity te = world.getTileEntity(x, y, z);
-		UUID owner = null;
-
-		if (te instanceof TileEntityPartyOwned) {
-			owner = ((TileEntityPartyOwned) te).ownerParty;
+		else{
+			System.out.println("setOwner found a tile entity, type: " + te.getClass().getSimpleName());
 		}
-		return owner;
-	}
-	public void setOwnerParty(World world, int x, int y, int z, UUID newOwner) {
-		TileEntity te = world.getTileEntity(x, y, z);
 
 		if (te instanceof TileEntityPartyOwned) {
 			((TileEntityPartyOwned) te).ownerParty = newOwner;
+			te.markDirty();
 		}
 	}
 

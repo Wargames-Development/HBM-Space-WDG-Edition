@@ -78,7 +78,7 @@ public abstract class BlockTNTBase extends BlockDetonatable implements IToolable
 	public void prime(World world, int x, int y, int z, int meta, EntityLivingBase living) {
 		if(!world.isRemote) {
 			if((meta & 1) == 1) {
-				EntityTNTPrimedBase entitytntprimed = new EntityTNTPrimedBase(world, x + 0.5D, y + 0.5D, z + 0.5D, living,ownerParty, this);
+				EntityTNTPrimedBase entitytntprimed = new EntityTNTPrimedBase(world, x + 0.5D, y + 0.5D, z + 0.5D, living,BlockPartyOwned.getOwner(world,x,y,z), this);
 				world.spawnEntityInWorld(entitytntprimed);
 				world.playSoundAtEntity(entitytntprimed, "game.tnt.primed", 1.0F, 1.0F);
 			}

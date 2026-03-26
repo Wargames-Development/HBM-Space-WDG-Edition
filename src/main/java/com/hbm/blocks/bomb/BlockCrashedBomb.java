@@ -109,12 +109,12 @@ public class BlockCrashedBomb extends BlockEnumMulti implements ITileEntityProvi
 			}
 
 			if(type == type.NUKE) {
-				world.spawnEntityInWorld(EntityNukeExplosionMK5.statFac(world, 35, x + 0.5, y + 0.5, z + 0.5));
+				world.spawnEntityInWorld(EntityNukeExplosionMK5.statFac(world, 35, x + 0.5, y + 0.5, z + 0.5, null));
 				spawnMush(world, x, y, z, MainRegistry.polaroidID == 11 || world.rand.nextInt(100) == 0);
 			}
 
 			if(type == type.SALTED) {
-				world.spawnEntityInWorld(EntityNukeExplosionMK5.statFac(world, 25, x + 0.5, y + 0.5, z + 0.5).moreFallout(25));
+				world.spawnEntityInWorld(EntityNukeExplosionMK5.statFac(world, 25, x + 0.5, y + 0.5, z + 0.5, null).moreFallout(25));
 				spawnMush(world, x, y, z, MainRegistry.polaroidID == 11 || world.rand.nextInt(100) == 0);
 			}
 		}
@@ -129,8 +129,6 @@ public class BlockCrashedBomb extends BlockEnumMulti implements ITileEntityProvi
 		data.setBoolean("balefire", balefire);
 		PacketThreading.createAllAroundThreadedPacket(new AuxParticlePacketNT(data, x + 0.5, y + 0.5, z + 0.5), new TargetPoint(world.provider.dimensionId, x + 0.5, y + 0.5, z + 0.5, 250));
 	}
-
-	@Override
 	public UUID getOwnerParty(World world, int x, int y, int z) {
 		return null;
 	}

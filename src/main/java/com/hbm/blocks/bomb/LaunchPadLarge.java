@@ -100,7 +100,6 @@ public class LaunchPadLarge extends BlockDummyable implements IBomb {
 	}
 
 
-	@Override
 	public UUID getOwnerParty(World world, int x, int y, int z){
 		if(!world.isRemote){
 

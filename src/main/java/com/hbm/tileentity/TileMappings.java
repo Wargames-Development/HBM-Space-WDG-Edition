@@ -303,6 +303,7 @@ public class TileMappings {
 		put(TileEntityNukeCustom.class, "tileentity_nuke_custom");
 		put(TileEntityCharge.class, "tileentity_explosive_charge");
 		put(TileEntityVolcanoCore.class, "tileentity_volcano_core");
+		put(TileEntityPartyOwned.class,"tileentity_party_owned");
 	}
 
 	private static void putTurrets() {

@@ -2,6 +2,7 @@ package com.hbm.tileentity.bomb;
 
 import java.util.HashMap;
 
+import api.hbm.tile.IPartyOwned;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.blocks.bomb.NukeCustom;
 import com.hbm.inventory.RecipesCommon.ComparableStack;
@@ -24,10 +25,11 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 
-public class TileEntityNukeCustom extends TileEntity implements ISidedInventory, IGUIProvider {
+public class TileEntityNukeCustom extends TileEntityPartyOwned implements ISidedInventory, IGUIProvider, IPartyOwned {
 
 	public ItemStack slots[];
 	private String customName;
+
 
 	public TileEntityNukeCustom() {
 		slots = new ItemStack[27];
@@ -164,6 +166,7 @@ public class TileEntityNukeCustom extends TileEntity implements ISidedInventory,
 		}
 
 		customName = nbt.getString("name");
+
 	}
 
 	@Override

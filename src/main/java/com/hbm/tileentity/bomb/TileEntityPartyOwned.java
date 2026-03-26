@@ -10,9 +10,11 @@ public class TileEntityPartyOwned extends TileEntity implements IPartyOwned {
 	//Owner Serialization
 	public UUID ownerParty;
 
-	@Override
 	public UUID getOwner() {
 		return ownerParty;
+	}
+	public void setOwner(UUID owner) {
+		ownerParty = owner;
 	}
 
 	@Override

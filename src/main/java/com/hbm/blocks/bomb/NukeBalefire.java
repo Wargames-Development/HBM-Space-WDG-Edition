@@ -18,9 +18,9 @@ import net.minecraft.world.World;
 
 import java.util.UUID;
 
-public class NukeBalefire extends BlockMachineBase implements IBomb {
+import static sun.audio.AudioPlayer.player;
 
-	private UUID ownerParty;
+public class NukeBalefire extends BlockMachineBase implements IBomb {
 	public NukeBalefire(Material mat) {
 		super(mat, 0);
 		rotatable = true;
@@ -57,7 +57,7 @@ public class NukeBalefire extends BlockMachineBase implements IBomb {
 	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack itemStack) {
 		if(!world.isRemote) {
-			ownerParty = player.getUniqueID();
+			BlockPartyOwned.setOwner(world,x,y,z, player.getUniqueID());
 			if(GeneralConfig.enableExtendedLogging) {
 				MainRegistry.logger.log(Level.INFO, "[BOMBPL]" + this.getLocalizedName() + " placed at " + x + " / " + y + " / " + z + "! " + "by "+ player.getCommandSenderName());
 		}
@@ -67,7 +67,7 @@ public class NukeBalefire extends BlockMachineBase implements IBomb {
 	@Override
 	public BombReturnCode explode(World world, int x, int y, int z) {
 
-		if(!world.isRemote & Integrations.canDetonateWGC(ownerParty, world, x, y, z)) {
+		if(!world.isRemote & Integrations.canDetonateWGC(BlockPartyOwned.getOwner(world,x,y,z), world, x, y, z)) {
 			TileEntityNukeBalefire bomb = (TileEntityNukeBalefire) world.getTileEntity(x, y, z);
 
 			if(bomb.isLoaded()) {
@@ -81,9 +81,8 @@ public class NukeBalefire extends BlockMachineBase implements IBomb {
 		return BombReturnCode.UNDEFINED;
 	}
 
-	@Override
 	public UUID getOwnerParty(World world, int x, int y, int z) {
-		return ownerParty;
+		return BlockPartyOwned.getOwner(world,x,y,z);
 	}
 }
 

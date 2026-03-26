@@ -225,8 +225,6 @@ public class Landmine extends BlockContainer implements IBomb {
 			}
 		}
 	}
-
-	@Override
 	public UUID getOwnerParty(World world, int x, int y, int z) {
 		return BlockPartyOwned.getOwner(world, x, y, z);
 	}

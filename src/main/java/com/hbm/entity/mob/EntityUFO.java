@@ -301,7 +301,7 @@ public class EntityUFO extends EntityFlying implements IMob, IBossDisplayData, I
 
 		if(this.deathTime == 19 && !worldObj.isRemote) {
 			worldObj.newExplosion(this, posX, posY, posZ, 10F, true, true);
-			ExplosionNukeSmall.explode(worldObj, posX, posY, posZ, ExplosionNukeSmall.PARAMS_MEDIUM);
+			ExplosionNukeSmall.explode(worldObj, posX, posY, posZ,null, ExplosionNukeSmall.PARAMS_MEDIUM);
 
 			List<EntityPlayer> players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, this.boundingBox.expand(200, 200, 200));
 

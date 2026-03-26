@@ -38,7 +38,7 @@ public class DetMiner extends BlockPillar implements IBomb, IFuckingExplode {
 	public BombReturnCode explode(World world, int x, int y, int z) {
 
 		if(!world.isRemote) {
-			if(Integrations.canDetonateWGC(getOwnerParty(world,x,y,z), world, x, y, z)) {
+			if(Integrations.canDetonateWGC(getOwner(world,x,y,z), world, x, y, z)) {
 				world.func_147480_a(x, y, z, false);
 				ExplosionNT explosion = new ExplosionNT(world, null, x + 0.5, y + 0.5, z + 0.5, 4);
 				explosion.atttributes.add(ExAttrib.ALLDROP);
@@ -59,7 +59,7 @@ public class DetMiner extends BlockPillar implements IBomb, IFuckingExplode {
 	@Override
 	public void onBlockDestroyedByExplosion(World world, int x, int y, int z, Explosion explosion) {
 		if(!world.isRemote) {
-			EntityTNTPrimedBase tntPrimed = new EntityTNTPrimedBase(world, x + 0.5D, y + 0.5D, z + 0.5D, explosion != null ? explosion.getExplosivePlacedBy() : null,getOwnerParty(world,x,y,z), this);
+			EntityTNTPrimedBase tntPrimed = new EntityTNTPrimedBase(world, x + 0.5D, y + 0.5D, z + 0.5D, explosion != null ? explosion.getExplosivePlacedBy() : null, getOwner(world,x,y,z), this);
 			tntPrimed.fuse = 0;
 			tntPrimed.detonateOnCollision = false;
 			world.spawnEntityInWorld(tntPrimed);
@@ -94,7 +94,7 @@ public class DetMiner extends BlockPillar implements IBomb, IFuckingExplode {
 	public TileEntity createNewTileEntity(World world, int meta) {
 		return new TileEntityPartyOwned();
 	}
-	public UUID getOwnerParty(World world, int x, int y, int z) {
+	public UUID getOwner(World world, int x, int y, int z) {
 		TileEntity te = world.getTileEntity(x, y, z);
 		UUID owner = null;
 

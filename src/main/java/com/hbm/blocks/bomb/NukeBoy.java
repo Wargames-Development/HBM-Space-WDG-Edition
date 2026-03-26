@@ -1,5 +1,6 @@
 package com.hbm.blocks.bomb;
 
+import java.security.acl.Owner;
 import java.util.Random;
 import java.util.UUID;
 
@@ -31,7 +32,6 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 public class NukeBoy extends BlockContainer implements IBomb {
-	private UUID ownerParty;
 	public TileEntityNukeBoy tetn = new TileEntityNukeBoy();
 
 	private static boolean keepInventory = false;
@@ -129,7 +129,7 @@ public class NukeBoy extends BlockContainer implements IBomb {
 			tetn.clearSlots();
 			world.playSoundEffect(x, y, z, "random.explode", 1.0f, world.rand.nextFloat() * 0.1F + 0.9F);
 
-			world.spawnEntityInWorld(EntityNukeExplosionMK5.statFac(world, BombConfig.boyRadius, x + 0.5, y + 0.5, z + 0.5));
+			world.spawnEntityInWorld(EntityNukeExplosionMK5.statFac(world, BombConfig.boyRadius, x + 0.5, y + 0.5, z + 0.5, getOwnerParty(world, x, y, z)));
 			//world.spawnEntityInWorld(EntityNukeCloudSmall.statFac(world, x, y, z, BombConfig.boyRadius));
 
 			EntityNukeTorex torex = new EntityNukeTorex(world);
@@ -173,7 +173,7 @@ public class NukeBoy extends BlockContainer implements IBomb {
 			world.setBlockMetadataWithNotify(x, y, z, 2, 2);
 		}
 		if(!world.isRemote) {
-			ownerParty = player.getUniqueID();
+			BlockPartyOwned.setOwner(world,x,y,z,player.getUniqueID());
 			if(GeneralConfig.enableExtendedLogging) {
 				MainRegistry.logger.log(Level.INFO, "[BOMBPL]" + this.getLocalizedName() + " placed at " + x + " / " + y + " / " + z + "! " + "by "+ player.getCommandSenderName());
 		}
@@ -183,7 +183,7 @@ public class NukeBoy extends BlockContainer implements IBomb {
 	@Override
 	public BombReturnCode explode(World world, int x, int y, int z) {
 
-		if(!world.isRemote & Integrations.canDetonateWGC(ownerParty, world, x, y, z)) {
+		if(!world.isRemote & Integrations.canDetonateWGC(BlockPartyOwned.getOwner(world, x, y, z), world, x, y, z)) {
 			TileEntityNukeBoy entity = (TileEntityNukeBoy) world.getTileEntity(x, y, z);
 
 			if(entity.isReady()) {
@@ -199,8 +199,7 @@ public class NukeBoy extends BlockContainer implements IBomb {
 
 		return BombReturnCode.UNDEFINED;
 	}
-	@Override
 	public UUID getOwnerParty(World world, int x, int y, int z) {
-		return ownerParty;
+		return BlockPartyOwned.getOwner(world, x, y, z);
 	}
 }

@@ -66,9 +66,11 @@ public class TileEntityCharge extends TileEntityLoadedBase implements IPartyOwne
 
 		return mins;
 	}
-
 	public UUID getOwner() {
 		return ownerParty;
+	}
+	public void setOwner(UUID owner) {
+		ownerParty = owner;
 	}
 
 	@Override

@@ -9,7 +9,7 @@ import api.hbm.explosion.event.HbmExplosionHooks;
 public class ExplosionNukeRayBalefire extends ExplosionNukeRayBatched {
 
 	public ExplosionNukeRayBalefire(World world, int x, int y, int z, int strength, int speed, int length) {
-		super(world, x, y, z, strength, speed, length);
+		super(world, x, y, z, strength, speed, length, null); //TODO
 	}
 
 	protected void handleTip(int x, int y, int z) {

@@ -92,7 +92,7 @@ public class XFactoryFolly {
 		if(mop.typeOfHit == mop.typeOfHit.ENTITY && bullet.ticksExisted < 2) return;
 		if(bullet.isDead) return;
 		bullet.setDead();
-		bullet.worldObj.spawnEntityInWorld(EntityNukeExplosionMK5.statFac(bullet.worldObj, 100, mop.hitVec.xCoord, mop.hitVec.yCoord, mop.hitVec.zCoord));
+		bullet.worldObj.spawnEntityInWorld(EntityNukeExplosionMK5.statFac(bullet.worldObj, 100, mop.hitVec.xCoord, mop.hitVec.yCoord, mop.hitVec.zCoord, bullet.getOwnerParty()));
 		EntityNukeTorex.statFacStandard(bullet.worldObj, mop.hitVec.xCoord, mop.hitVec.yCoord, mop.hitVec.zCoord, 100);
 	};
 

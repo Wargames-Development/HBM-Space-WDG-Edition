@@ -219,8 +219,4 @@ public class BlockDoorGeneric extends BlockDummyable implements IBomb, IBlockSea
 			MultiblockHandlerXR.fillSpace(world, x + dir.offsetX * o, y + dir.offsetY * o, z + dir.offsetZ * o, dims, this, dir);
 		}
 	}
-	@Override
-	public UUID getOwnerParty(World world, int x, int y, int z) {
-		return null;
-	}
 }

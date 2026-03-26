@@ -78,7 +78,7 @@ public class EntityBombletZeta extends EntityThrowable {
 					worldObj.spawnEntityInWorld(mist);
 				}
 				if(type == 4) {
-					worldObj.spawnEntityInWorld(EntityNukeExplosionMK5.statFac(worldObj, (int) (BombConfig.fatmanRadius * 1.5), posX, posY, posZ));
+					worldObj.spawnEntityInWorld(EntityNukeExplosionMK5.statFac(worldObj, (int) (BombConfig.fatmanRadius * 1.5), posX, posY, posZ,null));
 
 					NBTTagCompound data = new NBTTagCompound();
 					data.setString("type", "muke");

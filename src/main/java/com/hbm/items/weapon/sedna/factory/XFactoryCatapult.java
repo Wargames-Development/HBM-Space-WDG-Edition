@@ -82,7 +82,7 @@ public class XFactoryCatapult {
 		if(mop.typeOfHit == mop.typeOfHit.ENTITY && bullet.ticksExisted < 3 && mop.entityHit == bullet.getThrower()) return;
 		if(bullet.isDead) return;
 		bullet.setDead();
-		bullet.worldObj.spawnEntityInWorld(EntityNukeExplosionMK5.statFac(bullet.worldObj, 35, mop.hitVec.xCoord, mop.hitVec.yCoord, mop.hitVec.zCoord));
+		bullet.worldObj.spawnEntityInWorld(EntityNukeExplosionMK5.statFac(bullet.worldObj, 35, mop.hitVec.xCoord, mop.hitVec.yCoord, mop.hitVec.zCoord,bullet.getOwnerParty()));
 		spawnMush(bullet, mop);
 	};
 

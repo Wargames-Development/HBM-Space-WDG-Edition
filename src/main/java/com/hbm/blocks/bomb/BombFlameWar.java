@@ -70,9 +70,7 @@ public class BombFlameWar extends BlockPartyOwned implements IBomb {
 		}
 	}
 	}
-
-	@Override
 	public UUID getOwnerParty(World world, int x, int y, int z) {
-		return getOwnerParty(world,x,y,z);
+		return getOwner(world,x,y,z);
 	}
 }

@@ -85,9 +85,13 @@ public class TileEntityBombMulti extends TileEntity implements ISidedInventory, 
 			itemStack.stackSize = getInventoryStackLimit();
 		}
 	}
-	@Override
+
 	public UUID getOwner() {
 		return ownerParty;
+	}
+
+	public void setOwner(UUID owner) {
+		ownerParty = owner;
 	}
 
 	@Override

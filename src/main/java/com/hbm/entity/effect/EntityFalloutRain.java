@@ -1,5 +1,6 @@
 package com.hbm.entity.effect;
 
+import api.hbm.wgc.Integrations;
 import com.hbm.blocks.BlockDummyable;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.config.BombConfig;
@@ -28,6 +29,7 @@ public class EntityFalloutRain extends EntityExplosionChunkloading {
 
 	private boolean firstTick = true; // Of course Vanilla has it private in Entity...
 	private boolean salted = false;
+	public UUID owner;
 	public EntityFalloutRain(World p_i1582_1_) {
 		super(p_i1582_1_);
 		this.setSize(4, 20);
@@ -130,19 +132,24 @@ public class EntityFalloutRain extends EntityExplosionChunkloading {
 		Set<Long> chunks = new LinkedHashSet<>(); // LinkedHashSet preserves insertion order
 		Set<Long> outerChunks = new LinkedHashSet<>();
 		int outerRange = getScale();
+		Set<ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(owner,worldObj,(int)Math.floor(posX),(int)Math.floor(posZ),outerRange);
 		// Basically defines something like the step size, but as indirect proportion. The actual angle used for rotation will always end up at 360° for angle == adjustedMaxAngle
 		// So yea, I mathematically worked out that 20 is a good value for this, with the minimum possible being 18 in order to reach all chunks
 		int adjustedMaxAngle = 20 * outerRange / 32; // step size = 20 * chunks / 2
 		for (int angle = 0; angle <= adjustedMaxAngle; angle++) {
 			Vec3 vector = Vec3.createVectorHelper(outerRange, 0, 0);
 			vector.rotateAroundY((float) (angle * Math.PI / 180.0 / (adjustedMaxAngle / 360.0))); // Ugh, mutable data classes (also, ugh, radians; it uses degrees in 1.18; took me two hours to debug)
-			outerChunks.add(ChunkCoordIntPair.chunkXZ2Int((int) (posX + vector.xCoord) >> 4, (int) (posZ + vector.zCoord) >> 4));
+			if(!protectedChunks.contains(new ChunkCoordIntPair((int) (posX + vector.xCoord) >> 4,(int) (posZ + vector.zCoord) >> 4))) {
+				outerChunks.add(ChunkCoordIntPair.chunkXZ2Int((int) (posX + vector.xCoord) >> 4, (int) (posZ + vector.zCoord) >> 4));
+			}
 		}
 		for (int distance = 0; distance <= outerRange; distance += 8) for (int angle = 0; angle <= adjustedMaxAngle; angle++) {
 			Vec3 vector = Vec3.createVectorHelper(distance, 0, 0);
 			vector.rotateAroundY((float) (angle * Math.PI / 180.0 / (adjustedMaxAngle / 360.0)));
 			long chunkCoord = ChunkCoordIntPair.chunkXZ2Int((int) (posX + vector.xCoord) >> 4, (int) (posZ + vector.zCoord) >> 4);
-			if (!outerChunks.contains(chunkCoord)) chunks.add(chunkCoord);
+			if(!protectedChunks.contains(new ChunkCoordIntPair((int) (posX + vector.xCoord) >> 4,(int) (posZ + vector.zCoord) >> 4))) {
+				if (!outerChunks.contains(chunkCoord)) chunks.add(chunkCoord);
+			}
 		}
 
 		chunksToProcess.addAll(chunks);
