@@ -3,6 +3,7 @@ package com.hbm.entity.projectile;
 import java.util.ArrayList;
 import java.util.List;
 
+import api.hbm.wgc.Integrations;
 import com.hbm.util.TrackerUtil;
 
 import cpw.mods.fml.relauncher.Side;
