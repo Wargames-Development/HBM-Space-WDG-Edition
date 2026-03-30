@@ -83,13 +83,25 @@ public abstract class EntityMissileTier3 extends EntityMissileBaseNT {
 	}
 
 	public static class EntityMissileRain extends EntityMissileTier3 {
+		public static final int DETHEIGHT = 50;
 		public EntityMissileRain(World world) { super(world); }
 		public EntityMissileRain(World world, float x, float y, float z, int a, int b, UUID ownerParty) { super(world, x, y, z, a, b, ownerParty);this.isCluster = true; }
 		@Override public void onMissileImpact(MovingObjectPosition mop) {
-			this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, 25F, true);
-			ExplosionChaos.cluster(this.worldObj, (int)this.posX, (int)this.posY, (int)this.posZ, 100, 100);
+			if(mop == null) {
+				ExplosionChaos.cluster(this.worldObj, (int) this.posX, (int) this.posY, (int) this.posZ, 100, Vec3.createVectorHelper(velocityX, velocityY, velocityZ), 100);
+				this.killMissile();
+			}
+			else {
+				this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, 25F, true);
+				ExplosionChaos.cluster(this.worldObj, (int) this.posX, (int) this.posY, (int) this.posZ, 100, Vec3.createVectorHelper(velocityX, velocityY, velocityZ), 100);
+			}
 		}
 		@Override public void cluster() { this.onMissileImpact(null); }
+		@Override public void airburstCheck(Vec3 pos, Vec3 nextPos){
+			if(checkForAirburst(pos, nextPos, DETHEIGHT)) {
+				this.onMissileImpact(null);
+			}
+		}
 		@Override public ItemStack getDebrisRareDrop() { return new ItemStack(ModItems.warhead_cluster_large); }
 		@Override public ItemStack getMissileItemForInfo() { return new ItemStack(ModItems.missile_rain); }
 	}

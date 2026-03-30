@@ -4,6 +4,7 @@ import java.util.Random;
 import java.util.UUID;
 
 import api.hbm.wgc.Integrations;
+import net.minecraft.util.Vec3;
 import org.apache.logging.log4j.Level;
 
 import net.minecraft.block.Block;
@@ -164,7 +165,7 @@ public class BombMulti extends BlockContainer implements IBomb {
 				explosionValue = 0;
 
 				if(clusterCount > 0) {
-					ExplosionChaos.cluster(world, x, y, z, clusterCount, 1);
+					ExplosionChaos.cluster(world, x, y, z, clusterCount, Vec3.createVectorHelper(0,0,0), 1);
 				}
 
 				if(fireRadius > 0) {

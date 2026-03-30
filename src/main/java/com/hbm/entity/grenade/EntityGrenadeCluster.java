@@ -1,6 +1,7 @@
 package com.hbm.entity.grenade;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
 import com.hbm.explosion.ExplosionChaos;
@@ -30,7 +31,7 @@ public class EntityGrenadeCluster extends EntityGrenadeBouncyBase
         if (!this.worldObj.isRemote)
         {
             this.setDead();
-            ExplosionChaos.cluster(this.worldObj, (int)this.posX, (int)this.posY, (int)this.posZ, 10, 50);
+            ExplosionChaos.cluster(this.worldObj, (int)this.posX, (int)this.posY, (int)this.posZ, 10, Vec3.createVectorHelper(0,0,0), 50);
             this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, 1.5F, true);
         }
     }

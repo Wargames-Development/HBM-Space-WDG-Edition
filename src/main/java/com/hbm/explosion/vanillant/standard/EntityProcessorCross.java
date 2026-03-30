@@ -3,7 +3,9 @@ package com.hbm.explosion.vanillant.standard;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.UUID;
 
+import api.hbm.wgc.Integrations;
 import com.hbm.entity.projectile.EntityBulletBaseMK4;
 import com.hbm.explosion.vanillant.ExplosionVNT;
 import com.hbm.explosion.vanillant.interfaces.ICustomDamageHandler;
@@ -77,6 +79,8 @@ public class EntityProcessorCross implements IEntityProcessor {
 
 		HashMap<Entity, Float> damageMap = new HashMap();
 
+		UUID party = explosion.getOwnerParty();
+
 		for(int index = 0; index < list.size(); ++index) {
 
 			Entity entity = (Entity) list.get(index);
@@ -121,7 +125,7 @@ public class EntityProcessorCross implements IEntityProcessor {
 						entity.motionZ += deltaZ * enchKnockback * knockbackMult;
 					}
 
-					if(entity instanceof EntityPlayer) {
+					if(entity instanceof EntityPlayer && Integrations.canHarmPlayerWGC(party,entity.getUniqueID(),world)) {
 						affectedPlayers.put((EntityPlayer) entity, Vec3.createVectorHelper(deltaX * knockback * knockbackMult, deltaY * knockback * knockbackMult, deltaZ * knockback * knockbackMult));
 					}
 				}

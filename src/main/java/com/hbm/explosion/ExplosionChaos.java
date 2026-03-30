@@ -33,6 +33,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -286,7 +287,7 @@ public class ExplosionChaos { //TODO: destroy this entire class
 	}
 
 	//todo: check EntityRocket's onImpact to stop internal block damage of a zone.
-	public static void cluster(World world, int x, int y, int z, int count, int gravity) {
+	public static void cluster(World world, int x, int y, int z, int count, Vec3 initialvel, int gravity) {
 
 		double d1 = 0;
 		double d2 = 0;
@@ -305,6 +306,9 @@ public class ExplosionChaos { //TODO: destroy this entire class
 			if (rand.nextInt(2) == 0) {
 				d3 *= -1;
 			}
+			d1 += initialvel.xCoord;
+			d2 = initialvel.yCoord - d2;
+			d3 += initialvel.zCoord;
 
 			fragment = new EntityRocket(world, x, y, z, d1, d2, d3, 0.0125D);
 

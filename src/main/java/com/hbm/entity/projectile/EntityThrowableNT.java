@@ -238,6 +238,8 @@ public abstract class EntityThrowableNT extends Entity implements IProjectile {
 				onBlockCollide(mop,pos,nextPos);
 			}
 
+			airburstCheck(pos,nextPos);
+
 			if(!this.onGround) {
 				float hyp = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
 				this.rotationYaw = (float) (Math.atan2(this.motionX, this.motionZ) * 180.0D / Math.PI);
@@ -274,6 +276,10 @@ public abstract class EntityThrowableNT extends Entity implements IProjectile {
 			this.motionY -= gravity;
 			this.setPosition(this.posX, this.posY, this.posZ);
 		}
+	}
+
+	public void airburstCheck(Vec3 pos, Vec3 nextPos){
+
 	}
 
 	public void onBlockCollide(MovingObjectPosition mop,Vec3 pos, Vec3 nextPos) {

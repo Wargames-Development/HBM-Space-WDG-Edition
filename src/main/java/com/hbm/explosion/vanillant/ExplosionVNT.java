@@ -118,6 +118,11 @@ public class ExplosionVNT {
 		this.playerProcessor = playerProcessor;
 		return this;
 	}
+
+	public UUID getOwnerParty() {
+		return ownerParty;
+	}
+
 	public ExplosionVNT setSFX(IExplosionSFX... sfx) {
 		this.sfx = sfx;
 		return this;

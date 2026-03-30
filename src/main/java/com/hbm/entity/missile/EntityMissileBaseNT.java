@@ -231,6 +231,18 @@ public abstract class EntityMissileBaseNT extends EntityThrowableInterp implemen
 		return p;
 	}
 
+	public boolean checkForAirburst(Vec3 pos, Vec3 nextPos, int detHeight) {
+		if(nextPos.yCoord - pos.yCoord > -2.0){
+			System.out.println("Checkval" + (nextPos.yCoord - pos.yCoord));
+			return false;
+		}
+		System.out.println("VALID! Checkval" + (nextPos.yCoord - pos.yCoord));
+		Vec3 rayTip = Vec3.createVectorHelper(pos.xCoord, pos.yCoord-detHeight, pos.zCoord);
+		MovingObjectPosition mop = this.worldObj.func_147447_a(pos, rayTip, false, true, false);
+		System.out.println("Airburst if true: " + (mop != null));
+		return(mop != null);
+	}
+
 	public boolean hasPropulsion() {
 		return true;
 	}
