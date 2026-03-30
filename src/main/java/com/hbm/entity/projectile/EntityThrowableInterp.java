@@ -29,31 +29,6 @@ public abstract class EntityThrowableInterp extends EntityThrowableNT {
 	}
 
 	@Override
-	public double onUpdateAP(double inPen){
-		double pen = 0.0;
-		if(!worldObj.isRemote) {
-			pen = super.onUpdateAP(inPen);
-		} else {
-			this.lastTickPosX = this.posX;
-			this.lastTickPosY = this.posY;
-			this.lastTickPosZ = this.posZ;
-			if(this.turnProgress > 0) {
-				double interpX = this.posX + (this.syncPosX - this.posX) / (double) this.turnProgress;
-				double interpY = this.posY + (this.syncPosY - this.posY) / (double) this.turnProgress;
-				double interpZ = this.posZ + (this.syncPosZ - this.posZ) / (double) this.turnProgress;
-				double d = MathHelper.wrapAngleTo180_double(this.syncYaw - (double) this.rotationYaw);
-				this.rotationYaw = (float) ((double) this.rotationYaw + d / (double) this.turnProgress);
-				this.rotationPitch = (float)((double)this.rotationPitch + (this.syncPitch - (double)this.rotationPitch) / (double)this.turnProgress);
-				--this.turnProgress;
-				this.setPosition(interpX, interpY, interpZ);
-			} else {
-				this.setPosition(this.posX, this.posY, this.posZ);
-			}
-		}
-		return pen;
-	}
-
-	@Override
 	public void onUpdate() {
 
 		if(!worldObj.isRemote) {

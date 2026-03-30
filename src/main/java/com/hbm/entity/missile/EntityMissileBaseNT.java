@@ -22,7 +22,9 @@ import com.hbm.util.TrackerUtil;
 import api.hbm.entity.IRadarDetectableNT;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.block.Block;
 import net.minecraft.entity.EntityTrackerEntry;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
@@ -175,64 +177,58 @@ public abstract class EntityMissileBaseNT extends EntityThrowableInterp implemen
 		while(this.rotationYaw - this.prevRotationYaw < -180.0F) this.prevRotationYaw -= 360.0F;
 		while(this.rotationYaw - this.prevRotationYaw >= 180.0F) this.prevRotationYaw += 360.0F;
 	}
-	@Override
-	public double onUpdateAP(double inPen) {
-		this.lastTickPosX = this.posX;
-		this.lastTickPosY = this.posY;
-		this.lastTickPosZ = this.posZ;
-		double pen = super.onUpdateAP(inPen);
+	protected class BBParams{
+		public boolean hasHit;
+		public int hitHeight;
+		public double pen;
+		public int armDistance;
 
-		if(velocity < 4) velocity += MathHelper.clamp_double(this.ticksExisted / 60D * 0.05D, 0, 0.05);
-
-		if(!worldObj.isRemote) {
-
-			if(hasPropulsion()) {
-				this.motionY -= decelY * velocity;
-
-				Vec3 vector = Vec3.createVectorHelper(targetX - startX, 0, targetZ - startZ);
-				vector = vector.normalize();
-				vector.xCoord *= accelXZ;
-				vector.zCoord *= accelXZ;
-
-				if(motionY > 0) {
-					motionX += vector.xCoord * velocity;
-					motionZ += vector.zCoord * velocity;
-				}
-
-				if(motionY < 0) {
-					motionX -= vector.xCoord * velocity;
-					motionZ -= vector.zCoord * velocity;
-				}
-			} else {
-				motionX *= 0.99;
-				motionZ *= 0.99;
-
-				if(motionY > -1.5)
-					motionY -= 0.05;
-			}
-
-			if(motionY < -velocity && this.isCluster) {
-				cluster();
-				this.setDead();
-				return pen;
-			}
-
-			this.rotationYaw = (float) (Math.atan2(targetX - posX, targetZ - posZ) * 180.0D / Math.PI);
-			float f2 = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
-			for(this.rotationPitch = (float) (Math.atan2(this.motionY, f2) * 180.0D / Math.PI) - 90; this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F);
-			EntityTrackerEntry tracker = TrackerUtil.getTrackerEntry((WorldServer) worldObj, this.getEntityId());
-			if(tracker != null) tracker.lastYaw += 100; //coax the tracker into sending smother updates
-
-			loadNeighboringChunks((int) Math.floor(posX / 16), (int) Math.floor(posZ / 16));
-		} else {
-			this.spawnContrail();
+		BBParams(boolean hasHit, int hitHeight, int armDistance, double pen) {
+			this.hasHit = hasHit;
+			this.hitHeight = hitHeight;
+			this.pen = pen;
+			this.armDistance = armDistance;
 		}
 
-		while(this.rotationPitch - this.prevRotationPitch >= 180.0F) this.prevRotationPitch += 360.0F;
-		while(this.rotationYaw - this.prevRotationYaw < -180.0F) this.prevRotationYaw -= 360.0F;
-		while(this.rotationYaw - this.prevRotationYaw >= 180.0F) this.prevRotationYaw += 360.0F;
-
-		return pen;
+	}
+	public BBParams onCollideBunkerBuster(MovingObjectPosition mop, Vec3 pos, Vec3 nextPos, BBParams p) {
+		Block collidedBlock = this.worldObj.getBlock(mop.blockX, mop.blockY, mop.blockZ);
+		List<Vec3> explosionpositions = new ArrayList<>();
+		if(!p.hasHit) {
+			p.hitHeight = (int)pos.yCoord;
+			p.hasHit = true;
+		}
+		boolean doneColliding = false;
+		while(!doneColliding && mop != null) {
+			if (mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
+				if (collidedBlock == Blocks.portal) {
+					this.setInPortal();
+				} else {
+					Block collidedblock = worldObj.getBlock(mop.blockX, mop.blockY, mop.blockZ);
+					UUID owner = this.getOwner();
+					ChunkCoordIntPair chunk = new ChunkCoordIntPair(mop.blockX >> 4, mop.blockZ >> 4);
+					if (!Integrations.canTargetChunkWGC(owner, worldObj, chunk)) {
+						this.onImpact(mop);
+						doneColliding = true;
+					}
+					else {
+						p.pen = p.pen - masqueradeResistance(collidedblock); //Subtract collided block blast resistance from pen.
+						if (p.pen <= 0.0 || (p.hasHit && mop.blockY <= p.hitHeight - p.armDistance)) {
+							this.onImpact(mop);
+							doneColliding = true;
+						} else {
+							explosionpositions.add(Vec3.createVectorHelper(mop.blockX, mop.blockY, mop.blockZ));
+							worldObj.setBlock(mop.blockX, mop.blockY, mop.blockZ, Blocks.air, 0, 3);
+						}
+					}
+				}
+			}
+			mop = this.worldObj.func_147447_a(pos, nextPos, false, true, false);
+		}
+		for(Vec3 exppos : explosionpositions) {
+			this.worldObj.createExplosion(this, exppos.xCoord, exppos.yCoord , exppos.zCoord, 3F, true);
+		}
+		return p;
 	}
 
 	public boolean hasPropulsion() {
@@ -468,5 +464,9 @@ public abstract class EntityMissileBaseNT extends EntityThrowableInterp implemen
 		}
 
 		return IRadarDetectableNT.SPECIAL;
+	}
+
+	public UUID getOwner() {
+		return ownerParty;
 	}
 }

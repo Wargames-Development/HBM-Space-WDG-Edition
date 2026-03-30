@@ -3,6 +3,7 @@ package com.hbm.blocks.bomb;
 import java.util.List;
 import java.util.UUID;
 
+import api.hbm.wgc.Integrations;
 import com.hbm.config.GeneralConfig;
 import com.hbm.explosion.vanillant.ExplosionVNT;
 import com.hbm.explosion.vanillant.standard.BlockAllocatorStandard;
@@ -24,9 +25,14 @@ public class BlockChargeSemtex extends BlockChargeBase {
 			if(owner == null) {
 				owner = explosionOwnerCache.get();
 			}
+
 			safe = true;
 			world.setBlockToAir(x, y, z);
 			safe = false;
+
+			if(!Integrations.canDetonateWGC(owner,world,x,y,z)) {
+				return BombReturnCode.ERROR_BLOCKED;
+			}
 
 			ExplosionVNT xnt = new ExplosionVNT(world, x + 0.5, y + 0.5, z + 0.5, 10F, owner);
 			xnt.setBlockAllocator(new BlockAllocatorStandard(32));

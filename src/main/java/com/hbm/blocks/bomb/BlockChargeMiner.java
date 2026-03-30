@@ -3,6 +3,7 @@ package com.hbm.blocks.bomb;
 import java.util.List;
 import java.util.UUID;
 
+import api.hbm.wgc.Integrations;
 import com.hbm.explosion.ExplosionNT;
 import com.hbm.explosion.ExplosionNT.ExAttrib;
 import com.hbm.particle.helper.ExplosionSmallCreator;
@@ -25,6 +26,9 @@ public class BlockChargeMiner extends BlockChargeBase {
 			safe = true;
 			world.setBlockToAir(x, y, z);
 			safe = false;
+			if(!Integrations.canDetonateWGC(owner,world,x,y,z)) {
+				return BombReturnCode.ERROR_BLOCKED;
+			}
 			ExplosionNT exp = new ExplosionNT(world, null, x + 0.5, y + 0.5, z + 0.5, 4F);
 			exp.addAllAttrib(ExAttrib.NOHURT, ExAttrib.ALLDROP);
 			exp.explode();

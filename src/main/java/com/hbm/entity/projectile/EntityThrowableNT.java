@@ -2,8 +2,10 @@ package com.hbm.entity.projectile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import api.hbm.wgc.Integrations;
+import com.hbm.entity.missile.EntityMissileBaseNT;
 import com.hbm.util.TrackerUtil;
 
 import cpw.mods.fml.relauncher.Side;
@@ -19,6 +21,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
+import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
 import org.lwjgl.Sys;
 
@@ -142,152 +145,7 @@ public abstract class EntityThrowableNT extends Entity implements IProjectile {
 			this.prevRotationPitch = this.rotationPitch = (float) (Math.atan2(y, (double) hyp) * 180.0D / Math.PI);
 		}
 	}
-
-	public double onUpdateAP(double inPen) {
-		super.onUpdate();
-		double pen = inPen;
-		if(this.throwableShake > 0) {
-			--this.throwableShake;
-		}
-
-		if(this.inGround) {
-			if(this.worldObj.getBlock(this.stuckBlockX, this.stuckBlockY, this.stuckBlockZ) == this.stuckBlock) {
-				++this.ticksInGround;
-
-				if(this.groundDespawn() > 0 && this.ticksInGround == this.groundDespawn()) {
-					this.setDead();
-				}
-
-				return pen;
-
-			} else {
-
-				this.inGround = false;
-				this.motionX *= (double) (this.rand.nextFloat() * 0.2F);
-				this.motionY *= (double) (this.rand.nextFloat() * 0.2F);
-				this.motionZ *= (double) (this.rand.nextFloat() * 0.2F);
-				this.ticksInGround = 0;
-				this.ticksInAir = 0;
-			}
-
-		} else {
-			++this.ticksInAir;
-
-			Vec3 pos = Vec3.createVectorHelper(this.posX, this.posY, this.posZ);
-			Vec3 nextPos = Vec3.createVectorHelper(this.posX + this.motionX * motionMult(), this.posY + this.motionY * motionMult(), this.posZ + this.motionZ * motionMult());
-			MovingObjectPosition mop = null;
-			if(!this.isSpectral()) mop = this.worldObj.func_147447_a(pos, nextPos, false, true, false);
-			pos = Vec3.createVectorHelper(this.posX, this.posY, this.posZ);
-			nextPos = Vec3.createVectorHelper(this.posX + this.motionX * motionMult(), this.posY + this.motionY * motionMult(), this.posZ + this.motionZ * motionMult());
-
-
-			if(!this.worldObj.isRemote && this.doesImpactEntities()) {
-
-				Entity hitEntity = null;
-				List list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.addCoord(this.motionX * motionMult(), this.motionY * motionMult(), this.motionZ * motionMult()).expand(1.0D, 1.0D, 1.0D));
-				double nearest = 0.0D;
-				EntityLivingBase thrower = this.getThrower();
-				MovingObjectPosition nonPenImpact = null;
-
-				for(int j = 0; j < list.size(); ++j) {
-					Entity entity = (Entity) list.get(j);
-
-					if(entity.canBeCollidedWith() && (entity != thrower || this.ticksInAir >= this.selfDamageDelay()) && entity.isEntityAlive()) {
-						double hitbox = 0.3F;
-						AxisAlignedBB aabb = entity.boundingBox.expand(hitbox, hitbox, hitbox);
-						MovingObjectPosition hitMop = aabb.calculateIntercept(pos, nextPos);
-
-						if(hitMop != null) {
-
-							// if penetration is enabled, run impact for all intersecting entities
-							if(this.doesPenetrate()) {
-								this.onImpact(new MovingObjectPosition(entity, hitMop.hitVec));
-							} else {
-
-								double dist = pos.distanceTo(hitMop.hitVec);
-
-								if(dist < nearest || nearest == 0.0D) {
-									hitEntity = entity;
-									nearest = dist;
-									nonPenImpact = hitMop;
-								}
-							}
-						}
-					}
-				}
-
-				// if not, only run it for the closest MOP
-				if(!this.doesPenetrate() && hitEntity != null) {
-					mop = new MovingObjectPosition(hitEntity, nonPenImpact.hitVec);
-				}
-			}
-
-			if(mop != null) {
-				Block collidedBlock = this.worldObj.getBlock(mop.blockX, mop.blockY, mop.blockZ);
-				List<Vec3> explosionpositions = new ArrayList<>();
-				boolean doneColliding = false;
-				while(!doneColliding && mop != null) {
-					if (mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
-						if (collidedBlock == Blocks.portal) {
-							this.setInPortal();
-						} else {
-							Block collidedblock = worldObj.getBlock(mop.blockX, mop.blockY, mop.blockZ);
-							pen = pen - masqueradeResistance(collidedblock); //Subtract collided block blast resistance from pen.
-							if (pen <= 0.0) {
-								this.onImpact(mop);
-								doneColliding = true;
-							} else {
-								explosionpositions.add(Vec3.createVectorHelper(mop.blockX, mop.blockY, mop.blockZ));
-								worldObj.setBlock(mop.blockX, mop.blockY, mop.blockZ, Blocks.air, 0, 3);
-							}
-						}
-					}
-					mop = this.worldObj.func_147447_a(pos, nextPos, false, true, false);
-				}
-				for(Vec3 exppos : explosionpositions) {
-					this.worldObj.createExplosion(this, exppos.xCoord, exppos.yCoord , exppos.zCoord, 3F, true);
-				}
-			}
-
-			if(!this.onGround) {
-				float hyp = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
-				this.rotationYaw = (float) (Math.atan2(this.motionX, this.motionZ) * 180.0D / Math.PI);
-
-				for(this.rotationPitch = (float) (Math.atan2(this.motionY, (double) hyp) * 180.0D / Math.PI); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F);
-
-				while(this.rotationPitch - this.prevRotationPitch >= 180.0F) this.prevRotationPitch += 360.0F;
-				while(this.rotationYaw - this.prevRotationYaw < -180.0F) this.prevRotationYaw -= 360.0F;
-				while(this.rotationYaw - this.prevRotationYaw >= 180.0F) this.prevRotationYaw += 360.0F;
-
-				this.rotationPitch = this.prevRotationPitch + (this.rotationPitch - this.prevRotationPitch) * 0.2F;
-				this.rotationYaw = this.prevRotationYaw + (this.rotationYaw - this.prevRotationYaw) * 0.2F;
-			}
-
-			float drag = this.getAirDrag();
-			double gravity = this.getGravityVelocity();
-
-			this.posX += this.motionX * motionMult();
-			this.posY += this.motionY * motionMult();
-			this.posZ += this.motionZ * motionMult();
-
-			if(this.isInWater()) {
-				for(int i = 0; i < 4; ++i) {
-					float f = 0.25F;
-					this.worldObj.spawnParticle("bubble", this.posX - this.motionX * (double) f, this.posY - this.motionY * (double) f, this.posZ - this.motionZ * (double) f, this.motionX, this.motionY, this.motionZ);
-				}
-
-				drag = this.getWaterDrag();
-			}
-
-			this.motionX *= (double) drag;
-			this.motionY *= (double) drag;
-			this.motionZ *= (double) drag;
-			this.motionY -= gravity;
-			this.setPosition(this.posX, this.posY, this.posZ);
-		}
-		return pen;
-	}
-	private static float masqueradeResistance(Block block) {
+	protected static float masqueradeResistance(Block block) {
 
 		if(block == Blocks.sandstone) return Blocks.stone.getExplosionResistance(null);
 		if(block == Blocks.obsidian) return Blocks.stone.getExplosionResistance(null) * 3;
@@ -377,11 +235,7 @@ public abstract class EntityThrowableNT extends Entity implements IProjectile {
 			}
 
 			if(mop != null) {
-				if(mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK && this.worldObj.getBlock(mop.blockX, mop.blockY, mop.blockZ) == Blocks.portal) {
-					this.setInPortal();
-				} else {
-					this.onImpact(mop);
-				}
+				onBlockCollide(mop,pos,nextPos);
 			}
 
 			if(!this.onGround) {
@@ -419,6 +273,14 @@ public abstract class EntityThrowableNT extends Entity implements IProjectile {
 			this.motionZ *= (double) drag;
 			this.motionY -= gravity;
 			this.setPosition(this.posX, this.posY, this.posZ);
+		}
+	}
+
+	public void onBlockCollide(MovingObjectPosition mop,Vec3 pos, Vec3 nextPos) {
+		if(mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK && this.worldObj.getBlock(mop.blockX, mop.blockY, mop.blockZ) == Blocks.portal) {
+			this.setInPortal();
+		} else {
+			this.onImpact(mop);
 		}
 	}
 

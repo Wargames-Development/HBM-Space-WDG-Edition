@@ -1,5 +1,6 @@
 package com.hbm.blocks.bomb;
 
+import api.hbm.wgc.Integrations;
 import com.hbm.explosion.vanillant.ExplosionVNT;
 import com.hbm.particle.helper.ExplosionSmallCreator;
 
@@ -18,6 +19,9 @@ public class BlockChargeDynamite extends BlockChargeBase {
 			UUID owner = getOwner(world,x,y,z);
 			if(owner == null) {
 				owner = explosionOwnerCache.get();
+			}
+			if(!Integrations.canDetonateWGC(owner,world,x,y,z)) {
+				return BombReturnCode.ERROR_BLOCKED;
 			}
 			safe = true;
 			world.setBlockToAir(x, y, z);

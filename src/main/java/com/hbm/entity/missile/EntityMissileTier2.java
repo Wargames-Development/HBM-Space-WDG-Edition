@@ -14,6 +14,7 @@ import com.hbm.particle.helper.ExplosionCreator;
 import api.hbm.entity.IRadarDetectableNT;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
 public abstract class EntityMissileTier2 extends EntityMissileBaseNT {
@@ -75,24 +76,24 @@ public abstract class EntityMissileTier2 extends EntityMissileBaseNT {
 	}
 
 	public static class EntityMissileBusterStrong extends EntityMissileTier2 {
-		private static final double DEFPEN = 2000.0;
-		private double penetration;
+		private static final double DEFPEN = 500.0;
+		private static final int ARMDIST = 30;
+		private BBParams bbparams;
 		public EntityMissileBusterStrong(World world){
 			super(world);
-			penetration = DEFPEN;
+			bbparams = new BBParams(false, 0, ARMDIST, DEFPEN);
 		}
 		public EntityMissileBusterStrong(World world, float x, float y, float z, int a, int b, UUID ownerParty) {
 			super(world, x, y, z, a, b, ownerParty);
-			penetration = DEFPEN;
+			bbparams = new BBParams(false, 0, ARMDIST, DEFPEN);
 		}
 		@Override public void onMissileImpact(MovingObjectPosition mop) {
-			worldObj.spawnEntityInWorld(EntityNukeExplosionMK5.statFacNoRad(worldObj, 45, this.posX, this.posY, this.posZ,ownerParty));
-			ExplosionLarge.spawnParticles(worldObj, this.posX, this.posY, this.posZ, 8);
-			ExplosionLarge.spawnShrapnels(worldObj, this.posX, this.posY, this.posZ, 8);
-			ExplosionLarge.spawnRubble(worldObj, this.posX, this.posY, this.posZ, 8);
+			this.explodeStandard(30F, 32, false);
+			ExplosionCreator.composeEffectStandard(worldObj, posX, posY, posZ);
 		}
-		@Override public void onUpdate(){
-			penetration = super.onUpdateAP(penetration);
+		@Override
+		public void onBlockCollide(MovingObjectPosition mop, Vec3 pos, Vec3 nextPos){
+			bbparams = onCollideBunkerBuster(mop,pos,nextPos, bbparams);
 		}
 		@Override public ItemStack getDebrisRareDrop() { return new ItemStack(ModItems.warhead_buster_medium); }
 		@Override public ItemStack getMissileItemForInfo() { return new ItemStack(ModItems.missile_buster_strong); }

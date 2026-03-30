@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import com.hbm.entity.logic.EntityNukeExplosionMK5;
 import com.hbm.explosion.ExplosionChaos;
 import com.hbm.explosion.ExplosionLarge;
 import com.hbm.explosion.ExplosionNT;
@@ -94,17 +95,27 @@ public abstract class EntityMissileTier3 extends EntityMissileBaseNT {
 	}
 
 	public static class EntityMissileDrill extends EntityMissileTier3 {
-		public EntityMissileDrill(World world) { super(world); }
-		public EntityMissileDrill(World world, float x, float y, float z, int a, int b, UUID ownerParty) { super(world, x, y, z, a, b, ownerParty); }
+		private static final double DEFPEN = 1000.0;
+		private static final int ARMDIST = 50;
+		private BBParams bbparams;
+		public EntityMissileDrill(World world) {
+			super(world);
+			bbparams = new BBParams(false, 0, ARMDIST, DEFPEN);
+		}
+		public EntityMissileDrill(World world, float x, float y, float z, int a, int b, UUID ownerParty) {
+			super(world, x, y, z, a, b, ownerParty);
+			bbparams = new BBParams(false, 0, ARMDIST, DEFPEN);
+		}
 		@Override public void onMissileImpact(MovingObjectPosition mop) {
-			for(int i = 0; i < 30; i++) {
-				ExplosionNT explosion = new ExplosionNT(worldObj, this, this.posX, this.posY - i, this.posZ, 10F);
-				explosion.addAllAttrib(ExAttrib.ERRODE);
-				explosion.explode(); //an explosion exploded!
-			}
-			ExplosionLarge.spawnParticles(worldObj, this.posX, this.posY, this.posZ, 25);
-			ExplosionLarge.spawnShrapnels(worldObj, this.posX, this.posY, this.posZ, 12);
+			worldObj.spawnEntityInWorld(EntityNukeExplosionMK5.statFacNoRad(worldObj, 45, this.posX, this.posY, this.posZ,ownerParty));
+			ExplosionLarge.spawnParticles(worldObj, this.posX, this.posY, this.posZ, 8);
+			ExplosionLarge.spawnShrapnels(worldObj, this.posX, this.posY, this.posZ, 8);
+			ExplosionLarge.spawnRubble(worldObj, this.posX, this.posY, this.posZ, 8);
 			ExplosionLarge.jolt(worldObj, this.posX, this.posY, this.posZ, 10, 50, 1);
+		}
+		@Override
+		public void onBlockCollide(MovingObjectPosition mop, Vec3 pos, Vec3 nextPos){
+			bbparams = onCollideBunkerBuster(mop,pos,nextPos, bbparams);
 		}
 		@Override public ItemStack getDebrisRareDrop() { return new ItemStack(ModItems.warhead_buster_large); }
 		@Override public ItemStack getMissileItemForInfo() { return new ItemStack(ModItems.missile_drill); }
