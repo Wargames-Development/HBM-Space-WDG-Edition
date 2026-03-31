@@ -137,7 +137,7 @@ public abstract class TileEntityTurretBaseNT extends TileEntityMachineBase imple
 
 	public TileEntityTurretBaseNT() {
 		super(11);
-		owningFaction = getChunkOwnerWGC(new ChunkCoordIntPair(xCoord >> 4,  zCoord >> 4));
+		owningFaction = null;
 	}
 
 	@Override

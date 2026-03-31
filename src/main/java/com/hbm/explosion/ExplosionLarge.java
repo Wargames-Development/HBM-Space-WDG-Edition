@@ -2,7 +2,9 @@ package com.hbm.explosion;
 
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
+import api.hbm.wgc.Integrations;
 import com.hbm.entity.projectile.EntityRubble;
 import com.hbm.entity.projectile.EntityShrapnel;
 import com.hbm.main.MainRegistry;
@@ -104,11 +106,11 @@ public class ExplosionLarge {
 		}
 	}
 
-	public static void spawnShrapnels(World world, double x, double y, double z, int count) {
+	public static void spawnShrapnels(World world, double x, double y, double z, int count,UUID party) {
 
 
 		for (int i = 0; i < count; i++) {
-			EntityShrapnel shrapnel = new EntityShrapnel(world);
+			EntityShrapnel shrapnel = new EntityShrapnel(world,party);
 			shrapnel.posX = x;
 			shrapnel.posY = y;
 			shrapnel.posZ = z;
@@ -125,11 +127,11 @@ public class ExplosionLarge {
 		}
 	}
 
-	public static void spawnTracers(World world, double x, double y, double z, int count) {
+	public static void spawnTracers(World world, double x, double y, double z, int count,UUID party) {
 
 
 		for (int i = 0; i < count; i++) {
-			EntityShrapnel shrapnel = new EntityShrapnel(world);
+			EntityShrapnel shrapnel = new EntityShrapnel(world,party);
 			shrapnel.posX = x;
 			shrapnel.posY = y;
 			shrapnel.posZ = z;
@@ -146,11 +148,11 @@ public class ExplosionLarge {
 		}
 	}
 
-	public static void spawnShrapnelShower(World world, double x, double y, double z, double motionX, double motionY, double motionZ, int count, double deviation) {
+	public static void spawnShrapnelShower(World world, double x, double y, double z, double motionX, double motionY, double motionZ, int count, double deviation,UUID party) {
 
 
 		for (int i = 0; i < count; i++) {
-			EntityShrapnel shrapnel = new EntityShrapnel(world);
+			EntityShrapnel shrapnel = new EntityShrapnel(world,party);
 			shrapnel.posX = x;
 			shrapnel.posY = y;
 			shrapnel.posZ = z;
@@ -218,29 +220,41 @@ public class ExplosionLarge {
 		if(shrapnel)
 			spawnShrapnels(world, x, y, z, shrapnelFunction((int)strength));
 	}
-
 	@Deprecated public static void explode(World world, double x, double y, double z, float strength, boolean cloud, boolean rubble, boolean shrapnel) {
 
-
-		world.createExplosion(null, x, y, z, strength, true);
-		if(cloud)
-			spawnParticles(world, x, y, z, cloudFunction((int)strength));
-		if(rubble)
-			spawnRubble(world, x, y, z, rubbleFunction((int)strength));
-		if(shrapnel)
-			spawnShrapnels(world, x, y, z, shrapnelFunction((int)strength));
+			world.createExplosion(null, x, y, z, strength, true);
+			if (cloud)
+				spawnParticles(world, x, y, z, cloudFunction((int) strength));
+			if (rubble)
+				spawnRubble(world, x, y, z, rubbleFunction((int) strength));
+			if (shrapnel)
+				spawnShrapnels(world, x, y, z, shrapnelFunction((int) strength));
 	}
 
-	@Deprecated public static void explodeFire(World world, double x, double y, double z, float strength, boolean cloud, boolean rubble, boolean shrapnel) {
+	@Deprecated public static void explode(UUID party, World world, double x, double y, double z, float strength, boolean cloud, boolean rubble, boolean shrapnel) {
 
+		if(Integrations.canDetonateWGC(party,world,(int)x,(int)y,(int)z)) {
+			world.createExplosion(null, x, y, z, strength, true);
+			if (cloud)
+				spawnParticles(world, x, y, z, cloudFunction((int) strength));
+			if (rubble)
+				spawnRubble(world, x, y, z, rubbleFunction((int) strength));
+			if (shrapnel)
+				spawnShrapnels(world, x, y, z, shrapnelFunction((int) strength));
+		}
+	}
 
-		world.newExplosion((Entity)null, (float)x, (float)y, (float)z, strength, true, true);
-		if(cloud)
-			spawnParticles(world, x, y, z, cloudFunction((int)strength));
-		if(rubble)
-			spawnRubble(world, x, y, z, rubbleFunction((int)strength));
-		if(shrapnel)
-			spawnShrapnels(world, x, y, z, shrapnelFunction((int)strength));
+	@Deprecated public static void explodeFire(UUID party, World world, double x, double y, double z, float strength, boolean cloud, boolean rubble, boolean shrapnel) {
+
+		if(Integrations.canDetonateWGC(party,world,(int)x,(int)y,(int)z)) {
+			world.newExplosion((Entity) null, (float) x, (float) y, (float) z, strength, true, true);
+			if (cloud)
+				spawnParticles(world, x, y, z, cloudFunction((int) strength));
+			if (rubble)
+				spawnRubble(world, x, y, z, rubbleFunction((int) strength));
+			if (shrapnel)
+				spawnShrapnels(world, x, y, z, shrapnelFunction((int) strength));
+		}
 	}
 
 	public static void buster(World world, double x, double y, double z, Vec3 vector, float strength, float depth) {

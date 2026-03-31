@@ -1,11 +1,15 @@
 package com.hbm.entity.grenade;
 
+import api.hbm.wgc.Integrations;
 import com.hbm.explosion.ExplosionNukeGeneric;
 import com.hbm.items.ModItems;
 import com.hbm.items.weapon.ItemGrenade;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
+
+import java.util.UUID;
 
 public class EntityGrenadePoison extends EntityGrenadeBouncyBase {
 
@@ -27,7 +31,12 @@ public class EntityGrenadePoison extends EntityGrenadeBouncyBase {
 		if(!this.worldObj.isRemote) {
 			this.setDead();
 			this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, 2.0F, true);
-			ExplosionNukeGeneric.wasteNoSchrab(this.worldObj, (int) this.posX, (int) this.posY, (int) this.posZ, 10);
+			UUID party = null;
+			if(getThrower() instanceof EntityPlayer) party = getThrower().getUniqueID();
+
+			if(Integrations.canDetonateWGC(party,worldObj,(int)posX,(int)posY,(int)posZ)) {
+				ExplosionNukeGeneric.wasteNoSchrab(party,this.worldObj, (int) this.posX, (int) this.posY, (int) this.posZ, 10);
+			}
 		}
 	}
 

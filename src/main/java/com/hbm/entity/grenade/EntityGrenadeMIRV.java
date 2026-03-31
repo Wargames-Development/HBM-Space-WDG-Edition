@@ -1,10 +1,14 @@
 package com.hbm.entity.grenade;
 
+import api.hbm.wgc.Integrations;
 import com.hbm.items.ModItems;
 import com.hbm.items.weapon.ItemGrenade;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
+
+import java.util.UUID;
 
 public class EntityGrenadeMIRV extends EntityGrenadeBouncyBase {
 
@@ -25,24 +29,28 @@ public class EntityGrenadeMIRV extends EntityGrenadeBouncyBase {
 
     @Override
     public void explode() {
-    	
+
         if (!this.worldObj.isRemote)
         {
             this.setDead();
-    		
-    		for(int i = 0; i < 8; i++) {
-    			
-    			EntityGrenadeSmart grenade = new EntityGrenadeSmart(worldObj);
-    			grenade.posX = posX;
-    			grenade.posY = posY;
-    			grenade.posZ = posZ;
-    			grenade.motionX = motionX + rand.nextGaussian() * 0.25D;
-    			grenade.motionY = motionY + rand.nextGaussian() * 0.25D;
-    			grenade.motionZ = motionZ + rand.nextGaussian() * 0.25D;
-    			grenade.ticksExisted = 10;
-    			
-    			worldObj.spawnEntityInWorld(grenade);
-    		}
+			UUID party = null;
+			if(getThrower() instanceof EntityPlayer) party = getThrower().getUniqueID();
+
+			if(Integrations.canDetonateWGC(party,worldObj,(int)posX,(int)posY,(int)posZ)) {
+				for (int i = 0; i < 8; i++) {
+
+					EntityGrenadeSmart grenade = new EntityGrenadeSmart(worldObj);
+					grenade.posX = posX;
+					grenade.posY = posY;
+					grenade.posZ = posZ;
+					grenade.motionX = motionX + rand.nextGaussian() * 0.25D;
+					grenade.motionY = motionY + rand.nextGaussian() * 0.25D;
+					grenade.motionZ = motionZ + rand.nextGaussian() * 0.25D;
+					grenade.ticksExisted = 10;
+
+					worldObj.spawnEntityInWorld(grenade);
+				}
+			}
         }
     }
 

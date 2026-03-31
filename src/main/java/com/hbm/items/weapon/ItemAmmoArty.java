@@ -311,7 +311,7 @@ public class ItemAmmoArty extends Item {
 				shell.killAndClear();
 				Vec3 vec = Vec3.createVectorHelper(shell.motionX, shell.motionY, shell.motionZ).normalize();
 				shell.worldObj.createExplosion(shell, mop.hitVec.xCoord - vec.xCoord, mop.hitVec.yCoord - vec.yCoord, mop.hitVec.zCoord - vec.zCoord, 5F, false);
-				EntityMist mist = new EntityMist(shell.worldObj);
+				EntityMist mist = new EntityMist(shell.worldObj,shell.getOwnerParty());
 				mist.setType(Fluids.CHLORINE);
 				mist.setPosition(mop.hitVec.xCoord - vec.xCoord, mop.hitVec.yCoord - vec.yCoord - 3, mop.hitVec.zCoord - vec.zCoord);
 				mist.setArea(15, 7.5F);
@@ -325,7 +325,7 @@ public class ItemAmmoArty extends Item {
 				Vec3 vec = Vec3.createVectorHelper(shell.motionX, shell.motionY, shell.motionZ).normalize();
 				shell.worldObj.createExplosion(shell, mop.hitVec.xCoord - vec.xCoord, mop.hitVec.yCoord - vec.yCoord, mop.hitVec.zCoord - vec.zCoord, 5F, false);
 				for(int i = 0; i < 3; i++) {
-					EntityMist mist = new EntityMist(shell.worldObj);
+					EntityMist mist = new EntityMist(shell.worldObj,shell.getOwnerParty());
 					mist.setType(Fluids.PHOSGENE);
 					double x = mop.hitVec.xCoord - vec.xCoord;
 					double z = mop.hitVec.zCoord - vec.zCoord;
@@ -347,7 +347,7 @@ public class ItemAmmoArty extends Item {
 				Vec3 vec = Vec3.createVectorHelper(shell.motionX, shell.motionY, shell.motionZ).normalize();
 				shell.worldObj.createExplosion(shell, mop.hitVec.xCoord - vec.xCoord, mop.hitVec.yCoord - vec.yCoord, mop.hitVec.zCoord - vec.zCoord, 5F, false);
 				for(int i = 0; i < 5; i++) {
-					EntityMist mist = new EntityMist(shell.worldObj);
+					EntityMist mist = new EntityMist(shell.worldObj,shell.getOwnerParty());
 					mist.setType(Fluids.MUSTARDGAS);
 					double x = mop.hitVec.xCoord - vec.xCoord;
 					double z = mop.hitVec.zCoord - vec.zCoord;

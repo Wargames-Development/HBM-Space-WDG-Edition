@@ -69,12 +69,12 @@ public abstract class EntityMissileTier2 extends EntityMissileBaseNT {
 		public EntityMissileClusterStrong(World world, float x, float y, float z, int a, int b, UUID ownerParty) { super(world, x, y, z, a, b, ownerParty); this.isCluster = true; }
 		@Override public void onMissileImpact(MovingObjectPosition mop) {
 			if(mop == null) {
-				ExplosionChaos.cluster(this.worldObj, (int) this.posX, (int) this.posY, (int) this.posZ, 50, Vec3.createVectorHelper(velocityX, velocityY, velocityZ), 100);
+				ExplosionChaos.cluster(ownerParty,this.worldObj, (int) this.posX, (int) this.posY, (int) this.posZ, 50, Vec3.createVectorHelper(velocityX, velocityY, velocityZ), 100);
 				this.killMissile();
 			}
 			else{
 			this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, 15F, true);
-			ExplosionChaos.cluster(this.worldObj, (int) this.posX, (int) this.posY, (int) this.posZ, 50, Vec3.createVectorHelper(velocityX, velocityY, velocityZ), 100);
+			ExplosionChaos.cluster(ownerParty,this.worldObj, (int) this.posX, (int) this.posY, (int) this.posZ, 50, Vec3.createVectorHelper(velocityX, velocityY, velocityZ), 100);
 			}
 		}
 		@Override public void cluster() { this.onMissileImpact(null); }

@@ -75,15 +75,15 @@ public class BombFloat extends BlockPartyOwned implements IBomb {
 	@Override
 	public BombReturnCode explode(World world, int x, int y, int z) {
 		world.playSoundEffect(x, y, z, "hbm:weapon.sparkShoot", 5.0f, world.rand.nextFloat() * 0.2F + 0.9F);
-
-		if(!world.isRemote & Integrations.canDetonateWGC(getOwnerParty(world,x,y,z),world,x,y,z)) {
+		UUID owner = getOwnerParty(world,x,y,z);
+		if(!world.isRemote & Integrations.canDetonateWGC(owner,world,x,y,z)) {
 			world.setBlock(x, y, z, Blocks.air);
 			if(this == ModBlocks.float_bomb) {
 				ExplosionChaos.floater(world, x, y, z, 15, 50);
 				ExplosionChaos.move(world, x, y, z, 15, 0, 50, 0);
 			}
 			if(this == ModBlocks.emp_bomb) {
-				ExplosionNukeGeneric.empBlast(world, x, y, z, 50);
+				ExplosionNukeGeneric.empBlast(owner,world, x, y, z, 50);
 				EntityEMPBlast wave = new EntityEMPBlast(world, 50);
 				wave.posX = x + 0.5;
 				wave.posY = y + 0.5;

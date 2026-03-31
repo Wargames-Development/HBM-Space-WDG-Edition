@@ -3,6 +3,7 @@ package com.hbm.entity.logic;
 import java.util.List;
 import java.util.UUID;
 
+import api.hbm.wgc.Integrations;
 import com.hbm.interfaces.IExplosionRay;
 import org.apache.logging.log4j.Level;
 
@@ -128,7 +129,11 @@ public class EntityNukeExplosionMK5 extends EntityExplosionChunkloading {
 			float eRads = rads;
 			eRads /= (float)res;
 			eRads /= (float)(len * len);
-
+			if(e instanceof EntityPlayer) {
+				if(!Integrations.canHarmPlayerWGC(ownedParty,e.getUniqueID(),worldObj)){
+					continue;
+				}
+			}
 			ContaminationUtil.contaminate(e, HazardType.RADIATION, ContaminationType.RAD_BYPASS, eRads);
 		}
 	}

@@ -339,7 +339,7 @@ public abstract class EntityMissileBaseNT extends EntityThrowableInterp implemen
 		if(!this.isDead) {
 			this.setDead();
 			if(Integrations.canDetonateWGC(ownerParty,worldObj,(int)posX,(int)posY,(int)posZ)) {
-				ExplosionLarge.explode(worldObj, posX, posY, posZ, 5, true, false, true);
+				ExplosionLarge.explode(ownerParty,worldObj, posX, posY, posZ, 5, true, false, true);
 				ExplosionLarge.spawnShrapnelShower(worldObj, posX, posY, posZ, motionX, motionY, motionZ, 15, 0.075);
 				ExplosionLarge.spawnMissileDebris(worldObj, posX, posY, posZ, motionX, motionY, motionZ, 0.25, getDebris(), getDebrisRareDrop());
 			}

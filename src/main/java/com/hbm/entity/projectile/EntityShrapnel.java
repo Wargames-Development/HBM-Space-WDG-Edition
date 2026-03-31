@@ -11,15 +11,17 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
+import java.util.UUID;
+
 public class EntityShrapnel extends EntityThrowable {
 
-	public EntityShrapnel(World p_i1773_1_) {
-		super(p_i1773_1_);
+	public EntityShrapnel(World world, UUID party) {
+		super(world);
 		this.isImmuneToFire = true;
 	}
 
-	public EntityShrapnel(World p_i1774_1_, EntityLivingBase p_i1774_2_) {
-		super(p_i1774_1_, p_i1774_2_);
+	public EntityShrapnel(World world, EntityLivingBase entity) {
+		super(world, entity);
 	}
 
 	@Override
@@ -27,8 +29,8 @@ public class EntityShrapnel extends EntityThrowable {
 		this.dataWatcher.addObject(16, Byte.valueOf((byte) 0));
 	}
 
-	public EntityShrapnel(World p_i1775_1_, double p_i1775_2_, double p_i1775_4_, double p_i1775_6_) {
-		super(p_i1775_1_, p_i1775_2_, p_i1775_4_, p_i1775_6_);
+	public EntityShrapnel(World world,UUID party, double posX, double posY, double posZ) {
+		super(world, posX, posY, posZ);
 	}
 
 	@Override
@@ -48,19 +50,19 @@ public class EntityShrapnel extends EntityThrowable {
 		}
 
 		if(this.ticksExisted > 5) {
-			
+
 			if(!worldObj.isRemote)
 				this.setDead();
 
 			int b = this.dataWatcher.getWatchableObjectByte(16);
 			if(b == 2 || b == 4) {
-				
+
 				if(!worldObj.isRemote) {
 					if(motionY < -0.2D) {
-						
+
 						if(worldObj.getBlock(mop.blockX, mop.blockY + 1, mop.blockZ).isReplaceable(worldObj, mop.blockX, mop.blockY + 1, mop.blockZ))
 							worldObj.setBlock(mop.blockX, mop.blockY + 1, mop.blockZ, b == 2 ? ModBlocks.volcanic_lava_block : ModBlocks.rad_lava_block);
-						
+
 						for(int x = mop.blockX - 1; x <= mop.blockX + 1; x++) {
 							for(int y = mop.blockY; y <= mop.blockY + 2; y++) {
 								for(int z = mop.blockZ - 1; z <= mop.blockZ + 1; z++) {
@@ -70,7 +72,7 @@ public class EntityShrapnel extends EntityThrowable {
 							}
 						}
 					}
-					
+
 					if(motionY > 0) {
 						ExplosionNT explosion = new ExplosionNT(worldObj, null, mop.blockX + 0.5, mop.blockY + 0.5, mop.blockZ + 0.5, 7);
 						explosion.addAttrib(ExAttrib.NODROP);
@@ -81,15 +83,15 @@ public class EntityShrapnel extends EntityThrowable {
 						explosion.explode();
 					}
 				}
-				
+
 			} else if(this.dataWatcher.getWatchableObjectByte(16) == 3) {
-				
+
 				if(worldObj.getBlock(mop.blockX, mop.blockY + 1, mop.blockZ).isReplaceable(worldObj, mop.blockX, mop.blockY + 1, mop.blockZ)) {
 					worldObj.setBlock(mop.blockX, mop.blockY + 1, mop.blockZ, ModBlocks.mud_block);
 				}
-				
+
 			} else {
-				
+
 				for(int i = 0; i < 5; i++) worldObj.spawnParticle("lava", posX, posY, posZ, 0.0, 0.0, 0.0);
 			}
 

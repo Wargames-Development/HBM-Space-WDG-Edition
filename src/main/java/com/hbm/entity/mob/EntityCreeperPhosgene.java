@@ -16,16 +16,16 @@ public class EntityCreeperPhosgene extends EntityCreeper {
 
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float amount) {
-		
+
 		if(!source.isDamageAbsolute() && !source.isUnblockable()) {
 			amount -= 4F;
 		}
-		
+
 		if(amount < 0) return false;
-		
+
 		return super.attackEntityFrom(source, amount);
 	}
-	
+
 	@Override
 	public boolean getCanSpawnHere() {
 		return super.getCanSpawnHere() && this.dimension == 0;
@@ -33,12 +33,12 @@ public class EntityCreeperPhosgene extends EntityCreeper {
 
 	@Override
 	public void func_146077_cc() {
-		
+
 		if(!this.worldObj.isRemote) {
 			this.setDead();
-			
+
 			worldObj.createExplosion(this, posX, posY + this.height / 2, posZ, 2F, false);
-			EntityMist mist = new EntityMist(worldObj);
+			EntityMist mist = new EntityMist(worldObj,null);
 			mist.setType(Fluids.PHOSGENE);
 			mist.setPosition(posX, posY, posZ);
 			mist.setArea(10, 5);

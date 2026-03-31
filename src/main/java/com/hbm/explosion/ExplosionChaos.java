@@ -2,6 +2,7 @@ package com.hbm.explosion;
 
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 import com.hbm.blocks.ModBlocks;
 import com.hbm.entity.grenade.EntityGrenadeTau;
@@ -44,7 +45,7 @@ public class ExplosionChaos { //TODO: destroy this entire class
 	private final static Random random = new Random();
 	private static Random rand = new Random();
 
-	public static void hardenVirus(World world, int x, int y, int z, int bombStartStrength) {
+	public static void hardenVirus(UUID party, World world, int x, int y, int z, int bombStartStrength) {
 
 
 
@@ -70,7 +71,7 @@ public class ExplosionChaos { //TODO: destroy this entire class
 		}
 	}
 
-	public static void spreadVirus(World world, int x, int y, int z, int bombStartStrength) {
+	public static void spreadVirus(UUID party, World world, int x, int y, int z, int bombStartStrength) {
 
 
 		int r = bombStartStrength;
@@ -95,7 +96,7 @@ public class ExplosionChaos { //TODO: destroy this entire class
 		}
 	}
 
-	public static void pulse(World world, int x, int y, int z, int bombStartStrength) {
+	public static void pulse(UUID party, World world, int x, int y, int z, int bombStartStrength) {
 
 		int r = bombStartStrength;
 		int r2 = r * r;
@@ -154,7 +155,7 @@ public class ExplosionChaos { //TODO: destroy this entire class
 	}
 
 
-	public static void decon(World world, int x, int y, int z, int radius) {
+	public static void decon(UUID party, World world, int x, int y, int z, int radius) {
 
 		int r = radius;
 		int r2 = r * r;
@@ -185,7 +186,7 @@ public class ExplosionChaos { //TODO: destroy this entire class
 	 * @param z
 	 * @param bound
 	 */
-	public static void flameDeath(World world, int x, int y, int z, int bound) {
+	public static void flameDeath(UUID party, World world, int x, int y, int z, int bound) {
 
 		int r = bound;
 		int r2 = r * r;
@@ -221,7 +222,7 @@ public class ExplosionChaos { //TODO: destroy this entire class
 	 * @param z
 	 * @param bound
 	 */
-	public static void burn(World world, int x, int y, int z, int bound) {
+	public static void burn(UUID party, World world, int x, int y, int z, int bound) {
 
 		int r = bound;
 		int r2 = r * r;
@@ -250,7 +251,7 @@ public class ExplosionChaos { //TODO: destroy this entire class
 	}
 
 
-	@Deprecated public static void spawnPoisonCloud(World world, double x, double y, double z, int count, double speed, int type) {
+	@Deprecated public static void spawnPoisonCloud(UUID party, World world, double x, double y, double z, int count, double speed, int type) {
 
 		for(int i = 0; i < count; i++) {
 
@@ -271,7 +272,7 @@ public class ExplosionChaos { //TODO: destroy this entire class
 		}
 	}
 
-	public static void spawnVolley(World world, double x, double y, double z, int count, double speed) {
+	public static void spawnVolley(UUID party, World world, double x, double y, double z, int count, double speed) {
 
 		for(int i = 0; i < count; i++) {
 
@@ -287,7 +288,7 @@ public class ExplosionChaos { //TODO: destroy this entire class
 	}
 
 	//todo: check EntityRocket's onImpact to stop internal block damage of a zone.
-	public static void cluster(World world, int x, int y, int z, int count, Vec3 initialvel, int gravity) {
+	public static void cluster(UUID party, World world, int x, int y, int z, int count, Vec3 initialvel, int gravity) {
 
 		double d1 = 0;
 		double d2 = 0;
@@ -310,13 +311,13 @@ public class ExplosionChaos { //TODO: destroy this entire class
 			d2 = initialvel.yCoord - d2;
 			d3 += initialvel.zCoord;
 
-			fragment = new EntityRocket(world, x, y, z, d1, d2, d3, 0.0125D);
+			fragment = new EntityRocket(party,world, x, y, z, d1, d2, d3, 0.0125D);
 
 			world.spawnEntityInWorld(fragment);
 		}
 	}
 
-	public static void schrab(World world, int x, int y, int z, int count, int gravity) {
+	public static void schrab(UUID party, World world, int x, int y, int z, int count, int gravity) {
 
 		double d1 = 0;
 		double d2 = 0;
@@ -342,7 +343,7 @@ public class ExplosionChaos { //TODO: destroy this entire class
 		}
 	}
 
-	public static void frag(World world, int x, int y, int z, int count, boolean flame, Entity shooter) {
+	public static void frag(UUID party,World world, int x, int y, int z, int count, boolean flame, Entity shooter) {
 
 		double d1 = 0;
 		double d2 = 0;
@@ -380,7 +381,7 @@ public class ExplosionChaos { //TODO: destroy this entire class
 		}
 	}
 
-	public static void poison(World world, double x, double y, double z, double range) {
+	public static void poison(UUID party,World world, double x, double y, double z, double range) {
 
 		List<EntityLivingBase> affected = world.getEntitiesWithinAABB(
 			EntityLivingBase.class,
@@ -405,7 +406,7 @@ public class ExplosionChaos { //TODO: destroy this entire class
 	}
 
 
-	public static void pc(World world, double x, double y, double z, double range) {
+	public static void pc(UUID party,World world, double x, double y, double z, double range) {
 
 		List<EntityLivingBase> affected = world.getEntitiesWithinAABB(
 			EntityLivingBase.class,
@@ -426,7 +427,7 @@ public class ExplosionChaos { //TODO: destroy this entire class
 	}
 
 
-	public static void c(World world, double x, double y, double z, double range) {
+	public static void c(UUID party,World world, double x, double y, double z, double range) {
 
 		List<EntityLivingBase> affected = world.getEntitiesWithinAABB(
 			EntityLivingBase.class,
@@ -455,7 +456,7 @@ public class ExplosionChaos { //TODO: destroy this entire class
 	}
 
 
-	public static void floater(World world, int x, int y, int z, int radi, int height) {
+	public static void floater(UUID party,World world, int x, int y, int z, int radi, int height) {
 
 
 		Block save;
@@ -499,7 +500,7 @@ public class ExplosionChaos { //TODO: destroy this entire class
 
 
 
-	public static void move(World world, int x, int y, int z, int radius, int a, int b, int c) {
+	public static void move(UUID party,World world, int x, int y, int z, int radius, int a, int b, int c) {
 
 
 		float f = radius;
@@ -550,7 +551,7 @@ public class ExplosionChaos { //TODO: destroy this entire class
 	}
 
 
-	public static void plasma(World world, int x, int y, int z, int radius) {
+	public static void plasma(UUID party,World world, int x, int y, int z, int radius) {
 
 		int r = radius;
 		int r2 = r * r;
@@ -576,7 +577,7 @@ public class ExplosionChaos { //TODO: destroy this entire class
 	}
 
 
-	public static void tauMeSinPi(World world, double x, double y, double z, int count, Entity shooter, EntityGrenadeTau tau) {
+	public static void tauMeSinPi(UUID party, World world, double x, double y, double z, int count, Entity shooter, EntityGrenadeTau tau) {
 
 
 		double d1, d2, d3;
@@ -593,10 +594,10 @@ public class ExplosionChaos { //TODO: destroy this entire class
 				if (rand.nextInt(2) == 0) d3 *= -1;
 
 				if (rand.nextInt(5) == 0) {
-					fragment = new EntityBullet(world, (EntityPlayer) shooter, 3.0F, 35, 45, false, "tauDay", tau);
+					fragment = new EntityBullet(party, world, (EntityPlayer) shooter, 3.0F, 35, 45, false, "tauDay", tau);
 					fragment.setDamage(rand.nextInt(301) + 100);
 				} else {
-					fragment = new EntityBullet(world, (EntityPlayer) shooter, 3.0F, 35, 45, false, "eyyOk", tau);
+					fragment = new EntityBullet(party, world, (EntityPlayer) shooter, 3.0F, 35, 45, false, "eyyOk", tau);
 					fragment.setDamage(rand.nextInt(11) + 35);
 				}
 

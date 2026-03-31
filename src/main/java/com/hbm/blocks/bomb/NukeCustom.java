@@ -225,7 +225,7 @@ public class NukeCustom extends BlockContainer implements IBomb{
 			EntityNukeTorex.statFacStandard(worldObj, xCoord + 0.5, yCoord + 5, zCoord + 0.5, tnt);
 		} else if(tnt > 0) {
 
-			ExplosionLarge.explode(worldObj, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5, tnt, true, true, true);
+			ExplosionLarge.explode(owner,worldObj, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5, tnt, true, true, true);
 		}
 	}
 

@@ -1,10 +1,14 @@
 package com.hbm.entity.grenade;
 
+import api.hbm.wgc.Integrations;
 import com.hbm.blocks.ModBlocks;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
+
+import java.util.UUID;
 
 public class EntityWastePearl extends EntityGrenadeBase {
 
@@ -25,23 +29,28 @@ public class EntityWastePearl extends EntityGrenadeBase {
 
 		if(!this.worldObj.isRemote) {
 			this.setDead();
+			UUID party = null;
+			if(getThrower() instanceof EntityPlayer) party = getThrower().getUniqueID();
 
-			int x = (int)Math.floor(posX);
-			int y = (int)Math.floor(posY);
-			int z = (int)Math.floor(posZ);
-			
-			for(int ix = x - 3; ix <= x + 3; ix++) {
-				for(int iy = y - 3; iy <= y + 3; iy++) {
-					for(int iz = z - 3; iz <= z + 3; iz++) {
-						
-						if(worldObj.rand.nextInt(3) == 0 && worldObj.getBlock(ix, iy, iz).isReplaceable(worldObj, ix, iy, iz) && ModBlocks.fallout.canPlaceBlockAt(worldObj, ix, iy, iz)) {
-							worldObj.setBlock(ix, iy, iz, ModBlocks.fallout);
-						} else if(worldObj.getBlock(ix, iy, iz) == Blocks.air) {
-							
-							if(rand.nextBoolean())
-								worldObj.setBlock(ix, iy, iz, ModBlocks.gas_radon);
-							else
-								worldObj.setBlock(ix, iy, iz, ModBlocks.gas_radon_dense);
+			if(Integrations.canDetonateWGC(party,worldObj,(int)posX,(int)posY,(int)posZ)) {
+				int x = (int) Math.floor(posX);
+				int y = (int) Math.floor(posY);
+				int z = (int) Math.floor(posZ);
+
+				for (int ix = x - 3; ix <= x + 3; ix++) {
+					for (int iy = y - 3; iy <= y + 3; iy++) {
+						for (int iz = z - 3; iz <= z + 3; iz++) {
+							if(Integrations.canContaminateBlockWGC(party,worldObj,ix,iz)) {
+								if (worldObj.rand.nextInt(3) == 0 && worldObj.getBlock(ix, iy, iz).isReplaceable(worldObj, ix, iy, iz) && ModBlocks.fallout.canPlaceBlockAt(worldObj, ix, iy, iz)) {
+									worldObj.setBlock(ix, iy, iz, ModBlocks.fallout);
+								} else if (worldObj.getBlock(ix, iy, iz) == Blocks.air) {
+
+									if (rand.nextBoolean())
+										worldObj.setBlock(ix, iy, iz, ModBlocks.gas_radon);
+									else
+										worldObj.setBlock(ix, iy, iz, ModBlocks.gas_radon_dense);
+								}
+							}
 						}
 					}
 				}

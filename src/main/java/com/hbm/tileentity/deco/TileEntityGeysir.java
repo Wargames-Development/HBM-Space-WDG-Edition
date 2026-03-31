@@ -97,7 +97,7 @@ public class TileEntityGeysir extends TileEntity {
 			return;
 
 		if(worldObj.rand.nextInt(3) == 0) {
-			EntityShrapnel fx = new EntityShrapnel(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5);
+			EntityShrapnel fx = new EntityShrapnel(worldObj, null,xCoord + 0.5, yCoord + 1.5, zCoord + 0.5);
 			fx.motionX = worldObj.rand.nextGaussian() * 0.05;
 			fx.motionZ = worldObj.rand.nextGaussian() * 0.05;
 			fx.motionY = 0.5 + worldObj.rand.nextDouble() * timer * 0.01;

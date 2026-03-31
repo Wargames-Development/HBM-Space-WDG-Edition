@@ -71,7 +71,7 @@ public class EntityBombletZeta extends EntityThrowable {
 				}
 				if(type == 2) {
 					worldObj.playSoundEffect((double) (posX + 0.5F), (double) (posY + 0.5F), (double) (posZ + 0.5F), "random.fizz", 5.0F, 2.6F + (rand.nextFloat() - rand.nextFloat()) * 0.8F);
-					EntityMist mist = new EntityMist(worldObj);
+					EntityMist mist = new EntityMist(worldObj,null);
 					mist.setType(Fluids.CHLORINE);
 					mist.setPosition(this.posX - motionX, this.posY - motionY, this.posZ - motionZ);
 					mist.setArea(15, 7.5F);

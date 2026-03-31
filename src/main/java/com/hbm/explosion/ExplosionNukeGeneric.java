@@ -2,7 +2,10 @@ package com.hbm.explosion;
 
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
+import java.util.UUID;
 
+import api.hbm.wgc.Integrations;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
@@ -14,8 +17,10 @@ import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Vec3;
+import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldSettings.GameType;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import com.hbm.blocks.ModBlocks;
@@ -38,10 +43,9 @@ public class ExplosionNukeGeneric {
 
 	private final static Random random = new Random();
 
-	public static void empBlast(World world, int x, int y, int z, int bombStartStrength) {
+	public static void empBlast(UUID party, World world, int x, int y, int z, int bombStartStrength) {
 		int r = bombStartStrength;
-
-
+		Set< ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(party, world, x, z, r+16);
 		int r2 = r * r;
 		int r22 = r2 / 2;
 		for (int xx = -r; xx < r; xx++) {
@@ -54,9 +58,9 @@ public class ExplosionNukeGeneric {
 					int Z = zz + z;
 					int ZZ = YY + zz * zz;
 					if (ZZ < r22) {
-
-
-						emp(world, X, Y, Z);
+						if(!protectedChunks.contains(new ChunkCoordIntPair(X, Z))) {
+							emp(world, X, Y, Z);
+						}
 					}
 				}
 			}
@@ -64,15 +68,20 @@ public class ExplosionNukeGeneric {
 	}
 
 
-	public static void dealDamage(World world, double x, double y, double z, double radius) {
-		dealDamage(world, x, y, z, radius, 250F);
+	public static void dealDamage(UUID party, World world, double x, double y, double z, double radius) {
+		dealDamage(party, world, x, y, z, radius, 250F);
 	}
 
-	public static void dealDamage(World world, double x, double y, double z, double radius, float maxDamage) {
+	public static void dealDamage(UUID party, World world, double x, double y, double z, double radius, float maxDamage) {
 		List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(null,
 			AxisAlignedBB.getBoundingBox(x, y, z, x, y, z).expand(radius, radius, radius));
 
 		for (Entity e : list) {
+			if(e instanceof EntityPlayer){
+				if(Integrations.canHarmPlayerWGC(party,e.getUniqueID(),world)){
+					continue;
+				}
+			}
 			double dist = e.getDistance(x, y, z);
 			if (dist <= radius) {
 				double entX = e.posX, entY = e.posY + e.getEyeHeight(), entZ = e.posZ;
@@ -114,8 +123,9 @@ public class ExplosionNukeGeneric {
 		return false;
 	}
 
-	public static void vapor(World world, int x, int y, int z, int bombStartStrength) {
+	public static void vapor(UUID party, World world, int x, int y, int z, int bombStartStrength) {
 		int r = bombStartStrength * 2;
+		Set< ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(party, world, x, z, r+16);
 		int r2 = r * r;
 		int r22 = r2 / 2;
 		for (int xx = -r; xx < r; xx++) {
@@ -128,8 +138,9 @@ public class ExplosionNukeGeneric {
 					int Z = zz + z;
 					int ZZ = YY + zz * zz;
 					if (ZZ < r22) {
-
-						vaporDest(world, X, Y, Z);
+						if(!protectedChunks.contains(new ChunkCoordIntPair(X, Z))) {
+							vaporDest(world, X, Y, Z);
+						}
 					}
 				}
 			}
@@ -209,8 +220,9 @@ public class ExplosionNukeGeneric {
 	}
 
 
-	public static void waste(World world, int x, int y, int z, int radius) {
+	public static void waste(UUID party, World world, int x, int y, int z, int radius) {
 		int r = radius;
+		Set< ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(party, world, x, z, r+16);
 		int r2 = r * r;
 		int r22 = r2 / 2;
 		for (int xx = -r; xx < r; xx++) {
@@ -225,7 +237,7 @@ public class ExplosionNukeGeneric {
 					if (ZZ < r22 + world.rand.nextInt(r22 / 5)) {
 
 
-						if (world.getBlock(X, Y, Z) != Blocks.air)
+						if (!protectedChunks.contains(new ChunkCoordIntPair(X, Z)) && world.getBlock(X, Y, Z) != Blocks.air)
 							wasteDest(world, X, Y, Z);
 					}
 				}
@@ -333,8 +345,9 @@ public class ExplosionNukeGeneric {
 		}
 	}
 
-	public static void wasteNoSchrab(World world, int x, int y, int z, int radius) {
+	public static void wasteNoSchrab(UUID party, World world, int x, int y, int z, int radius) {
 		int r = radius;
+		Set< ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(party, world, x, z, r+16);
 		int r2 = r * r;
 		int r22 = r2 / 2;
 		for (int xx = -r; xx < r; xx++) {
@@ -349,7 +362,7 @@ public class ExplosionNukeGeneric {
 					if (ZZ < r22 + world.rand.nextInt(r22 / 5)) {
 
 
-						if (world.getBlock(X, Y, Z) != Blocks.air)
+						if (!protectedChunks.contains(new ChunkCoordIntPair(X, Z)) && world.getBlock(X, Y, Z) != Blocks.air)
 							wasteDestNoSchrab(world, X, Y, Z);
 					}
 				}

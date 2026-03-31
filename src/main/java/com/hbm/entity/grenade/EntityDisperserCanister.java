@@ -1,15 +1,19 @@
 package com.hbm.entity.grenade;
 
+import api.hbm.wgc.Integrations;
 import com.hbm.entity.effect.EntityMist;
 import com.hbm.inventory.fluid.FluidType;
 import com.hbm.inventory.fluid.Fluids;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
+import java.util.UUID;
+
 public class EntityDisperserCanister extends EntityGrenadeBase {
-	
+
 	public EntityDisperserCanister(World world) {
 		super(world);
 	}
@@ -49,12 +53,17 @@ public class EntityDisperserCanister extends EntityGrenadeBase {
 	@Override
 	public void explode() {
 		if(!worldObj.isRemote) {
-			EntityMist mist = new EntityMist(worldObj);
-			mist.setType(getFluid());
-			mist.setPosition(posX, posY, posZ);
-			mist.setArea(10, 5);
-			mist.setDuration(80);
-			worldObj.spawnEntityInWorld(mist);
+			UUID party = null;
+			if(getThrower() instanceof EntityPlayer) party = getThrower().getUniqueID();
+
+			if(Integrations.canDetonateWGC(party,worldObj,(int)posX,(int)posY,(int)posZ)) {
+				EntityMist mist = new EntityMist(worldObj,party);
+				mist.setType(getFluid());
+				mist.setPosition(posX, posY, posZ);
+				mist.setArea(10, 5);//TODO check bordering chunks
+				mist.setDuration(80);
+				worldObj.spawnEntityInWorld(mist);
+			}
 			this.setDead();
 		}
 	}

@@ -62,6 +62,7 @@ public class EntityDuchessGambit extends EntityThrowable {
 				e.attackEntityFrom(ModDamageSource.boat, 1000);
 			}
 
+
 			if(!worldObj.isRemote) {
 				ExplosionLarge.explode(worldObj, posX, posY, posZ - 6, 2, true, false, false);
 				ExplosionLarge.explode(worldObj, posX, posY, posZ - 3, 2, true, false, false);

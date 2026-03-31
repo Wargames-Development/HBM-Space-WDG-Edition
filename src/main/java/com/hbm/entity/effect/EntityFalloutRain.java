@@ -132,7 +132,7 @@ public class EntityFalloutRain extends EntityExplosionChunkloading {
 		Set<Long> chunks = new LinkedHashSet<>(); // LinkedHashSet preserves insertion order
 		Set<Long> outerChunks = new LinkedHashSet<>();
 		int outerRange = getScale();
-		Set<ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(owner,worldObj,(int)Math.floor(posX),(int)Math.floor(posZ),outerRange);
+		Set<ChunkCoordIntPair> protectedChunks = Integrations.getContamProtectedChunksWGC(owner,worldObj,(int)Math.floor(posX),(int)Math.floor(posZ),outerRange);
 		// Basically defines something like the step size, but as indirect proportion. The actual angle used for rotation will always end up at 360° for angle == adjustedMaxAngle
 		// So yea, I mathematically worked out that 20 is a good value for this, with the minimum possible being 18 in order to reach all chunks
 		int adjustedMaxAngle = 20 * outerRange / 32; // step size = 20 * chunks / 2

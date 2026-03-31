@@ -97,7 +97,7 @@ public abstract class EntityMissileTier4 extends EntityMissileBaseNT {
 		public EntityMissileVolcano(World world) { super(world); }
 		public EntityMissileVolcano(World world, float x, float y, float z, int a, int b, UUID ownerParty) { super(world, x, y, z, a, b, ownerParty);}
 		@Override public void onMissileImpact(MovingObjectPosition mop) {
-			ExplosionLarge.explode(worldObj, posX, posY, posZ, 10.0F, true, true, true);
+			ExplosionLarge.explode(ownerParty,worldObj, posX, posY, posZ, 10.0F, true, true, true);
 			for(int x = -1; x <= 1; x++) for(int y = -1; y <= 1; y++) for(int z = -1; z <= 1; z++) worldObj.setBlock((int)Math.floor(posX + x), (int)Math.floor(posY + y), (int)Math.floor(posZ + z), ModBlocks.volcanic_lava_block);
 			worldObj.setBlock((int)Math.floor(posX), (int)Math.floor(posY), (int)Math.floor(posZ), ModBlocks.volcano_core);
 		}

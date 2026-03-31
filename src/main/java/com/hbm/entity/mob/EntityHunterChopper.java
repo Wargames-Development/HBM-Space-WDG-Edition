@@ -181,7 +181,7 @@ public class EntityHunterChopper extends EntityFlying implements IMob, IBossDisp
 					worldObj.playSoundAtEntity(this, "hbm:weapon.osiprShoot", 10.0F, 1.0F);
 					// EntityLargeFireball entitylargefireball = new
 					// EntityLargeFireball(this.worldObj, this, d5, d6, d7);
-					EntityBullet entityarrow = new EntityBullet(this.worldObj, this, 3.0F, 35, 45, false, "chopper");
+					EntityBullet entityarrow = new EntityBullet(null,this.worldObj, this, 3.0F, 35, 45, false, "chopper");
 					Vec3 vec2 = Vec3.createVectorHelper(d5 - 1 + rand.nextInt(3), d6 - 1 + rand.nextInt(3), d7 - 1 + rand.nextInt(3)).normalize();
 					double motion = 3;
 					entityarrow.motionX = vec2.xCoord * motion;

@@ -161,23 +161,23 @@ public class BombMulti extends BlockContainer implements IBomb {
 				world.setBlockToAir(x, y, z);
 				// world.createExplosion(null, x , y , z , this.explosionValue,
 				// true);
-				ExplosionLarge.explode(world, x, y, z, explosionValue, true, true, true);
+				ExplosionLarge.explode(entity.getOwner(),world, x, y, z, explosionValue, true, true, true);
 				explosionValue = 0;
 
 				if(clusterCount > 0) {
-					ExplosionChaos.cluster(world, x, y, z, clusterCount, Vec3.createVectorHelper(0,0,0), 1);
+					ExplosionChaos.cluster(entity.getOwner(),world, x, y, z, clusterCount, Vec3.createVectorHelper(0,0,0), 1);
 				}
 
 				if(fireRadius > 0) {
-					ExplosionChaos.burn(world, x, y, z, fireRadius);
+					ExplosionChaos.burn(entity.getOwner(),world, x, y, z, fireRadius);
 				}
 
 				if(poisonRadius > 0) {
-					ExplosionNukeGeneric.wasteNoSchrab(world, x, y, z, poisonRadius);
+					ExplosionNukeGeneric.wasteNoSchrab(entity.getOwner(),world, x, y, z, poisonRadius);
 				}
 
 				if(gasCloud > 0) {
-					EntityMist mist = new EntityMist(world);
+					EntityMist mist = new EntityMist(world,entity.getOwner());
 					mist.setType(Fluids.CHLORINE);
 					mist.setPosition(x + 0.5, y + 0.5, z + 0.5);
 					mist.setArea(gasCloud * 15F / 50F, gasCloud * 7.5F / 50F);
