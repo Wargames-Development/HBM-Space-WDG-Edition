@@ -6,6 +6,7 @@ import java.util.UUID;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.interfaces.IBomb;
 import com.hbm.interfaces.IMultiblock;
+import com.hbm.main.ChunkLoaderManager;
 import com.hbm.main.MainRegistry;
 import com.hbm.tileentity.bomb.TileEntityLaunchPad;
 import com.hbm.tileentity.bomb.TileEntityLaunchTable;
@@ -166,12 +167,13 @@ public class LaunchTable extends BlockContainer implements IMultiblock, IBomb {
 
 			if(entity.canLaunch()) {
 				entity.launchFromDesignator();
+				ChunkLoaderManager.unforceChunk(world, x, y, z);
 				return BombReturnCode.LAUNCHED;
 			}
 
+			ChunkLoaderManager.unforceChunk(world, x, y, z);
 			return BombReturnCode.ERROR_MISSING_COMPONENT;
 		}
-
 		return BombReturnCode.UNDEFINED;
 	}
 

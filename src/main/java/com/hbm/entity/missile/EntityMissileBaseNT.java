@@ -393,6 +393,7 @@ public abstract class EntityMissileBaseNT extends EntityThrowableInterp implemen
 					loaderTicket.getModData();
 				}
 
+				System.out.println("I am loading my chunk now.");
 				ForgeChunkManager.forceChunk(loaderTicket, new ChunkCoordIntPair(chunkCoordX, chunkCoordZ));
 			}
 		}

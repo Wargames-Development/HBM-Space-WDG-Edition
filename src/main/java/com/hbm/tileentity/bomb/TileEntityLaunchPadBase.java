@@ -425,7 +425,7 @@ public abstract class TileEntityLaunchPadBase extends TileEntityMachineBase impl
 		if(!canLaunch()) return BombReturnCode.ERROR_MISSING_COMPONENT;
 
 		Entity e = instantiateMissile(targetX, targetZ);
-		if(e != null & Integrations.canTargetBlockWGC(ownerParty,worldObj,targetX,0,targetZ)) {
+		if((e != null && Integrations.canTargetBlockWGC(ownerParty,worldObj,targetX,0,targetZ)) || e instanceof  EntityMissileAntiBallistic) {
 			finalizeLaunch(e);
 			return BombReturnCode.LAUNCHED;
 		}

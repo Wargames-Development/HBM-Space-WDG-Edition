@@ -2,6 +2,7 @@ package com.hbm.blocks.bomb;
 
 import com.hbm.blocks.BlockDummyable;
 import com.hbm.interfaces.IBomb;
+import com.hbm.main.ChunkLoaderManager;
 import com.hbm.tileentity.TileEntityProxyCombo;
 import com.hbm.tileentity.bomb.TileEntityLaunchPad;
 
@@ -59,11 +60,14 @@ public class LaunchPad extends BlockDummyable implements IBomb {
 				TileEntity core = world.getTileEntity(corePos[0], corePos[1], corePos[2]);
 				if(core instanceof TileEntityLaunchPad){
 					TileEntityLaunchPad entity = (TileEntityLaunchPad)core;
-					return entity.launchFromDesignator();
+					BombReturnCode code = entity.launchFromDesignator();
+					System.out.println("Unloading chunk...");
+					ChunkLoaderManager.unforceChunk(world, x, y, z);
+					return code;
 				}
 			}
+			ChunkLoaderManager.unforceChunk(world, x, y, z);
 		}
-
 		return BombReturnCode.UNDEFINED;
 	}
 
