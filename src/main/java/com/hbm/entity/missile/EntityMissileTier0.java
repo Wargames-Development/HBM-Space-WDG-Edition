@@ -144,7 +144,7 @@ public abstract class EntityMissileTier0 extends EntityMissileBaseNT {
 		public EntityMissileEMP(World world) { super(world); }
 		public EntityMissileEMP(World world, float x, float y, float z, int a, int b, UUID ownerParty) { super(world, x, y, z, a, b, ownerParty); }
 		@Override public void onMissileImpact(MovingObjectPosition mop) {
-			ExplosionNukeGeneric.empBlast(worldObj, (int)posX, (int)posY, (int)posZ, 50);
+			ExplosionNukeGeneric.empBlast(ownerParty,worldObj, (int)posX, (int)posY, (int)posZ, 50);
 			EntityEMPBlast wave = new EntityEMPBlast(worldObj, 50);
 			wave.posX = posX;
 			wave.posY = posY;

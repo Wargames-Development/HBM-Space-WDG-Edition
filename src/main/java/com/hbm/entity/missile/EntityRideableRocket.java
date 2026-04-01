@@ -377,7 +377,7 @@ public class EntityRideableRocket extends EntityMissileBaseNT implements ILookOv
 					if(willExplode) {
 						dropNDie(null);
 						ExplosionLarge.explode(ownerParty,worldObj, posX, posY, posZ, 5, true, false, true);
-						ExplosionLarge.spawnShrapnelShower(worldObj, posX, posY, posZ, motionX, motionY, motionZ, 15, 0.075);
+						ExplosionLarge.spawnShrapnelShower(worldObj, posX, posY, posZ, motionX, motionY, motionZ, 15, 0.075,ownerParty);
 
 						worldObj.playSoundEffect(posX, posY, posZ, "hbm:entity.pipefail", 10_000, 0.8F + this.worldObj.rand.nextFloat() * 0.4F);
 					}

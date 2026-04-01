@@ -2,7 +2,10 @@ package com.hbm.explosion;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
+import api.hbm.wgc.Integrations;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.util.ArmorUtil;
 
@@ -17,14 +20,14 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
+import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
 
 public class ExplosionThermo {
 
-	public static void freeze(World world, int x, int y, int z, int bombStartStrength) {
+	public static void freeze(UUID party, World world, int x, int y, int z, int bombStartStrength) {
 		int r = bombStartStrength * 2;
-
-
+		Set<ChunkCoordIntPair> protChunks = Integrations.getExplosionProtectedChunksWGC(party,world,x,z,r+16);
 		int r2 = r * r;
 		int r22 = r2 / 2;
 		for (int xx = -r; xx < r; xx++) {
@@ -35,9 +38,9 @@ public class ExplosionThermo {
 				int YY = XX + yy * yy;
 				for (int zz = -r; zz < r; zz++) {
 					int Z = zz + z;
+					if(protChunks.contains(new ChunkCoordIntPair(X << 4, Z <<4))){continue;}
 					int ZZ = YY + zz * zz;
 					if (ZZ < r22 + world.rand.nextInt(r22 / 2)) {
-
 
 						freezeDest(world, X, Y, Z);
 					}
@@ -46,10 +49,10 @@ public class ExplosionThermo {
 		}
 	}
 
-	public static void snow(World world, int x, int y, int z, int bound) {
+	public static void snow(UUID party, World world, int x, int y, int z, int bound) {
 
 		int r = bound;
-
+		Set<ChunkCoordIntPair> protChunks = Integrations.getExplosionProtectedChunksWGC(party,world,x,z,r+16);
 		int r2 = r * r;
 		int r22 = r2 / 2;
 		for (int xx = -r; xx < r; xx++) {
@@ -60,6 +63,7 @@ public class ExplosionThermo {
 				int YY = XX + yy * yy;
 				for (int zz = -r; zz < r; zz++) {
 					int Z = zz + z;
+					if(protChunks.contains(new ChunkCoordIntPair(X << 4, Z <<4))){continue;}
 					int ZZ = YY + zz * zz;
 					if (ZZ < r22) {
 
@@ -74,9 +78,9 @@ public class ExplosionThermo {
 	}
 
 
-	public static void scorch(World world, int x, int y, int z, int bombStartStrength) {
+	public static void scorch(UUID party, World world, int x, int y, int z, int bombStartStrength) {
 		int r = bombStartStrength * 2;
-
+		Set<ChunkCoordIntPair> protChunks = Integrations.getExplosionProtectedChunksWGC(party,world,x,z,r+16);
 		int r2 = r * r;
 		int r22 = r2 / 2;
 		for (int xx = -r; xx < r; xx++) {
@@ -87,6 +91,7 @@ public class ExplosionThermo {
 				int YY = XX + yy * yy;
 				for (int zz = -r; zz < r; zz++) {
 					int Z = zz + z;
+					if(protChunks.contains(new ChunkCoordIntPair(X << 4, Z <<4))){continue;}
 					int ZZ = YY + zz * zz;
 					if (ZZ < r22 + world.rand.nextInt(r22 / 2)) {
 
@@ -98,9 +103,9 @@ public class ExplosionThermo {
 	}
 
 
-	public static void scorchLight(World world, int x, int y, int z, int bombStartStrength) {
+	public static void scorchLight(UUID party, World world, int x, int y, int z, int bombStartStrength) {
 		int r = bombStartStrength * 2;
-
+		Set<ChunkCoordIntPair> protChunks = Integrations.getExplosionProtectedChunksWGC(party,world,x,z,r+16);
 		int r2 = r * r;
 		int r22 = r2 / 2;
 		for (int xx = -r; xx < r; xx++) {
@@ -111,6 +116,7 @@ public class ExplosionThermo {
 				int YY = XX + yy * yy;
 				for (int zz = -r; zz < r; zz++) {
 					int Z = zz + z;
+					if(protChunks.contains(new ChunkCoordIntPair(X << 4, Z <<4))){continue;}
 					int ZZ = YY + zz * zz;
 					if (ZZ < r22 + world.rand.nextInt(r22 / 2)) {
 
@@ -418,7 +424,7 @@ public class ExplosionThermo {
 		}
 	}
 
-	public static void freezer(World world, int x, int y, int z, int bombStartStrength) {
+	public static void freezer(UUID party, World world, int x, int y, int z, int bombStartStrength) {
 
 		float f = bombStartStrength;
 		new HashSet();
@@ -442,6 +448,9 @@ public class ExplosionThermo {
 		for (int i1 = 0; i1 < list.size(); ++i1)
 		{
 			Entity entity = (Entity)list.get(i1);
+			if(entity instanceof EntityPlayer && !Integrations.canHarmPlayerWGC(party,entity.getUniqueID(),world)){
+				continue;
+			}
 			double d4 = entity.getDistance(x, y, z) / bombStartStrength;
 
 			if (d4 <= 1.0D)
@@ -475,7 +484,7 @@ public class ExplosionThermo {
 	}
 
 
-	public static void setEntitiesOnFire(World world, double x, double y, double z, int radius) {
+	public static void setEntitiesOnFire(UUID party, World world, double x, double y, double z, int radius) {
 
 		List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(
 			null,
@@ -483,6 +492,10 @@ public class ExplosionThermo {
 		);
 
 		for (Entity e : list) {
+
+			if(e instanceof EntityPlayer && !Integrations.canHarmPlayerWGC(party,e.getUniqueID(),world)){
+				continue;
+			}
 			if (e.getDistance(x, y, z) <= radius) {
 
 

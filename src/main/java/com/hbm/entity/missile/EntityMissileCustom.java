@@ -76,7 +76,7 @@ public class EntityMissileCustom extends EntityMissileBaseNT implements IChunkLo
 		if(!this.isDead) {
 			this.setDead();
 			ExplosionLarge.explode(ownerParty,worldObj, posX, posY, posZ, 5, true, false, true);
-			ExplosionLarge.spawnShrapnelShower(worldObj, posX, posY, posZ, motionX, motionY, motionZ, 15, 0.075);
+			ExplosionLarge.spawnShrapnelShower(worldObj, posX, posY, posZ, motionX, motionY, motionZ, 15, 0.075,ownerParty);
 		}
 	}
 
@@ -222,7 +222,7 @@ public class EntityMissileCustom extends EntityMissileBaseNT implements IChunkLo
 			break;
 		case CLOUD:
 			this.worldObj.playAuxSFX(2002, (int) Math.round(this.posX), (int) Math.round(this.posY), (int) Math.round(this.posZ), 0);
-			ExplosionChaos.spawnPoisonCloud(worldObj, posX - motionX, posY - motionY, posZ - motionZ, 750, 2.5, 2);
+			ExplosionChaos.spawnPoisonCloud(ownerParty,worldObj, posX - motionX, posY - motionY, posZ - motionZ, 750, 2.5, 2);
 			break;
 		case TURBINE:
 			ExplosionLarge.explode(ownerParty,worldObj, posX, posY, posZ, 10, true, false, true);

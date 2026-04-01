@@ -46,7 +46,7 @@ public class EntityOrangeFX extends EntityModFX {
 		}
 
 		if(!worldObj.isRemote && rand.nextInt(50) == 0)
-			ExplosionChaos.poison(worldObj, (int) posX, (int) posY, (int) posZ, 2);
+			ExplosionChaos.poison(null, worldObj, (int) posX, (int) posY, (int) posZ, 2);//TODO FIX
 
 		this.particleAge++;
 

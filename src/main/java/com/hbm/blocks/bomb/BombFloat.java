@@ -79,8 +79,8 @@ public class BombFloat extends BlockPartyOwned implements IBomb {
 		if(!world.isRemote & Integrations.canDetonateWGC(owner,world,x,y,z)) {
 			world.setBlock(x, y, z, Blocks.air);
 			if(this == ModBlocks.float_bomb) {
-				ExplosionChaos.floater(world, x, y, z, 15, 50);
-				ExplosionChaos.move(world, x, y, z, 15, 0, 50, 0);
+				ExplosionChaos.floater(owner,world, x, y, z, 15, 50);
+				ExplosionChaos.move(owner,world, x, y, z, 15, 0, 50, 0);
 			}
 			if(this == ModBlocks.emp_bomb) {
 				ExplosionNukeGeneric.empBlast(owner,world, x, y, z, 50);

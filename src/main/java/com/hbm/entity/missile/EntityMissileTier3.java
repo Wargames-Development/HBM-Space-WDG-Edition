@@ -75,8 +75,8 @@ public abstract class EntityMissileTier3 extends EntityMissileBaseNT {
 		@Override public void onMissileImpact(MovingObjectPosition mop) {
 			this.explodeStandard(50F, 48, true);
 			ExplosionCreator.composeEffectLarge(worldObj, posX, posY, posZ);
-			ExplosionChaos.burn(this.worldObj, (int)this.posX, (int)this.posY, (int)this.posZ, 10);
-			ExplosionChaos.flameDeath(this.worldObj, (int)this.posX, (int)this.posY, (int)this.posZ, 25);
+			ExplosionChaos.burn(ownerParty,this.worldObj, (int)this.posX, (int)this.posY, (int)this.posZ, 10);
+			ExplosionChaos.flameDeath(ownerParty,this.worldObj, (int)this.posX, (int)this.posY, (int)this.posZ, 25);
 		}
 		@Override public ItemStack getDebrisRareDrop() { return new ItemStack(ModItems.warhead_incendiary_large); }
 		@Override public ItemStack getMissileItemForInfo() { return new ItemStack(ModItems.missile_inferno); }
@@ -121,7 +121,7 @@ public abstract class EntityMissileTier3 extends EntityMissileBaseNT {
 		@Override public void onMissileImpact(MovingObjectPosition mop) {
 			worldObj.spawnEntityInWorld(EntityNukeExplosionMK5.statFacNoRad(worldObj, 45, this.posX, this.posY, this.posZ,ownerParty));
 			ExplosionLarge.spawnParticles(worldObj, this.posX, this.posY, this.posZ, 8);
-			ExplosionLarge.spawnShrapnels(worldObj, this.posX, this.posY, this.posZ, 8);
+			ExplosionLarge.spawnShrapnels(worldObj, this.posX, this.posY, this.posZ, 8,ownerParty);
 			ExplosionLarge.spawnRubble(worldObj, this.posX, this.posY, this.posZ, 8);
 			ExplosionLarge.jolt(worldObj, this.posX, this.posY, this.posZ, 10, 50, 1);
 		}

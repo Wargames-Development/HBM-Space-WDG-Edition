@@ -153,15 +153,15 @@ public class Landmine extends BlockContainer implements IBomb {
 			Landmine.safeMode = true;
 			world.func_147480_a(x, y, z, false);
 			Landmine.safeMode = false;
-
+			UUID party = getOwnerParty(world, x, y, z);
 			if(this == ModBlocks.mine_ap) {
-				ExplosionVNT vnt = new ExplosionVNT(world, x + 0.5, y + 0.5, z + 0.5, 3F, getOwnerParty(world, x, y, z));
+				ExplosionVNT vnt = new ExplosionVNT(world, x + 0.5, y + 0.5, z + 0.5, 3F, party);
 				vnt.setEntityProcessor(new EntityProcessorCrossSmooth(0.5, ServerConfig.MINE_AP_DAMAGE.get()).setupPiercing(5F, 0.2F));
 				vnt.setPlayerProcessor(new PlayerProcessorStandard());
 				vnt.setSFX(new ExplosionEffectWeapon(5, 1F, 0.5F));
 				vnt.explode();
 			} else if(this == ModBlocks.mine_he) {
-				ExplosionVNT vnt = new ExplosionVNT(world, x + 0.5, y + 0.5, z + 0.5, 4F, getOwnerParty(world, x, y, z));
+				ExplosionVNT vnt = new ExplosionVNT(world, x + 0.5, y + 0.5, z + 0.5, 4F, party);
 				vnt.setBlockAllocator(new BlockAllocatorStandard());
 				vnt.setBlockProcessor(new BlockProcessorStandard());
 				vnt.setEntityProcessor(new EntityProcessorCrossSmooth(1, ServerConfig.MINE_HE_DAMAGE.get()).setupPiercing(15F, 0.2F));
@@ -169,16 +169,16 @@ public class Landmine extends BlockContainer implements IBomb {
 				vnt.setSFX(new ExplosionEffectWeapon(15, 3.5F, 1.25F));
 				vnt.explode();
 			} else if(this == ModBlocks.mine_shrap) {
-				ExplosionVNT vnt = new ExplosionVNT(world, x + 0.5, y + 0.5, z + 0.5, 3F, getOwnerParty(world, x, y, z));
+				ExplosionVNT vnt = new ExplosionVNT(world, x + 0.5, y + 0.5, z + 0.5, 3F, party);
 				vnt.setEntityProcessor(new EntityProcessorCrossSmooth(0.5, ServerConfig.MINE_SHRAP_DAMAGE.get()));
 				vnt.setPlayerProcessor(new PlayerProcessorStandard());
 				vnt.setSFX(new ExplosionEffectWeapon(5, 1F, 0.5F));
 				vnt.explode();
 
-				ExplosionLarge.spawnShrapnelShower(world, x + 0.5, y + 0.5, z + 0.5, 0, 1D, 0, 45, 0.2D);
-				ExplosionLarge.spawnShrapnels(world, x + 0.5, y + 0.5, z + 0.5, 5);
+				ExplosionLarge.spawnShrapnelShower(world, x + 0.5, y + 0.5, z + 0.5, 0, 1D, 0, 45, 0.2D,party);
+				ExplosionLarge.spawnShrapnels(world, x + 0.5, y + 0.5, z + 0.5, 5,party);
 			} else if(this == ModBlocks.mine_naval) {
-				ExplosionVNT vnt = new ExplosionVNT(world, x + 5, y + 5, z + 5, 25F, getOwnerParty(world,x,y,z));
+				ExplosionVNT vnt = new ExplosionVNT(world, x + 5, y + 5, z + 5, 25F, party);
 				vnt.setBlockAllocator(new BlockAllocatorWater(32));
 				vnt.setBlockProcessor(new BlockProcessorStandard());
 				vnt.setEntityProcessor(new EntityProcessorCrossSmooth(0.5, ServerConfig.MINE_NAVAL_DAMAGE.get()).setupPiercing(5F, 0.2F));
@@ -196,7 +196,7 @@ public class Landmine extends BlockContainer implements IBomb {
 
 			} else if(this == ModBlocks.mine_fat) {
 
-				ExplosionVNT vnt = new ExplosionVNT(world, x + 0.5, y + 0.5, z + 0.5, 10, getOwnerParty(world,x,y,z));
+				ExplosionVNT vnt = new ExplosionVNT(world, x + 0.5, y + 0.5, z + 0.5, 10, party);
 				vnt.setBlockAllocator(new BlockAllocatorStandard(64));
 				vnt.setBlockProcessor(new BlockProcessorStandard());
 				vnt.setEntityProcessor(new EntityProcessorCrossSmooth(2, ServerConfig.MINE_NUKE_DAMAGE.get()).withRangeMod(1.5F));

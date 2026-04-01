@@ -42,8 +42,8 @@ public class EntityGrenadeIFToxic extends EntityGrenadeBouncyBase {
 			if(Integrations.canDetonateWGC(party,worldObj,(int)posX,(int)posY,(int)posZ)) {
 				ExplosionLarge.jolt(worldObj, posX, posY, posZ, 3, 200, 0.25);
 				ExplosionLarge.explode(party,worldObj, posX, posY, posZ, 2, true, true, true);
-				ExplosionChaos.poison(worldObj, (int)posX, (int)posY, (int)posZ, 12);
-				ExplosionNukeGeneric.waste(worldObj, (int)posX, (int)posY, (int)posZ, 12);
+				ExplosionChaos.poison(party, worldObj, (int)posX, (int)posY, (int)posZ, 12);
+				ExplosionNukeGeneric.waste(party, worldObj, (int)posX, (int)posY, (int)posZ, 12);
 			}
         }
     }

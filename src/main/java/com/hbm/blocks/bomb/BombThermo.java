@@ -1,6 +1,7 @@
 package com.hbm.blocks.bomb;
 
 import java.util.Random;
+import java.util.UUID;
 
 import api.hbm.wgc.Integrations;
 import org.apache.logging.log4j.Level;
@@ -56,35 +57,38 @@ public class BombThermo extends BlockPartyOwned implements IBomb {
 	}
 
 	@Override
-	public void onNeighborBlockChange(World p_149695_1_, int x, int y, int z, Block p_149695_5_) {
-		if(p_149695_1_.isBlockIndirectlyGettingPowered(x, y, z)) {
-			p_149695_1_.setBlock(x, y, z, Blocks.air);
+	public void onNeighborBlockChange(World world, int x, int y, int z, Block p_149695_5_) {
+
+		if(world.isBlockIndirectlyGettingPowered(x, y, z)) {
+			UUID owner = getOwner(world,x,y,z);
+			world.setBlock(x, y, z, Blocks.air);
 			if(this == ModBlocks.therm_endo) {
-				ExplosionThermo.freeze(p_149695_1_, x, y, z, 15);
-				ExplosionThermo.freezer(p_149695_1_, x, y, z, 20);
+				ExplosionThermo.freeze(owner,world, x, y, z, 15);
+				ExplosionThermo.freezer(owner,world, x, y, z, 20);
 			}
 
 			if(this == ModBlocks.therm_exo) {
-				ExplosionThermo.scorch(p_149695_1_, x, y, z, 15);
-				ExplosionThermo.setEntitiesOnFire(p_149695_1_, x, y, z, 20);
+				ExplosionThermo.scorch(owner,world, x, y, z, 15);
+				ExplosionThermo.setEntitiesOnFire(owner,world, x, y, z, 20);
 			}
 
-			p_149695_1_.createExplosion(null, x, y, z, 5.0F, true);
+			world.createExplosion(null, x, y, z, 5.0F, true);
 		}
 	}
 
 	@Override
 	public BombReturnCode explode(World world, int x, int y, int z) {
 		if(!world.isRemote & Integrations.canDetonateWGC(getOwner(world,x,y,z),world,x,y,z)){
+			UUID owner = getOwner(world,x,y,z);
 			world.setBlock(x, y, z, Blocks.air);
 			if(this == ModBlocks.therm_endo) {
-				ExplosionThermo.freeze(world, x, y, z, 15);
-				ExplosionThermo.freezer(world, x, y, z, 20);
+				ExplosionThermo.freeze(owner,world, x, y, z, 15);
+				ExplosionThermo.freezer(owner,world, x, y, z, 20);
 			}
 
 			if(this == ModBlocks.therm_exo) {
-				ExplosionThermo.scorch(world, x, y, z, 15);
-				ExplosionThermo.setEntitiesOnFire(world, x, y, z, 20);
+				ExplosionThermo.scorch(owner,world, x, y, z, 15);
+				ExplosionThermo.setEntitiesOnFire(owner,world, x, y, z, 20);
 			}
 
 			world.createExplosion(null, x, y, z, 5.0F, true);

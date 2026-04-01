@@ -42,9 +42,9 @@ public class EntityGrenadeIFIncendiary extends EntityGrenadeBouncyBase {
 			if(Integrations.canDetonateWGC(party,worldObj,(int)posX,(int)posY,(int)posZ)) {
 				ExplosionLarge.jolt(worldObj, posX, posY, posZ, 5, 200, 0.25);
 				ExplosionLarge.explode(party,worldObj, posX, posY, posZ, 5, true, true, true);
-				ExplosionThermo.setEntitiesOnFire(worldObj, (int)posX, (int)posY, (int)posZ, 8);
-				ExplosionChaos.flameDeath(worldObj, (int)posX, (int)posY, (int)posZ, 15);
-				ExplosionChaos.burn(worldObj, (int)posX, (int)posY, (int)posZ, 10);
+				ExplosionThermo.setEntitiesOnFire(party,worldObj, (int)posX, (int)posY, (int)posZ, 8);
+				ExplosionChaos.flameDeath(party,worldObj, (int)posX, (int)posY, (int)posZ, 15);
+				ExplosionChaos.burn(party,worldObj, (int)posX, (int)posY, (int)posZ, 10);
 			}
         }
     }

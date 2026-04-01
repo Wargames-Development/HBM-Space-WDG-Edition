@@ -55,46 +55,46 @@ public class EntityNukeExplosionMK5 extends EntityExplosionChunkloading {
 	@Override
 	public void onUpdate() {
 
-		if(strength == 0) {
+		if (strength == 0) {
 			this.clearChunkLoader();
 			this.setDead();
 			return;
 		}
 
-		if(!worldObj.isRemote) loadChunk((int) Math.floor(posX / 16D), (int) Math.floor(posZ / 16D));
+		if (!worldObj.isRemote) loadChunk((int) Math.floor(posX / 16D), (int) Math.floor(posZ / 16D));
 
-		for(Object player : this.worldObj.playerEntities) {
-			((EntityPlayer)player).triggerAchievement(MainRegistry.achManhattan);
+		for (Object player : this.worldObj.playerEntities) {
+			((EntityPlayer) player).triggerAchievement(MainRegistry.achManhattan);
 		}
 
-		if(!worldObj.isRemote && fallout && explosion != null && this.ticksExisted < 10 && strength >= 75) {
+		if (!worldObj.isRemote && fallout && explosion != null && this.ticksExisted < 10 && strength >= 75) {
 			radiate(2_500_000F / (this.ticksExisted * 5 + 1), this.length * 2);
 		}
 
-		ExplosionNukeGeneric.dealDamage(this.worldObj, this.posX, this.posY, this.posZ, this.length * 2);
+		ExplosionNukeGeneric.dealDamage(ownedParty, this.worldObj, this.posX, this.posY, this.posZ, this.length * 2);
 
-		if(explosion == null) {
+		if (explosion == null) {
 			explosionStart = System.currentTimeMillis();
 			//if(BombConfig.explosionAlgorithm == 1 || BombConfig.explosionAlgorithm == 2) {
 			//	explosion = new ExplosionNukeRayParallelized(worldObj, posX, posY, posZ, strength, speed, length);
 			//} else {
-				explosion = new ExplosionNukeRayBatched(worldObj, (int) posX, (int) posY, (int) posZ, strength, speed, length, ownedParty);
+			explosion = new ExplosionNukeRayBatched(worldObj, (int) posX, (int) posY, (int) posZ, strength, speed, length, ownedParty);
 			//}
 		}
 
-		if(!explosion.isComplete()) {
+		if (!explosion.isComplete()) {
 			explosion.cacheChunksTick(BombConfig.mk5);
 			explosion.destructionTick(BombConfig.mk5);
 		} else {
-			if(GeneralConfig.enableExtendedLogging && explosionStart != 0)
+			if (GeneralConfig.enableExtendedLogging && explosionStart != 0)
 				MainRegistry.logger.log(Level.INFO, "[NUKE] Explosion complete. Time elapsed: {}ms", (System.currentTimeMillis() - explosionStart));
-			if(fallout) {
+			if (fallout) {
 				EntityFalloutRain fallout = new EntityFalloutRain(this.worldObj);
 				fallout.posX = this.posX;
 				fallout.posY = this.posY;
 				fallout.posZ = this.posZ;
 				fallout.owner = this.ownedParty;
-				fallout.setScale((int)(this.length * 2.5 + falloutAdd) * BombConfig.falloutRange / 100);
+				fallout.setScale((int) (this.length * 2.5 + falloutAdd) * BombConfig.falloutRange / 100);
 				this.worldObj.spawnEntityInWorld(fallout);
 			}
 			this.clearChunkLoader();
@@ -106,7 +106,7 @@ public class EntityNukeExplosionMK5 extends EntityExplosionChunkloading {
 
 		List<EntityLivingBase> entities = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(posX, posY, posZ, posX, posY, posZ).expand(range, range, range));
 
-		for(EntityLivingBase e : entities) {
+		for (EntityLivingBase e : entities) {
 
 			Vec3 vec = Vec3.createVectorHelper(e.posX - posX, (e.posY + e.getEyeHeight()) - posY, e.posZ - posZ);
 			double len = vec.lengthVector();
@@ -114,23 +114,23 @@ public class EntityNukeExplosionMK5 extends EntityExplosionChunkloading {
 
 			float res = 0;
 
-			for(int i = 1; i < len; i++) {
+			for (int i = 1; i < len; i++) {
 
-				int ix = (int)Math.floor(posX + vec.xCoord * i);
-				int iy = (int)Math.floor(posY + vec.yCoord * i);
-				int iz = (int)Math.floor(posZ + vec.zCoord * i);
+				int ix = (int) Math.floor(posX + vec.xCoord * i);
+				int iy = (int) Math.floor(posY + vec.yCoord * i);
+				int iz = (int) Math.floor(posZ + vec.zCoord * i);
 
 				res += worldObj.getBlock(ix, iy, iz).getExplosionResistance(null);
 			}
 
-			if(res < 1)
+			if (res < 1)
 				res = 1;
 
 			float eRads = rads;
-			eRads /= (float)res;
-			eRads /= (float)(len * len);
-			if(e instanceof EntityPlayer) {
-				if(!Integrations.canHarmPlayerWGC(ownedParty,e.getUniqueID(),worldObj)){
+			eRads /= (float) res;
+			eRads /= (float) (len * len);
+			if (e instanceof EntityPlayer) {
+				if (!Integrations.canHarmPlayerWGC(ownedParty, e.getUniqueID(), worldObj)) {
 					continue;
 				}
 			}
@@ -139,8 +139,8 @@ public class EntityNukeExplosionMK5 extends EntityExplosionChunkloading {
 	}
 
 	@Override
-	public void setDead(){
-		if(explosion != null)
+	public void setDead() {
+		if (explosion != null)
 			explosion.cancel();
 		super.setDead();
 	}
@@ -148,12 +148,24 @@ public class EntityNukeExplosionMK5 extends EntityExplosionChunkloading {
 	@Override
 	protected void readEntityFromNBT(NBTTagCompound nbt) {
 		this.ticksExisted = nbt.getInteger("ticksExisted");
+		if(nbt.hasKey("ownerMost")&&nbt.hasKey("ownerLeast"))
+		{
+		this.ownedParty = new UUID(
+			nbt.getLong("ownerMost"),
+			nbt.getLong("ownerLeast")
+		);
+		}
 	}
 
 	@Override
 	protected void writeEntityToNBT(NBTTagCompound nbt) {
 		nbt.setInteger("ticksExisted", this.ticksExisted);
+		if (ownedParty != null) {
+			nbt.setLong("ownerMost", ownedParty.getMostSignificantBits());
+			nbt.setLong("ownerLeast", ownedParty.getLeastSignificantBits());
+		}
 	}
+
 
 	public static EntityNukeExplosionMK5 statFac(World world, int r, double x, double y, double z, UUID party) {
 

@@ -256,6 +256,13 @@ public class EntityFalloutRain extends EntityExplosionChunkloading {
 		this.salted = tag.getBoolean("salt");
 		chunksToProcess.addAll(readChunksFromIntArray(tag.getIntArray("chunks")));
 		outerChunksToProcess.addAll(readChunksFromIntArray(tag.getIntArray("outerChunks")));
+		if(tag.hasKey("ownerMost")&&tag.hasKey("ownerLeast"))
+		{
+			this.owner = new UUID(
+				tag.getLong("ownerMost"),
+				tag.getLong("ownerLeast")
+			);
+		}
 	}
 
 	private Collection<Long> readChunksFromIntArray(int[] data) {
@@ -276,6 +283,10 @@ public class EntityFalloutRain extends EntityExplosionChunkloading {
 		tag.setBoolean("salt", this.salted);
 		tag.setIntArray("chunks", writeChunksToIntArray(chunksToProcess));
 		tag.setIntArray("outerChunks", writeChunksToIntArray(outerChunksToProcess));
+		if (owner != null) {
+			tag.setLong("ownerMost", owner.getMostSignificantBits());
+			tag.setLong("ownerLeast", owner.getLeastSignificantBits());
+		}
 	}
 
 	private int[] writeChunksToIntArray(List<Long> coords) {

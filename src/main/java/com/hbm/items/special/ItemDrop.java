@@ -79,7 +79,7 @@ public class ItemDrop extends Item {
 				entityItem.setDead();
 			}
 
-			if (entityItem.onGround) {
+			if (entityItem.onGround) {//TODO We need to figure out how on earth we handle dangerous drops in general.
 
 				if (stack.getItem() != null && stack.getItem() == ModItems.cell_antimatter && WeaponConfig.dropCell) {
 					if (!entityItem.worldObj.isRemote) {
@@ -171,8 +171,8 @@ public class ItemDrop extends Item {
 				}
 				if (stack.getItem() != null && stack.getItem() == ModItems.crystal_xen && WeaponConfig.dropCrys) {
 					if (!entityItem.worldObj.isRemote) {
-						ExplosionChaos.floater(entityItem.worldObj, (int)entityItem.posX, (int)entityItem.posY, (int)entityItem.posZ, 25, 75);
-						ExplosionChaos.move(entityItem.worldObj, (int)entityItem.posX, (int)entityItem.posY, (int)entityItem.posZ, 25, 0, 75, 0);
+						ExplosionChaos.floater(null,entityItem.worldObj, (int)entityItem.posX, (int)entityItem.posY, (int)entityItem.posZ, 25, 75);
+						ExplosionChaos.move(null,entityItem.worldObj, (int)entityItem.posX, (int)entityItem.posY, (int)entityItem.posZ, 25, 0, 75, 0);
 					}
 				}
 

@@ -2,8 +2,10 @@ package com.hbm.explosion;
 
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.UUID;
 
+import api.hbm.wgc.Integrations;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.entity.grenade.EntityGrenadeTau;
 import com.hbm.entity.item.EntityFallingBlockNT;
@@ -35,6 +37,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
+import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -52,16 +55,16 @@ public class ExplosionChaos { //TODO: destroy this entire class
 		int r = bombStartStrength;
 		int r2 = r * r;
 		int r22 = r2 / 2;
-		for (int xx = -r; xx < r; xx++) {
+		for (int xx = -r; xx < r; xx++) {//Because not going columnwise is beyond stupid
 			int X = xx + x;
 			int XX = xx * xx;
-			for (int yy = -r; yy < r; yy++) {
-				int Y = yy + y;
-				int YY = XX + yy * yy;
-				for (int zz = -r; zz < r; zz++) {
-					int Z = zz + z;
-					int ZZ = YY + zz * zz;
-					if (ZZ < r22) {
+			for (int zz = -r; zz < r; zz++) {
+				int Z = zz + z;
+				int ZZ = XX + zz * zz;
+				for (int yy = -r; yy < r; yy++) {
+					int Y = yy + y;
+					int YY = ZZ + yy * yy;
+					if (YY < r22) {
 						if (world.getBlock(X, Y, Z) == ModBlocks.crystal_virus) {
 							world.setBlock(X, Y, Z, ModBlocks.crystal_hardened);
 						}
@@ -80,13 +83,13 @@ public class ExplosionChaos { //TODO: destroy this entire class
 		for (int xx = -r; xx < r; xx++) {
 			int X = xx + x;
 			int XX = xx * xx;
-			for (int yy = -r; yy < r; yy++) {
-				int Y = yy + y;
-				int YY = XX + yy * yy;
-				for (int zz = -r; zz < r; zz++) {
-					int Z = zz + z;
-					int ZZ = YY + zz * zz;
-					if (ZZ < r22) {
+			for (int zz = -r; zz < r; zz++) {
+				int Z = zz + z;
+				int ZZ = XX + zz * zz;
+				for (int yy = -r; yy < r; yy++) {
+					int Y = yy + y;
+					int YY = ZZ + yy * yy;
+					if (YY < r22) {
 						if (rand.nextInt(15) == 0 && world.getBlock(X, Y, Z) != Blocks.air) {
 							world.setBlock(X, Y, Z, ModBlocks.cheater_virus_seed);
 						}
@@ -99,18 +102,20 @@ public class ExplosionChaos { //TODO: destroy this entire class
 	public static void pulse(UUID party, World world, int x, int y, int z, int bombStartStrength) {
 
 		int r = bombStartStrength;
+		Set<ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(party, world, x, z,r+16);
 		int r2 = r * r;
 		int r22 = r2 / 2;
 		for (int xx = -r; xx < r; xx++) {
 			int X = xx + x;
 			int XX = xx * xx;
-			for (int yy = -r; yy < r; yy++) {
-				int Y = yy + y;
-				int YY = XX + yy * yy;
-				for (int zz = -r; zz < r; zz++) {
-					int Z = zz + z;
-					int ZZ = YY + zz * zz;
-					if (ZZ < r22) {
+			for (int zz = -r; zz < r; zz++) {
+				int Z = zz + z;
+				if(protectedChunks.contains(new ChunkCoordIntPair(X>>4, Z>>4))) continue;
+				int ZZ = XX + zz * zz;
+				for (int yy = -r; yy < r; yy++) {
+					int Y = yy + y;
+					int YY = ZZ + yy * yy;
+					if (YY < r22) {
 
 						if (world.getBlock(X, Y, Z).getExplosionResistance(null) <= 70) {
 
@@ -129,21 +134,23 @@ public class ExplosionChaos { //TODO: destroy this entire class
 	}
 
 
-	public static void explodeZOMG(World world, int x, int y, int z, int bombStartStrength) {
+	public static void explodeZOMG(UUID party, World world, int x, int y, int z, int bombStartStrength) {
 
 		int r = bombStartStrength;
+		Set<ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(party, world, x, z,r+16);
 		int r2 = r * r;
 		int r22 = r2 / 2;
 		for (int xx = -r; xx < r; xx++) {
 			int X = xx + x;
 			int XX = xx * xx;
-			for (int yy = -r; yy < r; yy++) {
-				int Y = yy + y;
-				int YY = XX + yy * yy;
-				for (int zz = -r; zz < r; zz++) {
-					int Z = zz + z;
-					int ZZ = YY + zz * zz;
-					if (ZZ < r22) {
+			for (int zz = -r; zz < r; zz++) {
+				int Z = zz + z;
+				if(protectedChunks.contains(new ChunkCoordIntPair(X>>4, Z>>4))) continue;
+				int ZZ = XX + zz * zz;
+				for (int yy = -r; yy < r; yy++) {
+					int Y = yy + y;
+					int YY = ZZ + yy * yy;
+					if (YY < r22) {
 						if (!(world.getBlock(X, Y, Z) == Blocks.bedrock && Y <= 0)) {
 
 							world.setBlock(X, Y, Z, Blocks.air);
@@ -158,18 +165,20 @@ public class ExplosionChaos { //TODO: destroy this entire class
 	public static void decon(UUID party, World world, int x, int y, int z, int radius) {
 
 		int r = radius;
+		Set<ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(party, world, x, z,r+16);
 		int r2 = r * r;
 		int r22 = r2 / 2;
 		for (int xx = -r; xx < r; xx++) {
 			int X = xx + x;
 			int XX = xx * xx;
-			for (int yy = -r; yy < r; yy++) {
-				int Y = yy + y;
-				int YY = XX + yy * yy;
-				for (int zz = -r; zz < r; zz++) {
-					int Z = zz + z;
-					int ZZ = YY + zz * zz;
-					if (ZZ < r22) {
+			for (int zz = -r; zz < r; zz++) {
+				int Z = zz + z;
+				if(protectedChunks.contains(new ChunkCoordIntPair(X>>4, Z>>4))) continue;
+				int ZZ = XX + zz * zz;
+				for (int yy = -r; yy < r; yy++) {
+					int Y = yy + y;
+					int YY = ZZ + yy * yy;
+					if (YY < r22) {
 						decontaminate(world, X, Y, Z);
 					}
 				}
@@ -189,18 +198,20 @@ public class ExplosionChaos { //TODO: destroy this entire class
 	public static void flameDeath(UUID party, World world, int x, int y, int z, int bound) {
 
 		int r = bound;
+		Set<ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(party, world, x, z,r+16);
 		int r2 = r * r;
 		int r22 = r2 / 2;
 		for (int xx = -r; xx < r; xx++) {
 			int X = xx + x;
 			int XX = xx * xx;
-			for (int yy = -r; yy < r; yy++) {
-				int Y = yy + y;
-				int YY = XX + yy * yy;
-				for (int zz = -r; zz < r; zz++) {
-					int Z = zz + z;
-					int ZZ = YY + zz * zz;
-					if (ZZ < r22) {
+			for (int zz = -r; zz < r; zz++) {
+				int Z = zz + z;
+				if(protectedChunks.contains(new ChunkCoordIntPair(X>>4, Z>>4))) continue;
+				int ZZ = XX + zz * zz;
+				for (int yy = -r; yy < r; yy++) {
+					int Y = yy + y;
+					int YY = ZZ + yy * yy;
+					if (YY < r22) {
 						if (world.getBlock(X, Y, Z).isFlammable(world, XX, YY, ZZ, ForgeDirection.UP)
 							&& world.getBlock(X, Y + 1, Z) == Blocks.air) {
 
@@ -225,18 +236,20 @@ public class ExplosionChaos { //TODO: destroy this entire class
 	public static void burn(UUID party, World world, int x, int y, int z, int bound) {
 
 		int r = bound;
+		Set<ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(party, world, x, z,r+16);
 		int r2 = r * r;
 		int r22 = r2 / 2;
 		for (int xx = -r; xx < r; xx++) {
 			int X = xx + x;
 			int XX = xx * xx;
-			for (int yy = -r; yy < r; yy++) {
-				int Y = yy + y;
-				int YY = XX + yy * yy;
-				for (int zz = -r; zz < r; zz++) {
-					int Z = zz + z;
-					int ZZ = YY + zz * zz;
-					if (ZZ < r22) {
+			for (int zz = -r; zz < r; zz++) {
+				int Z = zz + z;
+				if(protectedChunks.contains(new ChunkCoordIntPair(X>>4, Z>>4))) continue;
+				int ZZ = XX + zz * zz;
+				for (int yy = -r; yy < r; yy++) {
+					int Y = yy + y;
+					int YY = ZZ + yy * yy;
+					if (YY < r22) {
 						if ((world.getBlock(X, Y + 1, Z) == Blocks.air
 							|| world.getBlock(X, Y + 1, Z) == Blocks.snow_layer)
 							&& world.getBlock(X, Y, Z) != Blocks.air) {
@@ -363,7 +376,7 @@ public class ExplosionChaos { //TODO: destroy this entire class
 				d3 *= -1;
 			}
 
-			fragment = new EntityArrow(world, x, y, z);
+			fragment = new EntityArrow(world, x, y, z); //TODO May need to implement a class to allow proper control of this
 
 			fragment.motionX = d1;
 			fragment.motionY = d2;
@@ -389,6 +402,7 @@ public class ExplosionChaos { //TODO: destroy this entire class
 		);
 
 		for (EntityLivingBase entity : affected) {
+			if(entity instanceof EntityPlayer && !Integrations.canHarmPlayerWGC(party,entity.getUniqueID(),world)) {continue;}
 
 			if (entity.getDistance(x, y, z) > range) continue;
 
@@ -414,7 +428,7 @@ public class ExplosionChaos { //TODO: destroy this entire class
 		);
 
 		for (EntityLivingBase entity : affected) {
-
+			if(entity instanceof EntityPlayer && !Integrations.canHarmPlayerWGC(party,entity.getUniqueID(),world)) {continue;}
 			if (entity.getDistance(x, y, z) > range) continue;
 
 
@@ -435,7 +449,7 @@ public class ExplosionChaos { //TODO: destroy this entire class
 		);
 
 		for (EntityLivingBase entity : affected) {
-
+			if(entity instanceof EntityPlayer && !Integrations.canHarmPlayerWGC(party,entity.getUniqueID(),world)) {continue;}
 			if (entity.getDistance(x, y, z) > range) continue;
 
 			ArmorUtil.damageSuit(entity, 0, 25);
@@ -463,18 +477,20 @@ public class ExplosionChaos { //TODO: destroy this entire class
 		int meta;
 
 		int r = radi;
+		Set<ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(party, world, x, z,r+16);
 		int r2 = r * r;
 		int r22 = r2 / 2;
 		for (int xx = -r; xx < r; xx++) {
 			int X = xx + x;
 			int XX = xx * xx;
-			for (int yy = -r; yy < r; yy++) {
-				int Y = yy + y;
-				int YY = XX + yy * yy;
-				for (int zz = -r; zz < r; zz++) {
-					int Z = zz + z;
-					int ZZ = YY + zz * zz;
-					if (ZZ < r22) {
+			for (int zz = -r; zz < r; zz++) {
+				int Z = zz + z;
+				if(protectedChunks.contains(new ChunkCoordIntPair(X>>4, Z>>4))) continue;
+				int ZZ = XX + zz * zz;
+				for (int yy = -r; yy < r; yy++) {
+					int Y = yy + y;
+					int YY = ZZ + yy * yy;
+					if (YY < r22) {
 
 
 						save = world.getBlock(X, Y, Z);
@@ -520,10 +536,13 @@ public class ExplosionChaos { //TODO: destroy this entire class
 		List list = world.getEntitiesWithinAABBExcludingEntity(
 			null, AxisAlignedBB.getBoundingBox(i, k, l, j, i2, j2)
 		);
+		Set<ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(party, world, x, z,radius+16);
 
 		for (int i1 = 0; i1 < list.size(); ++i1) {
 			Entity entity = (Entity) list.get(i1);
 			double d4 = entity.getDistance(x, y, z) / radius;
+			//Skip entities inside protected chunks
+			if(protectedChunks.contains(new ChunkCoordIntPair(((int)Math.floor(entity.posX))>>4, ((int)Math.floor(entity.posZ))>>4))) continue;
 
 			if (d4 <= 1.0D) {
 				d5 = entity.posX - x;
@@ -554,18 +573,20 @@ public class ExplosionChaos { //TODO: destroy this entire class
 	public static void plasma(UUID party,World world, int x, int y, int z, int radius) {
 
 		int r = radius;
+		Set<ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(party, world, x, z,r+16);
 		int r2 = r * r;
 		int r22 = r2 / 2;
 		for (int xx = -r; xx < r; xx++) {
 			int X = xx + x;
 			int XX = xx * xx;
-			for (int yy = -r; yy < r; yy++) {
-				int Y = yy + y;
-				int YY = XX + yy * yy;
-				for (int zz = -r; zz < r; zz++) {
-					int Z = zz + z;
-					int ZZ = YY + zz * zz;
-					if (ZZ < r22 + world.rand.nextInt(r22 / 2)) {
+			for (int zz = -r; zz < r; zz++) {
+				int Z = zz + z;
+				if(protectedChunks.contains(new ChunkCoordIntPair(X>>4, Z>>4))) continue;
+				int ZZ = XX + zz * zz;
+				for (int yy = -r; yy < r; yy++) {
+					int Y = yy + y;
+					int YY = ZZ + yy * yy;
+					if (YY < r22 + world.rand.nextInt(r22 / 2)) {
 						if (world.getBlock(X, Y, Z) != ModBlocks.statue_elb_f) {
 
 							world.setBlock(X, Y, Z, ModBlocks.plasma);
