@@ -1,8 +1,17 @@
 package com.hbm.explosion;
 
+import api.hbm.wgc.Integrations;
+import com.hbm.interfaces.Spaghetti;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
 
+import java.util.Set;
+import java.util.UUID;
+
+//Every time you make an explosion class without an appropriate superclass
+//a puppy dies.
+@Spaghetti("Do better")
 public class ExplosionSolinium
 {
 	public int posX;
@@ -20,6 +29,8 @@ public class ExplosionSolinium
 	private int element;
 	public float explosionCoefficient = 1.0F;
 	public float explosionCoefficient2 = 1.0F;
+	public UUID owner;
+	private Set<ChunkCoordIntPair> expProtChunks;
 
 	public void saveToNbt(NBTTagCompound nbt, String name) {
 		nbt.setInteger(name + "posX", posX);
@@ -36,6 +47,10 @@ public class ExplosionSolinium
 		nbt.setInteger(name + "element", element);
 		nbt.setFloat(name + "explosionCoefficient", explosionCoefficient);
 		nbt.setFloat(name + "explosionCoefficient2", explosionCoefficient2);
+		if (owner != null) {
+			nbt.setLong("ownerMost", owner.getMostSignificantBits());
+			nbt.setLong("ownerLeast", owner.getLeastSignificantBits());
+		}
 	}
 
 	public void readFromNbt(NBTTagCompound nbt, String name) {
@@ -53,9 +68,15 @@ public class ExplosionSolinium
 		element = nbt.getInteger(name + "element");
 		explosionCoefficient = nbt.getFloat(name + "explosionCoefficient");
 		explosionCoefficient2 = nbt.getFloat(name + "explosionCoefficient2");
+		if (nbt.hasKey("ownerMost") && nbt.hasKey("ownerLeast")) {
+			this.owner = new UUID(
+				nbt.getLong("ownerMost"),
+				nbt.getLong("ownerLeast")
+			);
+		}
 	}
 
-	public ExplosionSolinium(int x, int y, int z, World world, int rad, float coefficient, float coefficient2) {
+	public ExplosionSolinium(UUID owner, int x, int y, int z, World world, int rad, float coefficient, float coefficient2) {
 		this.posX = x;
 		this.posY = y;
 		this.posZ = z;
@@ -65,15 +86,20 @@ public class ExplosionSolinium
 		this.explosionCoefficient = coefficient;
 		this.explosionCoefficient2 = coefficient2;
 		this.nlimit = this.radius2 * 4;
+		this.owner = owner;
 
 	}
-
+	//Just what the hell
 	public boolean update()
 	{
+		if(expProtChunks == null){
+			expProtChunks = Integrations.getExplosionProtectedChunksWGC(owner,worldObj,posX,posZ,radius+16);
+		}
 		// If canceled (or already finished), do nothing
 		if (this.n > this.nlimit) return true;
-
-		breakColumn(this.lastposX, this.lastposZ);
+		if(!expProtChunks.contains(new ChunkCoordIntPair(lastposX >> 4, lastposZ >> 4))) {
+			breakColumn(this.lastposX, this.lastposZ);
+		}
 		this.shell = (int) Math.floor((Math.sqrt(n) + 1) / 2);
 		int shell2 = Math.max(this.shell * 2, 1);
 		this.leg = (int) Math.floor((this.n - (shell2 - 1) * (shell2 - 1)) / shell2);

@@ -264,7 +264,7 @@ public class TileEntityITER extends TileEntityMachineBase implements IEnergyRece
 		if(this.plasma.getTankType() == Fluids.PLASMA_BF) {
 
 			worldObj.playSoundEffect(xCoord + 0.5, yCoord + 0.5, zCoord + 0.5, "hbm:weapon.mukeExplosion", 15.0F, 1.0F);
-			ExplosionLarge.spawnShrapnels(worldObj, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5, 50);
+			ExplosionLarge.spawnShrapnels(worldObj, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5, 50,null);
 
 			ExplosionNT exp = new ExplosionNT(worldObj, null, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5, 20F)
 					.addAttrib(ExAttrib.BALEFIRE)

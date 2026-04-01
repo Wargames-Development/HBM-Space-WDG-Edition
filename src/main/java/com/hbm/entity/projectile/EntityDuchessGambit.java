@@ -64,11 +64,11 @@ public class EntityDuchessGambit extends EntityThrowable {
 
 
 			if(!worldObj.isRemote) {
-				ExplosionLarge.explode(worldObj, posX, posY, posZ - 6, 2, true, false, false);
-				ExplosionLarge.explode(worldObj, posX, posY, posZ - 3, 2, true, false, false);
-				ExplosionLarge.explode(worldObj, posX, posY, posZ, 2, true, false, false);
-				ExplosionLarge.explode(worldObj, posX, posY, posZ + 3, 2, true, false, false);
-				ExplosionLarge.explode(worldObj, posX, posY, posZ + 6, 2, true, false, false);
+				ExplosionLarge.explode(null,worldObj, posX, posY, posZ - 6, 2, true, false, false);
+				ExplosionLarge.explode(null,worldObj, posX, posY, posZ - 3, 2, true, false, false);
+				ExplosionLarge.explode(null,worldObj, posX, posY, posZ, 2, true, false, false);
+				ExplosionLarge.explode(null,worldObj, posX, posY, posZ + 3, 2, true, false, false);
+				ExplosionLarge.explode(null,worldObj, posX, posY, posZ + 6, 2, true, false, false);
 
 				worldObj.setBlock((int) (this.posX - 0.5), (int) (this.posY + 0.5), (int) (this.posZ - 0.5), ModBlocks.boat);
 			}

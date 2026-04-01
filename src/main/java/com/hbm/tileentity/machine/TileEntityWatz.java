@@ -473,13 +473,14 @@ public class TileEntityWatz extends TileEntityMachineBase implements IFluidStand
 		int count = 20;
 		Random rand = worldObj.rand;
 		for(int i = 0; i < count * 5; i++) {
-			EntityShrapnel shrapnel = new EntityShrapnel(worldObj, (UUID) null);
+			EntityShrapnel shrapnel = new EntityShrapnel(worldObj);
 			shrapnel.posX = xCoord + 0.5;
 			shrapnel.posY = yCoord + 3;
 			shrapnel.posZ = zCoord + 0.5;
 			shrapnel.motionY = ((rand.nextFloat() * 0.5) + 0.5) * (1 + (count / (15 + rand.nextInt(21)))) + (rand.nextFloat() / 50 * count);
 			shrapnel.motionX = rand.nextGaussian() * 1	* (1 + (count / 100));
 			shrapnel.motionZ = rand.nextGaussian() * 1	* (1 + (count / 100));
+			shrapnel.owner = null;
 			shrapnel.setWatz(true);
 			worldObj.spawnEntityInWorld(shrapnel);
 		}

@@ -110,13 +110,14 @@ public class ExplosionLarge {
 
 
 		for (int i = 0; i < count; i++) {
-			EntityShrapnel shrapnel = new EntityShrapnel(world,party);
+			EntityShrapnel shrapnel = new EntityShrapnel(world);
 			shrapnel.posX = x;
 			shrapnel.posY = y;
 			shrapnel.posZ = z;
 			shrapnel.motionY = ((rand.nextFloat() * 0.5) + 0.5) * (1 + (count / (15 + rand.nextInt(21)))) + (rand.nextFloat() / 50 * count);
 			shrapnel.motionX = rand.nextGaussian() * 1 * (1 + (count / 50));
 			shrapnel.motionZ = rand.nextGaussian() * 1 * (1 + (count / 50));
+			shrapnel.owner = party;
 			shrapnel.setTrail(rand.nextInt(3) == 0);
 
 			int bx = (int) Math.floor(shrapnel.posX);
@@ -131,13 +132,14 @@ public class ExplosionLarge {
 
 
 		for (int i = 0; i < count; i++) {
-			EntityShrapnel shrapnel = new EntityShrapnel(world,party);
+			EntityShrapnel shrapnel = new EntityShrapnel(world);
 			shrapnel.posX = x;
 			shrapnel.posY = y;
 			shrapnel.posZ = z;
 			shrapnel.motionY = ((rand.nextFloat() * 0.5) + 0.5) * (1 + (count / (15 + rand.nextInt(21)))) + (rand.nextFloat() / 50 * count) * 0.25F;
 			shrapnel.motionX = rand.nextGaussian() * 1 * (1 + (count / 50)) * 0.25F;
 			shrapnel.motionZ = rand.nextGaussian() * 1 * (1 + (count / 50)) * 0.25F;
+			shrapnel.owner = party;
 			shrapnel.setTrail(true);
 
 			int bx = (int) Math.floor(shrapnel.posX);
@@ -152,13 +154,14 @@ public class ExplosionLarge {
 
 
 		for (int i = 0; i < count; i++) {
-			EntityShrapnel shrapnel = new EntityShrapnel(world,party);
+			EntityShrapnel shrapnel = new EntityShrapnel(world);
 			shrapnel.posX = x;
 			shrapnel.posY = y;
 			shrapnel.posZ = z;
 			shrapnel.motionX = motionX + rand.nextGaussian() * deviation;
 			shrapnel.motionY = motionY + rand.nextGaussian() * deviation;
 			shrapnel.motionZ = motionZ + rand.nextGaussian() * deviation;
+			shrapnel.owner = party;
 			shrapnel.setTrail(rand.nextInt(3) == 0);
 
 			int bx = (int) Math.floor(shrapnel.posX);
@@ -209,7 +212,7 @@ public class ExplosionLarge {
 	}
 
 
-	@Deprecated public static void explode(World world, double x, double y, double z, float strength, boolean cloud, boolean rubble, boolean shrapnel, Entity exploder) {
+	@Deprecated public static void explode(UUID party, World world, double x, double y, double z, float strength, boolean cloud, boolean rubble, boolean shrapnel, Entity exploder) {
 
 
 		world.createExplosion(exploder, x, y, z, strength, true);
@@ -218,17 +221,7 @@ public class ExplosionLarge {
 		if(rubble)
 			spawnRubble(world, x, y, z, rubbleFunction((int)strength));
 		if(shrapnel)
-			spawnShrapnels(world, x, y, z, shrapnelFunction((int)strength));
-	}
-	@Deprecated public static void explode(World world, double x, double y, double z, float strength, boolean cloud, boolean rubble, boolean shrapnel) {
-
-			world.createExplosion(null, x, y, z, strength, true);
-			if (cloud)
-				spawnParticles(world, x, y, z, cloudFunction((int) strength));
-			if (rubble)
-				spawnRubble(world, x, y, z, rubbleFunction((int) strength));
-			if (shrapnel)
-				spawnShrapnels(world, x, y, z, shrapnelFunction((int) strength));
+			spawnShrapnels(world, x, y, z, shrapnelFunction((int)strength), party);
 	}
 
 	@Deprecated public static void explode(UUID party, World world, double x, double y, double z, float strength, boolean cloud, boolean rubble, boolean shrapnel) {
@@ -240,8 +233,17 @@ public class ExplosionLarge {
 			if (rubble)
 				spawnRubble(world, x, y, z, rubbleFunction((int) strength));
 			if (shrapnel)
-				spawnShrapnels(world, x, y, z, shrapnelFunction((int) strength));
+				spawnShrapnels(world, x, y, z, shrapnelFunction((int) strength), party);
 		}
+	}
+	@Deprecated public static void explodeUnchecked(World world, double x, double y, double z, float strength, boolean cloud, boolean rubble, boolean shrapnel) {
+			world.createExplosion(null, x, y, z, strength, true);
+			if (cloud)
+				spawnParticles(world, x, y, z, cloudFunction((int) strength));
+			if (rubble)
+				spawnRubble(world, x, y, z, rubbleFunction((int) strength));
+			if (shrapnel)
+				spawnShrapnels(world, x, y, z, shrapnelFunction((int) strength), null);
 	}
 
 	@Deprecated public static void explodeFire(UUID party, World world, double x, double y, double z, float strength, boolean cloud, boolean rubble, boolean shrapnel) {
@@ -253,7 +255,7 @@ public class ExplosionLarge {
 			if (rubble)
 				spawnRubble(world, x, y, z, rubbleFunction((int) strength));
 			if (shrapnel)
-				spawnShrapnels(world, x, y, z, shrapnelFunction((int) strength));
+				spawnShrapnels(world, x, y, z, shrapnelFunction((int) strength),party);
 		}
 	}
 

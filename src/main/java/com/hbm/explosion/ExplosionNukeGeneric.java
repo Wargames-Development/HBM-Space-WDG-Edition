@@ -45,22 +45,21 @@ public class ExplosionNukeGeneric {
 
 	public static void empBlast(UUID party, World world, int x, int y, int z, int bombStartStrength) {
 		int r = bombStartStrength;
-		Set< ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(party, world, x, z, r+16);
+		Set<ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(party, world, x, z,r+16);
 		int r2 = r * r;
 		int r22 = r2 / 2;
 		for (int xx = -r; xx < r; xx++) {
 			int X = xx + x;
 			int XX = xx * xx;
-			for (int yy = -r; yy < r; yy++) {
-				int Y = yy + y;
-				int YY = XX + yy * yy;
-				for (int zz = -r; zz < r; zz++) {
-					int Z = zz + z;
-					int ZZ = YY + zz * zz;
-					if (ZZ < r22) {
-						if(!protectedChunks.contains(new ChunkCoordIntPair(X, Z))) {
+			for (int zz = -r; zz < r; zz++) {
+				int Z = zz + z;
+				if(protectedChunks.contains(new ChunkCoordIntPair(X>>4, Z>>4))) continue;
+				int ZZ = XX + zz * zz;
+				for (int yy = -r; yy < r; yy++) {
+					int Y = yy + y;
+					int YY = ZZ + yy * yy;
+					if (YY < r22) {
 							emp(world, X, Y, Z);
-						}
 					}
 				}
 			}
@@ -125,22 +124,21 @@ public class ExplosionNukeGeneric {
 
 	public static void vapor(UUID party, World world, int x, int y, int z, int bombStartStrength) {
 		int r = bombStartStrength * 2;
-		Set< ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(party, world, x, z, r+16);
+		Set<ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(party, world, x, z,r+16);
 		int r2 = r * r;
 		int r22 = r2 / 2;
 		for (int xx = -r; xx < r; xx++) {
 			int X = xx + x;
 			int XX = xx * xx;
-			for (int yy = -r; yy < r; yy++) {
-				int Y = yy + y;
-				int YY = XX + yy * yy;
-				for (int zz = -r; zz < r; zz++) {
-					int Z = zz + z;
-					int ZZ = YY + zz * zz;
-					if (ZZ < r22) {
-						if(!protectedChunks.contains(new ChunkCoordIntPair(X, Z))) {
+			for (int zz = -r; zz < r; zz++) {
+				int Z = zz + z;
+				if(protectedChunks.contains(new ChunkCoordIntPair(X>>4, Z>>4))) continue;
+				int ZZ = XX + zz * zz;
+				for (int yy = -r; yy < r; yy++) {
+					int Y = yy + y;
+					int YY = ZZ + yy * yy;
+					if (YY < r22) {
 							vaporDest(world, X, Y, Z);
-						}
 					}
 				}
 			}
@@ -222,22 +220,20 @@ public class ExplosionNukeGeneric {
 
 	public static void waste(UUID party, World world, int x, int y, int z, int radius) {
 		int r = radius;
-		Set< ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(party, world, x, z, r+16);
+		Set<ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(party, world, x, z,r+16);
 		int r2 = r * r;
 		int r22 = r2 / 2;
 		for (int xx = -r; xx < r; xx++) {
 			int X = xx + x;
 			int XX = xx * xx;
-			for (int yy = -r; yy < r; yy++) {
-				int Y = yy + y;
-				int YY = XX + yy * yy;
-				for (int zz = -r; zz < r; zz++) {
-					int Z = zz + z;
-					int ZZ = YY + zz * zz;
-					if (ZZ < r22 + world.rand.nextInt(r22 / 5)) {
-
-
-						if (!protectedChunks.contains(new ChunkCoordIntPair(X, Z)) && world.getBlock(X, Y, Z) != Blocks.air)
+			for (int zz = -r; zz < r; zz++) {
+				int Z = zz + z;
+				if(protectedChunks.contains(new ChunkCoordIntPair(X>>4, Z>>4))) continue;
+				int ZZ = XX + zz * zz;
+				for (int yy = -r; yy < r; yy++) {
+					int Y = yy + y;
+					int YY = ZZ + yy * yy;
+					if (YY < r22+ world.rand.nextInt(r22 / 5)) {
 							wasteDest(world, X, Y, Z);
 					}
 				}
@@ -347,22 +343,20 @@ public class ExplosionNukeGeneric {
 
 	public static void wasteNoSchrab(UUID party, World world, int x, int y, int z, int radius) {
 		int r = radius;
-		Set< ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(party, world, x, z, r+16);
+		Set<ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(party, world, x, z,r+16);
 		int r2 = r * r;
 		int r22 = r2 / 2;
 		for (int xx = -r; xx < r; xx++) {
 			int X = xx + x;
 			int XX = xx * xx;
-			for (int yy = -r; yy < r; yy++) {
-				int Y = yy + y;
-				int YY = XX + yy * yy;
-				for (int zz = -r; zz < r; zz++) {
-					int Z = zz + z;
-					int ZZ = YY + zz * zz;
-					if (ZZ < r22 + world.rand.nextInt(r22 / 5)) {
-
-
-						if (!protectedChunks.contains(new ChunkCoordIntPair(X, Z)) && world.getBlock(X, Y, Z) != Blocks.air)
+			for (int zz = -r; zz < r; zz++) {
+				int Z = zz + z;
+				if(protectedChunks.contains(new ChunkCoordIntPair(X>>4, Z>>4))) continue;
+				int ZZ = XX + zz * zz;
+				for (int yy = -r; yy < r; yy++) {
+					int Y = yy + y;
+					int YY = ZZ + yy * yy;
+					if (YY < r22+ world.rand.nextInt(r22 / 5)) {
 							wasteDestNoSchrab(world, X, Y, Z);
 					}
 				}

@@ -136,7 +136,7 @@ public class EntityMissileAntiBallistic extends EntityThrowableInterp implements
 
 		if(delta.lengthVector() < 10 && activationTimer >= 40) {
 			this.setDead();
-			ExplosionLarge.explode(worldObj, posX, posY, posZ, 15F, true, false, false);
+			ExplosionLarge.explodeUnchecked(worldObj, posX, posY, posZ, 15F, true, false, false);
 
 		}
 
@@ -149,7 +149,7 @@ public class EntityMissileAntiBallistic extends EntityThrowableInterp implements
 	protected void onImpact(MovingObjectPosition mop) {
 		if(this.activationTimer >= 40) {
 			this.setDead();
-			ExplosionLarge.explode(worldObj, posX, posY, posZ, 20F, true, false, false);
+			ExplosionLarge.explodeUnchecked(worldObj, posX, posY, posZ, 20F, true, false, false);
 		}
 	}
 

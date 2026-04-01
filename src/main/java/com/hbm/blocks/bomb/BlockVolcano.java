@@ -270,8 +270,9 @@ public class BlockVolcano extends BlockContainer implements ITooltipProvider, IB
 		private void spawnBlobs() {
 
 			for(int i = 0; i < 3; i++) {
-				EntityShrapnel frag = new EntityShrapnel(worldObj,(UUID)null);
+				EntityShrapnel frag = new EntityShrapnel(worldObj);
 				frag.setLocationAndAngles(xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, 0.0F, 0.0F);
+				frag.owner = null;
 				frag.motionY = 1D + worldObj.rand.nextDouble();
 				frag.motionX = worldObj.rand.nextGaussian() * 0.2D;
 				frag.motionZ = worldObj.rand.nextGaussian() * 0.2D;

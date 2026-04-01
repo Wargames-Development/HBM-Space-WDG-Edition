@@ -122,7 +122,7 @@ public class EntityCreeperNuclear extends EntityCreeper {
 				if(flag) {
 					worldObj.spawnEntityInWorld(EntityNukeExplosionMK5.statFac(worldObj, 50, posX, posY, posZ, null));
 				} else {
-					ExplosionNukeGeneric.dealDamage(worldObj, posX, posY + 0.5, posZ, 100);
+					ExplosionNukeGeneric.dealDamage(null,worldObj, posX, posY + 0.5, posZ, 100);
 				}
 			} else {
 

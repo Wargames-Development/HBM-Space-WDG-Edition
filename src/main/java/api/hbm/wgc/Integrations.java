@@ -34,6 +34,12 @@ public class Integrations {
 	public static boolean canExplodeChunkWGC(UUID party, World world, int chunkX, int chunkZ) {
 		return canExplodeChunk(party, world, chunkX, chunkZ);
 	}
+	public static boolean canExplodeBlockWGC(UUID party, World world, int x, int z) {return canExplodeChunkWGC(party,world, x >> 4, z >> 4);}
+
+	public static boolean canExplodeBlockWGC(UUID party, World world, double x, double z) {
+		return canExplodeChunkWGC(party,world, ((int)Math.floor(x)) >> 4, ((int)Math.floor(z)) >> 4);
+	}
+
 	public static Set<ChunkCoordIntPair> getExplosionProtectedChunksWGC(UUID party, World world, int x, int z, int r){
 		return getExplosionProtectedChunks(party,world,x,z,r);
 	}
@@ -69,7 +75,7 @@ public class Integrations {
 		if(protectedChunks==null || protectedChunks.isEmpty()) return false; //Skips checking if protectedChunks is empty
 		return protectedChunks.contains(getChunkCoordIntPair(blockX,blockZ));
 	}
-	private static ChunkCoordIntPair getChunkCoordIntPair(int blockX, int blockZ){
+	public static ChunkCoordIntPair getChunkCoordIntPair(int blockX, int blockZ){
 		return new ChunkCoordIntPair(blockX >> 4,blockZ >> 4);
 	}
 }

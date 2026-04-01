@@ -210,7 +210,7 @@ public class ItemAmmoHIMARS extends Item {
 			public void onImpact(EntityArtilleryRocket rocket, MovingObjectPosition mop) {
 				rocket.worldObj.playSoundEffect(rocket.posX, rocket.posY, rocket.posZ, "hbm:weapon.explosionMedium", 20.0F, 0.9F + rocket.worldObj.rand.nextFloat() * 0.2F);
 				standardExplosion(rocket, mop, 20F, 10F, true, ModBlocks.block_slag, 1);
-				ExplosionLarge.spawnShrapnels(rocket.worldObj, (int) mop.hitVec.xCoord, (int) mop.hitVec.yCoord, (int) mop.hitVec.zCoord, 30);
+				ExplosionLarge.spawnShrapnels(rocket.worldObj, (int) mop.hitVec.xCoord, (int) mop.hitVec.yCoord, (int) mop.hitVec.zCoord, 30,rocket.getOwnerParty());
 				standardMush(rocket, mop, 20);
 			}};
 
@@ -218,7 +218,7 @@ public class ItemAmmoHIMARS extends Item {
 			public void onImpact(EntityArtilleryRocket rocket, MovingObjectPosition mop) {
 				rocket.worldObj.playSoundEffect(rocket.posX, rocket.posY, rocket.posZ, "hbm:weapon.explosionMedium", 20.0F, 0.9F + rocket.worldObj.rand.nextFloat() * 0.2F);
 				standardExplosion(rocket, mop, 50F, 12F, true, ModBlocks.block_slag, 1);
-				ExplosionLarge.spawnShrapnels(rocket.worldObj, (int) mop.hitVec.xCoord, (int) mop.hitVec.yCoord, (int) mop.hitVec.zCoord, 30);
+				ExplosionLarge.spawnShrapnels(rocket.worldObj, (int) mop.hitVec.xCoord, (int) mop.hitVec.yCoord, (int) mop.hitVec.zCoord, 30,rocket.getOwnerParty());
 				standardMush(rocket, mop, 35);
 			}};
 		}

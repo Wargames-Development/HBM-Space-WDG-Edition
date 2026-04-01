@@ -45,7 +45,7 @@ public class EntityBurningFOEQ extends EntityThrowable {
     		if(!this.worldObj.isRemote) {
     			for(int i = 0; i < 25; i++)
     				ExplosionLarge.explode(null,worldObj, this.posX + 0.5F + rand.nextGaussian() * 5, this.posY + 0.5F + rand.nextGaussian() * 5, this.posZ + 0.5F + rand.nextGaussian() * 5, 10.0F, rand.nextBoolean(), false, false);
-    			ExplosionNukeGeneric.waste(worldObj, (int)this.posX, (int)this.posY, (int)this.posZ, 35);
+    			ExplosionNukeGeneric.waste(null,worldObj, (int)this.posX, (int)this.posY, (int)this.posZ, 35);
     		}
     		this.setDead();
         }

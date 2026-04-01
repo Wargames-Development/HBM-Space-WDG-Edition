@@ -92,12 +92,14 @@ public class BombThermo extends BlockPartyOwned implements IBomb {
 			}
 
 			world.createExplosion(null, x, y, z, 5.0F, true);
+			return BombReturnCode.DETONATED;
 			}
-		return BombReturnCode.DETONATED;
+		return BombReturnCode.ERROR_BLOCKED;
 	}
 	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack itemStack) {
 	if(!world.isRemote) {
+		BlockPartyOwned.setOwner(world,x,y,z, player.getUniqueID());
 			if(GeneralConfig.enableExtendedLogging) {
 			MainRegistry.logger.log(Level.INFO, "[BOMBPL]" + this.getLocalizedName() + " placed at " + x + " / " + y + " / " + z + "! " + "by "+ player.getCommandSenderName());
 		}

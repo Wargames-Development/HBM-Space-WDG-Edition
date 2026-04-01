@@ -1,15 +1,22 @@
 package com.hbm.explosion;
 
 import java.util.Random;
+import java.util.Set;
+import java.util.UUID;
 
+import api.hbm.wgc.Integrations;
 import com.hbm.blocks.ModBlocks;
+import com.hbm.interfaces.Spaghetti;
 import com.hbm.util.ParticleUtil;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
 
+//Dead Puppy here
+@Spaghetti("No superclass? No bitches.")
 public class ExplosionBalefire
 {
 	public int posX;
@@ -26,6 +33,9 @@ public class ExplosionBalefire
 	private int leg;
 	private int element;
 	private boolean antimatter = false;
+	public UUID ownerParty;
+	private Set<ChunkCoordIntPair> expProtectedChunks;
+
 	public void saveToNbt(NBTTagCompound nbt, String name) {
 		nbt.setInteger(name + "posX", posX);
 		nbt.setInteger(name + "posY", posY);
@@ -58,7 +68,7 @@ public class ExplosionBalefire
 		antimatter = nbt.getBoolean(name + "antimatter");
 	}
 
-	public ExplosionBalefire(int x, int y, int z, World world, int rad, boolean antimatter)
+	public ExplosionBalefire(UUID party, int x, int y, int z, World world, int rad, boolean antimatter)
 	{
 		this.posX = x;
 		this.posY = y;
@@ -71,14 +81,20 @@ public class ExplosionBalefire
 
 		this.nlimit = this.radius2 * 4;
 		this.antimatter=antimatter;
+		ownerParty = party;
+
 	}
 
 	public boolean update() {
-
+		if(expProtectedChunks == null){
+			expProtectedChunks = Integrations.getExplosionProtectedChunksWGC(ownerParty,worldObj,posX,posZ,radius+16);
+		}
 
 		if(n == 0) return true;
 
-		breakColumn(this.lastposX, this.lastposZ);
+		if(!expProtectedChunks.contains(Integrations.getChunkCoordIntPair(posX,posZ))){//yk i probably should have made a helper class for this
+			breakColumn(this.lastposX, this.lastposZ);
+		}
 		this.shell = (int) Math.floor((Math.sqrt(n) + 1) / 2);
 		int shell2 = this.shell * 2;
 

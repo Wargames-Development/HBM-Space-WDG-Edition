@@ -40,6 +40,9 @@ public class EntityGrenadeSmart extends EntityGrenadeBase {
 				Entity thrown = this.getThrower();
 				UUID party = null;
 				if (thrown instanceof EntityPlayer) party = thrown.getUniqueID();
+				if (owner != null){
+					party = owner;
+				}
 
 				if (Integrations.canDetonateWGC(party, worldObj, (int) posX, (int) posY, (int) posZ)) {
 					ExplosionLarge.explode(party, worldObj, posX, posY, posZ, 5.0F, true, false, false);

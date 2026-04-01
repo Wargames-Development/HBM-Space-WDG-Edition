@@ -9,6 +9,8 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
+import java.util.UUID;
+
 public class EntityModFX extends Entity
 {
     public int particleTextureIndexX;
@@ -34,14 +36,16 @@ public class EntityModFX extends Entity
     float smokeParticleScale;
     public int particleAge;
     public int maxAge;
+	public UUID owner;
 
     public EntityModFX(World world) {
     	super(world);
     }
 
-    protected EntityModFX(World world, double posX, double posY, double posZ)
+    protected EntityModFX(UUID owner, World world, double posX, double posY, double posZ)
     {
         super(world);
+		this.owner = owner;
         this.particleAlpha = 1.0F;
         this.setSize(0.2F, 0.2F);
         this.yOffset = this.height / 2.0F;
@@ -58,9 +62,9 @@ public class EntityModFX extends Entity
         this.ignoreFrustumCheck = true;
     }
 
-    public EntityModFX(World world, double posX, double posY, double posZ, double velX, double velY, double velZ)
+    public EntityModFX(UUID owner, World world, double posX, double posY, double posZ, double velX, double velY, double velZ)
     {
-        this(world, posX, posY, posZ);
+        this(owner, world, posX, posY, posZ);
         this.motionX = velX + (float)(Math.random() * 2.0D - 1.0D) * 0.4F;
         this.motionY = velY + (float)(Math.random() * 2.0D - 1.0D) * 0.4F;
         this.motionZ = velZ + (float)(Math.random() * 2.0D - 1.0D) * 0.4F;
@@ -192,16 +196,27 @@ public class EntityModFX extends Entity
      * (abstract) Protected helper method to write subclass entity data to NBT.
      */
     @Override
-	public void writeEntityToNBT(NBTTagCompound p_70014_1_) {
-        p_70014_1_.setShort("age", (short)this.particleAge);
+	public void writeEntityToNBT(NBTTagCompound nbt) {
+        nbt.setShort("age", (short)this.particleAge);
+		if (owner != null) {
+			nbt.setLong("ownerMost", owner.getMostSignificantBits());
+			nbt.setLong("ownerLeast", owner.getLeastSignificantBits());
+		}
     }
 
     /**
      * (abstract) Protected helper method to read subclass entity data from NBT.
      */
     @Override
-	public void readEntityFromNBT(NBTTagCompound p_70037_1_) {
-        this.particleAge = p_70037_1_.getShort("age");
+	public void readEntityFromNBT(NBTTagCompound nbt) {
+        this.particleAge = nbt.getShort("age");
+		if(nbt.hasKey("ownerMost")&&nbt.hasKey("ownerLeast"))
+		{
+			owner = new UUID(
+				nbt.getLong("ownerMost"),
+				nbt.getLong("ownerLeast")
+			);
+		}
     }
 
     public void setParticleIcon(IIcon p_110125_1_)

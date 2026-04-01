@@ -47,6 +47,7 @@ public class EntityGrenadeMIRV extends EntityGrenadeBouncyBase {
 					grenade.motionY = motionY + rand.nextGaussian() * 0.25D;
 					grenade.motionZ = motionZ + rand.nextGaussian() * 0.25D;
 					grenade.ticksExisted = 10;
+					grenade.owner = party;
 
 					worldObj.spawnEntityInWorld(grenade);
 				}

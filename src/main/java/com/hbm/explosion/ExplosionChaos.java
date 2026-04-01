@@ -271,11 +271,11 @@ public class ExplosionChaos { //TODO: destroy this entire class
 			EntityModFX fx = null;
 
 			if(type == 1) {
-				fx = new EntityCloudFX(world, x, y, z, 0.0, 0.0, 0.0);
+				fx = new EntityCloudFX(party,world, x, y, z, 0.0, 0.0, 0.0);
 			} else if(type == 2) {
-				fx = new EntityPinkCloudFX(world, x, y, z, 0.0, 0.0, 0.0);
+				fx = new EntityPinkCloudFX(party,world, x, y, z, 0.0, 0.0, 0.0);
 			} else {
-				fx = new EntityOrangeFX(world, x, y, z, 0.0, 0.0, 0.0);
+				fx = new EntityOrangeFX(party,world, x, y, z, 0.0, 0.0, 0.0);
 			}
 
 			fx.motionY = rand.nextGaussian() * speed;
@@ -289,7 +289,7 @@ public class ExplosionChaos { //TODO: destroy this entire class
 
 		for(int i = 0; i < count; i++) {
 
-			EntityModFX fx = new EntityOrangeFX(world, x, y, z, 0.0, 0.0, 0.0);
+			EntityModFX fx = new EntityOrangeFX(party,world, x, y, z, 0.0, 0.0, 0.0);
 
 			fx.motionX = rand.nextGaussian() * speed;
 			fx.motionZ = rand.nextGaussian() * speed;

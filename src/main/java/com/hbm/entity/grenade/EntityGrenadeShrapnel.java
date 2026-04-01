@@ -38,7 +38,7 @@ public class EntityGrenadeShrapnel extends EntityGrenadeBouncyBase {
 			if(Integrations.canDetonateWGC(party,worldObj,(int)posX,(int)posY,(int)posZ)) {
 				this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, 2.0F, true);
 				for (int i = 0; i < 5; i++) {
-					ExplosionLarge.spawnShrapnels(worldObj, this.posX, this.posY, this.posZ, 5);
+					ExplosionLarge.spawnShrapnels(worldObj, this.posX, this.posY, this.posZ, 5,party);
 				}
 			}
 		}

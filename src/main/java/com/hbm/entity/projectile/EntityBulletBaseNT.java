@@ -401,7 +401,7 @@ public class EntityBulletBaseNT extends EntityThrowableInterp implements IBullet
 		}
 
 		if(config.emp > 0)
-			ExplosionNukeGeneric.empBlast(this.worldObj, (int)(this.posX + 0.5D), (int)(this.posY + 0.5D), (int)(this.posZ + 0.5D), config.emp);
+			ExplosionNukeGeneric.empBlast(ownerParty,this.worldObj, (int)(this.posX + 0.5D), (int)(this.posY + 0.5D), (int)(this.posZ + 0.5D), config.emp);
 
 		if(config.emp > 3) {
 			if (!this.worldObj.isRemote) {
@@ -431,7 +431,7 @@ public class EntityBulletBaseNT extends EntityThrowableInterp implements IBullet
 		}
 
 		if(config.shrapnel > 0 && !worldObj.isRemote)
-			ExplosionLarge.spawnShrapnels(worldObj, posX, posY, posZ, config.shrapnel);
+			ExplosionLarge.spawnShrapnels(worldObj, posX, posY, posZ, config.shrapnel,ownerParty);
 
 		if(config.rainbow > 0 && !worldObj.isRemote) {
 			EntityNukeExplosionMK3 ex = EntityNukeExplosionMK3.statFacFleija(worldObj, posX, posY, posZ, config.rainbow);

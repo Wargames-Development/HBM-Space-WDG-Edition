@@ -65,6 +65,14 @@ public class EntityNukeExplosionMK3 extends EntityExplosionChunkloading {
 			this.setDead();
 		}
 
+		if(nbt.hasKey("ownerMost")&&nbt.hasKey("ownerLeast"))
+		{
+			this.ownedParty = new UUID(
+				nbt.getLong("ownerMost"),
+				nbt.getLong("ownerLeast")
+			);
+		}
+
 		if(this.waste) {
 			exp = new ExplosionNukeAdvanced(ownedParty,(int) this.posX, (int) this.posY, (int) this.posZ, this.worldObj, this.destructionRange, this.coefficient, 0);
 			exp.readFromNbt(nbt, "exp_");
@@ -79,16 +87,9 @@ public class EntityNukeExplosionMK3 extends EntityExplosionChunkloading {
 				expl.readFromNbt(nbt, "expl_");
 			}
 			if(extType == 1) {
-				sol = new ExplosionSolinium((int) this.posX, (int) this.posY, (int) this.posZ, this.worldObj, this.destructionRange, this.coefficient, this.coefficient2);
+				sol = new ExplosionSolinium(ownedParty,(int) this.posX, (int) this.posY, (int) this.posZ, this.worldObj, this.destructionRange, this.coefficient, this.coefficient2);
 				sol.readFromNbt(nbt, "sol_");
 			}
-		}
-		if(nbt.hasKey("ownerMost")&&nbt.hasKey("ownerLeast"))
-		{
-			this.ownedParty = new UUID(
-				nbt.getLong("ownerMost"),
-				nbt.getLong("ownerLeast")
-			);
 		}
 
 		this.did = true;
@@ -153,7 +154,7 @@ public class EntityNukeExplosionMK3 extends EntityExplosionChunkloading {
         		if(extType == 0)
         			expl = new ExplosionFleija((int)this.posX, (int)this.posY, (int)this.posZ, this.worldObj, this.destructionRange, this.coefficient, this.coefficient2);
         		if(extType == 1)
-        			sol = new ExplosionSolinium((int)this.posX, (int)this.posY, (int)this.posZ, this.worldObj, this.destructionRange, this.coefficient, this.coefficient2);
+        			sol = new ExplosionSolinium(ownedParty,(int)this.posX, (int)this.posY, (int)this.posZ, this.worldObj, this.destructionRange, this.coefficient, this.coefficient2);
         	}
 
         	this.did = true;

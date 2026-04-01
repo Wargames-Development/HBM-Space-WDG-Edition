@@ -39,7 +39,7 @@ import java.util.UUID;
 		// --------------------------------------------------------
 
 		if(params.shrapnelCount > 0)
-			ExplosionLarge.spawnShrapnels(world, posX, posY, posZ, params.shrapnelCount);
+			ExplosionLarge.spawnShrapnels(world, posX, posY, posZ, params.shrapnelCount,party);
 
 		if(params.miniNuke && !params.safe)
 			new ExplosionNT(world, null, posX, posY, posZ, params.blastRadius)
@@ -48,7 +48,7 @@ import java.util.UUID;
 				.explode();
 
 		if(params.killRadius > 0)
-			ExplosionNukeGeneric.dealDamage(world, posX, posY, posZ, params.killRadius);
+			ExplosionNukeGeneric.dealDamage(party,world, posX, posY, posZ, params.killRadius);
 
 		if(!params.miniNuke)
 			WorldUtil.loadAndSpawnEntityInWorld(EntityNukeExplosionMK5.statFac(world, (int) params.blastRadius, posX, posY, posZ,party));

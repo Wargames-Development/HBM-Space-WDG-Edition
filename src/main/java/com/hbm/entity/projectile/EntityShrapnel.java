@@ -1,10 +1,12 @@
 package com.hbm.entity.projectile;
 
+import api.hbm.wgc.Integrations;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.explosion.ExplosionNT;
 import com.hbm.explosion.ExplosionNT.ExAttrib;
 import com.hbm.lib.ModDamageSource;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
@@ -14,8 +16,8 @@ import net.minecraft.world.World;
 import java.util.UUID;
 
 public class EntityShrapnel extends EntityThrowable {
-
-	public EntityShrapnel(World world, UUID party) {
+	public UUID owner;
+	public EntityShrapnel(World world) {
 		super(world);
 		this.isImmuneToFire = true;
 	}
@@ -29,7 +31,7 @@ public class EntityShrapnel extends EntityThrowable {
 		this.dataWatcher.addObject(16, Byte.valueOf((byte) 0));
 	}
 
-	public EntityShrapnel(World world,UUID party, double posX, double posY, double posZ) {
+	public EntityShrapnel(World world, double posX, double posY, double posZ) {
 		super(world, posX, posY, posZ);
 	}
 
@@ -43,13 +45,16 @@ public class EntityShrapnel extends EntityThrowable {
 
 	@Override
 	protected void onImpact(MovingObjectPosition mop) {
+		System.out.println("Impact! Hit at tick count: " + this.ticksExisted);
 		if(mop.entityHit != null) {
 			byte b0 = 15;
-
-			mop.entityHit.attackEntityFrom(ModDamageSource.shrapnel, b0);
+			if(!(mop.entityHit instanceof EntityPlayer && !Integrations.canHarmPlayerWGC(owner,mop.entityHit.getUniqueID(),worldObj))) {
+				mop.entityHit.attackEntityFrom(ModDamageSource.shrapnel, b0);
+			}
 		}
-
-		if(this.ticksExisted > 5) {
+		String canexplodeit = Integrations.canExplodeBlockWGC(owner,worldObj,mop.blockX,mop.blockZ) ? "Yes!" : "No.";
+		System.out.println("Can I explode the block? " + canexplodeit);
+		if(this.ticksExisted > 5 && Integrations.canExplodeBlockWGC(owner,worldObj,mop.blockX,mop.blockZ)) {
 
 			if(!worldObj.isRemote)
 				this.setDead();
