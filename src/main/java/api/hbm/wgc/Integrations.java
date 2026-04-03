@@ -61,6 +61,9 @@ public class Integrations {
 	public static Set<ChunkCoordIntPair> getContamProtectedChunksWGC(UUID party, World world, int chunkX, int chunkZ, int radius){
 		return getContamProtectedChunks(party,world,chunkX,chunkZ,radius);
 	}
+	public static boolean canCrossContaminateWGC(World world, ChunkCoordIntPair chunk1, ChunkCoordIntPair chunk2){
+		return canCrossContaminate(world,chunk1,chunk2);
+	}
 	public static boolean canPlaceClaimLockedBlockWGC(UUID party, World world, int x, int y, int z){
 		return canPlaceClaimLockedBlock(party,world,x,z);
 	}

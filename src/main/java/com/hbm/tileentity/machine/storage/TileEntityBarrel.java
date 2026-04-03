@@ -413,6 +413,7 @@ public class TileEntityBarrel extends TileEntityMachineBase implements SimpleCom
 						EntityBalefire bf = new EntityBalefire(worldObj);
 						bf.antimatter();
 						bf.setPosition(xCoord, yCoord, zCoord);
+						bf.ownerParty = ownerParty;
 						bf.destructionRange = (int) amat;
 						worldObj.spawnEntityInWorld(bf);
 						EntityNukeTorex.startFacAnti(worldObj, xCoord, yCoord, zCoord, amat * 1.5F);

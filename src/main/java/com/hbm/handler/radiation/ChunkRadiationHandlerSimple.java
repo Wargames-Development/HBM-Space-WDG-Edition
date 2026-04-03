@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import api.hbm.wgc.Integrations;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.config.RadiationConfig;
 import com.hbm.main.MainRegistry;
@@ -90,7 +91,9 @@ public class ChunkRadiationHandlerSimple extends ChunkRadiationHandler {
 						int type = Math.abs(i) + Math.abs(j);
 						float percent = type == 0 ? 0.6F : type == 1 ? 0.075F : 0.025F;
 						ChunkCoordIntPair newCoord = new ChunkCoordIntPair(coord.chunkXPos + i, coord.chunkZPos + j);
-
+						if(!Integrations.canCrossContaminateWGC(world, coord, newCoord)) {
+							continue;
+						}
 						if(buff.containsKey(newCoord)) {
 							Float val = radiation.get(newCoord);
 							float rad = val == null ? 0 : val;
@@ -180,7 +183,7 @@ public class ChunkRadiationHandlerSimple extends ChunkRadiationHandler {
 			if(radWorld != null) {
 				radWorld.radiation.remove(event.getChunk());
 			}
-		} 
+		}
 	}
 
 	public static class SimpleRadiationPerWorld {

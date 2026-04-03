@@ -93,6 +93,7 @@ public class TileEntityMachineOrbus extends TileEntityBarrel implements IOverpre
 	    			if(amat >= 25)
 	    			{
 	    				EntityBalefire bf = new EntityBalefire(worldObj);
+						bf.ownerParty = ownerParty;
 	    				bf.antimatter();
 	    	    		bf.setPosition(xCoord, yCoord, zCoord);
 	    				bf.destructionRange = (int) amat;

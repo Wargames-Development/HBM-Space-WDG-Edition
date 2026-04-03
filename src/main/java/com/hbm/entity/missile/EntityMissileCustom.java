@@ -197,6 +197,7 @@ public class EntityMissileCustom extends EntityMissileBaseNT implements IChunkLo
 			break;
 		case BALEFIRE:
 			EntityBalefire bf = new EntityBalefire(worldObj);
+			bf.ownerParty = ownerParty;
 			bf.posX = this.posX;
 			bf.posY = this.posY;
 			bf.posZ = this.posZ;

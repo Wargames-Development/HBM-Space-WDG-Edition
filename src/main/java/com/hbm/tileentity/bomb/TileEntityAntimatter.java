@@ -124,6 +124,7 @@ public class TileEntityAntimatter extends TileEntityMachineBase implements IGUIP
 		worldObj.func_147480_a(xCoord, yCoord, zCoord, false);
 
 		EntityBalefire bf = new EntityBalefire(worldObj);
+		bf.ownerParty = ownerParty;
 		bf.antimatter();
 		bf.posX = xCoord + 0.5;
 		bf.posY = yCoord + 0.5;

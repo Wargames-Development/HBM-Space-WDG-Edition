@@ -1,12 +1,15 @@
 package com.hbm.explosion;
 
 import java.util.List;
+import java.util.UUID;
 
+import api.hbm.wgc.Integrations;
 import com.hbm.util.ContaminationUtil;
 import com.hbm.util.ContaminationUtil.ContaminationType;
 import com.hbm.util.ContaminationUtil.HazardType;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
@@ -23,7 +26,7 @@ public class ExplosionHurtUtil {
 	 * @param inner The greatest amount of radiation received on the very center of the AoE
 	 * @param radius
 	 */
-	public static void doRadiation(World world, double x, double y, double z, float outer, float inner, double radius) {
+	public static void doRadiation(UUID owner, World world, double x, double y, double z, float outer, float inner, double radius) {
 		if (radius <= 0) return;
 		if (world.isRemote) return;
 
@@ -33,6 +36,7 @@ public class ExplosionHurtUtil {
 		);
 
 		for (EntityLivingBase entity : entities) {
+			if(entity instanceof EntityPlayer && !Integrations.canHarmPlayerWGC(owner,entity.getUniqueID(), world)) continue;
 			Vec3 v = Vec3.createVectorHelper(x - entity.posX, y - entity.posY, z - entity.posZ);
 			double dist = v.lengthVector();
 			if (dist > radius) continue;

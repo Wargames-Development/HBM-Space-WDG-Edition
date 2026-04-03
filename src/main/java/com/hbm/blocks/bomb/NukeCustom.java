@@ -191,6 +191,7 @@ public class NukeCustom extends BlockContainer implements IBomb{
 			amat = Math.min(amat, maxAmat);
 
 			EntityBalefire bf = new EntityBalefire(worldObj);
+			bf.ownerParty = owner;
 			bf.antimatter();
     		bf.setPosition(xCoord + 0.5, yCoord + 0.5, zCoord + 0.5);
 			bf.destructionRange = (int) amat;

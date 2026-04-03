@@ -93,6 +93,7 @@ public class BlockCrashedBomb extends BlockEnumMulti implements ITileEntityProvi
 			if(type == type.BALEFIRE) {
 				EntityBalefire bf = new EntityBalefire(world);
 				bf.setPosition(x, y, z);
+				bf.ownerParty = null;
 				bf.destructionRange = (int) (BombConfig.fatmanRadius * 1.25);
 				world.spawnEntityInWorld(bf);
 				spawnMush(world, x, y, z, true);
