@@ -20,6 +20,7 @@ import com.hbm.entity.mob.*;
 import com.hbm.entity.mob.botprime.*;
 import com.hbm.entity.mob.glyphid.*;
 import com.hbm.entity.mob.siege.EntitySiegeCraft;
+import com.hbm.entity.mob.siege.EntitySiegeUFO;
 import com.hbm.entity.particle.*;
 import com.hbm.entity.projectile.*;
 import com.hbm.entity.train.EntityRailCarBase.BoundingBoxDummyEntity;
@@ -160,6 +161,7 @@ public class EntityMappings {
 		addEntity(EntityBuilding.class, "entity_falling_building", 1000);
 		addEntity(EntitySoyuz.class, "entity_soyuz", 1000);
 		addEntity(EntitySoyuzCapsule.class, "entity_soyuz_capsule", 1000);
+		addEntity(EntityCombatDropPod.class, "entity_combat_pod", 1000);
 		addEntity(EntityParachuteCrate.class, "entity_parachute_crate", 1000);
 		addEntity(EntityMovingItem.class, "entity_c_item", 1000);
 		addEntity(EntityMovingPackage.class, "entity_c_package", 1000);
@@ -174,6 +176,7 @@ public class EntityMappings {
 		addEntity(EntityBlockSpider.class, "entity_taintcrawler", 1000);
 		addEntity(EntityRBMKDebris.class, "entity_rbmk_debris", 1000);
 		addEntity(EntityUFO.class, "entity_ntm_ufo", 1000);
+		addMob(EntitySiegeUFO.class, "entity_meme_ufo", 0x303030, 0x800000);
 		addEntity(EntityQuasar.class, "entity_digamma_quasar", 250);
 		addEntity(EntitySpear.class, "entity_digamma_spear", 1000);
 		addEntity(EntityMissileVolcano.class, "entity_missile_volcano", 1000);
@@ -186,10 +189,8 @@ public class EntityMappings {
 		addEntity(EntityGrenadeBouncyGeneric.class, "entity_grenade_bouncy_generic", 250);
 		addEntity(EntityGrenadeImpactGeneric.class, "entity_grenade_impact_generic", 250);
 		addEntity(EntityMinecartCrate.class, "entity_ntm_cart_crate", 250, false);
-		addEntity(EntityMinecartDestroyer.class, "entity_ntm_cart_crate", 250, false);
+		addEntity(EntityMinecartDestroyer.class, "entity_ntm_cart_destroyer", 250, false);
 		addEntity(EntityMinecartOre.class, "entity_ntm_cart_ore", 250, false);
-		addEntity(EntityMinecartBogie.class, "entity_ntm_cart_bogie", 250, false);
-		addEntity(EntityMagnusCartus.class, "entity_ntm_cart_chungoid", 250, false);
 		addEntity(EntityMinecartPowder.class, "entity_ntm_cart_powder", 250, false);
 		addEntity(EntityMinecartSemtex.class, "entity_ntm_cart_semtex", 250, false);
 		addEntity(EntityNukeTorex.class, "entity_effect_torex", 250, false);

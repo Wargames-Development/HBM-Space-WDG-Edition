@@ -10,12 +10,8 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-import com.hbm.inventory.recipes.AssemblerRecipes;
 import com.hbm.inventory.recipes.CrucibleRecipes;
 import com.hbm.items.ModItems;
-import com.hbm.items.machine.ItemCassette;
-import com.hbm.items.machine.ItemStamp;
-import com.hbm.items.machine.ItemStamp.StampType;
 import com.hbm.lib.RefStrings;
 import com.hbm.main.MainRegistry;
 import com.hbm.packet.PacketDispatcher;
@@ -57,17 +53,7 @@ public class GUIScreenTemplateFolder extends GuiScreen {
 
 		this.isJournal = item != ModItems.template_folder;
 
-		if(!this.isJournal) {
-			// Stamps
-			for(ItemStack i : ItemStamp.stamps.get(StampType.PLATE)) allStacks.add(i.copy());
-			for(ItemStack i : ItemStamp.stamps.get(StampType.WIRE)) allStacks.add(i.copy());
-			for(ItemStack i : ItemStamp.stamps.get(StampType.CIRCUIT)) allStacks.add(i.copy());
-			
-			// Tracks
-			for(int i = 1; i < ItemCassette.TrackType.values().length; i++) {
-				allStacks.add(new ItemStack(ModItems.siren_track, 1, i));
-			}
-		}
+
 
 		if(!this.isJournal) {
 			
@@ -300,11 +286,7 @@ public class GUIScreenTemplateFolder extends GuiScreen {
 				OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) 240 / 1.0F, (float) 240 / 1.0F);
 				GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 				if(stack != null) {
-					if(stack.getItem() == ModItems.assembly_template)
-						itemRender.renderItemAndEffectIntoGUI(fontRendererObj, mc.getTextureManager(), AssemblerRecipes.getOutputFromTempate(stack), xPos + 1, yPos + 1);
-					else if(stack.getItem() == ModItems.chemistry_template)
-						itemRender.renderItemAndEffectIntoGUI(fontRendererObj, mc.getTextureManager(), new ItemStack(ModItems.chemistry_icon, 1, stack.getItemDamage()), xPos + 1, yPos + 1);
-					else if(stack.getItem() == ModItems.crucible_template)
+					if(stack.getItem() == ModItems.crucible_template)
 						itemRender.renderItemAndEffectIntoGUI(fontRendererObj, mc.getTextureManager(), CrucibleRecipes.indexMapping.get(stack.getItemDamage()).icon, xPos + 1, yPos + 1);
 					else
 						itemRender.renderItemAndEffectIntoGUI(fontRendererObj, mc.getTextureManager(), stack, xPos + 1, yPos + 1);

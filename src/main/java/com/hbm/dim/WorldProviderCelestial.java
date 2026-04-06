@@ -2,6 +2,7 @@ package com.hbm.dim;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Random;
 import java.util.List;
 
 import com.hbm.config.GeneralConfig;
@@ -10,10 +11,13 @@ import com.hbm.dim.trait.CBT_Atmosphere;
 import com.hbm.dim.trait.CBT_Atmosphere.FluidEntry;
 import com.hbm.dim.trait.CBT_War;
 import com.hbm.dim.trait.CBT_Destroyed;
+import com.hbm.dim.trait.CBT_Invasion;
 import com.hbm.handler.ImpactWorldHandler;
 import com.hbm.handler.atmosphere.ChunkAtmosphereManager;
 import com.hbm.inventory.FluidStack;
+import com.hbm.inventory.fluid.FluidType;
 import com.hbm.inventory.fluid.Fluids;
+import com.hbm.main.MainRegistry;
 import com.hbm.saveddata.SatelliteSavedData;
 import com.hbm.saveddata.satellites.Satellite;
 import com.hbm.saveddata.satellites.SatelliteWar;
@@ -26,6 +30,7 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -46,6 +51,8 @@ public abstract class WorldProviderCelestial extends WorldProviderSurface {
 
 	private double eclipseAmount;
 	private long localTime = -1;
+	
+	public static ArrayList<Meteor> meteors = new ArrayList<>();
 
 	@Override
 	public abstract void registerWorldChunkManager();
@@ -82,6 +89,26 @@ public abstract class WorldProviderCelestial extends WorldProviderSurface {
 		// Will prevent water from existing, will be unset immediately before using a bucket if inside a pressurized room
 		isHellWorld = !worldObj.isRemote && pressure <= 0.2F && !Loader.isModLoaded(Compat.MOD_COFH);
 
+		if(worldObj.isRemote) {
+			EntityPlayer player = MainRegistry.proxy.me();
+			CBT_Invasion invasion = CelestialBody.getTrait(worldObj, CBT_Invasion.class);
+
+			if(invasion != null) {
+				for(int i = 0; i < meteors.size(); i++) {
+					meteors.get(i).update();
+				}
+				
+				if(worldObj.rand.nextInt(Math.max(1, 5 - invasion.wave)) == 0 && invasion.isInvading) {
+					Meteor meteor = new Meteor((player.posX + worldObj.rand.nextInt(16000)) - 8000, 2017,(player.posZ + worldObj.rand.nextInt(16000)) - 8000);
+					meteors.add(meteor);
+				}
+
+				meteors.removeIf(x -> x.isDead);
+			} else {
+				meteors.removeAll(meteors);
+			}
+		}
+
 		if(pressure > 0.5F) {
 			super.updateWeather();
 			return;
@@ -92,6 +119,7 @@ public abstract class WorldProviderCelestial extends WorldProviderSurface {
 		worldObj.prevThunderingStrength = 0.0F;
 		worldObj.thunderingStrength = 0.0F;
 	}
+	
 
 	// Can be overridden to provide fog changing events based on weather
 	public float fogDensity(FogDensity event) {
@@ -200,6 +228,42 @@ public abstract class WorldProviderCelestial extends WorldProviderSurface {
 	// note that we are rendering flat quads, so the arc size is warped more the larger you get!
 	private static double getArc(double apparentSize) {
 		return apparentSize * 0.0017D + Math.sqrt(apparentSize * 0.00003D);
+	}
+
+	// Might refactor all the separate fluid color calcs into using just this one (but they all vary slightly so not yet)
+	// For now, it'll go here, next to the other fluid color stuff, so we don't forget about it
+	// also, lightning sky tinting doesn't actually work outside of earth air/oxygen/nitrogen so uh yeah we should fix that lmao
+	public static Vec3 getAtmosphereFluidColor(FluidType fluid) {
+		if(fluid == null) {
+			return Vec3.createVectorHelper(1.0D, 1.0D, 1.0D);
+		}
+
+		if(fluid == Fluids.EVEAIR) {
+			return Vec3.createVectorHelper(53F / 255F, 32F / 255F, 74F / 255F);
+		}
+
+		// Slightly redder "red sand" tint for Duna-like atmospheres.
+		if(fluid == Fluids.DUNAAIR) {
+			return Vec3.createVectorHelper(198F / 255F, 96F / 255F, 64F / 255F);
+		}
+
+		// Neutral/desaturated CO2 tint.
+		if(fluid == Fluids.CARBONDIOXIDE) {
+			return Vec3.createVectorHelper(188F / 255F, 192F / 255F, 198F / 255F);
+		}
+
+		if(fluid == Fluids.EARTHAIR || fluid == Fluids.OXYGEN || fluid == Fluids.NITROGEN) {
+			return Vec3.createVectorHelper(0.7529412F, 0.84705883F, 1.0F);
+		}
+
+		return getColorFromHex(fluid.getColor());
+	}
+
+	private static Vec3 getColorFromHex(int hexColor) {
+		float red = ((hexColor >> 16) & 0xFF) / 255.0F;
+		float green = ((hexColor >> 8) & 0xFF) / 255.0F;
+		float blue = (hexColor & 0xFF) / 255.0F;
+		return Vec3.createVectorHelper(red, green, blue);
 	}
 
 	@Override
@@ -421,13 +485,6 @@ public abstract class WorldProviderCelestial extends WorldProviderSurface {
 		return color;
 	}
 
-	private Vec3 getColorFromHex(int hexColor) {
-		float red = ((hexColor >> 16) & 0xFF) / 255.0F;
-		float green = ((hexColor >> 8) & 0xFF) / 255.0F;
-		float blue = (hexColor & 0xFF) / 255.0F;
-		return Vec3.createVectorHelper(red, green, blue);
-	}
-
 	@Override
 	@SideOnly(Side.CLIENT)
 	public float[] calcSunriseSunsetColors(float solarAngle, float partialTicks) {
@@ -449,7 +506,7 @@ public abstract class WorldProviderCelestial extends WorldProviderSurface {
 			float f3 = MathHelper.cos((solarAngle) * (float)Math.PI * 2.0F) - 0.0F;
 			float f4 = -0.0F;
 
-			if (f3 >= f4 - f2 && f3 <= f4 + f2) {
+			if(f3 >= f4 - f2 && f3 <= f4 + f2) {
 				float f5 = (f3 - f4) / f2 * 0.5F + 0.5F;
 				float f6 = 1.0F - (1.0F - MathHelper.sin(f5 * (float)Math.PI)) * 0.99F;
 				f6 *= f6;
@@ -533,7 +590,7 @@ public abstract class WorldProviderCelestial extends WorldProviderSurface {
 		float insideBrightness = 0;
 
 		for(Map.Entry<Integer, Satellite> entry : SatelliteSavedData.getClientSats().entrySet()) {
-			if (entry instanceof SatelliteWar) {
+			if(entry instanceof SatelliteWar) {
 				SatelliteWar war = (SatelliteWar) entry.getValue();
 				float flame = war.getInterp();
 				float alpd = 1.0F - Math.min(1.0F, flame / 100);
@@ -788,5 +845,67 @@ public abstract class WorldProviderCelestial extends WorldProviderSurface {
 		return null;
 	}
 	/// FISH ///
+
+	public class Meteor {
+
+		public double posX;
+		public double posY;
+		public double posZ;
+		public double prevPosX;
+		public double prevPosY;
+		public double prevPosZ;
+		public double motionX;
+		public double motionY;
+		public double motionZ;
+		public boolean isDead = false;
+		public long age;
+		public MeteorType type;
+
+		public Meteor(double posX, double posY, double posZ) {
+			this(posX, posY, posZ, MeteorType.STANDARD, -31.2, -20.8, 20);
+		}
+
+		public Meteor(double posX, double posY, double posZ, MeteorType type, double motionX, double motionY, double motionZ) {
+			this.posX = posX;
+			this.posY = posY;
+			this.posZ = posZ;
+			this.type = type;
+			this.motionX = motionX;
+			this.motionY = motionY;
+			this.motionZ = motionZ;
+		}
+
+		private void update() {
+			Random rand = new Random();
+
+			if(this.type != MeteorType.SMOKE && this.type != MeteorType.FRAGMENT) {
+				Meteor meteor = new Meteor((this.posX + rand.nextInt(16)) - 8, (this.posY + rand.nextInt(16)), (this.posZ + rand.nextInt(16)) - 8, MeteorType.SMOKE, 0, 0, 0);
+				meteors.add(meteor);
+			}
+
+			if(this.posY <= 500 && this.type != MeteorType.SMOKE) {
+				this.isDead = true;
+			}
+
+			if(this.type == MeteorType.SMOKE) {
+				this.age++;
+				if(this.age >= 60)
+					this.isDead = true;
+			}
+
+			this.prevPosX = this.posX;
+			this.prevPosY = this.posY;
+			this.prevPosZ = this.posZ;
+			this.posX += this.motionX;
+			this.posY += this.motionY;
+			this.posZ += this.motionZ;
+		}
+	}
+
+	public static enum MeteorType {
+		STANDARD,
+		FRAGMENT,
+		SMOKE
+	}
 
 }

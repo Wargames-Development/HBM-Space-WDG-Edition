@@ -11,6 +11,7 @@ import com.hbm.config.SpaceConfig;
 import com.hbm.dim.CelestialBody;
 import com.hbm.dim.SolarSystemWorldSavedData;
 import com.hbm.dim.WorldProviderCelestial;
+import com.hbm.dim.trait.CBT_Invasion;
 import com.hbm.dim.trait.CBT_War;
 import com.hbm.dim.trait.CelestialBodyTrait;
 import com.hbm.dim.orbit.WorldProviderOrbit;
@@ -106,6 +107,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.boss.BossStatus;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -926,8 +928,7 @@ public class ModEventHandlerClient {
 	//@SubscribeEvent
 	public void onRenderStorm(RenderHandEvent event) {
 
-		if(BlockAshes.ashes == 0)
-			return;
+		if(BlockAshes.ashes <= 0) return;
 
 		GL11.glPushMatrix();
 
@@ -1001,7 +1002,7 @@ public class ModEventHandlerClient {
 		Minecraft mc = Minecraft.getMinecraft();
 		ArmorNo9.updateWorldHook(mc.theWorld);
 
-		boolean supportsHighRenderDistance = FMLClientHandler.instance().hasOptifine() || Loader.isModLoaded("angelica");
+		boolean supportsHighRenderDistance = FMLClientHandler.instance().hasOptifine() || Loader.isModLoaded(Compat.MOD_ANG);
 
 		if(mc.gameSettings.renderDistanceChunks > 16 && GeneralConfig.enableRenderDistCheck && !supportsHighRenderDistance) {
 			mc.gameSettings.renderDistanceChunks = 16;
@@ -1038,6 +1039,14 @@ public class ModEventHandlerClient {
 				//dead entities may have later insertion order than actively firing ones, so we be safe
 				ItemRenderWeaponBase.flashMap.values().removeIf(entry -> millis - entry.longValue() >= 150);
 			}
+			
+			CelestialBody body = CelestialBody.getBody(mc.theWorld);
+			CBT_Invasion invasion = body.getTrait(CBT_Invasion.class);
+
+			if(invasion != null && invasion.isInvading && invasion.wave < 4) {
+				BossStatus.setBossStatus(invasion, false);
+			}
+
 		}
 
 		if(Keyboard.isKeyDown(HbmKeybinds.qmaw.getKeyCode()) && Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) && Minecraft.getMinecraft().currentScreen != null) {
@@ -1086,10 +1095,7 @@ public class ModEventHandlerClient {
 				MainRegistry.logger.info("Taking a screenshot of ALL items, if you did this by mistake: fucking lmao get rekt nerd");
 
 				List<Item> ignoredItems = Arrays.asList(
-					ModItems.assembly_template,
 					ModItems.crucible_template,
-					ModItems.chemistry_template,
-					ModItems.chemistry_icon,
 					ModItems.achievement_icon,
 					Items.spawn_egg,
 					Item.getItemFromBlock(Blocks.mob_spawner)
@@ -1152,7 +1158,7 @@ public class ModEventHandlerClient {
 			for(CelestialBody body : CelestialBody.getAllBodies()) {
 				if(SolarSystemWorldSavedData.getClientTraits(body.name) != null) {
 					for(CelestialBodyTrait trait : SolarSystemWorldSavedData.getClientTraits(body.name).values()) {
-						trait.update(true);
+						trait.update(true, body);
 					}
 				}
 			}

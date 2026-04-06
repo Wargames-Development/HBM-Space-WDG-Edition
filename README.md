@@ -20,10 +20,15 @@ All updates made here in our Wargames Edition of HBM-Space are to the effect of 
 <!-- Write about the features of the mod and include some gifs or images to help document major features. Below is an example of image/gif addition -->
 <!-- ![Weapon Showcase](https://raw.githubusercontent.com/Cubed-Development/Modern-Warfare-Cubed/main/assets/showcase/Weapon%20Showcase.gif) -->
 
-### New Features:
+* NTM Community Edition (WarFactory): https://github.com/MisterNorwood/Hbm-s-Nuclear-Tech-CE/releases
+* NTM Extended Edition (Alcater): https://github.com/Alcatergit/Hbm-s-Nuclear-Tech-GIT/releases
+* NTM Reloaded: https://github.com/TheOriginalGolem/Hbm-s-Nuclear-Tech-GIT/releases
 
-- Added to the api section a new explosions manager to link with yRadar,
-  - Updated almost all explosions in the game with a overall veto gate and block damage individual gate.
+For further ports, try:
+
+* NTM Remake on 1.18.2: https://codeberg.org/MartinTheDragon/Nuclear-Tech-Mod-Remake/releases
+* HBM Modernized on 1.20.1: https://github.com/Raptor324/HBM-Modernized/releases
+* NTM Neo on 1.21.1: https://github.com/ohiomannnn/HBMsNTM-NEO-EDITION/releases
 
 ### Changes:
 
