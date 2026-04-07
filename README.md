@@ -13,31 +13,93 @@ This as the name implies is a further fork of the [HBM-Space](https://github.com
 
 ![HBM-Space Wargames Edition Banner](https://github.com/Wargames-Development/HBM-Space-WDG-Edition/blob/space-travel-twopointfive/assets/HBM-Space-Banner.png?raw=true)
 
-All updates made here in our Wargames Edition of HBM-Space are to the effect of improving playing on the Wargames Official Minecraft Server. Changes also hook into our adaptations of MCHELI-O/R Wargames Edition & yRadar Wargames Edition.
+HBM Space Wargames Edition is a systems-focused fork of HBM’s Nuclear Tech Mod (Space branch), designed to improve behaviour in multiplayer and server environments.
 
-## Features
+This fork does not add significant new content or progression changes. Instead, it introduces ownership tracking and protection-aware behaviour across explosives, missiles, and automated systems. The goal is to allow high-impact weapons to function in structured environments without bypassing territory rules or causing uncontrolled damage.
 
-<!-- Write about the features of the mod and include some gifs or images to help document major features. Below is an example of image/gif addition -->
-<!-- ![Weapon Showcase](https://raw.githubusercontent.com/Cubed-Development/Modern-Warfare-Cubed/main/assets/showcase/Weapon%20Showcase.gif) -->
+Changes also hook into our adaptations of MCHELI-O/R Wargames Edition and yRadar Wargames Edition.
 
-* NTM Community Edition (WarFactory): https://github.com/MisterNorwood/Hbm-s-Nuclear-Tech-CE/releases
-* NTM Extended Edition (Alcater): https://github.com/Alcatergit/Hbm-s-Nuclear-Tech-GIT/releases
-* NTM Reloaded: https://github.com/TheOriginalGolem/Hbm-s-Nuclear-Tech-GIT/releases
+## Features (WDG Edition)
 
-For further ports, try:
+This fork focuses on improving system behaviour, ownership tracking, and protection integration for multiplayer environments.  
+For standard gameplay, progression, and item documentation, refer to the official HBM Space wiki: https://nucleartech.wiki/wiki/NTM:_Space
 
-* NTM Remake on 1.18.2: https://codeberg.org/MartinTheDragon/Nuclear-Tech-Mod-Remake/releases
-* HBM Modernized on 1.20.1: https://github.com/Raptor324/HBM-Modernized/releases
-* NTM Neo on 1.21.1: https://github.com/ohiomannnn/HBMsNTM-NEO-EDITION/releases
+---
 
-### Changes:
+### Protection & Territory Integration
 
-- Removed the speed from the M1TTY Environmental Suit to be used as a purely space suit and make gunplay more fun.
+- **Explosion Validation**
+  Explosions are validated against territory rules before applying damage.
 
-### Coming Soon:
+- **Protected Block Damage Handling**
+  Block destruction is skipped in protected chunks where it is not permitted.
 
-- Create further protections against entities that bypass current vetos for yRadar.
-- More features will be revealed as we proceed and decide to create them here or in our yRadar mod.
+- **Radiation Control**
+  Radiation spread is blocked or limited when entering protected areas.
+
+- **Contamination Control**
+  Contamination spread is blocked or restricted in protected territory.
+
+- **EMP Behaviour Integration**
+  EMP effects respect protection rules instead of applying globally.
+
+- **Player Damage Filtering**
+  Damage from explosives and weapons is filtered through protection rules.
+
+---
+
+### Ownership & Attribution
+
+- **Persistent Ownership Tracking**
+  Bombs, explosives, missiles, shells, turrets, and launch systems store owner or faction data.
+
+- **No Anonymous Explosives**
+  All explosive sources retain attribution from placement or launch to detonation.
+
+- **End-to-End Context**
+  Ownership is preserved across long-range weapons and chained systems.
+
+---
+
+### Weapon & Entity Behaviour
+
+- **Territory-Aware Impacts**
+  Missiles, rockets, and shells respect protection rules at their impact location.
+
+- **Faction-Aware Turrets**
+  Turrets use ownership and faction relationships for targeting decisions.
+
+- **Projectile Ownership Inheritance**
+  Turret and player-fired projectiles inherit ownership context.
+
+---
+
+### Missile System Improvements
+
+- **Bunker-Buster Penetration**
+  Missiles can penetrate surfaces before detonation depending on impact conditions.
+
+- **Airburst Detonation**
+  Missiles can detonate above ground for wider area coverage.
+
+- **Cluster / Burst Improvements**
+  More consistent behaviour for multi-stage and cluster payloads.
+
+- **Improved Drill / Penetration Handling**
+  Enhanced logic for deep-impact and drilling-style munitions.
+
+---
+
+### Launch Systems
+
+- **Designator Ownership Tracking**
+  Target designators store ownership data for correct attribution.
+
+- **Launch Validation**
+  Launch systems check whether a target is valid before firing.
+
+- **Protection Integration**
+  Launch behaviour is integrated with territory and protection rules.
 
 ## Documentation
 
