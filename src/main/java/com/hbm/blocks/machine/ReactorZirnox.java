@@ -2,6 +2,7 @@ package com.hbm.blocks.machine;
 
 
 import com.hbm.blocks.BlockDummyable;
+import com.hbm.blocks.BlockDummyableClaimlocked;
 import com.hbm.handler.BossSpawnHandler;
 import com.hbm.handler.MultiblockHandlerXR;
 import com.hbm.main.MainRegistry;
@@ -16,7 +17,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class ReactorZirnox extends BlockDummyable {
+public class ReactorZirnox extends BlockDummyableClaimlocked {
 
 	public ReactorZirnox(Material mat) {
 		super(mat);
@@ -39,7 +40,7 @@ public class ReactorZirnox extends BlockDummyable {
 			return true;
 		} else if(!player.isSneaking()) {
 			BossSpawnHandler.markFBI(player);
-			
+
 			int[] pos = this.findCore(world, x, y, z);
 
 			if(pos == null)
@@ -54,7 +55,7 @@ public class ReactorZirnox extends BlockDummyable {
 
 	@Override
 	public int[] getDimensions() {
-		return new int[] {1, 0, 2, 2, 2, 2,}; 
+		return new int[] {1, 0, 2, 2, 2, 2,};
 	}
 
 	@Override

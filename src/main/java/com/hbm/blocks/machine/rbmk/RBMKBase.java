@@ -1,6 +1,7 @@
 package com.hbm.blocks.machine.rbmk;
 
 import com.hbm.blocks.BlockDummyable;
+import com.hbm.blocks.BlockDummyableClaimlocked;
 import com.hbm.blocks.ILookOverlay;
 import com.hbm.handler.MultiblockHandlerXR;
 import com.hbm.handler.neutron.NeutronNodeWorld;
@@ -30,7 +31,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.Pre;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public abstract class RBMKBase extends BlockDummyable implements IToolable, ILookOverlay {
+public abstract class RBMKBase extends BlockDummyableClaimlocked implements IToolable, ILookOverlay {
 
 	public static boolean dropLids = true;
 	public static boolean digamma = false;

@@ -3,6 +3,7 @@ package com.hbm.blocks.machine.fusion;
 import java.util.List;
 
 import com.hbm.blocks.BlockDummyable;
+import com.hbm.blocks.BlockDummyableClaimlocked;
 import com.hbm.blocks.ITooltipProvider;
 import com.hbm.handler.MultiblockHandlerXR;
 import com.hbm.tileentity.machine.fusion.TileEntityFusionKlystronCreative;
@@ -14,7 +15,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class MachineFusionKlystronCreative extends BlockDummyable implements ITooltipProvider {
+public class MachineFusionKlystronCreative extends BlockDummyableClaimlocked implements ITooltipProvider {
 
 	public MachineFusionKlystronCreative() {
 		super(Material.iron);

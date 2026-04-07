@@ -3,6 +3,7 @@ package com.hbm.blocks.machine;
 import java.util.Random;
 
 import com.hbm.blocks.BlockDummyable;
+import com.hbm.blocks.BlockDummyableClaimlocked;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.handler.MultiblockHandlerXR;
 import com.hbm.inventory.material.Mats;
@@ -20,7 +21,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class Watz extends BlockDummyable {
+public class Watz extends BlockDummyableClaimlocked {
 
 	public Watz() {
 		super(Material.iron);
@@ -28,7 +29,7 @@ public class Watz extends BlockDummyable {
 
 	@Override
 	public TileEntity createNewTileEntity(World world, int meta) {
-		
+
 		if(meta >= 12) return new TileEntityWatz();
 		if(meta >= 6) return new TileEntityProxyCombo().inventory().fluid();
 		return null;
@@ -38,7 +39,7 @@ public class Watz extends BlockDummyable {
 	public Item getItemDropped(int i, Random rand, int j) {
 		return null;
 	}
-	
+
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
 		return super.standardOpenBehavior(world, x, y, z, player, 0);
@@ -85,9 +86,9 @@ public class Watz extends BlockDummyable {
 		this.makeExtra(world, x, y + 2, z - 2);
 		this.makeExtra(world, x, y + 2, z);
 	}
-	
+
 	public static boolean drop = true;
-	
+
 	@Override
 	public void breakBlock(World world, int x, int y, int z, Block block, int i) {
 

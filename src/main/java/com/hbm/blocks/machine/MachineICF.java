@@ -1,6 +1,7 @@
 package com.hbm.blocks.machine;
 
 import com.hbm.blocks.BlockDummyable;
+import com.hbm.blocks.BlockDummyableClaimlocked;
 import com.hbm.handler.MultiblockHandlerXR;
 import com.hbm.tileentity.TileEntityProxyCombo;
 import com.hbm.tileentity.machine.TileEntityICF;
@@ -11,7 +12,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class MachineICF extends BlockDummyable {
+public class MachineICF extends BlockDummyableClaimlocked {
 
 	public MachineICF() {
 		super(Material.iron);
@@ -42,7 +43,7 @@ public class MachineICF extends BlockDummyable {
 
 		x += dir.offsetX * o;
 		z += dir.offsetZ * o;
-		
+
 		this.makeExtra(world, x , y + 5, z);
 		ForgeDirection rot = dir.getRotation(ForgeDirection.UP);
 		this.makeExtra(world, x + dir.offsetX * 2 + rot.offsetX * 6 , y + 3, z + dir.offsetZ * 2 + rot.offsetZ * 6);
@@ -56,10 +57,10 @@ public class MachineICF extends BlockDummyable {
 		if(!super.checkRequirement(world, x, y, z, dir, o)) return false;
 		if(!MultiblockHandlerXR.checkSpace(world, x + dir.offsetX * o , y + 3, z + dir.offsetZ * o, new int[] {1, 1, -1, 2, 8, 8}, x, y, z, dir)) return false;
 		if(!MultiblockHandlerXR.checkSpace(world, x + dir.offsetX * o , y + 3, z + dir.offsetZ * o, new int[] {1, 1, 2, -1, 8, 8}, x, y, z, dir)) return false;
-		
+
 		return true;
 	}
-	
+
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
 		return super.standardOpenBehavior(world, x, y, z, player, 0);

@@ -3,6 +3,7 @@ package com.hbm.blocks.machine.fusion;
 import java.util.List;
 
 import com.hbm.blocks.BlockDummyable;
+import com.hbm.blocks.BlockDummyableClaimlocked;
 import com.hbm.blocks.ITooltipProvider;
 import com.hbm.tileentity.machine.fusion.TileEntityFusionCoupler;
 
@@ -12,7 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class MachineFusionCoupler extends BlockDummyable implements ITooltipProvider {
+public class MachineFusionCoupler extends BlockDummyableClaimlocked implements ITooltipProvider {
 
 	public MachineFusionCoupler() {
 		super(Material.iron);

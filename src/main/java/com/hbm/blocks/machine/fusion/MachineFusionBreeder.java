@@ -3,6 +3,7 @@ package com.hbm.blocks.machine.fusion;
 import java.util.List;
 
 import com.hbm.blocks.BlockDummyable;
+import com.hbm.blocks.BlockDummyableClaimlocked;
 import com.hbm.blocks.ITooltipProvider;
 import com.hbm.tileentity.TileEntityProxyCombo;
 import com.hbm.tileentity.machine.fusion.TileEntityFusionBreeder;
@@ -14,7 +15,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class MachineFusionBreeder extends BlockDummyable implements ITooltipProvider {
+public class MachineFusionBreeder extends BlockDummyableClaimlocked implements ITooltipProvider {
 
 	public MachineFusionBreeder() {
 		super(Material.iron);
@@ -36,7 +37,7 @@ public class MachineFusionBreeder extends BlockDummyable implements ITooltipProv
 	public int getOffset() {
 		return 2;
 	}
-	
+
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
 		return super.standardOpenBehavior(world, x, y, z, player, 0);
@@ -53,7 +54,7 @@ public class MachineFusionBreeder extends BlockDummyable implements ITooltipProv
 
 		x += dir.offsetX * o;
 		z += dir.offsetZ * o;
-		
+
 		ForgeDirection rot = dir.getRotation(ForgeDirection.UP);
 
 		this.makeExtra(world, x + rot.offsetX, y, z + rot.offsetZ);
