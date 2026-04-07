@@ -29,12 +29,6 @@ public class BlockPartyOwned extends Block{
 
 	public static UUID getOwner(World world, int x, int y, int z) {
 		TileEntity te = world.getTileEntity(x, y, z);
-		if(te == null) {
-			System.out.println("getOwner didn't find a tile entity");
-		}
-		else{
-			System.out.println("getOwner found a tile entity, type: " + te.getClass().getSimpleName());
-		}
 		UUID owner = null;
 
 		if (te instanceof TileEntityPartyOwned) {

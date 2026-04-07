@@ -300,7 +300,6 @@ public class ExplosionChaos { //TODO: destroy this entire class
 		}
 	}
 
-	//todo: check EntityRocket's onImpact to stop internal block damage of a zone.
 	public static void cluster(UUID party, World world, int x, int y, int z, int count, Vec3 initialvel, int gravity) {
 
 		double d1 = 0;

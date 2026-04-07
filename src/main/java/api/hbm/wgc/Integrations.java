@@ -17,18 +17,12 @@ public class Integrations {
 		return canHarmPlayer(party,targetedPlayer,world);
 	}
 	public static boolean canTargetChunkWGC(UUID party, World world,ChunkCoordIntPair chunkCoords) {
-		return canTargetChunk(party,world, chunkCoords.chunkXPos, chunkCoords.chunkZPos); //TODO
+		return canTargetChunk(party,world, chunkCoords.chunkXPos, chunkCoords.chunkZPos);
 	}
 	public static boolean canTargetBlockWGC(UUID party,World world, int x, int y, int z) {
 		return canTargetBlock(party, world, x, y, z);
 	}
 	public static boolean canDetonateWGC(UUID party, World world, int x, int y, int z){
-		if(party == null){
-			System.out.println("Null UUID!");
-		}
-		else {
-			System.out.println("Detonate UUID:" + party.toString());
-		}
 		return canDetonate(party, world, x, y, z);
 	}
 	public static boolean canExplodeChunkWGC(UUID party, World world, int chunkX, int chunkZ) {
