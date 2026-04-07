@@ -128,7 +128,7 @@ public abstract class EntityPlaneBase extends Entity implements IChunkLoader {
 				if((!worldObj.getBlock((int) posX, (int) posY, (int) posZ).isAir(worldObj, (int) posX, (int) posY, (int) posZ) || posY < 0)) {
 					this.setDead();
 					ExplosionCreator.composeEffectLarge(worldObj, posX, posY, posZ);
-					new ExplosionVNT(worldObj, posX, posY, posZ, 15F,null).makeStandard().explode(); //TODO
+					new ExplosionVNT(worldObj, posX, posY, posZ, 15F,null).makeStandard().explode(); //We're getting rid of planes
 					worldObj.playSoundEffect(posX, posY, posZ, "hbm:entity.planeCrash", 25.0F, 1.0F);
 					return;
 				}

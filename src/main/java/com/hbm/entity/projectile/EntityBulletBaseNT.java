@@ -420,7 +420,7 @@ public class EntityBulletBaseNT extends EntityThrowableInterp implements IBullet
 
 		if(config.explosive > 0 && !worldObj.isRemote) {
 			//worldObj.newExplosion(this.thrower, posX, posY, posZ, config.explosive, config.incendiary > 0, config.blockDamage);
-			ExplosionVNT vnt = new ExplosionVNT(worldObj, posX, posY, posZ, config.explosive, thrower.getUniqueID(), this.thrower); //TODO
+			ExplosionVNT vnt = new ExplosionVNT(worldObj, posX, posY, posZ, config.explosive, thrower.getUniqueID(), this.thrower);
 			vnt.setBlockAllocator(new BlockAllocatorStandard());
 			if(config.blockDamage)	vnt.setBlockProcessor(new BlockProcessorStandard().withBlockEffect(config.incendiary > 0 ? new BlockMutatorFire() : null));
 			else					vnt.setBlockProcessor(new BlockProcessorNoDamage().withBlockEffect(config.incendiary > 0 ? new BlockMutatorFire() : null));
