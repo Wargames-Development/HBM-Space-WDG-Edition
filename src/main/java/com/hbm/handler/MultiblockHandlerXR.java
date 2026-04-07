@@ -1,10 +1,13 @@
 package com.hbm.handler;
 
+import api.hbm.wgc.Integrations;
 import com.hbm.blocks.BlockDummyable;
 
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import java.util.UUID;
 
 public class MultiblockHandlerXR {
 
@@ -40,6 +43,26 @@ public class MultiblockHandlerXR {
 
 		return true;
 	}
+
+	public static boolean checkSpaceClaimLocked(World world, int x, int y, int z, int[] dim, int ox, int oy, int oz, ForgeDirection dir, UUID party) {
+
+		if(dim == null || dim.length != 6)
+			return false;
+
+		int[] rot = rotate(dim, dir);
+
+		for(int a = x - rot[4]; a <= x + rot[5]; a++) {
+			for(int c = z - rot[2]; c <= z + rot[3]; c++) {
+				if(!Integrations.canPlaceClaimLockedBlockWGC(party,world,a,0,z)){
+					return false;
+				}
+			}
+		}
+
+		return true;
+	}
+
+
 
 	public static void fillSpace(World world, int x, int y, int z, int[] dim, Block block, ForgeDirection dir) {
 

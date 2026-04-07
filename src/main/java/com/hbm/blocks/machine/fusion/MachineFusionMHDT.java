@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.hbm.blocks.BlockDummyable;
+import com.hbm.blocks.BlockDummyableClaimlocked;
 import com.hbm.blocks.ILookOverlay;
 import com.hbm.blocks.ITooltipProvider;
 import com.hbm.handler.MultiblockHandlerXR;
@@ -22,7 +23,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.Pre;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class MachineFusionMHDT extends BlockDummyable implements ILookOverlay, ITooltipProvider {
+public class MachineFusionMHDT extends BlockDummyableClaimlocked implements ILookOverlay, ITooltipProvider {
 
 	public MachineFusionMHDT() {
 		super(Material.iron);
@@ -67,7 +68,7 @@ public class MachineFusionMHDT extends BlockDummyable implements ILookOverlay, I
 
 		x += dir.offsetX * o;
 		z += dir.offsetZ * o;
-		
+
 		ForgeDirection rot = dir.getRotation(ForgeDirection.UP);
 		this.makeExtra(world, x + dir.offsetX * 4 + rot.offsetX * 3, y, z + dir.offsetZ * 4 + rot.offsetZ * 3);
 		this.makeExtra(world, x + dir.offsetX * 4 - rot.offsetX * 3, y, z + dir.offsetZ * 4 - rot.offsetZ * 3);
@@ -78,9 +79,9 @@ public class MachineFusionMHDT extends BlockDummyable implements ILookOverlay, I
 	public void printHook(Pre event, World world, int x, int y, int z) {
 		int[] pos = this.findCore(world, x, y, z);
 		if(pos == null) return;
-		
+
 		TileEntity te = world.getTileEntity(pos[0], pos[1], pos[2]);
-		
+
 		if(!(te instanceof TileEntityFusionMHDT)) return;
 		TileEntityFusionMHDT turbine = (TileEntityFusionMHDT) te;
 
@@ -88,7 +89,7 @@ public class MachineFusionMHDT extends BlockDummyable implements ILookOverlay, I
 		boolean isCool = turbine.isCool();
 		long power = (long) Math.floor(turbine.plasmaEnergy * turbine.PLASMA_EFFICIENCY);
 		if(!hasPlasma) power /= 2;
-		
+
 		List<String> text = new ArrayList();
 		text.add(EnumChatFormatting.GREEN + "-> " + (hasPlasma ? EnumChatFormatting.RESET : EnumChatFormatting.GOLD) + BobMathUtil.getShortNumber(turbine.plasmaEnergy) + "TU/t / " + BobMathUtil.getShortNumber(turbine.MINIMUM_PLASMA) + "TU/t");
 		text.add(EnumChatFormatting.RED + "<- " + EnumChatFormatting.RESET + BobMathUtil.getShortNumber(!isCool ? 0 : power) + "HE/t");
@@ -100,7 +101,7 @@ public class MachineFusionMHDT extends BlockDummyable implements ILookOverlay, I
 
 		if(turbine.plasmaEnergy > 0 && !hasPlasma) text.add("&[" + (BobMathUtil.getBlink() ? 0xff8000 : 0xffff00) + "&]! LOW POWER !");
 		if(!isCool) text.add("&[" + (BobMathUtil.getBlink() ? 0xff0000 : 0xffff00) + "&]! ! ! INSUFFICIENT COOLING ! ! !");
-		
+
 		ILookOverlay.printGeneric(event, I18nUtil.resolveKey(getUnlocalizedName() + ".name"), 0xffff00, 0x404000, text);
 	}
 

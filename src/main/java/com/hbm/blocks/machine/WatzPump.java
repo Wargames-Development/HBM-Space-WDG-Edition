@@ -2,6 +2,7 @@ package com.hbm.blocks.machine;
 
 import com.hbm.blocks.BlockDummyable;
 
+import com.hbm.blocks.BlockDummyableClaimlocked;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
@@ -11,7 +12,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class WatzPump extends BlockDummyable {
+public class WatzPump extends BlockDummyableClaimlocked {
 
 	public WatzPump() {
 		super(Material.iron);
@@ -20,7 +21,7 @@ public class WatzPump extends BlockDummyable {
 	@Override
 	public TileEntity createNewTileEntity(World world, int meta) {
 		if(meta >= 12) return new TileEntityWatzPump();
-		
+
 		return null;
 	}
 
@@ -39,7 +40,7 @@ public class WatzPump extends BlockDummyable {
 		int meta = world.getBlockMetadata(x, y, z);
 		return side == ForgeDirection.UP && meta == 1;
 	}
-	
+
 	public static class TileEntityWatzPump extends TileEntity {
 		@Override public boolean canUpdate() { return false; }
 		@Override @SideOnly(Side.CLIENT) public double getMaxRenderDistanceSquared() { return 65536.0D; }

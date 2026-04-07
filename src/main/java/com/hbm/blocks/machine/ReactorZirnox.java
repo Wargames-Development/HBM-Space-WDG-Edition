@@ -2,6 +2,7 @@ package com.hbm.blocks.machine;
 
 
 import com.hbm.blocks.BlockDummyable;
+import com.hbm.blocks.BlockDummyableClaimlocked;
 import com.hbm.handler.BossSpawnHandler;
 import com.hbm.handler.MultiblockHandlerXR;
 import com.hbm.main.MainRegistry;
@@ -17,7 +18,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class ReactorZirnox extends BlockDummyable {
+public class ReactorZirnox extends BlockDummyableClaimlocked {
 
 	public ReactorZirnox(Material mat) {
 		super(mat);
