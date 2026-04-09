@@ -77,10 +77,8 @@ public class ModEventHandlerRenderer {
 
 		if(event.phase == Phase.START) {
 			// Zoom out third person view when inside a rocket
-			if(player != null && player.ridingEntity != null && player.ridingEntity instanceof EntityRideableRocket) {
+			if(player != null && player.ridingEntity instanceof EntityRideableRocket) {
 				mc.entityRenderer.thirdPersonDistance = 12.0F;
-			} else {
-				mc.entityRenderer.thirdPersonDistance = 4.0F;
 			}
 		}
 	}
@@ -577,7 +575,7 @@ public class ModEventHandlerRenderer {
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void onRenderHUD(RenderGameOverlayEvent.Pre event) {
 		Tessellator tess = Tessellator.instance;
-		
+
 		//TODO: using ALL doesn't work as anticipated - still hides in F1. need a different event for this
 		if(event.type == ElementType.ALL) {
 			if(ClientConfig.BADGES_HUD.get()) RenderScreenOverlay.renderBadges(event.resolution, Minecraft.getMinecraft().ingameGUI);
