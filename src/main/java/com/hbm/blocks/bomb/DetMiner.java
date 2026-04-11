@@ -40,7 +40,8 @@ public class DetMiner extends BlockPillar implements IBomb, IFuckingExplode {
 		if(!world.isRemote) {
 			if(Integrations.canDetonateWGC(getOwner(world,x,y,z), world, x, y, z)) {
 				world.func_147480_a(x, y, z, false);
-				ExplosionNT explosion = new ExplosionNT(world, null, x + 0.5, y + 0.5, z + 0.5, 4);
+				UUID owner = getOwner(world, x, y, z);
+				ExplosionNT explosion = new ExplosionNT(world, null, x + 0.5, y + 0.5, z + 0.5, 4, owner);
 				explosion.atttributes.add(ExAttrib.ALLDROP);
 				explosion.atttributes.add(ExAttrib.NOHURT);
 				explosion.doExplosionA();

@@ -11,6 +11,8 @@ import java.util.Set;
 
 import com.hbm.blocks.ModBlocks;
 
+import api.hbm.wgc.Integrations;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.EnchantmentProtection;
@@ -38,11 +40,24 @@ public class ExplosionNT extends Explosion {
 	protected int resolution = 16;
 	protected Map affectedEntities = new HashMap();
 
+	private java.util.UUID ownerParty;
+	private Set<net.minecraft.world.ChunkCoordIntPair> expProtectedChunks;
+
 	@Deprecated public static final List<ExAttrib> nukeAttribs = Arrays.asList(new ExAttrib[] { ExAttrib.FIRE, ExAttrib.NOPARTICLE, ExAttrib.NOSOUND, ExAttrib.NODROP, ExAttrib.NOHURT });
 
-	public ExplosionNT(World world, Entity exploder, double x, double y, double z, float strength) {
+	public ExplosionNT(World world, Entity exploder, double x, double y, double z, float strength, java.util.UUID ownerParty) {
 		super(world, exploder, x, y, z, strength);
 		this.worldObj = world;
+		this.ownerParty = ownerParty;
+	}
+
+	public ExplosionNT setOwnerParty(java.util.UUID ownerParty) {
+		this.ownerParty = ownerParty;
+		return this;
+	}
+
+	public ExplosionNT(World world, Entity exploder, double x, double y, double z, float strength) {
+		this(world, exploder, x, y, z, strength, null);
 	}
 
 	public ExplosionNT addAttrib(ExAttrib attrib) {
@@ -71,6 +86,11 @@ public class ExplosionNT extends Explosion {
 		doExplosionB(false);
 	}
 
+	private boolean isProtectedChunk(int blockX, int blockZ) {
+		return this.expProtectedChunks != null
+			&& this.expProtectedChunks.contains(new net.minecraft.world.ChunkCoordIntPair(blockX >> 4, blockZ >> 4));
+	}
+
 	public void doExplosionA() {
 		float f = this.explosionSize;
 		HashSet hashset = new HashSet();
@@ -80,6 +100,15 @@ public class ExplosionNT extends Explosion {
 		double currentX;
 		double currentY;
 		double currentZ;
+
+		int protectionRadius = MathHelper.ceiling_float_int(this.explosionSize) + 16;
+		this.expProtectedChunks = Integrations.getExplosionProtectedChunksWGC(
+			this.ownerParty,
+			this.worldObj,
+			MathHelper.floor_double(this.explosionX),
+			MathHelper.floor_double(this.explosionZ),
+			protectionRadius
+		);
 
 		for (i = 0; i < this.resolution; ++i) {
 			for (j = 0; j < this.resolution; ++j) {
@@ -114,9 +143,11 @@ public class ExplosionNT extends Explosion {
 								remainingPower -= (resistance + 0.3F) * step;
 							}
 
-							if (block != Blocks.air && remainingPower > 0.0F && (this.exploder == null || this.exploder.func_145774_a(this, this.worldObj, xPos, yPos, zPos, block, remainingPower))) {
+							boolean protectedChunk = this.isProtectedChunk(xPos, zPos);
+
+							if (!protectedChunk && block != Blocks.air && remainingPower > 0.0F && (this.exploder == null || this.exploder.func_145774_a(this, this.worldObj, xPos, yPos, zPos, block, remainingPower))) {
 								hashset.add(new ChunkPosition(xPos, yPos, zPos));
-							} else if (this.has(ExAttrib.ERRODE) && errosion.containsKey(block)) {
+							} else if (!protectedChunk && this.has(ExAttrib.ERRODE) && errosion.containsKey(block)) {
 								hashset.add(new ChunkPosition(xPos, yPos, zPos));
 							}
 
@@ -166,7 +197,6 @@ public class ExplosionNT extends Explosion {
 						double d10 = (double)this.worldObj.getBlockDensity(vec3, entity.boundingBox);
 						double d11 = (1.0D - d4) * d10;
 
-
 						entity.attackEntityFrom(setExplosionSource(this), (float)((int)((d11 * d11 + d11) / 2.0D * 8.0D * (double)this.explosionSize + 1.0D)));
 						double d8 = EnchantmentProtection.func_92092_a(entity, d11);
 						entity.motionX += currentX * d8;
@@ -184,11 +214,10 @@ public class ExplosionNT extends Explosion {
 		}
 	}
 
-
 	public static DamageSource setExplosionSource(Explosion explosion) {
 		return explosion != null && explosion.getExplosivePlacedBy() != null ?
-				(new EntityDamageSource("explosion.player", explosion.getExplosivePlacedBy())).setExplosion() :
-					(new DamageSource("explosion")).setExplosion();
+			(new EntityDamageSource("explosion.player", explosion.getExplosivePlacedBy())).setExplosion() :
+			(new DamageSource("explosion")).setExplosion();
 	}
 
 	public void doExplosionB(boolean p_77279_1_) {
@@ -219,6 +248,11 @@ public class ExplosionNT extends Explosion {
 				i = chunkposition.chunkPosX;
 				j = chunkposition.chunkPosY;
 				k = chunkposition.chunkPosZ;
+
+				if (this.isProtectedChunk(i, k)) {
+					continue;
+				}
+
 				block = this.worldObj.getBlock(i, j, k);
 
 				if(!has(ExAttrib.NOPARTICLE)) {
@@ -241,13 +275,12 @@ public class ExplosionNT extends Explosion {
 					this.worldObj.spawnParticle("smoke", d0, d1, d2, d3, d4, d5);
 				}
 
-
 				if(block.getMaterial() != Material.air) {
 
 					boolean doesErrode = false;
 					Block errodesInto = Blocks.air;
 
-					if(this.has(ExAttrib.ERRODE) && this.explosionRNG.nextFloat() < 0.6F) { //errosion has a 60% chance to occour
+					if(this.has(ExAttrib.ERRODE) && this.explosionRNG.nextFloat() < 0.6F) {
 
 						if(errosion.containsKey(block)) {
 							doesErrode = true;
@@ -308,9 +341,13 @@ public class ExplosionNT extends Explosion {
 				i = chunkposition.chunkPosX;
 				j = chunkposition.chunkPosY;
 				k = chunkposition.chunkPosZ;
+
+				if (this.isProtectedChunk(i, k)) {
+					continue;
+				}
+
 				block = this.worldObj.getBlock(i, j, k);
 				Block block1 = this.worldObj.getBlock(i, j - 1, k);
-
 
 				boolean shouldReplace = true;
 
@@ -337,24 +374,22 @@ public class ExplosionNT extends Explosion {
 		return this.exploder == null ? null : (this.exploder instanceof EntityTNTPrimed ? ((EntityTNTPrimed) this.exploder).getTntPlacedBy() : (this.exploder instanceof EntityLivingBase ? (EntityLivingBase) this.exploder : null));
 	}
 
-	// unconventional name, sure, but it's short
 	public boolean has(ExAttrib attrib) {
 		return this.atttributes.contains(attrib);
 	}
 
-	//this solution is a bit hacky but in the end easier to work with
 	public static enum ExAttrib {
-		FIRE,		//classic vanilla fire explosion
-		BALEFIRE,	//same with but with balefire
+		FIRE,
+		BALEFIRE,
 		DIGAMMA,
 		DIGAMMA_CIRCUIT,
-		LAVA,		//again the same thing but lava
-		LAVA_V,		//again the same thing but volcanic lava
-		LAVA_R,		//again the same thing but radioactive lava
-		ERRODE,		//will turn select blocks into gravel or sand
-		ALLMOD,		//block placer attributes like fire are applied for all destroyed blocks
-		ALLDROP,	//miner TNT!
-		NODROP,		//the opposite
+		LAVA,
+		LAVA_V,
+		LAVA_R,
+		ERRODE,
+		ALLMOD,
+		ALLDROP,
+		NODROP,
 		NOPARTICLE,
 		NOSOUND,
 		NOHURT
@@ -368,5 +403,4 @@ public class ExplosionNT extends Explosion {
 		errosion.put(ModBlocks.brick_concrete, ModBlocks.brick_concrete_broken);
 		errosion.put(ModBlocks.brick_concrete_broken, Blocks.gravel);
 	}
-
 }

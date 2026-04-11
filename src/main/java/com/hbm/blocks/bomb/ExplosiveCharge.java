@@ -73,7 +73,7 @@ public class ExplosiveCharge extends BlockDetonatable implements IBomb, IDetConn
 				world.createExplosion(null, x + 0.5, y + 0.5, z + 0.5, 1.5F, true);
 			}
 			if(this == ModBlocks.det_charge) {
-				new ExplosionNT(world, null, x + 0.5, y + 0.5, z + 0.5, 15).overrideResolution(64).explode();
+				new ExplosionNT(world, null, x + 0.5, y + 0.5, z + 0.5, 15, getOwner(world, x, y, z)).overrideResolution(64).explode();
 				ExplosionCreator.composeEffectStandard(world, x + 0.5, y + 1, z + 0.5);
 			}
 			if(this == ModBlocks.det_nuke) {

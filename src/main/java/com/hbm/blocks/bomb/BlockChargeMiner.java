@@ -29,7 +29,7 @@ public class BlockChargeMiner extends BlockChargeBase {
 			if(!Integrations.canDetonateWGC(owner,world,x,y,z)) {
 				return BombReturnCode.ERROR_BLOCKED;
 			}
-			ExplosionNT exp = new ExplosionNT(world, null, x + 0.5, y + 0.5, z + 0.5, 4F);
+			ExplosionNT exp = new ExplosionNT(world, null, x + 0.5, y + 0.5, z + 0.5, 4F, owner);
 			exp.addAllAttrib(ExAttrib.NOHURT, ExAttrib.ALLDROP);
 			exp.explode();
 			ExplosionSmallCreator.composeEffect(world, x + 0.5, y + 0.5, z + 0.5, 15, 3F, 1.25F);
