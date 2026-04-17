@@ -222,7 +222,6 @@ public abstract class BlockChargeBase extends BlockContainerBase implements IBom
 		}
 	}
 
-	@Override
 	public UUID getOwner(World world, int x, int y, int z) {
 		TileEntity te = world.getTileEntity(x, y, z);
 		if (te instanceof TileEntityCharge) {

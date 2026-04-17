@@ -13,6 +13,5 @@ public interface IFuckingExplode {
 	// Note that the block can still safely immediately explode, as long as the source isn't another explosion
 
 	public void explodeEntity(World world, double x, double y, double z, EntityTNTPrimedBase entity);
-	public UUID getOwner(World world, int x, int y, int z);
 
 }

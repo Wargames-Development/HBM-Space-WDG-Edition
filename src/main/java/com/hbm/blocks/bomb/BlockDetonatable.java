@@ -8,6 +8,7 @@ import com.hbm.tileentity.bomb.TileEntityPartyOwned;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
@@ -58,7 +59,8 @@ public abstract class BlockDetonatable extends BlockFlammable implements IFuckin
 		world.setBlockToAir(x, y, z);
 		explodeEntity(world, x, y, z, null); // insta-explod
 	}
-	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entitylivingbase) {
+	@Override
+	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entitylivingbase, ItemStack itemStack) {
 		if(!world.isRemote) {
 			setOwnerParty(world,x,y,z,entitylivingbase.getUniqueID());
 		}
