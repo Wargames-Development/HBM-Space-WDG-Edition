@@ -45,48 +45,48 @@ public class EntityShrapnel extends EntityThrowable {
 
 	@Override
 	protected void onImpact(MovingObjectPosition mop) {
-		System.out.println("Impact! Hit at tick count: " + this.ticksExisted);
 		if(mop.entityHit != null) {
 			byte b0 = 15;
-			if(!(mop.entityHit instanceof EntityPlayer && !Integrations.canHarmPlayerWGC(owner,mop.entityHit.getUniqueID(),worldObj))) {
+			if(!(mop.entityHit instanceof EntityPlayer && !Integrations.canHarmPlayerWGC(owner, mop.entityHit.getUniqueID(), worldObj))) {
 				mop.entityHit.attackEntityFrom(ModDamageSource.shrapnel, b0);
 			}
 		}
-		String canexplodeit = Integrations.canExplodeBlockWGC(owner,worldObj,mop.blockX,mop.blockZ) ? "Yes!" : "No.";
-		System.out.println("Can I explode the block? " + canexplodeit);
-		if(this.ticksExisted > 5 && Integrations.canExplodeBlockWGC(owner,worldObj,mop.blockX,mop.blockZ)) {
 
-			if(!worldObj.isRemote)
-				this.setDead();
+		if(worldObj.isRemote) {
+			return;
+		}
+
+		boolean canExplodeBlock = Integrations.canExplodeBlockWGC(owner, worldObj, mop.blockX, mop.blockZ);
+		if(this.ticksExisted > 5 && canExplodeBlock) {
+
+			this.setDead();
 
 			int b = this.dataWatcher.getWatchableObjectByte(16);
 			if(b == 2 || b == 4) {
 
-				if(!worldObj.isRemote) {
-					if(motionY < -0.2D) {
+				if(motionY < -0.2D) {
 
-						if(worldObj.getBlock(mop.blockX, mop.blockY + 1, mop.blockZ).isReplaceable(worldObj, mop.blockX, mop.blockY + 1, mop.blockZ))
-							worldObj.setBlock(mop.blockX, mop.blockY + 1, mop.blockZ, b == 2 ? ModBlocks.volcanic_lava_block : ModBlocks.rad_lava_block);
+					if(worldObj.getBlock(mop.blockX, mop.blockY + 1, mop.blockZ).isReplaceable(worldObj, mop.blockX, mop.blockY + 1, mop.blockZ))
+						worldObj.setBlock(mop.blockX, mop.blockY + 1, mop.blockZ, b == 2 ? ModBlocks.volcanic_lava_block : ModBlocks.rad_lava_block);
 
-						for(int x = mop.blockX - 1; x <= mop.blockX + 1; x++) {
-							for(int y = mop.blockY; y <= mop.blockY + 2; y++) {
-								for(int z = mop.blockZ - 1; z <= mop.blockZ + 1; z++) {
-									if(worldObj.getBlock(x, y, z) == Blocks.air)
-										worldObj.setBlock(x, y, z, ModBlocks.gas_monoxide);
-								}
+					for(int x = mop.blockX - 1; x <= mop.blockX + 1; x++) {
+						for(int y = mop.blockY; y <= mop.blockY + 2; y++) {
+							for(int z = mop.blockZ - 1; z <= mop.blockZ + 1; z++) {
+								if(worldObj.getBlock(x, y, z) == Blocks.air)
+									worldObj.setBlock(x, y, z, ModBlocks.gas_monoxide);
 							}
 						}
 					}
+				}
 
-					if(motionY > 0) {
-						ExplosionNT explosion = new ExplosionNT(worldObj, null, mop.blockX + 0.5, mop.blockY + 0.5, mop.blockZ + 0.5, 7);
-						explosion.addAttrib(ExAttrib.NODROP);
-						explosion.addAttrib(b == 2 ? ExAttrib.LAVA_V : ExAttrib.LAVA_R);
-						explosion.addAttrib(ExAttrib.NOSOUND);
-						explosion.addAttrib(ExAttrib.ALLMOD);
-						explosion.addAttrib(ExAttrib.NOHURT);
-						explosion.explode();
-					}
+				if(motionY > 0) {
+					ExplosionNT explosion = new ExplosionNT(worldObj, null, mop.blockX + 0.5, mop.blockY + 0.5, mop.blockZ + 0.5, 7);
+					explosion.addAttrib(ExAttrib.NODROP);
+					explosion.addAttrib(b == 2 ? ExAttrib.LAVA_V : ExAttrib.LAVA_R);
+					explosion.addAttrib(ExAttrib.NOSOUND);
+					explosion.addAttrib(ExAttrib.ALLMOD);
+					explosion.addAttrib(ExAttrib.NOHURT);
+					explosion.explode();
 				}
 
 			} else if(this.dataWatcher.getWatchableObjectByte(16) == 3) {
