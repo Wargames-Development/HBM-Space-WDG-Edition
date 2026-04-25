@@ -7,7 +7,17 @@ import java.util.Set;
 import java.util.UUID;
 
 import static com.wdg.wgcore.integration.api.WGCoreIntegrationAccess.*;
+import com.wdg.wgcore.integration.api.WGCoreIntegrationAccess;
+import com.wdg.wgcore.integration.model.ActionAttribution;
+import com.wdg.wgcore.integration.model.ActionSourceType;
+import com.wdg.wgcore.integration.model.ExplosionActionContext;
+import com.wdg.wgcore.integration.model.ExplosionDecision;
+import net.minecraft.world.ChunkPosition;
+import net.minecraft.world.Explosion;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Integrations {
 	public static boolean canTargetPlayerWGC(UUID party, UUID targetedPlayer, World world) {
@@ -42,6 +52,99 @@ public class Integrations {
 
 	public static Set<ChunkCoordIntPair> getExplosionProtectedChunksWGC(UUID party, World world, int x, int z, int r){
 		return getExplosionProtectedChunks(party,world,x,z,r);
+	}
+	public static List<ChunkPosition> filterExplosionAffectedBlocksWGC(UUID party,
+																	   World world,
+																	   Explosion explosion,
+																	   List affectedBlocks,
+																	   String explosionTypeId) {
+		if (world == null) {
+			return Collections.emptyList();
+		}
+
+		List<ChunkPosition> safeAffectedBlocks = new ArrayList<ChunkPosition>();
+
+		if (affectedBlocks != null) {
+			for (Object object : affectedBlocks) {
+				if (object instanceof ChunkPosition) {
+					safeAffectedBlocks.add((ChunkPosition) object);
+				}
+			}
+		}
+
+		if (safeAffectedBlocks.isEmpty()) {
+			return Collections.emptyList();
+		}
+
+		ActionAttribution attribution = buildExplosionAttributionWGC(party, world);
+
+		ExplosionActionContext context = new ExplosionActionContext(
+			world,
+			(int) Math.floor(explosion != null ? explosion.explosionX : 0.0D),
+			(int) Math.floor(explosion != null ? explosion.explosionY : 0.0D),
+			(int) Math.floor(explosion != null ? explosion.explosionZ : 0.0D),
+			explosion,
+			attribution,
+			explosionTypeId != null && !explosionTypeId.trim().isEmpty()
+				? explosionTypeId
+				: "hbm:explosion_nt",
+			safeAffectedBlocks
+		);
+
+		ExplosionDecision decision = WGCoreIntegrationAccess.evaluateExplosion(context);
+
+		if (decision == null || !decision.isExplosionAllowed() || !decision.isBlockDamageAllowed()) {
+			return Collections.emptyList();
+		}
+
+		if (decision.isFiltered()) {
+			return decision.getFilteredAffectedBlocks();
+		}
+
+		return safeAffectedBlocks;
+	}
+
+	private static ActionAttribution buildExplosionAttributionWGC(UUID party, World world) {
+		if (party == null) {
+			return new ActionAttribution(
+				null,
+				null,
+				null,
+				null,
+				"hbm",
+				ActionSourceType.EXPLOSIVE,
+				true,
+				null
+			);
+		}
+
+		UUID factionId = WGCoreIntegrationAccess.getPlayerFaction(world, party);
+
+		if (factionId != null) {
+			return ActionAttribution.directPlayer(
+				party,
+				factionId,
+				"hbm",
+				ActionSourceType.EXPLOSIVE
+			);
+		}
+
+		/*
+		 * Some HBM/NTM systems pass a faction-like owner party instead of a
+		 * direct player UUID. If WGCore cannot resolve it as a player, preserve
+		 * it as the owning faction id. If it is neither a player nor a faction,
+		 * WGCore will safely deny protected actions.
+		 */
+		return new ActionAttribution(
+			null,
+			party,
+			null,
+			party,
+			"hbm",
+			ActionSourceType.EXPLOSIVE,
+			true,
+			null
+		);
 	}
 	public static boolean canIrradiateWGC(UUID party, World world, int chunkX, int chunkZ){
 		return canIrradiateChunk(party, world, chunkX, chunkZ);

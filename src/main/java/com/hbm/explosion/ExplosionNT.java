@@ -162,6 +162,26 @@ public class ExplosionNT extends Explosion {
 
 		this.affectedBlockPositions.addAll(hashset);
 
+		/*
+		 * WGCore compatibility:
+		 *
+		 * This path is used by HBM/NTM ExplosionNT, including MCHR weapons with:
+		 * ExplosionType=hbmNT_Bomb
+		 *
+		 * WGCore filters protected blocks and applies the same partial block
+		 * damage system used by vanilla/Forge and normal MCHR explosions.
+		 */
+		List<ChunkPosition> wgcoreFilteredBlocks = Integrations.filterExplosionAffectedBlocksWGC(
+			this.ownerParty,
+			this.worldObj,
+			this,
+			this.affectedBlockPositions,
+			"hbm:explosion_nt"
+		);
+
+		this.affectedBlockPositions.clear();
+		this.affectedBlockPositions.addAll(wgcoreFilteredBlocks);
+
 		if (!has(ExAttrib.NOHURT)) {
 
 			this.explosionSize *= 2.0F;
