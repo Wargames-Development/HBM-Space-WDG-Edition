@@ -1,23 +1,27 @@
 package api.hbm.wgc;
 
-import net.minecraft.world.ChunkCoordIntPair;
-import net.minecraft.world.World;
-
-import java.util.Set;
-import java.util.UUID;
-
-import static com.wdg.wgcore.integration.api.WGCoreIntegrationAccess.*;
+import com.hbm.explosion.vanillant.ExplosionVNT;
 import com.wdg.wgcore.integration.api.WGCoreIntegrationAccess;
 import com.wdg.wgcore.integration.model.ActionAttribution;
 import com.wdg.wgcore.integration.model.ActionSourceType;
 import com.wdg.wgcore.integration.model.ExplosionActionContext;
 import com.wdg.wgcore.integration.model.ExplosionDecision;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.util.MathHelper;
+import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.Explosion;
+import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.UUID;
+
+import static com.wdg.wgcore.integration.api.WGCoreIntegrationAccess.*;
 
 public class Integrations {
 	public static boolean canTargetPlayerWGC(UUID party, UUID targetedPlayer, World world) {
@@ -104,6 +108,144 @@ public class Integrations {
 		return safeAffectedBlocks;
 	}
 
+	public static HashSet<ChunkPosition> filterExplosionVNTAffectedBlocksWGC(UUID party,
+																			 World world,
+																			 ExplosionVNT explosion,
+																			 HashSet<ChunkPosition> affectedBlocks) {
+		HashSet<ChunkPosition> result = new HashSet<ChunkPosition>();
+
+		if (world == null || explosion == null) {
+			if (affectedBlocks != null) {
+				result.addAll(affectedBlocks);
+			}
+			return result;
+		}
+
+		ArrayList<ChunkPosition> wgcoreInputBlocks = new ArrayList<ChunkPosition>();
+
+		if (affectedBlocks != null && !affectedBlocks.isEmpty()) {
+			wgcoreInputBlocks.addAll(affectedBlocks);
+		}
+
+		HashSet<ChunkPosition> partialCandidates = collectExplosionVNTPartialCandidatesWGC(
+			party,
+			world,
+			explosion,
+			explosion.posX,
+			explosion.posY,
+			explosion.posZ,
+			explosion.size
+		);
+
+		if (!partialCandidates.isEmpty()) {
+			wgcoreInputBlocks.addAll(partialCandidates);
+		}
+
+		if (wgcoreInputBlocks.isEmpty()) {
+			return result;
+		}
+
+		List<ChunkPosition> filteredBlocks = filterExplosionAffectedBlocksWGC(
+			party,
+			world,
+			explosion.compat,
+			wgcoreInputBlocks,
+			"hbm:explosion_vnt"
+		);
+
+		if (filteredBlocks != null) {
+			result.addAll(filteredBlocks);
+		}
+
+		return result;
+	}
+
+	private static HashSet<ChunkPosition> collectExplosionVNTPartialCandidatesWGC(UUID party,
+																				  World world,
+																				  ExplosionVNT explosion,
+																				  double x,
+																				  double y,
+																				  double z,
+																				  float size) {
+		HashSet<ChunkPosition> candidates = new HashSet<ChunkPosition>();
+
+		if (world == null || explosion == null || size <= 0.0F) {
+			return candidates;
+		}
+
+		int resolution = 16;
+		float stepSize = 0.3F;
+
+		Set<ChunkCoordIntPair> protectedChunks = getExplosionProtectedChunksWGC(
+			party,
+			world,
+			(int) x,
+			(int) z,
+			(int) Math.ceil(size) + 16
+		);
+
+		for (int i = 0; i < resolution; ++i) {
+			for (int j = 0; j < resolution; ++j) {
+				for (int k = 0; k < resolution; ++k) {
+
+					if (i != 0 && i != resolution - 1
+						&& j != 0 && j != resolution - 1
+						&& k != 0 && k != resolution - 1) {
+						continue;
+					}
+
+					double d0 = (double) ((float) i / ((float) resolution - 1.0F) * 2.0F - 1.0F);
+					double d1 = (double) ((float) j / ((float) resolution - 1.0F) * 2.0F - 1.0F);
+					double d2 = (double) ((float) k / ((float) resolution - 1.0F) * 2.0F - 1.0F);
+					double d3 = Math.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
+
+					if (d3 <= 0.0D) {
+						continue;
+					}
+
+					d0 /= d3;
+					d1 /= d3;
+					d2 /= d3;
+
+					float powerRemaining = size;
+					double currentX = x;
+					double currentY = y;
+					double currentZ = z;
+
+					while (powerRemaining > 0.0F) {
+						int blockX = MathHelper.floor_double(currentX);
+						int blockY = MathHelper.floor_double(currentY);
+						int blockZ = MathHelper.floor_double(currentZ);
+
+						if (isProtected(blockX, blockZ, protectedChunks)) {
+							break;
+						}
+
+						Block block = world.getBlock(blockX, blockY, blockZ);
+
+						if (block != null && block.getMaterial() != Material.air) {
+							candidates.add(new ChunkPosition(blockX, blockY, blockZ));
+
+							float blockResistance = explosion.exploder != null
+								? explosion.exploder.func_145772_a(explosion.compat, world, blockX, blockY, blockZ, block)
+								: block.getExplosionResistance(explosion.exploder, world, blockX, blockY, blockZ, x, y, z);
+
+							powerRemaining -= (blockResistance + 0.3F) * stepSize;
+						}
+
+						currentX += d0 * (double) stepSize;
+						currentY += d1 * (double) stepSize;
+						currentZ += d2 * (double) stepSize;
+
+						powerRemaining -= stepSize * 0.75F;
+					}
+				}
+			}
+		}
+
+		return candidates;
+	}
+
 	private static ActionAttribution buildExplosionAttributionWGC(UUID party, World world) {
 		if (party == null) {
 			return new ActionAttribution(
@@ -175,7 +317,7 @@ public class Integrations {
 		return getChunkOwner(world,chunkCoords.chunkXPos, chunkCoords.chunkZPos);
 	}
 	public static UUID getPlayerFaction(World world, UUID player){
-		return getPlayerFaction(world,player);
+		return WGCoreIntegrationAccess.getPlayerFaction(world, player);
 	}
 	public static boolean isProtected(int blockX, int blockZ, Set<ChunkCoordIntPair> protectedChunks){
 		if(protectedChunks==null || protectedChunks.isEmpty()) return false; //Skips checking if protectedChunks is empty

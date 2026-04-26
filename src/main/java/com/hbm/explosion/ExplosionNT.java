@@ -94,6 +94,19 @@ public class ExplosionNT extends Explosion {
 	public void doExplosionA() {
 		float f = this.explosionSize;
 		HashSet hashset = new HashSet();
+
+		/*
+		 * WGCore partial damage candidate list.
+		 *
+		 * NTM concrete and other very high-resistance blocks may absorb the
+		 * explosion ray before NTM adds them to affectedBlockPositions.
+		 *
+		 * WGCore needs to see those absorbing blocks so it can apply stored
+		 * partial explosion damage instead of only seeing blocks NTM already
+		 * planned to destroy.
+		 */
+		HashSet wgcorePartialCandidateBlocks = new HashSet();
+
 		int i;
 		int j;
 		int k;
@@ -145,6 +158,17 @@ public class ExplosionNT extends Explosion {
 
 							boolean protectedChunk = this.isProtectedChunk(xPos, zPos);
 
+							/*
+							 * WGCore partial damage:
+							 *
+							 * Add any non-air, non-protected block touched by a live explosion ray.
+							 * This includes high-resistance concrete that may stop the ray and never
+							 * enter NTM's normal affectedBlockPositions list.
+							 */
+							if (!protectedChunk && block != Blocks.air && block.getMaterial() != Material.air) {
+								wgcorePartialCandidateBlocks.add(new ChunkPosition(xPos, yPos, zPos));
+							}
+
 							if (!protectedChunk && block != Blocks.air && remainingPower > 0.0F && (this.exploder == null || this.exploder.func_145774_a(this, this.worldObj, xPos, yPos, zPos, block, remainingPower))) {
 								hashset.add(new ChunkPosition(xPos, yPos, zPos));
 							} else if (!protectedChunk && this.has(ExAttrib.ERRODE) && errosion.containsKey(block)) {
@@ -168,14 +192,29 @@ public class ExplosionNT extends Explosion {
 		 * This path is used by HBM/NTM ExplosionNT, including MCHR weapons with:
 		 * ExplosionType=hbmNT_Bomb
 		 *
-		 * WGCore filters protected blocks and applies the same partial block
-		 * damage system used by vanilla/Forge and normal MCHR explosions.
+		 * Important:
+		 * Use wgcorePartialCandidateBlocks when available, not only
+		 * affectedBlockPositions.
+		 *
+		 * Reason:
+		 * NTM concrete and other high-resistance blocks can absorb the ray and
+		 * never enter affectedBlockPositions. Passing candidate blocks lets
+		 * WGCore apply stored partial damage to those blocks. WGCore only
+		 * returns blocks that are allowed to actually break this explosion.
 		 */
+		java.util.ArrayList wgcoreInputBlocks = new java.util.ArrayList();
+
+		if (!wgcorePartialCandidateBlocks.isEmpty()) {
+			wgcoreInputBlocks.addAll(wgcorePartialCandidateBlocks);
+		} else {
+			wgcoreInputBlocks.addAll(this.affectedBlockPositions);
+		}
+
 		List<ChunkPosition> wgcoreFilteredBlocks = Integrations.filterExplosionAffectedBlocksWGC(
 			this.ownerParty,
 			this.worldObj,
 			this,
-			this.affectedBlockPositions,
+			wgcoreInputBlocks,
 			"hbm:explosion_nt"
 		);
 

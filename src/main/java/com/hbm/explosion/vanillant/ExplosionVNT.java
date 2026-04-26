@@ -24,7 +24,7 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
-
+import api.hbm.wgc.Integrations;
 /**
  * Time to over-engineer this into fucking oblivion so that I never have to write a vanilla-esque explosion class ever again
  * @author hbm
@@ -85,8 +85,31 @@ public class ExplosionVNT {
 		HashMap<EntityPlayer, Vec3> affectedPlayers = null;
 
 		//allocation
-		if(processBlocks) affectedBlocks = blockAllocator.allocate(this, world, posX, posY, posZ, size, ownerParty);
-		if(processBlocks) this.compat.affectedBlockPositions.addAll(affectedBlocks);
+		if(processBlocks) {
+			affectedBlocks = blockAllocator.allocate(this, world, posX, posY, posZ, size, ownerParty);
+
+			/*
+			 * WGCore compatibility:
+			 *
+			 * ExplosionVNT is used by many HBM/NTM timed charges and VNT-backed
+			 * projectile explosions. The normal allocator only returns blocks that
+			 * NTM intends to break. High-resistance blocks, such as NTM concrete,
+			 * may absorb the ray and never appear in that list.
+			 *
+			 * This helper adds candidate absorbing blocks, then lets WGCore apply
+			 * territory rules and partial block damage. The returned set is the
+			 * final set that NTM is allowed to break.
+			 */
+			affectedBlocks = Integrations.filterExplosionVNTAffectedBlocksWGC(
+				this.ownerParty,
+				this.world,
+				this,
+				affectedBlocks
+			);
+
+			this.compat.affectedBlockPositions.addAll(affectedBlocks);
+		}
+
 		if(processEntities) affectedPlayers = entityProcessor.process(this, world, posX, posY, posZ, size);
 		// technically not necessary, as the affected entity list is a separate parameter during the Detonate event
 		if(processEntities) this.compatPlayers.putAll(affectedPlayers);
