@@ -192,43 +192,129 @@ public abstract class EntityMissileBaseNT extends EntityThrowableInterp implemen
 
 	}
 	public BBParams onCollideBunkerBuster(MovingObjectPosition mop, Vec3 pos, Vec3 nextPos, BBParams p) {
-		Block collidedBlock = this.worldObj.getBlock(mop.blockX, mop.blockY, mop.blockZ);
-		List<Vec3> explosionpositions = new ArrayList<>();
+
+		/*
+		 * The nextPos passed in by EntityThrowableNT is clipped to the first hit
+		 * position before this method is called. That makes the old code only
+		 * process roughly one block per tick, while the missile still advances by
+		 * its full motion afterward.
+		 *
+		 * For bunker busters, we need to scan the full movement segment for this
+		 * tick so every block crossed by the missile consumes penetration.
+		 */
+		Vec3 fullNextPos = Vec3.createVectorHelper(
+			pos.xCoord + this.motionX * this.motionMult(),
+			pos.yCoord + this.motionY * this.motionMult(),
+			pos.zCoord + this.motionZ * this.motionMult()
+		);
+
+		List<Vec3> explosionpositions = new ArrayList<Vec3>();
+
 		if(!p.hasHit) {
-			p.hitHeight = (int)pos.yCoord;
+			p.hitHeight = (int) pos.yCoord;
 			p.hasHit = true;
 		}
-		boolean doneColliding = false;
-		while(!doneColliding && mop != null) {
-			if (mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
-				if (collidedBlock == Blocks.portal) {
-					this.setInPortal();
-				} else {
-					Block collidedblock = worldObj.getBlock(mop.blockX, mop.blockY, mop.blockZ);
-					UUID owner = this.getOwner();
-					ChunkCoordIntPair chunk = new ChunkCoordIntPair(mop.blockX >> 4, mop.blockZ >> 4);
-					if (!Integrations.canTargetChunkWGC(owner, worldObj, chunk)) {
-						this.onImpact(mop);
-						doneColliding = true;
-					}
-					else {
-						p.pen = p.pen - masqueradeResistance(collidedblock); //Subtract collided block blast resistance from pen.
-						if (p.pen <= 0.0 || (p.hasHit && mop.blockY <= p.hitHeight - p.armDistance)) {
-							this.onImpact(mop);
-							doneColliding = true;
-						} else {
-							explosionpositions.add(Vec3.createVectorHelper(mop.blockX, mop.blockY, mop.blockZ));
-							worldObj.setBlock(mop.blockX, mop.blockY, mop.blockZ, Blocks.air, 0, 3);
-						}
-					}
-				}
+
+		int safety = 0;
+
+		while(mop != null && !this.isDead && safety++ < 256) {
+
+			if(mop.typeOfHit != MovingObjectPosition.MovingObjectType.BLOCK) {
+				break;
 			}
-			mop = this.worldObj.func_147447_a(pos, nextPos, false, true, false);
+
+			int x = mop.blockX;
+			int y = mop.blockY;
+			int z = mop.blockZ;
+
+			Block collidedblock = worldObj.getBlock(x, y, z);
+
+			if(collidedblock == Blocks.portal) {
+				this.setInPortal();
+				break;
+			}
+
+			if(collidedblock == Blocks.air || collidedblock.isAir(worldObj, x, y, z)) {
+				mop = this.worldObj.func_147447_a(pos, fullNextPos, false, true, false);
+				continue;
+			}
+
+			UUID owner = this.getOwner();
+			ChunkCoordIntPair chunk = new ChunkCoordIntPair(x >> 4, z >> 4);
+
+			if(!Integrations.canTargetChunkWGC(owner, worldObj, chunk)) {
+				this.onImpact(mop);
+				break;
+			}
+
+			/*
+			 * This is the actual bunker-buster penetration cost.
+			 * It is based on blast resistance, not mining hardness.
+			 */
+			p.pen -= getBunkerBusterPenetrationCost(collidedblock, x, y, z);
+
+			/*
+			 * Stop if penetration is depleted or if the missile has reached its
+			 * maximum arming/depth distance.
+			 */
+			if(p.pen <= 0.0D || y <= p.hitHeight - p.armDistance) {
+				this.onImpact(mop);
+				break;
+			}
+
+			explosionpositions.add(Vec3.createVectorHelper(x, y, z));
+			worldObj.setBlock(x, y, z, Blocks.air, 0, 3);
+
+			/*
+			 * Raytrace the full original movement segment again after removing
+			 * the block. This allows the missile to charge penetration for every
+			 * block crossed during this tick instead of skipping through blocks.
+			 */
+			mop = this.worldObj.func_147447_a(pos, fullNextPos, false, true, false);
 		}
+
 		for(Vec3 exppos : explosionpositions) {
-			this.worldObj.createExplosion(this, exppos.xCoord, exppos.yCoord , exppos.zCoord, 3F, true);
+			this.worldObj.createExplosion(this, exppos.xCoord, exppos.yCoord, exppos.zCoord, 3F, true);
 		}
+
 		return p;
+	}
+
+	private float getBunkerBusterPenetrationCost(Block block, int x, int y, int z) {
+
+		/*
+		 * Keep NTM's special masquerade behavior:
+		 * - sandstone acts like stone
+		 * - obsidian acts like stronger stone
+		 *
+		 * Everything else uses world-aware explosion resistance so NTM concrete,
+		 * reinforced concrete, ducrete, meteor blocks, etc. can correctly consume
+		 * more penetration than normal stone.
+		 */
+		if(block == Blocks.sandstone) {
+			return Blocks.stone.getExplosionResistance(null);
+		}
+
+		if(block == Blocks.obsidian) {
+			return Blocks.stone.getExplosionResistance(null) * 3.0F;
+		}
+
+		float resistance = block.getExplosionResistance(
+			this,
+			worldObj,
+			x,
+			y,
+			z,
+			this.posX,
+			this.posY,
+			this.posZ
+		);
+
+		/*
+		 * Prevent weird zero-cost blocks from allowing infinite free penetration.
+		 * Air is filtered before this method is called.
+		 */
+		return Math.max(0.1F, resistance);
 	}
 
 	public boolean checkForAirburst(Vec3 pos, Vec3 nextPos, int detHeight) {
