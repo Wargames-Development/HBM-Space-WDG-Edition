@@ -68,7 +68,7 @@ public class TileEntityMachineRadarNT extends TileEntityMachineBase implements I
 
 	public boolean scanMissiles = true;
 	public boolean scanShells = true;
-	public boolean scanPlayers = true;
+	public boolean scanPlayers = false;
 	public boolean smartMode = true;
 	public boolean redMode = true;
 	public boolean showMap = false;
@@ -308,7 +308,7 @@ public class TileEntityMachineRadarNT extends TileEntityMachineBase implements I
 		this.power = nbt.getLong("power");
 		this.scanMissiles = nbt.getBoolean("scanMissiles");
 		this.scanShells = nbt.getBoolean("scanShells");
-		this.scanPlayers = nbt.getBoolean("scanPlayers");
+		this.scanPlayers = false;
 		this.smartMode = nbt.getBoolean("smartMode");
 		this.redMode = nbt.getBoolean("redMode");
 		this.showMap = nbt.getBoolean("showMap");
@@ -321,7 +321,7 @@ public class TileEntityMachineRadarNT extends TileEntityMachineBase implements I
 		nbt.setLong("power", power);
 		nbt.setBoolean("scanMissiles", scanMissiles);
 		nbt.setBoolean("scanShells", scanShells);
-		nbt.setBoolean("scanPlayers", scanPlayers);
+		nbt.setBoolean("scanPlayers", false);
 		nbt.setBoolean("smartMode", smartMode);
 		nbt.setBoolean("redMode", redMode);
 		nbt.setBoolean("showMap", showMap);
@@ -432,7 +432,7 @@ public class TileEntityMachineRadarNT extends TileEntityMachineBase implements I
 
 		if(data.hasKey("missiles")) this.scanMissiles = !this.scanMissiles;
 		if(data.hasKey("shells")) this.scanShells = !this.scanShells;
-		if(data.hasKey("players")) this.scanPlayers = !this.scanPlayers;
+		if(data.hasKey("players")) this.scanPlayers = false;
 		if(data.hasKey("smart")) this.smartMode = !this.smartMode;
 		if(data.hasKey("red")) this.redMode = !this.redMode;
 		if(data.hasKey("map")) this.showMap = !this.showMap;
@@ -579,7 +579,6 @@ public class TileEntityMachineRadarNT extends TileEntityMachineBase implements I
 	public static void registerEntityClasses() {
 		classes.add(IRadarDetectableNT.class);
 		classes.add(IRadarDetectable.class);
-		classes.add(EntityPlayer.class);
 	}
 
 	/** Registers converters. Converters are used to go over the list of detected entities and turn them into a RadarEntry using the entity instance and the radar's instance. */
@@ -602,9 +601,8 @@ public class TileEntityMachineRadarNT extends TileEntityMachineBase implements I
 			}
 			return null;
 		});
-		//Players
+		//Players disabled.
 		converters.add(x -> {
-			if(x.getX() instanceof EntityPlayer && x.getZ().scanPlayers) return new RadarEntry((EntityPlayer) x.getX());
 			return null;
 		});
 	}
