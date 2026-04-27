@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.UUID;
 import java.util.function.BiFunction;
 
+import api.hbm.tile.IPartyOwned;
+import api.hbm.wgc.Integrations;
 import com.hbm.blocks.BlockDummyable;
 import com.hbm.entity.logic.EntityBomber;
 import com.hbm.entity.missile.EntityMissileBaseNT;
@@ -70,7 +72,7 @@ import static api.hbm.wgc.Integrations.*;
  *
  */
 @Optional.InterfaceList({@Optional.Interface(iface = "li.cil.oc.api.network.SimpleComponent", modid = "OpenComputers")})
-public abstract class TileEntityTurretBaseNT extends TileEntityMachineBase implements IEnergyReceiverMK2, IControlReceiver, IGUIProvider, SimpleComponent, CompatHandler.OCComponent {
+public abstract class TileEntityTurretBaseNT extends TileEntityMachineBase implements IEnergyReceiverMK2, IControlReceiver, IGUIProvider, SimpleComponent, CompatHandler.OCComponent, IPartyOwned {
 
 	@Override
 	public boolean hasPermission(EntityPlayer player) {
@@ -811,7 +813,12 @@ public abstract class TileEntityTurretBaseNT extends TileEntityMachineBase imple
 
 		return ammoStacks;
 	}
-
+	public UUID getOwner(){
+		return owningFaction;
+	}
+	public void setOwner(UUID player){
+		owningFaction = Integrations.getPlayerFaction(worldObj,player);
+	}
 	@Override
 	public int[] getAccessibleSlotsFromSide(int side) {
 		return new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };

@@ -2,6 +2,7 @@ package com.hbm.blocks.turret;
 
 import java.util.Random;
 
+import com.hbm.blocks.bomb.BlockPartyOwned;
 import com.hbm.main.MainRegistry;
 import com.hbm.tileentity.turret.TileEntityTurretSentry;
 
@@ -9,6 +10,7 @@ import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -29,7 +31,7 @@ public class TurretSentry extends BlockContainer {
 
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
-		
+
 		if(world.isRemote) {
 			return true;
 		} else if(!player.isSneaking()) {
@@ -54,9 +56,9 @@ public class TurretSentry extends BlockContainer {
 	public boolean renderAsNormalBlock() {
 		return false;
 	}
-	
+
 	Random rand = new Random();
-	
+
 	@Override
 	public void breakBlock(World world, int x, int y, int z, Block b, int meta) {
 
@@ -98,5 +100,11 @@ public class TurretSentry extends BlockContainer {
 		}
 
 		super.breakBlock(world, x, y, z, b, meta);
+	}
+	@Override
+	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entitylivingbase, ItemStack itemStack) {
+		if(!world.isRemote) {
+			BlockPartyOwned.setOwner(world,x,y,z,entitylivingbase.getUniqueID());
+		}
 	}
 }

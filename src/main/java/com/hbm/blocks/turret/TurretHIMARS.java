@@ -1,11 +1,14 @@
 package com.hbm.blocks.turret;
 
 import com.hbm.blocks.BlockDummyable;
+import com.hbm.blocks.bomb.BlockPartyOwned;
 import com.hbm.tileentity.TileEntityProxyCombo;
 import com.hbm.tileentity.turret.TileEntityTurretHIMARS;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
@@ -36,5 +39,11 @@ public class TurretHIMARS extends BlockDummyable {
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
 		return this.standardOpenBehavior(world, x, y, z, player, 0);
+	}
+	@Override
+	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entitylivingbase, ItemStack itemStack) {
+		if(!world.isRemote) {
+			BlockPartyOwned.setOwner(world,x,y,z,entitylivingbase.getUniqueID());
+		}
 	}
 }

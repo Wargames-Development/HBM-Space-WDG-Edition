@@ -1,5 +1,7 @@
 package com.hbm.blocks.bomb;
 
+import api.hbm.tile.IPartyOwned;
+import appeng.api.parts.IPart;
 import com.hbm.tileentity.bomb.TileEntityPartyOwned;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
@@ -29,31 +31,18 @@ public class BlockPartyOwned extends Block{
 
 	public static UUID getOwner(World world, int x, int y, int z) {
 		TileEntity te = world.getTileEntity(x, y, z);
-		if(te == null) {
-			System.out.println("getOwner didn't find a tile entity");
-		}
-		else{
-			System.out.println("getOwner found a tile entity, type: " + te.getClass().getSimpleName());
-		}
 		UUID owner = null;
 
-		if (te instanceof TileEntityPartyOwned) {
-			owner = ((TileEntityPartyOwned) te).ownerParty;
+		if(te instanceof IPartyOwned){
+			owner = ((IPartyOwned) te).getOwner();
 		}
 		return owner;
 	}
 	public static void setOwner(World world, int x, int y, int z, UUID newOwner) {
 		TileEntity te = world.getTileEntity(x, y, z);
 
-		if(te == null) {
-			System.out.println("setOwner didn't find a tile entity");
-		}
-		else{
-			System.out.println("setOwner found a tile entity, type: " + te.getClass().getSimpleName());
-		}
-
-		if (te instanceof TileEntityPartyOwned) {
-			((TileEntityPartyOwned) te).ownerParty = newOwner;
+		if (te instanceof IPartyOwned) {
+			((IPartyOwned) te).setOwner(newOwner);
 			te.markDirty();
 		}
 	}
