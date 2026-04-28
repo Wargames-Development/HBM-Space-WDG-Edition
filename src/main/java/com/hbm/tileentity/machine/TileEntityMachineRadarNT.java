@@ -579,6 +579,7 @@ public class TileEntityMachineRadarNT extends TileEntityMachineBase implements I
 	public static void registerEntityClasses() {
 		classes.add(IRadarDetectableNT.class);
 		classes.add(IRadarDetectable.class);
+		classes.add(EntityPlayer.class);
 	}
 
 	/** Registers converters. Converters are used to go over the list of detected entities and turn them into a RadarEntry using the entity instance and the radar's instance. */
