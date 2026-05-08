@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.function.BiFunction;
 
+import api.hbm.tile.IPartyOwned;
 import com.hbm.blocks.BlockDummyable;
 import com.hbm.entity.logic.EntityBomber;
 import com.hbm.entity.missile.EntityMissileBaseNT;
@@ -70,7 +71,7 @@ import static api.hbm.wgc.Integrations.*;
  *
  */
 @Optional.InterfaceList({@Optional.Interface(iface = "li.cil.oc.api.network.SimpleComponent", modid = "OpenComputers")})
-public abstract class TileEntityTurretBaseNT extends TileEntityMachineBase implements IEnergyReceiverMK2, IControlReceiver, IGUIProvider, SimpleComponent, CompatHandler.OCComponent {
+public abstract class TileEntityTurretBaseNT extends TileEntityMachineBase implements IEnergyReceiverMK2, IControlReceiver, IGUIProvider, SimpleComponent, CompatHandler.OCComponent, IPartyOwned {
 
 	@Override
 	public boolean hasPermission(EntityPlayer player) {
@@ -846,6 +847,13 @@ public abstract class TileEntityTurretBaseNT extends TileEntityMachineBase imple
 
 	public long getConsumption() {
 		return 100;
+	}
+
+	public void setOwner(UUID newOwner){
+		owningFaction = newOwner;
+	}
+	public UUID getOwner(){
+		return owningFaction;
 	}
 
 	@Override

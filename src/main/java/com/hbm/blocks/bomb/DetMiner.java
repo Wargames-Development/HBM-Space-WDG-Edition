@@ -61,8 +61,8 @@ public class DetMiner extends BlockPartyOwned implements IBomb, IFuckingExplode 
 
 		if(!world.isRemote) {
 			if(Integrations.canDetonateWGC(getOwner(world,x,y,z), world, x, y, z)) {
-				world.func_147480_a(x, y, z, false);
 				UUID owner = getOwner(world, x, y, z);
+				world.func_147480_a(x, y, z, false);
 				ExplosionNT explosion = new ExplosionNT(world, null, x + 0.5, y + 0.5, z + 0.5, 4, owner);
 				explosion.atttributes.add(ExAttrib.ALLDROP);
 				explosion.atttributes.add(ExAttrib.NOHURT);
@@ -102,7 +102,10 @@ public class DetMiner extends BlockPartyOwned implements IBomb, IFuckingExplode 
 	}
 	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack itemStack) {
-		setOwner(world,x,y,z,player.getUniqueID());
+		if(!world.isRemote) {
+			setOwner(world, x, y, z, player.getUniqueID());
+			System.out.println("Tried to set owner, stored owner: " + getOwner(world,x,y,z));
+		}
 	}
 
 	@Override
