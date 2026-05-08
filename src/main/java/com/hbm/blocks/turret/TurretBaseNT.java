@@ -1,5 +1,6 @@
 package com.hbm.blocks.turret;
 
+import api.hbm.wgc.Integrations;
 import com.hbm.blocks.BlockDummyable;
 
 import com.hbm.blocks.bomb.BlockPartyOwned;
@@ -7,11 +8,14 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public abstract class TurretBaseNT extends BlockDummyable{
+import java.util.UUID;
+
+public abstract class TurretBaseNT extends BlockDummyable {
 
 	public TurretBaseNT(Material mat) {
 		super(mat);
@@ -45,8 +49,19 @@ public abstract class TurretBaseNT extends BlockDummyable{
 
 	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entitylivingbase, ItemStack itemStack) {
+		super.onBlockPlacedBy(world,x,y,z,entitylivingbase,itemStack);
 		if(!world.isRemote) {
-			BlockPartyOwned.setOwner(world,x,y,z,entitylivingbase.getUniqueID());
+			//Resolve factionID to avoid turrets taking the player's side.
+			System.out.println("Getting faction ID");
+			UUID factionID = Integrations.getPlayerFactionWGC(world, entitylivingbase.getUniqueID());
+			if(factionID != null) {
+				System.out.println("Faction ID found: " + factionID);
+				BlockPartyOwned.setOwner(world, x, y, z, factionID);
+			}
+			else{
+				System.out.println("Faction ID not found, falling back to player: " + entitylivingbase.getUniqueID());
+				BlockPartyOwned.setOwner(world, x, y, z, entitylivingbase.getUniqueID());
+			}
 		}
 	}
 }
