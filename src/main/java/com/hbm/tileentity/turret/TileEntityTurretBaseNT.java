@@ -864,6 +864,13 @@ public abstract class TileEntityTurretBaseNT extends TileEntityMachineBase imple
 		return 100;
 	}
 
+	public void setOwner(UUID newOwner){
+		owningFaction = newOwner;
+	}
+	public UUID getOwner(){
+		return owningFaction;
+	}
+
 	@Override
 	public AxisAlignedBB getRenderBoundingBox() {
 		return TileEntity.INFINITE_EXTENT_AABB;

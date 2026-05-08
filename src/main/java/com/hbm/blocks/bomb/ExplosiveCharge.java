@@ -1,5 +1,6 @@
 package com.hbm.blocks.bomb;
 
+import api.hbm.wgc.Integrations;
 import org.apache.logging.log4j.Level;
 
 import com.hbm.blocks.ModBlocks;
@@ -25,6 +26,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+
+import java.util.UUID;
 
 public class ExplosiveCharge extends BlockDetonatable implements IBomb, IDetConnectible {
 
@@ -68,20 +71,22 @@ public class ExplosiveCharge extends BlockDetonatable implements IBomb, IDetConn
 	public BombReturnCode explode(World world, int x, int y, int z) {
 
 		if(!world.isRemote) {
+			UUID owner = getOwner(world, x, y, z);
+			if(!Integrations.canDetonateWGC(owner,world,x,y,z)){return BombReturnCode.ERROR_BLOCKED;}
 			world.setBlock(x, y, z, Blocks.air);
 			if(this == ModBlocks.det_cord) {
 				world.createExplosion(null, x + 0.5, y + 0.5, z + 0.5, 1.5F, true);
 			}
 			if(this == ModBlocks.det_charge) {
-				new ExplosionNT(world, null, x + 0.5, y + 0.5, z + 0.5, 15, getOwner(world, x, y, z)).overrideResolution(64).explode();
+				new ExplosionNT(world, null, x + 0.5, y + 0.5, z + 0.5, 15, owner).overrideResolution(64).explode();
 				ExplosionCreator.composeEffectStandard(world, x + 0.5, y + 1, z + 0.5);
 			}
 			if(this == ModBlocks.det_nuke) {
-				world.spawnEntityInWorld(EntityNukeExplosionMK5.statFac(world, BombConfig.missileRadius, x + 0.5, y + 0.5, z + 0.5, getOwner(world, x, y, z)));
+				world.spawnEntityInWorld(EntityNukeExplosionMK5.statFac(world, BombConfig.missileRadius, x + 0.5, y + 0.5, z + 0.5, owner));
 				EntityNukeTorex.statFacStandard(world, x + 0.5, y + 0.5, z + 0.5, BombConfig.missileRadius);
 			}
 			if(this == ModBlocks.det_salt) {
-				world.spawnEntityInWorld(EntityNukeExplosionMK5.statFacSalted(world, BombConfig.missileRadius, x + 0.5, y + 0.5, z + 0.5, getOwner(world, x, y, z)));
+				world.spawnEntityInWorld(EntityNukeExplosionMK5.statFacSalted(world, BombConfig.missileRadius, x + 0.5, y + 0.5, z + 0.5, owner));
 
 				EntityNukeTorex.statFacStandard(world, x + 0.5, y + 0.5, z + 0.5, BombConfig.missileRadius);
 			}
@@ -92,6 +97,7 @@ public class ExplosiveCharge extends BlockDetonatable implements IBomb, IDetConn
 
 	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack itemStack) {
+		super.onBlockPlacedBy(world,x,y,z,player,itemStack);
 		if(!world.isRemote) {
 			if(GeneralConfig.enableExtendedLogging) {
 				MainRegistry.logger.log(Level.INFO, "[BOMBPL]" + this.getLocalizedName() + " placed at " + x + " / " + y + " / " + z + "! " + "by "+ player.getCommandSenderName());

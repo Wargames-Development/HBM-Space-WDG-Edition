@@ -2,6 +2,7 @@ package com.hbm.blocks.bomb;
 
 import api.hbm.tile.IPartyOwned;
 import appeng.api.parts.IPart;
+import com.hbm.tileentity.TileEntityProxyBase;
 import com.hbm.tileentity.bomb.TileEntityPartyOwned;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
@@ -11,7 +12,7 @@ import net.minecraft.world.World;
 
 import java.util.UUID;
 
-public class BlockPartyOwned extends Block{
+public abstract class BlockPartyOwned extends Block{
 	protected BlockPartyOwned(Material p_i45394_1_) {
 		super(p_i45394_1_);
 	}
@@ -41,8 +42,17 @@ public class BlockPartyOwned extends Block{
 	public static void setOwner(World world, int x, int y, int z, UUID newOwner) {
 		TileEntity te = world.getTileEntity(x, y, z);
 
-		if (te instanceof IPartyOwned) {
-			((IPartyOwned) te).setOwner(newOwner);
+		/**if(te == null) {
+			System.out.println("setOwner didn't find a tile entity");
+		}
+		else{
+			System.out.println("setOwner found a tile entity, type: " + te.getClass().getSimpleName());
+		}*/
+		if (te instanceof TileEntityProxyBase){
+			te = ((TileEntityProxyBase) te).getTE();
+		}
+		if (te instanceof TileEntityPartyOwned) {
+			((TileEntityPartyOwned) te).ownerParty = newOwner;
 			te.markDirty();
 		}
 	}
