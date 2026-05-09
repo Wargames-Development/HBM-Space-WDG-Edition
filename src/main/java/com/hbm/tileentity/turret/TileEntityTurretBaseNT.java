@@ -813,12 +813,6 @@ public abstract class TileEntityTurretBaseNT extends TileEntityMachineBase imple
 
 		return ammoStacks;
 	}
-	public UUID getOwner(){
-		return owningFaction;
-	}
-	public void setOwner(UUID player){
-		owningFaction = Integrations.getPlayerFaction(worldObj,player);
-	}
 	@Override
 	public int[] getAccessibleSlotsFromSide(int side) {
 		return new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
