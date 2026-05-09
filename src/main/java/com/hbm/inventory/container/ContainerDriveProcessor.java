@@ -16,14 +16,18 @@ public class ContainerDriveProcessor extends ContainerBase {
 
 		// 3 - battery slot
 
-		addSlotToContainer(new Slot(machine, 0, 30, 18));
-		addSlotToContainer(new Slot(machine, 1, 50, 38));
+		// 4- designator slot
 
-		addSlotToContainer(new Slot(machine, 2, 81, 24));
+		addSlotToContainer(new Slot(machine, 0, 44, 18));
+		addSlotToContainer(new Slot(machine, 1, 64, 38));
 
-		addSlotToContainer(new Slot(machine, 3, 134, 72));
+		addSlotToContainer(new Slot(machine, 2, 95, 24));
+
+		addSlotToContainer(new Slot(machine, 3, 148, 72));
+
+		addSlotToContainer(new Slot(machine,4,7,51));
 
 		playerInv(invPlayer, 8, 125, 183);
 	}
-	
+
 }

@@ -1,5 +1,6 @@
 package com.hbm.tileentity.machine;
 
+import api.hbm.item.IDesignatorItem;
 import com.hbm.dim.CelestialBody;
 import com.hbm.interfaces.IControlReceiver;
 import com.hbm.inventory.container.ContainerDriveProcessor;
@@ -19,9 +20,11 @@ import cpw.mods.fml.relauncher.SideOnly;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -40,7 +43,7 @@ public class TileEntityMachineDriveProcessor extends TileEntityMachineBase imple
 	private int lastTier;
 
 	public TileEntityMachineDriveProcessor() {
-		super(4);
+		super(5);
 	}
 
 	@Override
@@ -79,6 +82,9 @@ public class TileEntityMachineDriveProcessor extends TileEntityMachineBase imple
 					status = EnumChatFormatting.GREEN + "Done! ";
 				}
 			} else {
+				if(canSetCoords(slots[0]) && slots[4]!= null && slots[4].getItem() instanceof IDesignatorItem){
+					setDriveCoordinates(slots[4],slots[0]);
+				}
 				progress = 0;
 			}
 
@@ -181,6 +187,21 @@ public class TileEntityMachineDriveProcessor extends TileEntityMachineBase imple
 		slots[1] = slots[0].copy();
 
 		status = EnumChatFormatting.GREEN + "Drive cloned ";
+	}
+	public boolean canSetCoords(ItemStack drive){
+		return drive != null
+			&& drive.getItem() == ModItems.full_drive
+			&& !ItemVOTVdrive.getTarget(drive,worldObj).inOrbit
+			&& (!ItemVOTVdrive.getProcessed(drive) || ItemVOTVdrive.getProcessingTier(drive,CelestialBody.getBody(worldObj))==0);//
+	}
+
+	public void setDriveCoordinates(ItemStack designatorStack, ItemStack drive){
+		IDesignatorItem designator = (IDesignatorItem)designatorStack.getItem();
+		Vec3 coords = designator.getCoords(worldObj,designatorStack,xCoord,yCoord,zCoord);
+		int x = (int) coords.xCoord;
+		int z = (int) coords.zCoord;
+		System.out.println("Setting coordinates to: " + x +", " +z);
+		ItemVOTVdrive.setCoordinates(drive,x,z);
 	}
 
 	@Override
