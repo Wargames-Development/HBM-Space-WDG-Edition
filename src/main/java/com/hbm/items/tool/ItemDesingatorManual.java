@@ -22,6 +22,8 @@ public class ItemDesingatorManual extends Item implements IDesignatorItem, IGUIP
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
 		UUID ownerParty = player.getUniqueID();
+		if(stack.stackTagCompound == null)
+			stack.stackTagCompound = new NBTTagCompound();
 		if (ownerParty != null) {
 			stack.stackTagCompound.setLong("ownerMost", ownerParty.getMostSignificantBits());
 			stack.stackTagCompound.setLong("ownerLeast", ownerParty.getLeastSignificantBits());
