@@ -39,6 +39,8 @@ import net.minecraft.world.World;
 public class Landmine extends BlockContainer implements IBomb {
 	public static boolean safeMode = false;
 
+	protected static final ThreadLocal<UUID> explosionOwnerCache = new ThreadLocal<>();
+
 	public double range;
 	public double height;
 
@@ -93,6 +95,11 @@ public class Landmine extends BlockContainer implements IBomb {
 				world.setBlockToAir(x, y, z);
 			}
 		}
+	}
+	@Override
+	public void breakBlock(World world, int x, int y, int z, Block block, int i) {
+		explosionOwnerCache.set(getOwnerParty(world, x, y, z));
+		super.breakBlock(world, x, y, z, block, i);
 	}
 
 	@Override
@@ -149,11 +156,13 @@ public class Landmine extends BlockContainer implements IBomb {
 	public BombReturnCode explode(World world, int x, int y, int z) {
 
 		if(!world.isRemote) {
-
+			UUID party = getOwnerParty(world, x, y, z);
+			if(party == null) {
+				party = explosionOwnerCache.get();
+			}
 			Landmine.safeMode = true;
 			world.func_147480_a(x, y, z, false);
 			Landmine.safeMode = false;
-			UUID party = getOwnerParty(world, x, y, z);
 			if(this == ModBlocks.mine_ap) {
 				ExplosionVNT vnt = new ExplosionVNT(world, x + 0.5, y + 0.5, z + 0.5, 3F, party);
 				vnt.setEntityProcessor(new EntityProcessorCrossSmooth(0.5, ServerConfig.MINE_AP_DAMAGE.get()).setupPiercing(5F, 0.2F));

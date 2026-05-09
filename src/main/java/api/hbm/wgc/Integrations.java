@@ -35,6 +35,31 @@ import static com.wdg.wgcore.integration.api.WGCoreIntegrationAccess.*;
  * in this source file and is loaded by name only when WGCore is available.</p>
  */
 public final class Integrations {
+	public static boolean canTargetPlayerWGC(UUID party, UUID targetedPlayer, World world) {
+		return WGCoreIntegrationAccess.canTargetPlayer(party,targetedPlayer, world);
+	}
+	public static boolean canHarmPlayerWGC(UUID party, UUID targetedPlayer, World world) {
+		return WGCoreIntegrationAccess.canHarmPlayer(party,targetedPlayer,world);
+	}
+	public static boolean canTargetChunkWGC(UUID party, World world,ChunkCoordIntPair chunkCoords) {
+		return WGCoreIntegrationAccess.canTargetChunk(party,world, chunkCoords.chunkXPos, chunkCoords.chunkZPos); //TODO
+	}
+	public static boolean canTargetBlockWGC(UUID party,World world, int x, int y, int z) {
+		return WGCoreIntegrationAccess.canTargetBlock(party, world, x, y, z);
+	}
+	public static boolean canDetonateWGC(UUID party, World world, int x, int y, int z){
+		/**if(party == null){
+			System.out.println("Null UUID!");
+		}
+		else {
+			System.out.println("Detonate UUID:" + party.toString());
+		}*/
+		return WGCoreIntegrationAccess.canDetonate(party, world, x, y, z);
+	}
+	public static boolean canExplodeChunkWGC(UUID party, World world, int chunkX, int chunkZ) {
+		return WGCoreIntegrationAccess.canExplodeChunk(party, world, chunkX, chunkZ);
+	}
+	public static boolean canExplodeBlockWGC(UUID party, World world, int x, int z) {return canExplodeChunkWGC(party,world, x >> 4, z >> 4);}
 
     private static final Logger LOGGER = LogManager.getLogger("HBM/WGCore");
     private static final String WGCORE_MOD_ID = "wgcore";
@@ -42,6 +67,18 @@ public final class Integrations {
     private static final String WGCORE_BACKEND_CLASS = "api.hbm.wgc.WGCoreIntegrationBackend";
 
     private Integrations() { }
+    
+	public static Set<ChunkCoordIntPair> getExplosionProtectedChunksWGC(UUID party, World world, int x, int z, int r){
+		return WGCoreIntegrationAccess.getExplosionProtectedChunks(party,world,x,z,r);
+	}
+	public static List<ChunkPosition> filterExplosionAffectedBlocksWGC(UUID party,
+																	   World world,
+																	   Explosion explosion,
+																	   List affectedBlocks,
+																	   String explosionTypeId) {
+		if (world == null) {
+			return Collections.emptyList();
+		}
 
     private static IntegrationBackend backend() {
         return BackendHolder.INSTANCE;

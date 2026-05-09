@@ -42,6 +42,7 @@ public class TurretHIMARS extends BlockDummyable {
 	}
 	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entitylivingbase, ItemStack itemStack) {
+		super.onBlockPlacedBy(world, x, y, z, entitylivingbase, itemStack);
 		if(!world.isRemote) {
 			BlockPartyOwned.setOwner(world,x,y,z,entitylivingbase.getUniqueID());
 		}
