@@ -152,12 +152,12 @@ public abstract class TileEntityTurretBaseNT extends TileEntityMachineBase imple
 		this.targetMobs = nbt.getBoolean("targetMobs");
 		this.targetMachines = nbt.getBoolean("targetMachines");
 		this.stattrak = nbt.getInteger("stattrak");
-		this.owningFaction = null;
-		if(nbt.hasKey("factionid")) {
-			String faction = nbt.getString("factionid");
-			if(faction != null && !faction.isEmpty()) {
-				try { this.owningFaction = UUID.fromString(faction); } catch(IllegalArgumentException ignored) { }
-			}
+		if (nbt.hasKey("ownerMost") && nbt.hasKey("ownerLeast")) {
+			this.owningFaction = new UUID(
+				nbt.getLong("ownerMost"),
+				nbt.getLong("ownerLeast")
+			);
+			System.out.println("Owner: " + owningFaction);
 		}
 	}
 
@@ -172,7 +172,10 @@ public abstract class TileEntityTurretBaseNT extends TileEntityMachineBase imple
 		nbt.setBoolean("targetMobs", this.targetMobs);
 		nbt.setBoolean("targetMachines", this.targetMachines);
 		nbt.setInteger("stattrak", this.stattrak);
-		if(this.owningFaction != null) nbt.setString("factionid", this.owningFaction.toString());
+		if (owningFaction != null) {
+			nbt.setLong("ownerMost", owningFaction.getMostSignificantBits());
+			nbt.setLong("ownerLeast", owningFaction.getLeastSignificantBits());
+		}
 	}
 
 	public void manualSetup() { }
@@ -658,7 +661,6 @@ public abstract class TileEntityTurretBaseNT extends TileEntityMachineBase imple
 		}
 
 		if(targetPlayers ) {
-
 			if(e instanceof FakePlayer) return false;
 			if(e instanceof EntityPlayer) return Integrations.canTargetPlayerWGC(this.owningFaction, e.getUniqueID(), this.worldObj);
 			for(Class c : CompatExternal.turretTargetPlayer) if(c.isAssignableFrom(e.getClass())) return true;

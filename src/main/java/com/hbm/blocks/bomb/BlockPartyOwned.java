@@ -42,18 +42,18 @@ public abstract class BlockPartyOwned extends Block{
 	public static void setOwner(World world, int x, int y, int z, UUID newOwner) {
 		TileEntity te = world.getTileEntity(x, y, z);
 
-		/**if(te == null) {
-			System.out.println("setOwner didn't find a tile entity");
+		String id = world.isRemote ? "Client" : "Server";
+		if(te == null) {
+			System.out.println(id + ": setOwner didn't find a tile entity");
 		}
 		else{
-			System.out.println("setOwner found a tile entity, type: " + te.getClass().getSimpleName());
-		}*/
-		if (te instanceof TileEntityProxyBase){
-			te = ((TileEntityProxyBase) te).getTE();
+			System.out.println(id + ": setOwner found a tile entity, type: " + te.getClass().getSimpleName());
 		}
-		if (te instanceof TileEntityPartyOwned) {
-			((TileEntityPartyOwned) te).ownerParty = newOwner;
-			te.markDirty();
+		if(te instanceof IPartyOwned){
+			((IPartyOwned) te).setOwner(newOwner);
+		}
+		else if (te instanceof TileEntityProxyBase){
+			te = ((TileEntityProxyBase) te).getTE();
 		}
 	}
 
