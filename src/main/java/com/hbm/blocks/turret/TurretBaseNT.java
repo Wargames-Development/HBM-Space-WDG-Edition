@@ -4,6 +4,7 @@ import api.hbm.wgc.Integrations;
 import com.hbm.blocks.BlockDummyable;
 
 import com.hbm.blocks.bomb.BlockPartyOwned;
+import li.cil.oc.api.driver.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;

@@ -153,7 +153,19 @@ public abstract class TileEntityTurretBaseNT extends TileEntityMachineBase imple
 		this.targetMobs = nbt.getBoolean("targetMobs");
 		this.targetMachines = nbt.getBoolean("targetMachines");
 		this.stattrak = nbt.getInteger("stattrak");
-		this.owningFaction = UUID.fromString(nbt.getString("factionid"));
+		if(!worldObj.isRemote){
+			System.out.println("Server is reading turret from NBT. Has owner: " + (nbt.hasKey("ownerMost")&& nbt.hasKey("ownerLeast")));
+		}
+		else{
+			System.out.println("Client is reading turret from NBT. Has owner: " + (nbt.hasKey("ownerMost")&& nbt.hasKey("ownerLeast")));
+		}
+		if (nbt.hasKey("ownerMost") && nbt.hasKey("ownerLeast")) {
+			this.owningFaction = new UUID(
+				nbt.getLong("ownerMost"),
+				nbt.getLong("ownerLeast")
+			);
+			System.out.println("Owner: " + owningFaction);
+		}
 	}
 
 	@Override
@@ -167,7 +179,10 @@ public abstract class TileEntityTurretBaseNT extends TileEntityMachineBase imple
 		nbt.setBoolean("targetMobs", this.targetMobs);
 		nbt.setBoolean("targetMachines", this.targetMachines);
 		nbt.setInteger("stattrak", this.stattrak);
-		nbt.setString("factionid", owningFaction.toString());
+		if (owningFaction != null) {
+			nbt.setLong("ownerMost", owningFaction.getMostSignificantBits());
+			nbt.setLong("ownerLeast", owningFaction.getLeastSignificantBits());
+		}
 	}
 
 	public void manualSetup() { }
@@ -275,7 +290,7 @@ public abstract class TileEntityTurretBaseNT extends TileEntityMachineBase imple
 		buf.writeBoolean(this.targetAnimals);
 		buf.writeBoolean(this.targetMobs);
 		buf.writeBoolean(this.targetMachines);
-		buf.writeInt(this.stattrak);//TODO I'll be honest idk why we do serialization but I can't pass the UUID. Hopefully it's fine.
+		buf.writeInt(this.stattrak);
 	}
 
 	@Override
@@ -653,7 +668,6 @@ public abstract class TileEntityTurretBaseNT extends TileEntityMachineBase imple
 		}
 
 		if(targetPlayers ) {
-
 			if(e instanceof FakePlayer) return false;
 			if(e instanceof EntityPlayer){
 				return canTargetPlayerWGC(owningFaction,e.getUniqueID(),worldObj);
