@@ -41,7 +41,7 @@ public abstract class EntityThrowableNT extends Entity implements IProjectile {
 	protected EntityLivingBase thrower;
 	private String throwerName;
 	public int ticksInGround;
-	private int ticksInAir;
+	public int ticksInAir;
 
 	public EntityThrowableNT(World world) {
 		super(world);
@@ -256,11 +256,15 @@ public abstract class EntityThrowableNT extends Entity implements IProjectile {
 
 			float drag = this.getAirDrag();
 			double gravity = this.getGravityVelocity();
-
-			this.posX += this.motionX * motionMult();
-			this.posY += this.motionY * motionMult();
-			this.posZ += this.motionZ * motionMult();
-
+	
+			if(fullBlockCollisions()) {
+				this.moveEntity(this.motionX * motionMult(), this.motionY * motionMult(), this.motionZ * motionMult());
+			} else {
+				this.posX += this.motionX * motionMult();
+				this.posY += this.motionY * motionMult();
+				this.posZ += this.motionZ * motionMult();
+			}
+	
 			if(this.isInWater()) {
 				for(int i = 0; i < 4; ++i) {
 					float f = 0.25F;
@@ -277,19 +281,11 @@ public abstract class EntityThrowableNT extends Entity implements IProjectile {
 			this.setPosition(this.posX, this.posY, this.posZ);
 		}
 	}
-
-	public void airburstCheck(Vec3 pos, Vec3 nextPos){
-
+	
+	public boolean fullBlockCollisions() {
+		return false;
 	}
-
-	public void onBlockCollide(MovingObjectPosition mop,Vec3 pos, Vec3 nextPos) {
-		if(mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK && this.worldObj.getBlock(mop.blockX, mop.blockY, mop.blockZ) == Blocks.portal) {
-			this.setInPortal();
-		} else {
-			this.onImpact(mop);
-		}
-	}
-
+	
 	public boolean doesImpactEntities() {
 		return true;
 	}
@@ -333,6 +329,8 @@ public abstract class EntityThrowableNT extends Entity implements IProjectile {
 		nbt.setByte("inTile", (byte) Block.getIdFromBlock(this.stuckBlock));
 		nbt.setByte("shake", (byte) this.throwableShake);
 		nbt.setByte("inGround", (byte) (this.inGround ? 1 : 0));
+		nbt.setInteger("ticksInGround", this.ticksInGround);
+		nbt.setInteger("ticksInAir", this.ticksInAir);
 
 		if((this.throwerName == null || this.throwerName.length() == 0) && this.thrower != null && this.thrower instanceof EntityPlayer) {
 			this.throwerName = this.thrower.getCommandSenderName();
@@ -350,6 +348,8 @@ public abstract class EntityThrowableNT extends Entity implements IProjectile {
 		this.throwableShake = nbt.getByte("shake") & 255;
 		this.inGround = nbt.getByte("inGround") == 1;
 		this.throwerName = nbt.getString("ownerName");
+		this.ticksInGround = nbt.getInteger("ticksInGround");
+		this.ticksInAir = nbt.getInteger("ticksInAir");
 
 		if(this.throwerName != null && this.throwerName.length() == 0) {
 			this.throwerName = null;

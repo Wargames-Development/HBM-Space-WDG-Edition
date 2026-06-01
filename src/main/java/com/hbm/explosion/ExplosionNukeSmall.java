@@ -2,6 +2,7 @@ package com.hbm.explosion;
 
 import com.hbm.config.BombConfig;
 import com.hbm.entity.logic.EntityNukeExplosionMK5;
+import com.hbm.handler.CelestialNukeShockHandler;
 import com.hbm.explosion.ExplosionNT.ExAttrib;
 import com.hbm.handler.radiation.ChunkRadiationManager;
 import com.hbm.handler.threading.PacketThreading;

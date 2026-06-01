@@ -31,7 +31,6 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
 import com.hbm.blocks.bomb.BlockDetonatable;
-import com.hbm.entity.grenade.EntityGrenadeTau;
 import com.hbm.entity.mob.EntityCreeperNuclear;
 import com.hbm.items.ModItems;
 import com.hbm.lib.ModDamageSource;
@@ -41,6 +40,7 @@ import cpw.mods.fml.relauncher.ReflectionHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
+@Deprecated // ancient ass fucking bullet entity from pre ItemGunBase days
 public class EntityBullet extends Entity implements IProjectile {
 	private int tileX = -1;
 	private int tileY = -1;

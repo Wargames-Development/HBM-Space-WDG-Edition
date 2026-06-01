@@ -169,7 +169,7 @@ public class BombMulti extends BlockContainer implements IBomb {
 				}
 
 				if(fireRadius > 0) {
-					ExplosionChaos.burn(entity.getOwner(),world, x, y, z, fireRadius);
+					ExplosionChaos.burn(entity.getOwner(),world, x, y, z, fireRadius);//Change to use igniteAllBlocks
 				}
 
 				if(poisonRadius > 0) {

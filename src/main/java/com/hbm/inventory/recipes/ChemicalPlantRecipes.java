@@ -194,12 +194,18 @@ public class ChemicalPlantRecipes extends GenericRecipes<GenericRecipe> {
 								new FluidStack[] {new FluidStack(Fluids.LIGHTOIL, 200)} :
 								new FluidStack[] {new FluidStack(Fluids.LIGHTOIL, 200), new FluidStack(Fluids.MERCURY, 200)})
 				.outputItems(new ItemStack(ModItems.ingot_desh)));
+		this.register(new GenericRecipe("chem.deshcracked").setupNamed(100, 100)
+				.inputItems(new ComparableStack(ModItems.powder_desh_mix))
+				.inputFluids((GeneralConfig.enableLBSM && GeneralConfig.enableLBSMSimpleChemsitry) ?
+								new FluidStack[] {new FluidStack(Fluids.LIGHTOIL_CRACK, 500)} :
+								new FluidStack[] {new FluidStack(Fluids.LIGHTOIL_CRACK, 500, 1), new FluidStack(Fluids.MERCURY, 100)})
+				.outputItems(new ItemStack(ModItems.ingot_desh)));
 
 		this.register(new GenericRecipe("chem.polymer").setup(100, 100)
 				.inputItems(new OreDictStack(COAL.dust(), 2), new OreDictStack(F.dust()))
-				.inputFluids(new FluidStack(Fluids.PETROLEUM, 500, GeneralConfig.enable528PressurizedRecipes ? 1 : 0))
-				.outputItems(new ItemStack(ModItems.ingot_polymer)));
-
+				.inputFluids(new FluidStack(Fluids.PETROLEUM, 1_000, GeneralConfig.enable528PressurizedRecipes ? 1 : 0))
+				.outputItems(new ItemStack(ModItems.ingot_polymer, 4)));
+		
 		this.register(new GenericRecipe("chem.bakelite").setup(100, 100)
 				.inputFluids(new FluidStack(Fluids.AROMATICS, 500, GeneralConfig.enable528PressurizedRecipes ? 1 : 0), new FluidStack(Fluids.PETROLEUM, 500, GeneralConfig.enable528PressurizedRecipes ? 1 : 0))
 				.outputItems(new ItemStack(ModItems.ingot_bakelite)));
@@ -207,11 +213,11 @@ public class ChemicalPlantRecipes extends GenericRecipes<GenericRecipe> {
 		this.register(new GenericRecipe("chem.rubber").setup(100, 200)
 				.inputItems(new OreDictStack(S.dust()), new OreDictStack(ZI.dust()))
 				.inputFluids(new FluidStack(Fluids.UNSATURATEDS, 500, GeneralConfig.enable528PressurizedRecipes ? 2 : 0))
-				.outputItems(new ItemStack(ModItems.ingot_rubber)));
+				.outputItems(new ItemStack(ModItems.ingot_rubber, 2)));
 
-		this.register(new GenericRecipe("chem.vinylrubber").setup(100, 400)
+		this.register(new GenericRecipe("chem.vinylrubber").setupNamed(100, 400)
 				.inputFluids(new FluidStack(Fluids.VINYL, 500), new FluidStack(Fluids.UNSATURATEDS, 400, GeneralConfig.enable528 ? 2 : 0))
-				.outputItems(new ItemStack(ModItems.ingot_rubber)));
+				.outputItems(new ItemStack(ModItems.ingot_rubber, 2)));
 
 
 		this.register(new GenericRecipe("chem.hardplastic").setup(100, 1_000)
@@ -391,7 +397,7 @@ public class ChemicalPlantRecipes extends GenericRecipes<GenericRecipe> {
 				.inputFluids(new FluidStack(Fluids.PEROXIDE, 1_000, 5))
 				.outputFluids(new FluidStack(Fluids.DEATH, 1_000, 0)));
 
-		/// SPACE ///
+		/// NTM SPACE ///
 		this.register(new GenericRecipe("chem.coppersulf").setup(50, 100).setIcon(ModItems.fluid_icon, Fluids.COPPERSULFATE.getID())
 				.inputFluids(new FluidStack(Fluids.AQUEOUS_COPPER, 500))
 				.outputItems(new ItemStack(ModItems.powder_nickel, 2), new ItemStack(ModItems.powder_copper, 2))
@@ -408,7 +414,7 @@ public class ChemicalPlantRecipes extends GenericRecipes<GenericRecipe> {
 				.outputFluids(new FluidStack(Fluids.THORIUM_BROMIDE, 4_000)));
 
 		this.register(new GenericRecipe("chem.hydrazine").setupNamed(250, 1_000).setIcon(ModItems.canister_full, Fluids.HYDRAZINE.getID())
-				.inputFluids(new FluidStack(Fluids.NITRIC_ACID, 2_000), new FluidStack(Fluids.AMMONIA, 1_000))
+				.inputFluids(new FluidStack(Fluids.NITRIC_ACID, 2_000), new FluidStack(Fluids.AMMONIA, 1_000, GeneralConfig.enable528PressurizedRecipes ? 1 : 0))
 				.outputFluids(new FluidStack(Fluids.HYDRAZINE, 800)));
 
 		this.register(new GenericRecipe("chem.ammonia").setup(50, 100)
@@ -416,7 +422,7 @@ public class ChemicalPlantRecipes extends GenericRecipes<GenericRecipe> {
 				.outputFluids(new FluidStack(Fluids.AMMONIA, 800)));
 
 		this.register(new GenericRecipe("chem.bloodfuel").setupNamed(250, 1_000).setIcon(ModItems.canister_full, Fluids.BLOODGAS.getID())
-				.inputFluids(new FluidStack(Fluids.AMMONIA, 350), new FluidStack(Fluids.BLOOD, 800))
+				.inputFluids(new FluidStack(Fluids.AMMONIA, 350, GeneralConfig.enable528PressurizedRecipes ? 1 : 0), new FluidStack(Fluids.BLOOD, 800, GeneralConfig.enable528PressurizedRecipes ? 2 : 0))
 				.outputFluids(new FluidStack(Fluids.BLOODGAS, 1000)));
 
 		this.register(new GenericRecipe("chem.hcl").setup(50, 100)
@@ -424,7 +430,7 @@ public class ChemicalPlantRecipes extends GenericRecipes<GenericRecipe> {
 				.outputFluids(new FluidStack(Fluids.HCL, 1000)));
 
 		this.register(new GenericRecipe("chem.ammoniumnitrate").setup(250, 1_000)
-				.inputFluids(new FluidStack(Fluids.AMMONIA, 500), new FluidStack(Fluids.NITROGEN, 1000))
+				.inputFluids(new FluidStack(Fluids.AMMONIA, 500, GeneralConfig.enable528PressurizedRecipes ? 1 : 0), new FluidStack(Fluids.NITROGEN, 1000))
 				.outputItems(new ItemStack(ModItems.ammonium_nitrate, 4)));
 
 		this.register(new GenericRecipe("chem.nmass").setup(250, 10_000)
@@ -488,7 +494,7 @@ public class ChemicalPlantRecipes extends GenericRecipes<GenericRecipe> {
 				.outputFluids(new FluidStack(Fluids.CHLOROMETHANE, 1000)));
 
 		this.register(new GenericRecipe("chem.nitricacidalt").setupNamed(50, 1_000)
-				.inputFluids(new FluidStack(Fluids.WATER, 500), new FluidStack(Fluids.AMMONIA, 1000))
+				.inputFluids(new FluidStack(Fluids.WATER, 500), new FluidStack(Fluids.AMMONIA, 1000, GeneralConfig.enable528PressurizedRecipes ? 1 : 0))
 				.outputFluids(new FluidStack(Fluids.NITRIC_ACID, 1_000)));
 
 		// WARNING: NILERED CHEMISTRY ZONE //
@@ -498,7 +504,7 @@ public class ChemicalPlantRecipes extends GenericRecipes<GenericRecipe> {
 				.outputFluids(new FluidStack(Fluids.HYDRAZINE, 800))); // this is an emergency recipe, so it should NOT have a required blueprint
 
 		this.register(new GenericRecipe("chem.synleather").setupNamed(200, 500)
-				.inputFluids(new FluidStack(Fluids.PEROXIDE, 250))
+				.inputFluids(new FluidStack(Fluids.PEROXIDE, 250, GeneralConfig.enable528PressurizedRecipes ? 1 : 0))
 				.inputItems(new OreDictStack(ANY_PLASTIC.ingot()), new ComparableStack(Items.string, 4))
 				.outputItems(new ItemStack(Items.leather)));
 

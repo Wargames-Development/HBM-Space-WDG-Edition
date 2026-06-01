@@ -30,6 +30,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 
@@ -112,9 +113,20 @@ public class ItemBedrockOreNew extends Item {
 
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
+		int meta = stack.getItemDamage();
+		BedrockOreGrade grade = this.getGrade(meta);
+		CelestialBedrockOreType type = this.getType(meta);
 
-		for(ProcessingTrait trait : this.getGrade(stack.getItemDamage()).traits) {
+		for(ProcessingTrait trait : grade.traits) {
 			list.add(I18nUtil.resolveKey(this.getUnlocalizedNameInefficiently(stack) + ".trait." + trait.name().toLowerCase(Locale.US)));
+		}
+
+		if(grade == BedrockOreGrade.BASE) {
+			list.add(EnumChatFormatting.DARK_GRAY + "Processing outputs");
+			list.add(EnumChatFormatting.DARK_GRAY + "Main: " + EnumChatFormatting.GRAY + I18nUtil.resolveKey(type.primary.mat.getUnlocalizedName()));
+			list.add(EnumChatFormatting.DARK_GRAY + "Sulfuric: " + EnumChatFormatting.GRAY + I18nUtil.resolveKey(type.byproductAcid.mat.getUnlocalizedName()));
+			list.add(EnumChatFormatting.DARK_GRAY + "Solvent: " + EnumChatFormatting.GRAY + I18nUtil.resolveKey(type.byproductSolvent.mat.getUnlocalizedName()));
+			list.add(EnumChatFormatting.DARK_GRAY + "HPS: " + EnumChatFormatting.GRAY + I18nUtil.resolveKey(type.byproductRad.mat.getUnlocalizedName()));
 		}
 	}
 
@@ -180,7 +192,7 @@ public class ItemBedrockOreNew extends Item {
 			register(
 				SolarSystem.Body.KERBIN,
 				T("light",		o(MAT_IRON, 18),			o(MAT_COPPER, 9),			o(MAT_CRYOLITE, 6),			o(MAT_SODIUM, 3)),
-				T("heavy",		o(MAT_TUNGSTEN, 18),		o(MAT_TUNGSTEN, 9),			o(MAT_TUNGSTEN, 6),			o(MAT_ZINC, 3)),
+				T("heavy",		o(MAT_TUNGSTEN, 18),		o(MAT_TUNGSTEN, 9),			o(MAT_ZINC, 6),				o(MAT_ZINC, 3)),
 				T("nonmetal",	o(MAT_COAL, 18),			o(MAT_LIGNITE, 9),			o(MAT_SULFUR, 6),			o(MAT_KNO, 3)),
 				T("crystal",	o(MAT_REDSTONE, 18),		o(MAT_ASBESTOS, 9),			o(MAT_DIAMOND, 6),			o(MAT_EMERALD, 3))
 			);
@@ -307,6 +319,10 @@ public class ItemBedrockOreNew extends Item {
 
 		public static List<CelestialBedrockOreType> getAllTypes() {
 			return oreTypes;
+		}
+
+		public static int getTotalTypeCount() {
+			return index + 1;
 		}
 
 		private static int index;
