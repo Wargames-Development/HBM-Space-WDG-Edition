@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.UUID;
 
-imporst api.hbm.wgc.Integrations;
+import api.hbm.wgc.Integrations;
 import com.hbm.entity.grenade.EntityGrenadeUniversal;
 import com.hbm.entity.projectile.EntityBulletBaseMK4;
 import com.hbm.explosion.vanillant.ExplosionVNT;
@@ -35,11 +35,11 @@ public class EntityProcessorCross implements IEntityProcessor {
 	protected ICustomDamageHandler damage;
 	protected double knockbackMult = 1D;
 	protected boolean allowSelfDamage = false;
-	
+
 	public EntityProcessorCross() {
 		this(0);
 	}
-	
+
 	public EntityProcessorCross(double nodeDist) {
 		this.nodeDist = nodeDist;
 	}
@@ -76,9 +76,9 @@ public class EntityProcessorCross implements IEntityProcessor {
 		List list = world.getEntitiesWithinAABBExcludingEntity(allowSelfDamage ? null : explosion.exploder, AxisAlignedBB.getBoundingBox(minX, minY, minZ, maxX, maxY, maxZ));
 
 		ForgeEventFactory.onExplosionDetonate(world, explosion.compat, list, size);
-		
+
 		Vec3[] nodes;
-		
+
 		if(this.nodeDist > 0) {
 			nodes = new Vec3[7];
 			for(int i = 0; i < 7; i++) {
@@ -131,7 +131,7 @@ public class EntityProcessorCross implements IEntityProcessor {
 					float dmg = calculateDamage(distanceScaled, density, knockback, size);
 					if(!damageMap.containsKey(entity) || damageMap.get(entity) < dmg) damageMap.put(entity, dmg);
 					double enchKnockback = EnchantmentProtection.func_92092_a(entity, knockback);
-					
+
 					if(shouldDealKnockback(entity)) {
 						entity.motionX += deltaX * enchKnockback * knockbackMult;
 						entity.motionY += deltaY * enchKnockback * knockbackMult;
@@ -162,13 +162,13 @@ public class EntityProcessorCross implements IEntityProcessor {
 
 		return affectedPlayers;
 	}
-	
+
 	public static boolean shouldDealKnockback(Entity entity) {
 		if(entity instanceof EntityBulletBaseMK4) return false;
 		if(entity instanceof EntityGrenadeUniversal) return false;
 		return true;
 	}
-	
+
 	public void attackEntity(Entity entity, ExplosionVNT source, float amount) {
 		entity.attackEntityFrom(setExplosionSource(source.compat), amount);
 	}

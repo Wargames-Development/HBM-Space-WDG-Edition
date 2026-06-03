@@ -6,6 +6,7 @@ import java.util.Set;
 import java.util.UUID;
 
 import api.hbm.wgc.Integrations;
+
 import com.hbm.blocks.ModBlocks;
 import com.hbm.entity.particle.EntityCloudFX;
 import com.hbm.entity.particle.EntityModFX;
@@ -25,15 +26,16 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntitySheep;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
-import net.minecraft.util.Vec3;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import scala.Int;
 
 @Deprecated
 @Spaghetti("my eyes are bleeding")
@@ -44,155 +46,35 @@ public class ExplosionChaos { //TODO: destroy this entire class
 
 	public static void hardenVirus(UUID party, World world, int x, int y, int z, int bombStartStrength) {
 
-
+		if(!Integrations.canDetonateWGC(party,world,x,y,z)){return;}
 
 		int r = bombStartStrength;
+		Set<ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(party,world,x,z,r+8);
 		int r2 = r * r;
 		int r22 = r2 / 2;
-		for (int xx = -r; xx < r; xx++) {//Because not going columnwise is beyond stupid
+		for (int xx = -r; xx < r; xx++) {
 			int X = xx + x;
 			int XX = xx * xx;
 			for (int zz = -r; zz < r; zz++) {
 				int Z = zz + z;
+				if(Integrations.isProtected(X,Z,protectedChunks)){continue;}
 				int ZZ = XX + zz * zz;
 				for (int yy = -r; yy < r; yy++) {
 					int Y = yy + y;
 					int YY = ZZ + yy * yy;
 					if (YY < r22) {
-						if (world.getBlock(X, Y, Z) == ModBlocks.crystal_virus) {
+						if (world.getBlock(X, Y, Z) == ModBlocks.crystal_virus)
 							world.setBlock(X, Y, Z, ModBlocks.crystal_hardened);
-						}
 					}
 				}
 			}
 		}
 	}
 
-	public static void spreadVirus(UUID party, World world, int x, int y, int z, int bombStartStrength) {
-
-
-		int r = bombStartStrength;
-		int r2 = r * r;
-		int r22 = r2 / 2;
-		for (int xx = -r; xx < r; xx++) {
-			int X = xx + x;
-			int XX = xx * xx;
-			for (int zz = -r; zz < r; zz++) {
-				int Z = zz + z;
-				int ZZ = XX + zz * zz;
-				for (int yy = -r; yy < r; yy++) {
-					int Y = yy + y;
-					int YY = ZZ + yy * yy;
-					if (YY < r22) {
-						if (rand.nextInt(15) == 0 && world.getBlock(X, Y, Z) != Blocks.air) {
-							world.setBlock(X, Y, Z, ModBlocks.cheater_virus_seed);
-						}
-					}
-				}
-			}
-		}
-	}
-
-	public static void pulse(UUID party, World world, int x, int y, int z, int bombStartStrength) {
-
-		int r = bombStartStrength;
-		Set<ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(party, world, x, z,r+16);
-		int r2 = r * r;
-		int r22 = r2 / 2;
-		for (int xx = -r; xx < r; xx++) {
-			int X = xx + x;
-			int XX = xx * xx;
-			for (int zz = -r; zz < r; zz++) {
-				int Z = zz + z;
-				if(protectedChunks.contains(new ChunkCoordIntPair(X>>4, Z>>4))) continue;
-				int ZZ = XX + zz * zz;
-				for (int yy = -r; yy < r; yy++) {
-					int Y = yy + y;
-					int YY = ZZ + yy * yy;
-					if (YY < r22) {
-
-						if (world.getBlock(X, Y, Z).getExplosionResistance(null) <= 70) {
-
-							EntityFallingBlockNT entityfallingblock = new EntityFallingBlockNT(
-								world,
-								X + 0.5, Y + 0.5, Z + 0.5,
-								world.getBlock(X, Y, Z),
-								world.getBlockMetadata(X, Y, Z)
-							);
-							world.spawnEntityInWorld(entityfallingblock);
-						}
-					}
-				}
-			}
-		}
-	}
-
-
-	public static void explodeZOMG(UUID party, World world, int x, int y, int z, int bombStartStrength) {
-
-		int r = bombStartStrength;
-		Set<ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(party, world, x, z,r+16);
-		int r2 = r * r;
-		int r22 = r2 / 2;
-		for (int xx = -r; xx < r; xx++) {
-			int X = xx + x;
-			int XX = xx * xx;
-			for (int zz = -r; zz < r; zz++) {
-				int Z = zz + z;
-				if(protectedChunks.contains(new ChunkCoordIntPair(X>>4, Z>>4))) continue;
-				int ZZ = XX + zz * zz;
-				for (int yy = -r; yy < r; yy++) {
-					int Y = yy + y;
-					int YY = ZZ + yy * yy;
-					if (YY < r22) {
-						if (!(world.getBlock(X, Y, Z) == Blocks.bedrock && Y <= 0)) {
-
-							world.setBlock(X, Y, Z, Blocks.air);
-						}
-					}
-				}
-			}
-		}
-	}
-
-
-	public static void decon(UUID party, World world, int x, int y, int z, int radius) {
-
-		int r = radius;
-		Set<ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(party, world, x, z,r+16);
-		int r2 = r * r;
-		int r22 = r2 / 2;
-		for (int xx = -r; xx < r; xx++) {
-			int X = xx + x;
-			int XX = xx * xx;
-			for (int zz = -r; zz < r; zz++) {
-				int Z = zz + z;
-				if(protectedChunks.contains(new ChunkCoordIntPair(X>>4, Z>>4))) continue;
-				int ZZ = XX + zz * zz;
-				for (int yy = -r; yy < r; yy++) {
-					int Y = yy + y;
-					int YY = ZZ + yy * yy;
-					if (YY < r22) {
-						decontaminate(world, X, Y, Z);
-					}
-				}
-			}
-		}
-	}
-
-	/**
-	 * Sets all flammable blocks on fire
-	 *
-	 * @param world
-	 * @param x
-	 * @param y
-	 * @param z
-	 * @param bound
-	 */
-	public static void flameDeath(UUID party, World world, int x, int y, int z, int bound) {
+	public static void igniteFlammableBlocks(UUID party, World world, int x, int y, int z, int bound) {
 
 		int r = bound;
-		Set<ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(party, world, x, z,r+16);
+		Set<ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(party,world,x,z,r+8);
 		int r2 = r * r;
 		int r22 = r2 / 2;
 		for (int xx = -r; xx < r; xx++) {
@@ -200,15 +82,40 @@ public class ExplosionChaos { //TODO: destroy this entire class
 			int XX = xx * xx;
 			for (int zz = -r; zz < r; zz++) {
 				int Z = zz + z;
-				if(protectedChunks.contains(new ChunkCoordIntPair(X>>4, Z>>4))) continue;
+				if(Integrations.isProtected(X,Z,protectedChunks)){continue;}
 				int ZZ = XX + zz * zz;
 				for (int yy = -r; yy < r; yy++) {
 					int Y = yy + y;
 					int YY = ZZ + yy * yy;
 					if (YY < r22) {
-						if (world.getBlock(X, Y, Z).isFlammable(world, XX, YY, ZZ, ForgeDirection.UP)
-							&& world.getBlock(X, Y + 1, Z) == Blocks.air) {
+						if (world.getBlock(X, Y, Z).isFlammable(world, XX, YY, ZZ, ForgeDirection.UP) && world.getBlock(X, Y + 1, Z) == Blocks.air) {
+							world.setBlock(X, Y + 1, Z, Blocks.fire);
+						}
+					}
+				}
+			}
+		}
 
+	}
+
+	public static void igniteAllBlocks(UUID party, World world, int x, int y, int z, int bound) {
+
+		int r = bound;
+		Set<ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(party,world,x,z,r+8);
+		int r2 = r * r;
+		int r22 = r2 / 2;
+		for (int xx = -r; xx < r; xx++) {
+			int X = xx + x;
+			int XX = xx * xx;
+			for (int zz = -r; zz < r; zz++) {
+				int Z = zz + z;
+				if(Integrations.isProtected(X,Z,protectedChunks)){continue;}
+				int ZZ = XX + zz * zz;
+				for (int yy = -r; yy < r; yy++) {
+					int Y = yy + y;
+					int YY = ZZ + yy * yy;
+					if (YY < r22) {
+						if ((world.getBlock(X, Y + 1, Z) == Blocks.air || world.getBlock(X, Y + 1, Z) == Blocks.snow_layer) && world.getBlock(X, Y, Z) != Blocks.air) {
 							world.setBlock(X, Y + 1, Z, Blocks.fire);
 						}
 					}
@@ -216,47 +123,6 @@ public class ExplosionChaos { //TODO: destroy this entire class
 			}
 		}
 	}
-
-
-	/**
-	 * Sets all blocks on fire
-	 *
-	 * @param world
-	 * @param x
-	 * @param y
-	 * @param z
-	 * @param bound
-	 */
-	public static void burn(UUID party, World world, int x, int y, int z, int bound) {
-
-		int r = bound;
-		Set<ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(party, world, x, z,r+16);
-		int r2 = r * r;
-		int r22 = r2 / 2;
-		for (int xx = -r; xx < r; xx++) {
-			int X = xx + x;
-			int XX = xx * xx;
-			for (int zz = -r; zz < r; zz++) {
-				int Z = zz + z;
-				if(protectedChunks.contains(new ChunkCoordIntPair(X>>4, Z>>4))) continue;
-				int ZZ = XX + zz * zz;
-				for (int yy = -r; yy < r; yy++) {
-					int Y = yy + y;
-					int YY = ZZ + yy * yy;
-					if (YY < r22) {
-						if ((world.getBlock(X, Y + 1, Z) == Blocks.air
-							|| world.getBlock(X, Y + 1, Z) == Blocks.snow_layer)
-							&& world.getBlock(X, Y, Z) != Blocks.air) {
-
-
-							world.setBlock(X, Y + 1, Z, Blocks.fire);
-						}
-					}
-				}
-			}
-		}
-	}
-
 
 	@Deprecated public static void spawnPoisonCloud(UUID party, World world, double x, double y, double z, int count, double speed, int type) {
 
@@ -265,11 +131,11 @@ public class ExplosionChaos { //TODO: destroy this entire class
 			EntityModFX fx = null;
 
 			if(type == 1) {
-				fx = new EntityCloudFX(party,world, x, y, z, 0.0, 0.0, 0.0);
+				fx = new EntityCloudFX(party, world, x, y, z, 0.0, 0.0, 0.0);
 			} else if(type == 2) {
-				fx = new EntityPinkCloudFX(party,world, x, y, z, 0.0, 0.0, 0.0);
+				fx = new EntityPinkCloudFX(party, world, x, y, z, 0.0, 0.0, 0.0);
 			} else {
-				fx = new EntityOrangeFX(party,world, x, y, z, 0.0, 0.0, 0.0);
+				fx = new EntityOrangeFX(party, world, x, y, z, 0.0, 0.0, 0.0);
 			}
 
 			fx.motionY = rand.nextGaussian() * speed;
@@ -283,7 +149,7 @@ public class ExplosionChaos { //TODO: destroy this entire class
 
 		for(int i = 0; i < count; i++) {
 
-			EntityModFX fx = new EntityOrangeFX(party,world, x, y, z, 0.0, 0.0, 0.0);
+			EntityModFX fx = new EntityOrangeFX(party, world, x, y, z, 0.0, 0.0, 0.0);
 
 			fx.motionX = rand.nextGaussian() * speed;
 			fx.motionZ = rand.nextGaussian() * speed;
@@ -294,114 +160,32 @@ public class ExplosionChaos { //TODO: destroy this entire class
 		}
 	}
 
-	//todo: check EntityRocket's onImpact to stop internal block damage of a zone.
-	public static void cluster(UUID party, World world, int x, int y, int z, int count, Vec3 initialvel, int gravity) {
-
-		double d1 = 0;
-		double d2 = 0;
-		double d3 = 0;
-		EntityRocket fragment;
+	public static void cluster(UUID party, World world, double x, double y, double z, int count, float yaw, float pitch, float yawRand, float pitchRand, float speed) {
 
 		for (int i = 0; i < count; i++) {
-			d1 = rand.nextDouble();
-			d2 = rand.nextDouble();
-			d3 = rand.nextDouble();
-
-			if (rand.nextInt(2) == 0) {
-				d1 *= -1;
-			}
-
-			if (rand.nextInt(2) == 0) {
-				d3 *= -1;
-			}
-			d1 += initialvel.xCoord;
-			d2 = initialvel.yCoord - d2;
-			d3 += initialvel.zCoord;
-
-			fragment = new EntityRocket(party,world, x, y, z, d1, d2, d3, 0.0125D);
-
-			world.spawnEntityInWorld(fragment);
+			EntityBulletBaseMK4 bullet = new EntityBulletBaseMK4(world, XFactoryCatapult.cluster_submunition, 50F, 0F, yaw + (float) (yawRand * world.rand.nextGaussian()), pitch + (float) (pitchRand * world.rand.nextGaussian()), party);
+			bullet.setPosition(x, y, z);
+			bullet.motionX *= speed;
+			bullet.motionY *= speed;
+			bullet.motionZ *= speed;
+			world.spawnEntityInWorld(bullet);
 		}
 	}
 
-	public static void schrab(UUID party, World world, int x, int y, int z, int count, int gravity) {
+	public static void poison(UUID party, World world, double x, double y, double z, double range) {
 
-		double d1 = 0;
-		double d2 = 0;
-		double d3 = 0;
-		EntitySchrab fragment;
+		List<EntityLivingBase> affected = world.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(x - range, y - range, z - range, x + range, y + range, z + range));
 
-		for (int i = 0; i < count; i++) {
-			d1 = rand.nextDouble();
-			d2 = rand.nextDouble();
-			d3 = rand.nextDouble();
+		for(EntityLivingBase entity : affected) {
 
-			if (rand.nextInt(2) == 0) {
-				d1 *= -1;
+			if(entity instanceof EntityPlayer){
+				if(!Integrations.canHarmPlayerWGC(party,entity.getUniqueID(),world)){continue;}
 			}
 
-			if (rand.nextInt(2) == 0) {
-				d3 *= -1;
-			}
+			if(entity.getDistance(x, y, z) > range)
+				continue;
 
-			fragment = new EntitySchrab(world, x, y, z, d1, d2, d3, 0.0125D);
-
-			world.spawnEntityInWorld(fragment);
-		}
-	}
-
-	public static void frag(UUID party,World world, int x, int y, int z, int count, boolean flame, Entity shooter) {
-
-		double d1 = 0;
-		double d2 = 0;
-		double d3 = 0;
-		EntityArrow fragment;
-
-		for (int i = 0; i < count; i++) {
-			d1 = rand.nextDouble();
-			d2 = rand.nextDouble();
-			d3 = rand.nextDouble();
-
-			if (rand.nextInt(2) == 0) {
-				d1 *= -1;
-			}
-
-			if (rand.nextInt(2) == 0) {
-				d3 *= -1;
-			}
-
-			fragment = new EntityArrow(world, x, y, z); //TODO May need to implement a class to allow proper control of this
-
-			fragment.motionX = d1;
-			fragment.motionY = d2;
-			fragment.motionZ = d3;
-			fragment.shootingEntity = shooter;
-
-			fragment.setIsCritical(true);
-			if (flame) {
-				fragment.setFire(1000);
-			}
-
-			fragment.setDamage(2.5);
-
-			world.spawnEntityInWorld(fragment);
-		}
-	}
-
-	public static void poison(UUID party,World world, double x, double y, double z, double range) {
-
-		List<EntityLivingBase> affected = world.getEntitiesWithinAABB(
-			EntityLivingBase.class,
-			AxisAlignedBB.getBoundingBox(x - range, y - range, z - range, x + range, y + range, z + range)
-		);
-
-		for (EntityLivingBase entity : affected) {
-			if(entity instanceof EntityPlayer && !Integrations.canHarmPlayerWGC(party,entity.getUniqueID(),world)) {continue;}
-
-			if (entity.getDistance(x, y, z) > range) continue;
-
-
-			if (ArmorRegistry.hasAnyProtection(entity, 3, HazardClass.GAS_LUNG, HazardClass.GAS_BLISTERING)) {
+			if(ArmorRegistry.hasAnyProtection(entity, 3, HazardClass.GAS_LUNG, HazardClass.GAS_BLISTERING)) {
 				ArmorUtil.damageGasMaskFilter(entity, 1);
 			} else {
 				entity.addPotionEffect(new PotionEffect(Potion.blindness.getId(), 5 * 20, 0));
@@ -413,18 +197,18 @@ public class ExplosionChaos { //TODO: destroy this entire class
 		}
 	}
 
+	public static void pc(UUID party, World world, double x, double y, double z, double range) {
 
-	public static void pc(UUID party,World world, double x, double y, double z, double range) {
+		List<EntityLivingBase> affected = world.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(x - range, y - range, z - range, x + range, y + range, z + range));
 
-		List<EntityLivingBase> affected = world.getEntitiesWithinAABB(
-			EntityLivingBase.class,
-			AxisAlignedBB.getBoundingBox(x - range, y - range, z - range, x + range, y + range, z + range)
-		);
+		for(EntityLivingBase entity : affected) {
 
-		for (EntityLivingBase entity : affected) {
-			if(entity instanceof EntityPlayer && !Integrations.canHarmPlayerWGC(party,entity.getUniqueID(),world)) {continue;}
-			if (entity.getDistance(x, y, z) > range) continue;
+			if(entity instanceof EntityPlayer){
+				if(!Integrations.canHarmPlayerWGC(party,entity.getUniqueID(),world)){continue;}
+			}
 
+			if(entity.getDistance(x, y, z) > range)
+				continue;
 
 			ArmorUtil.damageSuit(entity, 0, 25);
 			ArmorUtil.damageSuit(entity, 1, 25);
@@ -434,27 +218,30 @@ public class ExplosionChaos { //TODO: destroy this entire class
 		}
 	}
 
+	//What the hell does this do man
+	//Do better with your naming conventions
+	public static void c(UUID party, World world, double x, double y, double z, double range) {
 
-	public static void c(UUID party,World world, double x, double y, double z, double range) {
+		List<EntityLivingBase> affected = world.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(x - range, y - range, z - range, x + range, y + range, z + range));
 
-		List<EntityLivingBase> affected = world.getEntitiesWithinAABB(
-			EntityLivingBase.class,
-			AxisAlignedBB.getBoundingBox(x - range, y - range, z - range, x + range, y + range, z + range)
-		);
+		for(EntityLivingBase entity : affected) {
 
-		for (EntityLivingBase entity : affected) {
-			if(entity instanceof EntityPlayer && !Integrations.canHarmPlayerWGC(party,entity.getUniqueID(),world)) {continue;}
-			if (entity.getDistance(x, y, z) > range) continue;
+			if(entity instanceof EntityPlayer){
+				if(!Integrations.canHarmPlayerWGC(party,entity.getUniqueID(),world)){continue;}
+			}
+
+			if(entity.getDistance(x, y, z) > range)
+				continue;
 
 			ArmorUtil.damageSuit(entity, 0, 25);
 			ArmorUtil.damageSuit(entity, 1, 25);
 			ArmorUtil.damageSuit(entity, 2, 25);
 			ArmorUtil.damageSuit(entity, 3, 25);
 
-			if (ArmorUtil.checkForHazmat(entity))
+			if(ArmorUtil.checkForHazmat(entity))
 				continue;
 
-			if (entity.isPotionActive(HbmPotion.taint.id)) {
+			if(entity.isPotionActive(HbmPotion.taint.id)) {
 				entity.removePotionEffect(HbmPotion.taint.id);
 				entity.addPotionEffect(new PotionEffect(HbmPotion.mutation.id, 1 * 60 * 60 * 20, 0, false));
 			}
@@ -463,15 +250,13 @@ public class ExplosionChaos { //TODO: destroy this entire class
 		}
 	}
 
-
-	public static void floater(UUID party,World world, int x, int y, int z, int radi, int height) {
-
+	public static void floater(UUID party, World world, int x, int y, int z, int radi, int height) {
 
 		Block save;
 		int meta;
 
 		int r = radi;
-		Set<ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(party, world, x, z,r+16);
+		Set<ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(party,world,x,z,r+8);
 		int r2 = r * r;
 		int r22 = r2 / 2;
 		for (int xx = -r; xx < r; xx++) {
@@ -479,43 +264,34 @@ public class ExplosionChaos { //TODO: destroy this entire class
 			int XX = xx * xx;
 			for (int zz = -r; zz < r; zz++) {
 				int Z = zz + z;
-				if(protectedChunks.contains(new ChunkCoordIntPair(X>>4, Z>>4))) continue;
+				if(Integrations.isProtected(X,Z,protectedChunks)){continue;}
 				int ZZ = XX + zz * zz;
 				for (int yy = -r; yy < r; yy++) {
 					int Y = yy + y;
 					int YY = ZZ + yy * yy;
 					if (YY < r22) {
-
-
 						save = world.getBlock(X, Y, Z);
 						meta = world.getBlockMetadata(X, Y, Z);
-
+						world.setBlock(X, Y, Z, Blocks.air);
 						if (save != Blocks.air) {
-
-							// Write destination first
 							world.setBlock(X, Y + height, Z, save);
 							world.setBlockMetadataWithNotify(X, Y + height, Z, meta, 2);
-
-							// Now clear source (moved down)
-							world.setBlock(X, Y, Z, Blocks.air);
-						} else {
-							// Nothing to move; ensure we don't clear/alter anything else
-							// (No-op)
 						}
 					}
 				}
 			}
 		}
+
 	}
 
-
-
-	public static void move(UUID party,World world, int x, int y, int z, int radius, int a, int b, int c) {
-
-
+	public static void move(UUID party, World world, int x, int y, int z, int radius, int a, int b, int c) {
 		float f = radius;
-		int i, j, k;
-		double d5, d6, d7;
+		int i;
+		int j;
+		int k;
+		double d5;
+		double d6;
+		double d7;
 		double wat = radius;
 		int rand = 0;
 
@@ -524,29 +300,25 @@ public class ExplosionChaos { //TODO: destroy this entire class
 		j = MathHelper.floor_double(x + wat + 1.0D);
 		k = MathHelper.floor_double(y - wat - 1.0D);
 		int i2 = MathHelper.floor_double(y + wat + 1.0D);
-		int l  = MathHelper.floor_double(z - wat - 1.0D);
+		int l = MathHelper.floor_double(z - wat - 1.0D);
 		int j2 = MathHelper.floor_double(z + wat + 1.0D);
-
-		List list = world.getEntitiesWithinAABBExcludingEntity(
-			null, AxisAlignedBB.getBoundingBox(i, k, l, j, i2, j2)
-		);
-		Set<ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(party, world, x, z,radius+16);
+		List list = world.getEntitiesWithinAABBExcludingEntity(null, AxisAlignedBB.getBoundingBox(i, k, l, j, i2, j2));
 
 		for (int i1 = 0; i1 < list.size(); ++i1) {
 			Entity entity = (Entity) list.get(i1);
 			double d4 = entity.getDistance(x, y, z) / radius;
-			//Skip entities inside protected chunks
-			if(protectedChunks.contains(new ChunkCoordIntPair(((int)Math.floor(entity.posX))>>4, ((int)Math.floor(entity.posZ))>>4))) continue;
 
 			if (d4 <= 1.0D) {
 				d5 = entity.posX - x;
 				d6 = entity.posY + entity.getEyeHeight() - y;
 				d7 = entity.posZ - z;
-
-
 				if (entity instanceof EntityLiving && !(entity instanceof EntitySheep)) {
 					rand = random.nextInt(2);
-					((EntityLiving) entity).setCustomNameTag(rand == 0 ? "Dinnerbone" : "Grumm");
+					if (rand == 0) {
+						((EntityLiving) entity).setCustomNameTag("Dinnerbone");
+					} else {
+						((EntityLiving) entity).setCustomNameTag("Grumm");
+					}
 				}
 
 				if (entity instanceof EntitySheep) {
@@ -562,156 +334,4 @@ public class ExplosionChaos { //TODO: destroy this entire class
 
 		radius = (int) f;
 	}
-
-
-	public static void plasma(UUID party,World world, int x, int y, int z, int radius) {
-
-		int r = radius;
-		Set<ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(party, world, x, z,r+16);
-		int r2 = r * r;
-		int r22 = r2 / 2;
-		for (int xx = -r; xx < r; xx++) {
-			int X = xx + x;
-			int XX = xx * xx;
-			for (int zz = -r; zz < r; zz++) {
-				int Z = zz + z;
-				if(protectedChunks.contains(new ChunkCoordIntPair(X>>4, Z>>4))) continue;
-				int ZZ = XX + zz * zz;
-				for (int yy = -r; yy < r; yy++) {
-					int Y = yy + y;
-					int YY = ZZ + yy * yy;
-					if (YY < r22 + world.rand.nextInt(r22 / 2)) {
-						if (world.getBlock(X, Y, Z) != ModBlocks.statue_elb_f) {
-
-							world.setBlock(X, Y, Z, ModBlocks.plasma);
-						}
-					}
-				}
-			}
-		}
-	}
-
-
-	public static void tauMeSinPi(UUID party, World world, double x, double y, double z, int count, Entity shooter, EntityGrenadeTau tau) {
-
-
-		double d1, d2, d3;
-		EntityBullet fragment;
-
-		if (shooter != null && shooter instanceof EntityPlayer) {
-			for (int i = 0; i < count; i++) {
-				d1 = rand.nextDouble();
-				d2 = rand.nextDouble();
-				d3 = rand.nextDouble();
-
-				if (rand.nextInt(2) == 0) d1 *= -1;
-				if (rand.nextInt(2) == 0) d2 *= -1;
-				if (rand.nextInt(2) == 0) d3 *= -1;
-
-				if (rand.nextInt(5) == 0) {
-					fragment = new EntityBullet(party, world, (EntityPlayer) shooter, 3.0F, 35, 45, false, "tauDay", tau);
-					fragment.setDamage(rand.nextInt(301) + 100);
-				} else {
-					fragment = new EntityBullet(party, world, (EntityPlayer) shooter, 3.0F, 35, 45, false, "eyyOk", tau);
-					fragment.setDamage(rand.nextInt(11) + 35);
-				}
-
-				fragment.motionX = d1 * 5;
-				fragment.motionY = d2 * 5;
-				fragment.motionZ = d3 * 5;
-				fragment.shootingEntity = shooter;
-				fragment.setIsCritical(true);
-
-				// Convert projectile spawn location to block coords for safezone check
-				int bx = (int)Math.floor(fragment.posX);
-				int by = (int)Math.floor(fragment.posY);
-				int bz = (int)Math.floor(fragment.posZ);
-
-
-				world.spawnEntityInWorld(fragment);
-			}
-		}
-	}
-
-	public static void levelDown(World world, int x, int y, int z, int radius) {
-
-
-		if (!world.isRemote) {
-			for (int i = x - radius; i <= x + radius; i++) {
-				for (int j = z - radius; j <= z + radius; j++) {
-
-
-					Block b = world.getBlock(i, y, j);
-					float k = b.getExplosionResistance(null);
-
-					if (k < 6000 && b != Blocks.air) {
-
-						EntityRubble rubble = new EntityRubble(world);
-						rubble.posX = i + 0.5F;
-						rubble.posY = y;
-						rubble.posZ = j + 0.5F;
-
-						rubble.motionY = 0.025F * 10 + 0.15F;
-						rubble.setMetaBasedOnBlock(b, world.getBlockMetadata(i, y, j));
-
-						world.spawnEntityInWorld(rubble);
-
-						world.setBlock(i, y, j, Blocks.air);
-					}
-				}
-			}
-		}
-	}
-
-
-
-	public static void decontaminate(World world, int x, int y, int z) {
-
-		Random random = new Random();
-
-		if (world.getBlock(x, y, z) == ModBlocks.waste_earth && random.nextInt(3) != 0) {
-			world.setBlock(x, y, z, Blocks.grass);
-		}
-
-		else if (world.getBlock(x, y, z) == ModBlocks.waste_mycelium && random.nextInt(5) == 0) {
-			world.setBlock(x, y, z, Blocks.mycelium);
-		}
-
-		else if (world.getBlock(x, y, z) == ModBlocks.waste_trinitite && random.nextInt(3) == 0) {
-			world.setBlock(x, y, z, Blocks.sand);
-		}
-
-		else if (world.getBlock(x, y, z) == ModBlocks.waste_trinitite_red && random.nextInt(3) == 0) {
-			world.setBlock(x, y, z, Blocks.sand, 1, 2);
-		}
-
-		else if (world.getBlock(x, y, z) == ModBlocks.waste_log && random.nextInt(3) != 0) {
-			world.setBlock(x, y, z, Blocks.log);
-		}
-
-		else if (world.getBlock(x, y, z) == ModBlocks.waste_planks && random.nextInt(3) != 0) {
-			world.setBlock(x, y, z, Blocks.planks);
-		}
-
-		else if (world.getBlock(x, y, z) == ModBlocks.block_trinitite && random.nextInt(10) == 0) {
-			world.setBlock(x, y, z, ModBlocks.block_lead);
-		}
-
-		else if (world.getBlock(x, y, z) == ModBlocks.block_waste && random.nextInt(10) == 0) {
-			world.setBlock(x, y, z, ModBlocks.block_lead);
-		}
-
-		else if(world.getBlock(x, y, z) == ModBlocks.sellafield) {
-			int meta = world.getBlockMetadata(x, y, z);
-
-			if(meta > 0) {
-				if(meta == 5 && random.nextInt(10) == 0)
-					world.setBlockMetadataWithNotify(x, y, z, 4, 3);
-				else if(random.nextInt(5) == 0)
-					world.setBlockMetadataWithNotify(meta, x, y, z, meta - 1);
-			} else if(random.nextInt(5) == 0)
-				world.setBlock(y, z, meta, ModBlocks.sellafield_slaked);
-		}
-	}
-
 }

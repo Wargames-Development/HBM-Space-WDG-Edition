@@ -48,7 +48,7 @@ public class XFactoryCatapult {
 	public static BulletConfig nuke_tots;
 	public static BulletConfig nuke_hive;
 	public static BulletConfig nuke_balefire;
-	
+
 	public static BulletConfig cluster_submunition;
 
 	public static BiConsumer<EntityBulletBaseMK4, MovingObjectPosition> LAMBDA_NUKE_STANDARD = (bullet, mop) -> {
@@ -155,9 +155,9 @@ public class XFactoryCatapult {
 		vnt.setSFX(new ExplosionEffectWeapon(10, 2.5F, 1F));
 		vnt.explode();
 	};
-	
+
 	public static BiConsumer<EntityBulletBaseMK4, MovingObjectPosition> LAMBDA_SUBMUNITION = (bullet, mop) -> {
-		ExplosionVNT vnt = new ExplosionVNT(bullet.worldObj, mop.hitVec.xCoord, mop.hitVec.yCoord, mop.hitVec.zCoord, 7.5F, bullet.getThrower());
+		ExplosionVNT vnt = new ExplosionVNT(bullet.worldObj, mop.hitVec.xCoord, mop.hitVec.yCoord, mop.hitVec.zCoord, 7.5F, bullet.getThrower().getUniqueID(),bullet.getThrower());
 		vnt.setBlockAllocator(new BlockAllocatorStandard());
 		vnt.setBlockProcessor(new BlockProcessorStandard());
 		vnt.setEntityProcessor(new EntityProcessorCrossSmooth(1, bullet.damage));

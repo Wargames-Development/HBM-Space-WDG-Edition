@@ -75,7 +75,7 @@ public class TileEntityFileCabinet extends TileEntityCrateBase implements IGUIPr
 
 				for(ItemStack slot : slots) {
 					if(slot != null && slot.getItem() == ModItems.missile_soyuz) {
-						ExplosionVNT xnt = new ExplosionVNT(worldObj, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5, 15);
+						ExplosionVNT xnt = new ExplosionVNT(worldObj, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5, 15,null);
 						xnt.setBlockAllocator(new BlockAllocatorStandard(48));
 						xnt.setBlockProcessor(new BlockProcessorStandard().setNoDrop().withBlockEffect(new BlockMutatorDebris(ModBlocks.block_slag, 1)));
 						xnt.setEntityProcessor(new EntityProcessorCross(7.5D).withRangeMod(3));

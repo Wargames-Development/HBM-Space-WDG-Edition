@@ -173,7 +173,7 @@ public class TileEntityMachineSatDock extends TileEntity implements ISidedInvent
 					for(EntityMinerRocket rocket : list) {
 						if(freq != rocket.getDataWatcher().getWatchableObjectInt(17)) {
 							rocket.setDead();
-							ExplosionNukeSmall.explode(worldObj, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5, ExplosionNukeSmall.PARAMS_TOTS);
+							ExplosionNukeSmall.explode(worldObj, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5,null, ExplosionNukeSmall.PARAMS_TOTS);
 							break;
 						}
 

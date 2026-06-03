@@ -59,7 +59,7 @@ public class ItemGrenadeFilling extends ItemEnumMulti {
 		pellets_heavy = new BulletConfig().setLife(100).setGrav(0.04).setVel(1.5F).setOnImpact(LAMBDA_EXPLODE);
 		laser = new BulletConfig().setBeam().setupDamageClass(DamageClass.LASER).setLife(3).setRenderRotations(false).setThresholdNegation(10F).setOnBeamImpact(BulletConfig.LAMBDA_STANDARD_BEAM_HIT);
 	}
-	
+
 	public static enum EnumGrenadeFilling {
 		POWDER(EXPLODE_POWDER,					0x424242, 0x939176, FRAG, STICK),	// gunpowder
 		HE(EXPLODE_HE,							0x595533, 0xA49D62, FRAG, STICK),	// high explosive
@@ -79,7 +79,7 @@ public class ItemGrenadeFilling extends ItemEnumMulti {
 		public Set<EnumGrenadeShell> compatibleShells = new HashSet();
 		public int bodyColor;
 		public int labelColor;
-		
+
 		private EnumGrenadeFilling(Consumer<EntityGrenadeUniversal> explode, int bodyColor, int labelColor, EnumGrenadeShell... compatibleShells) {
 			this.explode = explode;
 			for(EnumGrenadeShell shell : compatibleShells) this.compatibleShells.add(shell);
@@ -87,9 +87,9 @@ public class ItemGrenadeFilling extends ItemEnumMulti {
 			this.labelColor = labelColor;
 		}
 	}
-	
+
 	public static Consumer<EntityGrenadeUniversal> EXPLODE_POWDER = (grenade) -> { standardExplode(grenade, 5F, 10F, 5F, 0F); };
-	
+
 	public static Consumer<EntityGrenadeUniversal> EXPLODE_HE = (grenade) -> { standardExplode(grenade, 7.5F, 25F, 10F, 0.1F); };
 
 	public static Consumer<EntityGrenadeUniversal> EXPLODE_CLUSTER = (grenade) -> {
@@ -97,7 +97,7 @@ public class ItemGrenadeFilling extends ItemEnumMulti {
 		int frags = 30;
 		if(grenade.getShell() == EnumGrenadeShell.FRAG) frags *= 1.25;
 		for(int i = 0; i < frags; i++) {
-			EntityBulletBaseMK4 bullet = new EntityBulletBaseMK4(grenade.worldObj, pellets, 15F, 0F, grenade.worldObj.rand.nextFloat() * 2F * (float) Math.PI, (grenade.worldObj.rand.nextFloat() * 0.5F + 0.5F) * (float) Math.PI);
+			EntityBulletBaseMK4 bullet = new EntityBulletBaseMK4(grenade.worldObj, pellets, 15F, 0F, grenade.worldObj.rand.nextFloat() * 2F * (float) Math.PI, (grenade.worldObj.rand.nextFloat() * 0.5F + 0.5F) * (float) Math.PI, grenade.getThrower().getUniqueID());
 			bullet.setPosition(grenade.posX, grenade.posY + 0.05, grenade.posZ);
 			bullet.motionX *= 0.5;
 			bullet.motionY *= 0.75;
@@ -110,7 +110,7 @@ public class ItemGrenadeFilling extends ItemEnumMulti {
 		standardExplode(grenade, 7.5F, 15F, 10F, 0.1F);
 		int frags = 15;
 		for(int i = 0; i < frags; i++) {
-			EntityBulletBaseMK4 bullet = new EntityBulletBaseMK4(grenade.worldObj, pellets_heavy, 30F, 0F, grenade.worldObj.rand.nextFloat() * 2F * (float) Math.PI, (grenade.worldObj.rand.nextFloat() * 0.5F + 0.5F) * (float) Math.PI);
+			EntityBulletBaseMK4 bullet = new EntityBulletBaseMK4(grenade.worldObj, pellets_heavy, 30F, 0F, grenade.worldObj.rand.nextFloat() * 2F * (float) Math.PI, (grenade.worldObj.rand.nextFloat() * 0.5F + 0.5F) * (float) Math.PI, grenade.getThrower().getUniqueID());
 			bullet.setPosition(grenade.posX, grenade.posY + 0.05, grenade.posZ);
 			bullet.motionX *= 0.5;
 			bullet.motionY *= 1.25;
@@ -118,9 +118,9 @@ public class ItemGrenadeFilling extends ItemEnumMulti {
 			grenade.worldObj.spawnEntityInWorld(bullet);
 		}
 	};
-	
+
 	public static Consumer<EntityGrenadeUniversal> EXPLODE_DEMO = (grenade) -> {
-		ExplosionVNT vnt = new ExplosionVNT(grenade.worldObj, grenade.posX, grenade.posY, grenade.posZ, 5F, grenade.getThrower());
+		ExplosionVNT vnt = new ExplosionVNT(grenade.worldObj, grenade.posX, grenade.posY, grenade.posZ, 5F, grenade.getThrower().getUniqueID(),grenade.getThrower());
 		vnt.setBlockAllocator(new BlockAllocatorStandard());
 		vnt.setBlockProcessor(new BlockProcessorStandard());
 		vnt.setEntityProcessor(new EntityProcessorCrossSmooth(1, 10F));
@@ -128,7 +128,7 @@ public class ItemGrenadeFilling extends ItemEnumMulti {
 		vnt.setSFX(new ExplosionEffectWeapon(10, 2.5F, 1F));
 		vnt.explode();
 	};
-	
+
 	public static Consumer<EntityGrenadeUniversal> EXPLODE_INC = (grenade) -> {
 		World world = grenade.worldObj;
 		standardExplode(grenade, 3F, 10F);
@@ -145,7 +145,7 @@ public class ItemGrenadeFilling extends ItemEnumMulti {
 			}
 		}
 	};
-	
+
 	public static Consumer<EntityGrenadeUniversal> EXPLODE_WP = (grenade) -> {
 		World world = grenade.worldObj;
 		standardExplode(grenade, 3F, 10F);
@@ -167,16 +167,16 @@ public class ItemGrenadeFilling extends ItemEnumMulti {
 			PacketThreading.createAllAroundThreadedPacket(new AuxParticlePacketNT(haze, grenade.posX + grenade.worldObj.rand.nextGaussian() * 4, grenade.posY, grenade.posZ + grenade.worldObj.rand.nextGaussian() * 4), new TargetPoint(grenade.dimension, grenade.posX, grenade.posY, grenade.posZ, 150));
 		}
 	};
-	
+
 	public static Consumer<EntityGrenadeUniversal> EXPLODE_EMP = (grenade) -> {
 		explodeStandardEnergy(grenade, 15F, 3F, DamageClass.ELECTRIC, 0.5F, 0.5F, 1F, 3F);
-		ExplosionNukeGeneric.empBlast(grenade.worldObj, (int) Math.floor(grenade.posX), (int) Math.floor(grenade.posY), (int) Math.floor(grenade.posZ), 5);
+		ExplosionNukeGeneric.empBlast(grenade.getThrower().getUniqueID(), grenade.worldObj, (int) Math.floor(grenade.posX), (int) Math.floor(grenade.posY), (int) Math.floor(grenade.posZ), 5);
 	};
-	
+
 	public static Consumer<EntityGrenadeUniversal> EXPLODE_PLASMA = (grenade) -> {
 		explodeStandardEnergy(grenade, 50F, 5F, DamageClass.PLASMA, 0.5F, 1F, 0.5F, 4F); // TODO: unique effect because this sucks
 	};
-	
+
 	public static Consumer<EntityGrenadeUniversal> EXPLODE_LASER = (grenade) -> { // yeah this is good, we like this one
 		tinyExplode(grenade, 2, 5F);
 
@@ -203,7 +203,7 @@ public class ItemGrenadeFilling extends ItemEnumMulti {
 	};
 
 	public static Consumer<EntityGrenadeUniversal> EXPLODE_NUKE = (grenade) -> {
-		ExplosionVNT vnt = new ExplosionVNT(grenade.worldObj, grenade.posX, grenade.posY, grenade.posZ, 10);
+		ExplosionVNT vnt = new ExplosionVNT(grenade.worldObj, grenade.posX, grenade.posY, grenade.posZ, 10, grenade.getThrower().getUniqueID(),grenade.getThrower());
 		vnt.setEntityProcessor(new EntityProcessorCrossSmooth(2, 100).withRangeMod(1.5F));
 		vnt.setPlayerProcessor(new PlayerProcessorStandard());
 		vnt.explode();
@@ -213,7 +213,7 @@ public class ItemGrenadeFilling extends ItemEnumMulti {
 	};
 
 	public static Consumer<EntityGrenadeUniversal> EXPLODE_NUKE_DEMO = (grenade) -> {
-		ExplosionVNT vnt = new ExplosionVNT(grenade.worldObj, grenade.posX, grenade.posY, grenade.posZ, 10);
+		ExplosionVNT vnt = new ExplosionVNT(grenade.worldObj, grenade.posX, grenade.posY, grenade.posZ, 10, grenade.getThrower().getUniqueID(),grenade.getThrower());
 		vnt.setBlockAllocator(new BlockAllocatorStandard(64));
 		vnt.setBlockProcessor(new BlockProcessorStandard().withBlockEffect(new BlockMutatorFire()));
 		vnt.setEntityProcessor(new EntityProcessorCrossSmooth(2, 50).withRangeMod(1.5F));
@@ -223,7 +223,7 @@ public class ItemGrenadeFilling extends ItemEnumMulti {
 		XFactoryCatapult.incrementRad(grenade.worldObj, grenade.posX, grenade.posY, grenade.posZ, 1.5F);
 		spawnMush(grenade);
 	};
-	
+
 	public static Consumer<EntityGrenadeUniversal> EXPLODE_SCHRAB = (grenade) -> {
 		EntityNukeExplosionMK3 ex = EntityNukeExplosionMK3.statFacFleija(grenade.worldObj, grenade.posX, grenade.posY, grenade.posZ, 20);
 		if(!ex.isDead) {
@@ -251,9 +251,9 @@ public class ItemGrenadeFilling extends ItemEnumMulti {
 		data.setBoolean("balefire", MainRegistry.polaroidID == 11 || grenade.worldObj.rand.nextInt(100) == 0);
 		PacketThreading.createAllAroundThreadedPacket(new AuxParticlePacketNT(data, grenade.posX, grenade.posY + 0.5, grenade.posZ), new TargetPoint(grenade.dimension, grenade.posX, grenade.posY, grenade.posZ, 250));
 	}
-	
+
 	public static void explodeStandardEnergy(EntityGrenadeUniversal grenade, float damage, float range, DamageClass damageClass, float r, float g, float b, float scale) {
-		ExplosionVNT vnt = new ExplosionVNT(grenade.worldObj, grenade.posX, grenade.posY, grenade.posZ, range, grenade.getThrower());
+		ExplosionVNT vnt = new ExplosionVNT(grenade.worldObj, grenade.posX, grenade.posY, grenade.posZ, range, grenade.getThrower().getUniqueID(),grenade.getThrower());
 		vnt.setEntityProcessor(new EntityProcessorCrossSmooth(1, damage).setDamageClass(damageClass));
 		vnt.setPlayerProcessor(new PlayerProcessorStandard());
 		vnt.explode();
@@ -288,7 +288,7 @@ public class ItemGrenadeFilling extends ItemEnumMulti {
 
 	public static void standardExplode(EntityGrenadeUniversal grenade, float range, float damage) { standardExplode(grenade, range, damage, 0F, 0F); }
 	public static void standardExplode(EntityGrenadeUniversal grenade, float range, float damage, float dt, float dr) {
-		ExplosionVNT vnt = new ExplosionVNT(grenade.worldObj, grenade.posX, grenade.posY, grenade.posZ, range, grenade.getThrower());
+		ExplosionVNT vnt = new ExplosionVNT(grenade.worldObj, grenade.posX, grenade.posY, grenade.posZ, range, grenade.getThrower().getUniqueID(),grenade.getThrower());
 		vnt.setEntityProcessor(new EntityProcessorCrossSmooth(1, damage).setupPiercing(dt, dr));
 		vnt.setPlayerProcessor(new PlayerProcessorStandard());
 		vnt.setSFX(new ExplosionEffectWeapon(10, 2.5F, 1F));
@@ -297,17 +297,17 @@ public class ItemGrenadeFilling extends ItemEnumMulti {
 
 	public static void tinyExplode(EntityGrenadeUniversal grenade, float range, float damage) { tinyExplode(grenade, range, damage, 0F, 0F); }
 	public static void tinyExplode(EntityGrenadeUniversal grenade, float range, float damage, float dt, float dr) {
-		ExplosionVNT vnt = new ExplosionVNT(grenade.worldObj, grenade.posX, grenade.posY, grenade.posZ, range, grenade.getThrower());
+		ExplosionVNT vnt = new ExplosionVNT(grenade.worldObj, grenade.posX, grenade.posY, grenade.posZ, range, grenade.getThrower().getUniqueID(),grenade.getThrower());
 		vnt.setEntityProcessor(new EntityProcessorCrossSmooth(0.5, damage).setupPiercing(dt, dr).setKnockback(0.25D));
 		vnt.setPlayerProcessor(new PlayerProcessorStandard());
 		vnt.setSFX(new ExplosionEffectTiny());
 		vnt.explode();
 	}
-	
+
 	public static void standardFragmentation(EntityGrenadeUniversal grenade, float frags) {
 		if(grenade.getShell() == EnumGrenadeShell.FRAG) frags *= 1.5;
 		for(int i = 0; i < frags; i++) {
-			EntityBulletBaseMK4 bullet = new EntityBulletBaseMK4(grenade.worldObj, fragmentation, 10F, 0F, grenade.worldObj.rand.nextFloat() * 2F * (float) Math.PI, (grenade.worldObj.rand.nextFloat() - 0.5F) * 2F * (float) Math.PI);
+			EntityBulletBaseMK4 bullet = new EntityBulletBaseMK4(grenade.worldObj, fragmentation, 10F, 0F, grenade.worldObj.rand.nextFloat() * 2F * (float) Math.PI, (grenade.worldObj.rand.nextFloat() - 0.5F) * 2F * (float) Math.PI,grenade.getThrower().getUniqueID());
 			bullet.setPosition(grenade.posX, grenade.posY + 0.05, grenade.posZ);
 			grenade.worldObj.spawnEntityInWorld(bullet);
 		}

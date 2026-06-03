@@ -136,11 +136,6 @@ public class ExplosionBalefire
 					continue;
 				}
 
-				if (worldObj.getBlock(pX, y, pZ) != ModBlocks.plasma) {
-					// carve
-						worldObj.setBlockToAir(pX, y, pZ);
-				}
-
 				y--;
 			}
 

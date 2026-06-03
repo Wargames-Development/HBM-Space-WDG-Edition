@@ -16,7 +16,7 @@ public class ItemGrenadeDynamite extends ItemGenericGrenade {
 	}
 
 	public void explode(Entity grenade, EntityLivingBase thrower, World world, double x, double y, double z) {
-		ExplosionVNT vnt = new ExplosionVNT(grenade.worldObj, grenade.posX, grenade.posY, grenade.posZ, 5, thrower);
+		ExplosionVNT vnt = new ExplosionVNT(grenade.worldObj, grenade.posX, grenade.posY, grenade.posZ, 5, thrower.getUniqueID(), thrower);
 		vnt.setEntityProcessor(new EntityProcessorCrossSmooth(1, 15));
 		vnt.setPlayerProcessor(new PlayerProcessorStandard());
 		vnt.setSFX(new ExplosionEffectWeapon(10, 2.5F, 1F));
