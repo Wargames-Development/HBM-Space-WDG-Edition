@@ -33,3 +33,6 @@
 # Changelog backup
 /changelog.bak
 .DS_Store
+
+# Generated runtime and test logs
+/logs
