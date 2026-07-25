@@ -165,11 +165,11 @@ public class BombMulti extends BlockContainer implements IBomb {
 				explosionValue = 0;
 
 				if(clusterCount > 0) {
-					ExplosionChaos.cluster(entity.getOwner(),world, x, y, z, clusterCount, Vec3.createVectorHelper(0,0,0), 1);
+					ExplosionChaos.cluster(entity.getOwner(), world, x + 0.5, y + 0.5, z + 0.5, clusterCount, 0, (float) Math.PI * 0.5F, (float) Math.PI * 2F, (float) Math.PI * 0.125F, 0.375F);
 				}
 
 				if(fireRadius > 0) {
-					ExplosionChaos.burn(entity.getOwner(),world, x, y, z, fireRadius);
+					ExplosionChaos.igniteAllBlocks(entity.getOwner(), world, x, y, z, fireRadius);
 				}
 
 				if(poisonRadius > 0) {

@@ -1,7 +1,9 @@
 package com.hbm.entity.projectile;
 
 import java.util.List;
+import java.util.UUID;
 
+import api.hbm.wgc.Integrations;
 import com.hbm.handler.threading.PacketThreading;
 import com.hbm.items.weapon.sedna.BulletConfig;
 import com.hbm.packet.toclient.AuxParticlePacketNT;
@@ -24,7 +26,7 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
 public class EntityBulletBeamBase extends Entity implements IEntityAdditionalSpawnData {
-	
+
 	public EntityLivingBase thrower;
 	public BulletConfig config;
 	public float damage;
@@ -32,6 +34,7 @@ public class EntityBulletBeamBase extends Entity implements IEntityAdditionalSpa
 	public double headingY;
 	public double headingZ;
 	public double beamLength;
+	private UUID ownerParty;
 
 	public EntityBulletBeamBase(World world) {
 		super(world);
@@ -40,28 +43,35 @@ public class EntityBulletBeamBase extends Entity implements IEntityAdditionalSpa
 		this.setSize(0.5F, 0.5F);
 		this.isImmuneToFire = true;
 	}
-	
+
 	public EntityLivingBase getThrower() { return this.thrower; }
-	
-	public EntityBulletBeamBase(EntityLivingBase entity, BulletConfig config, float baseDamage) {
-		this(entity.worldObj);
-		
-		this.thrower = entity;
+	public UUID getOwnerParty() { return this.ownerParty; }
+	public EntityBulletBeamBase setOwnerParty(UUID ownerParty) { this.ownerParty = ownerParty; return this; }
+
+	public EntityBulletBeamBase(World world, BulletConfig config, float baseDamage) {
+		this(world);
+
 		this.setBulletConfig(config);
-		
 		this.damage = baseDamage * this.config.damageMult;
 	}
-	
+
+	public EntityBulletBeamBase(EntityLivingBase entity, BulletConfig config, float baseDamage) {
+		this(entity.worldObj, config, baseDamage);
+		this.thrower = entity;
+		this.ownerParty = entity != null ? entity.getUniqueID() : null;
+	}
+
 	public EntityBulletBeamBase(EntityLivingBase entity, BulletConfig config, float baseDamage, float angularInaccuracy, double sideOffset, double heightOffset, double frontOffset) {
 		this(entity.worldObj);
-		
+
 		this.thrower = entity;
+		this.ownerParty = entity != null ? entity.getUniqueID() : null;
 		this.setBulletConfig(config);
-		
+
 		this.damage = baseDamage * this.config.damageMult;
-		
+
 		this.setLocationAndAngles(thrower.posX, thrower.posY + thrower.getEyeHeight(), thrower.posZ, thrower.rotationYaw + (float) rand.nextGaussian() * angularInaccuracy, thrower.rotationPitch + (float) rand.nextGaussian() * angularInaccuracy);
-		
+
 		Vec3 offset = Vec3.createVectorHelper(sideOffset, heightOffset, frontOffset);
 		offset.rotateAroundX(-this.rotationPitch / 180F * (float) Math.PI);
 		offset.rotateAroundY(-this.rotationYaw / 180F * (float) Math.PI);
@@ -69,30 +79,30 @@ public class EntityBulletBeamBase extends Entity implements IEntityAdditionalSpa
 		this.posX += offset.xCoord;
 		this.posY += offset.yCoord;
 		this.posZ += offset.zCoord;
-		
+
 		this.setPosition(this.posX, this.posY, this.posZ);
-		
+
 		this.headingX = (double) (-MathHelper.sin(this.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float) Math.PI));
 		this.headingZ = (double) (MathHelper.cos(this.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float) Math.PI));
 		this.headingY = (double) (-MathHelper.sin((this.rotationPitch) / 180.0F * (float) Math.PI));
-		
+
 		double range = 250D;
 		this.headingX *= range;
 		this.headingY *= range;
 		this.headingZ *= range;
-		
+
 		performHitscan();
 	}
-	
+
 	public void setRotationsFromVector(Vec3 delta) {
 		this.rotationPitch = (float) (-Math.asin(delta.yCoord / delta.lengthVector()) * 180D / Math.PI);
 		this.rotationYaw = (float) (-Math.atan2(delta.xCoord, delta.zCoord) * 180D / Math.PI);
-		
+
 		this.headingX = (double) (-MathHelper.sin(this.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float) Math.PI));
 		this.headingZ = (double) (MathHelper.cos(this.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float) Math.PI));
 		this.headingY = (double) (-MathHelper.sin((this.rotationPitch) / 180.0F * (float) Math.PI));
 	}
-	
+
 	public void performHitscanExternal(double range) {
 		this.headingX *= range;
 		this.headingY *= range;
@@ -104,37 +114,37 @@ public class EntityBulletBeamBase extends Entity implements IEntityAdditionalSpa
 	protected void entityInit() {
 		this.dataWatcher.addObject(3, Integer.valueOf(0));
 	}
-	
+
 	public void setBulletConfig(BulletConfig config) {
 		this.config = config;
 		this.dataWatcher.updateObject(3, config.id);
 	}
-	
+
 	public BulletConfig getBulletConfig() {
 		int id = this.dataWatcher.getWatchableObjectInt(3);
 		if(id < 0 || id > BulletConfig.configs.size()) return null;
 		return BulletConfig.configs.get(id);
 	}
-	
+
 	@Override
 	public void onUpdate() {
-		
+
 		if(config == null) config = this.getBulletConfig();
 
 		if(config == null){
 			this.setDead();
 			return;
 		}
-		
+
 		if(config.onUpdate != null) config.onUpdate.accept(this);
-		
+
 		super.onUpdate();
-		
+
 		if(!worldObj.isRemote && this.ticksExisted > config.expires) this.setDead();
 	}
-	
+
 	protected void performHitscan() {
-		
+
 		Vec3 pos = Vec3.createVectorHelper(this.posX, this.posY, this.posZ);
 		Vec3 nextPos = Vec3.createVectorHelper(this.posX + this.headingX, this.posY + this.headingY, this.posZ + this.headingZ);
 		MovingObjectPosition mop = null;
@@ -145,18 +155,18 @@ public class EntityBulletBeamBase extends Entity implements IEntityAdditionalSpa
 		if(mop != null) {
 			nextPos = Vec3.createVectorHelper(mop.hitVec.xCoord, mop.hitVec.yCoord, mop.hitVec.zCoord);
 		}
-		
+
 		if(!this.worldObj.isRemote && this.doesImpactEntities()) {
-			
+
 			Entity hitEntity = null;
 			List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.addCoord(this.headingX, this.headingY, this.headingZ).expand(1.0D, 1.0D, 1.0D));
 			double nearest = 0.0D;
 			MovingObjectPosition nonPenImpact = null;
 			MovingObjectPosition coinHit = null;
-			
+
 			double closestCoin = 0;
 			EntityCoin hitCoin = null;
-			
+
 			for(Entity entity : list) {
 				if(entity.isDead) continue;
 				if(entity instanceof EntityCoin) {
@@ -176,16 +186,17 @@ public class EntityBulletBeamBase extends Entity implements IEntityAdditionalSpa
 
 			for(int j = 0; j < list.size(); ++j) {
 				Entity entity = (Entity) list.get(j);
-				
+				if(entity instanceof EntityPlayer && !Integrations.canHarmPlayerWGC(ownerParty, entity.getUniqueID(), worldObj)) continue;
+
 				if(entity.canBeCollidedWith() && entity != thrower && entity.isEntityAlive()) {
 					double hitbox = 0.3F;
 					AxisAlignedBB aabb = entity.boundingBox.expand(hitbox, hitbox, hitbox);
 					MovingObjectPosition hitMop = aabb.calculateIntercept(pos, nextPos);
 
 					if(hitMop != null) {
-						
+
 						double dist = pos.distanceTo(hitMop.hitVec);
-						
+
 						// if penetration is enabled, run impact for all intersecting entities
 						if(this.doesPenetrate()) {
 							if(hitCoin == null || dist < closestCoin) {
@@ -206,11 +217,11 @@ public class EntityBulletBeamBase extends Entity implements IEntityAdditionalSpa
 			if(!this.doesPenetrate() && hitEntity != null) {
 				mop = new MovingObjectPosition(hitEntity, nonPenImpact.hitVec);
 			}
-			
+
 			if(hitCoin != null) {
 				Vec3 vec = Vec3.createVectorHelper(coinHit.hitVec.xCoord - posX, coinHit.hitVec.yCoord - posY, coinHit.hitVec.zCoord - posZ);
 				this.beamLength = vec.lengthVector();
-				
+
 				double range = 50;
 				List<Entity> targets = worldObj.getEntitiesWithinAABB(Entity.class, AxisAlignedBB.getBoundingBox(coinHit.hitVec.xCoord, coinHit.hitVec.yCoord, coinHit.hitVec.zCoord, coinHit.hitVec.xCoord, coinHit.hitVec.yCoord, coinHit.hitVec.zCoord).expand(range, range, range));
 				Entity nearestCoin = null;
@@ -221,17 +232,18 @@ public class EntityBulletBeamBase extends Entity implements IEntityAdditionalSpa
 				double playerDist = 0;
 				double mobDist = 0;
 				double otherDist = 0;
-				
+
 				hitCoin.setDead();
-				
+
 				// well i mean we could just uuse a single var for all variants and then overwrite stuff
 				// when we run into things with higher priority. however i can't be assed fuck off
 				for(Entity entity : targets) {
 					if(entity == this.getThrower()) continue;
 					if(entity.isDead) continue;
+					if(entity instanceof EntityPlayer && !Integrations.canTargetPlayerWGC(ownerParty, entity.getUniqueID(), worldObj)) continue;
 					double dist = entity.getDistanceToEntity(hitCoin);
 					if(dist > range) continue;
-					
+
 					if(entity instanceof EntityCoin) {
 						if(coinDist == 0 || dist < coinDist) {
 							coinDist = dist;
@@ -254,36 +266,36 @@ public class EntityBulletBeamBase extends Entity implements IEntityAdditionalSpa
 						}
 					}
 				}
-				
+
 				// ternary of shame
 				Entity target = nearestCoin != null ? nearestCoin :
 					nearestPlayer != null ? nearestPlayer :
 					nearestMob != null ? nearestMob :
 					nearestOther != null ? nearestOther : null;
-				
+
 				if(target != null) {
-					EntityBulletBeamBase newBeam = new EntityBulletBeamBase(hitCoin.getThrower() != null ? hitCoin.getThrower() : this.thrower, this.config, this.damage * 1.25F);
+					EntityBulletBeamBase newBeam = new EntityBulletBeamBase(hitCoin.getThrower() != null ? hitCoin.getThrower() : this.thrower, this.config, this.damage * 1.25F).setOwnerParty(this.ownerParty);
 					newBeam.setPosition(coinHit.hitVec.xCoord, coinHit.hitVec.yCoord, coinHit.hitVec.zCoord);
 					Vec3 delta = Vec3.createVectorHelper(target.posX - newBeam.posX, (target.posY + target.height / 2D) - newBeam.posY, target.posZ - newBeam.posZ);
 					newBeam.setRotationsFromVector(delta);
 					newBeam.performHitscanExternal(250D);
 					worldObj.spawnEntityInWorld(newBeam);
 				} else {
-					EntityBulletBeamBase newBeam = new EntityBulletBeamBase(hitCoin.getThrower() != null ? hitCoin.getThrower() : this.thrower, this.config, this.damage * 1.25F);
+					EntityBulletBeamBase newBeam = new EntityBulletBeamBase(hitCoin.getThrower() != null ? hitCoin.getThrower() : this.thrower, this.config, this.damage * 1.25F).setOwnerParty(this.ownerParty);
 					newBeam.setPosition(coinHit.hitVec.xCoord, coinHit.hitVec.yCoord, coinHit.hitVec.zCoord);
 					newBeam.setRotationsFromVector(Vec3.createVectorHelper(rand.nextGaussian() * 0.5, -1, rand.nextGaussian() * 0.5));
 					newBeam.performHitscanExternal(250D);
 					worldObj.spawnEntityInWorld(newBeam);
 				}
-				
+
 				NBTTagCompound data = new NBTTagCompound();
 				data.setString("type", "vanillaExt");
 				data.setString("mode", "largeexplode");
 				data.setFloat("size", 1.5F);
 				data.setByte("count", (byte)1);
 				PacketThreading.createAllAroundThreadedPacket(new AuxParticlePacketNT(data, coinHit.hitVec.xCoord, coinHit.hitVec.yCoord, coinHit.hitVec.zCoord), new TargetPoint(worldObj.provider.dimensionId, coinHit.hitVec.xCoord, coinHit.hitVec.yCoord, coinHit.hitVec.zCoord, 100));
-			
-				
+
+
 				return;
 			}
 		}
@@ -301,22 +313,22 @@ public class EntityBulletBeamBase extends Entity implements IEntityAdditionalSpa
 			Vec3 vec = Vec3.createVectorHelper(nextPos.xCoord - posX, nextPos.yCoord - posY, nextPos.zCoord - posZ);
 			this.beamLength = vec.lengthVector();
 		}
-		
+
 	}
 
-	
+
 	protected void onImpact(MovingObjectPosition mop) {
 		if(!worldObj.isRemote) {
 			if(this.config.onImpactBeam != null) this.config.onImpactBeam.accept(this, mop);
 		}
 	}
-	
+
 	public boolean doesImpactEntities() { return this.config.impactsEntities; }
 	public boolean doesPenetrate() { return this.config.doesPenetrate; }
 	public boolean isSpectral() { return this.config.isSpectral; }
 
 	@Override @SideOnly(Side.CLIENT) public float getShadowSize() { return 0.0F; }
-	
+
 	@Override protected void writeEntityToNBT(NBTTagCompound nbt) { }
 	@Override public boolean writeToNBTOptional(NBTTagCompound nbt) { return false; }
 	@Override public void readEntityFromNBT(NBTTagCompound nbt) { this.setDead(); }
@@ -331,6 +343,6 @@ public class EntityBulletBeamBase extends Entity implements IEntityAdditionalSpa
 		this.rotationYaw = buf.readFloat();
 		this.rotationPitch = buf.readFloat();
 	}
-	
+
 	@Override @SideOnly(Side.CLIENT) public boolean canRenderOnFire() { return false; }
 }

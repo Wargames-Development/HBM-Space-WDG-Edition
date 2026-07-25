@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 import com.hbm.dim.CelestialBody;
+import com.hbm.dim.WorldProviderCelestial;
 import com.hbm.entity.missile.EntityCombatDropPod;
 import com.hbm.entity.mob.EntityUFO;
 import com.hbm.entity.mob.glyphid.EntityGlyphid;
@@ -54,6 +55,8 @@ public class CBT_Invasion extends CelestialBodyTrait implements IBossDisplayData
 	public boolean bossSpawned = false;
 	public boolean warningPlayed;
 
+	private Random rand = new Random();
+
 	public CBT_Invasion() {
 		
 	}
@@ -99,6 +102,10 @@ public class CBT_Invasion extends CelestialBodyTrait implements IBossDisplayData
 				warningPlayed = true;
 				MainRegistry.proxy.me().playSound("hbm:alarm.ping", 10F, 1F);
 				MainRegistry.proxy.me().addChatComponentMessage(new ChatComponentText("Incoming Invasion!").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED)));
+			}
+				
+			if(rand.nextInt(Math.max(1, 5 - wave)) == 0 && isInvading) {
+				WorldProviderCelestial.Meteor.addMeteor();
 			}
 		}
 	}

@@ -1,5 +1,7 @@
 package com.hbm.entity.missile;
 
+import api.hbm.wgc.Integrations;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -57,10 +59,12 @@ public abstract class EntityMissileTier0 extends EntityMissileBaseNT {
 			int y = (int) Math.floor(posY);
 			int z = (int) Math.floor(posZ);
 			int range = 50;
+			if(!Integrations.canDetonateWGC(ownerParty, worldObj, x, y, z)) return;
 
 			for(int iX = -range; iX <= range; iX++) {
 				for(int iY = -range; iY <= range; iY++) {
 					for(int iZ = -range; iZ <= range; iZ++) {
+						if(!Integrations.canExplodeBlockWGC(ownerParty, worldObj, x + iX, z + iZ)) continue;
 						double dist = Math.sqrt(iX * iX + iY * iY + iZ * iZ);
 						if(dist > range) continue;
 						Block block = worldObj.getBlock(x + iX, y + iY, z + iZ);
@@ -92,7 +96,7 @@ public abstract class EntityMissileTier0 extends EntityMissileBaseNT {
 		public EntityMissileSchrabidium(World world) { super(world); }
 		public EntityMissileSchrabidium(World world, float x, float y, float z, int a, int b, UUID ownerParty) { super(world, x, y, z, a, b, ownerParty); }
 		@Override public void onMissileImpact(MovingObjectPosition mop) {
-			EntityNukeExplosionMK3 ex = EntityNukeExplosionMK3.statFacFleija(worldObj, posX, posY, posZ, BombConfig.aSchrabRadius);
+			EntityNukeExplosionMK3 ex = EntityNukeExplosionMK3.statFacFleija(ownerParty, worldObj, posX, posY, posZ, BombConfig.aSchrabRadius);
 			if(!ex.isDead) {
 				WorldUtil.loadAndSpawnEntityInWorld(ex);
 				EntityCloudFleija cloud = new EntityCloudFleija(this.worldObj, BombConfig.aSchrabRadius);
@@ -110,14 +114,15 @@ public abstract class EntityMissileTier0 extends EntityMissileBaseNT {
 		public EntityMissileBHole(World world) { super(world); }
 		public EntityMissileBHole(World world, float x, float y, float z, int a, int b, UUID ownerParty) { super(world, x, y, z, a, b, ownerParty); }
 		@Override public void onMissileImpact(MovingObjectPosition mop) {
-			this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, 1.5F, true);
-			EntityBlackHole bl = new EntityBlackHole(this.worldObj, 1.5F);
+			if(!Integrations.canDetonateWGC(ownerParty, worldObj, (int) Math.floor(posX), (int) Math.floor(posY), (int) Math.floor(posZ))) return;
+			this.explodeStandard(1.5F, 12, true);
+			EntityBlackHole bl = new EntityBlackHole(this.worldObj, 1.5F).setOwnerParty(ownerParty);
 			bl.posX = this.posX;
 			bl.posY = this.posY;
 			bl.posZ = this.posZ;
 			this.worldObj.spawnEntityInWorld(bl);
 		}
-		@Override public ItemStack getDebrisRareDrop() { return new ItemStack(ModItems.grenade_black_hole, 1); }
+		@Override public ItemStack getDebrisRareDrop() { return new ItemStack(ModItems.black_hole, 1); }
 		@Override public ItemStack getMissileItemForInfo() { return new ItemStack(ModItems.missile_bhole); }
 	}
 
@@ -125,11 +130,12 @@ public abstract class EntityMissileTier0 extends EntityMissileBaseNT {
 		public EntityMissileTaint(World world) { super(world); }
 		public EntityMissileTaint(World world, float x, float y, float z, int a, int b, UUID ownerParty) { super(world, x, y, z, a, b, ownerParty); }
 		@Override public void onMissileImpact(MovingObjectPosition mop) {
-			this.worldObj.createExplosion(this, mop.hitVec.xCoord, mop.hitVec.yCoord, mop.hitVec.zCoord, 5.0F, true);
+			this.explodeStandardAt(mop.hitVec.xCoord, mop.hitVec.yCoord, mop.hitVec.zCoord, 5.0F, 16, true);
 			for(int i = 0; i < 100; i++) {
 				int a = rand.nextInt(11) + (int) mop.blockX - 5;
 				int b = rand.nextInt(11) + (int) mop.blockY - 5;
 				int c = rand.nextInt(11) + (int) mop.blockZ - 5;
+				if(!Integrations.canContaminateBlockWGC(ownerParty, worldObj, a, c)) continue;
 				Block block = worldObj.getBlock(a, b, c);
 				if(block.isNormalCube() && !block.isAir(worldObj, a, b, c)) {
 					worldObj.setBlock(a, b, c, ModBlocks.taint, 0, 2);
@@ -144,6 +150,7 @@ public abstract class EntityMissileTier0 extends EntityMissileBaseNT {
 		public EntityMissileEMP(World world) { super(world); }
 		public EntityMissileEMP(World world, float x, float y, float z, int a, int b, UUID ownerParty) { super(world, x, y, z, a, b, ownerParty); }
 		@Override public void onMissileImpact(MovingObjectPosition mop) {
+			if(!Integrations.canDetonateWGC(ownerParty, worldObj, (int) Math.floor(posX), (int) Math.floor(posY), (int) Math.floor(posZ))) return;
 			ExplosionNukeGeneric.empBlast(ownerParty,worldObj, (int)posX, (int)posY, (int)posZ, 50);
 			EntityEMPBlast wave = new EntityEMPBlast(worldObj, 50);
 			wave.posX = posX;

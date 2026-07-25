@@ -2,7 +2,6 @@ package com.hbm.handler.guncfg;
 
 import java.util.List;
 
-import com.hbm.entity.grenade.EntityGrenadeFlare;
 import com.hbm.entity.projectile.EntityBulletBaseNT;
 import com.hbm.entity.projectile.EntityBulletBaseNT.*;
 import com.hbm.handler.BulletConfiguration;
@@ -10,7 +9,6 @@ import com.hbm.util.BobMathUtil;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.util.Vec3;
 
 public class BulletConfigFactory {
@@ -25,7 +23,6 @@ public class BulletConfigFactory {
 
 		bullet.velocity = 5.0F;
 		bullet.spread = defaultSpread;
-		bullet.wear = 10;
 		bullet.bulletsMin = 1;
 		bullet.bulletsMax = 1;
 		bullet.gravity = 0D;
@@ -52,7 +49,6 @@ public class BulletConfigFactory {
 
 		bullet.velocity = 2.0F;
 		bullet.spread = defaultSpread;
-		bullet.wear = 10;
 		bullet.bulletsMin = 1;
 		bullet.bulletsMax = 1;
 		bullet.gravity = 0.005D;
@@ -78,7 +74,6 @@ public class BulletConfigFactory {
 
 		bullet.velocity = 2.0F;
 		bullet.spread = defaultSpread;
-		bullet.wear = 10;
 		bullet.bulletsMin = 1;
 		bullet.bulletsMax = 1;
 		bullet.gravity = 0.035D;

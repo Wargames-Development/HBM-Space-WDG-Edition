@@ -1,5 +1,9 @@
 package com.hbm.entity.item;
 
+import java.util.List;
+
+import com.hbm.explosion.vanillant.ExplosionVNT;
+import com.hbm.explosion.vanillant.standard.ExplosionEffectTiny;
 import com.hbm.lib.Library;
 import com.hbm.util.fauxpointtwelve.BlockPos;
 
@@ -15,7 +19,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public abstract class EntityMovingConveyorObject extends Entity {
-	
+
 	protected int turnProgress;
 	protected double syncPosX;
 	protected double syncPosY;
@@ -45,7 +49,7 @@ public abstract class EntityMovingConveyorObject extends Entity {
 		if(attacker instanceof EntityPlayer) {
 			this.setDead();
 		}
-		
+
 		return false;
 	}
 
@@ -56,7 +60,7 @@ public abstract class EntityMovingConveyorObject extends Entity {
 
 	@Override
 	public void onUpdate() {
-		
+
 		if(worldObj.isRemote) {
 			if(this.turnProgress > 0) {
 				double interpX = this.posX + (this.syncPosX - this.posX) / (double) this.turnProgress;
@@ -70,43 +74,58 @@ public abstract class EntityMovingConveyorObject extends Entity {
 		}
 
 		if(!worldObj.isRemote) {
-			
+
 			ticksExisted++;
-			
+
 			if(this.ticksExisted <= 5) {
 				return;
+			}
+
+			// cram check every 20s
+			if((ticksExisted + this.getEntityId()) % 400 == 0) {
+				List<EntityMovingConveyorObject> objs = worldObj.getEntitiesWithinAABB(EntityMovingConveyorObject.class, this.boundingBox.expand(0.125, 0.125, 0.125));
+				if(objs.size() >= 25) {
+					for(EntityMovingConveyorObject obj : objs) obj.setDead();
+					ExplosionVNT vnt = new ExplosionVNT(worldObj, posX, posY + 0.125, posZ, 1, null, this);
+					vnt.setSFX(new ExplosionEffectTiny());
+					vnt.explode();
+					int x = (int) Math.floor(posX);
+					int y = (int) Math.floor(posY);
+					int z = (int) Math.floor(posZ);
+					if(worldObj.getBlock(x, y, z) instanceof IConveyorBelt) worldObj.func_147480_a(x, y, z, false);
+				}
 			}
 
 			int blockX = (int) Math.floor(posX);
 			int blockY = (int) Math.floor(posY);
 			int blockZ = (int) Math.floor(posZ);
-			
+
 			Block b = worldObj.getBlock(blockX, blockY, blockZ);
 			boolean isOnConveyor = b instanceof IConveyorBelt && ((IConveyorBelt) b).canItemStay(worldObj, blockX, blockY, blockZ, Vec3.createVectorHelper(posX, posY, posZ));
-			
+
 			if(!isOnConveyor) {
-				
+
 				if(onLeaveConveyor()) {
 					return;
 				}
 			} else {
-				
+
 				Vec3 target = ((IConveyorBelt) b).getTravelLocation(worldObj, blockX, blockY, blockZ, Vec3.createVectorHelper(posX, posY, posZ), getMoveSpeed());
 				this.motionX = target.xCoord - posX;
 				this.motionY = target.yCoord - posY;
 				this.motionZ = target.zCoord - posZ;
 			}
-			
+
 			BlockPos lastPos = new BlockPos(posX, posY, posZ);
 			this.moveEntity(motionX, motionY, motionZ);
 			BlockPos newPos = new BlockPos(posX, posY, posZ);
-			
+
 			if(!lastPos.equals(newPos)) {
-				
+
 				Block newBlock = worldObj.getBlock(newPos.getX(), newPos.getY(), newPos.getZ());
-				
+
 				if(newBlock instanceof IEnterableBlock) {
-					
+
 					ForgeDirection dir = ForgeDirection.UNKNOWN;
 
 					if(lastPos.getX() > newPos.getX() && lastPos.getY() == newPos.getY() && lastPos.getZ() == newPos.getZ()) dir = Library.POS_X;
@@ -115,18 +134,18 @@ public abstract class EntityMovingConveyorObject extends Entity {
 					else if(lastPos.getX() == newPos.getX() && lastPos.getY() < newPos.getY() && lastPos.getZ() == newPos.getZ()) dir = Library.NEG_Y;
 					else if(lastPos.getX() == newPos.getX() && lastPos.getY() == newPos.getY() && lastPos.getZ() > newPos.getZ()) dir = Library.POS_Z;
 					else if(lastPos.getX() == newPos.getX() && lastPos.getY() == newPos.getY() && lastPos.getZ() < newPos.getZ()) dir = Library.NEG_Z;
-					
+
 					IEnterableBlock enterable = (IEnterableBlock) newBlock;
 					enterBlock(enterable, newPos, dir);
-					
+
 				} else {
-					
+
 					if(!newBlock.getMaterial().isSolid()) {
-						
+
 						newBlock = worldObj.getBlock(newPos.getX(), newPos.getY() - 1, newPos.getZ());
-						
+
 						if(newBlock instanceof IEnterableBlock) {
-							
+
 							IEnterableBlock enterable = (IEnterableBlock) newBlock;
 							enterBlockFalling(enterable, newPos);
 						}
@@ -137,27 +156,27 @@ public abstract class EntityMovingConveyorObject extends Entity {
 	}
 
 	public abstract void enterBlock(IEnterableBlock enterable, BlockPos pos, ForgeDirection dir);
-	
+
 	public void enterBlockFalling(IEnterableBlock enterable, BlockPos pos) {
 		this.enterBlock(enterable, pos.add(0, -1, 0), ForgeDirection.UP);
 	}
-	
+
 	/**
 	 * @return true if the update loop should end
 	 */
 	public abstract boolean onLeaveConveyor();
-	
+
 	public double getMoveSpeed() {
 		return 0.0625D;
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	public void setVelocity(double motionX, double motionY, double motionZ) {
 		this.velocityX = this.motionX = motionX;
 		this.velocityY = this.motionY = motionY;
 		this.velocityZ = this.motionZ = motionZ;
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	public void setPositionAndRotation2(double x, double y, double z, float yaw, float pitch, int theNumberThree) {
 		this.syncPosX = x;

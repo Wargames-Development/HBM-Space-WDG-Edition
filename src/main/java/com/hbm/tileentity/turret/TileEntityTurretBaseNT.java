@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
-import java.util.function.BiFunction;
 
 import api.hbm.tile.IPartyOwned;
 import api.hbm.wgc.Integrations;
+import java.util.function.BiFunction;
+
 import com.hbm.blocks.BlockDummyable;
 import com.hbm.entity.logic.EntityBomber;
 import com.hbm.entity.missile.EntityMissileBaseNT;
@@ -33,6 +34,7 @@ import com.hbm.util.CompatExternal;
 
 import api.hbm.energymk2.IEnergyReceiverMK2;
 import api.hbm.entity.IRadarDetectableNT;
+import api.hbm.redstoneoverradio.IRORInteractive;
 import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import cpw.mods.fml.relauncher.Side;
@@ -59,12 +61,9 @@ import net.minecraft.potion.Potion;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Vec3;
-import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.common.util.ForgeDirection;
-
-import static api.hbm.wgc.Integrations.*;
 
 /**
  * More over-engineered than ever, but chopping this thing into the smallest possible pieces makes it easier for my demented brain to comprehend
@@ -72,7 +71,7 @@ import static api.hbm.wgc.Integrations.*;
  *
  */
 @Optional.InterfaceList({@Optional.Interface(iface = "li.cil.oc.api.network.SimpleComponent", modid = "OpenComputers")})
-public abstract class TileEntityTurretBaseNT extends TileEntityMachineBase implements IEnergyReceiverMK2, IControlReceiver, IGUIProvider, SimpleComponent, CompatHandler.OCComponent, IPartyOwned {
+public abstract class TileEntityTurretBaseNT extends TileEntityMachineBase implements IEnergyReceiverMK2, IControlReceiver, IGUIProvider, SimpleComponent, IRORInteractive, CompatHandler.OCComponent, IPartyOwned {
 
 	@Override
 	public boolean hasPermission(EntityPlayer player) {
@@ -139,7 +138,7 @@ public abstract class TileEntityTurretBaseNT extends TileEntityMachineBase imple
 
 	public TileEntityTurretBaseNT() {
 		super(11);
-		owningFaction = null;
+		this.owningFaction = null;
 	}
 
 	@Override
@@ -153,7 +152,13 @@ public abstract class TileEntityTurretBaseNT extends TileEntityMachineBase imple
 		this.targetMobs = nbt.getBoolean("targetMobs");
 		this.targetMachines = nbt.getBoolean("targetMachines");
 		this.stattrak = nbt.getInteger("stattrak");
-		this.owningFaction = UUID.fromString(nbt.getString("factionid"));
+		this.owningFaction = null;
+		if(nbt.hasKey("factionid")) {
+			String faction = nbt.getString("factionid");
+			if(faction != null && !faction.isEmpty()) {
+				try { this.owningFaction = UUID.fromString(faction); } catch(IllegalArgumentException ignored) { }
+			}
+		}
 	}
 
 	@Override
@@ -167,7 +172,7 @@ public abstract class TileEntityTurretBaseNT extends TileEntityMachineBase imple
 		nbt.setBoolean("targetMobs", this.targetMobs);
 		nbt.setBoolean("targetMachines", this.targetMachines);
 		nbt.setInteger("stattrak", this.stattrak);
-		nbt.setString("factionid", owningFaction.toString());
+		if(this.owningFaction != null) nbt.setString("factionid", this.owningFaction.toString());
 	}
 
 	public void manualSetup() { }
@@ -275,7 +280,7 @@ public abstract class TileEntityTurretBaseNT extends TileEntityMachineBase imple
 		buf.writeBoolean(this.targetAnimals);
 		buf.writeBoolean(this.targetMobs);
 		buf.writeBoolean(this.targetMachines);
-		buf.writeInt(this.stattrak);//TODO I'll be honest idk why we do serialization but I can't pass the UUID. Hopefully it's fine.
+		buf.writeInt(this.stattrak);
 	}
 
 	@Override
@@ -359,7 +364,7 @@ public abstract class TileEntityTurretBaseNT extends TileEntityMachineBase imple
 		vec.rotateAroundZ((float) -this.rotationPitch);
 		vec.rotateAroundY((float) -(this.rotationYaw + Math.PI * 0.5));
 
-		EntityBulletBaseMK4 proj = new EntityBulletBaseMK4(worldObj, bullet, baseDamage, bullet.spread, (float) rotationYaw, (float) rotationPitch, owningFaction);
+		EntityBulletBaseMK4 proj = new EntityBulletBaseMK4(worldObj, bullet, baseDamage, bullet.spread, (float) rotationYaw, (float) rotationPitch, this.owningFaction);
 		proj.setPositionAndRotation(pos.xCoord + vec.xCoord, pos.yCoord + vec.yCoord, pos.zCoord + vec.zCoord, proj.rotationYaw, proj.rotationPitch);
 		worldObj.spawnEntityInWorld(proj);
 
@@ -655,9 +660,7 @@ public abstract class TileEntityTurretBaseNT extends TileEntityMachineBase imple
 		if(targetPlayers ) {
 
 			if(e instanceof FakePlayer) return false;
-			if(e instanceof EntityPlayer){
-				return canTargetPlayerWGC(owningFaction,e.getUniqueID(),worldObj);
-			}
+			if(e instanceof EntityPlayer) return Integrations.canTargetPlayerWGC(this.owningFaction, e.getUniqueID(), this.worldObj);
 			for(Class c : CompatExternal.turretTargetPlayer) if(c.isAssignableFrom(e.getClass())) return true;
 		}
 
@@ -813,12 +816,18 @@ public abstract class TileEntityTurretBaseNT extends TileEntityMachineBase imple
 
 		return ammoStacks;
 	}
-	public UUID getOwner(){
-		return owningFaction;
+
+	@Override
+	public UUID getOwner() {
+		return this.owningFaction;
 	}
-	public void setOwner(UUID player){
-		owningFaction = Integrations.getPlayerFaction(worldObj,player);
+
+	@Override
+	public void setOwner(UUID player) {
+		this.owningFaction = player == null ? null : Integrations.getPlayerFaction(this.worldObj, player);
+		this.markChanged();
 	}
+
 	@Override
 	public int[] getAccessibleSlotsFromSide(int side) {
 		return new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
@@ -1074,5 +1083,51 @@ public abstract class TileEntityTurretBaseNT extends TileEntityMachineBase imple
 				return getPos(context, args);
 		}
 		throw new NoSuchMethodException();
+	}
+
+	@Override
+	public String[] getFunctionInfo() {
+		return new String[] {
+				PREFIX_FUNCTION + "setactive" + NAME_SEPARATOR + "active (0 or 1)",
+				PREFIX_FUNCTION + "targetplayers" + NAME_SEPARATOR + "enabled (0 or 1)",
+				PREFIX_FUNCTION + "targetanimals" + NAME_SEPARATOR + "enabled (0 or 1)",
+				PREFIX_FUNCTION + "targetmobs" + NAME_SEPARATOR + "enabled (0 or 1)",
+				PREFIX_FUNCTION + "targetmachines" + NAME_SEPARATOR + "enabled (0 or 1)",
+				PREFIX_FUNCTION + "addwhitelist" + NAME_SEPARATOR + "name",
+				PREFIX_FUNCTION + "removewhitelist" + NAME_SEPARATOR + "name",
+		};
+	}
+
+	@Override
+	public String runRORFunction(String name, String[] params) {
+		if((PREFIX_FUNCTION + "setactive").equals(name) && params.length > 0) {
+			try { this.isOn = (Integer.parseInt(params[0]) == 1); this.markChanged(); } catch(NumberFormatException e) {}
+		}
+		if((PREFIX_FUNCTION + "targetplayers").equals(name) && params.length > 0) {
+			try { this.targetPlayers = (Integer.parseInt(params[0]) == 1); this.markChanged(); } catch(NumberFormatException e) {}
+		}
+		if((PREFIX_FUNCTION + "targetanimals").equals(name) && params.length > 0) {
+			try { this.targetAnimals = (Integer.parseInt(params[0]) == 1); this.markChanged(); } catch(NumberFormatException e) {}
+		}
+		if((PREFIX_FUNCTION + "targetmobs").equals(name) && params.length > 0) {
+			try { this.targetMobs = (Integer.parseInt(params[0]) == 1); this.markChanged(); } catch(NumberFormatException e) {}
+		}
+		if((PREFIX_FUNCTION + "targetmachines").equals(name) && params.length > 0) {
+			try { this.targetMachines = (Integer.parseInt(params[0]) == 1); this.markChanged(); } catch(NumberFormatException e) {}
+		}
+		if((PREFIX_FUNCTION + "addwhitelist").equals(name) && params.length > 0) {
+			String playerName = params[0];
+			List<String> whitelist = this.getWhitelist();
+			if(!whitelist.contains(playerName)) this.addName(playerName);
+			this.markChanged();
+		}
+		if((PREFIX_FUNCTION + "removewhitelist").equals(name) && params.length > 0) {
+			String playerName = params[0];
+			List<String> whitelist = this.getWhitelist();
+			if(whitelist.contains(playerName)) this.removeName(whitelist.indexOf(playerName));
+			this.markChanged();
+		}
+
+		return null;
 	}
 }

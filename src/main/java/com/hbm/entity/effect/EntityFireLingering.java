@@ -1,7 +1,9 @@
 package com.hbm.entity.effect;
 
 import java.util.List;
+import java.util.UUID;
 
+import api.hbm.wgc.Integrations;
 import com.hbm.extprop.HbmLivingProps;
 import com.hbm.particle.helper.FlameCreator;
 
@@ -9,6 +11,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MovingObjectPosition;
@@ -23,11 +26,12 @@ public class EntityFireLingering extends Entity {
 	public static int TYPE_OXY = 3;
 	public static int TYPE_BLACK = 4;
 	public int maxAge = 150;
-	
+	private UUID ownerParty;
+
 	public EntityFireLingering(World world) {
 		super(world);
 	}
-	
+
 	public EntityFireLingering setArea(float width, float height) {
 		this.dataWatcher.updateObject(11, width);
 		this.dataWatcher.updateObject(12, height);
@@ -38,39 +42,49 @@ public class EntityFireLingering extends Entity {
 		return this;
 	}
 
+	public EntityFireLingering setOwnerParty(UUID ownerParty) {
+		this.ownerParty = ownerParty;
+		return this;
+	}
+
+	public UUID getOwnerParty() {
+		return ownerParty;
+	}
+
 	@Override
 	protected void entityInit() {
 		this.dataWatcher.addObject(10, new Integer(0));
 		this.dataWatcher.addObject(11, new Float(0));
 		this.dataWatcher.addObject(12, new Float(0));
 	}
-	
+
 	public EntityFireLingering setType(int type) {
 		this.dataWatcher.updateObject(10, type);
 		return this;
 	}
-	
+
 	public int getType() {
 		return this.dataWatcher.getWatchableObjectInt(10);
 	}
 
 	@Override
 	public void onEntityUpdate() {
-		
+
 		float height = this.dataWatcher.getWatchableObjectFloat(12);
 		this.yOffset = 0;
 		this.setSize(this.dataWatcher.getWatchableObjectFloat(11), height);
 		this.setPosition(this.posX, this.posY, this.posZ);
-		
+
 		if(!worldObj.isRemote) {
-			
+
 			if(this.ticksExisted >= maxAge) {
 				this.setDead();
 			}
-			
+
 			List<Entity> affected = worldObj.getEntitiesWithinAABBExcludingEntity(this, AxisAlignedBB.getBoundingBox(posX - width / 2, posY, posZ - width / 2, posX + width / 2, posY + height, posZ + width / 2));
-			
+
 			for(Entity e : affected) {
+				if(e instanceof EntityPlayer && !Integrations.canHarmPlayerWGC(ownerParty, e.getUniqueID(), worldObj)) continue;
 				if(e instanceof EntityLivingBase) {
 					EntityLivingBase livng = (EntityLivingBase) e;
 					HbmLivingProps props = HbmLivingProps.getData(livng);
@@ -87,7 +101,7 @@ public class EntityFireLingering extends Entity {
 			for(int i = 0; i < (width >= 5 ? 2 : 1); i++) {
 				double x = posX - width / 2 + rand.nextDouble() * width;
 				double z = posZ - width / 2 + rand.nextDouble() * width;
-	
+
 				Vec3 up = Vec3.createVectorHelper(x, posY + height, z);
 				Vec3 down = Vec3.createVectorHelper(x, posY - height, z);
 				MovingObjectPosition mop = worldObj.func_147447_a(up, down, false, true, true);

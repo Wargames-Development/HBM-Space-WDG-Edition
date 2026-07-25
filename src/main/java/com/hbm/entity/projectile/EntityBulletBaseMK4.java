@@ -13,6 +13,7 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EntityTrackerEntry;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
@@ -55,7 +56,7 @@ public class EntityBulletBaseMK4 extends EntityThrowableInterp implements IEntit
 		this.motionX = motionX;
 		this.motionY = motionY;
 		this.motionZ = motionZ;
-		this.ownerParty = entity.getUniqueID();
+		this.ownerParty = entity != null ? entity.getUniqueID() : null;
 		this.setThrowableHeading(this.motionX, this.motionY, this.motionZ, 1.0F, this.config.spread + gunSpread);
 	}
 
@@ -83,7 +84,7 @@ public class EntityBulletBaseMK4 extends EntityThrowableInterp implements IEntit
 		this.motionX = -MathHelper.sin(this.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float) Math.PI);
 		this.motionZ = MathHelper.cos(this.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float) Math.PI);
 		this.motionY = (-MathHelper.sin(this.rotationPitch / 180.0F * (float) Math.PI));
-		this.ownerParty = entity.getUniqueID();
+		this.ownerParty = entity != null ? entity.getUniqueID() : null;
 
 		this.setThrowableHeading(this.motionX, this.motionY, this.motionZ, 1.0F, gunSpread);
 	}
@@ -94,6 +95,7 @@ public class EntityBulletBaseMK4 extends EntityThrowableInterp implements IEntit
 
 		this.setBulletConfig(config);
 		this.damage = baseDamage * this.config.damageMult;
+		this.ownerParty = ownerParty;
 
 		this.prevRotationYaw = this.rotationYaw = yaw * 180F / (float) Math.PI;
 		this.prevRotationPitch = this.rotationPitch = -pitch * 180F / (float) Math.PI;
@@ -123,6 +125,28 @@ public class EntityBulletBaseMK4 extends EntityThrowableInterp implements IEntit
 
 	public UUID getOwnerParty() {
 		return ownerParty;
+	}
+
+	public EntityBulletBaseMK4 setOwnerParty(UUID ownerParty) {
+		this.ownerParty = ownerParty;
+		return this;
+	}
+
+	@Override
+	public void writeEntityToNBT(NBTTagCompound nbt) {
+		super.writeEntityToNBT(nbt);
+		if(ownerParty != null) {
+			nbt.setLong("ownerPartyMost", ownerParty.getMostSignificantBits());
+			nbt.setLong("ownerPartyLeast", ownerParty.getLeastSignificantBits());
+		}
+	}
+
+	@Override
+	public void readEntityFromNBT(NBTTagCompound nbt) {
+		super.readEntityFromNBT(nbt);
+		if(nbt.hasKey("ownerPartyMost") && nbt.hasKey("ownerPartyLeast")) {
+			ownerParty = new UUID(nbt.getLong("ownerPartyMost"), nbt.getLong("ownerPartyLeast"));
+		}
 	}
 
 	@Override

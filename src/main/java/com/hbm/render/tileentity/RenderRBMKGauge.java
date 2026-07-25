@@ -48,10 +48,10 @@ public class RenderRBMKGauge extends TileEntitySpecialRenderer {
 			GL11.glColor3f(ColorUtil.fr(unit.color), ColorUtil.fg(unit.color), ColorUtil.fb(unit.color));
 
 			double value = unit.lastRenderValue + (unit.renderValue - unit.lastRenderValue) * interp;
-			int lower = Math.min(unit.min, unit.max);
-			int upper = Math.max(unit.min, unit.max);
+			long lower = Math.min(unit.min, unit.max);
+			long upper = Math.max(unit.min, unit.max);
 			if(lower == upper) upper += 1;
-			int range = upper - lower;
+			long range = upper - lower;
 			double angle = (double) (value - lower) / (double) range * 50D;
 			if(unit.min > unit.max) angle = 50 - angle;
 			
@@ -74,8 +74,8 @@ public class RenderRBMKGauge extends TileEntitySpecialRenderer {
 			int height = font.FONT_HEIGHT;
 			
 			double lineScale = 0.0025D;
-			String lineLower = unit.min <= 10_000 ? unit.min + "" : BobMathUtil.getShortNumber(unit.min);
-			String lineUpper = unit.max <= 10_000 ? unit.max + "" : BobMathUtil.getShortNumber(unit.max);
+			String lineLower = Math.abs(unit.min) <= 10_000 ? unit.min + "" : BobMathUtil.getShortNumber(unit.min);
+			String lineUpper = Math.abs(unit.max) <= 10_000 ? unit.max + "" : BobMathUtil.getShortNumber(unit.max);
 			
 			for(int j = 0; j < 2; j++) {
 				GL11.glPushMatrix();

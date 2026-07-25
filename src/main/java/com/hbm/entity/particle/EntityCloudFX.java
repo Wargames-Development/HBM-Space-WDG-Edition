@@ -10,8 +10,12 @@ import java.util.UUID;
 public class EntityCloudFX extends EntityModFX {
 
 	public EntityCloudFX(World world) {
-    	super(null,world, 0, 0, 0);
+	super(null,world, 0, 0, 0);
     }
+
+	public EntityCloudFX(World world, double x, double y, double z, double motionX, double motionY, double motionZ) {
+		this(null, world, x, y, z, motionX, motionY, motionZ);
+	}
 
 	public EntityCloudFX(UUID owner,World p_i1225_1_, double p_i1225_2_, double p_i1225_4_, double p_i1225_6_, double p_i1225_8_, double p_i1225_10_, double p_i1225_12_)
     {

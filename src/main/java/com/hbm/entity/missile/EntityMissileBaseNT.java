@@ -14,6 +14,7 @@ import com.hbm.explosion.vanillant.standard.BlockAllocatorStandard;
 import com.hbm.explosion.vanillant.standard.BlockMutatorFire;
 import com.hbm.explosion.vanillant.standard.BlockProcessorStandard;
 import com.hbm.explosion.vanillant.standard.EntityProcessorCross;
+import com.hbm.explosion.vanillant.standard.ExplosionEffectStandard;
 import com.hbm.explosion.vanillant.standard.PlayerProcessorStandard;
 import com.hbm.items.weapon.ItemMissile;
 import com.hbm.main.MainRegistry;
@@ -37,7 +38,6 @@ import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.ForgeChunkManager.Ticket;
 import net.minecraftforge.common.ForgeChunkManager.Type;
-import scala.Int;
 
 public abstract class EntityMissileBaseNT extends EntityThrowableInterp implements IChunkLoader, IRadarDetectableNT {
 
@@ -156,7 +156,7 @@ public abstract class EntityMissileBaseNT extends EntityThrowableInterp implemen
 					motionY -= 0.05;
 			}
 
-			if(motionY < -velocity && this.isCluster) {
+			if(motionY < -1.5 && this.isCluster) {
 				cluster();
 				this.setDead();
 				return;
@@ -242,7 +242,7 @@ public abstract class EntityMissileBaseNT extends EntityThrowableInterp implemen
 			UUID owner = this.getOwner();
 			ChunkCoordIntPair chunk = new ChunkCoordIntPair(x >> 4, z >> 4);
 
-			if(!Integrations.canTargetChunkWGC(owner, worldObj, chunk)) {
+			if(!Integrations.canTargetChunkWGC(owner, worldObj, chunk) || !Integrations.canExplodeBlockWGC(owner, worldObj, x, z)) {
 				this.onImpact(mop);
 				break;
 			}
@@ -274,7 +274,7 @@ public abstract class EntityMissileBaseNT extends EntityThrowableInterp implemen
 		}
 
 		for(Vec3 exppos : explosionpositions) {
-			this.worldObj.createExplosion(this, exppos.xCoord, exppos.yCoord, exppos.zCoord, 3F, true);
+			this.explodeStandardAt(exppos.xCoord, exppos.yCoord, exppos.zCoord, 3F, 12, true);
 		}
 
 		return p;
@@ -319,13 +319,10 @@ public abstract class EntityMissileBaseNT extends EntityThrowableInterp implemen
 
 	public boolean checkForAirburst(Vec3 pos, Vec3 nextPos, int detHeight) {
 		if(nextPos.yCoord - pos.yCoord > -2.0){
-			System.out.println("Checkval" + (nextPos.yCoord - pos.yCoord));
 			return false;
 		}
-		System.out.println("VALID! Checkval" + (nextPos.yCoord - pos.yCoord));
 		Vec3 rayTip = Vec3.createVectorHelper(pos.xCoord, pos.yCoord-detHeight, pos.zCoord);
 		MovingObjectPosition mop = this.worldObj.func_147447_a(pos, rayTip, false, true, false);
-		System.out.println("Airburst if true: " + (mop != null));
 		return(mop != null);
 	}
 
@@ -381,6 +378,9 @@ public abstract class EntityMissileBaseNT extends EntityThrowableInterp implemen
 		startX = nbt.getInteger("sX");
 		startZ = nbt.getInteger("sZ");
 		velocity = nbt.getDouble("veloc");
+		if(nbt.hasKey("ownerPartyMost") && nbt.hasKey("ownerPartyLeast")) {
+			ownerParty = new UUID(nbt.getLong("ownerPartyMost"), nbt.getLong("ownerPartyLeast"));
+		}
 	}
 
 	@Override
@@ -399,6 +399,10 @@ public abstract class EntityMissileBaseNT extends EntityThrowableInterp implemen
 		nbt.setInteger("sX", startX);
 		nbt.setInteger("sZ", startZ);
 		nbt.setDouble("veloc", velocity);
+		if(ownerParty != null) {
+			nbt.setLong("ownerPartyMost", ownerParty.getMostSignificantBits());
+			nbt.setLong("ownerPartyLeast", ownerParty.getLeastSignificantBits());
+		}
 	}
 
 	public boolean canBeCollidedWith() {
@@ -438,10 +442,25 @@ public abstract class EntityMissileBaseNT extends EntityThrowableInterp implemen
 		return true;
 	}
 
+	protected boolean canDetonateAt(double x, double y, double z) {
+		return Integrations.canDetonateWGC(ownerParty, worldObj, (int) Math.floor(x), (int) Math.floor(y), (int) Math.floor(z));
+	}
+
+	protected boolean canDetonateHere() {
+		return this.canDetonateAt(this.posX, this.posY, this.posZ);
+	}
+
 	@Override
 	protected void onImpact(MovingObjectPosition mop) {
+		if(this.worldObj.isRemote) {
+			this.setDead();
+			return;
+		}
 		if(mop != null && mop.typeOfHit == mop.typeOfHit.BLOCK) {
-			this.onMissileImpact(mop);
+			double impactX = mop.hitVec != null ? mop.hitVec.xCoord : mop.blockX + 0.5D;
+			double impactY = mop.hitVec != null ? mop.hitVec.yCoord : mop.blockY + 0.5D;
+			double impactZ = mop.hitVec != null ? mop.hitVec.zCoord : mop.blockZ + 0.5D;
+			if(this.canDetonateAt(impactX, impactY, impactZ)) this.onMissileImpact(mop);
 			this.setDead();
 		}
 	}
@@ -479,7 +498,6 @@ public abstract class EntityMissileBaseNT extends EntityThrowableInterp implemen
 					loaderTicket.getModData();
 				}
 
-				System.out.println("I am loading my chunk now.");
 				ForgeChunkManager.forceChunk(loaderTicket, new ChunkCoordIntPair(chunkCoordX, chunkCoordZ));
 			}
 		}
@@ -519,14 +537,26 @@ public abstract class EntityMissileBaseNT extends EntityThrowableInterp implemen
 	}
 
 	public void explodeStandard(float strength, int resolution, boolean fire) {
-		if(Integrations.canDetonateWGC(ownerParty,worldObj,(int)posX,(int)posY,(int)posZ)) {
-			ExplosionVNT xnt = new ExplosionVNT(worldObj, posX, posY, posZ, strength, ownerParty);
-			xnt.setBlockAllocator(new BlockAllocatorStandard(resolution));
-			xnt.setBlockProcessor(new BlockProcessorStandard().setNoDrop().withBlockEffect(fire ? new BlockMutatorFire() : null));
-			xnt.setEntityProcessor(new EntityProcessorCross(7.5D).withRangeMod(2));
-			xnt.setPlayerProcessor(new PlayerProcessorStandard());
-			xnt.explode();
-		}
+		this.explodeStandardAt(posX, posY, posZ, strength, resolution, fire);
+	}
+
+	protected void explodeStandardAt(double x, double y, double z, float strength, int resolution, boolean fire) {
+		if(!this.canDetonateAt(x, y, z)) return;
+		ExplosionVNT xnt = new ExplosionVNT(worldObj, x, y, z, strength, ownerParty, this);
+		xnt.setBlockAllocator(new BlockAllocatorStandard(resolution));
+		xnt.setBlockProcessor(new BlockProcessorStandard().setNoDrop().withBlockEffect(fire ? new BlockMutatorFire() : null));
+		xnt.setEntityProcessor(new EntityProcessorCross(7.5D).withRangeMod(2));
+		xnt.setPlayerProcessor(new PlayerProcessorStandard());
+		xnt.explode();
+	}
+
+	protected void explodeEntityOnly(float strength) {
+		if(!this.canDetonateHere()) return;
+		ExplosionVNT xnt = new ExplosionVNT(worldObj, posX, posY, posZ, strength, ownerParty, this);
+		xnt.setEntityProcessor(new EntityProcessorCross(0).withRangeMod(2));
+		xnt.setPlayerProcessor(new PlayerProcessorStandard());
+		xnt.setSFX(new ExplosionEffectStandard());
+		xnt.explode();
 	}
 
 	@Override

@@ -65,8 +65,9 @@ public class EntityArtilleryRocket extends EntityThrowableInterp implements IChu
 		return this;
 	}
 
-	public void setOwnerParty(UUID ownerParty) {
+	public EntityArtilleryRocket setOwnerParty(UUID ownerParty) {
 		this.ownerParty = ownerParty;
+		return this;
 	}
 	public UUID getOwnerParty() {
 		return ownerParty;

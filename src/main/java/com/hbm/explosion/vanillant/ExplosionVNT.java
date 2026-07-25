@@ -51,6 +51,10 @@ public class ExplosionVNT {
 	private Map compatPlayers = new HashMap();
 	public Explosion compat;
 
+	public ExplosionVNT(World world, double x, double y, double z, float size) {
+		this(world, x, y, z, size, null, null);
+	}
+
 	public ExplosionVNT(World world, double x, double y, double z, float size, UUID ownerParty) {
 		this(world, x, y, z, size, ownerParty, null);
 	}
@@ -74,6 +78,9 @@ public class ExplosionVNT {
 	}
 
 	public void explode() {
+
+		if(this.world == null) return;
+		if(!this.world.isRemote && !Integrations.canDetonateWGC(this.ownerParty, this.world, (int) Math.floor(this.posX), (int) Math.floor(this.posY), (int) Math.floor(this.posZ))) return;
 
 		this.compat.exploder = this.exploder;
 		this.compat.explosionSize = this.size;

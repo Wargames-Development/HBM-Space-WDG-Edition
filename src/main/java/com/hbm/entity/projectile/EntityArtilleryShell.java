@@ -83,8 +83,9 @@ public class EntityArtilleryShell extends EntityThrowableNT implements IChunkLoa
 		}
 	}
 
-	public void setOwnerParty(UUID ownerParty) {
+	public EntityArtilleryShell setOwnerParty(UUID ownerParty) {
 		this.ownerParty = ownerParty;
+		return this;
 	}
 	public UUID getOwnerParty() {
 		return ownerParty;

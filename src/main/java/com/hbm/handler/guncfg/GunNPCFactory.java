@@ -33,7 +33,6 @@ public class GunNPCFactory {
 		bullet.ammo = new ComparableStack(ModItems.coin_maskman);
 		bullet.velocity = 0.25F;
 		bullet.spread = 0.000F;
-		bullet.wear = 10;
 		bullet.bulletsMin = 1;
 		bullet.bulletsMax = 1;
 		bullet.dmgMin = 100;
@@ -85,28 +84,11 @@ public class GunNPCFactory {
 		bullet.spread = 0.0F;
 		bullet.dmgMin = 15;
 		bullet.dmgMax = 20;
-		bullet.wear = 10;
 		bullet.leadChance = 0;
 		bullet.explosive = 0.5F;
 		bullet.setToBolt(BulletConfiguration.BOLT_LACUNAE);
 		bullet.vPFX = "reddust";
 		bullet.damageType = ModDamageSource.s_laser;
-
-		return bullet;
-	}
-
-	public static BulletConfiguration getMaskmanBullet() {
-
-		BulletConfiguration bullet = BulletConfigFactory.standardBulletConfig();
-
-		bullet.ammo = new ComparableStack(ModItems.coin_maskman);
-		bullet.spread = 0.0F;
-		bullet.dmgMin = 5;
-		bullet.dmgMax = 10;
-		bullet.wear = 10;
-		bullet.leadChance = 15;
-		bullet.style = BulletConfiguration.STYLE_FLECHETTE;
-		bullet.vPFX = "bluedust";
 
 		return bullet;
 	}
@@ -119,7 +101,6 @@ public class GunNPCFactory {
 		bullet.spread = 0.0F;
 		bullet.dmgMin = 5;
 		bullet.dmgMax = 10;
-		bullet.wear = 10;
 		bullet.leadChance = 15;
 		bullet.style = BulletConfiguration.STYLE_WAR;
 
@@ -134,7 +115,6 @@ public class GunNPCFactory {
 		bullet.spread = 0.0F;
 		bullet.dmgMin = 15;
 		bullet.dmgMax = 20;
-		bullet.wear = 10;
 		bullet.leadChance = 0;
 		bullet.setToBolt(BulletConfiguration.BOLT_NIGHTMARE);
 		bullet.vPFX = "reddust";
@@ -326,7 +306,7 @@ public class GunNPCFactory {
 
 			bulletnt.worldObj.playSoundEffect(bulletnt.posX, bulletnt.posY, bulletnt.posZ, "hbm:entity.ufoBlast", 5.0F, 0.9F + bulletnt.worldObj.rand.nextFloat() * 0.2F);
 			bulletnt.worldObj.playSoundEffect(bulletnt.posX, bulletnt.posY, bulletnt.posZ, "fireworks.blast", 5.0F, 0.5F);
-			ExplosionNukeGeneric.dealDamage(bulletnt.ownerParty,bulletnt.worldObj, bulletnt.posX, bulletnt.posY, bulletnt.posZ, 10, 50);
+			ExplosionNukeGeneric.dealDamage(bulletnt.getOwnerParty(), bulletnt.worldObj, bulletnt.posX, bulletnt.posY, bulletnt.posZ, 10, 50);
 
 			for(int i = 0; i < 3; i++) {
 				NBTTagCompound data = new NBTTagCompound();

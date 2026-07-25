@@ -1,7 +1,9 @@
 package com.hbm.explosion;
 
 import com.hbm.config.BombConfig;
+import api.hbm.wgc.Integrations;
 import com.hbm.entity.logic.EntityNukeExplosionMK5;
+import com.hbm.handler.CelestialNukeShockHandler;
 import com.hbm.explosion.ExplosionNT.ExAttrib;
 import com.hbm.handler.radiation.ChunkRadiationManager;
 import com.hbm.handler.threading.PacketThreading;
@@ -17,9 +19,15 @@ import java.util.UUID;
 
 @Deprecated public class ExplosionNukeSmall {
 
-	public static void explode(World world, double posX, double posY, double posZ, UUID party, MukeParams params) {
+	public static void explode(World world, double posX, double posY, double posZ, MukeParams params) {
+		explode(world, posX, posY, posZ, null, params);
+	}
 
-		// spawn particles, if present (visual only)
+	public static void explode(World world, double posX, double posY, double posZ, UUID ownerParty, MukeParams params) {
+		if(world == null || params == null) return;
+		if(!Integrations.canDetonateWGC(ownerParty, world, (int)Math.floor(posX), (int)Math.floor(posY), (int)Math.floor(posZ))) return;
+
+		// spawn particles, if present
 		if(params.particle != null) {
 			NBTTagCompound data = new NBTTagCompound();
 			data.setString("type", params.particle);
@@ -30,28 +38,14 @@ import java.util.UUID;
 			PacketThreading.createAllAroundThreadedPacket(new AuxParticlePacketNT(data, posX, posY + 0.5, posZ), new TargetPoint(world.provider.dimensionId, posX, posY, posZ, 250));
 		}
 
-		// play the sound in any case (audio only)
+		// play the sound in any case
 		world.playSoundEffect(posX, posY, posZ, "hbm:weapon.mukeExplosion", 15.0F, 1.0F);
 
-		// ---- Global safezone/claim veto for harmful effects ----
-		float effRadius = Math.max(params.blastRadius, params.killRadius);
-		if(!params.miniNuke && effRadius <= 0) effRadius = BombConfig.fatmanRadius; // fallback for non-miniNuke
-		// --------------------------------------------------------
-
-		if(params.shrapnelCount > 0)
-			ExplosionLarge.spawnShrapnels(world, posX, posY, posZ, params.shrapnelCount,party);
-
-		if(params.miniNuke && !params.safe)
-			new ExplosionNT(world, null, posX, posY, posZ, params.blastRadius)
-				.addAllAttrib(params.explosionAttribs)
-				.overrideResolution(params.resolution)
-				.explode();
-
-		if(params.killRadius > 0)
-			ExplosionNukeGeneric.dealDamage(party,world, posX, posY, posZ, params.killRadius);
-
-		if(!params.miniNuke)
-			WorldUtil.loadAndSpawnEntityInWorld(EntityNukeExplosionMK5.statFac(world, (int) params.blastRadius, posX, posY, posZ,party));
+		if(params.shrapnelCount > 0) ExplosionLarge.spawnShrapnels(world, posX, posY, posZ, params.shrapnelCount, ownerParty);
+		if(params.miniNuke && !params.safe) new ExplosionNT(world, null, posX, posY, posZ, params.blastRadius, ownerParty).addAllAttrib(params.explosionAttribs).overrideResolution(params.resolution).explode();
+		if(params.killRadius > 0) ExplosionNukeGeneric.dealDamage(ownerParty, world, posX, posY, posZ, params.killRadius);
+		if(!params.miniNuke) WorldUtil.loadAndSpawnEntityInWorld(EntityNukeExplosionMK5.statFac(world, (int) params.blastRadius, posX, posY, posZ, ownerParty));
+		if(params.miniNuke) CelestialNukeShockHandler.trigger(world, posX, posZ, params.blastRadius);
 
 		if(params.miniNuke) {
 			float radMod = params.radiationLevel / 3F;
@@ -59,19 +53,16 @@ import java.util.UUID;
 			for(int i = -2; i <= 2; i++) {
 				for(int j = -2; j <= 2; j++) {
 					if(Math.abs(i) + Math.abs(j) < 4) {
-						int rx = (int) Math.floor(posX + i * 16);
-						int ry = (int) Math.floor(posY);
-						int rz = (int) Math.floor(posZ + j * 16);
-
-
-						ChunkRadiationManager.proxy.incrementRad(world, rx, ry, rz,
-							50 / (Math.abs(i) + Math.abs(j) + 1) * radMod);
+						int radX = (int)Math.floor(posX + i * 16);
+						int radZ = (int)Math.floor(posZ + j * 16);
+						if(Integrations.canIrradiateWGC(ownerParty, world, radX >> 4, radZ >> 4)) {
+							ChunkRadiationManager.proxy.incrementRad(world, radX, (int)Math.floor(posY), radZ, 50 / (Math.abs(i) + Math.abs(j) + 1) * radMod);
+						}
 					}
 				}
 			}
 		}
 	}
-
 
 	public static MukeParams PARAMS_SAFE = new MukeParams() {{ safe = true; killRadius = 45F; radiationLevel = 2F; }};
 	public static MukeParams PARAMS_TOTS = new MukeParams() {{ blastRadius = 10F; killRadius = 30F; particle = "tinytot"; shrapnelCount = 0; resolution = 32; radiationLevel = 1; }};

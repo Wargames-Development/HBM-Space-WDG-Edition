@@ -1,5 +1,8 @@
 package com.hbm.explosion;
 
+import java.util.UUID;
+
+import api.hbm.wgc.Integrations;
 import com.hbm.blocks.generic.DecoBlockAlt;
 
 import net.minecraft.init.Blocks;
@@ -23,6 +26,7 @@ public class ExplosionFleija {
 	private int element;
 	public float explosionCoefficient = 1.0F;
 	public float explosionCoefficient2 = 1.0F;
+	private UUID ownerParty;
 
 	public void saveToNbt(NBTTagCompound nbt, String name) {
 		nbt.setInteger(name + "posX", posX);
@@ -39,6 +43,7 @@ public class ExplosionFleija {
 		nbt.setInteger(name + "element", element);
 		nbt.setFloat(name + "explosionCoefficient", explosionCoefficient);
 		nbt.setFloat(name + "explosionCoefficient2", explosionCoefficient2);
+		if(this.ownerParty != null) nbt.setString(name + "ownerParty", this.ownerParty.toString());
 	}
 
 	public void readFromNbt(NBTTagCompound nbt, String name) {
@@ -56,14 +61,23 @@ public class ExplosionFleija {
 		element = nbt.getInteger(name + "element");
 		explosionCoefficient = nbt.getFloat(name + "explosionCoefficient");
 		explosionCoefficient2 = nbt.getFloat(name + "explosionCoefficient2");
+		if(nbt.hasKey(name + "ownerParty")) {
+			try { this.ownerParty = UUID.fromString(nbt.getString(name + "ownerParty")); }
+			catch(IllegalArgumentException ignored) { this.ownerParty = null; }
+		}
 	}
 
 	public ExplosionFleija(int x, int y, int z, World world, int rad, float coefficient, float coefficient2) {
+		this(null, x, y, z, world, rad, coefficient, coefficient2);
+	}
+
+	public ExplosionFleija(UUID ownerParty, int x, int y, int z, World world, int rad, float coefficient, float coefficient2) {
 		this.posX = x;
 		this.posY = y;
 		this.posZ = z;
 
 		this.worldObj = world;
+		this.ownerParty = ownerParty;
 
 		this.radius = rad;
 		this.radius2 = this.radius * this.radius;
@@ -76,7 +90,11 @@ public class ExplosionFleija {
 
 	public boolean update() {
 
-		breakColumn(this.lastposX, this.lastposZ);
+		int columnX = this.posX + this.lastposX;
+		int columnZ = this.posZ + this.lastposZ;
+		if(Integrations.canExplodeBlockWGC(this.ownerParty, this.worldObj, columnX, columnZ)) {
+			breakColumn(this.lastposX, this.lastposZ);
+		}
 		this.shell = (int) Math.floor((Math.sqrt(n) + 1) / 2);
 		int shell2 = this.shell * 2;
 		if(shell2 == 0) return true; // end explosion if the shell size is 0 to prevent division by zero crash

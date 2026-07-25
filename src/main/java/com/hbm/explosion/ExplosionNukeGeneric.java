@@ -10,6 +10,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityOcelot;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -25,15 +26,16 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 import com.hbm.blocks.ModBlocks;
 import com.hbm.config.VersatileConfig;
-import com.hbm.entity.grenade.EntityGrenadeASchrab;
-import com.hbm.entity.grenade.EntityGrenadeNuclear;
 import com.hbm.entity.projectile.EntityBulletBaseNT;
-import com.hbm.entity.projectile.EntityExplosiveBeam;
+import com.hbm.entity.grenade.EntityGrenadeUniversal;
+import com.hbm.entity.projectile.EntityB92Beam;
+import com.hbm.entity.projectile.EntityBulletBaseMK4;
 import com.hbm.interfaces.Spaghetti;
-import com.hbm.items.ModItems;
+import com.hbm.items.weapon.sedna.factory.ConfettiUtil;
 import com.hbm.lib.Library;
 import com.hbm.lib.ModDamageSource;
-import com.hbm.util.ArmorUtil;
+import com.hbm.util.Compat;
+import com.hbm.util.EntityDamageUtil;
 
 import api.hbm.energymk2.IEnergyHandlerMK2;
 import cofh.api.energy.IEnergyProvider;
@@ -76,11 +78,7 @@ public class ExplosionNukeGeneric {
 			AxisAlignedBB.getBoundingBox(x, y, z, x, y, z).expand(radius, radius, radius));
 
 		for (Entity e : list) {
-			if(e instanceof EntityPlayer){
-				if(Integrations.canHarmPlayerWGC(party,e.getUniqueID(),world)){
-					continue;
-				}
-			}
+			if(e instanceof EntityPlayer && !Integrations.canHarmPlayerWGC(party, e.getUniqueID(), world)) continue;
 			double dist = e.getDistance(x, y, z);
 			if (dist <= radius) {
 				double entX = e.posX, entY = e.posY + e.getEyeHeight(), entZ = e.posZ;
@@ -88,15 +86,24 @@ public class ExplosionNukeGeneric {
 				if (!isExplosionExempt(e) && !Library.isObstructed(world, x, y, z, entX, entY, entZ)) {
 
 
+					boolean doKnockback = true;
 					double damage = maxDamage * (radius - dist) / radius;
-					e.attackEntityFrom(ModDamageSource.nuclearBlast, (float) damage);
+					if(e instanceof EntityLivingBase && e.isEntityAlive()) {
+						EntityLivingBase living = (EntityLivingBase) e;
+						doKnockback = EntityDamageUtil.attackEntityFromNT(living, ModDamageSource.nuclearBlast, (float) damage, true, true, 0, 100F, 0);
+						if(!e.isEntityAlive()) ConfettiUtil.decideConfetti(living, ModDamageSource.nuclearBlast);
+					} else {
+						e.attackEntityFrom(ModDamageSource.nuclearBlast, (float) damage);
+					}
 					e.setFire(5);
 
-					double knockX = e.posX - x, knockY = e.posY + e.getEyeHeight() - y, knockZ = e.posZ - z;
-					Vec3 knock = Vec3.createVectorHelper(knockX, knockY, knockZ).normalize();
-					e.motionX += knock.xCoord * 0.2D;
-					e.motionY += knock.yCoord * 0.2D;
-					e.motionZ += knock.zCoord * 0.2D;
+					if(doKnockback) {
+						double knockX = e.posX - x, knockY = e.posY + e.getEyeHeight() - y, knockZ = e.posZ - z;
+						Vec3 knock = Vec3.createVectorHelper(knockX, knockY, knockZ).normalize();
+						e.motionX += knock.xCoord * 0.2D;
+						e.motionY += knock.yCoord * 0.2D;
+						e.motionZ += knock.zCoord * 0.2D;
+					}
 				}
 			}
 		}
@@ -105,21 +112,13 @@ public class ExplosionNukeGeneric {
 	@Spaghetti("just look at it")
 	private static boolean isExplosionExempt(Entity e) {
 
-		if (e instanceof EntityOcelot ||
-				e instanceof EntityGrenadeASchrab ||
-				e instanceof EntityGrenadeNuclear ||
-				e instanceof EntityExplosiveBeam ||
-				e instanceof EntityBulletBaseNT ||
-				e instanceof EntityPlayer &&
-				ArmorUtil.checkArmor((EntityPlayer) e, ModItems.euphemium_helmet, ModItems.euphemium_plate, ModItems.euphemium_legs, ModItems.euphemium_boots)) {
-			return true;
-		}
+		if(e instanceof EntityOcelot ||
+			e instanceof EntityB92Beam ||
+			e instanceof EntityBulletBaseNT ||
+			e instanceof EntityBulletBaseMK4 ||
+			e instanceof EntityGrenadeUniversal) return true;
 
-		if (e instanceof EntityPlayerMP && ((EntityPlayerMP)e).theItemInWorldManager.getGameType() == GameType.CREATIVE) {
-			return true;
-		}
-
-		return false;
+		return e instanceof EntityPlayerMP && ((EntityPlayerMP) e).theItemInWorldManager.getGameType() == GameType.CREATIVE;
 	}
 
 	public static void vapor(UUID party, World world, int x, int y, int z, int bombStartStrength) {
@@ -443,13 +442,14 @@ public class ExplosionNukeGeneric {
 	public static void emp(World world, int x, int y, int z) {
 		if (!world.isRemote) {
 
-			TileEntity te = world.getTileEntity(x, y, z);
+			TileEntity te = Compat.getTileStandard(world, x, y, z);
+			if(te == null) return;
 
-			if (te != null && te instanceof IEnergyHandlerMK2) {
+			if (te instanceof IEnergyHandlerMK2) {
 				((IEnergyHandlerMK2)te).setPower(0);
 				if (random.nextInt(5) < 1) world.setBlock(x, y, z, ModBlocks.block_electrical_scrap);
 			}
-			if (te != null && te instanceof IEnergyProvider) {
+			if (te instanceof IEnergyProvider) {
 
 				((IEnergyProvider)te).extractEnergy(ForgeDirection.UP, ((IEnergyProvider)te).getEnergyStored(ForgeDirection.UP), false);
 				((IEnergyProvider)te).extractEnergy(ForgeDirection.DOWN, ((IEnergyProvider)te).getEnergyStored(ForgeDirection.DOWN), false);

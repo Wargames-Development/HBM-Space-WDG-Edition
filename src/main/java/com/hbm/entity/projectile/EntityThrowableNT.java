@@ -41,7 +41,8 @@ public abstract class EntityThrowableNT extends Entity implements IProjectile {
 	protected EntityLivingBase thrower;
 	private String throwerName;
 	public int ticksInGround;
-	private int ticksInAir;
+	protected int ticksInAir;
+	protected UUID ownerParty;
 
 	public EntityThrowableNT(World world) {
 		super(world);
@@ -73,6 +74,7 @@ public abstract class EntityThrowableNT extends Entity implements IProjectile {
 	public EntityThrowableNT(World world, EntityLivingBase thrower) {
 		super(world);
 		this.thrower = thrower;
+		if (thrower instanceof EntityPlayer) this.ownerParty = thrower.getUniqueID();
 		this.setSize(0.25F, 0.25F);
 		this.setLocationAndAngles(thrower.posX, thrower.posY + (double) thrower.getEyeHeight(), thrower.posZ, thrower.rotationYaw, thrower.rotationPitch);
 		this.posX -= (double) (MathHelper.cos(this.rotationYaw / 180.0F * (float) Math.PI) * 0.16F);
@@ -204,6 +206,10 @@ public abstract class EntityThrowableNT extends Entity implements IProjectile {
 				for(int j = 0; j < list.size(); ++j) {
 					Entity entity = (Entity) list.get(j);
 
+					if(entity instanceof EntityPlayer && !Integrations.canHarmPlayerWGC(this.getOwnerParty(), entity.getUniqueID(), this.worldObj)) {
+						continue;
+					}
+
 					if(entity.canBeCollidedWith() && (entity != thrower || this.ticksInAir >= this.selfDamageDelay()) && entity.isEntityAlive()) {
 						double hitbox = 0.3F;
 						AxisAlignedBB aabb = entity.boundingBox.expand(hitbox, hitbox, hitbox);
@@ -257,9 +263,13 @@ public abstract class EntityThrowableNT extends Entity implements IProjectile {
 			float drag = this.getAirDrag();
 			double gravity = this.getGravityVelocity();
 
-			this.posX += this.motionX * motionMult();
-			this.posY += this.motionY * motionMult();
-			this.posZ += this.motionZ * motionMult();
+			if(this.fullBlockCollisions()) {
+				this.moveEntity(this.motionX * motionMult(), this.motionY * motionMult(), this.motionZ * motionMult());
+			} else {
+				this.posX += this.motionX * motionMult();
+				this.posY += this.motionY * motionMult();
+				this.posZ += this.motionZ * motionMult();
+			}
 
 			if(this.isInWater()) {
 				for(int i = 0; i < 4; ++i) {
@@ -276,6 +286,10 @@ public abstract class EntityThrowableNT extends Entity implements IProjectile {
 			this.motionY -= gravity;
 			this.setPosition(this.posX, this.posY, this.posZ);
 		}
+	}
+
+	public boolean fullBlockCollisions() {
+		return false;
 	}
 
 	public void airburstCheck(Vec3 pos, Vec3 nextPos){
@@ -339,6 +353,9 @@ public abstract class EntityThrowableNT extends Entity implements IProjectile {
 		}
 
 		nbt.setString("ownerName", this.throwerName == null ? "" : this.throwerName);
+		if(this.getOwnerParty() != null) nbt.setString("ownerParty", this.getOwnerParty().toString());
+		nbt.setInteger("ticksInGround", this.ticksInGround);
+		nbt.setInteger("ticksInAir", this.ticksInAir);
 	}
 
 	@Override
@@ -350,6 +367,12 @@ public abstract class EntityThrowableNT extends Entity implements IProjectile {
 		this.throwableShake = nbt.getByte("shake") & 255;
 		this.inGround = nbt.getByte("inGround") == 1;
 		this.throwerName = nbt.getString("ownerName");
+		this.ticksInGround = nbt.getInteger("ticksInGround");
+		this.ticksInAir = nbt.getInteger("ticksInAir");
+		if(nbt.hasKey("ownerParty")) {
+			try { this.ownerParty = UUID.fromString(nbt.getString("ownerParty")); }
+			catch(IllegalArgumentException ignored) { this.ownerParty = null; }
+		}
 
 		if(this.throwerName != null && this.throwerName.length() == 0) {
 			this.throwerName = null;
@@ -364,6 +387,17 @@ public abstract class EntityThrowableNT extends Entity implements IProjectile {
 
 	public void setThrower(EntityLivingBase thrower) {
 		this.thrower = thrower;
+		if(this.ownerParty == null && thrower instanceof EntityPlayer) this.ownerParty = thrower.getUniqueID();
+	}
+
+	public UUID getOwnerParty() {
+		if(this.ownerParty == null && this.getThrower() instanceof EntityPlayer) this.ownerParty = this.getThrower().getUniqueID();
+		return this.ownerParty;
+	}
+
+	public EntityThrowableNT setOwnerParty(UUID ownerParty) {
+		this.ownerParty = ownerParty;
+		return this;
 	}
 
 	public EntityLivingBase getThrower() {

@@ -8,6 +8,7 @@ import java.util.UUID;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.entity.projectile.EntityShrapnel;
 import com.hbm.handler.radiation.ChunkRadiationManager;
+import com.hbm.handler.CompatHandler;
 import com.hbm.interfaces.IControlReceiver;
 import com.hbm.inventory.container.ContainerWatz;
 import com.hbm.inventory.fluid.Fluids;
@@ -30,10 +31,15 @@ import com.hbm.util.fauxpointtwelve.DirPos;
 import com.hbm.util.function.Function;
 
 import api.hbm.fluid.IFluidStandardTransceiver;
+import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import io.netty.buffer.ByteBuf;
+import api.hbm.redstoneoverradio.IRORValueProvider;
+import li.cil.oc.api.machine.Arguments;
+import li.cil.oc.api.machine.Callback;
+import li.cil.oc.api.machine.Context;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -46,7 +52,8 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class TileEntityWatz extends TileEntityMachineBase implements IFluidStandardTransceiver, IControlReceiver, IGUIProvider, IFluidCopiable {
+@Optional.InterfaceList({@Optional.Interface(iface = "li.cil.oc.api.network.SimpleComponent", modid = "OpenComputers")})
+public class TileEntityWatz extends TileEntityMachineBase implements IFluidStandardTransceiver, IControlReceiver, IGUIProvider, IFluidCopiable, CompatHandler.OCComponent, IRORValueProvider {
 
 	public FluidTank[] tanks;
 	public FluidTank[] sharedTanks;
@@ -570,6 +577,100 @@ public class TileEntityWatz extends TileEntityMachineBase implements IFluidStand
 
 	@Override
 	public FluidTank getTankToPaste() {
+		return null;
+	}
+
+	// opencomputers stuff
+	@Override
+	@Optional.Method(modid = "OpenComputers")
+	public String getComponentName() {
+		return "watz_reactor";
+	}
+
+	@Callback(direct = true)
+	@Optional.Method(modid = "OpenComputers")
+	public Object[] getHeat(Context context, Arguments args) {
+		return new Object[] {heat};
+	}
+
+	@Callback(direct = true)
+	@Optional.Method(modid = "OpenComputers")
+	public Object[] getFlux(Context context, Arguments args) {
+		return new Object[] {fluxLastBase + fluxLastReaction};
+	}
+
+	@Callback(direct = true)
+	@Optional.Method(modid = "OpenComputers")
+	public Object[] getCoolantInfo(Context context, Arguments args) {
+		return new Object[] {tanks[0].getFill(), tanks[0].getMaxFill(), tanks[1].getFill(), tanks[1].getMaxFill()};
+	}
+
+	@Callback(direct = true)
+	@Optional.Method(modid = "OpenComputers")
+	public Object[] getWasteInfo(Context context, Arguments args) {
+		return new Object[] {tanks[2].getFill(), tanks[2].getMaxFill()};
+	}
+
+	@Callback(direct = true)
+	@Optional.Method(modid = "OpenComputers")
+	public Object[] isOn(Context context, Arguments args) {
+		return new Object[] {isOn};
+	}
+
+	@Callback(direct = true)
+	@Optional.Method(modid = "OpenComputers")
+	public Object[] getInfo(Context context, Arguments args) {
+		return new Object[] {tanks[0].getFill(), tanks[0].getMaxFill(), tanks[1].getFill(), tanks[1].getMaxFill(), tanks[2].getFill(), tanks[2].getMaxFill(), heat, fluxLastBase + fluxLastReaction, isOn};
+	}
+
+	@Override
+	@Optional.Method(modid = "OpenComputers")
+	public String[] methods() {
+		return new String[] {
+			"getComponentName",
+			"getHeat",
+			"getFlux",
+			"getCoolantInfo",
+			"getWasteInfo",
+			"isOn",
+			"getInfo"
+		};
+	}
+
+	@Override
+	@Optional.Method(modid = "OpenComputers")
+	public Object[] invoke(String method, Context context, Arguments args) throws Exception {
+		switch (method) {
+			case "getHeat": return getHeat(context, args);
+			case "getFlux": return getFlux(context, args);
+			case "getCoolantInfo": return getCoolantInfo(context, args);
+			case "getWasteInfo": return getWasteInfo(context, args);
+			case "isOn": return isOn(context, args);
+			case "getInfo": return getInfo(context, args);
+		}
+		throw new NoSuchMethodException();
+	}
+
+	public static final String[] ROR = new String[] { // not to be confused with RUR
+		PREFIX_VALUE + "heat",
+		PREFIX_VALUE + "flux",
+		PREFIX_VALUE + "mud",
+		PREFIX_VALUE + "coolant_hot",
+		PREFIX_VALUE + "coolant_cold",
+	};
+
+	@Override
+	public String[] getFunctionInfo() {
+		return ROR;
+	}
+
+	@Override
+	public String provideRORValue(String name) {
+		if((PREFIX_VALUE + "heat").equals(name))			return "" + this.heat;
+		if((PREFIX_VALUE + "flux").equals(name))			return "" + (int) (this.fluxLastBase + this.fluxLastReaction);
+		if((PREFIX_VALUE + "mud").equals(name))				return "" + this.tanks[2].getFill();
+		if((PREFIX_VALUE + "coolant_hot").equals(name))		return "" + this.tanks[1].getFill();
+		if((PREFIX_VALUE + "coolant_cold").equals(name))	return "" + this.tanks[0].getFill();
 		return null;
 	}
 }

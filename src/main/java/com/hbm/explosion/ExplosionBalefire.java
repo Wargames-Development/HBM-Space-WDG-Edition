@@ -1,24 +1,18 @@
 package com.hbm.explosion;
 
-import java.util.Random;
-import java.util.Set;
 import java.util.UUID;
 
 import api.hbm.wgc.Integrations;
 import com.hbm.blocks.ModBlocks;
-import com.hbm.interfaces.Spaghetti;
 import com.hbm.util.ParticleUtil;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
 
-//Dead Puppy here
-@Spaghetti("No superclass? No bitches.")
-public class ExplosionBalefire
-{
+public class ExplosionBalefire {
+
 	public int posX;
 	public int posY;
 	public int posZ;
@@ -33,8 +27,101 @@ public class ExplosionBalefire
 	private int leg;
 	private int element;
 	private boolean antimatter = false;
-	public UUID ownerParty;
-	private Set<ChunkCoordIntPair> expProtectedChunks;
+	private UUID ownerParty;
+
+	public ExplosionBalefire(int x, int y, int z, World world, int rad, boolean antimatter) {
+		this(null, x, y, z, world, rad, antimatter);
+	}
+
+	public ExplosionBalefire(UUID ownerParty, int x, int y, int z, World world, int rad, boolean antimatter) {
+		this.posX = x;
+		this.posY = y;
+		this.posZ = z;
+
+		this.worldObj = world;
+
+		this.radius = rad;
+		this.radius2 = this.radius * this.radius;
+
+		this.nlimit = this.radius2 * 4;
+		this.antimatter=antimatter;
+		this.ownerParty = ownerParty;
+	}
+
+	public boolean update() {
+
+		if(n == 0) return true;
+
+		int columnX = this.posX + this.lastposX;
+		int columnZ = this.posZ + this.lastposZ;
+		if(Integrations.canExplodeBlockWGC(this.ownerParty, this.worldObj, columnX, columnZ)) {
+			breakColumn(this.lastposX, this.lastposZ);
+		}
+		this.shell = (int) Math.floor((Math.sqrt(n) + 1) / 2);
+		int shell2 = this.shell * 2;
+
+		if(shell2 == 0) return true;
+
+		this.leg = (int) Math.floor((this.n - (shell2 - 1) * (shell2 - 1)) / shell2);
+		this.element = (this.n - (shell2 - 1) * (shell2 - 1)) - shell2 * this.leg - this.shell + 1;
+		this.lastposX = this.leg == 0 ? this.shell : this.leg == 1 ? -this.element : this.leg == 2 ? -this.shell : this.element;
+		this.lastposZ = this.leg == 0 ? this.element : this.leg == 1 ? this.shell : this.leg == 2 ? -this.element : -this.shell;
+		this.n++;
+
+		return this.n > this.nlimit;
+	}
+
+	private void breakColumn(int x, int z) {
+		int dist = (int) (radius - Math.sqrt(x * x + z * z));
+
+		if(dist > 0) {
+			int pX = posX + x;
+			int pZ = posZ + z;
+
+			int y  = worldObj.getHeightValue(pX, pZ);
+			int maxdepth = (int) (10 + radius * 0.25);
+			int depth = (int) ((maxdepth * dist / radius) + (Math.sin(dist * 0.15 + 2) * 2));//
+
+			depth = Math.max(y - depth, 0);
+
+			while(y > depth) {
+
+				if(worldObj.getBlock(pX, y, pZ) == ModBlocks.block_schrabidium_cluster && !antimatter) {
+
+					if(worldObj.rand.nextInt(10) == 0) {
+						worldObj.setBlock(pX, y + 1, pZ, ModBlocks.balefire);
+						worldObj.setBlock(pX, y, pZ, ModBlocks.block_euphemium_cluster, worldObj.getBlockMetadata(pX, y, pZ), 3);
+					}
+
+					return;
+				}
+
+				Material m = worldObj.getBlock(pX, y, pZ).getMaterial();
+				if((m == Material.craftedSnow || m == Material.snow || m == Material.ice || m == Material.packedIce) && antimatter) {
+					ParticleUtil.spawnGasFlame(worldObj, pX, y, pZ, x, y, z);
+					continue;
+				}
+
+				y--;
+			}
+
+			if(worldObj.rand.nextInt(10) == 0 && !antimatter) {
+				worldObj.setBlock(pX, depth + 1, pZ, ModBlocks.balefire);
+
+				if(worldObj.getBlock(pX, y, pZ) == ModBlocks.block_schrabidium_cluster && !antimatter)
+					worldObj.setBlock(pX, y, pZ, ModBlocks.block_euphemium_cluster, worldObj.getBlockMetadata(pX, y, pZ), 3);
+			}
+
+			for(int i = depth; i > depth - 5; i--) {
+				if(worldObj.rand.nextInt(dist) == 0 && antimatter) {
+					worldObj.setBlock(pX, depth, pZ, ModBlocks.volcanic_lava_block);
+				}
+
+				if(worldObj.getBlock(pX, i, pZ) == Blocks.stone)
+					worldObj.setBlock(pX, i, pZ, ModBlocks.sellafield_slaked);
+			}
+		}
+	}
 
 	public void saveToNbt(NBTTagCompound nbt, String name) {
 		nbt.setInteger(name + "posX", posX);
@@ -50,6 +137,7 @@ public class ExplosionBalefire
 		nbt.setInteger(name + "leg", leg);
 		nbt.setInteger(name + "element", element);
 		nbt.setBoolean(name + "antimatter", antimatter);
+		if(this.ownerParty != null) nbt.setString(name + "ownerParty", this.ownerParty.toString());
 	}
 
 	public void readFromNbt(NBTTagCompound nbt, String name) {
@@ -66,153 +154,10 @@ public class ExplosionBalefire
 		leg = nbt.getInteger(name + "leg");
 		element = nbt.getInteger(name + "element");
 		antimatter = nbt.getBoolean(name + "antimatter");
-	}
-
-	public ExplosionBalefire(UUID party, int x, int y, int z, World world, int rad, boolean antimatter)
-	{
-		this.posX = x;
-		this.posY = y;
-		this.posZ = z;
-
-		this.worldObj = world;
-
-		this.radius = rad;
-		this.radius2 = this.radius * this.radius;
-
-		this.nlimit = this.radius2 * 4;
-		this.antimatter=antimatter;
-		ownerParty = party;
-
-	}
-
-	public boolean update() {
-		if(expProtectedChunks == null){
-			expProtectedChunks = Integrations.getExplosionProtectedChunksWGC(ownerParty,worldObj,posX,posZ,radius+16);
-		}
-
-		if(n == 0) return true;
-
-		if(!expProtectedChunks.contains(Integrations.getChunkCoordIntPair(posX,posZ))){//yk i probably should have made a helper class for this
-			breakColumn(this.lastposX, this.lastposZ);
-		}
-		this.shell = (int) Math.floor((Math.sqrt(n) + 1) / 2);
-		int shell2 = this.shell * 2;
-
-		if(shell2 == 0) return true;
-
-		this.leg = (int) Math.floor((this.n - (shell2 - 1) * (shell2 - 1)) / shell2);
-		this.element = (this.n - (shell2 - 1) * (shell2 - 1)) - shell2 * this.leg - this.shell + 1;
-		this.lastposX = this.leg == 0 ? this.shell : this.leg == 1 ? -this.element : this.leg == 2 ? -this.shell : this.element;
-		this.lastposZ = this.leg == 0 ? this.element : this.leg == 1 ? this.shell : this.leg == 2 ? -this.element : -this.shell;
-		this.n++;
-		return this.n > this.nlimit;
-	}
-
-	private void breakColumn(int x, int z) {
-		int dist = (int) (radius - Math.sqrt(x * x + z * z));
-		if (dist > 0) {
-			int pX = posX + x;
-			int pZ = posZ + z;
-
-			int y  = worldObj.getHeightValue(pX, pZ);
-			int maxdepth = (int) (10 + radius * 0.25);
-			int depth = (int) ((maxdepth * dist / radius) + (Math.sin(dist * 0.15 + 2) * 2));
-			depth = Math.max(y - depth, 0);
-
-			while (y > depth) {
-
-				if (worldObj.getBlock(pX, y, pZ) == ModBlocks.block_schrabidium_cluster && !antimatter) {
-					if (worldObj.rand.nextInt(10) == 0) {
-						worldObj.setBlock(pX, y + 1, pZ, ModBlocks.balefire);
-						worldObj.setBlock(pX, y, pZ, ModBlocks.block_euphemium_cluster, worldObj.getBlockMetadata(pX, y, pZ), 3);
-					}
-					return;
-				}
-
-				Material m = worldObj.getBlock(pX, y, pZ).getMaterial();
-				if ((m == Material.craftedSnow || m == Material.snow || m == Material.ice || m == Material.packedIce) && antimatter) {
-					ParticleUtil.spawnGasFlame(worldObj, pX, y, pZ, x, y, z);
-					y--;
-					continue;
-				}
-
-				if (worldObj.getBlock(pX, y, pZ) != ModBlocks.plasma) {
-					// carve
-						worldObj.setBlockToAir(pX, y, pZ);
-				}
-
-				y--;
-			}
-
-			if (worldObj.rand.nextInt(10) == 0 && !antimatter) {
-				// surface balefire
-					worldObj.setBlock(pX, depth + 1, pZ, ModBlocks.balefire);
-
-				if (worldObj.getBlock(pX, y, pZ) == ModBlocks.block_schrabidium_cluster && !antimatter) {
-						worldObj.setBlock(pX, y, pZ, ModBlocks.block_euphemium_cluster, worldObj.getBlockMetadata(pX, y, pZ), 3);
-				}
-			}
-
-			for (int i = depth; i > depth - 5; i--) {
-				Random rand = new Random();
-				if (rand.nextInt(dist) == 0 && antimatter) {
-						worldObj.setBlock(pX, depth, pZ, ModBlocks.volcanic_lava_block);
-				}
-
-				if (worldObj.getBlock(pX, i, pZ) == Blocks.stone) {
-						worldObj.setBlock(pX, i, pZ, ModBlocks.sellafield_slaked);
-				}
-			}
+		if(nbt.hasKey(name + "ownerParty")) {
+			try { this.ownerParty = UUID.fromString(nbt.getString(name + "ownerParty")); }
+			catch(IllegalArgumentException ignored) { this.ownerParty = null; }
 		}
 	}
 
-
-	/*private void breakColumn(int x, int z)
-	{
-		int dist = this.radius2 - (x * x + z * z);
-		if (dist > 0)
-		{
-			int pX = posX + x;
-			int pZ = posZ + z;
-
-			int y  = worldObj.getHeightValue(pX, pZ);
-			float strength = (float)dist / (float) this.radius;
-
-			while(y > 0) {
-
-				if(strength <= 10) {
-					if(worldObj.rand.nextInt(10) == 0) {
-						worldObj.setBlock(pX, y + 1, pZ, ModBlocks.balefire);
-
-						if(worldObj.getBlock(pX, y, pZ) == ModBlocks.block_schrabidium_cluster)
-							worldObj.setBlock(pX, y, pZ, ModBlocks.block_euphemium_cluster, worldObj.getBlockMetadata(pX, y, pZ), 3);
-					}
-
-					if(worldObj.getBlock(pX, y, pZ) == Blocks.stone)
-						worldObj.setBlock(pX, y, pZ, ModBlocks.sellafield_slaked);
-					if(worldObj.getBlock(pX, y - 1, pZ) == Blocks.stone)
-						worldObj.setBlock(pX, y - 1, pZ, ModBlocks.sellafield_slaked);
-					if(worldObj.getBlock(pX, y - 2, pZ) == Blocks.stone)
-						worldObj.setBlock(pX, y - 2, pZ, ModBlocks.sellafield_slaked);
-					if(worldObj.getBlock(pX, y - 3, pZ) == Blocks.stone)
-						worldObj.setBlock(pX, y - 3, pZ, ModBlocks.sellafield_slaked);
-					if(worldObj.getBlock(pX, y - 4, pZ) == Blocks.stone)
-						worldObj.setBlock(pX, y - 4, pZ, ModBlocks.sellafield_slaked);
-
-					return;
-				}
-
-				float hardness = worldObj.getBlock(pX, y, pZ).getBlockHardness(worldObj, pX, y, pZ);
-
-				if(worldObj.getBlock(pX, y, pZ).getMaterial().isLiquid())
-					hardness = Blocks.air.getBlockHardness(worldObj, pX, y + 1, pZ);
-
-				strength -= hardness;
-
-				worldObj.setBlockToAir(pX, y, pZ);
-
-				y--;
-			}
-		}
-	}*/
 }
