@@ -5,8 +5,6 @@ import java.util.List;
 
 import com.hbm.config.SpaceConfig;
 import com.hbm.dim.CelestialBody;
-import com.hbm.dim.SolarSystemWorldSavedData;
-import com.hbm.dim.orbit.OrbitalStation;
 import com.hbm.handler.CompatHandler;
 import com.hbm.interfaces.IControlReceiver;
 import com.hbm.inventory.container.ContainerStardar;
@@ -214,32 +212,19 @@ public class TileEntityMachineStardar extends TileEntityMachineBase implements I
 	}
 
 	private void processDrive(int targetDimensionId, int ix, int iz) {
+		// Orbital station drives are issued only by /ntm station create and can no
+		// longer be fabricated through Stardar packets or the current-body button.
+		if(targetDimensionId == SpaceConfig.orbitDimension) return;
 		CelestialBody body = CelestialBody.getBodyOrNull(targetDimensionId);
-		if(body == null && targetDimensionId != SpaceConfig.orbitDimension) return;
+		if(body == null) return;
 
 		if(slots[0] == null || slots[0].getItem() != ModItems.hard_drive) return;
-		int meta = body != null ? body.getEnum().ordinal() : 0;
-
-		slots[0] = new ItemStack(ModItems.full_drive, 1, meta);
+		slots[0] = new ItemStack(ModItems.full_drive, 1, body.getEnum().ordinal());
 
 		if((ix != 0 || iz != 0) && worldObj.provider.dimensionId != SpaceConfig.orbitDimension) {
 			slots[0].stackTagCompound = new NBTTagCompound();
 			slots[0].stackTagCompound.setInteger("ax", ix);
 			slots[0].stackTagCompound.setInteger("az", iz);
-			slots[0].stackTagCompound.setBoolean("Processed", true);
-		} else if(targetDimensionId == SpaceConfig.orbitDimension) {
-			ChunkCoordIntPair pos;
-
-			// if we're on a station, return our current station as a drive
-			if(worldObj.provider.dimensionId == SpaceConfig.orbitDimension) {
-				pos = new ChunkCoordIntPair(MathHelper.floor_float((float)xCoord / OrbitalStation.STATION_SIZE), MathHelper.floor_float((float)zCoord / OrbitalStation.STATION_SIZE));
-			} else {
-				pos = SolarSystemWorldSavedData.get(worldObj).findFreeSpace();
-			}
-
-			slots[0].stackTagCompound = new NBTTagCompound();
-			slots[0].stackTagCompound.setInteger("x", pos.chunkXPos);
-			slots[0].stackTagCompound.setInteger("z", pos.chunkZPos);
 			slots[0].stackTagCompound.setBoolean("Processed", true);
 		}
 
@@ -351,6 +336,7 @@ public class TileEntityMachineStardar extends TileEntityMachineBase implements I
 
 	@Override
 	public boolean isUseableByPlayer(EntityPlayer player) {
-		return true;
+		return player != null && worldObj != null && worldObj.getTileEntity(xCoord, yCoord, zCoord) == this
+			&& player.getDistanceSq(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D) <= 64D;
 	}
 }

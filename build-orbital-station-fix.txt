@@ -1,0 +1,18 @@
+Found AccessTransformer in main resources: HBM_at.cfg
+:getVersionJsonIndex UP-TO-DATE
+:getVersionJson UP-TO-DATE
+:downloadClient SKIPPED
+:downloadServer SKIPPED
+:extractUserDev UP-TO-DATE
+:mergeJars SKIPPED
+:applyBinPatches SKIPPED
+:downloadMcpTools SKIPPED
+:extractMcpData UP-TO-DATE
+:genSrgs SKIPPED
+:deobfBinJar UP-TO-DATE
+:compileApiJava NO-SOURCE
+:processApiResources NO-SOURCE
+:apiClasses UP-TO-DATE
+:sourceMainJava UP-TO-DATE
+:compileJava UP-TO-DATE
+:processResources

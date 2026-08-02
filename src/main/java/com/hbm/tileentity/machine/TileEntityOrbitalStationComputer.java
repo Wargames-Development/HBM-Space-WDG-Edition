@@ -1,6 +1,7 @@
 package com.hbm.tileentity.machine;
 
 import com.hbm.dim.CelestialBody;
+import com.hbm.dim.SolarSystemWorldSavedData;
 import com.hbm.dim.orbit.OrbitalStation;
 import com.hbm.dim.orbit.OrbitalStation.StationState;
 import com.hbm.interfaces.IControlReceiver;
@@ -54,6 +55,10 @@ public class TileEntityOrbitalStationComputer extends TileEntityMachineBase impl
 	public void updateEntity() {
 		if(!worldObj.isRemote) {
 			hasDrive = slots[0] != null;
+			if(worldObj.getTotalWorldTime() % 100L == 0L) {
+				SolarSystemWorldSavedData data = SolarSystemWorldSavedData.get(worldObj);
+				if(data != null) data.registerComputerDiscovered(worldObj, xCoord, yCoord, zCoord);
+			}
 			networkPackNT(50);
 		}
 	}
@@ -83,14 +88,15 @@ public class TileEntityOrbitalStationComputer extends TileEntityMachineBase impl
 
 	@Override
 	public boolean hasPermission(EntityPlayer player) {
-		return true;
+		return isUseableByPlayer(player);
 	}
 
 	@Override
 	public void receiveControl(NBTTagCompound data) {
 		if(data.hasKey("name")) {
 			OrbitalStation station = OrbitalStation.getStationFromPosition(xCoord, zCoord);
-			station.name = data.getString("name");
+			SolarSystemWorldSavedData savedData = SolarSystemWorldSavedData.get(worldObj);
+			if(savedData != null) savedData.renameStation(station, data.getString("name"));
 		}
 
 		if(data.hasKey("gravity")) {

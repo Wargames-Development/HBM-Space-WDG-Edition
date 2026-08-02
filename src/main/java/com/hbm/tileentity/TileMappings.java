@@ -136,6 +136,7 @@ public class TileMappings {
 		put(TileEntityCrateIron.class, "tileentity_crate_iron");
 		put(TileEntityCrateSteel.class, "tileentity_crate_steel");
 		put(TileEntityCrateDesh.class, "tileentity_crate_desh");
+		put(TileEntityDriveCrate.class, "tileentity_drive_crate");
 		put(TileEntityMassStorage.class, "tileentity_mass_storage");
 		put(TileEntityMachinePress.class, "tileentity_press");
 		put(TileEntityMachineAmmoPress.class, "tileentity_ammo_press");
@@ -425,6 +426,7 @@ public class TileMappings {
 
 		put(TileEntityTransporterRocket.class, "tileentity_transporter");
 		put(TileEntityOrbitalStation.class, "tileentity_orbital_station");
+		put(TileEntityOrbitalStationRaidingPort.class, "tileentity_orbital_station_raiding_port");
 		put(TileEntityOrbitalStationLauncher.class, "tileentity_orbital_station_launcher");
 		put(TileEntityOrbitalStationComputer.class, "tileentity_orbital_station_computer");
 		put(TileEntityStationPropulsionCreative.class, "tileentity_propulsion_creative");

@@ -66,6 +66,10 @@ public class BlockStorageCrate extends BlockContainer implements IBlockMulti, IL
 			this.iconTop = iconRegister.registerIcon(RefStrings.MODID + ":crate_tungsten_top");
 			this.blockIcon = iconRegister.registerIcon(RefStrings.MODID + ":crate_tungsten_side");
 		}
+		if(this == ModBlocks.drive_crate) {
+			this.iconTop = iconRegister.registerIcon(RefStrings.MODID + ":crate_drive_side");
+			this.blockIcon = this.iconTop;
+		}
 		if(this == ModBlocks.crate_desh) {
 			this.iconTop = iconRegister.registerIcon(RefStrings.MODID + ":crate_desh_top");
 			this.blockIcon = iconRegister.registerIcon(RefStrings.MODID + ":crate_desh_side");
@@ -96,6 +100,7 @@ public class BlockStorageCrate extends BlockContainer implements IBlockMulti, IL
 		if(this == ModBlocks.crate_steel) return new TileEntityCrateSteel();
 		if(this == ModBlocks.crate_desh) return new TileEntityCrateDesh();
 		if(this == ModBlocks.crate_tungsten) return new TileEntityCrateTungsten();
+		if(this == ModBlocks.drive_crate) return new TileEntityDriveCrate();
 		if(this == ModBlocks.safe) return new TileEntitySafe();
 		return null;
 	}
@@ -104,6 +109,7 @@ public class BlockStorageCrate extends BlockContainer implements IBlockMulti, IL
 
 	@Override
 	public boolean removedByPlayer(World world, EntityPlayer player, int x, int y, int z, boolean willHarvest) {
+		if(this == ModBlocks.drive_crate) return super.removedByPlayer(world, player, x, y, z, willHarvest);
 		
 		if(!world.isRemote && !ServerConfig.CRATE_KEEP_CONTENTS.get()) {
 			dropInv = true;
@@ -195,6 +201,14 @@ public class BlockStorageCrate extends BlockContainer implements IBlockMulti, IL
 
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
+		if(this == ModBlocks.drive_crate) {
+			if(player == null || player.isSneaking()) return false;
+			if(!world.isRemote && world.getBlock(x, y, z) == this && world.getTileEntity(x, y, z) instanceof TileEntityDriveCrate) {
+				FMLNetworkHandler.openGui(player, MainRegistry.instance, 0, world, x, y, z);
+			}
+			return true;
+		}
+
 		if(world.isRemote) {
 			return true;
 		} else if(player.getHeldItem() != null && (player.getHeldItem().getItem() instanceof ItemLock || player.getHeldItem().getItem() == ModItems.key_kit)) {
@@ -215,6 +229,11 @@ public class BlockStorageCrate extends BlockContainer implements IBlockMulti, IL
 
 	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack stack) {
+
+		if(this == ModBlocks.drive_crate) {
+			super.onBlockPlacedBy(world, x, y, z, player, stack);
+			return;
+		}
 
 		ISidedInventory inv = (ISidedInventory)world.getTileEntity(x, y, z);
 
@@ -257,6 +276,11 @@ public class BlockStorageCrate extends BlockContainer implements IBlockMulti, IL
 
 	@Override
 	public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
+
+		if(this == ModBlocks.drive_crate) {
+			super.breakBlock(world, x, y, z, block, meta);
+			return;
+		}
 
 		if(dropInv) {
 			ISidedInventory sided = (ISidedInventory) world.getTileEntity(x, y, z);
@@ -303,7 +327,7 @@ public class BlockStorageCrate extends BlockContainer implements IBlockMulti, IL
 
 	@Override
 	public Item getItemDropped(int i, Random rand, int j) {
-		return null;
+		return this == ModBlocks.drive_crate ? Item.getItemFromBlock(this) : null;
 	}
 
 	@Override
@@ -313,16 +337,19 @@ public class BlockStorageCrate extends BlockContainer implements IBlockMulti, IL
 
 	@Override
 	public boolean hasComparatorInputOverride() {
-		return true;
+		return this != ModBlocks.drive_crate;
 	}
 
 	@Override
 	public int getComparatorInputOverride(World world, int x, int y, int z, int side) {
+		if(this == ModBlocks.drive_crate) return 0;
 		return Container.calcRedstoneFromInventory((IInventory) world.getTileEntity(x, y, z));
 	}
 
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean ext) {
+		if(this == ModBlocks.drive_crate) return;
+
 		if(stack.hasTagCompound()) {
 
 			if(stack.stackTagCompound.getBoolean("spiders")) {

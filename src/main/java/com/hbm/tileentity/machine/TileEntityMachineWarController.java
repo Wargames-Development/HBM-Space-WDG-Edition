@@ -74,12 +74,15 @@ public class TileEntityMachineWarController extends TileEntityMachineBase implem
 	public void updateEntity() {
 		if(!worldObj.isRemote) {
 			id = ISatChip.getFreqS(slots[2]);
-			if(slots[1] == null || slots[1].getItem() != ModItems.full_drive) return;
+			if(!ItemVOTVdrive.isUsableDrive(slots[1]) || !ItemVOTVdrive.getProcessed(slots[1])) return;
 
 			SatelliteSavedData data = SatelliteSavedData.getData(worldObj, xCoord, zCoord);
 
-			SolarSystem.Body target = ItemVOTVdrive.getDestination(slots[1]).body;
+			ItemVOTVdrive.Destination destination = ItemVOTVdrive.getDestination(slots[1]);
+			if(destination == null || destination.body == null) return;
+			SolarSystem.Body target = destination.body;
 			CelestialBody body = target.getBody();
+			if(body == null) return;
 
 			Satellite sat = data.getSatFromFreq(id);
 

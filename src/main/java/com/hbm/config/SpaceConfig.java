@@ -94,6 +94,9 @@ public class SpaceConfig {
 
 	public static int maxProbeDistance = 32_000;
 	public static int maxStationDistance = 32_000;
+	public static int stationCodeLifetimeSeconds = 3_600;
+	public static int stationComputerCrashTimeSeconds = 3_600;
+	public static int raidPortCleanupDelaySeconds = 900;
 	
 	public static boolean combatPodDespawn = false;
 
@@ -121,6 +124,9 @@ public class SpaceConfig {
 		crashOnBiomeConflict = CommonConfig.createConfigBool(config, CATEGORY_GENERAL, "1.92_crashOnBiomeConflict", "To avoid biome ID collisions, the game will crash if one occurs, and give instructions on how to fix. Only disable this if you know what you're doing!", crashOnBiomeConflict);
 		showOreLocations = CommonConfig.createConfigBool(config, CATEGORY_GENERAL, "1.93_showOreLocations", "Should ores indicate which planets they can be found on.", showOreLocations);
 		combatPodDespawn = CommonConfig.createConfigBool(config, CATEGORY_GENERAL, "1.94_combatPodDespawn", "wether combat pods should despawn after a certian amount of time.", combatPodDespawn);
+		stationCodeLifetimeSeconds = CommonConfig.createConfigInt(config, CATEGORY_GENERAL, "1.95_stationCodeLifetimeSeconds", "Real-time lifetime in seconds for Raid Hard Drives programmed with /ntm station raid. The legacy key name is retained for config compatibility. Default: 3600 seconds (1 hour).", stationCodeLifetimeSeconds, 1, Integer.MAX_VALUE);
+		stationComputerCrashTimeSeconds = CommonConfig.createConfigInt(config, CATEGORY_GENERAL, "1.96_stationComputerCrashTimeSeconds", "Server-running-time survival period in seconds after a required Orbital Station Computer is destroyed. The countdown pauses while the server is offline. Default: 3600 seconds (1 hour).", stationComputerCrashTimeSeconds, 1, Integer.MAX_VALUE);
+		raidPortCleanupDelaySeconds = CommonConfig.createConfigInt(config, CATEGORY_GENERAL, "1.97_raidPortCleanupDelaySeconds", "Real-time delay in seconds after a Raid Hard Drive expires before the raid port and its bounded raid area are deleted. Default: 900 seconds (15 minutes).", raidPortCleanupDelaySeconds, 1, Integer.MAX_VALUE);
 		// Move defaults into unused ranges if EndlessIDs is installed
 		int defaultBiomeOffset = Loader.isModLoaded(Compat.MOD_EIDS) ? 12_000 : 0;
 

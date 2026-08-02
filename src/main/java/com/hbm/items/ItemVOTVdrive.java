@@ -5,6 +5,7 @@ import java.util.List;
 import com.hbm.config.SpaceConfig;
 import com.hbm.dim.CelestialBody;
 import com.hbm.dim.SolarSystem;
+import com.hbm.dim.SolarSystemWorldSavedData;
 import com.hbm.dim.orbit.OrbitalStation;
 import com.hbm.entity.missile.EntityRideableRocket;
 import com.hbm.entity.missile.EntityRideableRocket.RocketState;
@@ -15,7 +16,10 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -26,6 +30,13 @@ import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
 
 public class ItemVOTVdrive extends ItemEnumMulti {
+
+	private static final String TAG_STATION_DELETED = "hbmStationDeleted";
+	public static final String TAG_STATION_KEY = "hbmStationKey";
+	public static final String TAG_STATION_GENERATION = "hbmStationGeneration";
+	public static final String TAG_STATION_DRIVE_TYPE = "hbmStationDriveType";
+	public static final String DRIVE_TYPE_NORMAL = "normal";
+	public static final String DRIVE_TYPE_RAID = "raid";
 
 	private IIcon[] overlays;
 
@@ -41,6 +52,10 @@ public class ItemVOTVdrive extends ItemEnumMulti {
 		super.addInformation(stack, player, list, bool);
 
 		Destination destination = getDestination(stack);
+		if(destination == null || destination.body == null) {
+			list.add(EnumChatFormatting.RED + "Station no longer exists");
+			return;
+		}
 
 		if(destination.body == SolarSystem.Body.ORBIT) {
 			String identifier = stack.stackTagCompound.getString("stationName");
@@ -123,6 +138,7 @@ public class ItemVOTVdrive extends ItemEnumMulti {
 		stackTag.setInteger("ax", 1);
 		stackTag.setBoolean("Processed", true);
 		for(int i = 0; i < theEnum.getEnumConstants().length; i++) {
+			if(SolarSystem.Body.values()[i] == SolarSystem.Body.ORBIT) continue;
 			ItemStack stack = new ItemStack(item, 1, i);
 			stack.stackTagCompound = stackTag;
 			list.add(stack);
@@ -133,48 +149,197 @@ public class ItemVOTVdrive extends ItemEnumMulti {
 		return SolarSystem.Body.values()[stack.getItemDamage() % SolarSystem.Body.values().length];
 	}
 
+	/** Returns true only for normal drives and currently valid programmed raid drives. */
+	public static boolean isUsableDrive(ItemStack stack) {
+		if(stack == null || !(stack.getItem() instanceof ItemVOTVdrive)) return false;
+		if(stack.getItem() == ModItems.raid_drive) return ItemRaidDrive.validate(stack);
+		return true;
+	}
+
 	public static Destination getDestination(ItemStack stack) {
-		if(stack == null) return null;
+		if(!isUsableDrive(stack)) return null;
+		return getDestinationUnchecked(stack);
+	}
 
-		if(!stack.hasTagCompound())
-			stack.stackTagCompound = new NBTTagCompound();
-
+	/** Reads destination NBT without causing recursive raid-drive validation. */
+	public static Destination getDestinationUnchecked(ItemStack stack) {
+		if(stack == null || !(stack.getItem() instanceof ItemVOTVdrive)) return null;
+		if(!stack.hasTagCompound()) stack.stackTagCompound = new NBTTagCompound();
 		SolarSystem.Body body = getBody(stack);
 		int x = stack.stackTagCompound.getInteger("x");
 		int z = stack.stackTagCompound.getInteger("z");
+		if(body == SolarSystem.Body.ORBIT && stack.stackTagCompound.getBoolean(TAG_STATION_DELETED)) return null;
 		return new Destination(body, x, z);
 	}
 
-	public static Target getTarget(ItemStack stack, World world) {
-		if(stack == null) {
-			return new Target(null, false, false);
+	public static boolean isRaidStationDrive(ItemStack stack) {
+		return ItemRaidDrive.isRaidDrive(stack) || (stack != null && stack.hasTagCompound() && DRIVE_TYPE_RAID.equals(stack.stackTagCompound.getString(TAG_STATION_DRIVE_TYPE)));
+	}
+
+	public static boolean isNormalStationDrive(ItemStack stack) {
+		if(stack == null || stack.getItem() != ModItems.full_drive || getBody(stack) != SolarSystem.Body.ORBIT || !stack.hasTagCompound()) return false;
+		String type = stack.stackTagCompound.getString(TAG_STATION_DRIVE_TYPE);
+		return type.isEmpty() || DRIVE_TYPE_NORMAL.equals(type);
+	}
+
+	/** Converts a deleted normal station drive into the mod's ordinary empty Hard Drive. */
+	public static boolean resetToEmptyHardDrive(ItemStack stack) {
+		if(!isNormalStationDrive(stack)) return false;
+		int size = Math.max(1, Math.min(stack.stackSize, ModItems.hard_drive.getItemStackLimit()));
+		stack.func_150996_a(ModItems.hard_drive);
+		stack.setItemDamage(0);
+		stack.stackTagCompound = null;
+		stack.stackSize = size;
+		return true;
+	}
+
+	/** Used by bounded loaded-inventory sweeps when a specific station deletion completes. */
+	public static boolean resetIfMatchesStation(ItemStack stack, int stationX, int stationZ, String stationKey, int generation) {
+		if(!isNormalStationDrive(stack)) return false;
+		Destination destination = getDestinationUnchecked(stack);
+		if(destination == null || destination.body != SolarSystem.Body.ORBIT || destination.x != stationX || destination.z != stationZ) return false;
+
+		NBTTagCompound tag = stack.stackTagCompound;
+		int driveGeneration = tag.hasKey(TAG_STATION_GENERATION) ? tag.getInteger(TAG_STATION_GENERATION) : 0;
+		if(driveGeneration != generation) return false;
+
+		String driveKey = tag.getString(TAG_STATION_KEY);
+		String expectedKey = stationKey == null ? "" : stationKey;
+		if(driveKey.isEmpty()) {
+			if(!expectedKey.isEmpty() && !expectedKey.startsWith("legacy:")) return false;
+		} else if(!driveKey.equals(expectedKey)) {
+			return false;
 		}
 
-		if(!stack.hasTagCompound())
-			stack.stackTagCompound = new NBTTagCompound();
+		return resetToEmptyHardDrive(stack);
+	}
 
-		Destination destination = getDestination(stack);
+	/**
+	 * Server-authoritative normal station-drive validation. A drive is unusable as
+	 * soon as deletion is queued, but it is converted only after the station's
+	 * persisted generation proves that authoritative deletion has completed.
+	 */
+	public static boolean validateNormalStationDrive(ItemStack stack, World world) {
+		if(!isNormalStationDrive(stack)) return false;
+		if(world == null || world.isRemote) return true;
+
+		Destination destination = getDestinationUnchecked(stack);
+		if(destination == null || destination.body != SolarSystem.Body.ORBIT) return false;
+		SolarSystemWorldSavedData data = SolarSystemWorldSavedData.get(world);
+		if(data == null) return false;
+
+		OrbitalStation station = data.getStationAtGrid(destination.x, destination.z);
+		if(station != null && data.matchesDriveIdentity(station, stack, false)) return !station.deleting;
+		if(data.shouldResetNormalStationDrive(stack)) resetToEmptyHardDrive(stack);
+		return false;
+	}
+
+	/** Validates every normal station drive in an inventory and marks it dirty if changed. */
+	public static boolean validateNormalStationDrives(IInventory inventory, World world) {
+		if(inventory == null || world == null || world.isRemote) return false;
+		boolean changed = false;
+		for(int slot = 0; slot < inventory.getSizeInventory(); slot++) {
+			ItemStack stack = inventory.getStackInSlot(slot);
+			if(isNormalStationDrive(stack)) {
+				Item before = stack.getItem();
+				validateNormalStationDrive(stack, world);
+				if(stack.getItem() != before) changed = true;
+			}
+		}
+		if(changed) inventory.markDirty();
+		return changed;
+	}
+
+	public static ItemStack createNormalStationDrive(OrbitalStation station) {
+		if(station == null) return null;
+		station.ensureIdentity();
+		ItemStack drive = new ItemStack(ModItems.full_drive, 1, SolarSystem.Body.ORBIT.ordinal());
+		drive.stackTagCompound = new NBTTagCompound();
+		drive.stackTagCompound.setInteger("x", station.dX);
+		drive.stackTagCompound.setInteger("z", station.dZ);
+		drive.stackTagCompound.setBoolean("Processed", true);
+		drive.stackTagCompound.setString("stationName", station.name == null ? "" : station.name);
+		drive.stackTagCompound.setString(TAG_STATION_KEY, station.stationKey);
+		drive.stackTagCompound.setInteger(TAG_STATION_GENERATION, station.generation);
+		drive.stackTagCompound.setString(TAG_STATION_DRIVE_TYPE, DRIVE_TYPE_NORMAL);
+		drive.stackTagCompound.setInteger("sDim", station.orbiting == null ? 0 : station.orbiting.dimensionId);
+		drive.stackTagCompound.setBoolean("sHas", station.hasStation);
+		return drive;
+	}
+
+	public static Target getTarget(ItemStack stack, World world) {
+		if(isNormalStationDrive(stack) && world != null && !world.isRemote && !validateNormalStationDrive(stack, world)) return new Target(null, true, false);
+		if(!isUsableDrive(stack)) return new Target(null, false, false);
+		if(!stack.hasTagCompound()) stack.stackTagCompound = new NBTTagCompound();
+		Destination destination = getDestinationUnchecked(stack);
+		if(destination == null) return new Target(null, false, false);
 
 		if(destination.body == SolarSystem.Body.ORBIT) {
-			if(world.isRemote) {
+			if(world == null || world.isRemote) {
 				CelestialBody body = CelestialBody.getBody(stack.stackTagCompound.getInteger("sDim"));
-				boolean hasStation = stack.stackTagCompound.getBoolean("sHas");
-
-				return new Target(body, true, hasStation);
+				return new Target(body, true, stack.stackTagCompound.getBoolean("sHas"));
 			}
 
-			OrbitalStation station = OrbitalStation.getStation(destination.x, destination.z);
-			if(!station.hasStation) station.orbiting = CelestialBody.getBody(world);
+			SolarSystemWorldSavedData data = SolarSystemWorldSavedData.get(world);
+			if(data == null) return new Target(null, true, false);
+			OrbitalStation station = data.getStationAtGrid(destination.x, destination.z);
+			boolean raid = isRaidStationDrive(stack);
+			boolean identityValid = station != null && data.matchesDriveIdentity(station, stack, raid);
+			if(!identityValid || station.deleting || (raid && !station.hasStation)) {
+				stack.stackTagCompound.setBoolean("sHas", false);
+				return new Target(null, true, false);
+			}
 
-			// The client can't get this information, so any time the server grabs it, serialize it to the itemstack
-			stack.stackTagCompound.setString("stationName", station.name);
-			stack.stackTagCompound.setInteger("sDim", station.orbiting.dimensionId);
+			station.ensureIdentity();
+			stack.stackTagCompound.setBoolean(TAG_STATION_DELETED, false);
+			stack.stackTagCompound.setString("stationName", station.name == null ? "" : station.name);
+			stack.stackTagCompound.setInteger("sDim", station.orbiting == null ? 0 : station.orbiting.dimensionId);
 			stack.stackTagCompound.setBoolean("sHas", station.hasStation);
-
+			if(!stack.stackTagCompound.hasKey(TAG_STATION_GENERATION) && station.generation == 0) {
+				// Preserve legacy generation-zero drives without rewriting unrelated NBT.
+			} else {
+				stack.stackTagCompound.setInteger(TAG_STATION_GENERATION, station.generation);
+			}
 			return new Target(station.orbiting, true, station.hasStation);
-		} else {
-			return new Target(destination.body.getBody(), false, true);
 		}
+
+		return new Target(destination.body.getBody(), false, true);
+	}
+
+	public static boolean validateOrbitLaunch(ItemStack stack, World world) {
+		if(isNormalStationDrive(stack) && world != null && !world.isRemote && !validateNormalStationDrive(stack, world)) return false;
+		Destination destination = getDestinationUnchecked(stack);
+		if(destination == null || destination.body != SolarSystem.Body.ORBIT || world == null || world.isRemote) return destination != null;
+		SolarSystemWorldSavedData data = SolarSystemWorldSavedData.get(world);
+		if(data == null) return false;
+		OrbitalStation station = data.getStationAtGrid(destination.x, destination.z);
+		if(station == null || station.deleting || !data.matchesDriveIdentity(station, stack, isRaidStationDrive(stack))) return false;
+		net.minecraft.world.WorldServer orbit = net.minecraftforge.common.DimensionManager.getWorld(SpaceConfig.orbitDimension);
+		if(orbit == null) {
+			net.minecraftforge.common.DimensionManager.initDimension(SpaceConfig.orbitDimension);
+			orbit = net.minecraftforge.common.DimensionManager.getWorld(SpaceConfig.orbitDimension);
+		}
+		if(orbit == null) return false;
+		if(isRaidStationDrive(stack)) return data.canLaunchRaidDrive(stack, orbit);
+		return data.canLaunchNormalDrive(stack, orbit);
+	}
+
+	public static int getOrbitArrivalX(ItemStack stack, World world) {
+		Destination destination = getDestinationUnchecked(stack);
+		if(destination == null) return 0;
+		SolarSystemWorldSavedData data = SolarSystemWorldSavedData.get(world);
+		OrbitalStation station = data == null ? null : data.getStationAtGrid(destination.x, destination.z);
+		if(station == null) return destination.x * OrbitalStation.STATION_SIZE + OrbitalStation.STATION_SIZE / 2;
+		return isRaidStationDrive(stack) && station.raidPortActive ? station.raidPortX : station.getCenterBlockX();
+	}
+
+	public static int getOrbitArrivalZ(ItemStack stack, World world) {
+		Destination destination = getDestinationUnchecked(stack);
+		if(destination == null) return 0;
+		SolarSystemWorldSavedData data = SolarSystemWorldSavedData.get(world);
+		OrbitalStation station = data == null ? null : data.getStationAtGrid(destination.x, destination.z);
+		if(station == null) return destination.z * OrbitalStation.STATION_SIZE + OrbitalStation.STATION_SIZE / 2;
+		return isRaidStationDrive(stack) && station.raidPortActive ? station.raidPortZ : station.getCenterBlockZ();
 	}
 
 	public static void setCoordinates(ItemStack stack, int x, int z) {
@@ -191,6 +356,7 @@ public class ItemVOTVdrive extends ItemEnumMulti {
 	}
 
 	public static boolean getProcessed(ItemStack stack) {
+		if(!isUsableDrive(stack)) return false;
 		if(!stack.hasTagCompound())
 			stack.stackTagCompound = new NBTTagCompound();
 
@@ -232,9 +398,35 @@ public class ItemVOTVdrive extends ItemEnumMulti {
 	}
 
 	@Override
+	public void onUpdate(ItemStack stack, World world, Entity entity, int slot, boolean held) {
+		if(world == null || world.isRemote || !isNormalStationDrive(stack)) return;
+		Item before = stack.getItem();
+		validateNormalStationDrive(stack, world);
+		if(stack.getItem() != before && entity instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer)entity;
+			player.inventory.markDirty();
+			if(player.inventoryContainer != null) player.inventoryContainer.detectAndSendChanges();
+		}
+	}
+
+	@Override
+	public boolean onEntityItemUpdate(EntityItem entityItem) {
+		if(entityItem != null && entityItem.worldObj != null && !entityItem.worldObj.isRemote) {
+			ItemStack stack = entityItem.getEntityItem();
+			Item before = stack == null ? null : stack.getItem();
+			if(isNormalStationDrive(stack)) validateNormalStationDrive(stack, entityItem.worldObj);
+			if(stack != null && stack.getItem() != before) entityItem.setEntityItemStack(stack);
+		}
+		return false;
+	}
+
+	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+		if(!world.isRemote && isNormalStationDrive(stack) && !validateNormalStationDrive(stack, world)) return stack;
+		Destination destination = getDestination(stack);
+		if(destination == null || destination.body == null) return stack;
 		boolean isProcessed = getProcessed(stack);
-		boolean onDestination = world.provider.dimensionId == getDestination(stack).body.getDimensionId();
+		boolean onDestination = world.provider.dimensionId == destination.body.getDimensionId();
 
 		// If we're on the body (or in creative), immediately process
 		if(!isProcessed && (player.capabilities.isCreativeMode || onDestination)) {
@@ -274,16 +466,20 @@ public class ItemVOTVdrive extends ItemEnumMulti {
 
 	@Override
 	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float fx, float fy, float fz) {
+		if(!world.isRemote && isNormalStationDrive(stack) && !validateNormalStationDrive(stack, world)) return false;
 		Destination destination = getDestination(stack);
+		if(destination == null || destination.body == null) return false;
 		if(destination.body == SolarSystem.Body.ORBIT) {
+			if(isRaidStationDrive(stack)) return false;
 			if(world.provider.dimensionId == SpaceConfig.orbitDimension) return false;
 
 			if(!world.isRemote) {
-				OrbitalStation station = OrbitalStation.getStation(destination.x, destination.z);
+				SolarSystemWorldSavedData data = SolarSystemWorldSavedData.get(world);
+				OrbitalStation station = data == null || data.isStationDeleted(destination.x, destination.z) ? null : data.getStationAtGrid(destination.x, destination.z);
 
 				Destination target = new Destination(CelestialBody.getEnum(world), x, z);
 
-				if(station.recallPod(target)) {
+				if(station != null && station.recallPod(target)) {
 					player.addChatMessage(new ChatComponentText(EnumChatFormatting.YELLOW + "" + EnumChatFormatting.ITALIC + "Recalling drop pod to coordinates: " + x + ", " + z));
 				} else {
 					player.addChatMessage(new ChatComponentText(EnumChatFormatting.YELLOW + "" + EnumChatFormatting.ITALIC + "Could not recall drop pod from station!"));

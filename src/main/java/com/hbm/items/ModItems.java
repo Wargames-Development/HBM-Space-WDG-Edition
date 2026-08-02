@@ -1099,7 +1099,9 @@ public class ModItems {
 	public static ItemEnumMulti rod_zirnox;
 
 	public static ItemEnumMulti full_drive;
+	public static ItemEnumMulti raid_drive;
 	public static Item hard_drive;
+	public static Item corrupted_drive;
 
 	public static Item rod_zirnox_natural_uranium_fuel_depleted;
 	public static Item rod_zirnox_uranium_fuel_depleted;
@@ -3336,6 +3338,8 @@ public class ModItems {
 		rod_zirnox = (ItemEnumMulti) new ItemZirnoxRod().setUnlocalizedName("rod_zirnox").setCreativeTab(MainRegistry.controlTab).setTextureName(RefStrings.MODID + ":rod_zirnox");
 
 		full_drive = (ItemEnumMulti) new ItemVOTVdrive().setUnlocalizedName("hard_drive_full").setCreativeTab(MainRegistry.controlTab).setTextureName(RefStrings.MODID + ":votv_f");
+		raid_drive = (ItemEnumMulti) new ItemRaidDrive().setUnlocalizedName("hard_drive_raid").setCreativeTab(MainRegistry.controlTab).setTextureName(RefStrings.MODID + ":votv_raid_e");
+		corrupted_drive = new Item().setUnlocalizedName("hard_drive_corrupted").setMaxStackSize(1).setCreativeTab(MainRegistry.partsTab).setTextureName(RefStrings.MODID + ":votv_coreupt");
 
 		rod_zirnox_natural_uranium_fuel_depleted = new Item().setUnlocalizedName("rod_zirnox_natural_uranium_fuel_depleted").setCreativeTab(MainRegistry.controlTab).setContainerItem(ModItems.rod_zirnox_empty).setTextureName(RefStrings.MODID + ":rod_zirnox_uranium_fuel_depleted");
 		rod_zirnox_uranium_fuel_depleted = new Item().setUnlocalizedName("rod_zirnox_uranium_fuel_depleted").setCreativeTab(MainRegistry.controlTab).setContainerItem(ModItems.rod_zirnox_empty).setTextureName(RefStrings.MODID + ":rod_zirnox_uranium_fuel_depleted");
@@ -5513,6 +5517,8 @@ public class ModItems {
 		GameRegistry.registerItem(part_grip, part_grip.getUnlocalizedName());
 		GameRegistry.registerItem(hard_drive, hard_drive.getUnlocalizedName());
 		GameRegistry.registerItem(full_drive, full_drive.getUnlocalizedName());
+		GameRegistry.registerItem(raid_drive, raid_drive.getUnlocalizedName());
+		GameRegistry.registerItem(corrupted_drive, corrupted_drive.getUnlocalizedName());
 		GameRegistry.registerItem(divine_shard, divine_shard.getUnlocalizedName());
 
 		//Plant Products

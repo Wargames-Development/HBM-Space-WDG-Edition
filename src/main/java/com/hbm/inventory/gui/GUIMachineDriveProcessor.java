@@ -4,8 +4,8 @@ import org.lwjgl.opengl.GL11;
 
 import com.hbm.inventory.container.ContainerDriveProcessor;
 import com.hbm.lib.RefStrings;
-import com.hbm.packet.toserver.NBTControlPacket;
 import com.hbm.packet.PacketDispatcher;
+import com.hbm.packet.toserver.NBTControlPacket;
 import com.hbm.tileentity.machine.TileEntityMachineDriveProcessor;
 
 import net.minecraft.client.Minecraft;
@@ -16,7 +16,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class GUIMachineDriveProcessor extends GuiInfoContainer {
 
-	private static final ResourceLocation texture = new ResourceLocation( RefStrings.MODID + ":textures/gui/processing/gui_drive_processor.png");
+	private static final ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/processing/gui_drive_processor.png");
 
 	private TileEntityMachineDriveProcessor machine;
 
@@ -27,15 +27,14 @@ public class GUIMachineDriveProcessor extends GuiInfoContainer {
 		this.xSize = 176;
 		this.ySize = 207;
 	}
-	
+
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float f) {
 		super.drawScreen(mouseX, mouseY, f);
 		
 		this.drawElectricityInfo(this, mouseX, mouseY, guiLeft + 134, guiTop + 18, 16, 52, machine.power, machine.maxPower);
-        
-		this.drawCustomInfoStat(mouseX, mouseY, guiLeft + 49, guiTop + 17, 18, 18, mouseX, mouseY, new String[] {"Clone drive"} );
-		this.drawCustomInfoStat(mouseX, mouseY, guiLeft + 38, guiTop + 61, 18, 18, mouseX, mouseY, new String[] {"Start drive processing"} );
+		this.drawCustomInfoStat(mouseX, mouseY, guiLeft + 49, guiTop + 17, 18, 18, mouseX, mouseY, new String[] {"Clone drive"});
+		this.drawCustomInfoStat(mouseX, mouseY, guiLeft + 38, guiTop + 61, 18, 18, mouseX, mouseY, new String[] {"Start drive processing"});
 	}
 
 	@Override
@@ -60,9 +59,7 @@ public class GUIMachineDriveProcessor extends GuiInfoContainer {
 	}
 
 	@Override
-	protected void drawGuiContainerForegroundLayer(int mx, int my) {
-		
-	}
+	protected void drawGuiContainerForegroundLayer(int mx, int my) { }
 	
 	@Override
 	protected void mouseClicked(int x, int y, int i) {
@@ -70,7 +67,7 @@ public class GUIMachineDriveProcessor extends GuiInfoContainer {
 
 		// Process drive
 		if(checkClick(x, y, 38, 61, 18, 18)) {
-			mc.getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation("gui.button.press"), 1.0F));
+			playButton();
 
 			NBTTagCompound data = new NBTTagCompound();
 			data.setBoolean("process", !machine.isProcessing);
@@ -80,7 +77,7 @@ public class GUIMachineDriveProcessor extends GuiInfoContainer {
 
 		// Clone drive
 		if(checkClick(x, y, 49, 17, 18, 18)) {
-			mc.getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation("gui.button.press"), 1.0F));
+			playButton();
 
 			NBTTagCompound data = new NBTTagCompound();
 			data.setBoolean("clone", true);
@@ -88,5 +85,8 @@ public class GUIMachineDriveProcessor extends GuiInfoContainer {
 			PacketDispatcher.wrapper.sendToServer(new NBTControlPacket(data, machine.xCoord, machine.yCoord, machine.zCoord));
 		}
 	}
-	
+
+	private void playButton() {
+		mc.getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation("gui.button.press"), 1.0F));
+	}
 }

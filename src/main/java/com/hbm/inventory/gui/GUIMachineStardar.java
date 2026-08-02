@@ -212,7 +212,6 @@ public class GUIMachineStardar extends GuiInfoContainer {
 		super.drawScreen(mouseX, mouseY, partialTicks);
 
 		this.drawCustomInfoStat(mouseX, mouseY, guiLeft + 129, guiTop + 124, 18, 18, mouseX, mouseY, I18nUtil.resolveKey("gui.stardar.tooltip.focus_current_body"));
-		this.drawCustomInfoStat(mouseX, mouseY, guiLeft + 129, guiTop + 143, 18, 18, mouseX, mouseY, I18nUtil.resolveKey("gui.stardar.tooltip.program_new_station"));
 		this.drawCustomInfoStat(mouseX, mouseY, guiLeft + 149, guiTop + 143, 18, 18, mouseX, mouseY, I18nUtil.resolveKey("gui.stardar.tooltip.program_current_body"));
 		drawSatelliteTooltip(mouseX, mouseY);
 
@@ -1532,13 +1531,6 @@ public class GUIMachineStardar extends GuiInfoContainer {
 	protected void mouseClicked(int mouseX, int mouseY, int button) {
 		super.mouseClicked(mouseX, mouseY, button);
 
-		if(checkClick(mouseX, mouseY, 129, 143, 18, 18)) {
-			mc.getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation("gui.button.press"), 1.0F));
-			NBTTagCompound data = new NBTTagCompound();
-			data.setInteger("pid", SpaceConfig.orbitDimension);
-			PacketDispatcher.wrapper.sendToServer(new NBTControlPacket(data, star.xCoord, star.yCoord, star.zCoord));
-			return;
-		}
 
 		if(checkClick(mouseX, mouseY, 129, 123, 18, 18)) {
 			mc.getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation("gui.button.press"), 1.0F));

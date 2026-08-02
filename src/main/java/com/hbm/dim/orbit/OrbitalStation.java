@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Stack;
+import java.util.UUID;
 
 import com.hbm.blocks.BlockDummyable;
 import com.hbm.blocks.ModBlocks;
@@ -19,6 +20,7 @@ import com.hbm.entity.missile.EntityRideableRocket.RocketState;
 import com.hbm.handler.ThreeInts;
 import com.hbm.items.ItemVOTVdrive.Destination;
 import com.hbm.tileentity.machine.TileEntityOrbitalStation;
+import com.hbm.tileentity.machine.TileEntityOrbitalStationRaidingPort;
 import com.hbm.util.BobMathUtil;
 import com.hbm.util.BufferUtil;
 
@@ -44,6 +46,35 @@ public class OrbitalStation {
 
 	public boolean hasStation = false;
 
+	/** Stable identity used to reject stale drives when a grid cell is reused. */
+	public String stationKey = "";
+	public int generation = 0;
+	public boolean reservedForLaunch = false;
+	public boolean deleting = false;
+
+	/** Required-computer state. The countdown uses server-running ticks. */
+	public boolean computerRequired = false;
+	public boolean hasComputer = false;
+	public int computerX = Integer.MIN_VALUE;
+	public int computerY = Integer.MIN_VALUE;
+	public int computerZ = Integer.MIN_VALUE;
+	public long computerCrashTicksRemaining = -1L;
+	/** Remaining-countdown threshold for the next persisted 10-minute warning. */
+	public long computerNextWarningTicks = -1L;
+
+	/** One active raid port is supported per station. */
+	public boolean raidPortActive = false;
+	public String raidToken = "";
+	public int raidPortX = 0;
+	public int raidPortY = 127;
+	public int raidPortZ = 0;
+	public long raidExpiresAt = 0L;
+	public long raidCleanupAt = 0L;
+	/** Persisted five-minute warning interval index; -1 means no warning has been sent yet. */
+	public long raidLastWarningInterval = -1L;
+	/** Legacy compatibility mirror for older saves and tooling. */
+	public boolean raidExpirationWarningSent = false;
+
 	// the coordinates of the station within the dimension
 	public int dX;
 	public int dZ;
@@ -62,6 +93,7 @@ public class OrbitalStation {
 	}
 
 	private TileEntityOrbitalStation mainPort;
+	private TileEntityOrbitalStation raidPort;
 	private HashMap<ThreeInts, TileEntityOrbitalStation> ports = new HashMap<>();
 	private int portIndex = 0;
 
@@ -70,9 +102,15 @@ public class OrbitalStation {
 	public static OrbitalStation clientStation = new OrbitalStation(CelestialBody.getBody(0));
 	public static List<OrbitalStation> orbitingStations = new ArrayList<OrbitalStation>();
 
-	public static final int STATION_SIZE = 1024; // total area for each station
-	public static final int BUFFER_SIZE = 256; // size of the buffer region that drops you out of orbit (preventing seeing other stations)
-	public static final int WARNING_SIZE = 32; // size of the region that warns the player about falling out of orbit
+	public static final int CHUNK_SIZE = 16;
+	public static final int STATION_CHUNKS = 64;
+	public static final int STATION_SIZE = STATION_CHUNKS * CHUNK_SIZE;
+	public static final int WARNING_SIZE = 32; // advisory warning only; falling begins after leaving the full 64x64 area
+	public static final int BOTTOM_FALL_Y = -32;
+	public static final int CORE_Y = 127;
+	public static final int INNER_RAID_BOX_CHUNKS = 48;
+	public static final int RAID_PORT_CHUNKS = 2;
+	public static final int RAID_CLEANUP_CHUNKS = 10;
 
 
 
@@ -95,6 +133,26 @@ public class OrbitalStation {
 		this(orbiting);
 		this.dX = x;
 		this.dZ = z;
+	}
+
+	public void ensureIdentity() {
+		if(stationKey == null || stationKey.trim().isEmpty()) {
+			stationKey = generation == 0 ? "legacy:" + dX + ":" + dZ : UUID.randomUUID().toString();
+		}
+	}
+
+	public int getMinChunkX() { return dX * STATION_CHUNKS; }
+	public int getMinChunkZ() { return dZ * STATION_CHUNKS; }
+	public int getCenterChunkX() { return getMinChunkX() + STATION_CHUNKS / 2; }
+	public int getCenterChunkZ() { return getMinChunkZ() + STATION_CHUNKS / 2; }
+	public int getCenterBlockX() { return getCenterChunkX() * CHUNK_SIZE; }
+	public int getCenterBlockZ() { return getCenterChunkZ() * CHUNK_SIZE; }
+
+	public boolean containsBlock(double x, double z) {
+		int chunkX = MathHelper.floor_double(x) >> 4;
+		int chunkZ = MathHelper.floor_double(z) >> 4;
+		return chunkX >= getMinChunkX() && chunkX < getMinChunkX() + STATION_CHUNKS
+			&& chunkZ >= getMinChunkZ() && chunkZ < getMinChunkZ() + STATION_CHUNKS;
 	}
 
 	public void travelTo(World world, CelestialBody target) {
@@ -245,36 +303,57 @@ public class OrbitalStation {
 	}
 
 	public void addPort(TileEntityOrbitalStation port) {
+		if(port == null) return;
 		ports.put(new ThreeInts(port.xCoord, port.yCoord, port.zCoord), port);
 		if(port.getBlockType() == ModBlocks.orbital_station) mainPort = port;
+		if(port instanceof TileEntityOrbitalStationRaidingPort || port.getBlockType() == ModBlocks.orbital_station_raiding_port) raidPort = port;
 	}
 
 	public void removePort(TileEntityOrbitalStation port) {
+		if(port == null) return;
 		ports.remove(new ThreeInts(port.xCoord, port.yCoord, port.zCoord));
+		if(mainPort == port) mainPort = null;
+		if(raidPort == port) raidPort = null;
 	}
 
-	public TileEntityOrbitalStation getPort() {
-		if(ports.size() == 0) return null;
-
-		// First, find any port that's available
+	private TileEntityOrbitalStation choosePort(List<TileEntityOrbitalStation> candidates) {
+		if(candidates.isEmpty()) return null;
 		int index = 0;
-		for(TileEntityOrbitalStation port : ports.values()) {
+		for(TileEntityOrbitalStation port : candidates) {
 			if(!port.hasDocked && !port.isReserved) {
 				portIndex = index;
 				return port;
 			}
 			index++;
 		}
-
-		// Failing that, round robin on the occupied ports
 		portIndex++;
-		if(portIndex >= ports.size()) portIndex = 0;
-
-		return ports.values().toArray(new TileEntityOrbitalStation[ports.size()])[portIndex];
+		if(portIndex >= candidates.size()) portIndex = 0;
+		return candidates.get(portIndex);
 	}
 
+	public TileEntityOrbitalStation getNormalPort() {
+		List<TileEntityOrbitalStation> normal = new ArrayList<TileEntityOrbitalStation>();
+		for(TileEntityOrbitalStation port : ports.values()) {
+			if(!(port instanceof TileEntityOrbitalStationRaidingPort) && port.getBlockType() != ModBlocks.orbital_station_raiding_port) normal.add(port);
+		}
+		return choosePort(normal);
+	}
+
+	public TileEntityOrbitalStation getRaidPort() {
+		if(raidPort != null && !raidPort.isInvalid()) return raidPort;
+		List<TileEntityOrbitalStation> raid = new ArrayList<TileEntityOrbitalStation>();
+		for(TileEntityOrbitalStation port : ports.values()) {
+			if(port instanceof TileEntityOrbitalStationRaidingPort || port.getBlockType() == ModBlocks.orbital_station_raiding_port) raid.add(port);
+		}
+		return choosePort(raid);
+	}
+
+	/** Legacy callers always receive a normal station port. */
+	public TileEntityOrbitalStation getPort() { return getNormalPort(); }
+
 	public static TileEntityOrbitalStation getPort(int x, int z) {
-		return getStationFromPosition(x, z).getPort();
+		OrbitalStation station = getStationFromPosition(x, z);
+		return station == null ? null : station.getNormalPort();
 	}
 
 	// I can't stop pronouncing this as hors d'oeuvre
@@ -369,13 +448,15 @@ public class OrbitalStation {
 	// Finds a space station for a given set of coordinates
 	public static OrbitalStation getStationFromPosition(int x, int z) {
 		SolarSystemWorldSavedData data = SolarSystemWorldSavedData.get();
+		int gridX = MathHelper.floor_double((double)x / STATION_SIZE);
+		int gridZ = MathHelper.floor_double((double)z / STATION_SIZE);
+		if(data == null) return new OrbitalStation(CelestialBody.getBody(0), gridX, gridZ);
+
 		OrbitalStation station = data.getStationFromPosition(x, z);
 
-		// Fallback for when a station doesn't exist (should only occur when using debug wand!)
-		if(station == null) {
-			station = data.addStation(MathHelper.floor_float((float)x / STATION_SIZE), MathHelper.floor_float((float)z / STATION_SIZE), CelestialBody.getBody(0));
-		}
-
+		// Do not silently recreate missing or deleting stations. Legacy callers receive
+		// an inert, non-persisted placeholder instead.
+		if(station == null || station.deleting) return new OrbitalStation(CelestialBody.getBody(0), gridX, gridZ);
 		return station;
 	}
 
@@ -425,29 +506,53 @@ public class OrbitalStation {
 		return station;
 	}
 
-	public static void spawn(World world, int x, int z) {
-		int y = 127;
-		if(world.getBlock(x, y, z) == ModBlocks.orbital_station) return;
+	public static boolean spawn(World world, int x, int z) {
+		if(world == null) return false;
+		if(world.getBlock(x, CORE_Y, z) == ModBlocks.orbital_station) return true;
 
 		BlockOrbitalStation block = (BlockOrbitalStation) ModBlocks.orbital_station;
-
+		boolean oldSafeRem = BlockDummyable.safeRem;
 		BlockDummyable.safeRem = true;
-		world.setBlock(x, y, z, block, 12, 3);
-		block.fillSpace(world, x, y, z, ForgeDirection.NORTH, 0);
-		BlockDummyable.safeRem = false;
+		try {
+			if(!world.setBlock(x, CORE_Y, z, block, 12, 3)) return false;
+			block.fillSpace(world, x, CORE_Y, z, ForgeDirection.NORTH, 0);
+			return world.getBlock(x, CORE_Y, z) == ModBlocks.orbital_station;
+		} finally {
+			BlockDummyable.safeRem = oldSafeRem;
+		}
+	}
+
+	public static boolean spawnRaidPort(World world, int x, int z) {
+		if(world == null) return false;
+		if(world.getBlock(x, CORE_Y, z) == ModBlocks.orbital_station_raiding_port) return true;
+		if(world.getBlock(x, CORE_Y, z) != net.minecraft.init.Blocks.air) return false;
+
+		BlockOrbitalStation block = (BlockOrbitalStation) ModBlocks.orbital_station_raiding_port;
+		boolean oldSafeRem = BlockDummyable.safeRem;
+		BlockDummyable.safeRem = true;
+		try {
+			if(!world.setBlock(x, CORE_Y, z, block, 12, 3)) return false;
+			block.fillSpace(world, x, CORE_Y, z, ForgeDirection.NORTH, 0);
+			return world.getBlock(x, CORE_Y, z) == ModBlocks.orbital_station_raiding_port;
+		} finally {
+			BlockDummyable.safeRem = oldSafeRem;
+		}
 	}
 
 	// Mark the station as travelable
 	public static void addStation(int x, int z, CelestialBody body) {
 		SolarSystemWorldSavedData data = SolarSystemWorldSavedData.get();
+		if(data == null || data.isStationDeleted(x, z)) return;
 		OrbitalStation station = data.getStationFromPosition(x * STATION_SIZE, z * STATION_SIZE);
 
 		if(station == null) {
 			station = data.addStation(x, z, body);
 		}
 
+		if(station == null) return;
 		station.orbiting = station.target = body;
 		station.hasStation = true;
+		data.markDirty();
 	}
 
 }

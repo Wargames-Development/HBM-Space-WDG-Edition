@@ -9,6 +9,7 @@ import com.hbm.blocks.BlockDummyable;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.dim.CelestialBody;
 import com.hbm.dim.SolarSystem;
+import com.hbm.dim.SolarSystemWorldSavedData;
 import com.hbm.entity.missile.EntityRideableRocket;
 import com.hbm.extprop.HbmPlayerProps;
 import com.hbm.handler.CompatHandler;
@@ -286,7 +287,7 @@ public class TileEntityLaunchPadRocket extends TileEntityMachineBase implements 
 	}
 
 	private boolean hasDrive() {
-		return slots[1] != null && slots[1].getItem() instanceof ItemVOTVdrive;
+		return ItemVOTVdrive.isUsableDrive(slots[1]);
 	}
 
 	private boolean areTanksFull() {
@@ -296,20 +297,26 @@ public class TileEntityLaunchPadRocket extends TileEntityMachineBase implements 
 	}
 
 	private boolean canReachDestination() {
+		if(!ItemVOTVdrive.isUsableDrive(slots[1])) return false;
+
 		// Check that the drive is processed
 		if(!ItemVOTVdrive.getProcessed(slots[1])) {
 			return false;
 		}
 
-		SolarSystem.Body target = ItemVOTVdrive.getDestination(slots[1]).body;
+		RocketStruct rocket = ItemCustomRocket.get(slots[0]);
+		if(rocket == null) return false;
+		ItemVOTVdrive.Destination destination = ItemVOTVdrive.getDestination(slots[1]);
+		if(destination == null || destination.body == null) return false;
+		SolarSystem.Body target = destination.body;
+		if(target == SolarSystem.Body.ORBIT && !ItemVOTVdrive.validateOrbitLaunch(slots[1], worldObj)) return false;
 		if(target == SolarSystem.Body.ORBIT && rocket.capsule.part != ModItems.rp_capsule_20 && rocket.capsule.part != ModItems.rp_station_core_20)
 			return false;
 
 		Target from = CelestialBody.getTarget(worldObj, xCoord, zCoord);
 		Target to = ItemVOTVdrive.getTarget(slots[1], worldObj);
 
-		RocketStruct rocket = ItemCustomRocket.get(slots[0]);
-
+		if(to == null || to.body == null) return false;
 		if(!to.isValid && rocket.capsule.part != ModItems.rp_station_core_20) return false;
 		if(to.isValid && rocket.capsule.part == ModItems.rp_station_core_20) return false;
 
@@ -406,7 +413,7 @@ public class TileEntityLaunchPadRocket extends TileEntityMachineBase implements 
 	}
 
 	public static boolean findDriveIssues(List<String> issues, RocketStruct rocket, ItemStack drive) {
-		if(drive == null || !(drive.getItem() instanceof ItemVOTVdrive)) {
+		if(!ItemVOTVdrive.isUsableDrive(drive)) {
 			issues.add(EnumChatFormatting.YELLOW + "No destination drive installed");
 			return true;
 		}
@@ -416,7 +423,12 @@ public class TileEntityLaunchPadRocket extends TileEntityMachineBase implements 
 			return true;
 		}
 
-		SolarSystem.Body target = ItemVOTVdrive.getDestination(drive).body;
+		ItemVOTVdrive.Destination destination = ItemVOTVdrive.getDestination(drive);
+		if(destination == null || destination.body == null) {
+			issues.add(EnumChatFormatting.RED + "Destination drive is invalid");
+			return true;
+		}
+		SolarSystem.Body target = destination.body;
 		if(target == SolarSystem.Body.ORBIT && rocket.capsule.part != ModItems.rp_capsule_20 && rocket.capsule.part != ModItems.rp_station_core_20) {
 			issues.add(EnumChatFormatting.RED + "Satellite target must be a planet");
 			return true;
@@ -426,6 +438,11 @@ public class TileEntityLaunchPadRocket extends TileEntityMachineBase implements 
 	}
 
 	public static void findTravelIssues(List<String> issues, RocketStruct rocket, Target from, Target to) {
+		if(from == null || from.body == null || to == null || to.body == null) {
+			issues.add(EnumChatFormatting.RED + "Destination drive is invalid");
+			return;
+		}
+
 		if(to.inOrbit && !to.isValid && rocket.capsule.part != ModItems.rp_station_core_20) {
 			issues.add(EnumChatFormatting.RED + "Station not yet launched");
 		}
@@ -458,6 +475,19 @@ public class TileEntityLaunchPadRocket extends TileEntityMachineBase implements 
 		findTankIssues(issues, tanks, solidFuel);
 		if(findDriveIssues(issues, rocket, slots[1])) return issues;
 
+		ItemVOTVdrive.Destination checkedDestination = ItemVOTVdrive.getDestinationUnchecked(slots[1]);
+		if(checkedDestination != null && checkedDestination.body == SolarSystem.Body.ORBIT) {
+			SolarSystemWorldSavedData stationData = SolarSystemWorldSavedData.get(worldObj);
+			if(stationData != null && stationData.hasConflictingRaidPort(slots[1])) {
+				issues.add(EnumChatFormatting.RED + "Another Raid Hard Drive already has an active raiding port for this station");
+				return issues;
+			}
+		}
+		if(checkedDestination != null && checkedDestination.body == SolarSystem.Body.ORBIT && !ItemVOTVdrive.validateOrbitLaunch(slots[1], worldObj)) {
+			issues.add(EnumChatFormatting.RED + "Station drive, reservation, or destination port is no longer valid");
+			return issues;
+		}
+
 		// Check that the rocket is actually capable of reaching our destination
 		Target from = CelestialBody.getTarget(worldObj, xCoord, zCoord);
 		Target to = ItemVOTVdrive.getTarget(slots[1], worldObj);
@@ -471,7 +501,7 @@ public class TileEntityLaunchPadRocket extends TileEntityMachineBase implements 
 	public boolean isItemValidForSlot(int index, ItemStack stack) {
 		if(stack == null) return true;
 		if(index == 0 && !(stack.getItem() instanceof ItemCustomRocket)) return false;
-		if(index == 1 && !(stack.getItem() instanceof ItemVOTVdrive)) return false;
+		if(index == 1 && !ItemVOTVdrive.isUsableDrive(stack)) return false;
 		if(index == 2 && !(stack.getItem() instanceof IBatteryItem) && stack.getItem() != ModItems.battery_creative) return false;
 		if(index == 3 && stack.getItem() != ModItems.rocket_fuel) return false;
 		return true;

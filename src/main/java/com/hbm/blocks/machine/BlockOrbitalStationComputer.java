@@ -7,6 +7,7 @@ import com.hbm.blocks.BlockDummyable;
 import com.hbm.blocks.ILookOverlay;
 import com.hbm.dim.CelestialBody;
 import com.hbm.dim.SolarSystem;
+import com.hbm.dim.SolarSystemWorldSavedData;
 import com.hbm.dim.orbit.OrbitalStation;
 import com.hbm.dim.orbit.OrbitalStation.StationState;
 import com.hbm.handler.ThreeInts;
@@ -21,8 +22,10 @@ import api.hbm.tile.IPropulsion;
 import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -52,6 +55,31 @@ public class BlockOrbitalStationComputer extends BlockDummyable implements ILook
 	}
 
 	@Override
+	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase placer, ItemStack stack) {
+		super.onBlockPlacedBy(world, x, y, z, placer, stack);
+		if(world.isRemote || BlockDummyable.safeRem) return;
+		int[] core = findCore(world, x, y, z);
+		if(core == null) return;
+		SolarSystemWorldSavedData data = SolarSystemWorldSavedData.get(world);
+		if(data != null) data.registerComputerPlaced(world, core[0], core[1], core[2]);
+	}
+
+	@Override
+	public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
+		if(!world.isRemote && !BlockDummyable.safeRem) {
+			/*
+			 * This computer is a zero-dimension monoblock, so the broken position is always
+			 * its core. A breakBlock callback may run after the world position has already
+			 * been replaced with air, which makes findCore() return null and would silently
+			 * skip the required station countdown.
+			 */
+			SolarSystemWorldSavedData data = SolarSystemWorldSavedData.get(world);
+			if(data != null) data.registerComputerRemoved(world, x, y, z);
+		}
+		super.breakBlock(world, x, y, z, block, meta);
+	}
+
+	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
 		if(!CelestialBody.inOrbit(world)) return false;
 
@@ -75,13 +103,13 @@ public class BlockOrbitalStationComputer extends BlockDummyable implements ILook
 
 			ItemStack heldStack = player.getHeldItem();
 
-			if(heldStack != null && heldStack.getItem() instanceof ItemVOTVdrive) {
+			if(ItemVOTVdrive.isUsableDrive(heldStack)) {
 				if(computer.slots[0] != null)
 					return false;
 
 				Destination destination = ItemVOTVdrive.getDestination(heldStack);
 
-				if(destination.body == SolarSystem.Body.ORBIT)
+				if(destination == null || destination.body == SolarSystem.Body.ORBIT)
 					return false;
 
 				if(computer.travelTo(destination.body.getBody(), heldStack.copy())) {

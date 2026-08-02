@@ -1,0 +1,62 @@
+Starting a Gradle Daemon, 1 stopped Daemon could not be reused, use --status for details
+#################################################
+         ForgeGradle 1.2-1.0.12-911c096        
+   https://github.com/anatawa12/ForgeGradle-1.2  
+#################################################
+               Powered by MCP unknown               
+             http://modcoderpack.com             
+         by: Searge, ProfMobius, Fesh0r,         
+         R4wk, ZeuX, IngisKahn, bspkrs           
+#################################################
+
+The minecraft forge's official maven repository has been moved to
+https://maven.minecraftforge.net/. Currently redirection from previous location
+previous location to new location is alive but we don't know
+when it will stop so I especially recommend to change repository url.
+
+You're using ForgeGradle-1.2-1.0.x which is not going to be developed.
+Please upgrade ForgeGradle to 1.2-1.1.+.
+Found AccessTransformer in main resources: HBM_at.cfg
+:clean
+:getVersionJsonIndex UP-TO-DATE
+:getVersionJson UP-TO-DATE
+:downloadClient SKIPPED
+:downloadServer SKIPPED
+:extractUserDev UP-TO-DATE
+:mergeJars SKIPPED
+:applyBinPatches SKIPPED
+:downloadMcpTools SKIPPED
+:extractMcpData UP-TO-DATE
+:genSrgs SKIPPED
+:deobfBinJar
+Applying SpecialSource...
+Applying Exceptor...
+Stripping synthetics...
+:compileApiJava NO-SOURCE
+:processApiResources NO-SOURCE
+:apiClasses UP-TO-DATE
+:sourceMainJava
+:compileJavaC:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\blocks\bomb\NukeBalefire.java:21: warning: AudioPlayer is internal proprietary API and may be removed in a future release
+import static sun.audio.AudioPlayer.player;
+                       ^
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\render\entity\mob\RenderDuck.java:19: warning: getEntityTexture(Entity) in RenderDuck overrides getEntityTexture(Entity) in RenderChicken; overridden method is a bridge method
+	protected ResourceLocation getEntityTexture(Entity entity) {
+	                           ^
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\render\entity\mob\RenderMaskMan.java:20: warning: doRender(Entity,double,double,double,float,float) in RenderMaskMan overrides doRender(Entity,double,double,double,float,float) in RenderLiving; overridden method is a bridge method
+	public void doRender(Entity entity, double x, double y, double z, float f0, float f1) {
+	            ^
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\render\entity\mob\RenderRADBeast.java:76: warning: doRender(EntityLivingBase,double,double,double,float,float) in RenderRADBeast overrides doRender(EntityLivingBase,double,double,double,float,float) in RenderLiving; overridden method is a bridge method
+	public void doRender(EntityLivingBase p_76986_1_, double p_76986_2_, double p_76986_4_, double p_76986_6_, float p_76986_8_, float p_76986_9_) {
+	            ^
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\render\entity\mob\RenderRADBeast.java:84: warning: doRender(Entity,double,double,double,float,float) in RenderRADBeast overrides doRender(Entity,double,double,double,float,float) in RenderLiving; overridden method is a bridge method
+	public void doRender(Entity p_76986_1_, double p_76986_2_, double p_76986_4_, double p_76986_6_, float p_76986_8_, float p_76986_9_) {
+	            ^
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+5 warnings
+
+
+BUILD SUCCESSFUL in 1m 26s
+8 actionable tasks: 4 executed, 4 up-to-date

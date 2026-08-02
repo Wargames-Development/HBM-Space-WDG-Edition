@@ -6,7 +6,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 
 public class ContainerCrateBase extends ContainerBase {
 
@@ -23,9 +22,11 @@ public class ContainerCrateBase extends ContainerBase {
 			}
 		}
 
+		boolean heldCrateInventory = this.tile instanceof ItemBlockStorageCrate.InventoryCrate;
+
 		for(int i = 0; i < 9; i++) {
 			this.addSlotToContainer(
-				(invPlayer.currentItem == i && this.tile instanceof ItemBlockStorageCrate.InventoryCrate) ?
+				(invPlayer.currentItem == i && heldCrateInventory) ?
 				new SlotPlayerCrateLocked(invPlayer, i, playerInvX + i * 18, playerHotbarY) :
 				new SlotNonRetarded(invPlayer, i, playerInvX + i * 18, playerHotbarY)
 			);
@@ -34,9 +35,10 @@ public class ContainerCrateBase extends ContainerBase {
 
 	@Override
 	public ItemStack slotClick(int index, int button, int mode, EntityPlayer player) {
+		boolean heldCrateInventory = this.tile instanceof ItemBlockStorageCrate.InventoryCrate;
 		// prevents the player from moving around the currently open box
-		if(player.inventory.getStackInSlot(player.inventory.currentItem) != null &&
-			player.inventory.getStackInSlot(player.inventory.currentItem).getItem() instanceof ItemBlockStorageCrate && !(this.tile instanceof TileEntity)) {
+		if(heldCrateInventory && player.inventory.getStackInSlot(player.inventory.currentItem) != null &&
+			player.inventory.getStackInSlot(player.inventory.currentItem).getItem() instanceof ItemBlockStorageCrate) {
 			if (mode == 2 && button == player.inventory.currentItem) {
 				return null;
 			}

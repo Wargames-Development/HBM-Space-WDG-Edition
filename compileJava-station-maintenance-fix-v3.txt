@@ -1,0 +1,632 @@
+Starting a Gradle Daemon, 4 stopped Daemons could not be reused, use --status for details
+#################################################
+         ForgeGradle 1.2-1.0.12-911c096        
+   https://github.com/anatawa12/ForgeGradle-1.2  
+#################################################
+               Powered by MCP unknown               
+             http://modcoderpack.com             
+         by: Searge, ProfMobius, Fesh0r,         
+         R4wk, ZeuX, IngisKahn, bspkrs           
+#################################################
+
+The minecraft forge's official maven repository has been moved to
+https://maven.minecraftforge.net/. Currently redirection from previous location
+previous location to new location is alive but we don't know
+when it will stop so I especially recommend to change repository url.
+
+You're using ForgeGradle-1.2-1.0.x which is not going to be developed.
+Please upgrade ForgeGradle to 1.2-1.1.+.
+Found AccessTransformer in main resources: HBM_at.cfg
+:clean
+:getVersionJsonIndex UP-TO-DATE
+:getVersionJson UP-TO-DATE
+:downloadClient SKIPPED
+:downloadServer SKIPPED
+:extractUserDev UP-TO-DATE
+:mergeJars SKIPPED
+:applyBinPatches SKIPPED
+:downloadMcpTools SKIPPED
+:extractMcpData UP-TO-DATE
+:genSrgs SKIPPED
+:deobfBinJar
+Applying SpecialSource...
+Applying Exceptor...
+Stripping synthetics...
+:compileApiJava NO-SOURCE
+:processApiResources NO-SOURCE
+:apiClasses UP-TO-DATE
+:sourceMainJava
+:compileJavaC:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\blocks\bomb\NukeBalefire.java:21: warning: AudioPlayer is internal proprietary API and may be removed in a future release
+import static sun.audio.AudioPlayer.player;
+                       ^
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:69: error: cannot find symbol
+			if(station.crashTicksRemaining >= 0) {
+			          ^
+  symbol:   variable crashTicksRemaining
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:70: error: cannot find symbol
+				station.crashTicksRemaining = Math.max(0, station.crashTicksRemaining - 20);
+				       ^
+  symbol:   variable crashTicksRemaining
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:70: error: cannot find symbol
+				station.crashTicksRemaining = Math.max(0, station.crashTicksRemaining - 20);
+				                                                 ^
+  symbol:   variable crashTicksRemaining
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:71: error: cannot find symbol
+				if(station.crashTicksRemaining == 0) {
+				          ^
+  symbol:   variable crashTicksRemaining
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:72: error: cannot find symbol
+					data.beginStationDeletion(station);
+					    ^
+  symbol:   method beginStationDeletion(OrbitalStation)
+  location: variable data of type SolarSystemWorldSavedData
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:111: error: cannot find symbol
+		} else if(station.hasStation && station.raidCleanupActive) {
+		                                       ^
+  symbol:   variable raidCleanupActive
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:122: error: cannot find symbol
+			if(station.deleting || station.raidCleanupActive) ACTIVE_ORBIT_JOBS.add(station);
+			                              ^
+  symbol:   variable raidCleanupActive
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:130: error: cannot find symbol
+		if(!station.requiredComputerSet || station.crashTicksRemaining >= 0 || station.deleting) return;
+		           ^
+  symbol:   variable requiredComputerSet
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:130: error: cannot find symbol
+		if(!station.requiredComputerSet || station.crashTicksRemaining >= 0 || station.deleting) return;
+		                                          ^
+  symbol:   variable crashTicksRemaining
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:131: error: cannot find symbol
+		int chunkX = MathHelper.floor_double(station.requiredComputerX / 16.0D);
+		                                            ^
+  symbol:   variable requiredComputerX
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:132: error: cannot find symbol
+		int chunkZ = MathHelper.floor_double(station.requiredComputerZ / 16.0D);
+		                                            ^
+  symbol:   variable requiredComputerZ
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:134: error: cannot find symbol
+		if(world.getBlock(station.requiredComputerX, station.requiredComputerY, station.requiredComputerZ) == ModBlocks.orbital_station_computer) return;
+		                         ^
+  symbol:   variable requiredComputerX
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:134: error: cannot find symbol
+		if(world.getBlock(station.requiredComputerX, station.requiredComputerY, station.requiredComputerZ) == ModBlocks.orbital_station_computer) return;
+		                                                    ^
+  symbol:   variable requiredComputerY
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:134: error: cannot find symbol
+		if(world.getBlock(station.requiredComputerX, station.requiredComputerY, station.requiredComputerZ) == ModBlocks.orbital_station_computer) return;
+		                                                                               ^
+  symbol:   variable requiredComputerZ
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:145: error: cannot find symbol
+		if(station == null || !station.hasStation || station.deleting || !station.requiredComputerSet || station.crashTicksRemaining >= 0) return;
+		                                                                         ^
+  symbol:   variable requiredComputerSet
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:145: error: cannot find symbol
+		if(station == null || !station.hasStation || station.deleting || !station.requiredComputerSet || station.crashTicksRemaining >= 0) return;
+		                                                                                                        ^
+  symbol:   variable crashTicksRemaining
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:146: error: cannot find symbol
+		if(station.requiredComputerX != x || station.requiredComputerY != y || station.requiredComputerZ != z) return;
+		          ^
+  symbol:   variable requiredComputerX
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:146: error: cannot find symbol
+		if(station.requiredComputerX != x || station.requiredComputerY != y || station.requiredComputerZ != z) return;
+		                                            ^
+  symbol:   variable requiredComputerY
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:146: error: cannot find symbol
+		if(station.requiredComputerX != x || station.requiredComputerY != y || station.requiredComputerZ != z) return;
+		                                                                              ^
+  symbol:   variable requiredComputerZ
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:152: error: cannot find symbol
+		if(station == null || station.deleting || station.crashTicksRemaining >= 0) return;
+		                                                 ^
+  symbol:   variable crashTicksRemaining
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:153: error: cannot find symbol
+		station.requiredComputerSet = false;
+		       ^
+  symbol:   variable requiredComputerSet
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:154: error: cannot find symbol
+		long configured = Math.max(1L, SpaceConfig.stationCrashCountdownSeconds) * 20L;
+		                                          ^
+  symbol:   variable stationCrashCountdownSeconds
+  location: class SpaceConfig
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:155: error: cannot find symbol
+		station.crashTicksRemaining = configured > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) configured;
+		       ^
+  symbol:   variable crashTicksRemaining
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:166: error: cannot find symbol
+		if(station == null || !station.hasStation || station.deleting || station.crashTicksRemaining < 0) return;
+		                                                                        ^
+  symbol:   variable crashTicksRemaining
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:170: error: cannot find symbol
+		station.requiredComputerSet = true;
+		       ^
+  symbol:   variable requiredComputerSet
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:171: error: cannot find symbol
+		station.requiredComputerX = x;
+		       ^
+  symbol:   variable requiredComputerX
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:172: error: cannot find symbol
+		station.requiredComputerY = y;
+		       ^
+  symbol:   variable requiredComputerY
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:173: error: cannot find symbol
+		station.requiredComputerZ = z;
+		       ^
+  symbol:   variable requiredComputerZ
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:174: error: cannot find symbol
+		station.crashTicksRemaining = -1;
+		       ^
+  symbol:   variable crashTicksRemaining
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:181: error: cannot find symbol
+		if(!station.raidCoreActive) {
+		           ^
+  symbol:   variable raidCoreActive
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:182: error: cannot find symbol
+			if(!station.raidCleanupActive && station.raidAuthorizationExpiresAt > 0L && now >= station.raidAuthorizationExpiresAt) {
+			           ^
+  symbol:   variable raidCleanupActive
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:182: error: cannot find symbol
+			if(!station.raidCleanupActive && station.raidAuthorizationExpiresAt > 0L && now >= station.raidAuthorizationExpiresAt) {
+			                                        ^
+  symbol:   variable raidAuthorizationExpiresAt
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:182: error: cannot find symbol
+			if(!station.raidCleanupActive && station.raidAuthorizationExpiresAt > 0L && now >= station.raidAuthorizationExpiresAt) {
+			                                                                                          ^
+  symbol:   variable raidAuthorizationExpiresAt
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:183: error: cannot find symbol
+				station.raidAuthorizationExpiresAt = 0L;
+				       ^
+  symbol:   variable raidAuthorizationExpiresAt
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:189: error: cannot find symbol
+		if(station.raidCleanupActive || now < station.raidAuthorizationExpiresAt) return;
+		          ^
+  symbol:   variable raidCleanupActive
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:189: error: cannot find symbol
+		if(station.raidCleanupActive || now < station.raidAuthorizationExpiresAt) return;
+		                                             ^
+  symbol:   variable raidAuthorizationExpiresAt
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:190: error: cannot find symbol
+		if(station.raidRemovalTicksRemaining < 0) station.raidRemovalTicksRemaining = OrbitalStation.RAID_REMOVAL_DELAY_TICKS;
+		          ^
+  symbol:   variable raidRemovalTicksRemaining
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:190: error: cannot find symbol
+		if(station.raidRemovalTicksRemaining < 0) station.raidRemovalTicksRemaining = OrbitalStation.RAID_REMOVAL_DELAY_TICKS;
+		                                                 ^
+  symbol:   variable raidRemovalTicksRemaining
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:190: error: cannot find symbol
+		if(station.raidRemovalTicksRemaining < 0) station.raidRemovalTicksRemaining = OrbitalStation.RAID_REMOVAL_DELAY_TICKS;
+		                                                                                            ^
+  symbol:   variable RAID_REMOVAL_DELAY_TICKS
+  location: class OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:191: error: cannot find symbol
+		if(station.raidRemovalTicksRemaining > 0) station.raidRemovalTicksRemaining = Math.max(0, station.raidRemovalTicksRemaining - elapsedTicks);
+		          ^
+  symbol:   variable raidRemovalTicksRemaining
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:191: error: cannot find symbol
+		if(station.raidRemovalTicksRemaining > 0) station.raidRemovalTicksRemaining = Math.max(0, station.raidRemovalTicksRemaining - elapsedTicks);
+		                                                 ^
+  symbol:   variable raidRemovalTicksRemaining
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:191: error: cannot find symbol
+		if(station.raidRemovalTicksRemaining > 0) station.raidRemovalTicksRemaining = Math.max(0, station.raidRemovalTicksRemaining - elapsedTicks);
+		                                                                                                 ^
+  symbol:   variable raidRemovalTicksRemaining
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:192: error: cannot find symbol
+		if(station.raidRemovalTicksRemaining == 0) {
+		          ^
+  symbol:   variable raidRemovalTicksRemaining
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:193: error: cannot find symbol
+			station.raidCleanupActive = true;
+			       ^
+  symbol:   variable raidCleanupActive
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:194: error: cannot find symbol
+			station.raidCleanupChunkIndex = 0;
+			       ^
+  symbol:   variable raidCleanupChunkIndex
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:195: error: cannot find symbol
+			station.raidCleanupBlockIndex = 0;
+			       ^
+  symbol:   variable raidCleanupBlockIndex
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:203: error: cannot find symbol
+		if(station.raidCoreActive || station.raidCleanupActive) return false;
+		          ^
+  symbol:   variable raidCoreActive
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:203: error: cannot find symbol
+		if(station.raidCoreActive || station.raidCleanupActive) return false;
+		                                    ^
+  symbol:   variable raidCleanupActive
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:206: error: cannot find symbol
+		if(station.raidAuthorizationExpiresAt != expiresAt) return false;
+		          ^
+  symbol:   variable raidAuthorizationExpiresAt
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:207: error: cannot find symbol
+		if(!OrbitalStation.safeEquals(station.reservationId, ItemVOTVdrive.getStationReservationId(raidDrive))) return false;
+		                                     ^
+  symbol:   variable reservationId
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:207: error: cannot find symbol
+		if(!OrbitalStation.safeEquals(station.reservationId, ItemVOTVdrive.getStationReservationId(raidDrive))) return false;
+		                                                                  ^
+  symbol:   method getStationReservationId(ItemStack)
+  location: class ItemVOTVdrive
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:211: error: cannot find symbol
+		BlockOrbitalStation block = (BlockOrbitalStation) ModBlocks.orbital_station_raiding_core;
+		                                                           ^
+  symbol:   variable orbital_station_raiding_core
+  location: class ModBlocks
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:219: error: cannot find symbol
+		if(world.getBlock(core[0], core[1], core[2]) != ModBlocks.orbital_station_raiding_core) return false;
+		                                                         ^
+  symbol:   variable orbital_station_raiding_core
+  location: class ModBlocks
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:221: error: cannot find symbol
+		station.raidCoreActive = true;
+		       ^
+  symbol:   variable raidCoreActive
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:222: error: cannot find symbol
+		station.raidCoreX = core[0];
+		       ^
+  symbol:   variable raidCoreX
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:223: error: cannot find symbol
+		station.raidCoreY = core[1];
+		       ^
+  symbol:   variable raidCoreY
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:224: error: cannot find symbol
+		station.raidCoreZ = core[2];
+		       ^
+  symbol:   variable raidCoreZ
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:225: error: cannot find symbol
+		station.raidRemovalTicksRemaining = -1;
+		       ^
+  symbol:   variable raidRemovalTicksRemaining
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:226: error: cannot find symbol
+		station.raidCleanupActive = false;
+		       ^
+  symbol:   variable raidCleanupActive
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:281: error: cannot find symbol
+		return OrbitalStation.isCorePlacementClear(world, x, OrbitalStation.CORE_Y, z);
+		                     ^
+  symbol:   method isCorePlacementClear(WorldServer,int,int,int)
+  location: class OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:295: error: cannot find symbol
+		if(station.cleanupChunkIndex >= FULL_REGION_CHUNKS) {
+		          ^
+  symbol:   variable cleanupChunkIndex
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:298: error: cannot find symbol
+			data.finishStationDeletion(station);
+			    ^
+  symbol:   method finishStationDeletion(OrbitalStation)
+  location: variable data of type SolarSystemWorldSavedData
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:301: error: cannot find symbol
+		int localChunkX = station.cleanupChunkIndex & 63;
+		                         ^
+  symbol:   variable cleanupChunkIndex
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:302: error: cannot find symbol
+		int localChunkZ = station.cleanupChunkIndex >> 6;
+		                         ^
+  symbol:   variable cleanupChunkIndex
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:305: error: cannot find symbol
+		station.cleanupBlockIndex = clearChunkBatch(world, chunkX, chunkZ, station.cleanupBlockIndex);
+		       ^
+  symbol:   variable cleanupBlockIndex
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:305: error: cannot find symbol
+		station.cleanupBlockIndex = clearChunkBatch(world, chunkX, chunkZ, station.cleanupBlockIndex);
+		                                                                          ^
+  symbol:   variable cleanupBlockIndex
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:306: error: cannot find symbol
+		if(station.cleanupBlockIndex >= 65536) {
+		          ^
+  symbol:   variable cleanupBlockIndex
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:307: error: cannot find symbol
+			station.cleanupBlockIndex = 0;
+			       ^
+  symbol:   variable cleanupBlockIndex
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:308: error: cannot find symbol
+			station.cleanupChunkIndex++;
+			       ^
+  symbol:   variable cleanupChunkIndex
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:314: error: cannot find symbol
+		if(station.raidCleanupChunkIndex >= RAID_REGION_CHUNKS) {
+		          ^
+  symbol:   variable raidCleanupChunkIndex
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:317: error: cannot find symbol
+			station.raidCoreActive = false;
+			       ^
+  symbol:   variable raidCoreActive
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:318: error: cannot find symbol
+			station.raidCleanupActive = false;
+			       ^
+  symbol:   variable raidCleanupActive
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:319: error: cannot find symbol
+			station.raidAuthorizationExpiresAt = 0L;
+			       ^
+  symbol:   variable raidAuthorizationExpiresAt
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:320: error: cannot find symbol
+			station.raidRemovalTicksRemaining = -1;
+			       ^
+  symbol:   variable raidRemovalTicksRemaining
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:321: error: cannot find symbol
+			station.raidCleanupChunkIndex = 0;
+			       ^
+  symbol:   variable raidCleanupChunkIndex
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:322: error: cannot find symbol
+			station.raidCleanupBlockIndex = 0;
+			       ^
+  symbol:   variable raidCleanupBlockIndex
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:323: error: cannot find symbol
+			station.raidCoreX = station.raidCoreY = station.raidCoreZ = 0;
+			       ^
+  symbol:   variable raidCoreX
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:323: error: cannot find symbol
+			station.raidCoreX = station.raidCoreY = station.raidCoreZ = 0;
+			                           ^
+  symbol:   variable raidCoreY
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:323: error: cannot find symbol
+			station.raidCoreX = station.raidCoreY = station.raidCoreZ = 0;
+			                                               ^
+  symbol:   variable raidCoreZ
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:327: error: cannot find symbol
+		int centerChunkX = MathHelper.floor_double(station.raidCoreX / 16.0D);
+		                                                  ^
+  symbol:   variable raidCoreX
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:328: error: cannot find symbol
+		int centerChunkZ = MathHelper.floor_double(station.raidCoreZ / 16.0D);
+		                                                  ^
+  symbol:   variable raidCoreZ
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:329: error: cannot find symbol
+		int localX = station.raidCleanupChunkIndex % RAID_REGION_WIDTH;
+		                    ^
+  symbol:   variable raidCleanupChunkIndex
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:330: error: cannot find symbol
+		int localZ = station.raidCleanupChunkIndex / RAID_REGION_WIDTH;
+		                    ^
+  symbol:   variable raidCleanupChunkIndex
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:333: error: cannot find symbol
+		station.raidCleanupBlockIndex = clearChunkBatch(world, chunkX, chunkZ, station.raidCleanupBlockIndex);
+		       ^
+  symbol:   variable raidCleanupBlockIndex
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:333: error: cannot find symbol
+		station.raidCleanupBlockIndex = clearChunkBatch(world, chunkX, chunkZ, station.raidCleanupBlockIndex);
+		                                                                              ^
+  symbol:   variable raidCleanupBlockIndex
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:334: error: cannot find symbol
+		if(station.raidCleanupBlockIndex >= 65536) {
+		          ^
+  symbol:   variable raidCleanupBlockIndex
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:335: error: cannot find symbol
+			station.raidCleanupBlockIndex = 0;
+			       ^
+  symbol:   variable raidCleanupBlockIndex
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:336: error: cannot find symbol
+			station.raidCleanupChunkIndex++;
+			       ^
+  symbol:   variable raidCleanupChunkIndex
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:412: error: cannot find symbol
+		int minChunkX = MathHelper.floor_double(station.raidCoreX / 16.0D) - (OrbitalStation.RAID_CLEANUP_CHUNKS / 2);
+		                                               ^
+  symbol:   variable raidCoreX
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:413: error: cannot find symbol
+		int minChunkZ = MathHelper.floor_double(station.raidCoreZ / 16.0D) - (OrbitalStation.RAID_CLEANUP_CHUNKS / 2);
+		                                               ^
+  symbol:   variable raidCoreZ
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:436: error: cannot find symbol
+		int centerChunkX = MathHelper.floor_double(station.raidCoreX / 16.0D);
+		                                                  ^
+  symbol:   variable raidCoreX
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\dim\orbit\StationMaintenance.java:437: error: cannot find symbol
+		int centerChunkZ = MathHelper.floor_double(station.raidCoreZ / 16.0D);
+		                                                  ^
+  symbol:   variable raidCoreZ
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\tileentity\machine\TileEntityOrbitalStationLauncher.java:285: error: cannot find symbol
+				issues.add(EnumChatFormatting.RED + "Another Raid Hard Drive already has an active raiding port for this station");
+				           ^
+  symbol:   variable EnumChatFormatting
+  location: class TileEntityOrbitalStationLauncher
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\tileentity\machine\TileEntityOrbitalStationLauncher.java:290: error: cannot find symbol
+			issues.add(EnumChatFormatting.RED + "Station drive, reservation, or destination port is no longer valid");
+			           ^
+  symbol:   variable EnumChatFormatting
+  location: class TileEntityOrbitalStationLauncher
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\items\StationRocketValidation.java:21: error: cannot find symbol
+		return rocket != null && rocket.capsule != null && rocket.capsule.part == ModItems.rp_station_raiding_core_20;
+		                                                                                  ^
+  symbol:   variable rp_station_raiding_core_20
+  location: class ModItems
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\items\StationRocketValidation.java:41: error: cannot find symbol
+		return station != null && !station.hasStation && !station.deleting && !station.temporaryTransfer
+		                                                                              ^
+  symbol:   variable temporaryTransfer
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\items\StationRocketValidation.java:42: error: cannot find symbol
+			&& OrbitalStation.safeEquals(station.reservationId, ItemVOTVdrive.getStationReservationId(drive));
+			                                    ^
+  symbol:   variable reservationId
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\items\StationRocketValidation.java:42: error: cannot find symbol
+			&& OrbitalStation.safeEquals(station.reservationId, ItemVOTVdrive.getStationReservationId(drive));
+			                                                                 ^
+  symbol:   method getStationReservationId(ItemStack)
+  location: class ItemVOTVdrive
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\items\StationRocketValidation.java:52: error: cannot find symbol
+		if(station == null || !station.hasStation || station.deleting || station.raidCoreActive || station.raidCleanupActive) return false;
+		                                                                        ^
+  symbol:   variable raidCoreActive
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\items\StationRocketValidation.java:52: error: cannot find symbol
+		if(station == null || !station.hasStation || station.deleting || station.raidCoreActive || station.raidCleanupActive) return false;
+		                                                                                                  ^
+  symbol:   variable raidCleanupActive
+  location: variable station of type OrbitalStation
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\render\entity\mob\RenderDuck.java:19: warning: getEntityTexture(Entity) in RenderDuck overrides getEntityTexture(Entity) in RenderChicken; overridden method is a bridge method
+	protected ResourceLocation getEntityTexture(Entity entity) {
+	                           ^
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\render\entity\mob\RenderMaskMan.java:20: warning: doRender(Entity,double,double,double,float,float) in RenderMaskMan overrides doRender(Entity,double,double,double,float,float) in RenderLiving; overridden method is a bridge method
+	public void doRender(Entity entity, double x, double y, double z, float f0, float f1) {
+	            ^
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\render\entity\mob\RenderRADBeast.java:76: warning: doRender(EntityLivingBase,double,double,double,float,float) in RenderRADBeast overrides doRender(EntityLivingBase,double,double,double,float,float) in RenderLiving; overridden method is a bridge method
+	public void doRender(EntityLivingBase p_76986_1_, double p_76986_2_, double p_76986_4_, double p_76986_6_, float p_76986_8_, float p_76986_9_) {
+	            ^
+C:\Users\Spencer\Documents\GitHub\HBM-Space-WDG-Edition\build\sources\java\com\hbm\render\entity\mob\RenderRADBeast.java:84: warning: doRender(Entity,double,double,double,float,float) in RenderRADBeast overrides doRender(Entity,double,double,double,float,float) in RenderLiving; overridden method is a bridge method
+	public void doRender(Entity p_76986_1_, double p_76986_2_, double p_76986_4_, double p_76986_6_, float p_76986_8_, float p_76986_9_) {
+	            ^
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+100 errors
+5 warnings
+ FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':compileJava'.
+> Compilation failed; see the compiler error output for details.
+
+* Try:
+Run with --info or --debug option to get more log output. Run with --scan to get full insights.
+
+* Exception is:
+org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':compileJava'.
+	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.executeActions(ExecuteActionsTaskExecuter.java:103)
+	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.execute(ExecuteActionsTaskExecuter.java:73)
+	at org.gradle.api.internal.tasks.execution.OutputDirectoryCreatingTaskExecuter.execute(OutputDirectoryCreatingTaskExecuter.java:51)
+	at org.gradle.api.internal.tasks.execution.SkipUpToDateTaskExecuter.execute(SkipUpToDateTaskExecuter.java:59)
+	at org.gradle.api.internal.tasks.execution.ResolveTaskOutputCachingStateExecuter.execute(ResolveTaskOutputCachingStateExecuter.java:54)
+	at org.gradle.api.internal.tasks.execution.ValidatingTaskExecuter.execute(ValidatingTaskExecuter.java:59)
+	at org.gradle.api.internal.tasks.execution.SkipEmptySourceFilesTaskExecuter.execute(SkipEmptySourceFilesTaskExecuter.java:101)
+	at org.gradle.api.internal.tasks.execution.FinalizeInputFilePropertiesTaskExecuter.execute(FinalizeInputFilePropertiesTaskExecuter.java:44)
+	at org.gradle.api.internal.tasks.execution.CleanupStaleOutputsExecuter.execute(CleanupStaleOutputsExecuter.java:88)
+	at org.gradle.api.internal.tasks.execution.ResolveTaskArtifactStateTaskExecuter.execute(ResolveTaskArtifactStateTaskExecuter.java:62)
+	at org.gradle.api.internal.tasks.execution.SkipTaskWithNoActionsExecuter.execute(SkipTaskWithNoActionsExecuter.java:52)
+	at org.gradle.api.internal.tasks.execution.SkipOnlyIfTaskExecuter.execute(SkipOnlyIfTaskExecuter.java:54)
+	at org.gradle.api.internal.tasks.execution.ExecuteAtMostOnceTaskExecuter.execute(ExecuteAtMostOnceTaskExecuter.java:43)
+	at org.gradle.api.internal.tasks.execution.CatchExceptionTaskExecuter.execute(CatchExceptionTaskExecuter.java:34)
+	at org.gradle.execution.taskgraph.DefaultTaskGraphExecuter$EventFiringTaskWorker$1.run(DefaultTaskGraphExecuter.java:248)
+	at org.gradle.internal.progress.DefaultBuildOperationExecutor$RunnableBuildOperationWorker.execute(DefaultBuildOperationExecutor.java:336)
+	at org.gradle.internal.progress.DefaultBuildOperationExecutor$RunnableBuildOperationWorker.execute(DefaultBuildOperationExecutor.java:328)
+	at org.gradle.internal.progress.DefaultBuildOperationExecutor.execute(DefaultBuildOperationExecutor.java:199)
+	at org.gradle.internal.progress.DefaultBuildOperationExecutor.run(DefaultBuildOperationExecutor.java:110)
+	at org.gradle.execution.taskgraph.DefaultTaskGraphExecuter$EventFiringTaskWorker.execute(DefaultTaskGraphExecuter.java:241)
+	at org.gradle.execution.taskgraph.DefaultTaskGraphExecuter$EventFiringTaskWorker.execute(DefaultTaskGraphExecuter.java:230)
+	at org.gradle.execution.taskgraph.DefaultTaskPlanExecutor$TaskExecutorWorker.processTask(DefaultTaskPlanExecutor.java:123)
+	at org.gradle.execution.taskgraph.DefaultTaskPlanExecutor$TaskExecutorWorker.access$200(DefaultTaskPlanExecutor.java:79)
+	at org.gradle.execution.taskgraph.DefaultTaskPlanExecutor$TaskExecutorWorker$1.execute(DefaultTaskPlanExecutor.java:104)
+	at org.gradle.execution.taskgraph.DefaultTaskPlanExecutor$TaskExecutorWorker$1.execute(DefaultTaskPlanExecutor.java:98)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionPlan.execute(DefaultTaskExecutionPlan.java:623)
+	at org.gradle.execution.taskgraph.DefaultTaskExecutionPlan.executeWithTask(DefaultTaskExecutionPlan.java:578)
+	at org.gradle.execution.taskgraph.DefaultTaskPlanExecutor$TaskExecutorWorker.run(DefaultTaskPlanExecutor.java:98)
+	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:63)
+	at org.gradle.internal.concurrent.ManagedExecutorImpl$1.run(ManagedExecutorImpl.java:46)
+	at org.gradle.internal.concurrent.ThreadFactoryImpl$ManagedThreadRunnable.run(ThreadFactoryImpl.java:55)
+Caused by: org.gradle.api.internal.tasks.compile.CompilationFailedException: Compilation failed; see the compiler error output for details.
+	at org.gradle.api.internal.tasks.compile.JdkJavaCompiler.execute(JdkJavaCompiler.java:50)
+	at org.gradle.api.internal.tasks.compile.JdkJavaCompiler.execute(JdkJavaCompiler.java:35)
+	at org.gradle.api.internal.tasks.compile.NormalizingJavaCompiler.delegateAndHandleErrors(NormalizingJavaCompiler.java:98)
+	at org.gradle.api.internal.tasks.compile.NormalizingJavaCompiler.execute(NormalizingJavaCompiler.java:51)
+	at org.gradle.api.internal.tasks.compile.NormalizingJavaCompiler.execute(NormalizingJavaCompiler.java:37)
+	at org.gradle.api.internal.tasks.compile.CleaningJavaCompilerSupport.execute(CleaningJavaCompilerSupport.java:35)
+	at org.gradle.api.internal.tasks.compile.CleaningJavaCompilerSupport.execute(CleaningJavaCompilerSupport.java:25)
+	at org.gradle.api.tasks.compile.JavaCompile.performCompilation(JavaCompile.java:207)
+	at org.gradle.api.tasks.compile.JavaCompile.compile(JavaCompile.java:192)
+	at org.gradle.api.tasks.compile.JavaCompile.compile(JavaCompile.java:124)
+	at org.gradle.internal.reflect.JavaMethod.invoke(JavaMethod.java:73)
+	at org.gradle.api.internal.project.taskfactory.IncrementalTaskAction.doExecute(IncrementalTaskAction.java:50)
+	at org.gradle.api.internal.project.taskfactory.StandardTaskAction.execute(StandardTaskAction.java:39)
+	at org.gradle.api.internal.project.taskfactory.StandardTaskAction.execute(StandardTaskAction.java:26)
+	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter$1.run(ExecuteActionsTaskExecuter.java:124)
+	at org.gradle.internal.progress.DefaultBuildOperationExecutor$RunnableBuildOperationWorker.execute(DefaultBuildOperationExecutor.java:336)
+	at org.gradle.internal.progress.DefaultBuildOperationExecutor$RunnableBuildOperationWorker.execute(DefaultBuildOperationExecutor.java:328)
+	at org.gradle.internal.progress.DefaultBuildOperationExecutor.execute(DefaultBuildOperationExecutor.java:199)
+	at org.gradle.internal.progress.DefaultBuildOperationExecutor.run(DefaultBuildOperationExecutor.java:110)
+	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.executeAction(ExecuteActionsTaskExecuter.java:113)
+	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.executeActions(ExecuteActionsTaskExecuter.java:95)
+	... 30 more
+
+
+* Get more help at https://help.gradle.org
+
+BUILD FAILED in 36s
+8 actionable tasks: 4 executed, 4 up-to-date
