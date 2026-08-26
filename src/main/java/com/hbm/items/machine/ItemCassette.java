@@ -13,11 +13,11 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 
 public class ItemCassette extends Item {
-	
+
 	IIcon overlayIcon;
-	
+
 	public enum TrackType {
-		
+
 		NULL(				" ", 						null,												SoundType.SOUND,	0,			0),
 		HATCH(				"Hatch Siren", 				new ResourceLocation("hbm:alarm.hatch"),			SoundType.LOOP,		3358839,	250),
 		ATUOPILOT(			"Autopilot Disconnected", 	new ResourceLocation("hbm:alarm.autopilot"),		SoundType.LOOP,		11908533,	50),
@@ -40,8 +40,9 @@ public class ItemCassette extends Item {
 		APC_PASS(			"APC Pass", 				new ResourceLocation("hbm:alarm.apcPass"),			SoundType.PASS,		3422163,	50),
 		RAZORTRAIN(			"Razortrain Horn", 			new ResourceLocation("hbm:alarm.razortrainHorn"),	SoundType.SOUND,	7819501,	250),
 		DISEMBODIED(		"Ducc",						new ResourceLocation("hbm:alarm.ducc"),				SoundType.LOOP,		0xb3a8c1,	50),
-		SUICIDE(			"Xbox Live",				new ResourceLocation("hbm:alarm.mama"),				SoundType.LOOP,		0xb3a8c1,	70);
-		
+		SUICIDE(			"Xbox Live",				new ResourceLocation("hbm:alarm.mama"),				SoundType.LOOP,		0xb3a8c1,	70),
+		VDV(			"VDV",				new ResourceLocation("hbm:alarm.VDV"),				SoundType.LOOP,		0xb3a8c1,	70);
+
 		//Name of the track shown in GUI
 		private String title;
 		//Location of the sound
@@ -52,7 +53,7 @@ public class ItemCassette extends Item {
 		private int color;
 		//Range where the sound can be heard
 		private int volume;
-		
+
 		private TrackType(String name, ResourceLocation loc, SoundType sound, int msa, int intensity) {
 			title = name;
 			location = loc;
@@ -60,27 +61,27 @@ public class ItemCassette extends Item {
 			color = msa;
 			volume = intensity;
 		}
-		
+
 		public String getTrackTitle() {
 			return title;
 		}
-		
+
 		public ResourceLocation getSoundLocation() {
 			return location;
 		}
-		
+
 		public SoundType getType() {
 			return type;
 		}
-		
+
 		public int getColor() {
 			return color;
 		}
-		
+
 		public int getVolume() {
 			return volume;
 		}
-		
+
 		public static TrackType getEnum(int i) {
 			if(i < TrackType.values().length)
 				return TrackType.values()[i];
@@ -88,7 +89,7 @@ public class ItemCassette extends Item {
 				return TrackType.NULL;
 		}
 	};
-	
+
 	public enum SoundType {
 		LOOP,
 		PASS,
@@ -107,7 +108,7 @@ public class ItemCassette extends Item {
 			list.add(new ItemStack(item, 1, i));
 		}
 	}
-	
+
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
 		if(!(stack.getItem() instanceof ItemCassette)) return;
@@ -117,7 +118,7 @@ public class ItemCassette extends Item {
 		list.add("   Type: " + TrackType.getEnum(stack.getItemDamage()).getType().name());
 		list.add("   Volume: " + TrackType.getEnum(stack.getItemDamage()).getVolume());
 	}
-	
+
 	public static TrackType getType(ItemStack stack) {
 		if(stack != null && stack.getItem() instanceof ItemCassette)
 			return TrackType.getEnum(stack.getItemDamage());

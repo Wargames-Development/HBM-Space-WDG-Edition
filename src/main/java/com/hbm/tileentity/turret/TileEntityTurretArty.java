@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.hbm.entity.projectile.EntityArtilleryShell;
 import com.hbm.handler.threading.PacketThreading;
+	import com.hbm.config.WeaponConfig;
 import com.hbm.inventory.container.ContainerTurretBase;
 import com.hbm.inventory.gui.GUITurretArty;
 import com.hbm.items.ModItems;
@@ -33,7 +34,7 @@ import net.minecraft.world.World;
 
 public class TileEntityTurretArty extends TileEntityTurretBaseArtillery implements IGUIProvider {
 
-	public short mode = 0;
+	public short mode = MODE_MANUAL;
 	public static final short MODE_ARTILLERY = 0;
 	public static final short MODE_CANNON = 1;
 	public static final short MODE_MANUAL = 2;
@@ -90,7 +91,7 @@ public class TileEntityTurretArty extends TileEntityTurretBaseArtillery implemen
 
 	@Override
 	public double getDecetorRange() {
-		return this.mode == this.MODE_CANNON ? 250D : 3000D;
+		return this.mode == this.MODE_CANNON ? 250D : WeaponConfig.artyRange;
 	}
 
 	@Override
@@ -388,9 +389,7 @@ public class TileEntityTurretArty extends TileEntityTurretBaseArtillery implemen
 	@Override
 	public void handleButtonPacket(int value, int meta) {
 		if(meta == 5) {
-			this.mode++;
-			if(this.mode > 2)
-				this.mode = 0;
+			this.mode = MODE_MANUAL;
 
 			this.tPos = null;
 			this.targetQueue.clear();
@@ -410,7 +409,8 @@ public class TileEntityTurretArty extends TileEntityTurretBaseArtillery implemen
 	@Override
 	public void deserialize(ByteBuf buf) {
 		super.deserialize(buf);
-		this.mode = buf.readShort();
+		buf.readShort();
+		this.mode = MODE_MANUAL;
 		this.retracting = buf.readBoolean();
 	}
 
@@ -418,7 +418,7 @@ public class TileEntityTurretArty extends TileEntityTurretBaseArtillery implemen
 	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
 
-		this.mode = nbt.getShort("mode");
+		this.mode = MODE_MANUAL;
 	}
 
 	@Override

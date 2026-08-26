@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.hbm.entity.projectile.EntityArtilleryRocket;
+	import com.hbm.config.WeaponConfig;
 import com.hbm.inventory.RecipesCommon.ComparableStack;
 import com.hbm.inventory.container.ContainerTurretBase;
 import com.hbm.inventory.gui.GUITurretHIMARS;
@@ -31,7 +32,7 @@ import net.minecraft.world.World;
 
 public class TileEntityTurretHIMARS extends TileEntityTurretBaseArtillery implements IGUIProvider {
 	
-	public short mode = 0;
+	public short mode = MODE_MANUAL;
 	public static final short MODE_AUTO = 0;
 	public static final short MODE_MANUAL = 1;
 	
@@ -88,7 +89,7 @@ public class TileEntityTurretHIMARS extends TileEntityTurretBaseArtillery implem
 
 	@Override
 	public double getDecetorRange() {
-		return 5000D;
+		return WeaponConfig.himarsRange;
 	}
 	
 	@Override
@@ -277,7 +278,8 @@ public class TileEntityTurretHIMARS extends TileEntityTurretBaseArtillery implem
 	@Override
 	public void deserialize(ByteBuf buf) {
 		super.deserialize(buf);
-		this.mode = buf.readShort();
+		buf.readShort();
+		this.mode = MODE_MANUAL;
 		this.typeLoaded = buf.readShort();
 		this.ammo = buf.readInt();
 		this.crane = buf.readFloat();
@@ -335,9 +337,7 @@ public class TileEntityTurretHIMARS extends TileEntityTurretBaseArtillery implem
 	@Override
 	public void handleButtonPacket(int value, int meta) {
 		if(meta == 5) {
-			this.mode++;
-			if(this.mode > 1)
-				this.mode = 0;
+			this.mode = MODE_MANUAL;
 			
 			this.tPos = null;
 			this.targetQueue.clear();
@@ -351,7 +351,7 @@ public class TileEntityTurretHIMARS extends TileEntityTurretBaseArtillery implem
 	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
 		
-		this.mode = nbt.getShort("mode");
+		this.mode = MODE_MANUAL;
 		this.typeLoaded = nbt.getShort("type");
 		this.ammo = nbt.getInteger("ammo");
 	}
