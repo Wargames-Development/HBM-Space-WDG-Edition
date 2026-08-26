@@ -6,6 +6,8 @@ import net.minecraftforge.common.config.Property;
 public class WeaponConfig {
 	
 	public static int ciwsHitrate = 50;
+	public static int artyRange = 3000;
+	public static int himarsRange = 5000;
 
 	public static boolean dropCell = true;
 	public static boolean dropSing = true;
@@ -22,6 +24,10 @@ public class WeaponConfig {
 		propCiwsHitrate.comment = "Additional modifier for CIWS accuracy";
 		ciwsHitrate = propCiwsHitrate.getInt();
 
+		final String CATEGORY_WEAPONS = CommonConfig.CATEGORY_WEAPONS;
+		artyRange = CommonConfig.createConfigInt(config, CATEGORY_WEAPONS, "18.01_artyRange", "Maximum targeting range of the artillery turret in blocks.", 3000, 1, Integer.MAX_VALUE);
+		himarsRange = CommonConfig.createConfigInt(config, CATEGORY_WEAPONS, "18.02_himarsRange", "Maximum targeting range of the HIMARS turret in blocks.", 5000, 1, Integer.MAX_VALUE);
+
 		final String CATEGORY_DROPS = CommonConfig.CATEGORY_DROPS;
 		dropCell = CommonConfig.createConfigBool(config, CATEGORY_DROPS, "10.00_dropCell", "Whether antimatter cells should explode when dropped", true);
 		dropSing = CommonConfig.createConfigBool(config, CATEGORY_DROPS, "10.01_dropBHole", "Whether singularities and black holes should spawn when dropped", true);
@@ -29,7 +35,6 @@ public class WeaponConfig {
 		dropCrys = CommonConfig.createConfigBool(config, CATEGORY_DROPS, "10.04_dropCrys", "Whether xen crystals should move blocks when dropped", true);
 		dropDead = CommonConfig.createConfigBool(config, CATEGORY_DROPS, "10.05_dropDead", "Whether dead man's explosives should explode when dropped", true);
 
-		final String CATEGORY_WEAPONS = CommonConfig.CATEGORY_WEAPONS;
 		linearAnimations = CommonConfig.createConfigBool(config, CATEGORY_WEAPONS, "18.00_linearAnimations", "Should heavily stylised weapon animations be replaced with more conventional ones?", false);
 
 	}
