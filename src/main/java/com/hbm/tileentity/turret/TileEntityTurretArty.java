@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.hbm.entity.projectile.EntityArtilleryShell;
 import com.hbm.handler.threading.PacketThreading;
-	import com.hbm.config.WeaponConfig;
+import com.hbm.config.WeaponConfig;
 import com.hbm.inventory.container.ContainerTurretBase;
 import com.hbm.inventory.gui.GUITurretArty;
 import com.hbm.items.ModItems;
@@ -350,8 +350,8 @@ public class TileEntityTurretArty extends TileEntityTurretBaseArtillery implemen
 
 		timer++;
 
-		int delay = mode == MODE_ARTILLERY ? 300 : 40;
-
+		int delay = mode == MODE_ARTILLERY ? 300 : WeaponConfig.artyReloadTime;
+		
 		if(timer % delay == 0) {
 
 			ItemStack conf = this.getShellLoaded();

@@ -6518,11 +6518,11 @@ tool.ability.silktouch=Шовковий дотик
 tool.ability.smelter=Автопереплавка
 
 turret.animals=Цілитись по нейтральним: %s
-turret.arty.artillery=§eАртилерійський режим$Мін радіус: 250m$Макс радіус: 3,000m
-turret.arty.artillery_rocket=§eАртилерійський режим$Мін радіус: 250m$Макс радіус: 5,000m
-turret.arty.cannon=§eГарматний режим$Мін радіу: 32m$Макс радіус: 250m
-turret.arty.manual=§eРучний режим$Range: 3,000m
-turret.arty.manual_rocket=§eРучний режим$Макс радіус: 5,000m
+turret.arty.artillery=§eАртилерійський режим$Мін радіус: 250m$Макс радіус: %dm
+turret.arty.artillery_rocket=§eАртилерійський режим$Мін радіус: 250m$Макс радіус: %dm
+turret.arty.cannon=§eГарматний режим$Мін радіу: 32m$Макс радіус: %dm
+turret.arty.manual=§eРучний режим$Range: %dm
+turret.arty.manual_rocket=§eРучний режим$Макс радіус: %dm
 turret.machines=Цілитись по машинам: %s
 turret.mobs=Цілитись по мобам: %s
 turret.none=None

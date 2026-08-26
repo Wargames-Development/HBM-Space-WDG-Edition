@@ -8,6 +8,8 @@ public class WeaponConfig {
 	public static int ciwsHitrate = 50;
 	public static int artyRange = 3000;
 	public static int himarsRange = 5000;
+	public static int himarsReloadTime = 40;
+	public static int artyReloadTime = 40;
 
 	public static boolean dropCell = true;
 	public static boolean dropSing = true;
@@ -27,6 +29,8 @@ public class WeaponConfig {
 		final String CATEGORY_WEAPONS = CommonConfig.CATEGORY_WEAPONS;
 		artyRange = CommonConfig.createConfigInt(config, CATEGORY_WEAPONS, "18.01_artyRange", "Maximum targeting range of the artillery turret in blocks.", 3000, 1, Integer.MAX_VALUE);
 		himarsRange = CommonConfig.createConfigInt(config, CATEGORY_WEAPONS, "18.02_himarsRange", "Maximum targeting range of the HIMARS turret in blocks.", 5000, 1, Integer.MAX_VALUE);
+		himarsReloadTime = CommonConfig.createConfigInt(config, CATEGORY_WEAPONS, "18.03_himarsReloadTime", "Reload time of the HIMARS turret in ticks.", 40, 1, Integer.MAX_VALUE);
+		artyReloadTime = CommonConfig.createConfigInt(config, CATEGORY_WEAPONS, "18.04_artyReloadTime", "Reload time of the artillery turret in ticks.", 40, 1, Integer.MAX_VALUE);
 
 		final String CATEGORY_DROPS = CommonConfig.CATEGORY_DROPS;
 		dropCell = CommonConfig.createConfigBool(config, CATEGORY_DROPS, "10.00_dropCell", "Whether antimatter cells should explode when dropped", true);

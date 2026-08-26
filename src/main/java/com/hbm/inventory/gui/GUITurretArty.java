@@ -3,6 +3,7 @@ package com.hbm.inventory.gui;
 import com.hbm.lib.RefStrings;
 import com.hbm.packet.PacketDispatcher;
 import com.hbm.packet.toserver.AuxButtonPacket;
+import com.hbm.config.WeaponConfig;
 import com.hbm.tileentity.turret.TileEntityTurretArty;
 import com.hbm.tileentity.turret.TileEntityTurretBaseNT;
 import com.hbm.util.i18n.I18nUtil;
@@ -56,7 +57,8 @@ public class GUITurretArty extends GUITurretBase {
 		
 		TileEntityTurretArty arty = (TileEntityTurretArty) turret;
 		String mode = arty.mode == arty.MODE_ARTILLERY ? "artillery" : arty.mode == arty.MODE_CANNON ? "cannon" : "manual";
-		this.drawCustomInfoStat(mouseX, mouseY, guiLeft + 151, guiTop + 16, 18, 18, mouseX, mouseY, I18nUtil.resolveKeyArray("turret.arty." + mode));
+		int range = arty.mode == TileEntityTurretArty.MODE_CANNON ? 250 : WeaponConfig.artyRange;
+		this.drawCustomInfoStat(mouseX, mouseY, guiLeft + 151, guiTop + 16, 18, 18, mouseX, mouseY, I18nUtil.resolveKeyArray("turret.arty." + mode, range));
 	}
 
 	@Override

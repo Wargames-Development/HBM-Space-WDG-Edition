@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.hbm.entity.projectile.EntityArtilleryRocket;
-	import com.hbm.config.WeaponConfig;
+import com.hbm.config.WeaponConfig;
 import com.hbm.inventory.RecipesCommon.ComparableStack;
 import com.hbm.inventory.container.ContainerTurretBase;
 import com.hbm.inventory.gui.GUITurretHIMARS;
@@ -296,8 +296,7 @@ public class TileEntityTurretHIMARS extends TileEntityTurretBaseArtillery implem
 
 		timer++;
 
-		int delay = 40;
-
+		int delay = WeaponConfig.himarsReloadTime;
 		if(timer % delay == 0) {
 
 			if(this.hasAmmo() && this.tPos != null) {

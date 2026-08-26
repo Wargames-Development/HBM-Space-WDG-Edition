@@ -6246,9 +6246,9 @@ tool.ability.silktouch=Шёлковое касание
 tool.ability.smelter=Авто-плавка
 
 turret.animals=Целиться по пассивным: %s
-turret.arty.artillery=§eАртиллерийский режим$Минимальный радиус: 250м$Максимальный радиус: 3,000м
-turret.arty.cannon=§eПушечный режим$Минимальный радиус: 32м$Максимальный радиус: 250м
-turret.arty.manual=§eРучной режим$Радиус: 3,000м
+turret.arty.artillery=§eАртиллерийский режим$Минимальный радиус: 250м$Максимальный радиус: %dm
+turret.arty.cannon=§eПушечный режим$Минимальный радиус: 32м$Максимальный радиус: %dm
+turret.arty.manual=§eРучной режим$Радиус: %dm
 turret.machines=Целиться по машинам: %s
 turret.mobs=Целиться по мобам: %s
 turret.none=Ничего
