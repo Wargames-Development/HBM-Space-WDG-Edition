@@ -296,7 +296,7 @@ public class TileEntityTurretHIMARS extends TileEntityTurretBaseArtillery implem
 		
 		timer++;
 		
-		int delay = 40;
+		int delay = WeaponConfig.himarsReloadTime;
 		
 		if(timer % delay == 0) {
 			

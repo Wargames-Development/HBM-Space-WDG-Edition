@@ -349,7 +349,7 @@ public class TileEntityTurretArty extends TileEntityTurretBaseArtillery implemen
 
 		timer++;
 
-		int delay = mode == MODE_ARTILLERY ? 300 : 40;
+		int delay = mode == MODE_ARTILLERY ? 300 : WeaponConfig.artyReloadTime;
 
 		if(timer % delay == 0) {
 

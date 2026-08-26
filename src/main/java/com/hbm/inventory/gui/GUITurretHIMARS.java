@@ -1,6 +1,7 @@
 package com.hbm.inventory.gui;
 
 import com.hbm.lib.RefStrings;
+import com.hbm.config.WeaponConfig;
 import com.hbm.packet.PacketDispatcher;
 import com.hbm.packet.toserver.AuxButtonPacket;
 import com.hbm.tileentity.turret.TileEntityTurretBaseNT;
@@ -25,7 +26,7 @@ public class GUITurretHIMARS extends GUITurretBase {
 		
 		TileEntityTurretHIMARS arty = (TileEntityTurretHIMARS) turret;
 		String mode = arty.mode == arty.MODE_AUTO ? "artillery_rocket" : "manual_rocket";
-		this.drawCustomInfoStat(mouseX, mouseY, guiLeft + 151, guiTop + 16, 18, 18, mouseX, mouseY, I18nUtil.resolveKeyArray("turret.arty." + mode));
+		this.drawCustomInfoStat(mouseX, mouseY, guiLeft + 151, guiTop + 16, 18, 18, mouseX, mouseY, I18nUtil.resolveKeyArray("turret.arty." + mode, WeaponConfig.himarsRange));
 	}
 
 	@Override
