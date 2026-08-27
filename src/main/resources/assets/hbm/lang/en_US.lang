@@ -2036,6 +2036,7 @@ item.ammo_standard.g12_slug.name=12 Gauge Slug
 item.ammo_standard.g26_flare.name=26mm Signal Flare
 item.ammo_standard.g26_flare_supply.name=26mm Signal Flare (Supply Airdrop)
 item.ammo_standard.g26_flare_weapon.name=26mm Signal Flare (Weapon Airdrop)
+item.ammo_standard.g26_flare_artillery.name=26mm Signal Flare (Artillery Barrage)
 item.ammo_standard.g40_demo.name=40mm Grenade, Demolition
 item.ammo_standard.g40_he.name=40mm Grenade, High-Explosive
 item.ammo_standard.g40_heat.name=40mm Grenade, Shaped Charge
