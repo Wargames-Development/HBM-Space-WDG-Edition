@@ -2,6 +2,8 @@ package com.hbm.items.weapon;
 
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
+import java.util.UUID;
 
 import com.hbm.blocks.ModBlocks;
 import com.hbm.config.BombConfig;
@@ -9,6 +11,7 @@ import com.hbm.entity.effect.EntityMist;
 import com.hbm.entity.effect.EntityNukeTorex;
 import com.hbm.entity.logic.EntityNukeExplosionMK5;
 import com.hbm.entity.projectile.EntityArtilleryShell;
+import api.hbm.wgc.Integrations;
 import com.hbm.explosion.ExplosionChaos;
 import com.hbm.explosion.ExplosionLarge;
 import com.hbm.explosion.ExplosionNukeSmall;
@@ -33,7 +36,9 @@ import com.hbm.potion.HbmPotion;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.init.Blocks;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -48,6 +53,8 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
+import net.minecraft.world.ChunkCoordIntPair;
+import net.minecraft.world.World;
 
 public class ItemAmmoArty extends Item {
 
@@ -137,7 +144,6 @@ public class ItemAmmoArty extends Item {
 			list.add(r + "minecraft's unicode has to offer)");
 			break;
 		case CARGO:
-
 			if(stack.hasTagCompound() && stack.stackTagCompound.getCompoundTag("cargo") != null) {
 				ItemStack cargo = ItemStack.loadItemStackFromNBT(stack.stackTagCompound.getCompoundTag("cargo"));
 				list.add(y + cargo.getDisplayName());
@@ -204,8 +210,12 @@ public class ItemAmmoArty extends Item {
 
 	public static void standardExplosion(EntityArtilleryShell shell, MovingObjectPosition mop, float size, float rangeMod, boolean breaksBlocks) {
 		Vec3 vec = Vec3.createVectorHelper(shell.motionX, shell.motionY, shell.motionZ).normalize();
-		ExplosionVNT xnt = new ExplosionVNT(shell.worldObj, mop.hitVec.xCoord - vec.xCoord, mop.hitVec.yCoord - vec.yCoord, mop.hitVec.zCoord - vec.zCoord, size, shell.getOwnerParty());
+		double explosionX = mop.hitVec.xCoord - vec.xCoord;
+		double explosionY = mop.hitVec.yCoord - vec.yCoord;
+		double explosionZ = mop.hitVec.zCoord - vec.zCoord;
+		ExplosionVNT xnt = new ExplosionVNT(shell.worldObj, explosionX, explosionY, explosionZ, size, shell.getOwnerParty());
 		if(breaksBlocks) {
+			stripTerrain(shell.worldObj, shell.getOwnerParty(), explosionX, explosionY, explosionZ, size + 8); //mutator acts before terrain explosion inorder to remove leaves pre-explosion
 			xnt.setBlockAllocator(new BlockAllocatorStandard(48));
 			xnt.setBlockProcessor(new BlockProcessorStandard().setNoDrop().withBlockEffect(new BlockMutatorDebris(ModBlocks.block_slag, 1)));
 		}
@@ -214,6 +224,76 @@ public class ItemAmmoArty extends Item {
 		//xnt.setSFX(new ExplosionEffectStandard());
 		xnt.explode();
 		shell.killAndClear();
+	}
+
+	private static void stripTerrain(World world, UUID ownerParty, double centerX, double centerY, double centerZ, float radius) {
+		if(world.isRemote) return;
+
+		int centerBlockX = (int) Math.floor(centerX);
+		int centerBlockY = (int) Math.floor(centerY);
+		int centerBlockZ = (int) Math.floor(centerZ);
+		int blockRadius = (int) Math.ceil(radius);
+		double radiusSquared = radius * radius;
+		float falloffRadius = Math.min(4F, radius * 0.35F);
+		double innerRadius = Math.max(0D, radius - falloffRadius);
+		double innerRadiusSquared = innerRadius * innerRadius;
+		Set<ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(ownerParty, world, centerBlockX, centerBlockZ, blockRadius + 16);
+		int minX = centerBlockX - blockRadius;
+		int maxX = centerBlockX + blockRadius;
+		int minZ = centerBlockZ - blockRadius;
+		int maxZ = centerBlockZ + blockRadius;
+
+		for(int chunkX = minX >> 4; chunkX <= maxX >> 4; chunkX++) {
+			int chunkMinX = Math.max(minX, chunkX << 4);
+			int chunkMaxX = Math.min(maxX, (chunkX << 4) + 15);
+			for(int chunkZ = minZ >> 4; chunkZ <= maxZ >> 4; chunkZ++) {
+				if(protectedChunks.contains(new ChunkCoordIntPair(chunkX, chunkZ))) continue;
+
+				int chunkMinZ = Math.max(minZ, chunkZ << 4);
+				int chunkMaxZ = Math.min(maxZ, (chunkZ << 4) + 15);
+				for(int x = chunkMinX; x <= chunkMaxX; x++) {
+					double offsetX = x - centerX;
+					for(int z = chunkMinZ; z <= chunkMaxZ; z++) {
+						double offsetZ = z - centerZ;
+						double horizontalSquared = offsetX * offsetX + offsetZ * offsetZ;
+						if(horizontalSquared > radiusSquared) continue;
+						if(horizontalSquared > innerRadiusSquared) {
+							double distance = Math.sqrt(horizontalSquared);
+							double effectChance = (radius - distance) / falloffRadius;
+							if(rand.nextDouble() > effectChance) continue;
+						}
+
+						int verticalRadius = (int) Math.sqrt(radiusSquared - horizontalSquared);
+						int minY = Math.max(0, centerBlockY - verticalRadius);
+						int maxY = Math.min(255, centerBlockY + verticalRadius);
+						int lastBlockY = Math.min(maxY, world.getHeightValue(x, z) - 1);
+						for(int offset = 0; offset <= verticalRadius; offset++) {
+							int aboveY = lastBlockY + offset;
+							if(aboveY >= minY && aboveY <= maxY && stripTerrainBlock(world, x, aboveY, z)) break;
+
+							if(offset == 0) continue;
+							int belowY = lastBlockY - offset;
+							if(belowY >= minY && belowY <= maxY && stripTerrainBlock(world, x, belowY, z)) break;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	private static boolean stripTerrainBlock(World world, int x, int y, int z) {
+		Block block = world.getBlock(x, y, z);
+		if(block.isLeaves(world, x, y, z)) {
+			world.setBlockToAir(x, y, z);
+		} else if(block == Blocks.grass) {
+			if(rand.nextInt(2) == 0) {
+				world.setBlock(x, y, z, ModBlocks.dirt_dead, 0, 3);
+			} else {
+				world.setBlock(x, y, z, Blocks.dirt, 0, 3);
+			}
+			return true;
+		}
+		return false;
 	}
 
 	public static void standardCluster(EntityArtilleryShell shell, int clusterType, int amount, double splitHeight, double deviation) {
@@ -247,9 +327,9 @@ public class ItemAmmoArty extends Item {
 
 	private void init() {
 		/* STANDARD SHELLS */
-		this.itemTypes[NORMAL] = new ArtilleryShell("ammo_arty", SpentCasing.COLOR_CASE_16INCH, 0) { public void onImpact(EntityArtilleryShell shell, MovingObjectPosition mop) { standardExplosion(shell, mop, 9F, 1F, false); ExplosionCreator.composeEffect(shell.worldObj, mop.hitVec.xCoord, mop.hitVec.yCoord, mop.hitVec.zCoord, 10, 2F, 0.5F, 25F, 5, 0, 20, 0.75F, 1F, -2F, 150); }};
-		this.itemTypes[CLASSIC] = new ArtilleryShell("ammo_arty_classic", SpentCasing.COLOR_CASE_16INCH, 0) { public void onImpact(EntityArtilleryShell shell, MovingObjectPosition mop) { standardExplosion(shell, mop, 9F, 1.5F, false); ExplosionCreator.composeEffect(shell.worldObj, mop.hitVec.xCoord, mop.hitVec.yCoord, mop.hitVec.zCoord, 15, 5F, 1F, 45F, 10, 0, 50, 1F, 3F, -2F, 200); }};
-		this.itemTypes[EXPLOSIVE] = new ArtilleryShell("ammo_arty_he", SpentCasing.COLOR_CASE_16INCH, 0) { public void onImpact(EntityArtilleryShell shell, MovingObjectPosition mop) { standardExplosion(shell, mop, 15F, 1F, true); ExplosionCreator.composeEffect(shell.worldObj, mop.hitVec.xCoord, mop.hitVec.yCoord, mop.hitVec.zCoord, 15, 5F, 1F, 45F, 10, 16, 50, 1F, 3F, -2F, 200); }};
+		this.itemTypes[NORMAL] = new ArtilleryShell("ammo_arty", SpentCasing.COLOR_CASE_16INCH, 100) { public void onImpact(EntityArtilleryShell shell, MovingObjectPosition mop) { standardExplosion(shell, mop, 5F, 1.5F, true); ExplosionCreator.composeEffect(shell.worldObj, mop.hitVec.xCoord, mop.hitVec.yCoord, mop.hitVec.zCoord, 10, 2F, 0.5F, 25F, 5, 0, 20, 0.75F, 1F, -2F, 150); }};
+		this.itemTypes[CLASSIC] = new ArtilleryShell("ammo_arty_classic", SpentCasing.COLOR_CASE_16INCH, 0) { public void onImpact(EntityArtilleryShell shell, MovingObjectPosition mop) { standardExplosion(shell, mop, 5F, 2.5F, false); ExplosionCreator.composeEffect(shell.worldObj, mop.hitVec.xCoord, mop.hitVec.yCoord, mop.hitVec.zCoord, 15, 5F, 1F, 45F, 10, 0, 50, 1F, 3F, -2F, 200); }};
+		this.itemTypes[EXPLOSIVE] = new ArtilleryShell("ammo_arty_he", SpentCasing.COLOR_CASE_16INCH, 0) { public void onImpact(EntityArtilleryShell shell, MovingObjectPosition mop) { standardExplosion(shell, mop, 10F, 2F, true); ExplosionCreator.composeEffect(shell.worldObj, mop.hitVec.xCoord, mop.hitVec.yCoord, mop.hitVec.zCoord, 15, 5F, 1F, 45F, 10, 16, 50, 1F, 3F, -2F, 200); }};
 
 		/* MINI NUKE */
 		this.itemTypes[MINI_NUKE] = new ArtilleryShell("ammo_arty_mini_nuke", SpentCasing.COLOR_CASE_16INCH_NUKE, 0) {
