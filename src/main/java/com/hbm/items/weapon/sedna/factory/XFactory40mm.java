@@ -135,7 +135,7 @@ public class XFactory40mm {
 
 		for(int i = 0; i < 4; i++) {
 			EntityArtilleryShell shell = new EntityArtilleryShell(bullet.worldObj);
-			int innacuracy = 3;
+			int innacuracy = 30;
 			shell.setPosition(mop.hitVec.xCoord + bullet.worldObj.rand.nextDouble() * innacuracy - innacuracy / 2.0,
 					mop.hitVec.yCoord + 1500.0 + bullet.worldObj.rand.nextDouble() * 800.0,
 					mop.hitVec.zCoord + bullet.worldObj.rand.nextDouble() * innacuracy - innacuracy / 2.0);
