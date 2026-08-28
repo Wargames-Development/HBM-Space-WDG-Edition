@@ -149,6 +149,7 @@ public class LegoClient {
 	public static BiConsumer<EntityBulletBaseMK4, Float> RENDER_FLARE = (bullet, interp) -> { renderFlare(bullet, interp, 1F, 0.5F, 0.5F); };
 	public static BiConsumer<EntityBulletBaseMK4, Float> RENDER_FLARE_SUPPLY = (bullet, interp) -> { renderFlare(bullet, interp, 0.5F, 0.5F, 1F); };
 	public static BiConsumer<EntityBulletBaseMK4, Float> RENDER_FLARE_WEAPON = (bullet, interp) -> { renderFlare(bullet, interp, 0.5F, 1F, 0.5F); };
+	public static BiConsumer<EntityBulletBaseMK4, Float> RENDER_FLARE_ARTILLERY = (bullet, interp) -> { renderFlare(bullet, interp, 1F, 0.4F, 0.05F); };
 
 	private static final ResourceLocation flare = new ResourceLocation(RefStrings.MODID + ":textures/particle/flare.png");
 	public static void renderFlare(Entity bullet, float interp, float r, float g, float b) {

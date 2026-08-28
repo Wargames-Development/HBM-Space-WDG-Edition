@@ -199,12 +199,15 @@ public class TileEntityTurretArty extends TileEntityTurretBaseArtillery implemen
 
 		EntityArtilleryShell proj = new EntityArtilleryShell(worldObj);
 		proj.setPositionAndRotation(pos.xCoord + vec.xCoord, pos.yCoord + vec.yCoord, pos.zCoord + vec.zCoord, 0.0F, 0.0F);
+		ItemAmmoArty.ArtilleryShell shellType = ItemAmmoArty.itemTypes[type.getItemDamage()];
+		vec.xCoord += (worldObj.rand.nextDouble() - 0.5D) * shellType.inaccuracy;
+		vec.zCoord += (worldObj.rand.nextDouble() - 0.5D) * shellType.inaccuracy;
 		proj.setThrowableHeading(vec.xCoord, vec.yCoord, vec.zCoord, (float) getV0(), 0.0F);
 		proj.setTarget((int) tPos.xCoord, (int) tPos.yCoord, (int) tPos.zCoord);
 		proj.setOwnerParty(owningFaction);
 		proj.setType(type.getItemDamage());
 
-		if(type.getItemDamage() == 8 && type.hasTagCompound()) {
+		if(type.getItemDamage() == 6 && type.hasTagCompound()) {
 			NBTTagCompound cargo = type.stackTagCompound.getCompoundTag("cargo");
 
 			if(cargo != null) {
