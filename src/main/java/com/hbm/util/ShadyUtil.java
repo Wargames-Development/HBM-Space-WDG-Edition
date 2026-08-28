@@ -55,6 +55,9 @@ public class ShadyUtil {
 	public static String AwesomeR2D2 = "5e2cd472-11f4-4c0a-a30c-d3c23b4e03c6";
 	public static String Hazmat__Panda = "a67f138f-8610-44f0-a56e-b6f4cb683d7a";
 	public static String C1pher_jk = "c5ffe2d2-cce9-4ce5-a7ec-505bada09887";
+	public static String _Barrack_Osama_ = "9d35c886-c8c3-4754-9077-8a7f169dd4fb";
+	public static String GLACxd = "73f2cb20-39b7-4147-b257-2edf2b5c5aeb";
+	public static String iGlac = "fed14a26-0a10-4aa6-a31a-babb2aef9683";
 
 	public static final Set<String> hashes = new HashSet();
 	static {
