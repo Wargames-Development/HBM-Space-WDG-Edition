@@ -201,7 +201,10 @@ public class EntityBulletBaseMK4 extends EntityThrowableInterp implements IEntit
 			while(this.rotationYaw - this.prevRotationYaw >= 180.0F) this.prevRotationYaw += 360.0F;
 		}
 
-		if(!worldObj.isRemote && this.ticksExisted > config.expires) this.setDead();
+		if(!worldObj.isRemote && this.ticksExisted > config.expires) {
+			if(this.config.onExpire != null) this.config.onExpire.accept(this);
+			this.setDead();
+		}
 
 		if(this.config.onUpdate != null) this.config.onUpdate.accept(this);
 	}

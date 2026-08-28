@@ -130,24 +130,28 @@ public class XFactory40mm {
 
 	public static Consumer<Entity> LAMBDA_SPAWN_C130_SUPPLIESS = (entity) -> { spawnPlane(entity, C130PayloadType.SUPPLIES); };
 	public static Consumer<Entity> LAMBDA_SPAWN_C130_WEAPONS = (entity) -> { spawnPlane(entity, C130PayloadType.WEAPONS); };
-	public static BiConsumer<EntityBulletBaseMK4, MovingObjectPosition> LAMBDA_SPAWN_ARTILLERY = (bullet, mop) -> {
-		//if(mop.typeOfHit != mop.typeOfHit.BLOCK) return;
-
+	public static void spawnArtilleryBarrage(EntityBulletBaseMK4 bullet, double x, double y, double z) {
 		for(int i = 0; i < 4; i++) {
 			EntityArtilleryShell shell = new EntityArtilleryShell(bullet.worldObj);
 			int innacuracy = 25;
 			shell.setPosition(
-					mop.hitVec.xCoord + bullet.worldObj.rand.nextDouble() * innacuracy - innacuracy / 2.0,
-					mop.hitVec.yCoord + 3000.0 + bullet.worldObj.rand.nextDouble() * 1000.0,
-					mop.hitVec.zCoord + bullet.worldObj.rand.nextDouble() * innacuracy - innacuracy / 2.0);
+					x + bullet.worldObj.rand.nextDouble() * innacuracy - innacuracy / 2.0,
+					y + 3000.0 + bullet.worldObj.rand.nextDouble() * 1000.0,
+					z + bullet.worldObj.rand.nextDouble() * innacuracy - innacuracy / 2.0);
 			shell.setThrowableHeading(0D, -1.0, 0D, 4.0F, 0F);
-			shell.setTarget(mop.hitVec.xCoord, mop.hitVec.yCoord, mop.hitVec.zCoord);
+			shell.setTarget(x, y, z);
 			shell.setOwnerParty(bullet.getOwnerParty());
-			shell.setType(7);
+			shell.setType(0);
 			bullet.worldObj.spawnEntityInWorld(shell);
 		}
-
 		bullet.setDead();
+	}
+	public static Consumer<Entity> LAMBDA_SPAWN_ARTILLERY_EXPIRE = (entity) -> {
+		EntityBulletBaseMK4 bullet = (EntityBulletBaseMK4) entity;
+		spawnArtilleryBarrage(bullet, bullet.posX, bullet.posY, bullet.posZ);
+	};
+	public static BiConsumer<EntityBulletBaseMK4, MovingObjectPosition> LAMBDA_SPAWN_ARTILLERY = (bullet, mop) -> {
+		spawnArtilleryBarrage(bullet, mop.hitVec.xCoord, mop.hitVec.yCoord, mop.hitVec.zCoord);
 	};
 
 	public static void spawnPlane(Entity entity, C130PayloadType payload) {
@@ -169,7 +173,7 @@ public class XFactory40mm {
 		g26_flare = new BulletConfig().setItem(EnumAmmo.G26_FLARE).setCasing(EnumCasingType.LARGE, 4).setLife(100).setVel(2F).setGrav(0.015D).setRenderRotations(false).setOnImpact(LAMBDA_STANDARD_IGNITE).setCasing(new SpentCasing(CasingType.STRAIGHT).setColor(0x9E1616).setScale(2F).register("g26Flare"));
 		g26_flare_supply = new BulletConfig().setItem(EnumAmmo.G26_FLARE_SUPPLY).setCasing(EnumCasingType.LARGE, 4).setLife(100).setVel(2F).setGrav(0.015D).setRenderRotations(false).setOnImpact(LAMBDA_STANDARD_IGNITE).setOnUpdate(LAMBDA_SPAWN_C130_SUPPLIESS).setCasing(new SpentCasing(CasingType.STRAIGHT).setColor(0x3C80F0).setScale(2F).register("g26FlareSupply"));
 		g26_flare_weapon = new BulletConfig().setItem(EnumAmmo.G26_FLARE_WEAPON).setCasing(EnumCasingType.LARGE, 4).setLife(100).setVel(2F).setGrav(0.015D).setRenderRotations(false).setOnImpact(LAMBDA_STANDARD_IGNITE).setOnUpdate(LAMBDA_SPAWN_C130_WEAPONS).setCasing(new SpentCasing(CasingType.STRAIGHT).setColor(0x278400).setScale(2F).register("g26FlareWeapon"));
-		g26_flare_artillery = new BulletConfig().setItem(EnumAmmo.G26_FLARE_ARTILLERY).setCasing(EnumCasingType.LARGE, 4).setLife(100).setVel(2F).setGrav(0.015D).setRenderRotations(false).setOnImpact(LAMBDA_SPAWN_ARTILLERY).setCasing(new SpentCasing(CasingType.STRAIGHT).setColor(0xE86F20).setScale(2F).register("g26FlareArtillery"));
+		g26_flare_artillery = new BulletConfig().setItem(EnumAmmo.G26_FLARE_ARTILLERY).setCasing(EnumCasingType.LARGE, 4).setLife(100).setVel(2F).setGrav(0.015D).setRenderRotations(false).setOnImpact(LAMBDA_SPAWN_ARTILLERY).setOnEntityHit(LAMBDA_SPAWN_ARTILLERY).setOnExpire(LAMBDA_SPAWN_ARTILLERY_EXPIRE).setCasing(new SpentCasing(CasingType.STRAIGHT).setColor(0xE86F20).setScale(2F).register("g26FlareArtillery"));
 
 		BulletConfig g40_base = new BulletConfig().setLife(200).setVel(2F).setGrav(0.035D);
 		g40_he = g40_base.clone().setItem(EnumAmmo.G40_HE).setCasing(EnumCasingType.LARGE, 4).setOnImpact(LAMBDA_STANDARD_EXPLODE).setCasing(new SpentCasing(CasingType.STRAIGHT).setColor(0x777777).setScale(2, 2F, 1.5F).register("g40"));
