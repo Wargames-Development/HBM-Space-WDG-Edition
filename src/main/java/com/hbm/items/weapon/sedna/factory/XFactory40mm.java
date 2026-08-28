@@ -133,13 +133,13 @@ public class XFactory40mm {
 	public static BiConsumer<EntityBulletBaseMK4, MovingObjectPosition> LAMBDA_SPAWN_ARTILLERY = (bullet, mop) -> {
 		if(mop.typeOfHit != mop.typeOfHit.BLOCK) return;
 
-		for(int i = 0; i < 4; i++) {
+		for(int i = 0; i < 3; i++) {
 			EntityArtilleryShell shell = new EntityArtilleryShell(bullet.worldObj);
 			int innacuracy = 30;
 			shell.setPosition(mop.hitVec.xCoord + bullet.worldObj.rand.nextDouble() * innacuracy - innacuracy / 2.0,
-					mop.hitVec.yCoord + 1500.0 + bullet.worldObj.rand.nextDouble() * 800.0,
+					mop.hitVec.yCoord + 2000.0 + bullet.worldObj.rand.nextDouble() * 1000.0,
 					mop.hitVec.zCoord + bullet.worldObj.rand.nextDouble() * innacuracy - innacuracy / 2.0);
-			shell.setThrowableHeading(0D, -1.0, 0D, 5F, 0F);
+			shell.setThrowableHeading(0D, -1.0, 0D, 4.0F, 0F);
 			shell.setTarget(mop.hitVec.xCoord, mop.hitVec.yCoord, mop.hitVec.zCoord);
 			shell.setOwnerParty(bullet.getOwnerParty());
 			shell.setType(0);

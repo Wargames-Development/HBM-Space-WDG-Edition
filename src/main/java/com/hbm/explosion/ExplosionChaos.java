@@ -100,6 +100,10 @@ public class ExplosionChaos { //TODO: destroy this entire class
 		igniteAllBlocks(null, world, x, y, z, bound);
 	}
 
+	public static void igniteSomeBlocks(World world, int x, int y, int z, int bound, double fraction) {
+		igniteSomeBlocks(null, world, x, y, z, bound, fraction);
+	}
+
 	public static void igniteAllBlocks(UUID ownerParty, World world, int x, int y, int z, int bound) {
 		int r = bound;
 		Set<ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(ownerParty, world, x, z, r + 16);
@@ -120,6 +124,29 @@ public class ExplosionChaos { //TODO: destroy this entire class
 			}
 		}
 	}
+
+	public static void igniteSomeBlocks(UUID ownerParty, World world, int x, int y, int z, int bound, double fraction) {
+		int r = bound;
+		Set<ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(ownerParty, world, x, z, r + 16);
+		int r22 = r * r / 2;
+		for(int xx = -r; xx < r; xx++) {
+			int X = xx + x;
+			int XX = xx * xx;
+			for(int zz = -r; zz < r; zz++) {
+				int Z = zz + z;
+				if(protectedChunks.contains(new ChunkCoordIntPair(X >> 4, Z >> 4))) continue;
+				int ZZ = XX + zz * zz;
+				for(int yy = -r; yy < r; yy++) {
+					int Y = yy + y;
+					if(ZZ + yy * yy < r22 && random.nextDouble() < fraction && (world.getBlock(X, Y + 1, Z) == Blocks.air || world.getBlock(X, Y + 1, Z) == Blocks.snow_layer) && world.getBlock(X, Y, Z) != Blocks.air) {
+						world.setBlock(X, Y + 1, Z, Blocks.fire);
+					}
+				}
+			}
+		}
+	}
+
+	
 
 	@Deprecated public static void burn(UUID ownerParty, World world, int x, int y, int z, int bound) {
 		igniteAllBlocks(ownerParty, world, x, y, z, bound);
