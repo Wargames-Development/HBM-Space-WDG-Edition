@@ -46,7 +46,9 @@ public class RenderAccessoryUtility {
 	private static ResourceLocation adam = new ResourceLocation(RefStrings.MODID + ":textures/models/capes/CapeAdam.png");
 	private static ResourceLocation gwen = new ResourceLocation(RefStrings.MODID + ":textures/models/capes/CapeGwen.png");
 	private static ResourceLocation mlow = new ResourceLocation(RefStrings.MODID + ":textures/models/capes/CapeMellow.png");
-
+	private static ResourceLocation under = new ResourceLocation(RefStrings.MODID + ":textures/models/capes/CapeUnder.png");
+	private static ResourceLocation robbie = new ResourceLocation(RefStrings.MODID + ":textures/models/capes/CapeRobbie.png");
+	private static ResourceLocation rock = new ResourceLocation(RefStrings.MODID + ":textures/models/capes/CapeRockandFire.png");
 	private static ResourceLocation alcater = new ResourceLocation(RefStrings.MODID + ":textures/models/capes/CapeAlcater.png");
 	private static ResourceLocation jame = new ResourceLocation(RefStrings.MODID + ":textures/models/capes/CapeJame.png");
 
@@ -142,6 +144,18 @@ public class RenderAccessoryUtility {
 		}
 		if(uuid.equals(ShadyUtil.MellowRPG8)) {
 			return mlow;
+		}
+		if(uuid.equals(ShadyUtil.UnderPlayer123)) {
+			return under;
+		}
+		if(uuid.equals(ShadyUtil.AwesomeR2D2)) {
+			return robbie;
+		}
+		if(uuid.equals(ShadyUtil.Hazmat__Panda)) {
+			return rock;
+		}
+		if(uuid.equals(ShadyUtil.C1pher_jk)) {
+			return rock;
 		}
 
 		return null;

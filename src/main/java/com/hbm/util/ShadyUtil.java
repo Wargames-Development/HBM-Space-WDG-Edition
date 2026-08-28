@@ -1,13 +1,13 @@
 package com.hbm.util;
 
-import com.google.common.collect.Sets;
-
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
+
+import com.google.common.collect.Sets;
 
 /**
  * Handles anything regarding hashes, base64 encoding, etc. Shady looking stuff, that is
@@ -51,6 +51,10 @@ public class ShadyUtil {
 	public static String DUODEC_ = "85d54b8c-1862-4c86-b351-5ef1b998aa32";
 	public static String LePeeperSauvage = "433c2bb7-018c-4d51-acfe-27f907432b5e";
 	public static String MellowRPG8 = "99b9efa5-8c38-4b22-86c2-baf97789d2fb";
+	public static String UnderPlayer123 = "905618ff-b76a-4af0-a24e-0f94eb073369";
+	public static String AwesomeR2D2 = "5e2cd472-11f4-4c0a-a30c-d3c23b4e03c6";
+	public static String Hazmat__Panda = "a67f138f-8610-44f0-a56e-b6f4cb683d7a";
+	public static String C1pher_jk = "c5ffe2d2-cce9-4ce5-a7ec-505bada09887";
 
 	public static final Set<String> hashes = new HashSet();
 	static {
