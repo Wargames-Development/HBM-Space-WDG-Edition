@@ -104,13 +104,13 @@ public class ItemAmmoArty extends Item {
 		switch(stack.getItemDamage()) {
 		case NORMAL:
 			list.add(y + "Standard Shell");
-			list.add(y + "30 block accuracy");
+			list.add(y + "60 block accuracy");
 			list.add(y + "Destroys blocks");
 			break;
 		case AIRBURST:
 			list.add(y + "Airburst Shell");
 			list.add(y + "Increased Player Damage");
-			list.add(y + "30 block accuracy");
+			list.add(y + "60 block accuracy");
 			list.add(b + "Only destroys foliage");
 			break;
 		case GUIDED:
@@ -120,19 +120,19 @@ public class ItemAmmoArty extends Item {
 			break;
 		case PHOSPHORUS:
 			list.add(y + "Phosphorus splash");
-			list.add(y + "30 block accuracy");
+			list.add(y + "60 block accuracy");
 			list.add(b + "Does not destroy blocks");
 			break;
 		case MINI_NUKE:
 			list.add(y + "Strength: 20");
-			list.add(y + "30 block accuracy");
+			list.add(y + "60 block accuracy");
 			list.add(r + "Destroys blocks");
 			break;
 		case NUKE:
 			list.add(r + "☠");
 			list.add(r + "(that is the best skull and crossbones");
 			list.add(r + "minecraft's unicode has to offer)");
-			list.add(y + "30 block accuracy");
+			list.add(y + "60 block accuracy");
 			break;
 		case EMPTY:
 			list.add(b + "Casing without the payload");
@@ -350,7 +350,7 @@ public class ItemAmmoArty extends Item {
 		};
 
 		/* PHOSPHORUS */
-		this.itemTypes[PHOSPHORUS] = new ArtilleryShell("ammo_arty_phosphorus", SpentCasing.COLOR_CASE_16INCH_PHOS, 0) {
+		this.itemTypes[PHOSPHORUS] = new ArtilleryShell("ammo_arty_phosphorus", SpentCasing.COLOR_CASE_16INCH_PHOS, 60) {
 			public void onImpact(EntityArtilleryShell shell, MovingObjectPosition mop) {
 				shell.worldObj.playSoundEffect(shell.posX, shell.posY, shell.posZ, "hbm:weapon.explosionMedium", 20.0F, 0.9F + rand.nextFloat() * 0.2F);
 				//shell.worldObj.playSoundEffect(shell.posX, shell.posY, shell.posZ, "hbm:weapon.explosionMedium", 20.0F, 0.9F + shell.worldObj.rand.nextFloat() * 0.2F);
@@ -379,7 +379,7 @@ public class ItemAmmoArty extends Item {
 		};
 
 		/* THIS DOOFUS */
-		this.itemTypes[EMPTY] = new ArtilleryShell("ammo_arty_empty", SpentCasing.COLOR_CASE_16INCH, 0) { public void onImpact(EntityArtilleryShell shell, MovingObjectPosition mop) {
+		this.itemTypes[EMPTY] = new ArtilleryShell("ammo_arty_empty", SpentCasing.COLOR_CASE_16INCH, 10) { public void onImpact(EntityArtilleryShell shell, MovingObjectPosition mop) {
 			if(mop.typeOfHit == MovingObjectType.BLOCK) {
 				shell.setPosition(mop.hitVec.xCoord, mop.hitVec.yCoord, mop.hitVec.zCoord);
 				shell.getStuck(mop.blockX, mop.blockY, mop.blockZ, mop.sideHit);
@@ -387,25 +387,25 @@ public class ItemAmmoArty extends Item {
 		}};
 
 		/* GAS */
-		this.itemTypes[CHLORINE] = new ArtilleryShell("ammo_arty_chlorine", SpentCasing.COLOR_CASE_16INCH, 0) {
+		this.itemTypes[CHLORINE] = new ArtilleryShell("ammo_arty_chlorine", SpentCasing.COLOR_CASE_16INCH, 60) {
 			public void onImpact(EntityArtilleryShell shell, MovingObjectPosition mop) {
 				shell.killAndClear();
 				Vec3 vec = Vec3.createVectorHelper(shell.motionX, shell.motionY, shell.motionZ).normalize();
 				shell.worldObj.createExplosion(shell, mop.hitVec.xCoord - vec.xCoord, mop.hitVec.yCoord - vec.yCoord, mop.hitVec.zCoord - vec.zCoord, 5F, false);
 				EntityMist mist = new EntityMist(shell.worldObj,shell.getOwnerParty());
 				mist.setType(Fluids.CHLORINE);
+				mist.maxAge = 600;
 				mist.setPosition(mop.hitVec.xCoord - vec.xCoord, mop.hitVec.yCoord - vec.yCoord - 3, mop.hitVec.zCoord - vec.zCoord);
-				mist.setArea(15, 7.5F);
+				mist.setArea(20F, 10F);
 				shell.worldObj.spawnEntityInWorld(mist);
-				PollutionHandler.incrementPollution(shell.worldObj, mop.blockX, mop.blockY, mop.blockZ, PollutionType.HEAVYMETAL, 5F);
 			}
 		};
-		this.itemTypes[PHOSGENE] = new ArtilleryShell("ammo_arty_phosgene", SpentCasing.COLOR_CASE_16INCH_NUKE, 0) {
+		this.itemTypes[PHOSGENE] = new ArtilleryShell("ammo_arty_phosgene", SpentCasing.COLOR_CASE_16INCH_NUKE, 60) {
 			public void onImpact(EntityArtilleryShell shell, MovingObjectPosition mop) {
 				shell.killAndClear();
 				Vec3 vec = Vec3.createVectorHelper(shell.motionX, shell.motionY, shell.motionZ).normalize();
 				shell.worldObj.createExplosion(shell, mop.hitVec.xCoord - vec.xCoord, mop.hitVec.yCoord - vec.yCoord, mop.hitVec.zCoord - vec.zCoord, 5F, false);
-				for(int i = 0; i < 3; i++) {
+				for(int i = 0; i < 2; i++) {
 					EntityMist mist = new EntityMist(shell.worldObj,shell.getOwnerParty());
 					mist.setType(Fluids.PHOSGENE);
 					double x = mop.hitVec.xCoord - vec.xCoord;
@@ -414,20 +414,19 @@ public class ItemAmmoArty extends Item {
 						x += rand.nextGaussian() * 15;
 						z += rand.nextGaussian() * 15;
 					}
+					mist.maxAge = 900;
 					mist.setPosition(x, mop.hitVec.yCoord - vec.yCoord - 5, z);
-					mist.setArea(15, 10);
+					mist.setArea(20F, 10F);
 					shell.worldObj.spawnEntityInWorld(mist);
 				}
-				PollutionHandler.incrementPollution(shell.worldObj, mop.blockX, mop.blockY, mop.blockZ, PollutionType.HEAVYMETAL, 10F);
-				PollutionHandler.incrementPollution(shell.worldObj, mop.blockX, mop.blockY, mop.blockZ, PollutionType.POISON, 15F);
 			}
 		};
-		this.itemTypes[MUSTARD] = new ArtilleryShell("ammo_arty_mustard_gas", SpentCasing.COLOR_CASE_16INCH_NUKE, 0) {
+		this.itemTypes[MUSTARD] = new ArtilleryShell("ammo_arty_mustard_gas", SpentCasing.COLOR_CASE_16INCH_NUKE, 60) {
 			public void onImpact(EntityArtilleryShell shell, MovingObjectPosition mop) {
 				shell.killAndClear();
 				Vec3 vec = Vec3.createVectorHelper(shell.motionX, shell.motionY, shell.motionZ).normalize();
 				shell.worldObj.createExplosion(shell, mop.hitVec.xCoord - vec.xCoord, mop.hitVec.yCoord - vec.yCoord, mop.hitVec.zCoord - vec.zCoord, 5F, false);
-				for(int i = 0; i < 5; i++) {
+				for(int i = 0; i < 4; i++) {
 					EntityMist mist = new EntityMist(shell.worldObj,shell.getOwnerParty());
 					mist.setType(Fluids.MUSTARDGAS);
 					double x = mop.hitVec.xCoord - vec.xCoord;
@@ -436,12 +435,11 @@ public class ItemAmmoArty extends Item {
 						x += rand.nextGaussian() * 25;
 						z += rand.nextGaussian() * 25;
 					}
+					mist.maxAge = 1200;
 					mist.setPosition(x, mop.hitVec.yCoord - vec.yCoord - 5, z);
-					mist.setArea(20, 10);
+					mist.setArea(20F, 10F);
 					shell.worldObj.spawnEntityInWorld(mist);
 				}
-				PollutionHandler.incrementPollution(shell.worldObj, mop.blockX, mop.blockY, mop.blockZ, PollutionType.HEAVYMETAL, 15F);
-				PollutionHandler.incrementPollution(shell.worldObj, mop.blockX, mop.blockY, mop.blockZ, PollutionType.POISON, 30F);
 			}
 		};
 

@@ -17,10 +17,12 @@ import com.hbm.inventory.fluid.trait.FluidTraitSimple.FT_Viscous;
 import com.hbm.lib.ModDamageSource;
 import com.hbm.main.MainRegistry;
 import com.hbm.util.ArmorUtil;
+import com.hbm.util.ArmorRegistry;
 import com.hbm.util.ContaminationUtil;
 import com.hbm.util.EntityDamageUtil;
 import com.hbm.util.ContaminationUtil.ContaminationType;
 import com.hbm.util.ContaminationUtil.HazardType;
+import com.hbm.util.ArmorRegistry.HazardClass;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -38,6 +40,9 @@ import net.minecraft.world.World;
 
 public class EntityMist extends Entity {
 	public final UUID party;
+	public EntityMist(World world) {
+		this(world, null);
+	}
 	public EntityMist(World world, UUID owner) {
 		super(world);
 		this.noClip = true;
@@ -175,9 +180,15 @@ public class EntityMist extends Entity {
 				FT_Corrosive trait = type.getTrait(FT_Corrosive.class);
 
 				if (living != null) {
-					EntityDamageUtil.attackEntityFromIgnoreIFrame(living, ModDamageSource.acid, trait.getRating() / 60F);
-					for (int i = 0; i < 4; i++) {
-						ArmorUtil.damageSuit(living, i, trait.getRating() / 50);
+					boolean protectedByGasMask = type.hasTrait(FT_Gaseous.class)
+							&& ArmorRegistry.hasAllProtection(living, 3, HazardClass.GAS_LUNG);
+					if (protectedByGasMask) {
+						ArmorUtil.damageGasMaskFilter(living, 1);
+					} else {
+						EntityDamageUtil.attackEntityFromIgnoreIFrame(living, ModDamageSource.wither, trait.getRating() / 100F);
+						for (int i = 0; i < 4; i++) {
+							ArmorUtil.damageSuit(living, i, trait.getRating() / 50);
+						}
 					}
 				}
 			}

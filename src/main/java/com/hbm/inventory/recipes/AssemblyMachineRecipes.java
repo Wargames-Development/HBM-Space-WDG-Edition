@@ -769,7 +769,7 @@ public class AssemblyMachineRecipes extends GenericRecipes<GenericRecipe> {
 		this.register(new GenericRecipe("ass.artilleryguided").setup(100, 100).outputItems(new ItemStack(ModItems.ammo_arty, 1, 2))
 				.inputItems(new ComparableStack(ModItems.circuit, 1, EnumCircuitType.BASIC), new OreDictStack(ANY_HIGHEXPLOSIVE.ingot(), 8), new ComparableStack(ModItems.ammo_arty, 1, 6)));
 		this.register(new GenericRecipe("ass.artilleryairburst").setup(100, 100).outputItems(new ItemStack(ModItems.ammo_arty, 1, 1))
-				.inputItems(new OreDictStack(ANY_HIGHEXPLOSIVE.ingot(), 4), new OreDictStack(PB.nugget(), 32), new ComparableStack(ModItems.circuit, 2, EnumCircuitType.VACUUM_TUBE)));
+				.inputItems(new OreDictStack(ANY_HIGHEXPLOSIVE.ingot(), 4), new OreDictStack(PB.nugget(), 32), new ComparableStack(ModItems.circuit, 2, EnumCircuitType.VACUUM_TUBE), new ComparableStack(ModItems.ammo_arty, 1, 6)));
 		this.register(new GenericRecipe("ass.artilleryhe").setup(100, 100).outputItems(new ItemStack(ModItems.ammo_arty, 1, 0))
 				.inputItems(new OreDictStack(ANY_HIGHEXPLOSIVE.ingot(), 8), new ComparableStack(ModItems.ammo_arty, 1, 6)));
 		this.register(new GenericRecipe("ass.himars").setup(1_200, 100).outputItems(new ItemStack(ModBlocks.turret_himars, 1))

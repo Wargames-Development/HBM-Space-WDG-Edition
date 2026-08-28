@@ -131,18 +131,19 @@ public class XFactory40mm {
 	public static Consumer<Entity> LAMBDA_SPAWN_C130_SUPPLIESS = (entity) -> { spawnPlane(entity, C130PayloadType.SUPPLIES); };
 	public static Consumer<Entity> LAMBDA_SPAWN_C130_WEAPONS = (entity) -> { spawnPlane(entity, C130PayloadType.WEAPONS); };
 	public static BiConsumer<EntityBulletBaseMK4, MovingObjectPosition> LAMBDA_SPAWN_ARTILLERY = (bullet, mop) -> {
-		if(mop.typeOfHit != mop.typeOfHit.BLOCK) return;
+		//if(mop.typeOfHit != mop.typeOfHit.BLOCK) return;
 
-		for(int i = 0; i < 3; i++) {
+		for(int i = 0; i < 4; i++) {
 			EntityArtilleryShell shell = new EntityArtilleryShell(bullet.worldObj);
-			int innacuracy = 30;
-			shell.setPosition(mop.hitVec.xCoord + bullet.worldObj.rand.nextDouble() * innacuracy - innacuracy / 2.0,
-					mop.hitVec.yCoord + 2000.0 + bullet.worldObj.rand.nextDouble() * 1000.0,
+			int innacuracy = 25;
+			shell.setPosition(
+					mop.hitVec.xCoord + bullet.worldObj.rand.nextDouble() * innacuracy - innacuracy / 2.0,
+					mop.hitVec.yCoord + 3000.0 + bullet.worldObj.rand.nextDouble() * 1000.0,
 					mop.hitVec.zCoord + bullet.worldObj.rand.nextDouble() * innacuracy - innacuracy / 2.0);
 			shell.setThrowableHeading(0D, -1.0, 0D, 4.0F, 0F);
 			shell.setTarget(mop.hitVec.xCoord, mop.hitVec.yCoord, mop.hitVec.zCoord);
 			shell.setOwnerParty(bullet.getOwnerParty());
-			shell.setType(0);
+			shell.setType(7);
 			bullet.worldObj.spawnEntityInWorld(shell);
 		}
 
