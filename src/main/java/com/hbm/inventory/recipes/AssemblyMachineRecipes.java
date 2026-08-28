@@ -764,6 +764,14 @@ public class AssemblyMachineRecipes extends GenericRecipes<GenericRecipe> {
 		this.register(new GenericRecipe("ass.arty").setup(1_200, 100).outputItems(new ItemStack(ModBlocks.turret_arty, 1))
 				.inputItems(new ComparableStack(ModItems.battery_pack, 1, EnumBatteryPack.BATTERY_LITHIUM), new OreDictStack(STEEL.ingot(), 64), new OreDictStack(STEEL.ingot(), 64), new ComparableStack(ModItems.motor_desh, 5), new ComparableStack(ModItems.circuit, 3, EnumCircuitType.ADVANCED), new OreDictStack(STEEL.pipe(), 12), new OreDictStack(WEAPONSTEEL.mechanism(), 16), new ComparableStack(ModBlocks.machine_radar, 1), new ComparableStack(ModItems.crt_display, 1))
 				.setPools528(GenericRecipes.POOL_PREFIX_528 + "arty"));
+		this.register(new GenericRecipe("ass.artilleryempty").setup(100, 100).outputItems(new ItemStack(ModItems.ammo_arty, 1, 6))
+				.inputItems(new OreDictStack(ANY_SMOKELESS.dust(), 12), new OreDictStack(CU.shell(), 2)));
+		this.register(new GenericRecipe("ass.artilleryguided").setup(100, 100).outputItems(new ItemStack(ModItems.ammo_arty, 1, 2))
+				.inputItems(new ComparableStack(ModItems.circuit, 1, EnumCircuitType.BASIC), new OreDictStack(ANY_HIGHEXPLOSIVE.ingot(), 8), new ComparableStack(ModItems.ammo_arty, 1, 6)));
+		this.register(new GenericRecipe("ass.artilleryairburst").setup(100, 100).outputItems(new ItemStack(ModItems.ammo_arty, 1, 1))
+				.inputItems(new OreDictStack(ANY_HIGHEXPLOSIVE.ingot(), 4), new OreDictStack(PB.nugget(), 32), new ComparableStack(ModItems.circuit, 2, EnumCircuitType.VACUUM_TUBE)));
+		this.register(new GenericRecipe("ass.artilleryhe").setup(100, 100).outputItems(new ItemStack(ModItems.ammo_arty, 1, 0))
+				.inputItems(new OreDictStack(ANY_HIGHEXPLOSIVE.ingot(), 8), new ComparableStack(ModItems.ammo_arty, 1, 6)));
 		this.register(new GenericRecipe("ass.himars").setup(1_200, 100).outputItems(new ItemStack(ModBlocks.turret_himars, 1))
 				.inputItems(new ComparableStack(ModItems.battery_pack, 1, EnumBatteryPack.BATTERY_LITHIUM), new OreDictStack(STEEL.ingot(), 64), new OreDictStack(STEEL.ingot(), 64), new OreDictStack(ANY_PLASTIC.ingot(), 64), new ComparableStack(ModItems.motor_desh, 5), new ComparableStack(ModItems.circuit, 8, EnumCircuitType.ADVANCED), new OreDictStack(BIGMT.mechanism(), 8), new ComparableStack(ModBlocks.machine_radar, 1), new ComparableStack(ModItems.crt_display, 1))
 				.setPools528(GenericRecipes.POOL_PREFIX_528 + "arty"));
@@ -941,14 +949,14 @@ public class AssemblyMachineRecipes extends GenericRecipes<GenericRecipe> {
 		this.register(new GenericRecipe("ass.50bmgbypass").setup(100, 100).outputItems(new ItemStack(ModItems.ammo_secret, 12, EnumAmmoSecret.BMG50_BLACK.ordinal()))
 				.inputItems(new ComparableStack(ModItems.casing, 2, EnumCasingType.LARGE_STEEL), new OreDictStack(ANY_SMOKELESS.dust(), 24), new ComparableStack(ModItems.item_secret, 1, EnumSecretType.SELENIUM_STEEL), new ComparableStack(ModItems.black_diamond))
 				.setPools(GenericRecipes.POOL_PREFIX_SECRET + "psalm"));
-		this.register(new GenericRecipe("chem.shellchlorine").setup(100, 1_000).outputItems(new ItemStack(ModItems.ammo_arty, 1, 9))
-				.inputItems(new ComparableStack(ModItems.ammo_arty, 1, 0), new OreDictStack(ANY_PLASTIC.ingot(), 1))
+		this.register(new GenericRecipe("chem.shellchlorine").setup(100, 1_000).outputItems(new ItemStack(ModItems.ammo_arty, 1, 7))
+				.inputItems(new ComparableStack(ModItems.ammo_arty, 1, 6), new OreDictStack(ANY_PLASTIC.ingot(), 1))
 				.inputFluids(new FluidStack(Fluids.CHLORINE, 4_000)));
-		this.register(new GenericRecipe("ass.shellphosgene").setup(100, 1_000).outputItems(new ItemStack(ModItems.ammo_arty, 1, 10))
-				.inputItems(new ComparableStack(ModItems.ammo_arty, 1, 0), new OreDictStack(ANY_PLASTIC.ingot(), 1))
+		this.register(new GenericRecipe("ass.shellphosgene").setup(100, 1_000).outputItems(new ItemStack(ModItems.ammo_arty, 1, 8))
+				.inputItems(new ComparableStack(ModItems.ammo_arty, 1, 6), new OreDictStack(ANY_PLASTIC.ingot(), 1))
 				.inputFluids(new FluidStack(Fluids.PHOSGENE, 4_000)));
-		this.register(new GenericRecipe("ass.shellmustard").setup(100, 1_000).outputItems(new ItemStack(ModItems.ammo_arty, 1, 11))
-				.inputItems(new ComparableStack(ModItems.ammo_arty, 1, 0), new OreDictStack(ANY_PLASTIC.ingot(), 1))
+		this.register(new GenericRecipe("ass.shellmustard").setup(100, 1_000).outputItems(new ItemStack(ModItems.ammo_arty, 1, 9))
+				.inputItems(new ComparableStack(ModItems.ammo_arty, 1, 6), new OreDictStack(ANY_PLASTIC.ingot(), 1))
 				.inputFluids(new FluidStack(Fluids.MUSTARDGAS, 4_000)));
 
 		// space

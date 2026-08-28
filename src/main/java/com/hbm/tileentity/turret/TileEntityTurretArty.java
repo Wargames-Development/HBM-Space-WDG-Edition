@@ -207,7 +207,7 @@ public class TileEntityTurretArty extends TileEntityTurretBaseArtillery implemen
 		proj.setOwnerParty(owningFaction);
 		proj.setType(type.getItemDamage());
 
-		if(type.getItemDamage() == 8 && type.hasTagCompound()) {
+		if(type.getItemDamage() == 6 && type.hasTagCompound()) {
 			NBTTagCompound cargo = type.stackTagCompound.getCompoundTag("cargo");
 
 			if(cargo != null) {

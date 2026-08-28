@@ -26,7 +26,7 @@ public class CargoShellCraftingHandler implements IRecipe {
 				
 				itemCount++;
 				
-				if(stack.getItem() == ModItems.ammo_arty && stack.getItemDamage() == 8 && !stack.hasTagCompound()) {
+				if(stack.getItem() == ModItems.ammo_arty && stack.getItemDamage() == 6 && !stack.hasTagCompound()) {
 					shellCount++;
 				}
 			}
@@ -47,7 +47,7 @@ public class CargoShellCraftingHandler implements IRecipe {
 			if(stack == null)
 				continue;
 
-			if(stack.getItem() == ModItems.ammo_arty && stack.getItemDamage() == 8 && !stack.hasTagCompound()) {
+			if(stack.getItem() == ModItems.ammo_arty && stack.getItemDamage() == 6 && !stack.hasTagCompound()) {
 				ItemStack copy = stack.copy();
 				copy.stackSize = 1;
 				shell = copy;
@@ -76,6 +76,6 @@ public class CargoShellCraftingHandler implements IRecipe {
 
 	@Override
 	public ItemStack getRecipeOutput() {
-		return new ItemStack(ModItems.ammo_shell, 1, 8);
+		return new ItemStack(ModItems.ammo_arty, 1, 6);
 	}
 }

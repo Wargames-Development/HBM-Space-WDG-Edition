@@ -135,9 +135,10 @@ public class XFactory40mm {
 
 		for(int i = 0; i < 4; i++) {
 			EntityArtilleryShell shell = new EntityArtilleryShell(bullet.worldObj);
-			shell.setPosition(mop.hitVec.xCoord + bullet.worldObj.rand.nextDouble() * 30.0 - 15.0,
+			int innacuracy = 3;
+			shell.setPosition(mop.hitVec.xCoord + bullet.worldObj.rand.nextDouble() * innacuracy - innacuracy / 2.0,
 					mop.hitVec.yCoord + 1500.0 + bullet.worldObj.rand.nextDouble() * 800.0,
-					mop.hitVec.zCoord + bullet.worldObj.rand.nextDouble() * 30.0 - 15.0);
+					mop.hitVec.zCoord + bullet.worldObj.rand.nextDouble() * innacuracy - innacuracy / 2.0);
 			shell.setThrowableHeading(0D, -1.0, 0D, 5F, 0F);
 			shell.setTarget(mop.hitVec.xCoord, mop.hitVec.yCoord, mop.hitVec.zCoord);
 			shell.setOwnerParty(bullet.getOwnerParty());
