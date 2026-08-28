@@ -374,14 +374,6 @@ public class ModEventHandler {
 			event.entity.worldObj.spawnEntityInWorld(foeq);
 		}
 
-		if(event.entity.getUniqueID().toString().equals(ShadyUtil.HbMinecraft) || event.entity.getCommandSenderName().equals("HbMinecraft")) {
-			event.entity.dropItem(ModItems.book_of_, 1);
-		}
-
-		if(event.entity.getUniqueID().toString().equals(ShadyUtil.MellowRPG8)) {
-			event.entity.entityDropItem(new ItemStack(ModBlocks.block_meteor, 1 + rand.nextInt(10)), 0.0F);
-		}
-
 		if(event.entity instanceof EntityCreeperTainted && event.source == ModDamageSource.boxcar) {
 
 			for(Object o : event.entity.worldObj.getEntitiesWithinAABB(EntityPlayer.class, event.entity.boundingBox.expand(50, 50, 50))) {
@@ -1206,8 +1198,8 @@ public class ModEventHandler {
 					}
 				}
 
-				boolean isBob = player.getUniqueID().toString().equals(ShadyUtil.HbMinecraft) || player.getDisplayName().equals("HbMinecraft");
-				boolean isOther = player.getUniqueID().toString().equals(ShadyUtil.the_NCR) || player.getDisplayName().equals("the_NCR");
+				boolean isBob = false;
+				boolean isOther = false;
 
 				if(isBob || isOther) {
 
@@ -1847,82 +1839,6 @@ public class ModEventHandler {
 		}
 	}
 
-
-
-	@SubscribeEvent
-	public void chatEvent(ServerChatEvent event) {
-
-		EntityPlayerMP player = event.player;
-		String message = event.message;
-
-		//boolean conditions for the illiterate, edition 1
-		//bellow you can see the header of an if-block. inside the brackets, there is a boolean statement.
-		//that means nothing other than its value totaling either 'true' or 'false'
-		//examples: 'true' would just mean true
-		//'1 > 3' would equal false
-		//'i < 10' would equal true if 'i' is smaller than 10, if equal or greater, it will result in false
-
-		//let's start from the back:
-
-		//this part means that the message's first character has to equal a '!': ----------------------------+
-		//                                                                                                   |
-		//this is a logical AND operator: ----------------------------------------------------------------+  |
-		//                                                                                                |  |
-		//this is a reference to a field in                                                               |  |
-		//Library.java containing a reference UUID: -----------------------------------------+            |  |
-		//                                                                                   |            |  |
-		//this will compare said UUID with                                                   |            |  |
-		//the string representation of the                                                   |            |  |
-		//current player's UUID: -----------+                                                |            |  |
-		//                                  |                                                |            |  |
-		//another AND operator: ---------+  |                                                |            |  |
-		//                               |  |                                                |            |  |
-		//this is a reference to a       |  |                                                |            |  |
-		//boolean called                 |  |                                                |            |  |
-		//'enableDebugMode' which is     |  |                                                |            |  |
-		//only set once by the mod's     |  |                                                |            |  |
-		//config and is disabled by      |  |                                                |            |  |
-		//default. "debug" is not a      |  |                                                |            |  |
-		//substring of the message, nor  |  |                                                |            |  |
-		//something that can be toggled  |  |                                                |            |  |
-		//in any other way except for    |  |                                                |            |  |
-		//the config file: |             |  |                                                |            |  |
-		//                 V             V  V                                                V            V  V
-		if(GeneralConfig.enableDebugMode && player.getUniqueID().toString().equals(ShadyUtil.HbMinecraft) && message.startsWith("!")) {
-
-			String[] msg = message.split(" ");
-
-			String m = msg[0].substring(1, msg[0].length()).toLowerCase(Locale.US);
-
-			if("gv".equals(m)) {
-
-				int id = 0;
-				int size = 1;
-				int meta = 0;
-
-				if(msg.length > 1 && NumberUtils.isNumber(msg[1])) {
-					id = (int)(double)NumberUtils.createDouble(msg[1]);
-				}
-
-				if(msg.length > 2 && NumberUtils.isNumber(msg[2])) {
-					size = (int)(double)NumberUtils.createDouble(msg[2]);
-				}
-
-				if(msg.length > 3 && NumberUtils.isNumber(msg[3])) {
-					meta = (int)(double)NumberUtils.createDouble(msg[3]);
-				}
-
-				Item item = Item.getItemById(id);
-
-				if(item != null && size > 0 && meta >= 0) {
-					player.inventory.addItemStackToInventory(new ItemStack(item, size, meta));
-				}
-			}
-
-			player.inventoryContainer.detectAndSendChanges();
-			event.setCanceled(true);
-		}
-	}
 
 	@SubscribeEvent
 	public void onFoodEaten(PlayerUseItemEvent.Finish event) {
