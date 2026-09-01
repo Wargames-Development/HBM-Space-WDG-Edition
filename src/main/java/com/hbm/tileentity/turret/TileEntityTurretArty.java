@@ -202,6 +202,7 @@ public class TileEntityTurretArty extends TileEntityTurretBaseArtillery implemen
 		ItemAmmoArty.ArtilleryShell shellType = ItemAmmoArty.itemTypes[type.getItemDamage()];
 		vec.xCoord += (worldObj.rand.nextDouble() - 0.5D) * shellType.inaccuracy;
 		vec.zCoord += (worldObj.rand.nextDouble() - 0.5D) * shellType.inaccuracy;
+		//becuase air drag is not simulated funnily enough error decreases as range increases. This is becuase the system prefers a higher trajectory which leads to lower flight times at longer ranges, aswell as downrange error decreasing at 45deg due to the derivative of range/angle aproaching 0 as angle = 45.
 		proj.setThrowableHeading(vec.xCoord, vec.yCoord, vec.zCoord, (float) getV0(), 0.0F);
 		proj.setTarget((int) tPos.xCoord, (int) tPos.yCoord, (int) tPos.zCoord);
 		proj.setOwnerParty(owningFaction);

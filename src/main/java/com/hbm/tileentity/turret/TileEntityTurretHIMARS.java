@@ -184,15 +184,16 @@ public class TileEntityTurretHIMARS extends TileEntityTurretBaseArtillery implem
 			if(isOn() && hasPower()) {
 
 				if(!this.hasAmmo() || this.crane > 0) {
+					float craneStep = 1F / Math.max(1, WeaponConfig.himarsCraneReloadTime);
 
 					this.turnTowardsAngle(0, this.rotationYaw);
 
 					if(this.aligned) {
 
 						if(this.hasAmmo()) {
-							this.crane -= 0.0125F;
+							this.crane -= craneStep;
 						} else {
-							this.crane += 0.0125F;
+							this.crane += craneStep;
 
 							if(this.crane >= 1F) {
 								int available = this.getSpareRocket();

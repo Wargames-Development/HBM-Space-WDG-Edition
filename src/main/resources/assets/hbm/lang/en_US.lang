@@ -5106,6 +5106,7 @@ item.turret_tau_ammo.name=Tau Turret Uranium Ammo
 item.twinkie.name=Twinkie
 item.twinkie.desc=Expired 600 years ago!
 item.ullapool_caber.name=Ullapool Caber
+item.lunge_mine.name = Lunge Mine
 item.undefined.name=Undefined
 item.upgrade_5g.name=5G Radiation Emitter Upgrade
 item.upgrade_afterburn_1.name=Afterburner Upgrade Mk.I

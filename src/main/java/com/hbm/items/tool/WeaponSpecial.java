@@ -87,6 +87,13 @@ public class WeaponSpecial extends ItemSword {
 
 			stack.damageItem(505, entityPlayer);
 		}
+		if(this == ModItems.lunge_mine) {
+			if(!world.isRemote) {
+				world.createExplosion(null, entity.posX, entity.posY, entity.posZ, 7.5F, false);
+			}
+
+			stack.damageItem(1000, entityPlayer);
+		}
 
 		if(this == ModItems.shimmer_sledge) {
 			Vec3 vec = entityPlayer.getLookVec();
@@ -224,6 +231,9 @@ public class WeaponSpecial extends ItemSword {
 		}
 		if(this == ModItems.wrench_flipped) {
 			multimap.put(SharedMonsterAttributes.movementSpeed.getAttributeUnlocalizedName(), new AttributeModifier(field_111210_e, "Weapon modifier", -0.1, 1));
+		}
+		if(this == ModItems.lunge_mine) {
+			multimap.put(SharedMonsterAttributes.movementSpeed.getAttributeUnlocalizedName(), new AttributeModifier(field_111210_e, "Weapon modifier", 0.4, 1));
 		}
 		return multimap;
 	}

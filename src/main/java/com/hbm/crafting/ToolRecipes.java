@@ -2,6 +2,7 @@ package com.hbm.crafting;
 
 import com.hbm.blocks.ModBlocks;
 import com.hbm.config.GeneralConfig;
+import com.hbm.inventory.OreDictManager.DictFrame;
 import com.hbm.inventory.fluid.Fluids;
 
 import static com.hbm.inventory.OreDictManager.*;
@@ -99,6 +100,7 @@ public class ToolRecipes {
 		//Misc weapons
 		CraftingManager.addRecipeAuto(new ItemStack(ModItems.pipe_lead, 1), new Object[] { "II", " I", " I", 'I', PB.pipe() });
 		CraftingManager.addRecipeAuto(new ItemStack(ModItems.ullapool_caber, 1), new Object[] { "ITI", " S ", " S ", 'I', IRON.plate(), 'T', Blocks.tnt, 'S', KEY_STICK });
+		CraftingManager.addRecipeAuto(new ItemStack(ModItems.lunge_mine, 1), new Object[] { " T ", " S ", " S ", 'T', Blocks.tnt, 'S', KEY_STICK });
 
 		//Utility
 		CraftingManager.addRecipeAuto(new ItemStack(ModItems.rangefinder, 1), new Object[] { "GRC", "  S", 'G', KEY_ANYPANE, 'R', REDSTONE.dust(), 'C', DictFrame.fromOne(ModItems.circuit, EnumCircuitType.BASIC), 'S' ,STEEL.plate() });

@@ -1650,6 +1650,7 @@ public class ModItems {
 	public static Item grenade_universal;
 	
 	public static Item ullapool_caber;
+	public static Item lunge_mine;
 
 	public static Item weaponized_starblaster_cell;
 
@@ -4037,6 +4038,7 @@ public class ModItems {
 		grenade_universal = new ItemGrenadeUniversal().setUnlocalizedName("grenade_universal").setCreativeTab(MainRegistry.weaponTab).setTextureName(RefStrings.MODID + ":grenade_universal");
 
 		ullapool_caber = new WeaponSpecial(MainRegistry.tMatSteel).setUnlocalizedName("ullapool_caber").setCreativeTab(MainRegistry.weaponTab).setTextureName(RefStrings.MODID + ":ullapool_caber");
+		lunge_mine = new WeaponSpecial(MainRegistry.tMatSteel).setUnlocalizedName("lunge_mine").setCreativeTab(MainRegistry.weaponTab).setTextureName(RefStrings.MODID + ":lunge_mine");
 
 		weaponized_starblaster_cell = new WeaponizedCell().setUnlocalizedName("weaponized_starblaster_cell").setMaxStackSize(1).setCreativeTab(MainRegistry.weaponTab).setTextureName(RefStrings.MODID + ":gun_b92_ammo_weaponized");
 
@@ -6445,6 +6447,7 @@ public class ModItems {
 		GameRegistry.registerItem(glyphid_gland, glyphid_gland.getUnlocalizedName());
 
 		GameRegistry.registerItem(ullapool_caber, ullapool_caber.getUnlocalizedName());
+		GameRegistry.registerItem(lunge_mine, lunge_mine.getUnlocalizedName());
 		GameRegistry.registerItem(weaponized_starblaster_cell, weaponized_starblaster_cell.getUnlocalizedName());
 
 		//Capes
