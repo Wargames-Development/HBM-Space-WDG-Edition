@@ -54,7 +54,7 @@ public abstract class TurretBaseNT extends BlockDummyable {
 		if(!world.isRemote) {
 			//Resolve factionID to avoid turrets taking the player's side.
 			System.out.println("Getting faction ID");
-			UUID factionID = Integrations.getPlayerFactionWGC(world, entitylivingbase.getUniqueID());
+			UUID factionID = Integrations.getPlayerFaction(world, entitylivingbase.getUniqueID());
 			if(factionID != null) {
 				System.out.println("Faction ID found: " + factionID);
 				BlockPartyOwned.setOwner(world, x, y, z, factionID);
