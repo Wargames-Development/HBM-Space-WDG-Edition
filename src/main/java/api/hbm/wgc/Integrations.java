@@ -252,6 +252,20 @@ public final class Integrations {
         return backend().getBreachHackRemainingMillis(world, stationKey, stationGeneration);
     }
 
+    /**
+     * The tracked Orbital Station Computer is an authoritative Breach objective.
+     * Keep it fixed in place from preparation through successful settlement so a
+     * defender cannot remove or relocate the objective after committing to the Breach.
+     */
+    public static boolean isBreachStationComputerLockedWGC(World world, String stationKey, int stationGeneration) {
+        String phase = getBreachPhaseWGC(world, stationKey, stationGeneration);
+        return "PREPARATION".equals(phase)
+            || "ACTIVE".equals(phase)
+            || "VICTORY_LOCKED".equals(phase)
+            || "VICTORY_EVACUATION".equals(phase)
+            || "VICTORY_SETTLEMENT_READY".equals(phase);
+    }
+
     public static boolean isBreachSettlementReadyWGC(World world, String stationKey, int stationGeneration) {
         return backend().isBreachSettlementReady(world, stationKey, stationGeneration);
     }
@@ -525,7 +539,11 @@ final class WGCoreIntegrationBackend implements IntegrationBackend {
         if (affectedBlocks != null) {
             for (Object object : affectedBlocks) {
                 if (object instanceof ChunkPosition) {
-                    safeAffectedBlocks.add((ChunkPosition) object);
+                    ChunkPosition position = (ChunkPosition) object;
+                    if (!BreachStationComputerInteractionHandler.isLockedTrackedStationComputer(
+                            world, position.chunkPosX, position.chunkPosY, position.chunkPosZ)) {
+                        safeAffectedBlocks.add(position);
+                    }
                 }
             }
         }
