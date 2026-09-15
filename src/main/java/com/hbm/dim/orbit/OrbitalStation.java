@@ -110,7 +110,7 @@ public class OrbitalStation {
 	public static final int CORE_Y = 127;
 	public static final int INNER_RAID_BOX_CHUNKS = 48;
 	public static final int RAID_PORT_CHUNKS = 2;
-	public static final int RAID_CLEANUP_CHUNKS = 10;
+	public static final int RAID_CLEANUP_CHUNKS = 8;
 
 
 

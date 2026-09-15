@@ -100,7 +100,7 @@ public final class Integrations {
         }
     }
 
-    private static IllegalStateException incompatibleWGCore(Throwable cause) {
+    static IllegalStateException incompatibleWGCore(Throwable cause) {
         String message = "HBM Space WDG detected WGCore, but its integration API is incompatible. "
             + "Install the WGCore build required by this HBM release, or remove WGCore to run "
             + "HBM without WDG claim protection.";
@@ -198,6 +198,38 @@ public final class Integrations {
         return backend().getPlayerFaction(world, player);
     }
 
+    public static boolean registerOrbitalStationWGC(World world,
+                                                     String stationKey,
+                                                     int stationGeneration,
+                                                     UUID ownerFactionId,
+                                                     int orbitDimensionId,
+                                                     int cellX,
+                                                     int cellZ) {
+        return backend().registerOrbitalStation(
+            world, stationKey, stationGeneration, ownerFactionId, orbitDimensionId, cellX, cellZ);
+    }
+
+    public static boolean unregisterOrbitalStationWGC(World world, String stationKey, int stationGeneration) {
+        return backend().unregisterOrbitalStation(world, stationKey, stationGeneration);
+    }
+
+    public static boolean registerBreachOutpostWGC(World world,
+                                                   String outpostKey,
+                                                   String targetStationKey,
+                                                   int targetStationGeneration,
+                                                   UUID attackerFactionId,
+                                                   int orbitDimensionId,
+                                                   int coreChunkX,
+                                                   int coreChunkZ) {
+        return backend().registerBreachOutpost(
+            world, outpostKey, targetStationKey, targetStationGeneration,
+            attackerFactionId, orbitDimensionId, coreChunkX, coreChunkZ);
+    }
+
+    public static boolean unregisterBreachOutpostWGC(World world, String outpostKey) {
+        return backend().unregisterBreachOutpost(world, outpostKey);
+    }
+
     public static boolean isProtected(int blockX, int blockZ, Set<ChunkCoordIntPair> protectedChunks) {
         if (protectedChunks == null || protectedChunks.isEmpty()) {
             return false;
@@ -228,6 +260,12 @@ interface IntegrationBackend {
     boolean canPlaceClaimLockedBlock(UUID party, World world, int x, int y, int z);
     UUID getChunkOwner(World world, ChunkCoordIntPair chunkCoords);
     UUID getPlayerFaction(World world, UUID player);
+    boolean registerOrbitalStation(World world, String stationKey, int stationGeneration, UUID ownerFactionId,
+                                   int orbitDimensionId, int cellX, int cellZ);
+    boolean unregisterOrbitalStation(World world, String stationKey, int stationGeneration);
+    boolean registerBreachOutpost(World world, String outpostKey, String targetStationKey, int targetStationGeneration,
+                                  UUID attackerFactionId, int orbitDimensionId, int coreChunkX, int coreChunkZ);
+    boolean unregisterBreachOutpost(World world, String outpostKey);
 }
 
 final class NoOpIntegrationBackend implements IntegrationBackend {
@@ -318,6 +356,25 @@ final class NoOpIntegrationBackend implements IntegrationBackend {
     public UUID getPlayerFaction(World world, UUID player) {
         return null;
     }
+
+    public boolean registerOrbitalStation(World world, String stationKey, int stationGeneration, UUID ownerFactionId,
+                                          int orbitDimensionId, int cellX, int cellZ) {
+        return true;
+    }
+
+    public boolean unregisterOrbitalStation(World world, String stationKey, int stationGeneration) {
+        return true;
+    }
+
+    public boolean registerBreachOutpost(World world, String outpostKey, String targetStationKey,
+                                         int targetStationGeneration, UUID attackerFactionId,
+                                         int orbitDimensionId, int coreChunkX, int coreChunkZ) {
+        return true;
+    }
+
+    public boolean unregisterBreachOutpost(World world, String outpostKey) {
+        return true;
+    }
 }
 
 /**
@@ -349,6 +406,12 @@ final class WGCoreIntegrationBackend implements IntegrationBackend {
             requireMethod("canPlaceClaimLockedBlock", UUID.class, World.class, Integer.TYPE, Integer.TYPE);
             requireMethod("getChunkOwner", World.class, Integer.TYPE, Integer.TYPE);
             requireMethod("getPlayerFaction", World.class, UUID.class);
+            requireMethod("registerOrbitalStation", World.class, String.class, Integer.TYPE, UUID.class,
+                Integer.TYPE, Integer.TYPE, Integer.TYPE);
+            requireMethod("unregisterOrbitalStation", World.class, String.class, Integer.TYPE);
+            requireMethod("registerBreachOutpost", World.class, String.class, String.class, Integer.TYPE,
+                UUID.class, Integer.TYPE, Integer.TYPE, Integer.TYPE);
+            requireMethod("unregisterBreachOutpost", World.class, String.class);
         } catch (NoSuchMethodException error) {
             throw new IllegalStateException("WGCore integration API is missing a required method.", error);
         }
@@ -623,5 +686,54 @@ final class WGCoreIntegrationBackend implements IntegrationBackend {
 
     public UUID getPlayerFaction(World world, UUID player) {
         return WGCoreIntegrationAccess.getPlayerFaction(world, player);
+    }
+
+    public boolean registerOrbitalStation(World world, String stationKey, int stationGeneration, UUID ownerFactionId,
+                                          int orbitDimensionId, int cellX, int cellZ) {
+        return invokeBoolean(
+            "registerOrbitalStation",
+            new Class<?>[] { World.class, String.class, Integer.TYPE, UUID.class, Integer.TYPE, Integer.TYPE, Integer.TYPE },
+            new Object[] { world, stationKey, stationGeneration, ownerFactionId, orbitDimensionId, cellX, cellZ }
+        );
+    }
+
+    public boolean unregisterOrbitalStation(World world, String stationKey, int stationGeneration) {
+        return invokeBoolean(
+            "unregisterOrbitalStation",
+            new Class<?>[] { World.class, String.class, Integer.TYPE },
+            new Object[] { world, stationKey, stationGeneration }
+        );
+    }
+
+    public boolean registerBreachOutpost(World world, String outpostKey, String targetStationKey,
+                                         int targetStationGeneration, UUID attackerFactionId,
+                                         int orbitDimensionId, int coreChunkX, int coreChunkZ) {
+        return invokeBoolean(
+            "registerBreachOutpost",
+            new Class<?>[] { World.class, String.class, String.class, Integer.TYPE, UUID.class, Integer.TYPE, Integer.TYPE, Integer.TYPE },
+            new Object[] { world, outpostKey, targetStationKey, targetStationGeneration, attackerFactionId,
+                orbitDimensionId, coreChunkX, coreChunkZ }
+        );
+    }
+
+    public boolean unregisterBreachOutpost(World world, String outpostKey) {
+        return invokeBoolean(
+            "unregisterBreachOutpost",
+            new Class<?>[] { World.class, String.class },
+            new Object[] { world, outpostKey }
+        );
+    }
+
+    private boolean invokeBoolean(String name, Class<?>[] parameterTypes, Object[] arguments) {
+        try {
+            Object result = requireMethod(name, parameterTypes).invoke(null, arguments);
+            return result instanceof Boolean && ((Boolean)result).booleanValue();
+        } catch (ReflectiveOperationException error) {
+            throw new IllegalStateException("WGCore integration call failed: " + name, error);
+        } catch (RuntimeException error) {
+            throw error;
+        } catch (LinkageError error) {
+            throw Integrations.incompatibleWGCore(error);
+        }
     }
 }

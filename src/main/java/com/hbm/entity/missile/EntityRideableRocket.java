@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import api.hbm.wgc.Integrations;
 import com.hbm.blocks.ILookOverlay;
 import com.hbm.config.SpaceConfig;
 import com.hbm.dim.CelestialBody;
@@ -160,6 +161,11 @@ public class EntityRideableRocket extends EntityMissileBaseNT implements ILookOv
 
 		WorldServer orbitWorld = null;
 		if(destination.body == SolarSystem.Body.ORBIT) {
+			EntityPlayer launchPlayer = riddenByEntity instanceof EntityPlayer
+				? (EntityPlayer)riddenByEntity
+				: thrower instanceof EntityPlayer ? (EntityPlayer)thrower : null;
+			UUID launchPlayerId = launchPlayer != null ? launchPlayer.getUniqueID() : ownerParty;
+			UUID launchFactionId = launchPlayerId != null ? Integrations.getPlayerFaction(worldObj, launchPlayerId) : null;
 			int orbitDimension = destination.body.getDimensionId();
 			orbitWorld = DimensionManager.getWorld(orbitDimension);
 			if(orbitWorld == null) {
@@ -170,11 +176,12 @@ public class EntityRideableRocket extends EntityMissileBaseNT implements ILookOv
 			SolarSystemWorldSavedData stationData = SolarSystemWorldSavedData.get(worldObj);
 			boolean stationReady = orbitWorld != null && stationData != null && navDrive != null;
 			if(stationReady && ItemVOTVdrive.isRaidStationDrive(navDrive)) {
-				stationReady = canRide() && stationData.activateRaidPort(navDrive, orbitWorld);
+				stationReady = canRide() && stationData.activateRaidPort(navDrive, orbitWorld, launchFactionId);
 			} else if(stationReady && canRide()) {
 				stationReady = to != null && to.isValid && ItemVOTVdrive.validateOrbitLaunch(navDrive, worldObj);
 			} else if(stationReady && getRocket().capsule.part == ModItems.rp_station_core_20) {
-				stationReady = stationData.activateNormalStation(navDrive, from == null ? null : from.body, orbitWorld);
+				stationReady = stationData.activateNormalStation(
+					navDrive, from == null ? null : from.body, orbitWorld, launchFactionId);
 			} else {
 				stationReady = false;
 			}

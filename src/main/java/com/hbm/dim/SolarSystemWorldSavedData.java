@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 import java.util.Random;
 import java.util.UUID;
 
+import api.hbm.wgc.Integrations;
 import com.hbm.blocks.BlockDummyable;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.config.SpaceConfig;
@@ -657,7 +658,7 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 	}
 
 	/** Creates the normal core and required computer only for its reserved drive. */
-	public synchronized boolean activateNormalStation(ItemStack drive, CelestialBody sourceBody, WorldServer orbitWorld) {
+	public synchronized boolean activateNormalStation(ItemStack drive, CelestialBody sourceBody, WorldServer orbitWorld, UUID ownerFactionId) {
 		if(drive == null || orbitWorld == null || !ItemVOTVdrive.isNormalStationDrive(drive)) return false;
 		ItemVOTVdrive.Destination destination = ItemVOTVdrive.getDestinationUnchecked(drive);
 		if(destination == null || destination.body != SolarSystem.Body.ORBIT) return false;
@@ -682,6 +683,20 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 			BlockDummyable.safeRem = oldSafeRem;
 		}
 		if(!computerPlaced || orbitWorld.getBlock(computerX, computerY, computerZ) != ModBlocks.orbital_station_computer) {
+			clearSmallCoreArea(orbitWorld, x, z);
+			return false;
+		}
+
+		station.ensureIdentity();
+		if(!Integrations.registerOrbitalStationWGC(
+			orbitWorld,
+			station.stationKey,
+			station.generation,
+			ownerFactionId,
+			SpaceConfig.orbitDimension,
+			station.dX,
+			station.dZ
+		)) {
 			clearSmallCoreArea(orbitWorld, x, z);
 			return false;
 		}
@@ -723,7 +738,7 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 	}
 
 	/** Generates or reuses the one raid port associated with this drive token. */
-	public synchronized boolean activateRaidPort(ItemStack drive, WorldServer orbitWorld) {
+	public synchronized boolean activateRaidPort(ItemStack drive, WorldServer orbitWorld, UUID attackerFactionId) {
 		OrbitalStation station = getStationForRaidDrive(drive, true);
 		if(station == null || orbitWorld == null) return false;
 		String token = drive.stackTagCompound.getString(ItemRaidDrive.TAG_RAID_TOKEN);
@@ -733,6 +748,24 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 
 		int[] position = findRaidPortPosition(station, token, orbitWorld);
 		if(position == null || !OrbitalStation.spawnRaidPort(orbitWorld, position[0], position[1])) return false;
+
+		station.ensureIdentity();
+		int coreChunkX = position[0] >> 4;
+		int coreChunkZ = position[1] >> 4;
+		if(!Integrations.registerBreachOutpostWGC(
+			orbitWorld,
+			token,
+			station.stationKey,
+			station.generation,
+			attackerFactionId,
+			SpaceConfig.orbitDimension,
+			coreChunkX,
+			coreChunkZ
+		)) {
+			clearSmallCoreArea(orbitWorld, position[0], position[1]);
+			return false;
+		}
+
 		station.raidPortActive = true;
 		station.raidToken = token;
 		station.raidPortX = position[0];
@@ -792,21 +825,28 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 	private int[] findRaidPortPosition(OrbitalStation station, String token, WorldServer world) {
 		int centerChunkX = station.getCenterChunkX();
 		int centerChunkZ = station.getCenterChunkZ();
-		int[][] centers = new int[][] {
-			{centerChunkX + 25, centerChunkZ},
-			{centerChunkX, centerChunkZ + 25},
-			{centerChunkX - 25, centerChunkZ},
-			{centerChunkX, centerChunkZ - 25}
-		};
-		int start = token == null ? 0 : (token.hashCode() & Integer.MAX_VALUE) % centers.length;
-		for(int i = 0; i < centers.length; i++) {
-			int[] candidate = centers[(start + i) % centers.length];
+		int radius = 25;
+		List<int[]> centers = new ArrayList<int[]>(radius * 8);
+
+		// Walk the entire square perimeter deterministically. This preserves the
+		// WIP branch's 25-chunk attack distance while avoiding the old four-cardinal
+		// placement restriction.
+		for(int dx = -radius; dx <= radius; dx++) centers.add(new int[] {centerChunkX + dx, centerChunkZ - radius});
+		for(int dz = -radius + 1; dz <= radius; dz++) centers.add(new int[] {centerChunkX + radius, centerChunkZ + dz});
+		for(int dx = radius - 1; dx >= -radius; dx--) centers.add(new int[] {centerChunkX + dx, centerChunkZ + radius});
+		for(int dz = radius - 1; dz > -radius; dz--) centers.add(new int[] {centerChunkX - radius, centerChunkZ + dz});
+
+		int start = token == null || centers.isEmpty() ? 0 : (token.hashCode() & Integer.MAX_VALUE) % centers.size();
+		for(int i = 0; i < centers.size(); i++) {
+			int[] candidate = centers.get((start + i) % centers.size());
 			int blockX = candidate[0] * OrbitalStation.CHUNK_SIZE;
 			int blockZ = candidate[1] * OrbitalStation.CHUNK_SIZE;
 			int cleanupMinX = candidate[0] - OrbitalStation.RAID_CLEANUP_CHUNKS / 2;
 			int cleanupMinZ = candidate[1] - OrbitalStation.RAID_CLEANUP_CHUNKS / 2;
 			if(isChunkAreaEmpty(world, cleanupMinX, cleanupMinZ, OrbitalStation.RAID_CLEANUP_CHUNKS, OrbitalStation.RAID_CLEANUP_CHUNKS)
-				&& !cleanupAreaOverlaps(cleanupMinX, cleanupMinZ, OrbitalStation.RAID_CLEANUP_CHUNKS, OrbitalStation.RAID_CLEANUP_CHUNKS)) return new int[] {blockX, blockZ};
+				&& !cleanupAreaOverlaps(cleanupMinX, cleanupMinZ, OrbitalStation.RAID_CLEANUP_CHUNKS, OrbitalStation.RAID_CLEANUP_CHUNKS)) {
+				return new int[] {blockX, blockZ};
+			}
 		}
 		return null;
 	}
@@ -1036,6 +1076,14 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 	}
 
 	private void processCleanupTask(WorldServer world, CleanupTask task) {
+		// Orbital territory is virtual in WGCore. Remove its binding as soon as
+		// physical cleanup begins so the cleared area resolves back to Deep Space.
+		if(task.type == CleanupType.RAID) {
+			Integrations.unregisterBreachOutpostWGC(world, task.identity);
+		} else if(task.type == CleanupType.STATION) {
+			Integrations.unregisterOrbitalStationWGC(world, task.identity, task.generation);
+		}
+
 		// Compatibility for station cleanup tasks saved before immediate priority
 		// deprogramming was added. Do this before relocating players or clearing the first chunk.
 		if(task.type == CleanupType.STATION && !task.playerDrivesDeprogrammed) {
@@ -1243,8 +1291,10 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 			task.coreX = station.raidPortX; task.coreY = station.raidPortY; task.coreZ = station.raidPortZ;
 			task.coreChunkX = MathHelper.floor_double((double)task.coreX / 16D);
 			task.coreChunkZ = MathHelper.floor_double((double)task.coreZ / 16D);
-			task.minChunkX = task.coreChunkX - 5; task.minChunkZ = task.coreChunkZ - 5;
-			task.width = OrbitalStation.RAID_CLEANUP_CHUNKS; task.height = OrbitalStation.RAID_CLEANUP_CHUNKS;
+			task.minChunkX = task.coreChunkX - OrbitalStation.RAID_CLEANUP_CHUNKS / 2;
+			task.minChunkZ = task.coreChunkZ - OrbitalStation.RAID_CLEANUP_CHUNKS / 2;
+			task.width = OrbitalStation.RAID_CLEANUP_CHUNKS;
+			task.height = OrbitalStation.RAID_CLEANUP_CHUNKS;
 			return task;
 		}
 
@@ -1291,11 +1341,18 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 			} else {
 				task.minChunkX = tag.getInteger("minChunkX");
 				task.minChunkZ = tag.getInteger("minChunkZ");
-				task.width = tag.hasKey("width") ? tag.getInteger("width") : OrbitalStation.RAID_CLEANUP_CHUNKS;
-				task.height = tag.hasKey("height") ? tag.getInteger("height") : OrbitalStation.RAID_CLEANUP_CHUNKS;
-				task.coreX = tag.hasKey("coreX") ? tag.getInteger("coreX") : (task.minChunkX + 5) * OrbitalStation.CHUNK_SIZE;
+				int savedWidth = tag.hasKey("width") ? tag.getInteger("width") : OrbitalStation.RAID_CLEANUP_CHUNKS;
+				int savedHeight = tag.hasKey("height") ? tag.getInteger("height") : OrbitalStation.RAID_CLEANUP_CHUNKS;
+				// Allow an already-persisted WIP 10x10 cleanup to finish at its original
+				// bounds. New raid outposts always use the final 8x8 footprint.
+				int cleanupChunks = savedWidth == 10 && savedHeight == 10 ? 10 : OrbitalStation.RAID_CLEANUP_CHUNKS;
+				task.width = cleanupChunks;
+				task.height = cleanupChunks;
+				task.coreX = tag.hasKey("coreX") ? tag.getInteger("coreX")
+					: (task.minChunkX + cleanupChunks / 2) * OrbitalStation.CHUNK_SIZE;
 				task.coreY = tag.hasKey("coreY") ? tag.getInteger("coreY") : OrbitalStation.CORE_Y;
-				task.coreZ = tag.hasKey("coreZ") ? tag.getInteger("coreZ") : (task.minChunkZ + 5) * OrbitalStation.CHUNK_SIZE;
+				task.coreZ = tag.hasKey("coreZ") ? tag.getInteger("coreZ")
+					: (task.minChunkZ + cleanupChunks / 2) * OrbitalStation.CHUNK_SIZE;
 				task.coreChunkX = MathHelper.floor_double((double)task.coreX / 16D);
 				task.coreChunkZ = MathHelper.floor_double((double)task.coreZ / 16D);
 				task.coreCleared = tag.hasKey("coreCleared") && tag.getBoolean("coreCleared");
@@ -1308,17 +1365,17 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 						+ " token=" + shortIdentity(task.identity) + " coreChunk=" + task.coreChunkX + "," + task.coreChunkZ);
 					return null;
 				}
-				int expectedMinX = task.coreChunkX - OrbitalStation.RAID_CLEANUP_CHUNKS / 2;
-				int expectedMinZ = task.coreChunkZ - OrbitalStation.RAID_CLEANUP_CHUNKS / 2;
+				int expectedMinX = task.coreChunkX - cleanupChunks / 2;
+				int expectedMinZ = task.coreChunkZ - cleanupChunks / 2;
 				if(task.minChunkX != expectedMinX || task.minChunkZ != expectedMinZ
-					|| task.width != OrbitalStation.RAID_CLEANUP_CHUNKS || task.height != OrbitalStation.RAID_CLEANUP_CHUNKS) {
+					|| savedWidth != cleanupChunks || savedHeight != cleanupChunks) {
 					MainRegistry.logger.warn("[StationMaintenance] Repairing raid cleanup bounds station=" + getStationId(task.stationX, task.stationZ)
 						+ " token=" + shortIdentity(task.identity) + " coreChunk=" + task.coreChunkX + "," + task.coreChunkZ);
 				}
 				task.minChunkX = expectedMinX;
 				task.minChunkZ = expectedMinZ;
-				task.width = OrbitalStation.RAID_CLEANUP_CHUNKS;
-				task.height = OrbitalStation.RAID_CLEANUP_CHUNKS;
+				task.width = cleanupChunks;
+				task.height = cleanupChunks;
 				if(task.minChunkX < stationMinX || task.minChunkZ < stationMinZ
 					|| task.minChunkX + task.width > stationMinX + OrbitalStation.STATION_CHUNKS
 					|| task.minChunkZ + task.height > stationMinZ + OrbitalStation.STATION_CHUNKS
