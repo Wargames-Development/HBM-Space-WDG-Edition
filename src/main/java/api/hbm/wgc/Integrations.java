@@ -14,6 +14,7 @@ import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -40,11 +41,19 @@ public final class Integrations {
     private static final String WGCORE_MOD_ID = "wgcore";
     private static final String WGCORE_API_CLASS = "com.wdg.wgcore.integration.api.WGCoreIntegrationAccess";
     private static final String WGCORE_BACKEND_CLASS = "api.hbm.wgc.WGCoreIntegrationBackend";
+    private static boolean breachInteractionHandlerRegistered;
 
     private Integrations() { }
 
     private static IntegrationBackend backend() {
+        ensureBreachInteractionHandlerRegistered();
         return BackendHolder.INSTANCE;
+    }
+
+    private static synchronized void ensureBreachInteractionHandlerRegistered() {
+        if (breachInteractionHandlerRegistered) return;
+        MinecraftForge.EVENT_BUS.register(BreachStationComputerInteractionHandler.INSTANCE);
+        breachInteractionHandlerRegistered = true;
     }
 
     private static final class BackendHolder {
@@ -230,6 +239,19 @@ public final class Integrations {
         return backend().unregisterBreachOutpost(world, outpostKey);
     }
 
+    public static boolean beginBreachHackWGC(World world, UUID playerId, String stationKey, int stationGeneration,
+                                              int blockX, int blockY, int blockZ) {
+        return backend().beginBreachHack(world, playerId, stationKey, stationGeneration, blockX, blockY, blockZ);
+    }
+
+    public static String getBreachPhaseWGC(World world, String stationKey, int stationGeneration) {
+        return backend().getBreachPhase(world, stationKey, stationGeneration);
+    }
+
+    public static long getBreachHackRemainingMillisWGC(World world, String stationKey, int stationGeneration) {
+        return backend().getBreachHackRemainingMillis(world, stationKey, stationGeneration);
+    }
+
     public static boolean isProtected(int blockX, int blockZ, Set<ChunkCoordIntPair> protectedChunks) {
         if (protectedChunks == null || protectedChunks.isEmpty()) {
             return false;
@@ -266,6 +288,10 @@ interface IntegrationBackend {
     boolean registerBreachOutpost(World world, String outpostKey, String targetStationKey, int targetStationGeneration,
                                   UUID attackerFactionId, int orbitDimensionId, int coreChunkX, int coreChunkZ);
     boolean unregisterBreachOutpost(World world, String outpostKey);
+    boolean beginBreachHack(World world, UUID playerId, String stationKey, int stationGeneration,
+                            int blockX, int blockY, int blockZ);
+    String getBreachPhase(World world, String stationKey, int stationGeneration);
+    long getBreachHackRemainingMillis(World world, String stationKey, int stationGeneration);
 }
 
 final class NoOpIntegrationBackend implements IntegrationBackend {
@@ -375,6 +401,19 @@ final class NoOpIntegrationBackend implements IntegrationBackend {
     public boolean unregisterBreachOutpost(World world, String outpostKey) {
         return true;
     }
+
+    public boolean beginBreachHack(World world, UUID playerId, String stationKey, int stationGeneration,
+                                   int blockX, int blockY, int blockZ) {
+        return false;
+    }
+
+    public String getBreachPhase(World world, String stationKey, int stationGeneration) {
+        return "";
+    }
+
+    public long getBreachHackRemainingMillis(World world, String stationKey, int stationGeneration) {
+        return -1L;
+    }
 }
 
 /**
@@ -412,6 +451,10 @@ final class WGCoreIntegrationBackend implements IntegrationBackend {
             requireMethod("registerBreachOutpost", World.class, String.class, String.class, Integer.TYPE,
                 UUID.class, Integer.TYPE, Integer.TYPE, Integer.TYPE);
             requireMethod("unregisterBreachOutpost", World.class, String.class);
+            requireMethod("beginBreachHack", World.class, UUID.class, String.class, Integer.TYPE,
+                Integer.TYPE, Integer.TYPE, Integer.TYPE);
+            requireMethod("getBreachPhase", World.class, String.class, Integer.TYPE);
+            requireMethod("getBreachHackRemainingMillis", World.class, String.class, Integer.TYPE);
         } catch (NoSuchMethodException error) {
             throw new IllegalStateException("WGCore integration API is missing a required method.", error);
         }
@@ -722,6 +765,45 @@ final class WGCoreIntegrationBackend implements IntegrationBackend {
             new Class<?>[] { World.class, String.class },
             new Object[] { world, outpostKey }
         );
+    }
+
+    public boolean beginBreachHack(World world, UUID playerId, String stationKey, int stationGeneration,
+                                   int blockX, int blockY, int blockZ) {
+        return invokeBoolean(
+            "beginBreachHack",
+            new Class<?>[] { World.class, UUID.class, String.class, Integer.TYPE, Integer.TYPE, Integer.TYPE, Integer.TYPE },
+            new Object[] { world, playerId, stationKey, stationGeneration, blockX, blockY, blockZ }
+        );
+    }
+
+    public String getBreachPhase(World world, String stationKey, int stationGeneration) {
+        Object result = invoke(
+            "getBreachPhase",
+            new Class<?>[] { World.class, String.class, Integer.TYPE },
+            new Object[] { world, stationKey, stationGeneration }
+        );
+        return result instanceof String ? (String)result : "";
+    }
+
+    public long getBreachHackRemainingMillis(World world, String stationKey, int stationGeneration) {
+        Object result = invoke(
+            "getBreachHackRemainingMillis",
+            new Class<?>[] { World.class, String.class, Integer.TYPE },
+            new Object[] { world, stationKey, stationGeneration }
+        );
+        return result instanceof Number ? ((Number)result).longValue() : -1L;
+    }
+
+    private Object invoke(String name, Class<?>[] parameterTypes, Object[] arguments) {
+        try {
+            return requireMethod(name, parameterTypes).invoke(null, arguments);
+        } catch (ReflectiveOperationException error) {
+            throw new IllegalStateException("WGCore integration call failed: " + name, error);
+        } catch (RuntimeException error) {
+            throw error;
+        } catch (LinkageError error) {
+            throw Integrations.incompatibleWGCore(error);
+        }
     }
 
     private boolean invokeBoolean(String name, Class<?>[] parameterTypes, Object[] arguments) {

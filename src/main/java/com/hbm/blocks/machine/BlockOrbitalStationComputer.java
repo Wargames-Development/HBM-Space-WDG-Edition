@@ -157,6 +157,14 @@ public class BlockOrbitalStationComputer extends BlockDummyable implements ILook
 		double progress = station.getUnscaledProgress(0);
 		List<String> text = new ArrayList<>();
 
+		if(computer.breachHackDisplayActive) {
+			text.add(EnumChatFormatting.RED + "BREACH HACK ACTIVE");
+			if(computer.breachHackRemainingSeconds >= 0) {
+				text.add(EnumChatFormatting.YELLOW + "Hack remaining: " + computer.breachHackRemainingSeconds + "s");
+			}
+			text.add(EnumChatFormatting.YELLOW + "Stay within the marked " + computer.breachHackDisplayRadius + " block region");
+		}
+
 		if(!station.hasEngines) {
 			text.add(EnumChatFormatting.RED + "No engines available");
 		} else if(station.errorsAt.size() > 0) {
