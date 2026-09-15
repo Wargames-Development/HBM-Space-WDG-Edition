@@ -55,6 +55,7 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 	private static final String LEGACY_DELETED_STATIONS_TAG = "hbmDeletedStations";
 	private static final String GENERATIONS_TAG = "hbmStationGenerations";
 	private static final String CLEANUP_TASKS_TAG = "hbmStationCleanupTasks";
+	private static final String RAID_RUNTIME_CLOCK_TAG = "hbmRaidUsesServerRuntimeClock";
 	private static final long COMPUTER_WARNING_INTERVAL_TICKS = 10L * 60L * 20L;
 	private static final long RAID_WARNING_INTERVAL_MILLIS = 5L * 60L * 1000L;
 
@@ -64,6 +65,7 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 	private HashMap<String, RaidDriveAuthorization> raidDriveAuthorizations = new HashMap<String, RaidDriveAuthorization>();
 	private HashMap<ChunkCoordIntPair, Integer> stationGenerations = new HashMap<ChunkCoordIntPair, Integer>();
 	private List<CleanupTask> cleanupTasks = new ArrayList<CleanupTask>();
+	private boolean raidRuntimeClockMigrationPending;
 
 	public SolarSystemWorldSavedData(String name) {
 		super(name);
@@ -92,6 +94,7 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 		raidDriveAuthorizations.clear();
 		stationGenerations.clear();
 		cleanupTasks.clear();
+		raidRuntimeClockMigrationPending = !nbt.getBoolean(RAID_RUNTIME_CLOCK_TAG);
 
 		for(CelestialBody body : CelestialBody.getAllBodies()) {
 			if(nbt.hasKey("b_" + body.name)) {
@@ -203,6 +206,8 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 
 	@Override
 	public synchronized void writeToNBT(NBTTagCompound nbt) {
+		ensureRaidRuntimeClock();
+		nbt.setBoolean(RAID_RUNTIME_CLOCK_TAG, !raidRuntimeClockMigrationPending);
 		for(Entry<String, HashMap<Class<? extends CelestialBodyTrait>, CelestialBodyTrait>> entry : traitMap.entrySet()) {
 			NBTTagCompound data = new NBTTagCompound();
 			for(CelestialBodyTrait trait : entry.getValue().values()) {
@@ -254,7 +259,7 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 		}
 		nbt.setTag("stations", stationList);
 
-		cleanupRaidDriveAuthorizations(System.currentTimeMillis());
+		cleanupRaidDriveAuthorizations(currentServerRuntimeMillis());
 		NBTTagList authorizationList = new NBTTagList();
 		for(RaidDriveAuthorization authorization : raidDriveAuthorizations.values()) {
 			NBTTagCompound tag = new NBTTagCompound();
@@ -492,7 +497,9 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 		if(!ItemRaidDrive.isUnprogrammed(held)) return null;
 
 		station.ensureIdentity();
-		long now = System.currentTimeMillis();
+		ensureRaidRuntimeClock();
+		long now = currentServerRuntimeMillis();
+		if(now < 0L) return null;
 		long duration = Math.max(1L, SpaceConfig.stationCodeLifetimeSeconds) * 1000L;
 		long expiresAt = safeAdd(now, duration);
 
@@ -539,6 +546,40 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 	private static long safeAdd(long value, long amount) {
 		if(amount > 0L && value > Long.MAX_VALUE - amount) return Long.MAX_VALUE;
 		return value + amount;
+	}
+
+	private long currentServerRuntimeMillis() {
+		World overworld = DimensionManager.getWorld(0);
+		if(overworld == null || overworld.isRemote) return -1L;
+		long ticks = overworld.getTotalWorldTime();
+		if(ticks <= 0L) return 0L;
+		return ticks > Long.MAX_VALUE / 50L ? Long.MAX_VALUE : ticks * 50L;
+	}
+
+	private void ensureRaidRuntimeClock() {
+		if(!raidRuntimeClockMigrationPending) return;
+		long runtimeNow = currentServerRuntimeMillis();
+		if(runtimeNow < 0L) return;
+
+		long wallNow = System.currentTimeMillis();
+		for(OrbitalStation station : stations.values()) {
+			if(station == null) continue;
+			station.raidExpiresAt = migrateLegacyDeadline(station.raidExpiresAt, wallNow, runtimeNow);
+			station.raidCleanupAt = migrateLegacyDeadline(station.raidCleanupAt, wallNow, runtimeNow);
+		}
+		for(RaidDriveAuthorization authorization : raidDriveAuthorizations.values()) {
+			if(authorization != null) {
+				authorization.expiresAt = migrateLegacyDeadline(authorization.expiresAt, wallNow, runtimeNow);
+			}
+		}
+		raidRuntimeClockMigrationPending = false;
+		markDirty();
+	}
+
+	private long migrateLegacyDeadline(long legacyDeadline, long wallNow, long runtimeNow) {
+		if(legacyDeadline <= 0L) return 0L;
+		long remaining = Math.max(0L, legacyDeadline - wallNow);
+		return safeAdd(runtimeNow, remaining);
 	}
 
 	private int getNextGeneration(ChunkCoordIntPair pos) {
@@ -746,7 +787,9 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 		OrbitalStation station = getStationForRaidDrive(drive, true);
 		if(station == null || orbitWorld == null) return false;
 		String token = drive.stackTagCompound.getString(ItemRaidDrive.TAG_RAID_TOKEN);
-		if(station.raidPortActive) return token.equals(station.raidToken) && station.raidCleanupAt > System.currentTimeMillis()
+		long now = currentServerRuntimeMillis();
+		if(now < 0L) return false;
+		if(station.raidPortActive) return token.equals(station.raidToken) && station.raidCleanupAt > now
 			&& orbitWorld.getBlock(station.raidPortX, station.raidPortY, station.raidPortZ) == ModBlocks.orbital_station_raiding_port;
 		return findRaidPortPosition(station, token, orbitWorld) != null;
 	}
@@ -757,7 +800,8 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 		if(station == null || orbitWorld == null) return false;
 		String token = drive.stackTagCompound.getString(ItemRaidDrive.TAG_RAID_TOKEN);
 		long expiresAt = drive.stackTagCompound.getLong(ItemRaidDrive.TAG_EXPIRES_AT);
-		if(token.isEmpty() || expiresAt <= System.currentTimeMillis()) return false;
+		long now = currentServerRuntimeMillis();
+		if(token.isEmpty() || now < 0L || expiresAt <= now) return false;
 		if(station.raidPortActive) return token.equals(station.raidToken) && orbitWorld.getBlock(station.raidPortX, station.raidPortY, station.raidPortZ) == ModBlocks.orbital_station_raiding_port;
 
 		int[] position = findRaidPortPosition(station, token, orbitWorld);
@@ -794,6 +838,7 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 	}
 
 	public synchronized OrbitalStation getStationForRaidDrive(ItemStack drive, boolean requireActive) {
+		ensureRaidRuntimeClock();
 		if(!ItemRaidDrive.validate(drive) || !drive.hasTagCompound()) return null;
 		ItemVOTVdrive.Destination destination = ItemVOTVdrive.getDestinationUnchecked(drive);
 		if(destination == null || destination.body != SolarSystem.Body.ORBIT) return null;
@@ -808,7 +853,8 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 		if(authorization == null && token.isEmpty() && isLegacyRaidDrive(drive)
 			&& matchesIdentity(station, "", 0, requireActive)) {
 			long expiresAt = drive.stackTagCompound.getLong(ItemRaidDrive.TAG_EXPIRES_AT);
-			if(expiresAt <= System.currentTimeMillis()) return null;
+			long now = currentServerRuntimeMillis();
+			if(now < 0L || expiresAt <= now) return null;
 			token = UUID.randomUUID().toString();
 			drive.stackTagCompound.setString(ItemRaidDrive.TAG_RAID_TOKEN, token);
 			drive.stackTagCompound.setString(ItemVOTVdrive.TAG_STATION_KEY, station.stationKey);
@@ -822,7 +868,8 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 		}
 
 		if(authorization == null) return null;
-		if(authorization.expiresAt != drive.stackTagCompound.getLong(ItemRaidDrive.TAG_EXPIRES_AT) || authorization.x != destination.x || authorization.z != destination.z) return null;
+		long now = currentServerRuntimeMillis();
+		if(now < 0L || authorization.expiresAt <= now || authorization.x != destination.x || authorization.z != destination.z) return null;
 		if(!matchesIdentity(station, authorization.stationKey, authorization.generation, requireActive)) return null;
 		return matchesDriveIdentity(station, drive, requireActive) ? station : null;
 	}
@@ -1027,7 +1074,9 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 
 	/** Called exactly once per server tick by ModEventHandler. */
 	public synchronized void tickMaintenance() {
-		long now = System.currentTimeMillis();
+		ensureRaidRuntimeClock();
+		long now = currentServerRuntimeMillis();
+		if(now < 0L) return;
 		World world = DimensionManager.getWorld(SpaceConfig.orbitDimension);
 		WorldServer orbitWorld = world instanceof WorldServer ? (WorldServer)world : null;
 		boolean changed = false;
@@ -1287,7 +1336,7 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 		private final int z;
 		private final String stationKey;
 		private final int generation;
-		private final long expiresAt;
+		private long expiresAt;
 		private RaidDriveAuthorization(String token, int x, int z, String stationKey, int generation, long expiresAt) {
 			this.token = token == null ? "" : token;
 			this.x = x;

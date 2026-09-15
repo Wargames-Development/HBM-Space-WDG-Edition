@@ -22,6 +22,7 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import net.minecraftforge.common.DimensionManager;
 
 /** A temporary station drive programmed with /ntm station raid <name>. */
 public class ItemRaidDrive extends ItemVOTVdrive {
@@ -29,6 +30,7 @@ public class ItemRaidDrive extends ItemVOTVdrive {
 	public static final String TAG_RAID_DRIVE = "hbmRaidDrive";
 	public static final String TAG_EXPIRES_AT = "hbmRaidExpiresAt";
 	public static final String TAG_RAID_TOKEN = "hbmRaidToken";
+	public static final String TAG_RUNTIME_CLOCK = "hbmRaidUsesServerRuntimeClock";
 
 	@SideOnly(Side.CLIENT)
 	private IIcon emptyIcon;
@@ -65,6 +67,7 @@ public class ItemRaidDrive extends ItemVOTVdrive {
 		return !tag.hasKey(TAG_RAID_DRIVE)
 			&& !tag.hasKey(TAG_EXPIRES_AT)
 			&& !tag.hasKey(TAG_RAID_TOKEN)
+			&& !tag.hasKey(TAG_RUNTIME_CLOCK)
 			&& !tag.hasKey(ItemVOTVdrive.TAG_STATION_KEY)
 			&& !tag.hasKey(ItemVOTVdrive.TAG_STATION_GENERATION)
 			&& !tag.hasKey(ItemVOTVdrive.TAG_STATION_DRIVE_TYPE)
@@ -75,21 +78,52 @@ public class ItemRaidDrive extends ItemVOTVdrive {
 
 	public static boolean isExpired(ItemStack stack) {
 		if(!isProgrammed(stack)) return false;
-		long expiresAt = stack.stackTagCompound.getLong(TAG_EXPIRES_AT);
-		return System.currentTimeMillis() >= expiresAt;
+		long now = currentServerRuntimeMillis();
+		if(now < 0L) return false;
+		migrateLegacyDeadline(stack, now);
+		return stack.stackTagCompound.getLong(TAG_EXPIRES_AT) <= now;
 	}
 
 	/**
 	 * Validates a programmed raid drive and converts an expired stack in place.
-	 * This is deliberately safe to call from every server-side drive entry point.
+	 * New drives use server-running world time, so their lifetime pauses while
+	 * the server is offline. Legacy wall-clock drives are migrated once using
+	 * whatever remaining duration they had when first observed by the server.
 	 */
 	public static boolean validate(ItemStack stack) {
 		if(!isProgrammed(stack)) return false;
-		if(isExpired(stack)) {
+		long now = currentServerRuntimeMillis();
+		if(now < 0L) return true;
+		migrateLegacyDeadline(stack, now);
+		if(stack.stackTagCompound.getLong(TAG_EXPIRES_AT) <= now) {
 			corrupt(stack);
 			return false;
 		}
 		return true;
+	}
+
+	private static void migrateLegacyDeadline(ItemStack stack, long runtimeNow) {
+		if(stack == null || !stack.hasTagCompound() || stack.stackTagCompound.getBoolean(TAG_RUNTIME_CLOCK)) return;
+		long legacyDeadline = stack.stackTagCompound.getLong(TAG_EXPIRES_AT);
+		long remaining = Math.max(0L, legacyDeadline - System.currentTimeMillis());
+		stack.stackTagCompound.setLong(TAG_EXPIRES_AT, safeAdd(runtimeNow, remaining));
+		stack.stackTagCompound.setBoolean(TAG_RUNTIME_CLOCK, true);
+	}
+
+	private static long currentServerRuntimeMillis() {
+		World overworld = DimensionManager.getWorld(0);
+		if(overworld == null || overworld.isRemote) return -1L;
+		return ticksToMillis(overworld.getTotalWorldTime());
+	}
+
+	private static long ticksToMillis(long ticks) {
+		if(ticks <= 0L) return 0L;
+		return ticks > Long.MAX_VALUE / 50L ? Long.MAX_VALUE : ticks * 50L;
+	}
+
+	private static long safeAdd(long value, long amount) {
+		if(amount > 0L && value > Long.MAX_VALUE - amount) return Long.MAX_VALUE;
+		return value + amount;
 	}
 
 	public static void corrupt(ItemStack stack) {
@@ -113,6 +147,7 @@ public class ItemRaidDrive extends ItemVOTVdrive {
 		drive.stackTagCompound.setString("stationName", station.name == null ? "" : station.name);
 		drive.stackTagCompound.setBoolean(TAG_RAID_DRIVE, true);
 		drive.stackTagCompound.setLong(TAG_EXPIRES_AT, expiresAt);
+		drive.stackTagCompound.setBoolean(TAG_RUNTIME_CLOCK, true);
 		drive.stackTagCompound.setString(TAG_RAID_TOKEN, UUID.randomUUID().toString());
 		drive.stackTagCompound.setString(ItemVOTVdrive.TAG_STATION_KEY, station.stationKey);
 		drive.stackTagCompound.setInteger(ItemVOTVdrive.TAG_STATION_GENERATION, station.generation);
@@ -167,7 +202,13 @@ public class ItemRaidDrive extends ItemVOTVdrive {
 			return;
 		}
 
-		long remaining = stack.stackTagCompound.getLong(TAG_EXPIRES_AT) - System.currentTimeMillis();
+		long now;
+		if(stack.stackTagCompound.getBoolean(TAG_RUNTIME_CLOCK) && player != null && player.worldObj != null) {
+			now = ticksToMillis(player.worldObj.getTotalWorldTime());
+		} else {
+			now = System.currentTimeMillis();
+		}
+		long remaining = stack.stackTagCompound.getLong(TAG_EXPIRES_AT) - now;
 		if(remaining <= 0) {
 			list.add(EnumChatFormatting.RED + "Expired");
 			return;
