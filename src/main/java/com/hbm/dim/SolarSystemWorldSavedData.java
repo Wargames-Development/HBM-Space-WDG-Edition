@@ -499,6 +499,12 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 	}
 
 	private synchronized boolean queueBreachSettlementDeletion(OrbitalStation station) {
+		if(station == null || station.stationKey == null || station.stationKey.isEmpty()) return false;
+		World orbitWorld = DimensionManager.getWorld(SpaceConfig.orbitDimension);
+		if(!(orbitWorld instanceof WorldServer)
+			|| !Integrations.isBreachSettlementCompleteWGC(orbitWorld, station.stationKey, station.generation)) {
+			return false;
+		}
 		return queueStationDeletion(station, true);
 	}
 
@@ -1208,6 +1214,17 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 			&& playerChunkZ < minChunkZ + OrbitalStation.RAID_CLEANUP_CHUNKS;
 	}
 
+	private List<EntityPlayerMP> getPlayersInsideStationCell(WorldServer world, OrbitalStation station) {
+		List<EntityPlayerMP> players = new ArrayList<EntityPlayerMP>();
+		if(world == null || station == null) return players;
+		for(Object object : world.playerEntities) {
+			if(!(object instanceof EntityPlayerMP)) continue;
+			EntityPlayerMP player = (EntityPlayerMP)object;
+			if(station.containsBlock(player.posX, player.posZ)) players.add(player);
+		}
+		return players;
+	}
+
 	private boolean isBreachSettlementCleanupQueued(String stationKey, int generation) {
 		if(stationKey == null || stationKey.isEmpty()) return false;
 		for(CleanupTask task : cleanupTasks) {
@@ -1235,14 +1252,52 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 		for(OrbitalStation station : new ArrayList<OrbitalStation>(stations.values())) {
 			if(station == null || station.deleting) continue;
 
-			// WGCore owns the successful-Breach settlement state. Once its evacuation
-			// window has completed, begin HBM's bounded physical 64x64 cell cleanup.
-			// Poll once per second to avoid reflective integration calls every tick.
+			// Successful-Breach ordering is authoritative:
+			// evacuation complete -> no online players -> WGCore points/disband
+			// settlement -> HBM queues the bounded physical 64x64 cell wipe.
+			// A COMPLETED WGCore receipt also recovers the crash window between
+			// settlement success and HBM queueing the physical cleanup.
 			if(orbitWorld != null && station.hasStation && station.stationKey != null
-				&& !station.stationKey.isEmpty() && orbitWorld.getTotalWorldTime() % 20L == 0L
-				&& Integrations.isBreachSettlementReadyWGC(orbitWorld, station.stationKey, station.generation)) {
-				if(queueBreachSettlementDeletion(station)) changed = true;
-				continue;
+				&& !station.stationKey.isEmpty() && orbitWorld.getTotalWorldTime() % 20L == 0L) {
+				boolean settlementComplete = Integrations.isBreachSettlementCompleteWGC(
+					orbitWorld, station.stationKey, station.generation);
+				boolean settlementReady = !settlementComplete
+					&& Integrations.isBreachSettlementReadyWGC(
+						orbitWorld, station.stationKey, station.generation);
+
+				if(settlementComplete || settlementReady) {
+					List<EntityPlayerMP> remainingPlayers = getPlayersInsideStationCell(orbitWorld, station);
+					if(!remainingPlayers.isEmpty()) {
+						if(orbitWorld.getTotalWorldTime() % 600L == 0L) {
+							MainRegistry.logger.info("[BreachSettlement] Waiting for " + remainingPlayers.size()
+								+ " online player(s) to evacuate defeated station " + getStationId(station)
+								+ " before final WGCore settlement.");
+							for(EntityPlayerMP player : remainingPlayers) {
+								player.addChatMessage(new ChatComponentText(EnumChatFormatting.RED
+									+ "This orbital station has been defeated. Evacuate before final settlement and cell cleanup."));
+							}
+						}
+						continue;
+					}
+
+					if(!settlementComplete) {
+						boolean accepted = Integrations.completeBreachSettlementWGC(
+							orbitWorld, station.stationKey, station.generation);
+						settlementComplete = accepted || Integrations.isBreachSettlementCompleteWGC(
+							orbitWorld, station.stationKey, station.generation);
+						if(!settlementComplete) {
+							if(orbitWorld.getTotalWorldTime() % 600L == 0L) {
+								MainRegistry.logger.warn("[BreachSettlement] WGCore settlement was ready but not accepted station="
+									+ getStationId(station) + " key=" + shortIdentity(station.stationKey)
+									+ " generation=" + station.generation + "; will retry.");
+							}
+							continue;
+						}
+					}
+
+					if(queueBreachSettlementDeletion(station)) changed = true;
+					continue;
+				}
 			}
 
 			if(station.computerRequired && !station.hasComputer && station.computerCrashTicksRemaining >= 0L) {
@@ -1455,23 +1510,22 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 			return true;
 		}
 
-		// A successful Breach must not disband the defeated faction or remove
-		// WGCore's station binding until every physical chunk in the HBM cell has
-		// been cleared. If final settlement fails, retain this completed cleanup
-		// task and retry on a later server tick rather than silently losing state.
+		// Successful-Breach cleanup may retire its local HBM station record only if
+		// WGCore's durable receipt proves the points/disband transaction completed
+		// before this physical wipe was queued.
 		if(task.breachSettlement) {
 			if(task.identity == null || task.identity.isEmpty()) {
-				MainRegistry.logger.error("[BreachSettlement] Refusing final settlement for cleanup task without station identity at "
+				MainRegistry.logger.error("[BreachSettlement] Refusing completed cleanup without station identity at "
 					+ getStationId(task.stationX, task.stationZ) + ".");
 				return false;
 			}
-			if(!Integrations.completeBreachSettlementWGC(world, task.identity, task.generation)) {
-				MainRegistry.logger.warn("[BreachSettlement] Physical station-cell cleanup is complete but WGCore final settlement is not yet accepted station="
+			if(!Integrations.isBreachSettlementCompleteWGC(world, task.identity, task.generation)) {
+				MainRegistry.logger.warn("[BreachSettlement] Physical station-cell cleanup reached completion without a WGCore COMPLETED settlement receipt station="
 					+ getStationId(task.stationX, task.stationZ) + " key=" + shortIdentity(task.identity)
-					+ " generation=" + task.generation + "; retaining cleanup task for retry.");
+					+ " generation=" + task.generation + "; retaining cleanup task for recovery.");
 				return false;
 			}
-			MainRegistry.logger.info("[BreachSettlement] WGCore final settlement accepted after physical station-cell cleanup station="
+			MainRegistry.logger.info("[BreachSettlement] Physical defeated-station cleanup complete after confirmed WGCore settlement station="
 				+ getStationId(task.stationX, task.stationZ) + " key=" + shortIdentity(task.identity)
 				+ " generation=" + task.generation + ".");
 		}

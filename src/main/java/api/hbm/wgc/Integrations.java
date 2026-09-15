@@ -274,6 +274,10 @@ public final class Integrations {
         return backend().completeBreachSettlement(world, stationKey, stationGeneration);
     }
 
+    public static boolean isBreachSettlementCompleteWGC(World world, String stationKey, int stationGeneration) {
+        return backend().isBreachSettlementComplete(world, stationKey, stationGeneration);
+    }
+
     public static boolean isProtected(int blockX, int blockZ, Set<ChunkCoordIntPair> protectedChunks) {
         if (protectedChunks == null || protectedChunks.isEmpty()) {
             return false;
@@ -316,6 +320,7 @@ interface IntegrationBackend {
     long getBreachHackRemainingMillis(World world, String stationKey, int stationGeneration);
     boolean isBreachSettlementReady(World world, String stationKey, int stationGeneration);
     boolean completeBreachSettlement(World world, String stationKey, int stationGeneration);
+    boolean isBreachSettlementComplete(World world, String stationKey, int stationGeneration);
 }
 
 final class NoOpIntegrationBackend implements IntegrationBackend {
@@ -446,6 +451,10 @@ final class NoOpIntegrationBackend implements IntegrationBackend {
     public boolean completeBreachSettlement(World world, String stationKey, int stationGeneration) {
         return false;
     }
+
+    public boolean isBreachSettlementComplete(World world, String stationKey, int stationGeneration) {
+        return false;
+    }
 }
 
 /**
@@ -489,6 +498,7 @@ final class WGCoreIntegrationBackend implements IntegrationBackend {
             requireMethod("getBreachHackRemainingMillis", World.class, String.class, Integer.TYPE);
             requireMethod("isBreachSettlementReady", World.class, String.class, Integer.TYPE);
             requireMethod("completeBreachSettlement", World.class, String.class, Integer.TYPE);
+            requireMethod("isBreachSettlementComplete", World.class, String.class, Integer.TYPE);
         } catch (NoSuchMethodException error) {
             throw new IllegalStateException("WGCore integration API is missing a required method.", error);
         }
@@ -843,6 +853,14 @@ final class WGCoreIntegrationBackend implements IntegrationBackend {
     public boolean completeBreachSettlement(World world, String stationKey, int stationGeneration) {
         return invokeBoolean(
             "completeBreachSettlement",
+            new Class<?>[] { World.class, String.class, Integer.TYPE },
+            new Object[] { world, stationKey, stationGeneration }
+        );
+    }
+
+    public boolean isBreachSettlementComplete(World world, String stationKey, int stationGeneration) {
+        return invokeBoolean(
+            "isBreachSettlementComplete",
             new Class<?>[] { World.class, String.class, Integer.TYPE },
             new Object[] { world, stationKey, stationGeneration }
         );
