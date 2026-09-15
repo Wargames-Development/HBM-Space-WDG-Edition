@@ -252,6 +252,14 @@ public final class Integrations {
         return backend().getBreachHackRemainingMillis(world, stationKey, stationGeneration);
     }
 
+    public static boolean isBreachSettlementReadyWGC(World world, String stationKey, int stationGeneration) {
+        return backend().isBreachSettlementReady(world, stationKey, stationGeneration);
+    }
+
+    public static boolean completeBreachSettlementWGC(World world, String stationKey, int stationGeneration) {
+        return backend().completeBreachSettlement(world, stationKey, stationGeneration);
+    }
+
     public static boolean isProtected(int blockX, int blockZ, Set<ChunkCoordIntPair> protectedChunks) {
         if (protectedChunks == null || protectedChunks.isEmpty()) {
             return false;
@@ -292,6 +300,8 @@ interface IntegrationBackend {
                             int blockX, int blockY, int blockZ);
     String getBreachPhase(World world, String stationKey, int stationGeneration);
     long getBreachHackRemainingMillis(World world, String stationKey, int stationGeneration);
+    boolean isBreachSettlementReady(World world, String stationKey, int stationGeneration);
+    boolean completeBreachSettlement(World world, String stationKey, int stationGeneration);
 }
 
 final class NoOpIntegrationBackend implements IntegrationBackend {
@@ -414,6 +424,14 @@ final class NoOpIntegrationBackend implements IntegrationBackend {
     public long getBreachHackRemainingMillis(World world, String stationKey, int stationGeneration) {
         return -1L;
     }
+
+    public boolean isBreachSettlementReady(World world, String stationKey, int stationGeneration) {
+        return false;
+    }
+
+    public boolean completeBreachSettlement(World world, String stationKey, int stationGeneration) {
+        return false;
+    }
 }
 
 /**
@@ -455,6 +473,8 @@ final class WGCoreIntegrationBackend implements IntegrationBackend {
                 Integer.TYPE, Integer.TYPE, Integer.TYPE);
             requireMethod("getBreachPhase", World.class, String.class, Integer.TYPE);
             requireMethod("getBreachHackRemainingMillis", World.class, String.class, Integer.TYPE);
+            requireMethod("isBreachSettlementReady", World.class, String.class, Integer.TYPE);
+            requireMethod("completeBreachSettlement", World.class, String.class, Integer.TYPE);
         } catch (NoSuchMethodException error) {
             throw new IllegalStateException("WGCore integration API is missing a required method.", error);
         }
@@ -792,6 +812,22 @@ final class WGCoreIntegrationBackend implements IntegrationBackend {
             new Object[] { world, stationKey, stationGeneration }
         );
         return result instanceof Number ? ((Number)result).longValue() : -1L;
+    }
+
+    public boolean isBreachSettlementReady(World world, String stationKey, int stationGeneration) {
+        return invokeBoolean(
+            "isBreachSettlementReady",
+            new Class<?>[] { World.class, String.class, Integer.TYPE },
+            new Object[] { world, stationKey, stationGeneration }
+        );
+    }
+
+    public boolean completeBreachSettlement(World world, String stationKey, int stationGeneration) {
+        return invokeBoolean(
+            "completeBreachSettlement",
+            new Class<?>[] { World.class, String.class, Integer.TYPE },
+            new Object[] { world, stationKey, stationGeneration }
+        );
     }
 
     private Object invoke(String name, Class<?>[] parameterTypes, Object[] arguments) {

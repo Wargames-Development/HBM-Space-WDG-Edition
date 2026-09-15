@@ -404,6 +404,14 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 	}
 
 	public synchronized boolean queueStationDeletion(OrbitalStation station) {
+		return queueStationDeletion(station, false);
+	}
+
+	private synchronized boolean queueBreachSettlementDeletion(OrbitalStation station) {
+		return queueStationDeletion(station, true);
+	}
+
+	private synchronized boolean queueStationDeletion(OrbitalStation station, boolean breachSettlement) {
 		if(station == null || station.deleting) return false;
 
 		// This is the first deletion action. Physical cleanup may take many ticks,
@@ -418,7 +426,13 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 		if(!isCleanupQueued(CleanupType.STATION, station.dX, station.dZ, station.stationKey)) {
 			CleanupTask task = CleanupTask.station(station.dX, station.dZ, station.stationKey, station.generation, station.orbiting);
 			task.playerDrivesDeprogrammed = true;
+			task.breachSettlement = breachSettlement;
 			cleanupTasks.add(task);
+			if(breachSettlement) {
+				MainRegistry.logger.info("[BreachSettlement] Queued defeated station-cell cleanup station="
+					+ getStationId(station) + " key=" + shortIdentity(station.stationKey)
+					+ " generation=" + station.generation + ".");
+			}
 		}
 		markDirty();
 		return true;
@@ -1019,6 +1033,17 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 		boolean changed = false;
 		for(OrbitalStation station : new ArrayList<OrbitalStation>(stations.values())) {
 			if(station == null || station.deleting) continue;
+
+			// WGCore owns the successful-Breach settlement state. Once its evacuation
+			// window has completed, begin HBM's bounded physical 64x64 cell cleanup.
+			// Poll once per second to avoid reflective integration calls every tick.
+			if(orbitWorld != null && station.hasStation && station.stationKey != null
+				&& !station.stationKey.isEmpty() && orbitWorld.getTotalWorldTime() % 20L == 0L
+				&& Integrations.isBreachSettlementReadyWGC(orbitWorld, station.stationKey, station.generation)) {
+				if(queueBreachSettlementDeletion(station)) changed = true;
+				continue;
+			}
+
 			if(station.computerRequired && !station.hasComputer && station.computerCrashTicksRemaining >= 0L) {
 				if(station.computerCrashTicksRemaining > 0L) station.computerCrashTicksRemaining--;
 				changed = true;
@@ -1080,7 +1105,7 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 		// physical cleanup begins so the cleared area resolves back to Deep Space.
 		if(task.type == CleanupType.RAID) {
 			Integrations.unregisterBreachOutpostWGC(world, task.identity);
-		} else if(task.type == CleanupType.STATION) {
+		} else if(task.type == CleanupType.STATION && !task.breachSettlement) {
 			Integrations.unregisterOrbitalStationWGC(world, task.identity, task.generation);
 		}
 
@@ -1112,9 +1137,10 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 			markDirty();
 			return;
 		}
-		finishCleanup(task);
-		cleanupTasks.remove(task);
-		markDirty();
+		if(finishCleanup(world, task)) {
+			cleanupTasks.remove(task);
+			markDirty();
+		}
 	}
 
 	@SuppressWarnings("unchecked")
@@ -1178,7 +1204,7 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 		chunk.setChunkModified();
 	}
 
-	private void finishCleanup(CleanupTask task) {
+	private boolean finishCleanup(WorldServer world, CleanupTask task) {
 		OrbitalStation station = getStationAtGrid(task.stationX, task.stationZ);
 		if(task.type == CleanupType.RAID) {
 			if(station == null) {
@@ -1200,7 +1226,28 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 			}
 			MainRegistry.logger.info("[StationMaintenance] Raid cleanup complete station=" + getStationId(task.stationX, task.stationZ)
 				+ " token=" + shortIdentity(task.identity) + " chunks=" + task.getTotalChunks());
-			return;
+			return true;
+		}
+
+		// A successful Breach must not disband the defeated faction or remove
+		// WGCore's station binding until every physical chunk in the HBM cell has
+		// been cleared. If final settlement fails, retain this completed cleanup
+		// task and retry on a later server tick rather than silently losing state.
+		if(task.breachSettlement) {
+			if(task.identity == null || task.identity.isEmpty()) {
+				MainRegistry.logger.error("[BreachSettlement] Refusing final settlement for cleanup task without station identity at "
+					+ getStationId(task.stationX, task.stationZ) + ".");
+				return false;
+			}
+			if(!Integrations.completeBreachSettlementWGC(world, task.identity, task.generation)) {
+				MainRegistry.logger.warn("[BreachSettlement] Physical station-cell cleanup is complete but WGCore final settlement is not yet accepted station="
+					+ getStationId(task.stationX, task.stationZ) + " key=" + shortIdentity(task.identity)
+					+ " generation=" + task.generation + "; retaining cleanup task for retry.");
+				return false;
+			}
+			MainRegistry.logger.info("[BreachSettlement] WGCore final settlement accepted after physical station-cell cleanup station="
+				+ getStationId(task.stationX, task.stationZ) + " key=" + shortIdentity(task.identity)
+				+ " generation=" + task.generation + ".");
 		}
 
 		ChunkCoordIntPair pos = new ChunkCoordIntPair(task.stationX, task.stationZ);
@@ -1211,6 +1258,7 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 			invalidateRaidDriveAuthorizationsForStation(task.stationX, task.stationZ);
 			resetLoadedNormalStationDrives(task.stationX, task.stationZ, task.identity, task.generation);
 		}
+		return true;
 	}
 
 	private boolean isAnyCleanupQueuedAt(int stationX, int stationZ) {
@@ -1271,6 +1319,7 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 		private int coreChunkZ;
 		private boolean coreCleared;
 		private boolean playerDrivesDeprogrammed;
+		private boolean breachSettlement;
 
 		private static CleanupTask station(int stationX, int stationZ, String key, int generation, CelestialBody body) {
 			CleanupTask task = new CleanupTask();
@@ -1306,6 +1355,7 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 			tag.setInteger("coreX", coreX); tag.setInteger("coreY", coreY); tag.setInteger("coreZ", coreZ);
 			tag.setInteger("coreChunkX", coreChunkX); tag.setInteger("coreChunkZ", coreChunkZ); tag.setBoolean("coreCleared", coreCleared);
 			tag.setBoolean("playerDrivesDeprogrammed", playerDrivesDeprogrammed);
+			tag.setBoolean("breachSettlement", breachSettlement);
 			return tag;
 		}
 
@@ -1323,6 +1373,8 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 			task.generation = Math.max(0, tag.getInteger("generation"));
 			task.bodyName = tag.getString("body");
 			task.playerDrivesDeprogrammed = tag.hasKey("playerDrivesDeprogrammed") && tag.getBoolean("playerDrivesDeprogrammed");
+			task.breachSettlement = task.type == CleanupType.STATION
+				&& tag.hasKey("breachSettlement") && tag.getBoolean("breachSettlement");
 			if(task.type == CleanupType.STATION) {
 				int expectedMinX = task.stationX * OrbitalStation.STATION_CHUNKS;
 				int expectedMinZ = task.stationZ * OrbitalStation.STATION_CHUNKS;
