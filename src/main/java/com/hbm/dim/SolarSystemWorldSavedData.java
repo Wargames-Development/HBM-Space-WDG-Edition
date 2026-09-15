@@ -35,6 +35,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatStyle;
+import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.MathHelper;
@@ -56,6 +57,10 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 	private static final String GENERATIONS_TAG = "hbmStationGenerations";
 	private static final String CLEANUP_TASKS_TAG = "hbmStationCleanupTasks";
 	private static final String RAID_RUNTIME_CLOCK_TAG = "hbmRaidUsesServerRuntimeClock";
+	private static final String PLAYER_ORBIT_CONTEXT_TAG = "hbmOrbitalCleanupContext";
+	private static final String PLAYER_ORBIT_STATION_KEY_TAG = "stationKey";
+	private static final String PLAYER_ORBIT_STATION_GENERATION_TAG = "stationGeneration";
+	private static final String PLAYER_ORBIT_RAID_TOKEN_TAG = "raidToken";
 	private static final long COMPUTER_WARNING_INTERVAL_TICKS = 10L * 60L * 20L;
 	private static final long RAID_WARNING_INTERVAL_MILLIS = 5L * 60L * 1000L;
 
@@ -85,6 +90,87 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 			result = (SolarSystemWorldSavedData) world.mapStorage.loadData(SolarSystemWorldSavedData.class, DATA_NAME);
 		}
 		return result;
+	}
+
+	/**
+	 * Login safety for players who were offline while an orbital cleanup completed.
+	 *
+	 * The player context is recorded while they are online in orbit. If the
+	 * recorded station generation or temporary raid outpost no longer exists when
+	 * they next log in, move them to the Overworld spawn before normal play.
+	 */
+	public synchronized boolean recoverPlayerFromRetiredOrbitalLocation(EntityPlayerMP player) {
+		if(player == null || player.worldObj == null || player.worldObj.isRemote) return false;
+
+		NBTTagCompound persisted = getPersistedPlayerData(player);
+		if(player.worldObj.provider.dimensionId != SpaceConfig.orbitDimension) {
+			persisted.removeTag(PLAYER_ORBIT_CONTEXT_TAG);
+			return false;
+		}
+		if(!persisted.hasKey(PLAYER_ORBIT_CONTEXT_TAG)) return false;
+
+		NBTTagCompound context = persisted.getCompoundTag(PLAYER_ORBIT_CONTEXT_TAG);
+		String savedStationKey = context.getString(PLAYER_ORBIT_STATION_KEY_TAG);
+		int savedGeneration = Math.max(0, context.getInteger(PLAYER_ORBIT_STATION_GENERATION_TAG));
+		String savedRaidToken = context.getString(PLAYER_ORBIT_RAID_TOKEN_TAG);
+
+		int blockX = MathHelper.floor_double(player.posX);
+		int blockZ = MathHelper.floor_double(player.posZ);
+		OrbitalStation station = getStationFromPosition(blockX, blockZ);
+
+		boolean stationMatches = station != null
+			&& station.stationKey != null
+			&& station.stationKey.equals(savedStationKey)
+			&& station.generation == savedGeneration;
+
+		boolean retired = !stationMatches;
+		if(!retired && station.deleting && isBreachSettlementCleanupQueued(station.stationKey, station.generation)) {
+			retired = true;
+		}
+		if(!retired && savedRaidToken != null && !savedRaidToken.isEmpty()) {
+			retired = !station.raidPortActive
+				|| !savedRaidToken.equals(station.raidToken)
+				|| !isInsideRaidOutpostFootprint(station, player.posX, player.posZ);
+		}
+
+		if(!retired) return false;
+
+		World overworld = DimensionManager.getWorld(0);
+		if(overworld == null) {
+			DimensionManager.initDimension(0);
+			overworld = DimensionManager.getWorld(0);
+		}
+		if(!(overworld instanceof WorldServer)) return false;
+
+		ChunkCoordinates spawn = ((WorldServer)overworld).getSpawnPoint();
+		player.mountEntity(null);
+		CelestialTeleporter.teleport(
+			player,
+			0,
+			spawn.posX + 0.5D,
+			spawn.posY + 1.0D,
+			spawn.posZ + 0.5D,
+			false
+		);
+		persisted.removeTag(PLAYER_ORBIT_CONTEXT_TAG);
+		player.addChatMessage(new ChatComponentText(
+			EnumChatFormatting.YELLOW
+				+ "Your previous orbital location was removed while you were offline. "
+				+ "You have been moved to the Overworld spawn."
+		));
+		MainRegistry.logger.info("[StationMaintenance] Recovered offline player "
+			+ player.getCommandSenderName() + " from retired orbital location stationKey="
+			+ shortIdentity(savedStationKey) + " generation=" + savedGeneration
+			+ (savedRaidToken == null || savedRaidToken.isEmpty()
+				? "" : " raidToken=" + shortIdentity(savedRaidToken)) + ".");
+		return true;
+	}
+
+	private static NBTTagCompound getPersistedPlayerData(EntityPlayer player) {
+		NBTTagCompound entityData = player.getEntityData();
+		NBTTagCompound persisted = entityData.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
+		entityData.setTag(EntityPlayer.PERSISTED_NBT_TAG, persisted);
+		return persisted;
 	}
 
 	@Override
@@ -1072,6 +1158,69 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 		}
 	}
 
+	/**
+	 * Persist enough orbital identity on each online player to distinguish a
+	 * legitimate current station/outpost from one that was deleted while the
+	 * player was offline.
+	 */
+	private void rememberOnlinePlayerOrbitalLocations(WorldServer orbitWorld) {
+		if(orbitWorld == null || orbitWorld.provider.dimensionId != SpaceConfig.orbitDimension) return;
+		for(Object object : new ArrayList<Object>(orbitWorld.playerEntities)) {
+			if(!(object instanceof EntityPlayerMP)) continue;
+			EntityPlayerMP player = (EntityPlayerMP)object;
+			OrbitalStation station = getStationFromPosition(
+				MathHelper.floor_double(player.posX),
+				MathHelper.floor_double(player.posZ)
+			);
+			NBTTagCompound persisted = getPersistedPlayerData(player);
+			if(station == null || station.stationKey == null || station.stationKey.isEmpty()) {
+				persisted.removeTag(PLAYER_ORBIT_CONTEXT_TAG);
+				continue;
+			}
+
+			NBTTagCompound context = new NBTTagCompound();
+			context.setString(PLAYER_ORBIT_STATION_KEY_TAG, station.stationKey);
+			context.setInteger(PLAYER_ORBIT_STATION_GENERATION_TAG, station.generation);
+			context.setString(
+				PLAYER_ORBIT_RAID_TOKEN_TAG,
+				station.raidPortActive && station.raidToken != null && !station.raidToken.isEmpty()
+					&& isInsideRaidOutpostFootprint(station, player.posX, player.posZ)
+					? station.raidToken
+					: ""
+			);
+			persisted.setTag(PLAYER_ORBIT_CONTEXT_TAG, context);
+		}
+	}
+
+	private boolean isInsideRaidOutpostFootprint(OrbitalStation station, double blockX, double blockZ) {
+		if(station == null || !station.raidPortActive || station.raidToken == null || station.raidToken.isEmpty()) {
+			return false;
+		}
+		int coreChunkX = MathHelper.floor_double((double)station.raidPortX / OrbitalStation.CHUNK_SIZE);
+		int coreChunkZ = MathHelper.floor_double((double)station.raidPortZ / OrbitalStation.CHUNK_SIZE);
+		int minChunkX = coreChunkX - OrbitalStation.RAID_CLEANUP_CHUNKS / 2;
+		int minChunkZ = coreChunkZ - OrbitalStation.RAID_CLEANUP_CHUNKS / 2;
+		int playerChunkX = MathHelper.floor_double(blockX) >> 4;
+		int playerChunkZ = MathHelper.floor_double(blockZ) >> 4;
+		return playerChunkX >= minChunkX
+			&& playerChunkX < minChunkX + OrbitalStation.RAID_CLEANUP_CHUNKS
+			&& playerChunkZ >= minChunkZ
+			&& playerChunkZ < minChunkZ + OrbitalStation.RAID_CLEANUP_CHUNKS;
+	}
+
+	private boolean isBreachSettlementCleanupQueued(String stationKey, int generation) {
+		if(stationKey == null || stationKey.isEmpty()) return false;
+		for(CleanupTask task : cleanupTasks) {
+			if(task.type == CleanupType.STATION
+				&& task.breachSettlement
+				&& stationKey.equals(task.identity)
+				&& generation == task.generation) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	/** Called exactly once per server tick by ModEventHandler. */
 	public synchronized void tickMaintenance() {
 		ensureRaidRuntimeClock();
@@ -1079,6 +1228,9 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 		if(now < 0L) return;
 		World world = DimensionManager.getWorld(SpaceConfig.orbitDimension);
 		WorldServer orbitWorld = world instanceof WorldServer ? (WorldServer)world : null;
+		if(orbitWorld != null) {
+			rememberOnlinePlayerOrbitalLocations(orbitWorld);
+		}
 		boolean changed = false;
 		for(OrbitalStation station : new ArrayList<OrbitalStation>(stations.values())) {
 			if(station == null || station.deleting) continue;
@@ -1167,7 +1319,25 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 			markDirty();
 		}
 
-		relocatePlayers(world, task);
+		if(task.type == CleanupType.STATION && task.breachSettlement) {
+			List<EntityPlayerMP> remainingPlayers = getPlayersInsideCleanupArea(world, task);
+			if(!remainingPlayers.isEmpty()) {
+				if(world.getTotalWorldTime() % 600L == 0L) {
+					MainRegistry.logger.info("[BreachSettlement] Waiting for " + remainingPlayers.size()
+						+ " online player(s) to evacuate defeated station " + getStationId(task.stationX, task.stationZ)
+						+ " before physical cell cleanup begins.");
+					for(EntityPlayerMP player : remainingPlayers) {
+						player.addChatMessage(new ChatComponentText(
+							EnumChatFormatting.RED
+								+ "This orbital station has been defeated. Full cell cleanup is waiting for you to evacuate."
+						));
+					}
+				}
+				return;
+			}
+		} else {
+			relocatePlayers(world, task);
+		}
 		if(task.type == CleanupType.RAID && !task.coreCleared) {
 			clearRaidCore(world, task);
 			task.coreCleared = true;
@@ -1193,18 +1363,25 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 	}
 
 	@SuppressWarnings("unchecked")
-	private void relocatePlayers(WorldServer world, CleanupTask task) {
+	private List<EntityPlayerMP> getPlayersInsideCleanupArea(WorldServer world, CleanupTask task) {
+		List<EntityPlayerMP> players = new ArrayList<EntityPlayerMP>();
+		if(world == null || task == null) return players;
 		double minX = task.minChunkX * 16D;
 		double minZ = task.minChunkZ * 16D;
 		double maxX = (task.minChunkX + task.width) * 16D;
 		double maxZ = (task.minChunkZ + task.height) * 16D;
-		List<EntityPlayerMP> players = new ArrayList<EntityPlayerMP>();
 		for(Object object : world.playerEntities) {
 			if(!(object instanceof EntityPlayerMP)) continue;
 			EntityPlayerMP player = (EntityPlayerMP)object;
-			if(player.posX >= minX && player.posX < maxX && player.posZ >= minZ && player.posZ < maxZ) players.add(player);
+			if(player.posX >= minX && player.posX < maxX && player.posZ >= minZ && player.posZ < maxZ) {
+				players.add(player);
+			}
 		}
-		for(EntityPlayerMP player : players) {
+		return players;
+	}
+
+	private void relocatePlayers(WorldServer world, CleanupTask task) {
+		for(EntityPlayerMP player : getPlayersInsideCleanupArea(world, task)) {
 			player.mountEntity(null);
 			OrbitalStation station = getStationAtGrid(task.stationX, task.stationZ);
 			CelestialBody body = CelestialBody.getBody(task.bodyName);

@@ -19,6 +19,8 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -237,6 +239,13 @@ public class ItemVOTVdrive extends ItemEnumMulti {
 	/** Validates every normal station drive in an inventory and marks it dirty if changed. */
 	public static boolean validateNormalStationDrives(IInventory inventory, World world) {
 		if(inventory == null || world == null || world.isRemote) return false;
+		if(inventory instanceof InventoryPlayer) {
+			EntityPlayer owner = ((InventoryPlayer)inventory).player;
+			if(owner instanceof EntityPlayerMP) {
+				SolarSystemWorldSavedData data = SolarSystemWorldSavedData.get(world);
+				if(data != null) data.recoverPlayerFromRetiredOrbitalLocation((EntityPlayerMP)owner);
+			}
+		}
 		boolean changed = false;
 		for(int slot = 0; slot < inventory.getSizeInventory(); slot++) {
 			ItemStack stack = inventory.getStackInSlot(slot);
