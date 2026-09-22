@@ -262,6 +262,12 @@ public class ItemVOTVdrive extends ItemEnumMulti {
 			return canPlayerUseStationDriveForLaunch(stack, world, playerId) ? null : "BREACH ACCESS DENIED";
 		}
 
+		Destination normalDestination = getDestinationUnchecked(stack);
+		if(normalDestination != null && normalDestination.body == SolarSystem.Body.ORBIT) {
+			SolarSystemWorldSavedData data = SolarSystemWorldSavedData.get(world);
+			OrbitalStation station = data != null ? data.getStationAtGrid(normalDestination.x, normalDestination.z) : null;
+			if(isStationClosedForBreachTravel(world, station)) return "STATION EVACUATING";
+		}
 		return canPlayerUseNormalStationDrive(stack, world, playerId) ? null : "STATION ACCESS DENIED";
 	}
 
@@ -278,6 +284,7 @@ public class ItemVOTVdrive extends ItemEnumMulti {
 		if(data == null) return false;
 		OrbitalStation station = data.getStationAtGrid(destination.x, destination.z);
 		if(station == null || station.deleting || !data.matchesDriveIdentity(station, stack, false)) return false;
+		if(isStationClosedForBreachTravel(world, station)) return false;
 		if(station.driveOwnerId == null || station.driveOwnerId.isEmpty()) {
 			UUID registeredOwner = Integrations.getOrbitalStationOwnerWGC(world, station.stationKey, station.generation);
 			if(registeredOwner != null) {
@@ -287,6 +294,15 @@ public class ItemVOTVdrive extends ItemEnumMulti {
 			}
 		}
 		return station.driveOwnerIsFaction && factionId.toString().equals(station.driveOwnerId);
+	}
+
+	private static boolean isStationClosedForBreachTravel(World world, OrbitalStation station) {
+		if(world == null || station == null || !Integrations.isWGCoreActive()) return false;
+		if(station.stationKey == null || station.stationKey.isEmpty()) return false;
+		String phase = Integrations.getBreachPhaseWGC(world, station.stationKey, station.generation);
+		return "VICTORY_LOCKED".equals(phase)
+			|| "VICTORY_EVACUATION".equals(phase)
+			|| "VICTORY_SETTLEMENT_READY".equals(phase);
 	}
 
 	public static boolean validateNormalStationDrive(ItemStack stack, World world) {

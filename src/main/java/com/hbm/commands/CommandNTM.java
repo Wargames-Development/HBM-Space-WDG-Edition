@@ -178,13 +178,13 @@ public class CommandNTM extends CommandBase {
 	}
 
 	private OrbitalStation resolveRaidStation(ICommandSender sender, SolarSystemWorldSavedData data, String name) {
-		List<OrbitalStation> matches = new ArrayList<OrbitalStation>();
-		for(OrbitalStation station : data.getStations().values()) {
-			if(station == null || station.name == null || !station.name.trim().equalsIgnoreCase(name.trim())) continue;
-			if(station.hasStation || station.reservedForLaunch || station.deleting) matches.add(station);
-		}
-
+		List<OrbitalStation> matches = data.findStationsByName(name, true);
 		if(matches.isEmpty()) {
+			for(OrbitalStation station : data.getStations().values()) {
+				if(station == null || !station.deleting || station.name == null || !station.name.trim().equalsIgnoreCase(name.trim())) continue;
+				error(sender, "That station is currently being deleted.");
+				return null;
+			}
 			error(sender, "No orbital station matches \"" + name + "\".");
 			return null;
 		}
@@ -199,10 +199,6 @@ public class CommandNTM extends CommandBase {
 		}
 
 		OrbitalStation station = matches.get(0);
-		if(station.deleting) {
-			error(sender, "That station is currently being deleted.");
-			return null;
-		}
 		if(!station.hasStation) {
 			error(sender, "That station reservation has not been launched yet.");
 			return null;

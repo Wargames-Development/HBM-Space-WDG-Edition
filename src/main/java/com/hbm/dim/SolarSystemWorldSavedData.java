@@ -554,13 +554,13 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 		return name == null ? "" : name.trim();
 	}
 
-	/** A station owns its player-facing name until its authoritative cleanup is complete. */
+	/** Active/reserved stations own their player-facing name; identity-bound cleanup does not. */
 	public synchronized boolean isStationNameInUse(String name) {
 		String normalized = normalizeStationName(name);
 		if(normalized.isEmpty()) return false;
 		for(OrbitalStation station : stations.values()) {
-			if(station == null || station.name == null || !station.name.trim().equalsIgnoreCase(normalized)) continue;
-			if(station.hasStation || station.reservedForLaunch || station.deleting) return true;
+			if(station == null || station.deleting || station.name == null || !station.name.trim().equalsIgnoreCase(normalized)) continue;
+			if(station.hasStation || station.reservedForLaunch) return true;
 		}
 		return false;
 	}
@@ -580,14 +580,32 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 		return true;
 	}
 
-	/** Finds a truly empty 64x64 station cell; reserved cells are never reused. */
+	/** Finds a truly empty 64x64 station cell; reserved/cleaning cells are never reused. */
 	public synchronized ChunkCoordIntPair findSafeFreeSpace() {
 		int size = Math.max(1, SpaceConfig.maxStationDistance / OrbitalStation.STATION_SIZE);
-		for(int i = 0; i < 4096; i++) {
-			ChunkCoordIntPair pos = new ChunkCoordIntPair(rand.nextInt(size * 2) - size, rand.nextInt(size * 2) - size);
+		int diameter = size * 2;
+		long totalCells = (long)diameter * (long)diameter;
+		int randomAttempts = (int)Math.min(4096L, totalCells);
+		for(int i = 0; i < randomAttempts; i++) {
+			ChunkCoordIntPair pos = new ChunkCoordIntPair(rand.nextInt(diameter) - size, rand.nextInt(diameter) - size);
 			if(stations.containsKey(pos) || isAnyCleanupQueuedAt(pos.chunkXPos, pos.chunkZPos)) continue;
 			return pos;
 		}
+
+		// With the normal/default allocation radius the complete grid is small enough to
+		// prove exhaustion instead of reporting a false failure after unlucky random probes.
+		if(totalCells <= 262144L) {
+			for(int x = -size; x < size; x++) {
+				for(int z = -size; z < size; z++) {
+					ChunkCoordIntPair pos = new ChunkCoordIntPair(x, z);
+					if(stations.containsKey(pos) || isAnyCleanupQueuedAt(x, z)) continue;
+					return pos;
+				}
+			}
+		}
+		MainRegistry.logger.warn("[OrbitalStation] No free 64x64 station cell within +/-"
+			+ SpaceConfig.maxStationDistance + " blocks (grid cells=" + totalCells
+			+ ", station records=" + stations.size() + ", cleanup tasks=" + cleanupTasks.size() + ").");
 		return null;
 	}
 
@@ -1242,8 +1260,13 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 		if(token == null || token.isEmpty()) return 0L;
 		RaidDriveAuthorization authorization = raidDriveAuthorizations.get(token);
 		long now = currentServerRuntimeMillis();
-		if(authorization == null || now < 0L) return 0L;
+		if(now < 0L) return 0L;
+		if(authorization == null) {
+			drive.stackTagCompound.setLong(ItemRaidDrive.TAG_EXPIRES_AT, now);
+			return 0L;
+		}
 		if(authorization.expiresAt <= 0L || now >= authorization.expiresAt) {
+			drive.stackTagCompound.setLong(ItemRaidDrive.TAG_EXPIRES_AT, now);
 			raidDriveAuthorizations.remove(token);
 			markDirty();
 			return 0L;
@@ -1258,6 +1281,7 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 				authorization.stationKey, authorization.generation)
 			: 0L;
 		if(remaining <= 0L) {
+			drive.stackTagCompound.setLong(ItemRaidDrive.TAG_EXPIRES_AT, now);
 			raidDriveAuthorizations.remove(token);
 			markDirty();
 			return 0L;
@@ -1717,7 +1741,11 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 		}
 		boolean changed = false;
 		for(OrbitalStation station : new ArrayList<OrbitalStation>(stations.values())) {
-			if(station == null || station.deleting) continue;
+			if(station == null) continue;
+			if(station.deleting) {
+				if(recoverMissingStationCleanupTask(station)) changed = true;
+				continue;
+			}
 
 			// Successful-Breach ordering is authoritative:
 			// WGCore evacuation timer expires -> HBM forces any remaining occupants
@@ -1863,6 +1891,30 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 		if(changed) markDirty();
 	}
 
+	/**
+	 * Defensive recovery for interrupted/older saves: deleting station records must
+	 * always have a persisted resumable cleanup task. Normal saves already write
+	 * the task progress every cleared chunk; this only repairs a missing task.
+	 */
+	private boolean recoverMissingStationCleanupTask(OrbitalStation station) {
+		if(station == null || !station.deleting) return false;
+		if(isCleanupQueued(CleanupType.STATION, station.dX, station.dZ, station.stationKey)) return false;
+
+		World integrationWorld = getIntegrationWorld();
+		CleanupTask task = CleanupTask.station(
+			station.dX, station.dZ, station.stationKey, station.generation, station.orbiting);
+		task.playerDrivesDeprogrammed = true;
+		task.breachSettlement = integrationWorld != null
+			&& station.stationKey != null && !station.stationKey.isEmpty()
+			&& Integrations.isBreachSettlementCompleteWGC(
+				integrationWorld, station.stationKey, station.generation);
+		cleanupTasks.add(task);
+		MainRegistry.logger.warn("[StationMaintenance] Recovered missing resumable station cleanup task station="
+			+ getStationId(station) + " key=" + shortIdentity(station.stationKey)
+			+ " generation=" + station.generation + ".");
+		return true;
+	}
+
 	private void ensureCleanupDimensionKeepalive(WorldServer orbitWorld) {
 		if(orbitWorld == null) return;
 		ChunkLoaderManager.forceChunk(
@@ -1886,6 +1938,7 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 	private void queueRaidCleanup(OrbitalStation station) {
 		if(station == null || !station.raidPortActive || isCleanupQueued(CleanupType.RAID, station.dX, station.dZ, station.raidToken)) return;
 		CleanupTask task = CleanupTask.raid(station);
+		hydrateRaidCleanupFactionRoles(getIntegrationWorld(), task, station);
 		if(!task.containsCoreChunk()) {
 			MainRegistry.logger.error("[StationMaintenance] Refusing invalid raid cleanup task for station " + getStationId(station)
 				+ ": core chunk " + task.coreChunkX + "," + task.coreChunkZ + " is outside " + task.describeBounds());
@@ -1899,8 +1952,15 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 	}
 
 	private void processCleanupTask(WorldServer world, CleanupTask task) {
+		OrbitalStation cleanupStation = getStationAtGrid(task.stationX, task.stationZ);
+		if(task.type == CleanupType.RAID && hydrateRaidCleanupFactionRoles(world, task, cleanupStation)) {
+			markDirty();
+		}
+
 		// Orbital territory is virtual in WGCore. Remove its binding as soon as
 		// physical cleanup begins so the cleared area resolves back to Deep Space.
+		// Raid attacker/defender identities are captured above first because removing
+		// the outpost intentionally retires WGCore's retained CLEANUP_READY session.
 		if(task.type == CleanupType.RAID) {
 			Integrations.unregisterBreachOutpostWGC(world, task.identity);
 		} else if(task.type == CleanupType.STATION && !task.breachSettlement) {
@@ -1981,11 +2041,15 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 			|| !station.raidToken.equals(task.identity)) {
 			return getPlayersInsideCleanupArea(world, task);
 		}
+
 		List<EntityPlayerMP> players = new ArrayList<EntityPlayerMP>();
 		for(Object object : world.playerEntities) {
 			if(!(object instanceof EntityPlayerMP)) continue;
 			EntityPlayerMP player = (EntityPlayerMP)object;
-			if(isInsideRaidOutpostFootprint(station, player.posX, player.posZ)) players.add(player);
+			boolean insideOutpost = isInsideRaidOutpostFootprint(station, player.posX, player.posZ);
+			boolean attackingFactionInsideTargetStation = isRaidAttacker(player, world, task)
+				&& isInsidePermanentStationTerritory(world, station, player.posX, player.posZ);
+			if(insideOutpost || attackingFactionInsideTargetStation) players.add(player);
 		}
 		return players;
 	}
@@ -2005,8 +2069,159 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 			message = "Orbital station collapse is underway. Returning you to the surface.";
 		}
 		for(EntityPlayerMP player : new ArrayList<EntityPlayerMP>(getPlayersInsideTaskEvacuationArea(world, task))) {
+			boolean insideOutpost = task.type == CleanupType.RAID && station != null
+				&& isInsideRaidOutpostFootprint(station, player.posX, player.posZ);
+			if(task.type == CleanupType.RAID && station != null && insideOutpost
+					&& isRaidDefender(player, world, task, station)
+					&& relocatePlayerIntoPermanentStation(world, player, station)) {
+				Integrations.notifyPlayerWGC(world, player.getUniqueID(),
+					"Enemy Breach outpost collapsed. You were moved back inside your station.");
+				continue;
+			}
 			returnPlayerToSurface(player, body, message);
 		}
+	}
+
+	private boolean hydrateRaidCleanupFactionRoles(World world, CleanupTask task, OrbitalStation station) {
+		if(task == null || task.type != CleanupType.RAID || station == null) return false;
+		boolean changed = false;
+		World authorityWorld = world != null ? world : getIntegrationWorld();
+
+		if((task.attackerFactionId == null || task.attackerFactionId.isEmpty())
+				&& Integrations.isWGCoreActive() && authorityWorld != null
+				&& station.stationKey != null && !station.stationKey.isEmpty()) {
+			UUID attacker = Integrations.getBreachAttackerFactionWGC(
+				authorityWorld, station.stationKey, station.generation);
+			if(attacker != null) {
+				task.attackerFactionId = attacker.toString();
+				changed = true;
+			}
+		}
+
+		if(task.attackerFactionId == null || task.attackerFactionId.isEmpty()) {
+			RaidDriveAuthorization authorization = raidDriveAuthorizations.get(task.identity);
+			if(authorization != null && authorization.ownerFactionId != null
+					&& !authorization.ownerFactionId.isEmpty()) {
+				task.attackerFactionId = authorization.ownerFactionId;
+				changed = true;
+			}
+		}
+
+		if((task.defenderFactionId == null || task.defenderFactionId.isEmpty())
+				&& Integrations.isWGCoreActive() && authorityWorld != null
+				&& station.stationKey != null && !station.stationKey.isEmpty()) {
+			UUID defender = Integrations.getBreachDefenderFactionWGC(
+				authorityWorld, station.stationKey, station.generation);
+			if(defender == null) {
+				defender = Integrations.getOrbitalStationOwnerWGC(
+					authorityWorld, station.stationKey, station.generation);
+			}
+			if(defender != null) {
+				task.defenderFactionId = defender.toString();
+				changed = true;
+			}
+		}
+
+		if((task.defenderFactionId == null || task.defenderFactionId.isEmpty())
+				&& station.driveOwnerIsFaction && station.driveOwnerId != null
+				&& !station.driveOwnerId.isEmpty()) {
+			task.defenderFactionId = station.driveOwnerId;
+			changed = true;
+		}
+		return changed;
+	}
+
+	private boolean isRaidAttacker(EntityPlayerMP player, World world, CleanupTask task) {
+		return isPlayerInFaction(player, world, task != null ? task.attackerFactionId : null);
+	}
+
+	private boolean isRaidDefender(EntityPlayerMP player, World world, CleanupTask task, OrbitalStation station) {
+		if(isPlayerInFaction(player, world, task != null ? task.defenderFactionId : null)) return true;
+		if(player == null || world == null || station == null || !Integrations.isWGCoreActive()) return false;
+		if(station.stationKey == null || station.stationKey.isEmpty()) return false;
+		UUID playerFaction = Integrations.getPlayerFaction(world, player.getUniqueID());
+		UUID stationOwner = Integrations.getOrbitalStationOwnerWGC(world, station.stationKey, station.generation);
+		if(playerFaction != null && stationOwner != null && playerFaction.equals(stationOwner)) return true;
+		UUID hbmOwner = station.driveOwnerIsFaction ? parseUuid(station.driveOwnerId) : null;
+		return playerFaction != null && hbmOwner != null && playerFaction.equals(hbmOwner);
+	}
+
+	private boolean isPlayerInFaction(EntityPlayerMP player, World world, String expectedFactionId) {
+		if(player == null || world == null || expectedFactionId == null || expectedFactionId.isEmpty()
+				|| !Integrations.isWGCoreActive()) return false;
+		UUID expected = parseUuid(expectedFactionId);
+		UUID actual = Integrations.getPlayerFaction(world, player.getUniqueID());
+		return expected != null && actual != null && expected.equals(actual);
+	}
+
+	private boolean isInsidePermanentStationTerritory(World world, OrbitalStation station, double x, double z) {
+		if(world == null || station == null || !Integrations.isWGCoreActive()
+				|| station.stationKey == null || station.stationKey.isEmpty()) return false;
+		return Integrations.isInsideOrbitalStationTerritoryWGC(
+			world, station.stationKey, station.generation,
+			MathHelper.floor_double(x), MathHelper.floor_double(z));
+	}
+
+	/**
+	 * Failed Breach cleanup destroys only the temporary outpost. Defenders caught
+	 * inside that outpost are returned to their surviving station, while members
+	 * of the attacking faction still inside the protected target-station territory
+	 * are removed to the surface when the failed assault closes.
+	 * Prefer the defender's current Y level and fall back to the station deck only
+	 * when no safe two-block standing space exists at that height.
+	 */
+	private boolean relocatePlayerIntoPermanentStation(WorldServer world, EntityPlayerMP player, OrbitalStation station) {
+		if(world == null || player == null || station == null) return false;
+		int centerX = station.getCenterBlockX();
+		int centerZ = station.getCenterBlockZ();
+		int preferredY = MathHelper.floor_double(player.posY);
+
+		int[] destination = findSafeStationPosition(world, centerX, preferredY, centerZ);
+		if(destination == null) {
+			destination = findSafeStationPosition(world, centerX, OrbitalStation.CORE_Y + 1, centerZ);
+		}
+		if(destination == null) return false;
+
+		if(player.ridingEntity != null) player.mountEntity(null);
+		player.motionX = 0.0D;
+		player.motionY = 0.0D;
+		player.motionZ = 0.0D;
+		player.fallDistance = 0.0F;
+		player.setPositionAndUpdate(destination[0] + 0.5D, destination[1], destination[2] + 0.5D);
+		return true;
+	}
+
+	private int[] findSafeStationPosition(WorldServer world, int centerX, int y, int centerZ) {
+		if(world == null) return null;
+		// Stay well inside WGCore's 22x22 permanent-station footprint. A compact
+		// spiral around the physical station centre avoids loading distant empty space.
+		final int maxRadius = 64;
+		for(int radius = 0; radius <= maxRadius; radius += 2) {
+			for(int dx = -radius; dx <= radius; dx += 2) {
+				int[] north = safeStandingPosition(world, centerX + dx, y, centerZ - radius);
+				if(north != null) return north;
+				if(radius > 0) {
+					int[] south = safeStandingPosition(world, centerX + dx, y, centerZ + radius);
+					if(south != null) return south;
+				}
+			}
+			for(int dz = -radius + 2; dz <= radius - 2; dz += 2) {
+				int[] west = safeStandingPosition(world, centerX - radius, y, centerZ + dz);
+				if(west != null) return west;
+				if(radius > 0) {
+					int[] east = safeStandingPosition(world, centerX + radius, y, centerZ + dz);
+					if(east != null) return east;
+				}
+			}
+		}
+		return null;
+	}
+
+	private int[] safeStandingPosition(WorldServer world, int x, int y, int z) {
+		if(y <= 1 || y >= world.getActualHeight() - 2) return null;
+		if(!world.isAirBlock(x, y, z) || !world.isAirBlock(x, y + 1, z)) return null;
+		if(world.isAirBlock(x, y - 1, z) || !world.getBlock(x, y - 1, z).getMaterial().isSolid()) return null;
+		return new int[] { x, y, z };
 	}
 
 
@@ -2164,6 +2379,8 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 		private boolean coreCleared;
 		private boolean playerDrivesDeprogrammed;
 		private boolean breachSettlement;
+		private String attackerFactionId = "";
+		private String defenderFactionId = "";
 
 		private static CleanupTask station(int stationX, int stationZ, String key, int generation, CelestialBody body) {
 			CleanupTask task = new CleanupTask();
@@ -2200,6 +2417,8 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 			tag.setInteger("coreChunkX", coreChunkX); tag.setInteger("coreChunkZ", coreChunkZ); tag.setBoolean("coreCleared", coreCleared);
 			tag.setBoolean("playerDrivesDeprogrammed", playerDrivesDeprogrammed);
 			tag.setBoolean("breachSettlement", breachSettlement);
+			tag.setString("attackerFactionId", attackerFactionId == null ? "" : attackerFactionId);
+			tag.setString("defenderFactionId", defenderFactionId == null ? "" : defenderFactionId);
 			return tag;
 		}
 
@@ -2219,6 +2438,8 @@ public class SolarSystemWorldSavedData extends WorldSavedData {
 			task.playerDrivesDeprogrammed = tag.hasKey("playerDrivesDeprogrammed") && tag.getBoolean("playerDrivesDeprogrammed");
 			task.breachSettlement = task.type == CleanupType.STATION
 				&& tag.hasKey("breachSettlement") && tag.getBoolean("breachSettlement");
+			task.attackerFactionId = tag.hasKey("attackerFactionId") ? tag.getString("attackerFactionId") : "";
+			task.defenderFactionId = tag.hasKey("defenderFactionId") ? tag.getString("defenderFactionId") : "";
 			if(task.type == CleanupType.STATION) {
 				int expectedMinX = task.stationX * OrbitalStation.STATION_CHUNKS;
 				int expectedMinZ = task.stationZ * OrbitalStation.STATION_CHUNKS;

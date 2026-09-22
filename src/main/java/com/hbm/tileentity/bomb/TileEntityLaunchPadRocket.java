@@ -443,18 +443,24 @@ public class TileEntityLaunchPadRocket extends TileEntityMachineBase implements 
 		return false;
 	}
 
-	public static void findTravelIssues(List<String> issues, RocketStruct rocket, Target from, Target to) {
+	public static void findTravelIssues(List<String> issues, RocketStruct rocket, Target from, Target to, ItemStack drive) {
 		if(from == null || from.body == null || to == null || to.body == null) {
 			issues.add(EnumChatFormatting.RED + "Destination drive is invalid");
 			return;
 		}
 
+		boolean breachDrive = ItemVOTVdrive.isRaidStationDrive(drive);
+
 		if(to.inOrbit && !to.isValid && rocket.capsule.part != ModItems.rp_station_core_20) {
-			issues.add(EnumChatFormatting.RED + "Station not yet launched");
+			issues.add(EnumChatFormatting.RED + (breachDrive
+				? "Breach target station is unavailable"
+				: "Station not yet launched"));
 		}
 
 		if(to.inOrbit && to.isValid && rocket.capsule.part == ModItems.rp_station_core_20) {
-			issues.add(EnumChatFormatting.RED + "Station already launched");
+			issues.add(EnumChatFormatting.RED + (breachDrive
+				? "Breach travel requires a crew capsule"
+				: "Station already launched"));
 		}
 
 		if(!rocket.hasSufficientFuel(from.body, to.body, from.inOrbit, to.inOrbit)) {
@@ -498,7 +504,7 @@ public class TileEntityLaunchPadRocket extends TileEntityMachineBase implements 
 		Target from = CelestialBody.getTarget(worldObj, xCoord, zCoord);
 		Target to = ItemVOTVdrive.getTarget(slots[1], worldObj);
 
-		findTravelIssues(issues, rocket, from, to);
+		findTravelIssues(issues, rocket, from, to, slots[1]);
 
 		return issues;
 	}

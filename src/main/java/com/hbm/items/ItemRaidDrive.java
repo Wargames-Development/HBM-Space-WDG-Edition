@@ -222,8 +222,8 @@ public class ItemRaidDrive extends ItemVOTVdrive {
 		if(data == null) return;
 		long remaining = data.getRaidDriveAuthorizationRemainingMillis(stack, world);
 		long now = currentServerRuntimeMillis();
-		if(now >= 0L && remaining > 0L) {
-			stack.stackTagCompound.setLong(TAG_EXPIRES_AT, safeAdd(now, remaining));
+		if(now >= 0L) {
+			stack.stackTagCompound.setLong(TAG_EXPIRES_AT, remaining > 0L ? safeAdd(now, remaining) : now);
 		}
 	}
 

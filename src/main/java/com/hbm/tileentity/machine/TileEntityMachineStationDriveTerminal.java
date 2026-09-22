@@ -184,10 +184,14 @@ public class TileEntityMachineStationDriveTerminal extends TileEntityMachineBase
         CelestialBody body = CelestialBody.getBody(worldObj);
         if(body == null) body = CelestialBody.getBody(0);
         OrbitalStation existing = data.findStationByDriveOwner(worldObj, ownerId, factionOwner);
+        if(existing == null && data.isStationNameInUse(stationName)) {
+            setStatus(EnumChatFormatting.RED + "NAME IN USE", 140);
+            return;
+        }
         boolean reissue = existing != null;
         OrbitalStation station = existing != null ? existing : data.getOrCreateDriveOwnerStation(worldObj, body, stationName, ownerId, factionOwner);
         if(station == null) {
-            setStatus(EnumChatFormatting.RED + "NO SAFE CELL", 140);
+            setStatus(EnumChatFormatting.RED + "NO FREE CELL", 140);
             return;
         }
         if(station.deleting) {

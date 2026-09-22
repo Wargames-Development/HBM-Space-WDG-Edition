@@ -10,6 +10,8 @@ import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
+import api.hbm.wgc.Integrations;
+
 import org.apache.commons.lang3.math.NumberUtils;
 
 import com.google.common.collect.HashMultimap;
@@ -1540,7 +1542,8 @@ public class ModEventHandler {
 			double localX = player.posX - minX;
 			double localZ = player.posZ - minZ;
 			double edgeDistance = Math.min(Math.min(localX, OrbitalStation.STATION_SIZE - localX), Math.min(localZ, OrbitalStation.STATION_SIZE - localZ));
-			if(player instanceof EntityPlayerMP && edgeDistance <= OrbitalStation.WARNING_SIZE && player.ticksExisted % 100 == 0) {
+			if(!Integrations.isWGCoreActive() && player instanceof EntityPlayerMP
+				&& edgeDistance <= OrbitalStation.WARNING_SIZE && player.ticksExisted % 100 == 0) {
 				PacketDispatcher.wrapper.sendTo(new PlayerInformPacket(ChatBuilder.start("").nextTranslation("info.orbitfall").color(EnumChatFormatting.RED).flush(), ServerProxy.ID_GAS_HAZARD, 3000), (EntityPlayerMP) player);
 			}
 			return;

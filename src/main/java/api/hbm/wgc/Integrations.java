@@ -254,6 +254,29 @@ public final class Integrations {
         return value instanceof UUID ? (UUID)value : null;
     }
 
+    public static UUID getBreachAttackerFactionWGC(World world, String stationKey, int stationGeneration) {
+        Object value = invokeWGCoreOptional("getBreachAttackerFaction",
+            new Class<?>[] { World.class, String.class, Integer.TYPE },
+            new Object[] { world, stationKey, Integer.valueOf(stationGeneration) });
+        return value instanceof UUID ? (UUID)value : null;
+    }
+
+    public static UUID getBreachDefenderFactionWGC(World world, String stationKey, int stationGeneration) {
+        Object value = invokeWGCoreOptional("getBreachDefenderFaction",
+            new Class<?>[] { World.class, String.class, Integer.TYPE },
+            new Object[] { world, stationKey, Integer.valueOf(stationGeneration) });
+        return value instanceof UUID ? (UUID)value : null;
+    }
+
+    public static boolean isInsideOrbitalStationTerritoryWGC(World world, String stationKey, int stationGeneration,
+                                                              int blockX, int blockZ) {
+        Object value = invokeWGCoreOptional("isInsideOrbitalStationTerritory",
+            new Class<?>[] { World.class, String.class, Integer.TYPE, Integer.TYPE, Integer.TYPE },
+            new Object[] { world, stationKey, Integer.valueOf(stationGeneration),
+                Integer.valueOf(blockX), Integer.valueOf(blockZ) });
+        return value instanceof Boolean && ((Boolean)value).booleanValue();
+    }
+
     public static long getOrbitalStationCrashDurationMillisWGC(World world) {
         Object value = invokeWGCoreOptional("getOrbitalStationCrashDurationMillis",
             new Class<?>[] { World.class }, new Object[] { world });

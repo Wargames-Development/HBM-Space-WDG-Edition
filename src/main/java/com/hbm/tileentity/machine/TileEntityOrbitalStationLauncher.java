@@ -344,7 +344,7 @@ public class TileEntityOrbitalStationLauncher extends TileEntityMachineBase impl
 		Target from = CelestialBody.getTarget(worldObj, xCoord, zCoord);
 		Target to = ItemVOTVdrive.getTarget(slots[0], worldObj);
 
-		TileEntityLaunchPadRocket.findTravelIssues(issues, rocket, from, to);
+		TileEntityLaunchPadRocket.findTravelIssues(issues, rocket, from, to, slots[0]);
 
 		return issues;
 	}
