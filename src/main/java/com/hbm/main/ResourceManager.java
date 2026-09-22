@@ -91,6 +91,7 @@ public class ResourceManager {
 	public static final IModelCustom solarp = new HFRWavefrontObject(new ResourceLocation(RefStrings.MODID, "models/machines/solar_panel.obj")).asVBO();
 	public static final IModelCustom stardar = new HFRWavefrontObject(new ResourceLocation(RefStrings.MODID, "models/machines/stardar.obj")).asVBO();
 	public static final IModelCustom drive_processor = new HFRWavefrontObject(new ResourceLocation(RefStrings.MODID, "models/machines/drive_processor.obj")).asVBO();
+	public static final IModelCustom station_drive_terminal = new HFRWavefrontObject(new ResourceLocation(RefStrings.MODID, "models/machines/station_drive_terminal.obj")).asVBO();
 	public static final IModelCustom dish_controller = new HFRWavefrontObject(new ResourceLocation(RefStrings.MODID, "models/machines/dish_controller.obj")).asVBO();
 	public static final IModelCustom air_scrubber = new HFRWavefrontObject(new ResourceLocation(RefStrings.MODID, "models/machines/air_scrubber.obj"));
 	public static final IModelCustom orbital_computer = new HFRWavefrontObject(new ResourceLocation(RefStrings.MODID, "models/machines/spaceship_computer.obj")).asVBO();
@@ -585,6 +586,7 @@ public class ResourceManager {
 	public static final ResourceLocation solarp_tex = new ResourceLocation(RefStrings.MODID, "textures/models/machines/solar_panel.png"); //haha... "larp"
 	public static final ResourceLocation stardar_tex = new ResourceLocation(RefStrings.MODID, "textures/models/machines/stardar.png");
 	public static final ResourceLocation drive_processor_tex = new ResourceLocation(RefStrings.MODID, "textures/models/machines/drive_processor.png");
+	public static final ResourceLocation station_drive_terminal_tex = new ResourceLocation(RefStrings.MODID, "textures/models/machines/station_drive_terminal.png");
 	public static final ResourceLocation dish_controller_tex = new ResourceLocation(RefStrings.MODID, "textures/models/machines/dish_controller.png");
 	public static final ResourceLocation air_scrubber_tex = new ResourceLocation(RefStrings.MODID, "textures/models/machines/air_scrubber.png");
 	public static final ResourceLocation orbital_computer_tex = new ResourceLocation(RefStrings.MODID, "textures/models/machines/spaceship_computer.png");

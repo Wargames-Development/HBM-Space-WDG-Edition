@@ -15,16 +15,19 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
 
 public class GUILaunchPadRocket extends GuiInfoContainer {
 
 	private static ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/gui/machine/gui_launchpad_rocket.png");
 	private TileEntityLaunchPadRocket machine;
+	private ContainerLaunchPadRocket launcherContainer;
 
 	public GUILaunchPadRocket(InventoryPlayer invPlayer, TileEntityLaunchPadRocket machine) {
 		super(new ContainerLaunchPadRocket(invPlayer, machine));
 		this.machine = machine;
+		this.launcherContainer = (ContainerLaunchPadRocket)this.inventorySlots;
 
 		xSize = 188;
 		ySize = 236;
@@ -49,7 +52,9 @@ public class GUILaunchPadRocket extends GuiInfoContainer {
 		drawTexturedModalRect(guiLeft + 167, guiTop + 36 + 52 - p, xSize, 8 + 52 - p, 16, p);
 
 		if(machine.rocket != null) {
-			int ox = machine.canLaunch() ? 12 : 0;
+			// The green launch indicator is player-facing state. Never show it until
+			// the server has confirmed this viewer may use the installed station/Breach drive.
+			int ox = machine.canLaunch() && launcherContainer.isDriveAuthorizationClear() ? 12 : 0;
 			drawTexturedModalRect(guiLeft + 59, guiTop + 43, xSize + ox, 0, 12, 8);
 
 			ox = machine.power > machine.maxPower * 0.75 ? 0 : 6;
@@ -82,6 +87,9 @@ public class GUILaunchPadRocket extends GuiInfoContainer {
 				GL11.glScalef(0.5F, 0.5F, 0.5F);
 
 				List<String> issues = machine.findIssues();
+				if(launcherContainer.hasDriveAuthorizationIssue()) {
+					issues.add(0, EnumChatFormatting.RED + "You cannot travel here.");
+				}
 				for(int i = 0; i < issues.size(); i++) {
 					String issue = issues.get(i);
 					fontRendererObj.drawString(issue, (guiLeft + 6) * 2, (guiTop + 66) * 2 + i * 8, 0xFFFFFF);
@@ -97,7 +105,9 @@ public class GUILaunchPadRocket extends GuiInfoContainer {
 		super.mouseClicked(x, y, i);
 
 		// COMMIT TO LAUNCH
-		if(machine.rocket != null && machine.rocket.validate() && checkClick(x, y, 56, 20, 18, 17)) {
+		if(machine.rocket != null && machine.rocket.validate()
+				&& launcherContainer.isDriveAuthorizationClear()
+				&& checkClick(x, y, 56, 20, 18, 17)) {
 			mc.getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation("gui.button.press"), 1.0F));
 			NBTTagCompound data = new NBTTagCompound();
 			data.setBoolean("launch", true);

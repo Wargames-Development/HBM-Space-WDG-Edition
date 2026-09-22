@@ -1555,12 +1555,14 @@ public class ModEventHandler {
 
 	private void fallFromOrbitalStation(EntityPlayer player, OrbitalStation station) {
 		lastOrbitalStationByPlayer.remove(player.getUniqueID());
-		if(station == null || station.orbiting == null) return;
-		if(player.ridingEntity != null) player.mountEntity(null);
-		int range = Math.max(1, SpaceConfig.maxProbeDistance);
-		double targetX = (rand.nextDouble() * 2D - 1D) * range;
-		double targetZ = (rand.nextDouble() * 2D - 1D) * range;
-		CelestialTeleporter.teleport(player, station.orbiting.dimensionId, targetX, 800D, targetZ, false);
+		if(station == null || station.orbiting == null || !(player instanceof EntityPlayerMP)) return;
+		SolarSystemWorldSavedData stationData = SolarSystemWorldSavedData.get(player.worldObj);
+		if(stationData != null) {
+			stationData.returnPlayerToSurface(
+				(EntityPlayerMP)player,
+				station.orbiting,
+				"Returning you to the surface near your orbital launch point.");
+		}
 	}
 
 	@SubscribeEvent

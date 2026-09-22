@@ -103,6 +103,14 @@ public class EntityRideableRocket extends EntityMissileBaseNT implements ILookOv
 	private TileEntityOrbitalStation targetPort;
 
 	private Destination destinationOverride; // for pod recalls, will ignore the current drive if set
+	private boolean orbitalReturnArmed;
+	private int orbitalReturnX;
+	private int orbitalReturnZ;
+	private int orbitalReturnDimension;
+
+	// Runtime-only latch: holding jump while launch authorization is denied must
+	// not emit the same chat error every server tick. Reset when jump is released.
+	private boolean launchAuthorizationDeniedLatched;
 
 	public enum RocketState {
 		AWAITING,		// Prepped for launch, once mounted will transition to launching
@@ -178,7 +186,8 @@ public class EntityRideableRocket extends EntityMissileBaseNT implements ILookOv
 			if(stationReady && ItemVOTVdrive.isRaidStationDrive(navDrive)) {
 				stationReady = canRide() && stationData.activateRaidPort(navDrive, orbitWorld, launchFactionId);
 			} else if(stationReady && canRide()) {
-				stationReady = to != null && to.isValid && ItemVOTVdrive.validateOrbitLaunch(navDrive, worldObj);
+				stationReady = to != null && to.isValid
+					&& ItemVOTVdrive.validateOrbitLaunchLoaded(navDrive, worldObj, orbitWorld);
 			} else if(stationReady && getRocket().capsule.part == ModItems.rp_station_core_20) {
 				stationReady = stationData.activateNormalStation(
 					navDrive, from == null ? null : from.body, orbitWorld, launchFactionId);
@@ -189,10 +198,9 @@ public class EntityRideableRocket extends EntityMissileBaseNT implements ILookOv
 			if(!stationReady) {
 				EntityPlayer affected = riddenByEntity instanceof EntityPlayer ? (EntityPlayer)riddenByEntity : thrower instanceof EntityPlayer ? (EntityPlayer)thrower : null;
 				String failure = stationData != null && stationData.hasConflictingRaidPort(navDrive)
-					? "Another Raid Hard Drive already has an active raiding port for this station."
-					: "Orbital destination validation failed. The rocket has not entered the station dimension.";
-				if(affected != null) affected.addChatMessage(new net.minecraft.util.ChatComponentText(EnumChatFormatting.RED + failure));
-				setState(RocketState.AWAITING);
+					? "Another Breach authorization already owns the target outpost. Returning to the launch surface."
+					: "Orbital destination authorization became invalid. Returning to the launch surface.";
+				abortOrbitalLaunchToSurface(affected, failure);
 				return;
 			}
 		}
@@ -256,6 +264,61 @@ public class EntityRideableRocket extends EntityMissileBaseNT implements ILookOv
 		}
 	}
 
+	private void abortOrbitalLaunchToSurface(EntityPlayer affected, String reason) {
+		if(!orbitalReturnArmed || orbitalReturnDimension != worldObj.provider.dimensionId) {
+			orbitalReturnX = MathHelper.floor_double(posX);
+			orbitalReturnZ = MathHelper.floor_double(posZ);
+			orbitalReturnDimension = worldObj.provider.dimensionId;
+			orbitalReturnArmed = true;
+		}
+		setPosition(orbitalReturnX + 0.5D, posY, orbitalReturnZ + 0.5D);
+		motionX = 0D;
+		motionY = 0D;
+		motionZ = 0D;
+		rocketVelocity = 0D;
+		rotationPitch = 0F;
+		destinationOverride = new Destination(CelestialBody.getEnum(worldObj), orbitalReturnX, orbitalReturnZ);
+		setState(RocketState.LANDING);
+		if(affected != null && reason != null && !reason.isEmpty()) {
+			affected.addChatMessage(new net.minecraft.util.ChatComponentText(EnumChatFormatting.RED + reason));
+		}
+	}
+
+	/**
+	 * Arms this already-ridden craft for a safe forced return from orbit. The
+	 * normal CelestialTeleporter rider path will carry the same pod/rocket across
+	 * dimensions and the copied entity will continue in LANDING state.
+	 */
+	public void prepareForcedSurfaceLanding(int targetDimension, int targetX, int targetZ) {
+		CelestialBody body = CelestialBody.getBody(targetDimension);
+		if(body == null) body = CelestialBody.getBody(0);
+		if(body == null) return;
+
+		orbitalReturnArmed = true;
+		orbitalReturnX = targetX;
+		orbitalReturnZ = targetZ;
+		orbitalReturnDimension = targetDimension;
+		destinationOverride = new Destination(body.getEnum(), targetX, targetZ);
+		this.targetX = targetX;
+		this.targetZ = targetZ;
+		motionX = 0D;
+		motionY = 0D;
+		motionZ = 0D;
+		rocketVelocity = 0D;
+		rotationPitch = 0F;
+		setState(RocketState.LANDING);
+	}
+
+	private boolean isCurrentOrbitalAuthorizationValid() {
+		Destination destination = getDestination();
+		if(destination == null || destination.body != SolarSystem.Body.ORBIT) return true;
+		EntityPlayer actor = riddenByEntity instanceof EntityPlayer ? (EntityPlayer)riddenByEntity
+			: thrower instanceof EntityPlayer ? (EntityPlayer)thrower : null;
+		UUID actorId = actor != null ? actor.getUniqueID() : ownerParty;
+		return ItemVOTVdrive.canPlayerUseStationDriveForLaunch(navDrive, worldObj, actorId)
+			&& ItemVOTVdrive.validateOrbitLaunch(navDrive, worldObj);
+	}
+
 	public void beginCelestialTransfer(Target from, Target to) {
 		motionX = 0;
 		motionY = 0;
@@ -300,6 +363,19 @@ public class EntityRideableRocket extends EntityMissileBaseNT implements ILookOv
 		Target to = getTarget();
 		if(from == null || from.body == null || !isTargetUsable(to)) return;
 		Destination checkedDestination = getDestination();
+		EntityPlayer stationActor = riddenByEntity instanceof EntityPlayer ? (EntityPlayer)riddenByEntity : thrower instanceof EntityPlayer ? (EntityPlayer)thrower : null;
+		if(checkedDestination != null && checkedDestination.body == SolarSystem.Body.ORBIT
+				&& !ItemVOTVdrive.canPlayerUseStationDriveForLaunch(navDrive, worldObj,
+					stationActor != null ? stationActor.getUniqueID() : ownerParty)) {
+			if(!worldObj.isRemote && stationActor != null && !launchAuthorizationDeniedLatched) {
+				net.minecraft.util.ChatComponentText denial = new net.minecraft.util.ChatComponentText(
+					"Station/Breach Drive not authorized for your faction.");
+				denial.getChatStyle().setColor(EnumChatFormatting.RED);
+				stationActor.addChatMessage(denial);
+				launchAuthorizationDeniedLatched = true;
+			}
+			return;
+		}
 		if(checkedDestination != null && checkedDestination.body == SolarSystem.Body.ORBIT && !ItemVOTVdrive.validateOrbitLaunch(navDrive, worldObj)) {
 			if(!worldObj.isRemote) {
 				SolarSystemWorldSavedData stationData = SolarSystemWorldSavedData.get(worldObj);
@@ -319,6 +395,17 @@ public class EntityRideableRocket extends EntityMissileBaseNT implements ILookOv
 
 		// Will only launch if the rocket has sufficient fuel
 		if(getRocket().hasSufficientFuel(from.body, to.body, from.inOrbit, to.inOrbit)) {
+			if(transitionTo == RocketState.LAUNCHING && checkedDestination != null
+					&& checkedDestination.body == SolarSystem.Body.ORBIT) {
+				orbitalReturnArmed = true;
+				orbitalReturnX = MathHelper.floor_double(posX);
+				orbitalReturnZ = MathHelper.floor_double(posZ);
+				orbitalReturnDimension = worldObj.provider.dimensionId;
+				if(!worldObj.isRemote && stationActor != null) {
+					SolarSystemWorldSavedData.rememberPlayerOrbitalReturn(
+						stationActor, orbitalReturnDimension, orbitalReturnX, orbitalReturnZ);
+				}
+			}
 			setState(transitionTo);
 		}
 	}
@@ -373,6 +460,12 @@ public class EntityRideableRocket extends EntityMissileBaseNT implements ILookOv
 				thrower = rider;
 			}
 
+			// Release the denial latch once the rider releases jump so a later,
+			// intentional launch attempt can report the authorization failure once.
+			if(rider == null || !rider.isJumping || state != RocketState.AWAITING) {
+				launchAuthorizationDeniedLatched = false;
+			}
+
 			// If it's a satellite launcher, launch immediately
 			if(state == RocketState.AWAITING && ((rider != null && rider.isJumping) || !canRide())) {
 				attemptLaunch();
@@ -385,6 +478,11 @@ public class EntityRideableRocket extends EntityMissileBaseNT implements ILookOv
 			}
 
 			if(state == RocketState.LAUNCHING) {
+				if(stateTimer % 10 == 0 && !isCurrentOrbitalAuthorizationValid()) {
+					abortOrbitalLaunchToSurface(rider,
+						"Orbital destination authorization was lost during ascent. Returning safely to the surface.");
+					return;
+				}
 				if(isReusable()) {
 					rotationPitch = MathHelper.clamp_float((stateTimer - 60) * 0.3F, 0.0F, 45.0F);
 					if(rocketVelocity < 4) rocketVelocity += MathHelper.clamp_double(stateTimer / 120D * 0.05D, 0, 0.05);
@@ -951,6 +1049,10 @@ public class EntityRideableRocket extends EntityMissileBaseNT implements ILookOv
 		} else {
 			destinationOverride = null;
 		}
+		orbitalReturnArmed = nbt.getBoolean("orbitalReturnArmed");
+		orbitalReturnX = nbt.getInteger("orbitalReturnX");
+		orbitalReturnZ = nbt.getInteger("orbitalReturnZ");
+		orbitalReturnDimension = nbt.getInteger("orbitalReturnDimension");
 	}
 
 	@Override
@@ -987,6 +1089,10 @@ public class EntityRideableRocket extends EntityMissileBaseNT implements ILookOv
 			nbt.setInteger("overrideX", destinationOverride.x);
 			nbt.setInteger("overrideZ", destinationOverride.z);
 		}
+		nbt.setBoolean("orbitalReturnArmed", orbitalReturnArmed);
+		nbt.setInteger("orbitalReturnX", orbitalReturnX);
+		nbt.setInteger("orbitalReturnZ", orbitalReturnZ);
+		nbt.setInteger("orbitalReturnDimension", orbitalReturnDimension);
 	}
 
 	private void applySatData(ItemStack stack) {

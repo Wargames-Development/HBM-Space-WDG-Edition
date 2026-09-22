@@ -32,7 +32,7 @@ public class CommandNTM extends CommandBase {
 
 	@Override
 	public String getCommandUsage(ICommandSender sender) {
-		return "/ntm station <create|list|raid|delete> [station name]";
+		return "/ntm station <list|delete> [station name]";
 	}
 
 	@Override
@@ -54,6 +54,10 @@ public class CommandNTM extends CommandBase {
 		}
 
 		String operation = args[1].toLowerCase(Locale.ROOT);
+		if("create".equals(operation) || "raid".equals(operation)) {
+			error(sender, "Station and Breach drives are programmed with the Station Drive Terminal.");
+			return;
+		}
 		if("list".equals(operation)) {
 			listStations(sender, data);
 			return;
@@ -69,11 +73,7 @@ public class CommandNTM extends CommandBase {
 			return;
 		}
 
-		if("create".equals(operation)) {
-			createStation(sender, data, world, name);
-		} else if("raid".equals(operation)) {
-			programRaidDrive(sender, data, name);
-		} else if("delete".equals(operation)) {
+		if("delete".equals(operation)) {
 			deleteStation(sender, data, name);
 		} else {
 			throw new WrongUsageException(getCommandUsage(sender), new Object[0]);

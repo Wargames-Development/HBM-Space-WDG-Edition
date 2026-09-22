@@ -1245,6 +1245,19 @@ public class AssemblyMachineRecipes extends GenericRecipes<GenericRecipe> {
 						new ComparableStack(ModItems.item_expensive, 4, EnumExpensiveType.CIRCUIT))
 				.setPools528(GenericRecipes.POOL_PREFIX_528 + "aluminium"));
 
+		this.register(new GenericRecipe("ass.stationdriveterminal").setup(600, 120).outputItems(new ItemStack(ModBlocks.machine_station_drive_terminal, 1))
+				.inputItems(
+						new ComparableStack(ModBlocks.machine_drive_processor),
+						new ComparableStack(ModBlocks.machine_stardar),
+						new ComparableStack(ModItems.crt_display, 1),
+						new ComparableStack(ModItems.circuit, 2, EnumCircuitType.BASIC))
+				.inputItemsEx(
+						new ComparableStack(ModBlocks.machine_drive_processor),
+						new ComparableStack(ModBlocks.machine_stardar),
+						new ComparableStack(ModItems.crt_display, 1),
+						new ComparableStack(ModItems.item_expensive, 2, EnumExpensiveType.CIRCUIT))
+				.setPools528(GenericRecipes.POOL_PREFIX_528 + "aluminium"));
+
 		this.register(new GenericRecipe("ass.driveprocessor").setup(400, 100).outputItems(new ItemStack(ModBlocks.machine_drive_processor, 1))
 				.inputItems(
 						new OreDictStack(ANY_RUBBER.ingot(), 2),

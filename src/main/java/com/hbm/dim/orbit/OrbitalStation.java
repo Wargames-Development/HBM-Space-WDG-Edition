@@ -52,6 +52,10 @@ public class OrbitalStation {
 	public boolean reservedForLaunch = false;
 	public boolean deleting = false;
 
+	/** Persistent station-drive authority. WGCore stations bind to a faction UUID; standalone stations bind to a player UUID. */
+	public String driveOwnerId = "";
+	public boolean driveOwnerIsFaction = false;
+
 	/** Required-computer state. The countdown uses server-running ticks. */
 	public boolean computerRequired = false;
 	public boolean hasComputer = false;

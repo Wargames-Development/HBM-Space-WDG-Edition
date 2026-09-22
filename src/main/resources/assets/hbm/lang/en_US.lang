@@ -3237,7 +3237,7 @@ item.hand_drill.name=Hand Drill
 item.hand_drill_desh.name=Desh Hand Drill
 item.hard_drive.name=Empty Hard Drive
 item.hard_drive_full.name=Hard Drive
-item.hard_drive_raid.name=Raid Hard Drive
+item.hard_drive_raid.name=Breach Hard Drive
 item.hard_drive_corrupted.name=Corrupted Hard Drive
 item.hard_drive_full.orbit.desc=Can be used on a block to recall$a drop pod from an orbiting station.
 item.hard_drive_full.surface.desc=Can be used on a block to modify$the selected landing coordinates.
@@ -7261,3 +7261,6 @@ desc.gui.upgrade.effectiveness= * §aEffectiveness§r: Stacks to level 3
 desc.gui.upgrade.overdrive= * §7Overdrive§r: Stacks to level 3
 desc.gui.upgrade.power= * §1Power-Saving§r: Stacks to level 3
 desc.gui.upgrade.speed= * §4Speed§r: Stacks to level 3
+
+tile.machine_station_drive_terminal.name=Station Drive Terminal
+container.stationDriveTerminal=Station Drive Terminal

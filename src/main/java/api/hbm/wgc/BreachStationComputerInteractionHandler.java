@@ -10,6 +10,7 @@ import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.ChatStyle;
 import net.minecraft.world.ChunkPosition;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -74,10 +75,8 @@ public final class BreachStationComputerInteractionHandler {
         if (!isLockedTrackedStationComputer(event.world, event.x, event.y, event.z)) return;
 
         event.setCanceled(true);
-        event.getPlayer().addChatMessage(new ChatComponentText(
-            EnumChatFormatting.RED
-                + "The registered Orbital Station Computer is locked while this station is engaged in a Breach."
-        ));
+        sendWarMessage(event.getPlayer(),
+            "The registered Orbital Station Computer is locked while this station is engaged in a Breach.");
     }
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
@@ -95,6 +94,16 @@ public final class BreachStationComputerInteractionHandler {
                 iterator.remove();
             }
         }
+    }
+
+    private void sendWarMessage(net.minecraft.entity.player.EntityPlayer player, String message) {
+        if (player == null || message == null || message.isEmpty()) return;
+        ChatComponentText prefix = new ChatComponentText("[WG War] ");
+        prefix.setChatStyle(new ChatStyle().setColor(EnumChatFormatting.RED));
+        ChatComponentText body = new ChatComponentText(message);
+        body.setChatStyle(new ChatStyle().setColor(EnumChatFormatting.GRAY));
+        prefix.appendSibling(body);
+        player.addChatMessage(prefix);
     }
 
     static boolean isLockedTrackedStationComputer(net.minecraft.world.World world, int x, int y, int z) {

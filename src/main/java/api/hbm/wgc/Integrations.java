@@ -207,6 +207,92 @@ public final class Integrations {
         return backend().getPlayerFaction(world, player);
     }
 
+    public static boolean isWGCoreActive() {
+        return backend() instanceof WGCoreIntegrationBackend;
+    }
+
+    /** Optional station-terminal helpers are invoked reflectively so HBM remains compile-compatible with its API shim. */
+    public static String getFactionNameWGC(World world, UUID factionId) {
+        Object value = invokeWGCoreOptional("getFactionName", new Class<?>[] { World.class, UUID.class }, new Object[] { world, factionId });
+        return value instanceof String ? (String)value : null;
+    }
+
+    public static String getReadyBreachTargetStationKeyWGC(World world, UUID playerId) {
+        Object value = invokeWGCoreOptional("getReadyBreachTargetStationKey", new Class<?>[] { World.class, UUID.class }, new Object[] { world, playerId });
+        return value instanceof String ? (String)value : null;
+    }
+
+    public static int getReadyBreachTargetStationGenerationWGC(World world, UUID playerId) {
+        Object value = invokeWGCoreOptional("getReadyBreachTargetStationGeneration", new Class<?>[] { World.class, UUID.class }, new Object[] { world, playerId });
+        return value instanceof Integer ? ((Integer)value).intValue() : -1;
+    }
+
+    public static String getBreachDriveTargetStationKeyWGC(World world, UUID playerId) {
+        Object value = invokeWGCoreOptional("getBreachDriveTargetStationKey",
+            new Class<?>[] { World.class, UUID.class }, new Object[] { world, playerId });
+        return value instanceof String ? (String)value : null;
+    }
+
+    public static int getBreachDriveTargetStationGenerationWGC(World world, UUID playerId) {
+        Object value = invokeWGCoreOptional("getBreachDriveTargetStationGeneration",
+            new Class<?>[] { World.class, UUID.class }, new Object[] { world, playerId });
+        return value instanceof Integer ? ((Integer)value).intValue() : -1;
+    }
+
+    public static long getBreachDriveAccessRemainingMillisWGC(World world, UUID attackerFactionId,
+                                                               String stationKey, int stationGeneration) {
+        Object value = invokeWGCoreOptional("getBreachDriveAccessRemainingMillis",
+            new Class<?>[] { World.class, UUID.class, String.class, Integer.TYPE },
+            new Object[] { world, attackerFactionId, stationKey, Integer.valueOf(stationGeneration) });
+        return value instanceof Number ? Math.max(0L, ((Number)value).longValue()) : 0L;
+    }
+
+    public static UUID getOrbitalStationOwnerWGC(World world, String stationKey, int stationGeneration) {
+        Object value = invokeWGCoreOptional("getOrbitalStationOwner",
+            new Class<?>[] { World.class, String.class, Integer.TYPE },
+            new Object[] { world, stationKey, Integer.valueOf(stationGeneration) });
+        return value instanceof UUID ? (UUID)value : null;
+    }
+
+    public static long getOrbitalStationCrashDurationMillisWGC(World world) {
+        Object value = invokeWGCoreOptional("getOrbitalStationCrashDurationMillis",
+            new Class<?>[] { World.class }, new Object[] { world });
+        return value instanceof Number ? Math.max(0L, ((Number)value).longValue()) : -1L;
+    }
+
+    public static int getOrbitalReturnRadiusBlocksWGC(World world) {
+        Object value = invokeWGCoreOptional("getOrbitalReturnRadiusBlocks",
+            new Class<?>[] { World.class }, new Object[] { world });
+        return value instanceof Number ? Math.max(16, ((Number)value).intValue()) : -1;
+    }
+
+    public static boolean isSafeOrbitalReturnLocationWGC(World world, UUID playerId, int blockX, int blockZ) {
+        Object value = invokeWGCoreOptional("isSafeOrbitalReturnLocation",
+            new Class<?>[] { World.class, UUID.class, Integer.TYPE, Integer.TYPE },
+            new Object[] { world, playerId, Integer.valueOf(blockX), Integer.valueOf(blockZ) });
+        return value instanceof Boolean && ((Boolean)value).booleanValue();
+    }
+
+    public static boolean notifyPlayerWGC(World world, UUID playerId, String message) {
+        Object value = invokeWGCoreOptional("notifyIntegrationPlayer",
+            new Class<?>[] { World.class, UUID.class, String.class },
+            new Object[] { world, playerId, message });
+        return value instanceof Boolean && ((Boolean)value).booleanValue();
+    }
+
+    private static Object invokeWGCoreOptional(String methodName, Class<?>[] parameterTypes, Object[] args) {
+        if(!isWGCoreActive()) return null;
+        try {
+            Class<?> access = Class.forName(WGCORE_API_CLASS, true, Integrations.class.getClassLoader());
+            Method method = access.getMethod(methodName, parameterTypes);
+            return method.invoke(null, args);
+        } catch(Exception error) {
+            throw incompatibleWGCore(error);
+        } catch(LinkageError error) {
+            throw incompatibleWGCore(error);
+        }
+    }
+
     public static boolean registerOrbitalStationWGC(World world,
                                                      String stationKey,
                                                      int stationGeneration,
@@ -486,6 +572,13 @@ final class WGCoreIntegrationBackend implements IntegrationBackend {
             requireMethod("canPlaceClaimLockedBlock", UUID.class, World.class, Integer.TYPE, Integer.TYPE);
             requireMethod("getChunkOwner", World.class, Integer.TYPE, Integer.TYPE);
             requireMethod("getPlayerFaction", World.class, UUID.class);
+            requireMethod("getFactionName", World.class, UUID.class);
+            requireMethod("getReadyBreachTargetStationKey", World.class, UUID.class);
+            requireMethod("getReadyBreachTargetStationGeneration", World.class, UUID.class);
+            requireMethod("getBreachDriveTargetStationKey", World.class, UUID.class);
+            requireMethod("getBreachDriveTargetStationGeneration", World.class, UUID.class);
+            requireMethod("getBreachDriveAccessRemainingMillis", World.class, UUID.class, String.class, Integer.TYPE);
+            requireMethod("getOrbitalStationOwner", World.class, String.class, Integer.TYPE);
             requireMethod("registerOrbitalStation", World.class, String.class, Integer.TYPE, UUID.class,
                 Integer.TYPE, Integer.TYPE, Integer.TYPE);
             requireMethod("unregisterOrbitalStation", World.class, String.class, Integer.TYPE);

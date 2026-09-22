@@ -268,6 +268,12 @@ public class TileEntityLaunchPadRocket extends TileEntityMachineBase implements 
 
 	public void launch(EntityPlayer player) {
 		if(!canLaunch()) return;
+		if(!ItemVOTVdrive.canPlayerUseStationDriveForLaunch(slots[1], worldObj,
+				player != null ? player.getUniqueID() : null)) {
+			if(player != null) player.addChatMessage(new net.minecraft.util.ChatComponentText(net.minecraft.util.EnumChatFormatting.RED
+				+ "That Station/Breach Drive is not authorized for your WGCore faction."));
+			return;
+		}
 
 		EntityRideableRocket rocket = new EntityRideableRocket(worldObj, xCoord + 0.5F, yCoord + 3.0F, zCoord + 0.5F, slots[0],player.getUniqueID()).withProgram(slots[1]).launchedBy(player);
 		worldObj.spawnEntityInWorld(rocket);

@@ -52,6 +52,13 @@ public class GUIOrbitalStationLauncher extends GuiInfoContainerLayered {
 		Minecraft.getMinecraft().getTextureManager().bindTexture(texture);
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
 
+		if(machine.hasLaunchAuthorizationIssue()) {
+			// Player-facing invalid destination state: keep the drive in its proper slot,
+			// but visibly mark that slot and never present the launch action as valid.
+			drawRect(guiLeft + 41, guiTop + 54, guiLeft + 59, guiTop + 72, 0xAA5A0000);
+			fontRendererObj.drawString("!", guiLeft + 48, guiTop + 59, 0xFFFF00);
+		}
+
 		int stage = Math.max(machine.rocket.stages.size() - 1 - getLayer(), -1);
 
 		drawTexturedModalRect(guiLeft + 47, guiTop + 39, xSize + 18 + (stage + 1) * 6, 0, 6, 8);
@@ -169,7 +176,7 @@ public class GUIOrbitalStationLauncher extends GuiInfoContainerLayered {
 		}
 
 		// COMMIT TO LAUNCH
-		if(machine.rocket.validate() && checkClick(x, y, 41, 12, 18, 17)) {
+		if(machine.rocket.validate() && !machine.hasLaunchAuthorizationIssue() && checkClick(x, y, 41, 12, 18, 17)) {
 			mc.getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation("gui.button.press"), 1.0F));
 			NBTTagCompound data = new NBTTagCompound();
 			data.setBoolean("launch", true);

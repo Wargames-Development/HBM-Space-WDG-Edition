@@ -1,7 +1,9 @@
 package com.hbm.items;
 
 import java.util.List;
+import java.util.UUID;
 
+import api.hbm.wgc.Integrations;
 import com.hbm.config.SpaceConfig;
 import com.hbm.dim.CelestialBody;
 import com.hbm.dim.SolarSystem;
@@ -221,6 +223,72 @@ public class ItemVOTVdrive extends ItemEnumMulti {
 	 * soon as deletion is queued, but it is converted only after the station's
 	 * persisted generation proves that authoritative deletion has completed.
 	 */
+	/**
+	 * Player-specific preflight for normal orbital station drives. With WGCore active,
+	 * possession of a copied/stolen drive is not authority to enter another faction's station.
+	 */
+	public static boolean canPlayerUseStationDriveForLaunch(ItemStack stack, World world, UUID playerId) {
+		if(isRaidStationDrive(stack)) {
+			if(world == null || world.isRemote) return true;
+			SolarSystemWorldSavedData data = SolarSystemWorldSavedData.get(world);
+			return data != null && data.canPlayerUseRaidDrive(stack, world, playerId);
+		}
+		return !isNormalStationDrive(stack) || canPlayerUseNormalStationDrive(stack, world, playerId);
+	}
+
+	/**
+	 * Short player-facing reason for a launcher authorization failure. This is
+	 * advisory UI only; canPlayerUseStationDriveForLaunch remains authoritative.
+	 */
+	public static String getLaunchAuthorizationIssue(ItemStack stack, World world, UUID playerId) {
+		if(!isUsableDrive(stack) || world == null || world.isRemote || !Integrations.isWGCoreActive()) return null;
+		if(playerId == null) return "NO FACTION";
+		UUID factionId = Integrations.getPlayerFaction(world, playerId);
+		if(factionId == null) return "NO FACTION";
+
+		if(isRaidStationDrive(stack)) {
+			if(stack.hasTagCompound()) {
+				String owner = stack.stackTagCompound.getString(ItemRaidDrive.TAG_OWNER_FACTION);
+				if(owner != null && !owner.isEmpty() && !factionId.toString().equals(owner)) {
+					return "BREACH ACCESS DENIED";
+				}
+				String key = stack.stackTagCompound.getString(TAG_STATION_KEY);
+				int generation = stack.stackTagCompound.getInteger(TAG_STATION_GENERATION);
+				if(key == null || key.isEmpty()
+						|| Integrations.getBreachDriveAccessRemainingMillisWGC(world, factionId, key, generation) <= 0L) {
+					return "BREACH EXPIRED";
+				}
+			}
+			return canPlayerUseStationDriveForLaunch(stack, world, playerId) ? null : "BREACH ACCESS DENIED";
+		}
+
+		return canPlayerUseNormalStationDrive(stack, world, playerId) ? null : "STATION ACCESS DENIED";
+	}
+
+	public static boolean canPlayerUseNormalStationDrive(ItemStack stack, World world, UUID playerId) {
+		if(!isNormalStationDrive(stack)) return true;
+		if(world == null || world.isRemote) return true;
+		if(!Integrations.isWGCoreActive()) return true;
+		if(playerId == null) return false;
+		UUID factionId = Integrations.getPlayerFaction(world, playerId);
+		if(factionId == null) return false;
+		Destination destination = getDestinationUnchecked(stack);
+		if(destination == null || destination.body != SolarSystem.Body.ORBIT) return false;
+		SolarSystemWorldSavedData data = SolarSystemWorldSavedData.get(world);
+		if(data == null) return false;
+		OrbitalStation station = data.getStationAtGrid(destination.x, destination.z);
+		if(station == null || station.deleting || !data.matchesDriveIdentity(station, stack, false)) return false;
+		if(station.driveOwnerId == null || station.driveOwnerId.isEmpty()) {
+			UUID registeredOwner = Integrations.getOrbitalStationOwnerWGC(world, station.stationKey, station.generation);
+			if(registeredOwner != null) {
+				station.driveOwnerId = registeredOwner.toString();
+				station.driveOwnerIsFaction = true;
+				data.markDirty();
+			}
+		}
+		return station.driveOwnerIsFaction && factionId.toString().equals(station.driveOwnerId);
+	}
+
 	public static boolean validateNormalStationDrive(ItemStack stack, World world) {
 		if(!isNormalStationDrive(stack)) return false;
 		if(world == null || world.isRemote) return true;
@@ -315,6 +383,11 @@ public class ItemVOTVdrive extends ItemEnumMulti {
 		return new Target(destination.body.getBody(), false, true);
 	}
 
+	/**
+	 * Frequent GUI/held-key validation must not force-load the orbital dimension.
+	 * When orbit is already loaded we still perform the physical check; otherwise
+	 * saved station/authorization state is enough until the actual transfer step.
+	 */
 	public static boolean validateOrbitLaunch(ItemStack stack, World world) {
 		if(isNormalStationDrive(stack) && world != null && !world.isRemote && !validateNormalStationDrive(stack, world)) return false;
 		Destination destination = getDestinationUnchecked(stack);
@@ -323,14 +396,23 @@ public class ItemVOTVdrive extends ItemEnumMulti {
 		if(data == null) return false;
 		OrbitalStation station = data.getStationAtGrid(destination.x, destination.z);
 		if(station == null || station.deleting || !data.matchesDriveIdentity(station, stack, isRaidStationDrive(stack))) return false;
+
 		net.minecraft.world.WorldServer orbit = net.minecraftforge.common.DimensionManager.getWorld(SpaceConfig.orbitDimension);
-		if(orbit == null) {
-			net.minecraftforge.common.DimensionManager.initDimension(SpaceConfig.orbitDimension);
-			orbit = net.minecraftforge.common.DimensionManager.getWorld(SpaceConfig.orbitDimension);
-		}
-		if(orbit == null) return false;
-		if(isRaidStationDrive(stack)) return data.canLaunchRaidDrive(stack, orbit);
-		return data.canLaunchNormalDrive(stack, orbit);
+		if(orbit != null) return validateOrbitLaunchLoaded(stack, world, orbit);
+		return isRaidStationDrive(stack) ? data.canLaunchRaidDriveSaved(stack) : data.canLaunchNormalDriveSaved(stack);
+	}
+
+	/** Full physical validation for the actual orbital transition after orbit has been loaded once. */
+	public static boolean validateOrbitLaunchLoaded(ItemStack stack, World world, net.minecraft.world.WorldServer orbit) {
+		if(stack == null || world == null || world.isRemote || orbit == null) return false;
+		if(isNormalStationDrive(stack) && !validateNormalStationDrive(stack, world)) return false;
+		Destination destination = getDestinationUnchecked(stack);
+		if(destination == null || destination.body != SolarSystem.Body.ORBIT) return false;
+		SolarSystemWorldSavedData data = SolarSystemWorldSavedData.get(world);
+		if(data == null) return false;
+		OrbitalStation station = data.getStationAtGrid(destination.x, destination.z);
+		if(station == null || station.deleting || !data.matchesDriveIdentity(station, stack, isRaidStationDrive(stack))) return false;
+		return isRaidStationDrive(stack) ? data.canLaunchRaidDrive(stack, orbit) : data.canLaunchNormalDrive(stack, orbit);
 	}
 
 	public static int getOrbitArrivalX(ItemStack stack, World world) {
