@@ -14,6 +14,7 @@ import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -39,11 +40,19 @@ public final class Integrations {
     private static final String WGCORE_MOD_ID = "wgcore";
     private static final String WGCORE_API_CLASS = "com.wdg.wgcore.integration.api.WGCoreIntegrationAccess";
     private static final String WGCORE_BACKEND_CLASS = "api.hbm.wgc.WGCoreIntegrationBackend";
+    private static boolean breachInteractionHandlerRegistered;
 
     private Integrations() { }
 
     private static IntegrationBackend backend() {
+        ensureBreachInteractionHandlerRegistered();
         return BackendHolder.INSTANCE;
+    }
+
+    private static synchronized void ensureBreachInteractionHandlerRegistered() {
+        if (breachInteractionHandlerRegistered) return;
+        MinecraftForge.EVENT_BUS.register(BreachStationComputerInteractionHandler.INSTANCE);
+        breachInteractionHandlerRegistered = true;
     }
 
     private static final class BackendHolder {
@@ -99,7 +108,7 @@ public final class Integrations {
         }
     }
 
-    private static IllegalStateException incompatibleWGCore(Throwable cause) {
+    static IllegalStateException incompatibleWGCore(Throwable cause) {
         String message = "HBM Space WDG detected WGCore, but its integration API is incompatible. "
             + "Install the WGCore build required by this HBM release, or remove WGCore to run "
             + "HBM without WDG claim protection.";
@@ -197,6 +206,186 @@ public final class Integrations {
         return backend().getPlayerFaction(world, player);
     }
 
+    public static boolean isWGCoreActive() {
+        return backend() instanceof WGCoreIntegrationBackend;
+    }
+
+    /** Optional station-terminal helpers are invoked reflectively so HBM remains compile-compatible with its API shim. */
+    public static String getFactionNameWGC(World world, UUID factionId) {
+        Object value = invokeWGCoreOptional("getFactionName", new Class<?>[] { World.class, UUID.class }, new Object[] { world, factionId });
+        return value instanceof String ? (String)value : null;
+    }
+
+    public static String getReadyBreachTargetStationKeyWGC(World world, UUID playerId) {
+        Object value = invokeWGCoreOptional("getReadyBreachTargetStationKey", new Class<?>[] { World.class, UUID.class }, new Object[] { world, playerId });
+        return value instanceof String ? (String)value : null;
+    }
+
+    public static int getReadyBreachTargetStationGenerationWGC(World world, UUID playerId) {
+        Object value = invokeWGCoreOptional("getReadyBreachTargetStationGeneration", new Class<?>[] { World.class, UUID.class }, new Object[] { world, playerId });
+        return value instanceof Integer ? ((Integer)value).intValue() : -1;
+    }
+
+    public static String getBreachDriveTargetStationKeyWGC(World world, UUID playerId) {
+        Object value = invokeWGCoreOptional("getBreachDriveTargetStationKey",
+            new Class<?>[] { World.class, UUID.class }, new Object[] { world, playerId });
+        return value instanceof String ? (String)value : null;
+    }
+
+    public static int getBreachDriveTargetStationGenerationWGC(World world, UUID playerId) {
+        Object value = invokeWGCoreOptional("getBreachDriveTargetStationGeneration",
+            new Class<?>[] { World.class, UUID.class }, new Object[] { world, playerId });
+        return value instanceof Integer ? ((Integer)value).intValue() : -1;
+    }
+
+    public static long getBreachDriveAccessRemainingMillisWGC(World world, UUID attackerFactionId,
+                                                               String stationKey, int stationGeneration) {
+        Object value = invokeWGCoreOptional("getBreachDriveAccessRemainingMillis",
+            new Class<?>[] { World.class, UUID.class, String.class, Integer.TYPE },
+            new Object[] { world, attackerFactionId, stationKey, Integer.valueOf(stationGeneration) });
+        return value instanceof Number ? Math.max(0L, ((Number)value).longValue()) : 0L;
+    }
+
+    public static UUID getOrbitalStationOwnerWGC(World world, String stationKey, int stationGeneration) {
+        Object value = invokeWGCoreOptional("getOrbitalStationOwner",
+            new Class<?>[] { World.class, String.class, Integer.TYPE },
+            new Object[] { world, stationKey, Integer.valueOf(stationGeneration) });
+        return value instanceof UUID ? (UUID)value : null;
+    }
+
+    public static UUID getBreachAttackerFactionWGC(World world, String stationKey, int stationGeneration) {
+        Object value = invokeWGCoreOptional("getBreachAttackerFaction",
+            new Class<?>[] { World.class, String.class, Integer.TYPE },
+            new Object[] { world, stationKey, Integer.valueOf(stationGeneration) });
+        return value instanceof UUID ? (UUID)value : null;
+    }
+
+    public static UUID getBreachDefenderFactionWGC(World world, String stationKey, int stationGeneration) {
+        Object value = invokeWGCoreOptional("getBreachDefenderFaction",
+            new Class<?>[] { World.class, String.class, Integer.TYPE },
+            new Object[] { world, stationKey, Integer.valueOf(stationGeneration) });
+        return value instanceof UUID ? (UUID)value : null;
+    }
+
+    public static boolean isInsideOrbitalStationTerritoryWGC(World world, String stationKey, int stationGeneration,
+                                                              int blockX, int blockZ) {
+        Object value = invokeWGCoreOptional("isInsideOrbitalStationTerritory",
+            new Class<?>[] { World.class, String.class, Integer.TYPE, Integer.TYPE, Integer.TYPE },
+            new Object[] { world, stationKey, Integer.valueOf(stationGeneration),
+                Integer.valueOf(blockX), Integer.valueOf(blockZ) });
+        return value instanceof Boolean && ((Boolean)value).booleanValue();
+    }
+
+    public static long getOrbitalStationCrashDurationMillisWGC(World world) {
+        Object value = invokeWGCoreOptional("getOrbitalStationCrashDurationMillis",
+            new Class<?>[] { World.class }, new Object[] { world });
+        return value instanceof Number ? Math.max(0L, ((Number)value).longValue()) : -1L;
+    }
+
+    public static int getOrbitalReturnRadiusBlocksWGC(World world) {
+        Object value = invokeWGCoreOptional("getOrbitalReturnRadiusBlocks",
+            new Class<?>[] { World.class }, new Object[] { world });
+        return value instanceof Number ? Math.max(16, ((Number)value).intValue()) : -1;
+    }
+
+    public static boolean isSafeOrbitalReturnLocationWGC(World world, UUID playerId, int blockX, int blockZ) {
+        Object value = invokeWGCoreOptional("isSafeOrbitalReturnLocation",
+            new Class<?>[] { World.class, UUID.class, Integer.TYPE, Integer.TYPE },
+            new Object[] { world, playerId, Integer.valueOf(blockX), Integer.valueOf(blockZ) });
+        return value instanceof Boolean && ((Boolean)value).booleanValue();
+    }
+
+    public static boolean notifyPlayerWGC(World world, UUID playerId, String message) {
+        Object value = invokeWGCoreOptional("notifyIntegrationPlayer",
+            new Class<?>[] { World.class, UUID.class, String.class },
+            new Object[] { world, playerId, message });
+        return value instanceof Boolean && ((Boolean)value).booleanValue();
+    }
+
+    private static Object invokeWGCoreOptional(String methodName, Class<?>[] parameterTypes, Object[] args) {
+        if(!isWGCoreActive()) return null;
+        try {
+            Class<?> access = Class.forName(WGCORE_API_CLASS, true, Integrations.class.getClassLoader());
+            Method method = access.getMethod(methodName, parameterTypes);
+            return method.invoke(null, args);
+        } catch(Exception error) {
+            throw incompatibleWGCore(error);
+        } catch(LinkageError error) {
+            throw incompatibleWGCore(error);
+        }
+    }
+
+    public static boolean registerOrbitalStationWGC(World world,
+                                                     String stationKey,
+                                                     int stationGeneration,
+                                                     UUID ownerFactionId,
+                                                     int orbitDimensionId,
+                                                     int cellX,
+                                                     int cellZ) {
+        return backend().registerOrbitalStation(
+            world, stationKey, stationGeneration, ownerFactionId, orbitDimensionId, cellX, cellZ);
+    }
+
+    public static boolean unregisterOrbitalStationWGC(World world, String stationKey, int stationGeneration) {
+        return backend().unregisterOrbitalStation(world, stationKey, stationGeneration);
+    }
+
+    public static boolean registerBreachOutpostWGC(World world,
+                                                   String outpostKey,
+                                                   String targetStationKey,
+                                                   int targetStationGeneration,
+                                                   UUID attackerFactionId,
+                                                   int orbitDimensionId,
+                                                   int coreChunkX,
+                                                   int coreChunkZ) {
+        return backend().registerBreachOutpost(
+            world, outpostKey, targetStationKey, targetStationGeneration,
+            attackerFactionId, orbitDimensionId, coreChunkX, coreChunkZ);
+    }
+
+    public static boolean unregisterBreachOutpostWGC(World world, String outpostKey) {
+        return backend().unregisterBreachOutpost(world, outpostKey);
+    }
+
+    public static boolean beginBreachHackWGC(World world, UUID playerId, String stationKey, int stationGeneration,
+                                              int blockX, int blockY, int blockZ) {
+        return backend().beginBreachHack(world, playerId, stationKey, stationGeneration, blockX, blockY, blockZ);
+    }
+
+    public static String getBreachPhaseWGC(World world, String stationKey, int stationGeneration) {
+        return backend().getBreachPhase(world, stationKey, stationGeneration);
+    }
+
+    public static long getBreachHackRemainingMillisWGC(World world, String stationKey, int stationGeneration) {
+        return backend().getBreachHackRemainingMillis(world, stationKey, stationGeneration);
+    }
+
+    /**
+     * The tracked Orbital Station Computer is an authoritative Breach objective.
+     * Keep it fixed in place from preparation through successful settlement so a
+     * defender cannot remove or relocate the objective after committing to the Breach.
+     */
+    public static boolean isBreachStationComputerLockedWGC(World world, String stationKey, int stationGeneration) {
+        String phase = getBreachPhaseWGC(world, stationKey, stationGeneration);
+        return "PREPARATION".equals(phase)
+            || "ACTIVE".equals(phase)
+            || "VICTORY_LOCKED".equals(phase)
+            || "VICTORY_EVACUATION".equals(phase)
+            || "VICTORY_SETTLEMENT_READY".equals(phase);
+    }
+
+    public static boolean isBreachSettlementReadyWGC(World world, String stationKey, int stationGeneration) {
+        return backend().isBreachSettlementReady(world, stationKey, stationGeneration);
+    }
+
+    public static boolean completeBreachSettlementWGC(World world, String stationKey, int stationGeneration) {
+        return backend().completeBreachSettlement(world, stationKey, stationGeneration);
+    }
+
+    public static boolean isBreachSettlementCompleteWGC(World world, String stationKey, int stationGeneration) {
+        return backend().isBreachSettlementComplete(world, stationKey, stationGeneration);
+    }
+
     public static boolean isProtected(int blockX, int blockZ, Set<ChunkCoordIntPair> protectedChunks) {
         if (protectedChunks == null || protectedChunks.isEmpty()) {
             return false;
@@ -227,6 +416,19 @@ interface IntegrationBackend {
     boolean canPlaceClaimLockedBlock(UUID party, World world, int x, int y, int z);
     UUID getChunkOwner(World world, ChunkCoordIntPair chunkCoords);
     UUID getPlayerFaction(World world, UUID player);
+    boolean registerOrbitalStation(World world, String stationKey, int stationGeneration, UUID ownerFactionId,
+                                   int orbitDimensionId, int cellX, int cellZ);
+    boolean unregisterOrbitalStation(World world, String stationKey, int stationGeneration);
+    boolean registerBreachOutpost(World world, String outpostKey, String targetStationKey, int targetStationGeneration,
+                                  UUID attackerFactionId, int orbitDimensionId, int coreChunkX, int coreChunkZ);
+    boolean unregisterBreachOutpost(World world, String outpostKey);
+    boolean beginBreachHack(World world, UUID playerId, String stationKey, int stationGeneration,
+                            int blockX, int blockY, int blockZ);
+    String getBreachPhase(World world, String stationKey, int stationGeneration);
+    long getBreachHackRemainingMillis(World world, String stationKey, int stationGeneration);
+    boolean isBreachSettlementReady(World world, String stationKey, int stationGeneration);
+    boolean completeBreachSettlement(World world, String stationKey, int stationGeneration);
+    boolean isBreachSettlementComplete(World world, String stationKey, int stationGeneration);
 }
 
 final class NoOpIntegrationBackend implements IntegrationBackend {
@@ -317,6 +519,50 @@ final class NoOpIntegrationBackend implements IntegrationBackend {
     public UUID getPlayerFaction(World world, UUID player) {
         return null;
     }
+
+    public boolean registerOrbitalStation(World world, String stationKey, int stationGeneration, UUID ownerFactionId,
+                                          int orbitDimensionId, int cellX, int cellZ) {
+        return true;
+    }
+
+    public boolean unregisterOrbitalStation(World world, String stationKey, int stationGeneration) {
+        return true;
+    }
+
+    public boolean registerBreachOutpost(World world, String outpostKey, String targetStationKey,
+                                         int targetStationGeneration, UUID attackerFactionId,
+                                         int orbitDimensionId, int coreChunkX, int coreChunkZ) {
+        return true;
+    }
+
+    public boolean unregisterBreachOutpost(World world, String outpostKey) {
+        return true;
+    }
+
+    public boolean beginBreachHack(World world, UUID playerId, String stationKey, int stationGeneration,
+                                   int blockX, int blockY, int blockZ) {
+        return false;
+    }
+
+    public String getBreachPhase(World world, String stationKey, int stationGeneration) {
+        return "";
+    }
+
+    public long getBreachHackRemainingMillis(World world, String stationKey, int stationGeneration) {
+        return -1L;
+    }
+
+    public boolean isBreachSettlementReady(World world, String stationKey, int stationGeneration) {
+        return false;
+    }
+
+    public boolean completeBreachSettlement(World world, String stationKey, int stationGeneration) {
+        return false;
+    }
+
+    public boolean isBreachSettlementComplete(World world, String stationKey, int stationGeneration) {
+        return false;
+    }
 }
 
 /**
@@ -348,6 +594,26 @@ final class WGCoreIntegrationBackend implements IntegrationBackend {
             requireMethod("canPlaceClaimLockedBlock", UUID.class, World.class, Integer.TYPE, Integer.TYPE);
             requireMethod("getChunkOwner", World.class, Integer.TYPE, Integer.TYPE);
             requireMethod("getPlayerFaction", World.class, UUID.class);
+            requireMethod("getFactionName", World.class, UUID.class);
+            requireMethod("getReadyBreachTargetStationKey", World.class, UUID.class);
+            requireMethod("getReadyBreachTargetStationGeneration", World.class, UUID.class);
+            requireMethod("getBreachDriveTargetStationKey", World.class, UUID.class);
+            requireMethod("getBreachDriveTargetStationGeneration", World.class, UUID.class);
+            requireMethod("getBreachDriveAccessRemainingMillis", World.class, UUID.class, String.class, Integer.TYPE);
+            requireMethod("getOrbitalStationOwner", World.class, String.class, Integer.TYPE);
+            requireMethod("registerOrbitalStation", World.class, String.class, Integer.TYPE, UUID.class,
+                Integer.TYPE, Integer.TYPE, Integer.TYPE);
+            requireMethod("unregisterOrbitalStation", World.class, String.class, Integer.TYPE);
+            requireMethod("registerBreachOutpost", World.class, String.class, String.class, Integer.TYPE,
+                UUID.class, Integer.TYPE, Integer.TYPE, Integer.TYPE);
+            requireMethod("unregisterBreachOutpost", World.class, String.class);
+            requireMethod("beginBreachHack", World.class, UUID.class, String.class, Integer.TYPE,
+                Integer.TYPE, Integer.TYPE, Integer.TYPE);
+            requireMethod("getBreachPhase", World.class, String.class, Integer.TYPE);
+            requireMethod("getBreachHackRemainingMillis", World.class, String.class, Integer.TYPE);
+            requireMethod("isBreachSettlementReady", World.class, String.class, Integer.TYPE);
+            requireMethod("completeBreachSettlement", World.class, String.class, Integer.TYPE);
+            requireMethod("isBreachSettlementComplete", World.class, String.class, Integer.TYPE);
         } catch (NoSuchMethodException error) {
             throw new IllegalStateException("WGCore integration API is missing a required method.", error);
         }
@@ -398,7 +664,11 @@ final class WGCoreIntegrationBackend implements IntegrationBackend {
         if (affectedBlocks != null) {
             for (Object object : affectedBlocks) {
                 if (object instanceof ChunkPosition) {
-                    safeAffectedBlocks.add((ChunkPosition) object);
+                    ChunkPosition position = (ChunkPosition) object;
+                    if (!BreachStationComputerInteractionHandler.isLockedTrackedStationComputer(
+                            world, position.chunkPosX, position.chunkPosY, position.chunkPosZ)) {
+                        safeAffectedBlocks.add(position);
+                    }
                 }
             }
         }
@@ -622,5 +892,117 @@ final class WGCoreIntegrationBackend implements IntegrationBackend {
 
     public UUID getPlayerFaction(World world, UUID player) {
         return WGCoreIntegrationAccess.getPlayerFaction(world, player);
+    }
+
+    public boolean registerOrbitalStation(World world, String stationKey, int stationGeneration, UUID ownerFactionId,
+                                          int orbitDimensionId, int cellX, int cellZ) {
+        return invokeBoolean(
+            "registerOrbitalStation",
+            new Class<?>[] { World.class, String.class, Integer.TYPE, UUID.class, Integer.TYPE, Integer.TYPE, Integer.TYPE },
+            new Object[] { world, stationKey, stationGeneration, ownerFactionId, orbitDimensionId, cellX, cellZ }
+        );
+    }
+
+    public boolean unregisterOrbitalStation(World world, String stationKey, int stationGeneration) {
+        return invokeBoolean(
+            "unregisterOrbitalStation",
+            new Class<?>[] { World.class, String.class, Integer.TYPE },
+            new Object[] { world, stationKey, stationGeneration }
+        );
+    }
+
+    public boolean registerBreachOutpost(World world, String outpostKey, String targetStationKey,
+                                         int targetStationGeneration, UUID attackerFactionId,
+                                         int orbitDimensionId, int coreChunkX, int coreChunkZ) {
+        return invokeBoolean(
+            "registerBreachOutpost",
+            new Class<?>[] { World.class, String.class, String.class, Integer.TYPE, UUID.class, Integer.TYPE, Integer.TYPE, Integer.TYPE },
+            new Object[] { world, outpostKey, targetStationKey, targetStationGeneration, attackerFactionId,
+                orbitDimensionId, coreChunkX, coreChunkZ }
+        );
+    }
+
+    public boolean unregisterBreachOutpost(World world, String outpostKey) {
+        return invokeBoolean(
+            "unregisterBreachOutpost",
+            new Class<?>[] { World.class, String.class },
+            new Object[] { world, outpostKey }
+        );
+    }
+
+    public boolean beginBreachHack(World world, UUID playerId, String stationKey, int stationGeneration,
+                                   int blockX, int blockY, int blockZ) {
+        return invokeBoolean(
+            "beginBreachHack",
+            new Class<?>[] { World.class, UUID.class, String.class, Integer.TYPE, Integer.TYPE, Integer.TYPE, Integer.TYPE },
+            new Object[] { world, playerId, stationKey, stationGeneration, blockX, blockY, blockZ }
+        );
+    }
+
+    public String getBreachPhase(World world, String stationKey, int stationGeneration) {
+        Object result = invoke(
+            "getBreachPhase",
+            new Class<?>[] { World.class, String.class, Integer.TYPE },
+            new Object[] { world, stationKey, stationGeneration }
+        );
+        return result instanceof String ? (String)result : "";
+    }
+
+    public long getBreachHackRemainingMillis(World world, String stationKey, int stationGeneration) {
+        Object result = invoke(
+            "getBreachHackRemainingMillis",
+            new Class<?>[] { World.class, String.class, Integer.TYPE },
+            new Object[] { world, stationKey, stationGeneration }
+        );
+        return result instanceof Number ? ((Number)result).longValue() : -1L;
+    }
+
+    public boolean isBreachSettlementReady(World world, String stationKey, int stationGeneration) {
+        return invokeBoolean(
+            "isBreachSettlementReady",
+            new Class<?>[] { World.class, String.class, Integer.TYPE },
+            new Object[] { world, stationKey, stationGeneration }
+        );
+    }
+
+    public boolean completeBreachSettlement(World world, String stationKey, int stationGeneration) {
+        return invokeBoolean(
+            "completeBreachSettlement",
+            new Class<?>[] { World.class, String.class, Integer.TYPE },
+            new Object[] { world, stationKey, stationGeneration }
+        );
+    }
+
+    public boolean isBreachSettlementComplete(World world, String stationKey, int stationGeneration) {
+        return invokeBoolean(
+            "isBreachSettlementComplete",
+            new Class<?>[] { World.class, String.class, Integer.TYPE },
+            new Object[] { world, stationKey, stationGeneration }
+        );
+    }
+
+    private Object invoke(String name, Class<?>[] parameterTypes, Object[] arguments) {
+        try {
+            return requireMethod(name, parameterTypes).invoke(null, arguments);
+        } catch (ReflectiveOperationException error) {
+            throw new IllegalStateException("WGCore integration call failed: " + name, error);
+        } catch (RuntimeException error) {
+            throw error;
+        } catch (LinkageError error) {
+            throw Integrations.incompatibleWGCore(error);
+        }
+    }
+
+    private boolean invokeBoolean(String name, Class<?>[] parameterTypes, Object[] arguments) {
+        try {
+            Object result = requireMethod(name, parameterTypes).invoke(null, arguments);
+            return result instanceof Boolean && ((Boolean)result).booleanValue();
+        } catch (ReflectiveOperationException error) {
+            throw new IllegalStateException("WGCore integration call failed: " + name, error);
+        } catch (RuntimeException error) {
+            throw error;
+        } catch (LinkageError error) {
+            throw Integrations.incompatibleWGCore(error);
+        }
     }
 }

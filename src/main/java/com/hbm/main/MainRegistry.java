@@ -738,7 +738,7 @@ public class MainRegistry {
 		event.registerServerCommand(new CommandDebugChunkLoad());
 		event.registerServerCommand(new CommandSatellites());
 		event.registerServerCommand(new CommandRadiation());
-		event.registerServerCommand(new CommandStations());
+		event.registerServerCommand(new CommandNTM());
 		event.registerServerCommand(new CommandPacketInfo());
 		event.registerServerCommand(new CommandReloadServer());
 		event.registerServerCommand(new CommandLocate());

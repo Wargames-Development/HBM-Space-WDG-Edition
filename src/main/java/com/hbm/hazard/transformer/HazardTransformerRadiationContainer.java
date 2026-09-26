@@ -2,6 +2,7 @@ package com.hbm.hazard.transformer;
 
 import java.util.List;
 
+import com.hbm.blocks.ModBlocks;
 import com.hbm.blocks.generic.BlockStorageCrate;
 import com.hbm.hazard.HazardEntry;
 import com.hbm.hazard.HazardRegistry;
@@ -23,7 +24,7 @@ public class HazardTransformerRadiationContainer extends HazardTransformerBase {
 	@Override
 	public void transformPost(ItemStack stack, List<HazardEntry> entries) {
 
-		boolean isCrate = Block.getBlockFromItem(stack.getItem()) instanceof BlockStorageCrate;
+		boolean isCrate = Block.getBlockFromItem(stack.getItem()) instanceof BlockStorageCrate && Block.getBlockFromItem(stack.getItem()) != ModBlocks.drive_crate;
 		boolean isBox = stack.getItem() == ModItems.containment_box;
 		boolean isBag = stack.getItem() == ModItems.plastic_bag;
 

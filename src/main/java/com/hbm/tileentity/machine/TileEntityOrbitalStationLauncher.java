@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.hbm.dim.CelestialBody;
 import com.hbm.dim.SolarSystem;
+import com.hbm.dim.SolarSystemWorldSavedData;
 import com.hbm.entity.missile.EntityRideableRocket;
 import com.hbm.entity.missile.EntityRideableRocket.RocketState;
 import com.hbm.handler.RocketStruct;
@@ -23,6 +24,7 @@ import com.hbm.tileentity.IGUIProvider;
 import com.hbm.tileentity.TileEntityMachineBase;
 import com.hbm.tileentity.bomb.TileEntityLaunchPadRocket;
 import com.hbm.tileentity.bomb.TileEntityLaunchPadRocket.SolidFuelTank;
+import com.hbm.util.BufferUtil;
 import com.hbm.util.fauxpointtwelve.DirPos;
 
 import api.hbm.fluidmk2.IFluidStandardReceiverMK2;
@@ -35,6 +37,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -57,6 +61,9 @@ public class TileEntityOrbitalStationLauncher extends TileEntityMachineBase impl
 	// Client synced state information
 	public boolean hasDocked = false;
 	public boolean hasRider = false;
+
+	// Player-facing launcher authorization warning. Transient: authority stays in WGCore/HBM validation.
+	private String launchAuthorizationIssue = "";
 
 	public TileEntityOrbitalStationLauncher() {
 		// launch:			drive + fuel in + fuel out
@@ -172,7 +179,7 @@ public class TileEntityOrbitalStationLauncher extends TileEntityMachineBase impl
 	}
 
 	private boolean hasDrive() {
-		return slots[0] != null && slots[0].getItem() instanceof ItemVOTVdrive;
+		return ItemVOTVdrive.isUsableDrive(slots[0]);
 	}
 
 	private boolean areTanksFull() {
@@ -182,18 +189,24 @@ public class TileEntityOrbitalStationLauncher extends TileEntityMachineBase impl
 	}
 
 	private boolean canReachDestination() {
+		if(!ItemVOTVdrive.isUsableDrive(slots[0])) return false;
+
 		// Check that the drive is processed
 		if(!ItemVOTVdrive.getProcessed(slots[0])) {
 			return false;
 		}
 
-		SolarSystem.Body target = ItemVOTVdrive.getDestination(slots[0]).body;
+		ItemVOTVdrive.Destination destination = ItemVOTVdrive.getDestination(slots[0]);
+		if(destination == null || destination.body == null) return false;
+		SolarSystem.Body target = destination.body;
+		if(target == SolarSystem.Body.ORBIT && !ItemVOTVdrive.validateOrbitLaunch(slots[0], worldObj)) return false;
 		if(target == SolarSystem.Body.ORBIT && rocket.capsule.part != ModItems.rp_capsule_20 && rocket.capsule.part != ModItems.rp_station_core_20)
 		return false;
 
 		Target from = CelestialBody.getTarget(worldObj, xCoord, zCoord);
 		Target to = ItemVOTVdrive.getTarget(slots[0], worldObj);
 
+		if(to == null || to.body == null) return false;
 		if(!to.isValid && rocket.capsule.part != ModItems.rp_station_core_20) return false;
 		if(to.isValid && rocket.capsule.part == ModItems.rp_station_core_20) return false;
 
@@ -206,6 +219,11 @@ public class TileEntityOrbitalStationLauncher extends TileEntityMachineBase impl
 	}
 
 	public void launch(EntityPlayer player) {
+		if(!isDriveAuthorizedForPlayer(slots[0], player)) {
+			noteDriveAuthorizationFailure(player, slots[0]);
+			return;
+		}
+		refreshDriveAuthorization(player);
 		if(!canLaunch()) return;
 
 		ItemStack stack = ItemCustomRocket.build(rocket);
@@ -233,9 +251,44 @@ public class TileEntityOrbitalStationLauncher extends TileEntityMachineBase impl
 	@Override
 	public boolean isItemValidForSlot(int index, ItemStack stack) {
 		if(stack == null) return true;
-		if(index == 0 && !(stack.getItem() instanceof ItemVOTVdrive)) return false;
+		if(index == 0 && !ItemVOTVdrive.isUsableDrive(stack)) return false;
 		if(index == 1 && stack.getItem() != ModItems.rocket_fuel) return false;
+		if(index == 2) return false;
 		return true;
+	}
+
+	public boolean isDriveAuthorizedForPlayer(ItemStack drive, EntityPlayer player) {
+		if(drive == null || !ItemVOTVdrive.isUsableDrive(drive)) return true;
+		return ItemVOTVdrive.canPlayerUseStationDriveForLaunch(
+			drive, worldObj, player != null ? player.getUniqueID() : null);
+	}
+
+	public void noteDriveAuthorizationFailure(EntityPlayer player, ItemStack drive) {
+		if(worldObj == null || worldObj.isRemote) return;
+		String issue = ItemVOTVdrive.getLaunchAuthorizationIssue(
+			drive, worldObj, player != null ? player.getUniqueID() : null);
+		if(issue == null || issue.isEmpty()) issue = "You cannot travel here.";
+		setLaunchAuthorizationIssue(issue);
+		if(player != null) player.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + launchAuthorizationIssue));
+	}
+
+	public void refreshDriveAuthorization(EntityPlayer player) {
+		if(worldObj == null || worldObj.isRemote) return;
+		String issue = ItemVOTVdrive.getLaunchAuthorizationIssue(
+			slots[0], worldObj, player != null ? player.getUniqueID() : null);
+		setLaunchAuthorizationIssue(issue);
+	}
+
+	private void setLaunchAuthorizationIssue(String issue) {
+		String normalized = issue == null ? "" : issue;
+		if(!normalized.isEmpty()) normalized = "You cannot travel here.";
+		if(normalized.equals(launchAuthorizationIssue)) return;
+		launchAuthorizationIssue = normalized;
+		markDirty();
+	}
+
+	public boolean hasLaunchAuthorizationIssue() {
+		return launchAuthorizationIssue != null && !launchAuthorizationIssue.isEmpty();
 	}
 
 	private void updateTanks() {
@@ -266,16 +319,32 @@ public class TileEntityOrbitalStationLauncher extends TileEntityMachineBase impl
 	public List<String> findIssues() {
 		List<String> issues = new ArrayList<String>();
 
+		if(launchAuthorizationIssue != null && !launchAuthorizationIssue.isEmpty()) {
+			issues.add(EnumChatFormatting.RED + launchAuthorizationIssue);
+		}
 		if(!rocket.validate()) return issues;
 
 		TileEntityLaunchPadRocket.findTankIssues(issues, tanks, solidFuel);
 		if(TileEntityLaunchPadRocket.findDriveIssues(issues, rocket, slots[0])) return issues;
 
+		ItemVOTVdrive.Destination checkedDestination = ItemVOTVdrive.getDestinationUnchecked(slots[0]);
+		if(checkedDestination != null && checkedDestination.body == SolarSystem.Body.ORBIT) {
+			SolarSystemWorldSavedData stationData = SolarSystemWorldSavedData.get(worldObj);
+			if(stationData != null && stationData.hasConflictingRaidPort(slots[0])) {
+				issues.add(EnumChatFormatting.RED + "Another Breach Drive already has an active raiding port for this station");
+				return issues;
+			}
+		}
+		if(checkedDestination != null && checkedDestination.body == SolarSystem.Body.ORBIT && !ItemVOTVdrive.validateOrbitLaunch(slots[0], worldObj)) {
+			issues.add(EnumChatFormatting.RED + "Station drive, reservation, or destination port is no longer valid");
+			return issues;
+		}
+
 		// Check that the rocket is actually capable of reaching our destination
 		Target from = CelestialBody.getTarget(worldObj, xCoord, zCoord);
 		Target to = ItemVOTVdrive.getTarget(slots[0], worldObj);
 
-		TileEntityLaunchPadRocket.findTravelIssues(issues, rocket, from, to);
+		TileEntityLaunchPadRocket.findTravelIssues(issues, rocket, from, to, slots[0]);
 
 		return issues;
 	}
@@ -286,6 +355,7 @@ public class TileEntityOrbitalStationLauncher extends TileEntityMachineBase impl
 
 		buf.writeBoolean(hasDocked);
 		buf.writeBoolean(hasRider);
+		BufferUtil.writeString(buf, launchAuthorizationIssue == null ? "" : launchAuthorizationIssue);
 
 		// buf.writeLong(power);
 		buf.writeInt(solidFuel.level);
@@ -300,6 +370,7 @@ public class TileEntityOrbitalStationLauncher extends TileEntityMachineBase impl
 
 		hasDocked = buf.readBoolean();
 		hasRider = buf.readBoolean();
+		launchAuthorizationIssue = BufferUtil.readString(buf);
 
 		// power = buf.readLong();
 		solidFuel.level = buf.readInt();

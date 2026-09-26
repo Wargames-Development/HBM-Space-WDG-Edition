@@ -130,6 +130,7 @@ public class RenderOrbitalStation extends TileEntitySpecialRenderer implements I
 		return new Item[] {
 			Item.getItemFromBlock(ModBlocks.orbital_station),
 			Item.getItemFromBlock(ModBlocks.orbital_station_port),
+			Item.getItemFromBlock(ModBlocks.orbital_station_raiding_port),
 			Item.getItemFromBlock(ModBlocks.orbital_station_launcher),
 		};
 	}

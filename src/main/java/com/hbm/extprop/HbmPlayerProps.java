@@ -1,8 +1,12 @@
 package com.hbm.extprop;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.hbm.entity.train.EntityRailCarBase;
 import com.hbm.handler.ArmorModHandler;
 import com.hbm.handler.HbmKeybinds.EnumKeybind;
+import com.hbm.inventory.InventoryDriveCrate;
 import com.hbm.items.armor.ItemModShield;
 import com.hbm.main.MainRegistry;
 import com.hbm.packet.PacketDispatcher;
@@ -16,6 +20,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
@@ -68,6 +73,10 @@ public class HbmPlayerProps implements IExtendedEntityProperties {
 	
 	/** Maskman timer */
 	public int maskManTimer = 0;
+
+	/** Private per-player Drive Crate storage. Never belongs to a block or item stack. */
+	public ItemStack[] driveCrateInventory = new ItemStack[InventoryDriveCrate.SIZE];
+	private final List<ItemStack> driveCrateRecovery = new ArrayList<ItemStack>();
 
 	public HbmPlayerProps(EntityPlayer player) {
 		this.player = player;
@@ -197,6 +206,40 @@ public class HbmPlayerProps implements IExtendedEntityProperties {
 		return max;
 	}
 
+	public void copyDriveCrateDataFrom(HbmPlayerProps original) {
+		this.driveCrateInventory = new ItemStack[InventoryDriveCrate.SIZE];
+		for(int i = 0; i < this.driveCrateInventory.length; i++) {
+			ItemStack stack = original.driveCrateInventory[i];
+			this.driveCrateInventory[i] = stack == null ? null : stack.copy();
+		}
+
+		this.driveCrateRecovery.clear();
+		for(ItemStack stack : original.driveCrateRecovery) {
+			if(stack != null) this.driveCrateRecovery.add(stack.copy());
+		}
+	}
+
+	public void recoverInvalidDriveCrateItems() {
+		if(player == null || player.worldObj == null || player.worldObj.isRemote) return;
+
+		for(int i = 0; i < driveCrateInventory.length; i++) {
+			ItemStack stack = driveCrateInventory[i];
+			if(stack != null && !InventoryDriveCrate.isAllowedDrive(stack)) {
+				driveCrateInventory[i] = null;
+				driveCrateRecovery.add(stack);
+			}
+		}
+
+		for(int i = driveCrateRecovery.size() - 1; i >= 0; i--) {
+			ItemStack recovery = driveCrateRecovery.remove(i);
+			if(recovery == null || recovery.stackSize <= 0) continue;
+			if(!player.inventory.addItemStackToInventory(recovery) && recovery.stackSize > 0) {
+				player.dropPlayerItemWithRandomChoice(recovery, false);
+			}
+		}
+		player.inventoryContainer.detectAndSendChanges();
+	}
+
 	@Override
 	public void init(Entity entity, World world) { }
 
@@ -240,6 +283,26 @@ public class HbmPlayerProps implements IExtendedEntityProperties {
 		props.setInteger("lastDimension", lastDimension);
 		props.setInteger("maskManTimer", maskManTimer);
 
+		NBTTagList driveInventory = new NBTTagList();
+		for(int i = 0; i < driveCrateInventory.length; i++) {
+			ItemStack stack = driveCrateInventory[i];
+			if(stack == null) continue;
+			NBTTagCompound slot = new NBTTagCompound();
+			slot.setByte("slot", (byte)i);
+			stack.writeToNBT(slot);
+			driveInventory.appendTag(slot);
+		}
+		props.setTag("driveCrateInventory", driveInventory);
+
+		NBTTagList recovery = new NBTTagList();
+		for(ItemStack stack : driveCrateRecovery) {
+			if(stack == null) continue;
+			NBTTagCompound recovered = new NBTTagCompound();
+			stack.writeToNBT(recovered);
+			recovery.appendTag(recovered);
+		}
+		props.setTag("driveCrateRecovery", recovery);
+
 		nbt.setTag("HbmPlayerProps", props);
 	}
 
@@ -261,6 +324,27 @@ public class HbmPlayerProps implements IExtendedEntityProperties {
 			this.hasWarped = props.getBoolean("hasWarped");
 			this.lastDimension = props.getInteger("lastDimension");
 			this.maskManTimer = props.getInteger("maskManTimer");
+
+			this.driveCrateInventory = new ItemStack[InventoryDriveCrate.SIZE];
+			this.driveCrateRecovery.clear();
+			NBTTagList driveInventory = props.getTagList("driveCrateInventory", 10);
+			for(int i = 0; i < driveInventory.tagCount(); i++) {
+				NBTTagCompound slot = driveInventory.getCompoundTagAt(i);
+				int index = slot.getByte("slot") & 255;
+				ItemStack stack = ItemStack.loadItemStackFromNBT(slot);
+				if(stack == null) continue;
+				if(index >= 0 && index < driveCrateInventory.length && InventoryDriveCrate.isAllowedDrive(stack) && driveCrateInventory[index] == null) {
+					driveCrateInventory[index] = stack;
+				} else {
+					driveCrateRecovery.add(stack);
+				}
+			}
+
+			NBTTagList recovery = props.getTagList("driveCrateRecovery", 10);
+			for(int i = 0; i < recovery.tagCount(); i++) {
+				ItemStack stack = ItemStack.loadItemStackFromNBT(recovery.getCompoundTagAt(i));
+				if(stack != null) driveCrateRecovery.add(stack);
+			}
 		}
 	}
 }

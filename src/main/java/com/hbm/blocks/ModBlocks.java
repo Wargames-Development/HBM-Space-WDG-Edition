@@ -723,6 +723,7 @@ public class ModBlocks {
 	public static Block crate_steel;
 	public static Block crate_desh;
 	public static Block crate_tungsten;
+	public static Block drive_crate;
 	public static Block safe;
 	public static Block mass_storage;
 
@@ -1035,6 +1036,7 @@ public class ModBlocks {
 	public static Block machine_solar;
 	public static Block machine_stardar;
 	public static Block machine_drive_processor;
+	public static Block machine_station_drive_terminal;
 	public static Block machine_alkylation;
 
 	public static Block machine_well;
@@ -1382,6 +1384,7 @@ public class ModBlocks {
 	public static Block transporter_rocket;
 	public static Block orbital_station;
 	public static Block orbital_station_port;
+	public static Block orbital_station_raiding_port;
 	public static Block orbital_station_launcher;
 	public static Block orbital_station_computer;
 	public static Block propulsion_creative;
@@ -2132,6 +2135,7 @@ public class ModBlocks {
 		machine_solar = new MachineSolar(Material.iron).setBlockName("machine_solar").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":block_steel_machine");
 		machine_stardar = new MachineStardar(Material.iron).setBlockName("machine_stardar").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":block_steel_machine");
 		machine_drive_processor = new MachineDriveProcessor(Material.iron).setBlockName("machine_drive_processor").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":block_steel_machine");
+		machine_station_drive_terminal = new MachineStationDriveTerminal(Material.iron).setBlockName("machine_station_drive_terminal").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":block_steel_machine");
 		machine_alkylation = new MachineAlkylation(Material.iron).setBlockName("machine_alkylation").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":block_steel_machine");
 
 		red_wire_coated = new WireCoated(Material.iron).setBlockName("red_wire_coated").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":red_wire_coated");
@@ -2455,6 +2459,7 @@ public class ModBlocks {
 		crate_steel = new BlockStorageCrate(Material.iron).setBlockName("crate_steel").setStepSound(Block.soundTypeMetal).setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab);
 		crate_desh = new BlockStorageCrate(Material.iron).setBlockName("crate_desh").setStepSound(Block.soundTypeMetal).setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab);
 		crate_tungsten = new BlockStorageCrate(Material.iron).setBlockName("crate_tungsten").setStepSound(Block.soundTypeMetal).setHardness(7.5F).setResistance(300.0F).setCreativeTab(MainRegistry.machineTab);
+		drive_crate = new BlockStorageCrate(Material.iron).setBlockName("drive_crate").setStepSound(Block.soundTypeMetal).setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab);
 		safe = new BlockStorageCrate(Material.iron).setBlockName("safe").setStepSound(Block.soundTypeMetal).setHardness(7.5F).setResistance(10000.0F).setCreativeTab(MainRegistry.machineTab);
 		mass_storage = new BlockMassStorage().setBlockName("mass_storage").setStepSound(Block.soundTypeMetal).setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab);
 
@@ -2710,6 +2715,7 @@ public class ModBlocks {
 		transporter_rocket = new BlockTransporterRocket(Material.iron).setBlockName("transporter_rocket").setHardness(1.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":block_steel");
 		orbital_station = new BlockOrbitalStation(Material.iron).setBlockName("orbital_station").setBlockUnbreakable().setResistance(Float.POSITIVE_INFINITY).setCreativeTab(null).setBlockTextureName(RefStrings.MODID + ":block_steel");
 		orbital_station_port = new BlockOrbitalStation(Material.iron).setBlockName("orbital_station_port").setHardness(1.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":block_steel");
+		orbital_station_raiding_port = new BlockOrbitalStationRaidingPort(Material.iron).setBlockName("orbital_station_raiding_port").setBlockUnbreakable().setResistance(Float.POSITIVE_INFINITY).setCreativeTab(null).setBlockTextureName(RefStrings.MODID + ":block_steel");
 		orbital_station_launcher = new BlockOrbitalStationLauncher(Material.iron).setBlockName("orbital_station_launcher").setHardness(1.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":block_steel");
 		orbital_station_computer = new BlockOrbitalStationComputer(Material.iron).setBlockName("orbital_station_computer").setHardness(1.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":block_steel");
 		propulsion_creative = new BlockStationPropulsionCreative(Material.iron).setBlockName("propulsion_creative").setHardness(1.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":block_steel");
@@ -3461,6 +3467,7 @@ public class ModBlocks {
 		register(crate_steel, ItemBlockStorageCrate.class);
 		register(crate_desh, ItemBlockStorageCrate.class);
 		register(crate_tungsten, ItemBlockStorageCrate.class);
+		register(drive_crate, ItemBlockStorageCrate.class);
 		register(safe, ItemBlockStorageCrate.class);
 		register(mass_storage, ItemBlockStorageCrate.class);
 
@@ -3556,6 +3563,7 @@ public class ModBlocks {
 		GameRegistry.registerBlock(machine_solar, machine_solar.getUnlocalizedName());
 		register(machine_stardar);
 		register(machine_drive_processor);
+		register(machine_station_drive_terminal);
 		GameRegistry.registerBlock(machine_alkylation, machine_alkylation.getUnlocalizedName());
 
 		GameRegistry.registerBlock(hadron_coil_alloy, ItemBlockBase.class, hadron_coil_alloy.getUnlocalizedName());
@@ -4016,6 +4024,7 @@ public class ModBlocks {
 		register(transporter_rocket);
 		register(orbital_station);
 		register(orbital_station_port);
+		register(orbital_station_raiding_port);
 		register(orbital_station_launcher);
 		register(orbital_station_computer);
 		register(propulsion_creative);

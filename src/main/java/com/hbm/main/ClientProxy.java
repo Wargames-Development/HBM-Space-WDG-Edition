@@ -343,10 +343,12 @@ public class ClientProxy extends ServerProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityMachineSolarPanel.class, new RenderSolarPanel());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityMachineStardar.class, new RenderStardar());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityOrbitalStation.class, new RenderOrbitalStation());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityOrbitalStationRaidingPort.class, new RenderOrbitalStation());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityOrbitalStationLauncher.class, new RenderOrbitalStation());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityAirScrubber.class, new RenderAirScrubber());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityOrbitalStationComputer.class, new RenderOrbitalComputer());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityMachineDriveProcessor.class, new RenderDriveProcessor());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityMachineStationDriveTerminal.class, new RenderStationDriveTerminal());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDishControl.class, new RenderDishControl());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityStorageDrum.class, new RenderStorageDrum());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityChungus.class, new RenderChungus());

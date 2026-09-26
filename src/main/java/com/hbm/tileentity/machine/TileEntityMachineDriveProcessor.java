@@ -4,6 +4,7 @@ import com.hbm.dim.CelestialBody;
 import com.hbm.interfaces.IControlReceiver;
 import com.hbm.inventory.container.ContainerDriveProcessor;
 import com.hbm.inventory.gui.GUIMachineDriveProcessor;
+import com.hbm.items.ItemRaidDrive;
 import com.hbm.items.ItemVOTVdrive;
 import com.hbm.items.ModItems;
 import com.hbm.items.machine.ItemCircuit.EnumCircuitType;
@@ -19,6 +20,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.EnumChatFormatting;
@@ -38,6 +40,7 @@ public class TileEntityMachineDriveProcessor extends TileEntityMachineBase imple
 	public boolean hasDrive = false;
 
 	private int lastTier;
+	private int statusTimer;
 
 	public TileEntityMachineDriveProcessor() {
 		super(4);
@@ -46,29 +49,36 @@ public class TileEntityMachineDriveProcessor extends TileEntityMachineBase imple
 	@Override
 	public void updateEntity() {
 		if(!worldObj.isRemote) {
+			if(ItemVOTVdrive.isNormalStationDrive(slots[0])) ItemVOTVdrive.validateNormalStationDrive(slots[0], worldObj);
 
 			power = Library.chargeTEFromItems(slots, 3, power, maxPower);
 			for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS)
 				trySubscribe(worldObj, xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ, dir);
 
-			if(power < maxPower * 0.75) {
-				isProcessing = false;
-				status = EnumChatFormatting.RED + "No power ";
-			} else if(slots[0] == null || slots[0].getItem() != ModItems.full_drive) {
-				isProcessing = false;
-				status = "";
-			} else if(getProcessingTier() < ItemVOTVdrive.getProcessingTier(slots[0], CelestialBody.getBody(worldObj))) {
-				isProcessing = false;
-				status = EnumChatFormatting.RED + "Low tier ";
-			}
+			boolean preserveStatus = statusTimer > 0;
+			if(statusTimer > 0) statusTimer--;
 
-			if(lastTier != getProcessingTier()) {
-				status = "";
+			if(!preserveStatus) {
+				if(power < maxPower * 0.75) {
+					isProcessing = false;
+					status = EnumChatFormatting.RED + "No power ";
+				} else if(slots[0] == null || slots[0].getItem() != ModItems.full_drive) {
+					isProcessing = false;
+					status = "";
+				} else if(getProcessingTier() < ItemVOTVdrive.getProcessingTier(slots[0], CelestialBody.getBody(worldObj))) {
+					isProcessing = false;
+					status = EnumChatFormatting.RED + "Low tier ";
+				}
+
+				if(lastTier != getProcessingTier()) {
+					status = "";
+				}
 			}
 
 			if(isProcessing) {
 				power -= 200;
 
+				statusTimer = 0;
 				status = EnumChatFormatting.GREEN + "" + EnumChatFormatting.ITALIC + "Processing  ";
 				progress++;
 
@@ -76,7 +86,7 @@ public class TileEntityMachineDriveProcessor extends TileEntityMachineBase imple
 					progress = 0;
 					isProcessing = false;
 					ItemVOTVdrive.setProcessed(slots[0], true);
-					status = EnumChatFormatting.GREEN + "Done! ";
+					setStatus(EnumChatFormatting.GREEN + "Done! ", 60);
 				}
 			} else {
 				progress = 0;
@@ -122,6 +132,7 @@ public class TileEntityMachineDriveProcessor extends TileEntityMachineBase imple
 		nbt.setInteger("progress", progress);
 		nbt.setString("status", status);
 		nbt.setInteger("lastTier", lastTier);
+		nbt.setInteger("statusTimer", statusTimer);
 	}
 
 	@Override
@@ -133,6 +144,7 @@ public class TileEntityMachineDriveProcessor extends TileEntityMachineBase imple
 		progress = nbt.getInteger("progress");
 		status = nbt.getString("status");
 		lastTier = nbt.getInteger("lastTier");
+		statusTimer = Math.max(0, nbt.getInteger("statusTimer"));
 	}
 
 	@Override
@@ -144,6 +156,7 @@ public class TileEntityMachineDriveProcessor extends TileEntityMachineBase imple
 		if(slots[2] == null || slots[2].getItem() != ModItems.circuit) return 0;
 
 		EnumCircuitType num = EnumUtil.grabEnumSafely(EnumCircuitType.class, slots[2].getItemDamage());
+		if(num == null) return 0;
 
 		switch(num) {
 		case PROCESST1: return 1;
@@ -171,16 +184,27 @@ public class TileEntityMachineDriveProcessor extends TileEntityMachineBase imple
 
 	private void cloneDrive() {
 		if(power < maxPower * 0.75) return;
+		if(slots[0] != null && slots[0].getItem() == ModItems.raid_drive) {
+			ItemRaidDrive.validate(slots[0]);
+			setStatus(EnumChatFormatting.RED + "Raid drives cannot be cloned ", 80);
+			return;
+		}
 		if(slots[0] == null || slots[0].getItem() != ModItems.full_drive) return;
 		if(slots[1] == null || slots[1].getItem() != ModItems.hard_drive) {
-			status = EnumChatFormatting.RED + "No target ";
+			setStatus(EnumChatFormatting.RED + "No target ", 80);
 			return;
 		}
 
 		ItemVOTVdrive.markCopied(slots[0]);
 		slots[1] = slots[0].copy();
 
-		status = EnumChatFormatting.GREEN + "Drive cloned ";
+		setStatus(EnumChatFormatting.GREEN + "Drive cloned ", 80);
+		markDirty();
+	}
+
+	private void setStatus(String message, int ticks) {
+		status = message;
+		statusTimer = Math.max(0, ticks);
 	}
 
 	@Override

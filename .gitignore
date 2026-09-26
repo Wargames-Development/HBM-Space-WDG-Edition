@@ -36,3 +36,12 @@
 
 # Generated runtime and test logs
 /logs
+
+# Local one-off build/compile captures
+/compileJava-*.txt
+/compileJava-output*.txt
+/build-output*.txt
+/build-orbital-station-fix.txt
+/drive-crate-*.txt
+/java8-version-*.txt
+*.zip

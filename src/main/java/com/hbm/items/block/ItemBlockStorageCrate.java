@@ -26,6 +26,7 @@ import javax.annotation.Nonnull;
 
 public class ItemBlockStorageCrate extends ItemBlockBase implements IGUIProvider {
 
+
 	public ItemBlockStorageCrate(Block block) {
 		super(block);
 	}
@@ -38,8 +39,15 @@ public class ItemBlockStorageCrate extends ItemBlockBase implements IGUIProvider
 
 	@Override
 	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
-		// If crates can be opened from hand, prioritize this and require sneaking to place them
-		if (ServerConfig.CRATE_OPEN_HELD.get() && !player.isSneaking() && Block.getBlockFromItem(stack.getItem()) != ModBlocks.mass_storage) {
+		Block block = Block.getBlockFromItem(stack.getItem());
+
+		// The Inter Dimensional Drive Crate is always placed normally and never opens while held.
+		if(block == ModBlocks.drive_crate) {
+			return super.onItemUse(stack, player, world, x, y, z, side, hitX, hitY, hitZ);
+		}
+
+		// If other crates can be opened from hand, prioritize this and require sneaking to place them.
+		if(ServerConfig.CRATE_OPEN_HELD.get() && !player.isSneaking() && block != ModBlocks.mass_storage) {
 			return false;
 		}
 
@@ -50,8 +58,10 @@ public class ItemBlockStorageCrate extends ItemBlockBase implements IGUIProvider
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
 		if(!ServerConfig.CRATE_OPEN_HELD.get()) return stack;
 
-		Block block = Block.getBlockFromItem(player.getHeldItem().getItem());
+		Block block = Block.getBlockFromItem(stack.getItem());
 		if(block == ModBlocks.mass_storage) return stack; // Genuinely can't figure out how to make this part work, so I'm just not gonna mess with it.
+
+		if(block == ModBlocks.drive_crate) return stack;
 
 		if(!world.isRemote && stack.stackSize == 1) {
 			if(stack.stackTagCompound != null && stack.stackTagCompound.hasKey("lock")) {
@@ -77,24 +87,30 @@ public class ItemBlockStorageCrate extends ItemBlockBase implements IGUIProvider
 
 	@Override
 	public Container provideContainer(int ID, EntityPlayer player, World world, int x, int y, int z) {
-		Block block = Block.getBlockFromItem(player.getHeldItem().getItem());
+		ItemStack held = player == null ? null : player.getHeldItem();
+		if(held == null) return null;
+		Block block = Block.getBlockFromItem(held.getItem());
+		if(block == ModBlocks.drive_crate) return null;
 		if(block == ModBlocks.crate_iron) return new ContainerCrateIron(player.inventory, new InventoryCrate(player, player.getHeldItem()));
 		if(block == ModBlocks.crate_steel) return new ContainerCrateSteel(player.inventory, new InventoryCrate(player, player.getHeldItem()));
 		if(block == ModBlocks.crate_desh) return new ContainerCrateDesh(player.inventory, new InventoryCrate(player, player.getHeldItem()));
-		if(block == ModBlocks.crate_tungsten) return new ContainerCrateTungsten(player.inventory, new InventoryCrate(player, player.getHeldItem()));
-		if(block == ModBlocks.safe) return new ContainerSafe(player.inventory, new InventoryCrate(player, player.getHeldItem()));
+		if(block == ModBlocks.crate_tungsten) return new ContainerCrateTungsten(player.inventory, new InventoryCrate(player, held));
+		if(block == ModBlocks.safe) return new ContainerSafe(player.inventory, new InventoryCrate(player, held));
 		throw new NullPointerException();
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public Object provideGUI(int ID, EntityPlayer player, World world, int x, int y, int z) {
-		Block block = Block.getBlockFromItem(player.getHeldItem().getItem());
+		ItemStack held = player == null ? null : player.getHeldItem();
+		if(held == null) return null;
+		Block block = Block.getBlockFromItem(held.getItem());
+		if(block == ModBlocks.drive_crate) return null;
 		if(block == ModBlocks.crate_iron) return new GUICrateIron(player.inventory, new InventoryCrate(player, player.getHeldItem()));
 		if(block == ModBlocks.crate_steel) return new GUICrateSteel(player.inventory, new InventoryCrate(player, player.getHeldItem()));
 		if(block == ModBlocks.crate_desh) return new GUICrateDesh(player.inventory, new InventoryCrate(player, player.getHeldItem()));
-		if(block == ModBlocks.crate_tungsten) return new GUICrateTungsten(player.inventory, new InventoryCrate(player, player.getHeldItem()));
-		if(block == ModBlocks.safe) return new GUISafe(player.inventory, new InventoryCrate(player, player.getHeldItem()));
+		if(block == ModBlocks.crate_tungsten) return new GUICrateTungsten(player.inventory, new InventoryCrate(player, held));
+		if(block == ModBlocks.safe) return new GUISafe(player.inventory, new InventoryCrate(player, held));
 		throw new NullPointerException();
 	}
 

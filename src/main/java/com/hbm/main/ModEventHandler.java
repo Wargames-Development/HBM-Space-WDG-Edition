@@ -10,6 +10,8 @@ import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
+import api.hbm.wgc.Integrations;
+
 import org.apache.commons.lang3.math.NumberUtils;
 
 import com.google.common.collect.HashMultimap;
@@ -68,6 +70,7 @@ import com.hbm.interfaces.IBomb;
 import com.hbm.interfaces.Spaghetti;
 import com.hbm.inventory.recipes.loader.SerializableRecipe;
 import com.hbm.items.IEquipReceiver;
+import com.hbm.items.ItemVOTVdrive;
 import com.hbm.items.ModItems;
 import com.hbm.items.armor.ArmorFSB;
 import com.hbm.items.armor.IAttackHandler;
@@ -142,6 +145,7 @@ import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.entity.projectile.EntityFishHook;
 import net.minecraft.event.ClickEvent;
 import net.minecraft.init.Blocks;
@@ -195,11 +199,15 @@ import net.minecraftforge.event.world.WorldEvent;
 public class ModEventHandler {
 
 	private static Random rand = new Random();
+	private final Map<UUID, OrbitalStation> lastOrbitalStationByPlayer = new HashMap<UUID, OrbitalStation>();
 
 	@SubscribeEvent
 	public void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
+		lastOrbitalStationByPlayer.remove(event.player.getUniqueID());
 
 		if(!event.player.worldObj.isRemote) {
+			HbmPlayerProps.getData(event.player).recoverInvalidDriveCrateItems();
+			if(ItemVOTVdrive.validateNormalStationDrives(event.player.inventory, event.player.worldObj)) event.player.inventoryContainer.detectAndSendChanges();
 
 			if(GeneralConfig.enableMOTD) {
 				event.player.addChatMessage(new ChatComponentText("Loaded world with JamesH2 & Mellow's NTM: Space " + RefStrings.VERSION + " for Minecraft 1.7.10!"));
@@ -309,9 +317,15 @@ public class ModEventHandler {
 	@SubscribeEvent
 	public void onPlayerChangeDimension(PlayerChangedDimensionEvent event) {
 		EntityPlayer player = event.player;
+		lastOrbitalStationByPlayer.remove(player.getUniqueID());
 		HbmPlayerProps data = HbmPlayerProps.getData(player);
 		data.setKeyPressed(EnumKeybind.JETPACK, false);
 		data.setKeyPressed(EnumKeybind.DASH, false);
+	}
+
+	@SubscribeEvent
+	public void onPlayerLogout(PlayerEvent.PlayerLoggedOutEvent event) {
+		lastOrbitalStationByPlayer.remove(event.player.getUniqueID());
 	}
 
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
@@ -1365,25 +1379,10 @@ public class ModEventHandler {
 		}
 
 		if(!player.worldObj.isRemote && event.phase == TickEvent.Phase.START) {
-			// Check for players attempting to cross over to another orbital grid
-			if(player.worldObj.provider instanceof WorldProviderOrbit && !(player.ridingEntity instanceof EntityRideableRocket)) {
-				double rx = Math.abs(player.posX) % OrbitalStation.STATION_SIZE;
-				double rz = Math.abs(player.posZ) % OrbitalStation.STATION_SIZE;
-
-				int minBuffer = OrbitalStation.BUFFER_SIZE;
-				int maxBuffer = OrbitalStation.STATION_SIZE - minBuffer;
-
-				int minWarning = OrbitalStation.BUFFER_SIZE + OrbitalStation.WARNING_SIZE;
-				int maxWarning = OrbitalStation.STATION_SIZE - minWarning;
-
-				if(player instanceof EntityPlayerMP && (rx < minWarning || rx > maxWarning || rz < minWarning || rz > maxWarning)) {
-					PacketDispatcher.wrapper.sendTo(new PlayerInformPacket(ChatBuilder.start("").nextTranslation("info.orbitfall").color(EnumChatFormatting.RED).flush(), ServerProxy.ID_GAS_HAZARD, 3000), (EntityPlayerMP) player);
-				}
-
-				if(rx < minBuffer || rx > maxBuffer || rz < minBuffer || rz > maxBuffer) {
-					OrbitalStation station = OrbitalStation.getStationFromPosition((int)player.posX, (int)player.posZ);
-					CelestialTeleporter.teleport(player, station.orbiting.dimensionId, rand.nextInt(SpaceConfig.maxProbeDistance * 2) - SpaceConfig.maxProbeDistance, 800, rand.nextInt(SpaceConfig.maxProbeDistance * 2) - SpaceConfig.maxProbeDistance, false);
-				}
+			if(player.worldObj.provider instanceof WorldProviderOrbit) {
+				handleOrbitalStationFall(player);
+			} else {
+				lastOrbitalStationByPlayer.remove(player.getUniqueID());
 			}
 
 			// keep Nether teleports localized
@@ -1504,6 +1503,69 @@ public class ModEventHandler {
 		}*/
 	}
 
+	private void handleOrbitalStationFall(EntityPlayer player) {
+		UUID playerId = player.getUniqueID();
+		if(player.ridingEntity instanceof EntityRideableRocket) {
+			lastOrbitalStationByPlayer.remove(playerId);
+			return;
+		}
+
+		SolarSystemWorldSavedData stationData = SolarSystemWorldSavedData.get(player.worldObj);
+		if(stationData == null) {
+			lastOrbitalStationByPlayer.remove(playerId);
+			return;
+		}
+
+		int gridX = MathHelper.floor_double(player.posX / OrbitalStation.STATION_SIZE);
+		int gridZ = MathHelper.floor_double(player.posZ / OrbitalStation.STATION_SIZE);
+		OrbitalStation currentStation = stationData.getStationAtGrid(gridX, gridZ);
+		OrbitalStation previousStation = lastOrbitalStationByPlayer.get(playerId);
+
+		// Runtime station history is authoritative for the cell the player just left.
+		// This avoids relying on prevPosX/Z, which can already match the current tick.
+		if(previousStation != null && previousStation != currentStation && !previousStation.containsBlock(player.posX, player.posZ)) {
+			fallFromOrbitalStation(player, previousStation);
+			return;
+		}
+
+		if(currentStation != null && currentStation.hasStation) {
+			if(currentStation.deleting || player.posY < OrbitalStation.BOTTOM_FALL_Y) {
+				fallFromOrbitalStation(player, currentStation);
+				return;
+			}
+
+			lastOrbitalStationByPlayer.put(playerId, currentStation);
+			double minX = currentStation.getMinChunkX() * OrbitalStation.CHUNK_SIZE;
+			double minZ = currentStation.getMinChunkZ() * OrbitalStation.CHUNK_SIZE;
+			double localX = player.posX - minX;
+			double localZ = player.posZ - minZ;
+			double edgeDistance = Math.min(Math.min(localX, OrbitalStation.STATION_SIZE - localX), Math.min(localZ, OrbitalStation.STATION_SIZE - localZ));
+			if(!Integrations.isWGCoreActive() && player instanceof EntityPlayerMP
+				&& edgeDistance <= OrbitalStation.WARNING_SIZE && player.ticksExisted % 100 == 0) {
+				PacketDispatcher.wrapper.sendTo(new PlayerInformPacket(ChatBuilder.start("").nextTranslation("info.orbitfall").color(EnumChatFormatting.RED).flush(), ServerProxy.ID_GAS_HAZARD, 3000), (EntityPlayerMP) player);
+			}
+			return;
+		}
+
+		if(previousStation != null) {
+			fallFromOrbitalStation(player, previousStation);
+		} else {
+			lastOrbitalStationByPlayer.remove(playerId);
+		}
+	}
+
+	private void fallFromOrbitalStation(EntityPlayer player, OrbitalStation station) {
+		lastOrbitalStationByPlayer.remove(player.getUniqueID());
+		if(station == null || station.orbiting == null || !(player instanceof EntityPlayerMP)) return;
+		SolarSystemWorldSavedData stationData = SolarSystemWorldSavedData.get(player.worldObj);
+		if(stationData != null) {
+			stationData.returnPlayerToSurface(
+				(EntityPlayerMP)player,
+				station.orbiting,
+				"Returning you to the surface near your orbital launch point.");
+		}
+	}
+
 	@SubscribeEvent
 	public void preventOrganicSpawn(DecorateBiomeEvent.Decorate event) {
 		// In space, no one can hear you shroom
@@ -1550,6 +1612,9 @@ public class ModEventHandler {
 			UniNodespace.updateNodespace();
 			// Dyson Swarms
 			CelestialBody.updateSwarms();
+
+			SolarSystemWorldSavedData stationData = SolarSystemWorldSavedData.get();
+			if(stationData != null) stationData.tickMaintenance();
 		}
 
 
@@ -1642,6 +1707,10 @@ public class ModEventHandler {
 
 	@SubscribeEvent
 	public void onChunkLoad(ChunkEvent.Load event) {
+		if(event.world == null || event.world.isRemote) return;
+		for(Object object : new ArrayList<Object>(event.getChunk().chunkTileEntityMap.values())) {
+			if(object instanceof IInventory) ItemVOTVdrive.validateNormalStationDrives((IInventory)object, event.world);
+		}
 
 		//test for automatic in-world block replacement
 
@@ -1653,11 +1722,34 @@ public class ModEventHandler {
 	}
 
 	@SubscribeEvent
+	public void validateStationDrivesOnEntityLoad(EntityJoinWorldEvent event) {
+		if(event.world == null || event.world.isRemote || event.entity == null) return;
+		if(event.entity instanceof EntityItem) {
+			EntityItem entityItem = (EntityItem)event.entity;
+			ItemStack stack = entityItem.getEntityItem();
+			Item before = stack == null ? null : stack.getItem();
+			if(ItemVOTVdrive.isNormalStationDrive(stack)) ItemVOTVdrive.validateNormalStationDrive(stack, event.world);
+			if(stack != null && stack.getItem() != before) entityItem.setEntityItemStack(stack);
+		}
+		if(event.entity instanceof IInventory) ItemVOTVdrive.validateNormalStationDrives((IInventory)event.entity, event.world);
+		if(event.entity instanceof EntityRideableRocket) {
+			EntityRideableRocket rocket = (EntityRideableRocket)event.entity;
+			if(ItemVOTVdrive.isNormalStationDrive(rocket.navDrive)) {
+				ItemVOTVdrive.validateNormalStationDrive(rocket.navDrive, event.world);
+				rocket.setDrive(rocket.navDrive);
+			}
+		}
+	}
+
+	@SubscribeEvent
 	public void onPlayerClone(net.minecraftforge.event.entity.player.PlayerEvent.Clone event) {
 
 		ByteBuf buf = PooledByteBufAllocator.DEFAULT.buffer();
-		HbmPlayerProps.getData(event.original).serialize(buf);
-		HbmPlayerProps.getData(event.entityPlayer).deserialize(buf);
+		HbmPlayerProps originalProps = HbmPlayerProps.getData(event.original);
+		HbmPlayerProps clonedProps = HbmPlayerProps.getData(event.entityPlayer);
+		originalProps.serialize(buf);
+		clonedProps.deserialize(buf);
+		clonedProps.copyDriveCrateDataFrom(originalProps);
 		buf.release();
 	}
 

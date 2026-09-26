@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import api.hbm.wgc.Integrations;
 import com.hbm.blocks.ILookOverlay;
 import com.hbm.config.SpaceConfig;
 import com.hbm.dim.CelestialBody;
@@ -103,6 +104,14 @@ public class EntityRideableRocket extends EntityMissileBaseNT implements ILookOv
 	private TileEntityOrbitalStation targetPort;
 
 	private Destination destinationOverride; // for pod recalls, will ignore the current drive if set
+	private boolean orbitalReturnArmed;
+	private int orbitalReturnX;
+	private int orbitalReturnZ;
+	private int orbitalReturnDimension;
+
+	// Runtime-only latch: holding jump while launch authorization is denied must
+	// not emit the same chat error every server tick. Reset when jump is released.
+	private boolean launchAuthorizationDeniedLatched;
 
 	public enum RocketState {
 		AWAITING,		// Prepped for launch, once mounted will transition to launching
@@ -156,84 +165,159 @@ public class EntityRideableRocket extends EntityMissileBaseNT implements ILookOv
 		motionY = 0;
 		motionZ = 0;
 
+		Destination destination = getDestination();
+		if(destination == null) return;
+
+		WorldServer orbitWorld = null;
+		if(destination.body == SolarSystem.Body.ORBIT) {
+			EntityPlayer launchPlayer = riddenByEntity instanceof EntityPlayer
+				? (EntityPlayer)riddenByEntity
+				: thrower instanceof EntityPlayer ? (EntityPlayer)thrower : null;
+			UUID launchPlayerId = launchPlayer != null ? launchPlayer.getUniqueID() : ownerParty;
+			UUID launchFactionId = launchPlayerId != null ? Integrations.getPlayerFaction(worldObj, launchPlayerId) : null;
+			int orbitDimension = destination.body.getDimensionId();
+			orbitWorld = DimensionManager.getWorld(orbitDimension);
+			if(orbitWorld == null) {
+				DimensionManager.initDimension(orbitDimension);
+				orbitWorld = DimensionManager.getWorld(orbitDimension);
+			}
+
+			SolarSystemWorldSavedData stationData = SolarSystemWorldSavedData.get(worldObj);
+			boolean stationReady = orbitWorld != null && stationData != null && navDrive != null;
+			if(stationReady && ItemVOTVdrive.isRaidStationDrive(navDrive)) {
+				stationReady = canRide() && stationData.activateRaidPort(navDrive, orbitWorld, launchFactionId);
+			} else if(stationReady && canRide()) {
+				stationReady = to != null && to.isValid
+					&& ItemVOTVdrive.validateOrbitLaunchLoaded(navDrive, worldObj, orbitWorld);
+			} else if(stationReady && getRocket().capsule.part == ModItems.rp_station_core_20) {
+				stationReady = stationData.activateNormalStation(
+					navDrive, from == null ? null : from.body, orbitWorld, launchFactionId);
+			} else {
+				stationReady = false;
+			}
+
+			if(!stationReady) {
+				EntityPlayer affected = riddenByEntity instanceof EntityPlayer ? (EntityPlayer)riddenByEntity : thrower instanceof EntityPlayer ? (EntityPlayer)thrower : null;
+				String failure = stationData != null && stationData.hasConflictingRaidPort(navDrive)
+					? "Another Breach authorization already owns the target outpost. Returning to the launch surface."
+					: "Orbital destination authorization became invalid. Returning to the launch surface.";
+				abortOrbitalLaunchToSurface(affected, failure);
+				return;
+			}
+		}
+
 		RocketStruct rocket = getRocket();
 		boolean expendStage = rocket.stages.size() > 0;
 		if(getState() == RocketState.UNDOCKING && from.body == to.body) expendStage = false;
 
 		if(expendStage) {
 			rocket.stages.remove(0);
-
 			setRocket(rocket);
 			setSize(2, (float)rocket.getHeight() + 1);
 		}
 
 		setState(RocketState.LANDING);
 
-		Destination destination = getDestination();
+		int x = destination.x;
+		int y = 800;
+		int z = destination.z;
+		int targetDimensionId = destination.body.getDimensionId();
+		EntityPlayer rider = this.riddenByEntity instanceof EntityPlayer ? (EntityPlayer)this.riddenByEntity : null;
 
-		if(destination != null) {
-			int x = destination.x;
-			int y = 800;
-			int z = destination.z;
+		if(canRide()) {
+			if(destination.body == SolarSystem.Body.ORBIT) {
+				setState(RocketState.DOCKING);
+				x = ItemVOTVdrive.getOrbitArrivalX(navDrive, orbitWorld);
+				y = 0;
+				z = ItemVOTVdrive.getOrbitArrivalZ(navDrive, orbitWorld);
+			}
 
-			int targetDimensionId = destination.body.getDimensionId();
-
-			EntityPlayer rider = (EntityPlayer) this.riddenByEntity;
-
-			if(canRide()) {
-				if(destination.body == SolarSystem.Body.ORBIT) {
-					setState(RocketState.DOCKING);
-
-					// Place the station in the middle of the zone, where the docking ring will always be
-					x = x * OrbitalStation.STATION_SIZE + (OrbitalStation.STATION_SIZE / 2);
-					y = 0;
-					z = z * OrbitalStation.STATION_SIZE + (OrbitalStation.STATION_SIZE / 2);
-				}
-
-				if(worldObj.provider.dimensionId != targetDimensionId) {
-					if(rider != null) {
-						CelestialTeleporter.teleport(rider, targetDimensionId, x + 0.5D, y, z + 0.5D, false);
-					} else {
-						CelestialTeleporter.teleport(this, targetDimensionId, x + 0.5D, y, z + 0.5D, false);
-					}
+			if(worldObj.provider.dimensionId != targetDimensionId) {
+				if(rider != null) {
+					CelestialTeleporter.teleport(rider, targetDimensionId, x + 0.5D, y, z + 0.5D, false);
 				} else {
-					posX = x + 0.5D;
-					posY = y;
-					posZ = z + 0.5D;
-				}
-
-				// After a successful warp, spawn in a station core if one doesn't yet exist
-				if(destination.body == SolarSystem.Body.ORBIT) {
-					WorldServer targetWorld = DimensionManager.getWorld(targetDimensionId);
-					OrbitalStation.spawn(targetWorld, x, z);
+					CelestialTeleporter.teleport(this, targetDimensionId, x + 0.5D, y, z + 0.5D, false);
 				}
 			} else {
-				if(rocket.capsule.part instanceof ISatChip && destination.body != SolarSystem.Body.ORBIT) {
-					WorldServer targetWorld = DimensionManager.getWorld(targetDimensionId);
-					if(targetWorld == null) {
-						DimensionManager.initDimension(targetDimensionId);
-						targetWorld = DimensionManager.getWorld(targetDimensionId);
-					}
-					if(targetWorld != null) {
-						ItemStack stack = new ItemStack(rocket.capsule.part);
-						applySatData(stack);
-						XSatelliteRegistry.orbit(targetWorld, stack, satFreq, posX, posY, posZ);
-					}
-				} else if(rocket.capsule.part == ModItems.rp_station_core_20) {
-					// We mark the station as travellable, but we don't actually add the station until the player travels to it
-					OrbitalStation.addStation(x, z, CelestialBody.getBody(worldObj));
-
-					if(thrower != null && thrower instanceof EntityPlayer) {
-						EntityPlayer player = (EntityPlayer) thrower;
-						if(!player.capabilities.isCreativeMode && !ItemVOTVdrive.wasCopied(navDrive)) {
-							player.triggerAchievement(MainRegistry.achDriveFail);
-						}
-					}
-				}
-
-				setDead();
+				posX = x + 0.5D;
+				posY = y;
+				posZ = z + 0.5D;
 			}
+		} else {
+			if(rocket.capsule.part instanceof ISatChip && destination.body != SolarSystem.Body.ORBIT) {
+				WorldServer targetWorld = DimensionManager.getWorld(targetDimensionId);
+				if(targetWorld == null) {
+					DimensionManager.initDimension(targetDimensionId);
+					targetWorld = DimensionManager.getWorld(targetDimensionId);
+				}
+				if(targetWorld != null) {
+					ItemStack stack = new ItemStack(rocket.capsule.part);
+					applySatData(stack);
+					XSatelliteRegistry.orbit(targetWorld, stack, satFreq, posX, posY, posZ);
+				}
+			} else if(rocket.capsule.part == ModItems.rp_station_core_20 && destination.body == SolarSystem.Body.ORBIT) {
+				if(thrower instanceof EntityPlayer) {
+					EntityPlayer player = (EntityPlayer)thrower;
+					if(!player.capabilities.isCreativeMode && !ItemVOTVdrive.wasCopied(navDrive)) player.triggerAchievement(MainRegistry.achDriveFail);
+				}
+			}
+			setDead();
 		}
+	}
+
+	private void abortOrbitalLaunchToSurface(EntityPlayer affected, String reason) {
+		if(!orbitalReturnArmed || orbitalReturnDimension != worldObj.provider.dimensionId) {
+			orbitalReturnX = MathHelper.floor_double(posX);
+			orbitalReturnZ = MathHelper.floor_double(posZ);
+			orbitalReturnDimension = worldObj.provider.dimensionId;
+			orbitalReturnArmed = true;
+		}
+		setPosition(orbitalReturnX + 0.5D, posY, orbitalReturnZ + 0.5D);
+		motionX = 0D;
+		motionY = 0D;
+		motionZ = 0D;
+		rocketVelocity = 0D;
+		rotationPitch = 0F;
+		destinationOverride = new Destination(CelestialBody.getEnum(worldObj), orbitalReturnX, orbitalReturnZ);
+		setState(RocketState.LANDING);
+		if(affected != null && reason != null && !reason.isEmpty()) {
+			affected.addChatMessage(new net.minecraft.util.ChatComponentText(EnumChatFormatting.RED + reason));
+		}
+	}
+
+	/**
+	 * Arms this already-ridden craft for a safe forced return from orbit. The
+	 * normal CelestialTeleporter rider path will carry the same pod/rocket across
+	 * dimensions and the copied entity will continue in LANDING state.
+	 */
+	public void prepareForcedSurfaceLanding(int targetDimension, int targetX, int targetZ) {
+		CelestialBody body = CelestialBody.getBody(targetDimension);
+		if(body == null) body = CelestialBody.getBody(0);
+		if(body == null) return;
+
+		orbitalReturnArmed = true;
+		orbitalReturnX = targetX;
+		orbitalReturnZ = targetZ;
+		orbitalReturnDimension = targetDimension;
+		destinationOverride = new Destination(body.getEnum(), targetX, targetZ);
+		this.targetX = targetX;
+		this.targetZ = targetZ;
+		motionX = 0D;
+		motionY = 0D;
+		motionZ = 0D;
+		rocketVelocity = 0D;
+		rotationPitch = 0F;
+		setState(RocketState.LANDING);
+	}
+
+	private boolean isCurrentOrbitalAuthorizationValid() {
+		Destination destination = getDestination();
+		if(destination == null || destination.body != SolarSystem.Body.ORBIT) return true;
+		EntityPlayer actor = riddenByEntity instanceof EntityPlayer ? (EntityPlayer)riddenByEntity
+			: thrower instanceof EntityPlayer ? (EntityPlayer)thrower : null;
+		UUID actorId = actor != null ? actor.getUniqueID() : ownerParty;
+		return ItemVOTVdrive.canPlayerUseStationDriveForLaunch(navDrive, worldObj, actorId)
+			&& ItemVOTVdrive.validateOrbitLaunch(navDrive, worldObj);
 	}
 
 	public void beginCelestialTransfer(Target from, Target to) {
@@ -278,6 +362,32 @@ public class EntityRideableRocket extends EntityMissileBaseNT implements ILookOv
 	public void attemptLaunch() {
 		Target from = CelestialBody.getTarget(worldObj, (int)posX, (int)posZ);
 		Target to = getTarget();
+		if(from == null || from.body == null || !isTargetUsable(to)) return;
+		Destination checkedDestination = getDestination();
+		EntityPlayer stationActor = riddenByEntity instanceof EntityPlayer ? (EntityPlayer)riddenByEntity : thrower instanceof EntityPlayer ? (EntityPlayer)thrower : null;
+		if(checkedDestination != null && checkedDestination.body == SolarSystem.Body.ORBIT
+				&& !ItemVOTVdrive.canPlayerUseStationDriveForLaunch(navDrive, worldObj,
+					stationActor != null ? stationActor.getUniqueID() : ownerParty)) {
+			if(!worldObj.isRemote && stationActor != null && !launchAuthorizationDeniedLatched) {
+				net.minecraft.util.ChatComponentText denial = new net.minecraft.util.ChatComponentText(
+					"Station/Breach Drive not authorized for your faction.");
+				denial.getChatStyle().setColor(EnumChatFormatting.RED);
+				stationActor.addChatMessage(denial);
+				launchAuthorizationDeniedLatched = true;
+			}
+			return;
+		}
+		if(checkedDestination != null && checkedDestination.body == SolarSystem.Body.ORBIT && !ItemVOTVdrive.validateOrbitLaunch(navDrive, worldObj)) {
+			if(!worldObj.isRemote) {
+				SolarSystemWorldSavedData stationData = SolarSystemWorldSavedData.get(worldObj);
+				EntityPlayer affected = riddenByEntity instanceof EntityPlayer ? (EntityPlayer)riddenByEntity : thrower instanceof EntityPlayer ? (EntityPlayer)thrower : null;
+				String failure = stationData != null && stationData.hasConflictingRaidPort(navDrive)
+					? "Another Raid Hard Drive already has an active raiding port for this station."
+					: "The orbital station drive, reservation, or destination port is no longer valid.";
+				if(affected != null) affected.addChatMessage(new net.minecraft.util.ChatComponentText(EnumChatFormatting.RED + failure));
+			}
+			return;
+		}
 
 		RocketState transitionTo = from.inOrbit ? RocketState.UNDOCKING : RocketState.LAUNCHING;
 
@@ -286,8 +396,27 @@ public class EntityRideableRocket extends EntityMissileBaseNT implements ILookOv
 
 		// Will only launch if the rocket has sufficient fuel
 		if(getRocket().hasSufficientFuel(from.body, to.body, from.inOrbit, to.inOrbit)) {
+			if(transitionTo == RocketState.LAUNCHING && checkedDestination != null
+					&& checkedDestination.body == SolarSystem.Body.ORBIT) {
+				orbitalReturnArmed = true;
+				orbitalReturnX = MathHelper.floor_double(posX);
+				orbitalReturnZ = MathHelper.floor_double(posZ);
+				orbitalReturnDimension = worldObj.provider.dimensionId;
+				if(!worldObj.isRemote && stationActor != null) {
+					SolarSystemWorldSavedData.rememberPlayerOrbitalReturn(
+						stationActor, orbitalReturnDimension, orbitalReturnX, orbitalReturnZ);
+				}
+			}
 			setState(transitionTo);
 		}
+	}
+
+	private boolean isTargetUsable(Target target) {
+		if(target == null || target.body == null) return false;
+		boolean stationCore = getRocket().capsule.part == ModItems.rp_station_core_20;
+		if(target.inOrbit && !target.isValid && !stationCore) return false;
+		if(target.inOrbit && target.isValid && stationCore) return false;
+		return true;
 	}
 
 	public boolean canExitCapsule() {
@@ -322,13 +451,20 @@ public class EntityRideableRocket extends EntityMissileBaseNT implements ILookOv
 		if(!worldObj.isRemote) {
 			rotationYaw = -90.0F;
 
-			if(navDrive != null && navDrive.getItem() instanceof ItemVOTVdrive) {
-				ItemVOTVdrive.getTarget(navDrive, worldObj);
+			if(navDrive != null) {
+				if(ItemVOTVdrive.isNormalStationDrive(navDrive)) ItemVOTVdrive.validateNormalStationDrive(navDrive, worldObj);
+				if(ItemVOTVdrive.isUsableDrive(navDrive)) ItemVOTVdrive.getTarget(navDrive, worldObj);
 				setDrive(navDrive);
 			}
 
 			if(thrower == null && rider != null) {
 				thrower = rider;
+			}
+
+			// Release the denial latch once the rider releases jump so a later,
+			// intentional launch attempt can report the authorization failure once.
+			if(rider == null || !rider.isJumping || state != RocketState.AWAITING) {
+				launchAuthorizationDeniedLatched = false;
 			}
 
 			// If it's a satellite launcher, launch immediately
@@ -343,6 +479,11 @@ public class EntityRideableRocket extends EntityMissileBaseNT implements ILookOv
 			}
 
 			if(state == RocketState.LAUNCHING) {
+				if(stateTimer % 10 == 0 && !isCurrentOrbitalAuthorizationValid()) {
+					abortOrbitalLaunchToSurface(rider,
+						"Orbital destination authorization was lost during ascent. Returning safely to the surface.");
+					return;
+				}
 				if(isReusable()) {
 					rotationPitch = MathHelper.clamp_float((stateTimer - 60) * 0.3F, 0.0F, 45.0F);
 					if(rocketVelocity < 4) rocketVelocity += MathHelper.clamp_double(stateTimer / 120D * 0.05D, 0, 0.05);
@@ -366,25 +507,27 @@ public class EntityRideableRocket extends EntityMissileBaseNT implements ILookOv
 					rocketVelocity = MathHelper.clamp_double((targetHeight - posY) * 0.005, -0.5, -0.005);
 				}
 
-				if(destinationOverride == null && navDrive != null && navDrive.getItem() instanceof ItemVOTVdrive) {
+				if(destinationOverride == null && ItemVOTVdrive.isUsableDrive(navDrive)) {
 					Destination destination = ItemVOTVdrive.getDestination(navDrive);
+					if(destination != null && destination.body != null) {
 
-					// Check if we're about to land on top of another rocket and adjust accordingly
-					AxisAlignedBB bb = boundingBox.copy();
-					bb.minY = targetHeight;
-					if(!worldObj.getEntitiesWithinAABBExcludingEntity(this, bb, entity -> entity instanceof EntityRideableRocket).isEmpty()) {
-						int distance = worldObj.rand.nextBoolean() ? -5 : 5;
-						if(worldObj.rand.nextBoolean()) {
-							destination.x += distance;
-							navDrive.stackTagCompound.setInteger("x", destination.x);
-						} else {
-							destination.z += distance;
-							navDrive.stackTagCompound.setInteger("z", destination.z);
+						// Check if we're about to land on top of another rocket and adjust accordingly
+						AxisAlignedBB bb = boundingBox.copy();
+						bb.minY = targetHeight;
+						if(!worldObj.getEntitiesWithinAABBExcludingEntity(this, bb, entity -> entity instanceof EntityRideableRocket).isEmpty()) {
+							int distance = worldObj.rand.nextBoolean() ? -5 : 5;
+							if(worldObj.rand.nextBoolean()) {
+								destination.x += distance;
+								navDrive.stackTagCompound.setInteger("x", destination.x);
+							} else {
+								destination.z += distance;
+								navDrive.stackTagCompound.setInteger("z", destination.z);
+							}
 						}
-					}
 
-					posX = destination.x + 0.5D;
-					posZ = destination.z + 0.5D;
+						posX = destination.x + 0.5D;
+						posZ = destination.z + 0.5D;
+					}
 				}
 			} else if(state == RocketState.TIPPING) {
 				float tipTime = (float)stateTimer * 0.1F;
@@ -410,7 +553,10 @@ public class EntityRideableRocket extends EntityMissileBaseNT implements ILookOv
 					rocketVelocity = 0.1;
 					rotationPitch = 0;
 
-					if(targetPort == null) targetPort = OrbitalStation.getPort((int)posX, (int)posZ);
+					if(targetPort == null) {
+						OrbitalStation station = OrbitalStation.getStationFromPosition((int)posX, (int)posZ);
+						if(station != null) targetPort = ItemVOTVdrive.isRaidStationDrive(navDrive) ? station.getRaidPort() : station.getNormalPort();
+					}
 
 					// Just in case no ports have loaded in time, do nothing until they have
 					if(targetPort != null) {
@@ -449,6 +595,10 @@ public class EntityRideableRocket extends EntityMissileBaseNT implements ILookOv
 				if(station.getUnscaledProgress(0) > 0.99 || station.state == StationState.ARRIVING) {
 					Target from = CelestialBody.getTarget(worldObj, (int)posX, (int)posZ);
 					Target to = getTarget();
+					if(from == null || from.body == null || !isTargetUsable(to)) {
+						setState(RocketState.LANDING);
+						return;
+					}
 
 					beginLandingSequence(from, to);
 
@@ -486,6 +636,10 @@ public class EntityRideableRocket extends EntityMissileBaseNT implements ILookOv
 			if((state == RocketState.LAUNCHING && posY > 900) || (state == RocketState.UNDOCKING && posY < 32)) {
 				Target from = CelestialBody.getTarget(worldObj, (int)posX, (int)posZ);
 				Target to = getTarget();
+				if(from == null || from.body == null || !isTargetUsable(to)) {
+					setState(RocketState.LANDING);
+					return;
+				}
 
 				if(!canRide() || from.body == to.body) {
 					beginLandingSequence(from, to);
@@ -831,6 +985,7 @@ public class EntityRideableRocket extends EntityMissileBaseNT implements ILookOv
 		}
 
 		ItemStack drive = dataWatcher.getWatchableObjectItemStack(WATCHABLE_DRIVE);
+		if(!ItemVOTVdrive.isUsableDrive(drive)) return new Target(null, false, false);
 		return ItemVOTVdrive.getTarget(drive, worldObj);
 	}
 
@@ -838,6 +993,7 @@ public class EntityRideableRocket extends EntityMissileBaseNT implements ILookOv
 		if(destinationOverride != null) return destinationOverride;
 
 		ItemStack drive = dataWatcher.getWatchableObjectItemStack(WATCHABLE_DRIVE);
+		if(!ItemVOTVdrive.isUsableDrive(drive)) return null;
 		return ItemVOTVdrive.getDestination(drive);
 	}
 
@@ -894,6 +1050,10 @@ public class EntityRideableRocket extends EntityMissileBaseNT implements ILookOv
 		} else {
 			destinationOverride = null;
 		}
+		orbitalReturnArmed = nbt.getBoolean("orbitalReturnArmed");
+		orbitalReturnX = nbt.getInteger("orbitalReturnX");
+		orbitalReturnZ = nbt.getInteger("orbitalReturnZ");
+		orbitalReturnDimension = nbt.getInteger("orbitalReturnDimension");
 	}
 
 	@Override
@@ -930,6 +1090,10 @@ public class EntityRideableRocket extends EntityMissileBaseNT implements ILookOv
 			nbt.setInteger("overrideX", destinationOverride.x);
 			nbt.setInteger("overrideZ", destinationOverride.z);
 		}
+		nbt.setBoolean("orbitalReturnArmed", orbitalReturnArmed);
+		nbt.setInteger("orbitalReturnX", orbitalReturnX);
+		nbt.setInteger("orbitalReturnZ", orbitalReturnZ);
+		nbt.setInteger("orbitalReturnDimension", orbitalReturnDimension);
 	}
 
 	private void applySatData(ItemStack stack) {
@@ -1004,7 +1168,7 @@ public class EntityRideableRocket extends EntityMissileBaseNT implements ILookOv
 			}
 
 			ItemStack stack = player.getHeldItem();
-			if((state == RocketState.LANDED || state == RocketState.AWAITING) && stack != null && stack.getItem() instanceof ItemVOTVdrive) {
+			if((state == RocketState.LANDED || state == RocketState.AWAITING) && ItemVOTVdrive.isUsableDrive(stack)) {
 				if(ItemVOTVdrive.getProcessed(stack)) {
 					text.add("Interact to swap drive");
 				}
