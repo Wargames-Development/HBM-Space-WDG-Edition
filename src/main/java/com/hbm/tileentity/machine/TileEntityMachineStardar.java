@@ -212,7 +212,7 @@ public class TileEntityMachineStardar extends TileEntityMachineBase implements I
 	}
 
 	private void processDrive(int targetDimensionId, int ix, int iz) {
-		// Orbital station drives are issued only by /ntm station create and can no
+		// Orbital station drives are issued only by the Station Drive Terminal and can no
 		// longer be fabricated through Stardar packets or the current-body button.
 		if(targetDimensionId == SpaceConfig.orbitDimension) return;
 		CelestialBody body = CelestialBody.getBodyOrNull(targetDimensionId);

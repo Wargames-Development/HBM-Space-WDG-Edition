@@ -6,18 +6,12 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
-import com.hbm.dim.CelestialBody;
 import com.hbm.dim.SolarSystemWorldSavedData;
 import com.hbm.dim.orbit.OrbitalStation;
-import com.hbm.items.ItemRaidDrive;
-import com.hbm.items.ItemVOTVdrive;
-import com.hbm.items.ModItems;
 
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
@@ -80,55 +74,6 @@ public class CommandNTM extends CommandBase {
 		}
 	}
 
-	private void createStation(ICommandSender sender, SolarSystemWorldSavedData data, World world, String name) {
-		if(!(sender instanceof EntityPlayer)) {
-			error(sender, "This command must be run by a player holding an empty drive.");
-			return;
-		}
-
-		EntityPlayer player = (EntityPlayer)sender;
-		ItemStack held = player.getHeldItem();
-		if(held == null || held.getItem() != ModItems.hard_drive) {
-			error(sender, "You must hold an empty drive for it to be programmed as an Orbital Station Drive.");
-			return;
-		}
-		if(data.isStationNameInUse(name)) {
-			error(sender, "A station named \"" + name.trim() + "\" already exists. Station names must be unique.");
-			return;
-		}
-
-		CelestialBody body = CelestialBody.getBody(world);
-		if(body == null) body = CelestialBody.getBody(0);
-		OrbitalStation station = data.reserveStation(body, name);
-		if(station == null) {
-			if(data.isStationNameInUse(name)) {
-				error(sender, "A station named \"" + name.trim() + "\" already exists. Station names must be unique.");
-				return;
-			}
-			error(sender, "No safe free orbital-station position could be reserved.");
-			return;
-		}
-
-		ItemStack programmed = ItemVOTVdrive.createNormalStationDrive(station);
-		if(programmed == null) {
-			data.removeStation(station);
-			error(sender, "The Orbital Station Drive could not be programmed.");
-			return;
-		}
-
-		int remainingCount = held.stackSize - 1;
-		player.inventory.setInventorySlotContents(player.inventory.currentItem, programmed);
-		if(remainingCount > 0) {
-			ItemStack remaining = held.copy();
-			remaining.stackSize = remainingCount;
-			if(!player.inventory.addItemStackToInventory(remaining)) player.dropPlayerItemWithRandomChoice(remaining, false);
-		}
-		player.inventoryContainer.detectAndSendChanges();
-		data.markDirty();
-
-		success(sender, "Programmed an Orbital Station Drive for " + displayName(station) + ". Launch it through the normal station-launch process.");
-	}
-
 	private void listStations(ICommandSender sender, SolarSystemWorldSavedData data) {
 		List<OrbitalStation> active = new ArrayList<OrbitalStation>();
 		for(OrbitalStation station : data.getStations().values()) {
@@ -151,59 +96,6 @@ public class CommandNTM extends CommandBase {
 		for(OrbitalStation station : active) {
 			success(sender, "- " + displayName(station) + " (" + SolarSystemWorldSavedData.getStationId(station) + ")");
 		}
-	}
-
-	private void programRaidDrive(ICommandSender sender, SolarSystemWorldSavedData data, String name) {
-		if(!(sender instanceof EntityPlayer)) {
-			error(sender, "This command must be run by a player holding an unprogrammed Raid Hard Drive.");
-			return;
-		}
-
-		OrbitalStation station = resolveRaidStation(sender, data, name);
-		if(station == null) return;
-
-		EntityPlayer player = (EntityPlayer)sender;
-		ItemStack held = player.getHeldItem();
-		if(!ItemRaidDrive.isUnprogrammed(held)) {
-			error(sender, "You must hold an unprogrammed Raid Hard Drive for it to be programmed.");
-			return;
-		}
-
-		if(data.programHeldRaidDrive(player, station) == null) {
-			error(sender, "The Raid Hard Drive could not be programmed. Confirm the station is still active and the selected item has not changed.");
-			return;
-		}
-
-		success(sender, "Programmed a Raid Hard Drive for " + displayName(station) + ".");
-	}
-
-	private OrbitalStation resolveRaidStation(ICommandSender sender, SolarSystemWorldSavedData data, String name) {
-		List<OrbitalStation> matches = data.findStationsByName(name, true);
-		if(matches.isEmpty()) {
-			for(OrbitalStation station : data.getStations().values()) {
-				if(station == null || !station.deleting || station.name == null || !station.name.trim().equalsIgnoreCase(name.trim())) continue;
-				error(sender, "That station is currently being deleted.");
-				return null;
-			}
-			error(sender, "No orbital station matches \"" + name + "\".");
-			return null;
-		}
-		if(matches.size() > 1) {
-			StringBuilder ids = new StringBuilder();
-			for(OrbitalStation station : matches) {
-				if(ids.length() > 0) ids.append(", ");
-				ids.append(SolarSystemWorldSavedData.getStationId(station));
-			}
-			error(sender, "Station name is ambiguous. Matching IDs: " + ids.toString());
-			return null;
-		}
-
-		OrbitalStation station = matches.get(0);
-		if(!station.hasStation) {
-			error(sender, "That station reservation has not been launched yet.");
-			return null;
-		}
-		return station;
 	}
 
 	private void deleteStation(ICommandSender sender, SolarSystemWorldSavedData data, String name) {
@@ -278,16 +170,15 @@ public class CommandNTM extends CommandBase {
 	public List addTabCompletionOptions(ICommandSender sender, String[] args) {
 		if(args.length == 1) return getListOfStringsMatchingLastWord(args, "station");
 		if(args.length == 2 && "station".equalsIgnoreCase(args[0])) {
-			return getListOfStringsMatchingLastWord(args, "create", "list", "raid", "delete");
+			return getListOfStringsMatchingLastWord(args, "list", "delete");
 		}
-		if(args.length == 3 && "station".equalsIgnoreCase(args[0]) && ("raid".equalsIgnoreCase(args[1]) || "delete".equalsIgnoreCase(args[1]))) {
+		if(args.length == 3 && "station".equalsIgnoreCase(args[0]) && "delete".equalsIgnoreCase(args[1])) {
 			World world = sender.getEntityWorld();
 			SolarSystemWorldSavedData data = SolarSystemWorldSavedData.get(world);
 			if(data == null) return Collections.emptyList();
 			List<String> names = new ArrayList<String>();
-			boolean includeReservations = "delete".equalsIgnoreCase(args[1]);
 			for(OrbitalStation station : data.getStations().values()) {
-				if(station != null && !station.deleting && (station.hasStation || (includeReservations && station.reservedForLaunch)) && station.name != null && !station.name.trim().isEmpty()) names.add(station.name.trim());
+				if(station != null && !station.deleting && (station.hasStation || station.reservedForLaunch) && station.name != null && !station.name.trim().isEmpty()) names.add(station.name.trim());
 			}
 			return getListOfStringsMatchingLastWord(args, names.toArray(new String[names.size()]));
 		}
