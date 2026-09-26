@@ -30,16 +30,57 @@ if(Files.exists(Paths.get("maven.properties"))) {
 	ext.mavenprops = parseConfig(file("maven.properties"))
 }
 
-def version_name = version = mod_version
-if(!mod_build_number.isEmpty()) {
-	version_name = mod_version + "_X" + mod_build_number + "_H261_WDG"
-	version = "[${version_name}]"
+def wdg_version = project.hasProperty("wdg_version") ? project.property("wdg_version").toString().trim() : ""
+if(!(wdg_version ==~ /\d+\.\d+\.\d+/)) {
+	throw new GradleException("wdg_version must use semantic versioning (for example 1.0.0)")
 }
+
+def version_name = mod_version
+if(!mod_build_number.isEmpty()) {
+	version_name = mod_version + "_X" + mod_build_number + "_H261"
+}
+version_name = version_name + "_WG" + wdg_version
+version = mod_build_number.isEmpty() ? version_name : "[${version_name}]"
 group = "com.hbm" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "HBM-NTM"
 compileJava.options.encoding = 'UTF-8'
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
+
+
+def generatedWdgVersionDir = file("$buildDir/generated-sources/wdg-version")
+
+task generateWdgVersion {
+	inputs.property "mod_version", mod_version
+	inputs.property "mod_build_number", mod_build_number
+	inputs.property "wdg_version", wdg_version
+	outputs.file new File(generatedWdgVersionDir, "com/hbm/lib/WDGVersion.java")
+
+	doLast {
+		File output = new File(generatedWdgVersionDir, "com/hbm/lib/WDGVersion.java")
+		output.parentFile.mkdirs()
+
+		def displayVersion = mod_version
+		if(!mod_build_number.isEmpty()) {
+			displayVersion += " BETA (" + mod_build_number + ") H261"
+		}
+		displayVersion += " WG" + wdg_version
+
+		output.text = """package com.hbm.lib;
+
+public final class WDGVersion {
+	private WDGVersion() { }
+
+	public static final String VERSION = "${wdg_version}";
+	public static final String FULL_VERSION = "${version_name}";
+	public static final String DISPLAY_VERSION = "${displayVersion}";
+}
+"""
+	}
+}
+
+sourceSets.main.java.srcDir generatedWdgVersionDir
+compileJava.dependsOn generateWdgVersion
 
 minecraft {
 	version = "1.7.10-10.13.4.1614-1.7.10"

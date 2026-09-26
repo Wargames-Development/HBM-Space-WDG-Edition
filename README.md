@@ -1,115 +1,294 @@
-<!-- Update with new links and icons to wargames parts -->
-<!-- [![Curse Forge](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/available/curseforge_vector.svg)]() -->
-<!--[![Modrinth](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/available/modrinth_vector.svg)]() -->
+<!-- Wargames Development Group README.
+     Keep HBM-README.md as the preserved upstream HBM Space README. -->
 
 [![Patreon](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/donate/patreon-plural_vector.svg)](https://www.patreon.com/c/WargamesDevelopment)
 [![Discord](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/social/discord-plural_vector.svg)](https://discord.wargames.uk)
 
 # HBM-Space Wargames Edition
 
-This as the name implies is a further fork of the [HBM-Space](https://github.com/JameH2/Hbm-s-Nuclear-Tech-GIT) by [James-H2](https://github.com/JameH2) which is a space exploration addition fork of the current [Nuclear Tech Mod](https://github.com/HbmMods/Hbm-s-Nuclear-Tech-GIT) by [HBM](https://github.com/HbmMods). Please checkout our [Credits Section](#meet-our-team--credits) for the full information.
+HBM-Space Wargames Edition is the Wargames Development Group fork of
+[HBM-Space](https://github.com/JameH2/Hbm-s-Nuclear-Tech-GIT) by
+[James-H2](https://github.com/JameH2), which itself extends
+[HBM's Nuclear Tech Mod](https://github.com/HbmMods/Hbm-s-Nuclear-Tech-GIT).
 
-<br>
+The fork keeps the HBM-Space content base while adding the multiplayer,
+territory, faction, orbital-warfare and server-safety integration required by
+the Wargames ecosystem.
 
-![HBM-Space Wargames Edition Banner](https://github.com/Wargames-Development/HBM-Space-WDG-Edition/blob/space-travel-twopointfive/assets/HBM-Space-Banner.png?raw=true)
+For the preserved upstream HBM-Space README, see [HBM-README.md](HBM-README.md).
 
-HBM Space Wargames Edition is a systems-focused fork of HBM’s Nuclear Tech Mod (Space branch), designed to improve behaviour in multiplayer and server environments.
+![HBM-Space Wargames Edition Banner](assets/HBM-Space-Banner.png)
 
-This fork does not add significant new content or progression changes. Instead, it introduces ownership tracking and protection-aware behaviour across explosives, missiles, and automated systems. The goal is to allow high-impact weapons to function in structured environments without bypassing territory rules or causing uncontrolled damage.
+## What is different in Wargames Edition?
 
-Changes also hook into our adaptations of MCHELI-O/R Wargames Edition and yRadar Wargames Edition.
+Wargames Edition is no longer only a set of protection hooks around HBM.
+It now contains a full integration layer between HBM-Space and WGCore,
+including orbital station ownership, faction-authorized station travel,
+Breach attacks, protected objectives, persistent cleanup and server-safe
+recovery.
 
-## Features (WDG Edition)
+The fork is still intended to remain recognisably HBM-Space. WDG changes are
+primarily focused on multiplayer behaviour, integration, administration and
+orbital conflict rather than replacing HBM's normal progression.
 
-This fork focuses on improving system behaviour, ownership tracking, and protection integration for multiplayer environments.  
-For standard gameplay, progression, and item documentation, refer to the official HBM Space wiki: https://nucleartech.wiki/wiki/NTM:_Space
-
----
-
-### Protection & Territory Integration
-
-- **Explosion Validation**
-  Explosions are validated against territory rules before applying damage.
-
-- **Protected Block Damage Handling**
-  Block destruction is skipped in protected chunks where it is not permitted.
-
-- **Radiation Control**
-  Radiation spread is blocked or limited when entering protected areas.
-
-- **Contamination Control**
-  Contamination spread is blocked or restricted in protected territory.
-
-- **EMP Behaviour Integration**
-  EMP effects respect protection rules instead of applying globally.
-
-- **Player Damage Filtering**
-  Damage from explosives and weapons is filtered through protection rules.
+For standard HBM gameplay, items and progression, refer to the
+[official Nuclear Tech Mod wiki](https://nucleartech.wiki/) and the upstream
+HBM-Space project.
 
 ---
 
-### Ownership & Attribution
+## WDG Features
 
-- **Persistent Ownership Tracking**
-  Bombs, explosives, missiles, shells, turrets, and launch systems store owner or faction data.
+### WGCore integration
 
-- **No Anonymous Explosives**
-  All explosive sources retain attribution from placement or launch to detonation.
+HBM-Space Wargames Edition contains an HBM-facing WGCore integration layer for
+territory, factions, protection and orbital conflict.
 
-- **End-to-End Context**
-  Ownership is preserved across long-range weapons and chained systems.
+When WGCore is installed, HBM can use WGCore decisions for:
+
+- player and faction targeting;
+- block and chunk targeting;
+- detonation and explosion damage;
+- radiation and contamination;
+- faction ownership and territory;
+- orbital station ownership;
+- Orbital Breach state and authorization;
+- station hacking, evacuation and settlement.
+
+The integration is designed so that HBM-Space can still retain standalone
+behaviour when WGCore is absent.
+
+### Protection and territory handling
+
+WDG systems route supported HBM actions through territory-aware checks instead
+of allowing high-impact systems to bypass protected areas.
+
+This includes:
+
+- explosion and block-damage filtering;
+- protected-chunk handling;
+- player-damage authorization;
+- radiation restrictions;
+- contamination restrictions;
+- detonation and target validation;
+- protection-aware launch and impact behaviour.
+
+Explosion filtering can preserve permitted parts of an affected area instead of
+requiring every explosion to behave as a simple all-or-nothing cancellation.
+
+### Ownership and attribution
+
+WDG integration preserves ownership and faction context through the HBM systems
+that need it for multiplayer authorization.
+
+This is used by systems such as:
+
+- launchers and rockets;
+- missiles and explosive payloads;
+- automated or remotely initiated attacks;
+- faction-aware targeting;
+- orbital station travel and Breach operations.
+
+The goal is to avoid anonymous high-impact actions where WGCore needs to know
+who initiated them and whether that action is permitted.
 
 ---
 
-### Weapon & Entity Behaviour
+## Orbital Stations and Breach Warfare
 
-- **Territory-Aware Impacts**
-  Missiles, rockets, and shells respect protection rules at their impact location.
+The WDG fork substantially extends the multiplayer side of HBM-Space orbital
+stations.
 
-- **Faction-Aware Turrets**
-  Turrets use ownership and faction relationships for targeting decisions.
+### Station Drive Terminal
 
-- **Projectile Ownership Inheritance**
-  Turret and player-fired projectiles inherit ownership context.
+The **Station Drive Terminal** is the player-facing workflow for station and
+Breach drive programming.
+
+It supports the WDG station-drive lifecycle, including:
+
+- permanent faction Orbital Station Drives;
+- WGCore-managed Breach Drives;
+- drive cloning and reprogramming;
+- authorization checks before launch;
+- expired Breach Drive handling;
+- clear launch-preflight feedback.
+
+The old player-facing `/ntm station create` and `/ntm station raid` workflows
+have been retired in favour of the Station Drive Terminal. Administrative
+station listing, deletion and recovery commands remain available where
+appropriate.
+
+### Faction-owned orbital stations
+
+Permanent orbital stations can be associated with stable WGCore station
+identity and faction ownership.
+
+The integration keeps station identity and generation data synchronized so that
+travel, cleanup and Breach state are not accidentally applied to an obsolete or
+replaced station.
+
+If WGCore rejects a newly generated station registration, the generated station
+is cleaned up instead of leaving an unowned or inconsistent orbital cell.
+
+### Breach Drives and launch authorization
+
+Breach Drives are tied to WGCore's active orbital-conflict state.
+
+The HBM side enforces:
+
+- faction authorization for station and Breach drives;
+- Breach-target validity before launch;
+- Breach Drive expiry when an assault ends;
+- rejection of unavailable, stale or evacuated targets;
+- launcher and rocket checks without unrelated inventory-slot corruption;
+- safe abort/return behaviour when a destination becomes invalid.
+
+### Temporary Breach outposts
+
+Successful Breach deployment can create temporary orbital outposts registered
+with WGCore.
+
+These outposts:
+
+- use WGCore-controlled Breach entitlement;
+- are registered as temporary orbital territory;
+- are removed when the associated Breach lifecycle ends;
+- use persisted cleanup so interrupted server sessions can recover safely.
+
+### Station Computer hacking
+
+The registered **Orbital Station Computer** is the Breach objective.
+
+During an active Breach:
+
+- the exact registered computer is used as the hacking target;
+- WGCore owns the authoritative hack state and countdown;
+- HBM synchronizes the active hack state to the client;
+- the Station Computer overlay shows Breach progress;
+- a visible boundary marks the required hacking area;
+- the tracked objective cannot simply be broken, moved or destroyed to evade
+  the attack.
+
+Outside the relevant Breach phases, normal HBM Station Computer behaviour is
+preserved.
+
+### Victory, evacuation and cleanup
+
+Orbital Breach closeout is coordinated between HBM and WGCore rather than
+immediately deleting station terrain.
+
+The current lifecycle includes:
+
+- evacuation windows after a successful Breach;
+- prevention of new travel into a station being evacuated;
+- safe handling of defenders and attackers after failed assaults;
+- persistence of player station/outpost identity across logout;
+- recovery of players who log back in after their station or outpost was
+  removed;
+- restart-safe station and outpost cleanup;
+- reusable station names after defeated cells are retired;
+- settlement confirmation before destructive station-cell cleanup;
+- recovery of interrupted cleanup after server restart.
+
+HBM also preserves landing-pod and forced-return safety during orbital
+evacuation and invalid-destination handling.
 
 ---
 
-### Missile System Improvements
+## Launch, missile and weapon integration
 
-- **Bunker-Buster Penetration**
-  Missiles can penetrate surfaces before detonation depending on impact conditions.
+### Launch systems
 
-- **Airburst Detonation**
-  Missiles can detonate above ground for wider area coverage.
+Launchers and rideable rockets participate in WDG authorization instead of
+blindly accepting every programmed drive or target.
 
-- **Cluster / Burst Improvements**
-  More consistent behaviour for multi-stage and cluster payloads.
+The integration covers:
 
-- **Improved Drill / Penetration Handling**
-  Enhanced logic for deep-impact and drilling-style munitions.
+- station-drive authorization;
+- Breach-drive authorization;
+- invalid-target preflight checks;
+- launch-origin tracking;
+- safe surface return handling;
+- compatibility with normal launch-pad inventory behaviour.
+
+### Missile and projectile behaviour
+
+The WDG fork retains the multiplayer-oriented missile and projectile work
+developed for the server, including protection-aware impacts and ownership
+propagation where supported.
+
+Existing WDG behaviour includes work around:
+
+- bunker-buster / penetration behaviour;
+- airburst behaviour;
+- cluster and multi-stage payload handling;
+- drilling and deep-impact payloads;
+- ownership-aware launch and impact decisions.
+
+### Turrets and automated systems
+
+Where integrated, automated systems use player/faction context and WGCore
+targeting decisions rather than treating every nearby entity or territory as a
+valid target.
 
 ---
 
-### Launch Systems
+## Server and gameplay hardening
 
-- **Designator Ownership Tracking**
-  Target designators store ownership data for correct attribution.
+The WDG branch also contains server-focused hardening that is intentionally
+separate from upstream contributor cosmetics.
 
-- **Launch Validation**
-  Launch systems check whether a target is valid before firing.
+Current hardening includes:
 
-- **Protection Integration**
-  Launch behaviour is integrated with territory and protection rules.
+- `/ntmserver` configuration administration restricted to level-4 server
+  operators;
+- removal of inherited player-identity-specific gameplay advantages;
+- removal of identity-specific respawn item grants;
+- removal of identity-specific movement, radiation and weapon advantages;
+- preservation of harmless cosmetic contributor content;
+- cleanup/recovery logic intended to survive server restarts and interrupted
+  orbital operations.
+
+These changes are intended to make behaviour predictable and fair on a
+persistent multiplayer server.
+
+---
+
+## Upstream compatibility
+
+Wargames Edition continues to track HBM-Space rather than replacing it with a
+separate content fork.
+
+WDG-specific integration is kept around the HBM-Space systems that need
+multiplayer ownership, protection or orbital-conflict awareness. Upstream space,
+satellite, rendering and gameplay changes can therefore continue to be merged
+into this fork while the WDG integration is preserved.
+
+Because this repository is an active development fork, the latest source may
+occasionally contain work that has not yet reached a packaged server release.
+
+---
+
+## Related Wargames integrations
+
+HBM-Space Wargames Edition is designed to work as part of the wider Wargames
+mod ecosystem.
+
+Its multiplayer behaviour is coordinated primarily through **WGCore**, with
+related WDG adaptations also existing for projects such as **MCHELI-O/R
+Wargames Edition** and **yRadar Wargames Edition**.
+
+---
 
 ## Documentation
 
-### Documentation Coming Soon.
+### Documentation coming soon
 
-<!--
-If there is some documentation then please include this and update the link! The website forum documentation page needs to be produced first...
+More complete WDG-specific documentation is planned for the Wargames
+documentation site.
 
-We now have documentation, it is still early, so not everything might be there, you can check it out [here](https://docs.wargames.uk/<mod>)!
--->
+For upstream HBM/NTM mechanics in the meantime, use the official HBM/NTM
+documentation and the preserved [HBM-README.md](HBM-README.md).
 
 <br>
 
@@ -117,119 +296,124 @@ We now have documentation, it is still early, so not everything might be there, 
 
 ## Support Us!
 
-<!-- Update this once wargames hosting comes out properly to direct to purchase a server! -->
+Are you enjoying our projects? Consider supporting their continued
+development.
 
-Are you enjoying our mod?
-Consider supporting our development!
-
-Instead of asking for donations the **Wargames Development Group** have produced a project called host.wargames.uk (yet to release) Please consider keeping an eye out for when we release support through server hosting!
-
-But for now until that is released, all monetary contributions made via Patreon are being put right back into the development of the mod, our Server and our Hosting Company.
+The **Wargames Development Group** is also developing
+`host.wargames.uk`. Until that service is available, monetary contributions
+through Patreon are put back into development, server infrastructure and
+hosting work.
 
 [![Patreon](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/donate/patreon-plural_vector.svg)](https://www.patreon.com/c/WargamesDevelopment)
 
 ## Need to get in touch?
 
-<!-- If Discord server or contact lines via email change, update this section here. -->
+Our primary community contact is the
+[Wargames Discord server](https://discord.wargames.uk).
 
-Our primary way of communicating with the community is through our [Discord Server](https://discord.wargames.uk).
-Join our great community today!
+You can also contact:
 
-Feel free to send an email to dev@wargames.uk if you have any concerns about the development, or if you find dangerous issues or abuse, contact abuse@wargames.uk
-Please note that this inbox will not reply to any queries or help about the mod itself, please use the discord server for that instead.
+- `dev@wargames.uk` for development-related concerns;
+- `abuse@wargames.uk` for dangerous issues or abuse reports.
+
+Please use Discord rather than these inboxes for general mod support.
 
 ---
 
-## Compiling a current Version
+## Compiling a current version
 
-If you are annoyed by our slow releases (since we work on the server's schedule), and you can see we have done work,
-feel free to compile it yourself, however it might not work due to incomplete fixes or updates!
-
-<!-- This is a very basic guide to getting the repo setup, this is on purpose, but could be updated if things change or is wanted -->
+The repository may be ahead of the latest packaged server release. You can
+compile the current source yourself, but development snapshots may contain
+incomplete or untested work.
 
 <details>
-<summary>View Detailed Steps:</summary>
+<summary>View build steps</summary>
 
-1. Enter the source code directory
-   1. Navigate to the location where you downloaded the sources. *it should be `C:/Users/%USER%/Downloads`*
+1. Download or clone the repository and open a terminal in the project root.
 
-   2. Enter the downloaded source tree.
+2. Build the mod:
 
-   3. For Win11 Shift Right-Click, and select `Open in terminal` This will open a CMD instance in this location, *if this for some reason is a powershell instance please follow below:*
-        1. Open a CMD window (search CMD)
+   **Windows**
+   ```cmd
+   gradlew build
+   ```
 
-        2. cd to the directory:
+   **macOS / Linux**
+   ```bash
+   ./gradlew build
+   ```
 
-        ```cmd
-            cd /path/to/project-root/dir/
-        ```
+3. When the build completes, find the generated JAR in:
 
-<br>
-
-2. Build the mod
-    1. Type `gradlew build` and then click enter
-
-    2. Wait for completion
-
-<br>
-
-3. Locate the mod file.
-   1. Navigate to the location where you downloaded the sources. *it should be `C:/Users/%USER%/Downloads`*
-
-   2. Enter the downloaded source tree.
-
-   3. Navigate to `build/libs`.
-
-   4. Grab the .jar file from there. *This mod might be unstable due to the state of current development*
+   ```text
+   build/libs
+   ```
 
 </details>
 
 ## Contributing
 
-<!-- This is a very basic guide to getting the repo setup, this is on purpose, but could be updated if things change or is wanted -->
+Contributions are welcome.
 
-Anyone and everyone is welcome to contribute and help out with the project!
-However, We hope you have some understanding of modding and therefore are giving basic instructions below
+Please have a working understanding of Minecraft Forge 1.7.10 mod development
+before making code changes to the project.
 
 <details>
-<summary>View Detailed Steps:</summary>
+<summary>View workspace setup</summary>
 
-1. Follow the Step 1 from compiling the latest version above,
+1. Open a terminal in the repository root.
 
-2. Setup the workspace
-    1. Type `gradlew setupDecompWorkspace` and then click enter
+2. Prepare the ForgeGradle workspace:
 
-    2. Wait for completion
+   **Windows**
+   ```cmd
+   gradlew setupDecompWorkspace
+   ```
 
-3. Depending on your editor of choice follow one of the below:
+   **macOS / Linux**
+   ```bash
+   ./gradlew setupDecompWorkspace
+   ```
 
-* Intellij Idea:
-    1. Generate idea files by running `gradlew idea` in the cmd.
+3. Generate files for your IDE if required.
 
-    2. Open the .ipr file in the explorer to intellij Idea.
+   **IntelliJ IDEA**
+   ```text
+   gradlew idea
+   ```
 
-* Eclipse Users:
-    1. Generate eclipse files by running  `gradlew eclipse` in the cmd.
-
-    2. Select the **eclipse** folder as a workspace when opening eclipse.
+   **Eclipse**
+   ```text
+   gradlew eclipse
+   ```
 
 </details>
 
-### Want to join the Development Team?
+### Want to join the development team?
 
-We are always looking for people to assist us in our development, as our time is more pushed into the infostructure, hardware and minecraft server.
-Therefore if you wish to help out in a more official way then please get in contact with us through our Discord Server. (only if you've previously worked on any other projects)
+We are always interested in contributors who can help with development,
+infrastructure and the Wargames Minecraft ecosystem.
+
+If you already have relevant project or modding experience and would like to
+help more formally, contact us through the
+[Wargames Discord server](https://discord.wargames.uk).
 
 [![Discord](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/social/discord-plural_vector.svg)](https://discord.wargames.uk)
 
+---
+
 ## Meet our Team & Credits
 
-<!-- Add Credit to the developers of any used code, models or textures, including links. -->
+A massive thank you to everyone who has contributed to the upstream projects
+and to the Wargames fork.
 
-Another massive thank you to all the contributors and members of the development team.
-We wouldn't be where we are now without the support from you all!
+The original Nuclear Tech Mod content is credited to
+[HBM](https://github.com/HbmMods) and the HBM-Space work is credited to
+[James-H2](https://github.com/JameH2) and its contributors.
 
-All Credits for the content prior is fully credited to [HBM](https://github.com/HbmMods) for creating [HBM's NTM](https://github.com/HbmMods/Hbm-s-Nuclear-Tech-GIT), and [James-H2](https://github.com/JameH2) for [HBM-Space](https://github.com/JameH2/Hbm-s-Nuclear-Tech-GIT). Content will be continued to be sync'd to try and keep it in line with the current space fork. Changes beyond that of what can be found in the HBM-Space fork is original code/adjustments including all content of the Features section having been developed by [Glac](https://github.com/RhysHopkins04) of the [WDG](https://github.com/Wargames-Development).
+WDG-specific systems, integration and adjustments are developed in this
+repository by the Wargames Development Group and its contributors. Git history
+should be treated as the authoritative per-change attribution.
 
 ### Wargames Development Group Team
 
@@ -238,11 +422,11 @@ All Credits for the content prior is fully credited to [HBM](https://github.com/
 - [Ocean](https://github.com/Oceanseaj) - Advisor
 - [Viking](https://github.com/snowboardman91) - Advisor
 
-
 ### Contributors
 
-[![Contributors](https://contrib.rocks/image?repo=Wargames-Development/HBM-Space-WG)](https://github.com/Wargames-Development/HBM-Space-WG/graphs/contributors)
+[![Contributors](https://contrib.rocks/image?repo=Wargames-Development/HBM-Space-WDG-Edition)](https://github.com/Wargames-Development/HBM-Space-WDG-Edition/graphs/contributors)
 
-### OLD README:
+### Preserved upstream README
 
-To view the old README.md that was attached to the main HBM-Space Repository, please view [OLD README](/HBM-README.md).
+The README previously shipped with the upstream HBM-Space repository is kept
+separately in [HBM-README.md](HBM-README.md).
