@@ -13,6 +13,8 @@ import com.hbm.entity.effect.EntityFalloutRain;
 import com.hbm.explosion.ExplosionNukeGeneric;
 import com.hbm.explosion.ExplosionNukeRayBatched;
 import com.hbm.main.MainRegistry;
+import com.hbm.saveddata.satellites.SatelliteDetector;
+import com.hbm.saveddata.satellites.SatelliteDetector.BurstIntensity;
 import com.hbm.util.ContaminationUtil;
 import com.hbm.util.ContaminationUtil.ContaminationType;
 import com.hbm.util.ContaminationUtil.HazardType;
@@ -80,6 +82,8 @@ public class EntityNukeExplosionMK5 extends EntityExplosionChunkloading {
 			//} else {
 			explosion = new ExplosionNukeRayBatched(worldObj, (int) posX, (int) posY, (int) posZ, strength, speed, length, ownedParty);
 			//}
+			
+			SatelliteDetector.reportEvent(worldObj, SatelliteDetector.DURATION_HIGH, BurstIntensity.HIGH, posX, posZ);
 		}
 
 		if (!explosion.isComplete()) {

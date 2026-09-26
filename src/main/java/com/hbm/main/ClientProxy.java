@@ -322,6 +322,7 @@ public class ClientProxy extends ServerProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityMachineRadarNT.class, new RenderRadar());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityMachineRadarLarge.class, new RenderRadarLarge());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityMachineRadarScreen.class, new RenderRadarScreen());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityMachineSatLink.class, new RenderSatLink());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityReactorResearch.class, new RenderSmallReactor());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTesla.class, new RenderTesla());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBarrel.class, new RenderFluidBarrel());
@@ -750,6 +751,7 @@ public class ClientProxy extends ServerProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityRagingVortex.class, new RenderBlackHole());
 		RenderingRegistry.registerEntityRenderingHandler(EntityQuasar.class, new RenderQuasar());
 		RenderingRegistry.registerEntityRenderingHandler(EntityDeathBlast.class, new RenderDeathBlast());
+		RenderingRegistry.registerEntityRenderingHandler(EntityOrbitalLaser.class, new RenderOrbitalLaser());
 		RenderingRegistry.registerEntityRenderingHandler(EntitySpear.class, new RenderSpear());
 		RenderingRegistry.registerEntityRenderingHandler(EntityNukeTorex.class, new RenderTorex());
 		//minecarts

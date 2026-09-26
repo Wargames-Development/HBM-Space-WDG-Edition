@@ -435,6 +435,9 @@ public class ExplosionThermo {
 		double d6;
 		double d7;
 		double wat = bombStartStrength;
+		Set<ChunkCoordIntPair> protectedChunks = Integrations.getExplosionProtectedChunksWGC(
+			party, world, x, z, (int)Math.ceil(wat) + 16
+		);
 		bombStartStrength *= 2.0F;
 		i = MathHelper.floor_double(x - wat - 1.0D);
 		j = MathHelper.floor_double(x + wat + 1.0D);
@@ -468,6 +471,7 @@ public class ExplosionThermo {
 						{
 							for(int c = (int) entity.posZ - 1; c < (int) entity.posZ + 2; c++)
 							{
+								if(Integrations.isProtected(a, c, protectedChunks)) continue;
 								world.setBlock(a, b, c, Blocks.ice);
 							}
 						}

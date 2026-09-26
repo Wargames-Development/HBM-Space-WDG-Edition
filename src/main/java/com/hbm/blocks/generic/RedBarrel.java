@@ -1,6 +1,9 @@
 package com.hbm.blocks.generic;
 
 import java.util.Random;
+import java.util.UUID;
+
+import api.hbm.wgc.Integrations;
 
 import com.hbm.blocks.ModBlocks;
 import com.hbm.blocks.bomb.BlockDetonatable;
@@ -53,13 +56,14 @@ public class RedBarrel extends BlockDetonatable {
 	@Override
 	public void explodeEntity(World world, double x, double y, double z, EntityTNTPrimedBase entity) {
 		int ix = MathHelper.floor_double(x), iy = MathHelper.floor_double(y), iz = MathHelper.floor_double(z);
+		UUID owner = entity != null && entity.getTntPlacedBy() != null ? entity.getTntPlacedBy().getUniqueID() : null;
 
 		if(this == ModBlocks.red_barrel || this == ModBlocks.pink_barrel) {
 			world.newExplosion(entity, x, y, z, 2.5F, true, true);
 		} else if(this == ModBlocks.lox_barrel) {
 			world.newExplosion(entity, x, y, z, 1F, false, false);
 
-			ExplosionThermo.freezer(null,world, ix, iy, iz, 7);
+			ExplosionThermo.freezer(owner, world, ix, iy, iz, 7);
 		} else if(this == ModBlocks.taint_barrel) {
 			world.newExplosion(entity, x, y, z, 1F, false, false);
 
@@ -69,7 +73,8 @@ public class RedBarrel extends BlockDetonatable {
 				int b = rand.nextInt(9) - 4 + iy;
 				int c = rand.nextInt(9) - 4 + iz;
 				Block block = world.getBlock(a, b, c);
-				if(block.isNormalCube() && !block.isAir(world, a, b, c)) {
+				if(block.isNormalCube() && !block.isAir(world, a, b, c)
+					&& Integrations.canContaminateBlockWGC(owner, world, a, c)) {
 					world.setBlock(a, b, c, ModBlocks.taint, rand.nextInt(3) + 4, 2);
 				}
 			}
