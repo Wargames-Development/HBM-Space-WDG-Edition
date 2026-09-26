@@ -20,6 +20,16 @@ public class CommandReloadServer extends CommandReloadConfig {
 	public String getCommandUsage(ICommandSender sender) {
 		return "/ntmserver help";
 	}
+
+	@Override
+	public int getRequiredPermissionLevel() {
+		return 4;
+	}
+
+	@Override
+	public boolean canCommandSenderUseCommand(ICommandSender sender) {
+		return sender != null && sender.canCommandSenderUseCommand(getRequiredPermissionLevel(), getCommandName());
+	}
 	
 	@Override public void help(ICommandSender sender, String[] args) {
 		if(args.length >= 2) {

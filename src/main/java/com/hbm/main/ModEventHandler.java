@@ -14,7 +14,6 @@ import api.hbm.wgc.Integrations;
 
 import org.apache.commons.lang3.math.NumberUtils;
 
-import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.hbm.blocks.IStepTickReceiver;
 import com.hbm.blocks.ModBlocks;
@@ -137,7 +136,6 @@ import net.minecraft.entity.EntityFlying;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.*;
 import net.minecraft.entity.passive.EntityAnimal;
@@ -281,21 +279,6 @@ public class ModEventHandler {
 	}
 
 	@SubscribeEvent
-	public void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event) {
-
-		EntityPlayer player = event.player;
-
-		if((player.getUniqueID().toString().equals(ShadyUtil.Dr_Nostalgia) || player.getDisplayName().equals("Dr_Nostalgia")) && !player.worldObj.isRemote) {
-
-			if(!player.inventory.hasItem(ModItems.hat))
-				player.inventory.addItemStackToInventory(new ItemStack(ModItems.hat));
-
-			if(!player.inventory.hasItem(ModItems.beta))
-				player.inventory.addItemStackToInventory(new ItemStack(ModItems.beta));
-		}
-	}
-
-	@SubscribeEvent
 	public void onEntityConstructing(EntityEvent.EntityConstructing event) {
 
 		if(event.entity instanceof EntityPlayer) {
@@ -426,7 +409,7 @@ public class ModEventHandler {
 					 && !(((EntityDamageSource)event.source).getEntity() instanceof FakePlayer)) {
 
 				Random rng = event.entityLiving.getRNG();
-				
+
 				if(event.entityLiving instanceof EntitySpider && rng.nextInt(500) == 0) {
 					event.entityLiving.dropItem(ModItems.spider_milk, 1);
 				}
@@ -452,7 +435,7 @@ public class ModEventHandler {
 				if(event.entityLiving instanceof EntityVillager && event.entityLiving.getRNG().nextInt(1) == 0) {
 					event.entityLiving.dropItem(ModItems.flesh, 5);
 				}
-				
+
 				if(event.entityLiving instanceof EntityZombie) {
 					if(rng.nextInt(200) == 0) event.entityLiving.dropItem(ModItems.ingot_copper, 1);
 					if(rng.nextInt(200) == 0) event.entityLiving.dropItem(ModItems.ingot_aluminium, 1);
@@ -559,7 +542,7 @@ public class ModEventHandler {
 
 	private static ItemStack getSkelegun(float soot, Random rand) {
 		if(!MobConfig.enableMobWeapons) return null;
-		
+
 		soot -= MobConfig.mobWeaponSootReduction;
 		if(rand.nextDouble() > Math.log(soot) * 0.25) return null;
 
@@ -847,7 +830,7 @@ public class ModEventHandler {
 
 	@SubscribeEvent
 	public void worldTick(WorldTickEvent event) {
-		
+
 		World world = event.world;
 		long time = world.getTotalWorldTime();
 
@@ -919,7 +902,7 @@ public class ModEventHandler {
 					CelestialBody.updateChemistry(event.world);
 				}
 			}
-			
+
 			if(time % 20 == 0) {
 				BlockPedestal.checkPedestalEntries(world.provider.dimensionId, time);
 			}
@@ -1151,7 +1134,7 @@ public class ModEventHandler {
 		EntityLivingBase e = event.entityLiving;
 
 		float gravity = CelestialBody.getGravity(e);
-		
+
 
 		// Reduce fall damage on low gravity bodies
 		if(gravity < 0.3F) {
@@ -1181,7 +1164,6 @@ public class ModEventHandler {
 		}
 	}
 
-	private static final UUID fopSpeed = UUID.fromString("e5a8c95d-c7a0-4ecf-8126-76fb8c949389");
 
 	@SubscribeEvent
 	public void onWingFlop(TickEvent.PlayerTickEvent event) {
@@ -1191,32 +1173,6 @@ public class ModEventHandler {
 		if(event.phase == TickEvent.Phase.START) {
 
 			if(player.getCurrentArmor(2) == null && !player.onGround) {
-
-				if(player.getUniqueID().toString().equals(ShadyUtil.Barnaby99_x) || player.getDisplayName().equals("pheo7")) {
-
-					ArmorUtil.resetFlightTime(player);
-					HbmPlayerProps props = HbmPlayerProps.getData(player);
-
-					if(props.isJetpackActive()) {
-
-						if(player.motionY < 0.4D)
-							player.motionY += 0.1D;
-
-						Vec3 look = player.getLookVec();
-
-						if(Vec3.createVectorHelper(player.motionX, player.motionY, player.motionZ).lengthVector() < 2) {
-							player.motionX += look.xCoord * 0.2;
-							player.motionY += look.yCoord * 0.2;
-							player.motionZ += look.zCoord * 0.2;
-
-							if(look.yCoord > 0)
-								player.fallDistance = 0;
-						}
-					} else if(props.enableBackpack && !player.isSneaking()) {
-						if(player.motionY < -0.2) player.motionY += 0.075D;
-						if(player.fallDistance > 0) player.fallDistance = 0;
-					}
-				}
 
 				boolean isBob = false;
 				boolean isOther = false;
@@ -1300,17 +1256,6 @@ public class ModEventHandler {
 						player.motionX += look.xCoord * 0.15 * player.moveStrafing * mod;
 						player.motionZ += look.zCoord * 0.15 * player.moveStrafing * mod;
 					}
-				}
-			}
-
-			if(player.getUniqueID().toString().equals(ShadyUtil.LePeeperSauvage) ||	player.getDisplayName().equals("LePeeperSauvage")) {
-
-				Multimap multimap = HashMultimap.create();
-				multimap.put(SharedMonsterAttributes.movementSpeed.getAttributeUnlocalizedName(), new AttributeModifier(fopSpeed, "FOP SPEED", 0.5, 1));
-				player.getAttributeMap().removeAttributeModifiers(multimap);
-
-				if(player.isSprinting()) {
-					player.getAttributeMap().applyAttributeModifiers(multimap);
 				}
 			}
 		}
@@ -1435,23 +1380,6 @@ public class ModEventHandler {
 				}
 			}
 			/// BETA HEALTH END ///
-
-			/// PU RADIATION START ///
-
-			if(player.getUniqueID().toString().equals(ShadyUtil.Pu_238)) {
-
-				List<EntityLivingBase> entities = player.worldObj.getEntitiesWithinAABB(EntityLivingBase.class, player.boundingBox.expand(3, 3, 3));
-
-				for(EntityLivingBase e : entities) {
-
-					if(e != player) {
-						e.addPotionEffect(new PotionEffect(HbmPotion.radiation.id, 300, 2));
-					}
-				}
-
-			}
-
-			/// PU RADIATION END ///
 
 			for(int i = 0; i < player.inventory.mainInventory.length; i++) {
 				ItemStack stack2 = player.inventory.getStackInSlot(i);
@@ -2019,5 +1947,5 @@ public class ModEventHandler {
 		}
 	}
 
-	
+
 }

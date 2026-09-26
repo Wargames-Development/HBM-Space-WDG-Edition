@@ -13,7 +13,6 @@ import com.hbm.render.anim.AnimationEnums.ToolAnimation;
 import com.hbm.render.anim.BusAnimation;
 import com.hbm.render.anim.BusAnimationSequence;
 import com.hbm.render.anim.HbmAnimations;
-import com.hbm.util.ShadyUtil;
 
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import cpw.mods.fml.relauncher.Side;
@@ -62,10 +61,6 @@ public class ItemCrucible extends ItemSwordAbility implements IEquipReceiver, IA
 		if(!(entityLiving instanceof EntityPlayerMP))
 			return false;
 
-		if(entityLiving instanceof EntityPlayer && ((EntityPlayer)entityLiving).getUniqueID().toString().equals(ShadyUtil.Tankish)) {
-			stack.setItemDamage(0);
-		}
-
 		if(stack.getItemDamage() >= stack.getMaxDamage())
 			return false;
 
@@ -94,9 +89,6 @@ public class ItemCrucible extends ItemSwordAbility implements IEquipReceiver, IA
 				data.setInteger("block", Block.getIdFromBlock(Blocks.redstone_block));
 				PacketThreading.createAllAroundThreadedPacket(new AuxParticlePacketNT(data, victim.posX, victim.posY + victim.height * 0.5, victim.posZ), new TargetPoint(victim.dimension, victim.posX, victim.posY + victim.height * 0.5, victim.posZ, 50));
 			}
-
-			if(attacker instanceof EntityPlayer && (((EntityPlayer)attacker).getDisplayName().equals("Tankish") || ((EntityPlayer)attacker).getDisplayName().equals("Tankish020")))
-				return true;
 
 			return super.hitEntity(stack, victim, attacker);
 		} else {
