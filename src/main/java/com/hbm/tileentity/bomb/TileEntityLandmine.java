@@ -61,7 +61,7 @@ public class TileEntityLandmine extends TileEntity implements IPartyOwned {
 					return;
 				}
 			} else {
-				if(entity instanceof EntityLivingBase) {
+				if(entity instanceof EntityLivingBase || !entity.isDead && isMchrTank(entity)) {
 
 					if(isPrimed) {
 						//the explosion is part of the mine block so that the IBomb interface works, i remember now
@@ -81,6 +81,14 @@ public class TileEntityLandmine extends TileEntity implements IPartyOwned {
 			this.worldObj.playSoundEffect(this.xCoord, this.yCoord, this.zCoord, "hbm:weapon.fstbmbStart", 3.0F, 1.0F);
 			isPrimed = true;
 		}
+	}
+
+	private static boolean isMchrTank(Entity entity) {
+		// Keep MCHR optional on both sides; subclasses share the tank's trigger behavior.
+		for(Class<?> type = entity.getClass(); type != null; type = type.getSuperclass()) {
+			if("mcheli.tank.MCH_EntityTank".equals(type.getName())) return true;
+		}
+		return false;
 	}
 
 	@Override

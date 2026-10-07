@@ -64,7 +64,11 @@ public class TileEntityMachineTeleporter extends TileEntityLoadedBase implements
 			for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) this.trySubscribe(worldObj, xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ, dir);
 
 			if(this.targetY != -1) {
-				// DO NOTHING temp soft ban on using teleporters
+				List<Entity> entities = this.worldObj.getEntitiesWithinAABB(Entity.class, AxisAlignedBB.getBoundingBox(this.xCoord + 0.25, this.yCoord, this.zCoord + 0.25, this.xCoord + 0.75, this.yCoord + 2, this.zCoord + 0.75));
+
+				for(Entity entity : entities) {
+					teleport(entity);
+				}
 			}
 
 			networkPackNT(15);
