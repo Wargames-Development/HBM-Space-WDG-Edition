@@ -1,6 +1,7 @@
 package com.hbm.entity.missile;
 
 import com.hbm.blocks.ModBlocks;
+import com.hbm.dim.CelestialAltitudeCompat;
 import com.hbm.items.ModItems;
 import com.hbm.tileentity.machine.storage.TileEntitySoyuzCapsule;
 
@@ -36,8 +37,8 @@ public class EntitySoyuzCapsule extends EntityThrowable {
 		if(this.motionY > -0.2)
 			this.motionY -= 0.02;
 		
-		if(posY > 600)
-			posY = 600;
+		if(posY > CelestialAltitudeCompat.soyuzDeploymentY(worldObj))
+			setPosition(posX, CelestialAltitudeCompat.soyuzDeploymentY(worldObj), posZ);
         
         if(this.worldObj.getBlock((int)this.posX, (int)this.posY, (int)this.posZ) != Blocks.air) {
         	

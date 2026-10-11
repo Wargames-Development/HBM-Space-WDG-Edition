@@ -55,7 +55,7 @@ public class CelestialTeleporter extends Teleporter {
 				}
 			}
 		} else {
-			targetServer.getBlock(ix, MathHelper.clamp_int(iy, 1, 255), iz); // dummy load to maybe gen chunk
+			targetServer.getBlock(ix, MathHelper.clamp_int(iy, 1, Math.max(1, targetServer.getHeight() - 1)), iz); // dummy load to maybe gen chunk
 		}
 
 		entity.setPosition(x, y, z);
@@ -110,7 +110,7 @@ public class CelestialTeleporter extends Teleporter {
 				}
 
 				// Send another packet to the client to make sure they load in correctly!
-				playerMP.setPositionAndUpdate(x, 900, z);
+				playerMP.setPositionAndUpdate(x, CelestialAltitudeCompat.departureY(targetServer), z);
 			}
 		} else {
 			entity.worldObj.removeEntity(entity);

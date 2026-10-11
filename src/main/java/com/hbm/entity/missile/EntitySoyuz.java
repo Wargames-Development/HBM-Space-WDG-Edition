@@ -3,6 +3,7 @@ package com.hbm.entity.missile;
 import java.util.List;
 import java.util.UUID;
 
+import com.hbm.dim.CelestialAltitudeCompat;
 import com.hbm.explosion.ExplosionLarge;
 import com.hbm.items.ISatChip;
 import com.hbm.items.ModItems;
@@ -75,7 +76,7 @@ public class EntitySoyuz extends Entity {
 			spawnExhaust(posX, posY, posZ - 2.75);
 		}
 
-		if(this.posY > 600) {
+		if(this.posY > CelestialAltitudeCompat.soyuzDeploymentY(worldObj)) {
 			deployPayload();
 		}
 	}
@@ -125,7 +126,7 @@ public class EntitySoyuz extends Entity {
 			EntitySoyuzCapsule capsule = new EntitySoyuzCapsule(worldObj);
 			capsule.payload = this.payload;
 			capsule.soyuz = this.getSkin();
-			capsule.setPosition(targetX + 0.5, 600, targetZ + 0.5);
+			capsule.setPosition(targetX + 0.5, CelestialAltitudeCompat.soyuzDeploymentY(worldObj), targetZ + 0.5);
 
 			IChunkProvider provider = worldObj.getChunkProvider();
 			provider.loadChunk(targetX >> 4, targetZ >> 4);

@@ -25,6 +25,7 @@ import com.hbm.config.MobConfig;
 import com.hbm.config.RadiationConfig;
 import com.hbm.config.ServerConfig;
 import com.hbm.config.SpaceConfig;
+import com.hbm.dim.CelestialAltitudeCompat;
 import com.hbm.dim.CelestialBody;
 import com.hbm.dim.CelestialTeleporter;
 import com.hbm.dim.SolarSystemWorldSavedData;
@@ -1265,7 +1266,8 @@ public class ModEventHandler {
 	public void onPlayerTick(TickEvent.PlayerTickEvent event) {
 
 		EntityPlayer player = event.player;
-		if(player.posY > 300 && player.posY <1000) {
+		if(player.posY > CelestialAltitudeCompat.reentryHeatStartY(player.worldObj)
+				&& player.posY < CelestialAltitudeCompat.reentryHeatEndY(player.worldObj)) {
 			Vec3 vec = Vec3.createVectorHelper(3 * rand.nextDouble(), 0, 0);
 			CBT_Atmosphere thatmosphere = CelestialBody.getTrait(player.worldObj, CBT_Atmosphere.class);
 

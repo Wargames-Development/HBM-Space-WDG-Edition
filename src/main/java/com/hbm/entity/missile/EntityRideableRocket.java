@@ -7,6 +7,7 @@ import java.util.UUID;
 import api.hbm.wgc.Integrations;
 import com.hbm.blocks.ILookOverlay;
 import com.hbm.config.SpaceConfig;
+import com.hbm.dim.CelestialAltitudeCompat;
 import com.hbm.dim.CelestialBody;
 import com.hbm.dim.CelestialTeleporter;
 import com.hbm.dim.SolarSystem;
@@ -219,9 +220,10 @@ public class EntityRideableRocket extends EntityMissileBaseNT implements ILookOv
 		setState(RocketState.LANDING);
 
 		int x = destination.x;
-		int y = 800;
-		int z = destination.z;
 		int targetDimensionId = destination.body.getDimensionId();
+		// Use the destination world's height, not the launching dimension's height.
+		int y = CelestialAltitudeCompat.reentryStartY(DimensionManager.getWorld(targetDimensionId));
+		int z = destination.z;
 		EntityPlayer rider = this.riddenByEntity instanceof EntityPlayer ? (EntityPlayer)this.riddenByEntity : null;
 
 		if(canRide()) {
@@ -633,7 +635,7 @@ public class EntityRideableRocket extends EntityMissileBaseNT implements ILookOv
 				}
 			}
 
-			if((state == RocketState.LAUNCHING && posY > 900) || (state == RocketState.UNDOCKING && posY < 32)) {
+			if((state == RocketState.LAUNCHING && posY > CelestialAltitudeCompat.departureY(worldObj)) || (state == RocketState.UNDOCKING && posY < 32)) {
 				Target from = CelestialBody.getTarget(worldObj, (int)posX, (int)posZ);
 				Target to = getTarget();
 				if(from == null || from.body == null || !isTargetUsable(to)) {
@@ -823,6 +825,67 @@ public class EntityRideableRocket extends EntityMissileBaseNT implements ILookOv
 	public double getMountedYOffset() {
 		if(isReusable()) return height - 2.5;
 		return height - 3.0;
+	}
+
+	/**
+	 * Stable compatibility hook for the WDG WorldBorder plugin.
+	 * This lets the plugin move the rocket without dismounting the capsule rider.
+	 */
+	public double[] wdgWorldBorderSnapshot() {
+		return new double[] {
+			posX, posY, posZ, rotationYaw, rotationPitch,
+			motionX, motionY, motionZ
+		};
+	}
+
+	public void wdgWorldBorderMove(double x, double y, double z, float yaw,
+			double newMotionX, double newMotionY, double newMotionZ) {
+		setPosition(x, y, z);
+		prevPosX = lastTickPosX = x;
+		prevPosY = lastTickPosY = y;
+		prevPosZ = lastTickPosZ = z;
+		rotationYaw = prevRotationYaw = yaw;
+		setVelocity(newMotionX, newMotionY, newMotionZ);
+		updateRiderPosition();
+		if(capDummy != null && !capDummy.isDead) {
+			double offset = height - 4;
+			capDummy.setPosition(posX, posY + offset, posZ);
+		}
+	}
+
+	/**
+	 * Launch and undocking transitions own their horizontal trajectory. WorldBorder must
+	 * not fight them near a seam while the dimension transition is in progress.
+	 */
+	public boolean wdgWorldBorderBypassHorizontalBorder() {
+		RocketState state = getState();
+		return state == RocketState.LAUNCHING
+			|| state == RocketState.UNDOCKING
+			|| state == RocketState.TRANSFER
+			|| state == RocketState.DOCKING;
+	}
+
+	/** Return the active landing target, or null when the rocket is not descending. */
+	public int[] wdgWorldBorderGetLandingTarget() {
+		if(getState() != RocketState.LANDING) return null;
+		Destination destination = getDestination();
+		if(destination == null) return null;
+		return new int[] {destination.x, destination.z};
+	}
+
+	/** Rewrite landing coordinates before descent so NTM and WorldBorder do not fight. */
+	public void wdgWorldBorderSetLandingTarget(int x, int z) {
+		if(destinationOverride != null) {
+			destinationOverride.x = x;
+			destinationOverride.z = z;
+			targetX = x;
+			targetZ = z;
+			return;
+		}
+		if(navDrive == null || !(navDrive.getItem() instanceof ItemVOTVdrive)) return;
+		ItemVOTVdrive.setCoordinates(navDrive, x, z);
+		targetX = x;
+		targetZ = z;
 	}
 
 	@Override

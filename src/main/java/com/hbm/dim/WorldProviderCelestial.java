@@ -102,7 +102,7 @@ public abstract class WorldProviderCelestial extends WorldProviderSurface {
 			ListIterator<Meteor> iterator = meteors.listIterator();
 			while(iterator.hasNext()) {
 				Meteor meteor = iterator.next();
-				Meteor fragment = meteor.update(worldObj.rand);
+				Meteor fragment = meteor.update(worldObj.rand, CelestialAltitudeCompat.meteorEndY(worldObj));
 				if(meteor.isDead) iterator.remove();
 				if(fragment != null) iterator.add(fragment);
 			}
@@ -341,8 +341,10 @@ public abstract class WorldProviderCelestial extends WorldProviderSurface {
 		color.yCoord *= pressureFactor;
 		color.zCoord *= pressureFactor;
 
-		if(Minecraft.getMinecraft().renderViewEntity.posY > 600) {
-			double curvature = MathHelper.clamp_float((1000.0F - (float)Minecraft.getMinecraft().renderViewEntity.posY) / 400.0F, 0.0F, 1.0F);
+		if(Minecraft.getMinecraft().renderViewEntity.posY > CelestialAltitudeCompat.atmosphereFadeStartY(worldObj)) {
+			double curvature = MathHelper.clamp_float(
+				(CelestialAltitudeCompat.atmosphereFadeEndY(worldObj) - (float)Minecraft.getMinecraft().renderViewEntity.posY) / 400.0F,
+				0.0F, 1.0F);
 			color.xCoord *= curvature;
 			color.yCoord *= curvature;
 			color.zCoord *= curvature;
@@ -953,8 +955,8 @@ public abstract class WorldProviderCelestial extends WorldProviderSurface {
 			meteors.add(new Meteor(player.posX + player.worldObj.rand.nextInt(16000) - 8000, 2017, player.posZ + player.worldObj.rand.nextInt(16000) - 8000));
 		}
 
-		private Meteor update(Random rand) {
-			if(this.posY <= 500 && this.type != MeteorType.SMOKE) {
+		private Meteor update(Random rand, int lowerAltitude) {
+			if(this.posY <= lowerAltitude && this.type != MeteorType.SMOKE) {
 				this.isDead = true;
 			}
 
