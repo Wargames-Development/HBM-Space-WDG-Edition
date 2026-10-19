@@ -62,6 +62,8 @@ public abstract class TileEntityTransporterBase extends TileEntityMachineBase im
 
 		moduleFluidPorts = new ModulePortManFluidAdaptive(this).setInputTanks(getReceivingTanks()).setOutputTanks(getSendingTanks());
 		moduleFuelPorts = new ModulePortManFluidAdaptive(fuelReceiver).setInputTanks(fuelReceiver.getReceivingTanks());
+		// The fuel receiver is a delegate; Minecraft only unloads its parent tile.
+		registerPortCleanup(moduleFuelPorts::destroy);
 	}
 
 	// The transporter we're sending our contents to
@@ -259,6 +261,11 @@ public abstract class TileEntityTransporterBase extends TileEntityMachineBase im
 	FuelReceiver fuelReceiver = new FuelReceiver();
 
 	private class FuelReceiver extends TileEntityLoadedBase implements IFluidStandardReceiverMK2 {
+
+		@Override
+		public boolean isLoaded() {
+			return TileEntityTransporterBase.this.isLoaded() && !TileEntityTransporterBase.this.isInvalid();
+		}
 
 		@Override
 		public FluidTank[] getAllTanks() {

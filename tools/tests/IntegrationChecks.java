@@ -52,6 +52,15 @@ public class IntegrationChecks {
   check(com.hbm.inventory.fluid.tank.FluidTank.class.getMethod("getMaxFill").getReturnType()==int.class,"WGCore tank capacity API");
   check(com.hbm.inventory.fluid.tank.FluidTank.class.getMethod("getPressure").getReturnType()==int.class,"WGCore tank pressure API");
   check(com.hbm.blocks.BlockDummyable.class.getMethod("findCore",net.minecraft.world.IBlockAccess.class,int.class,int.class,int.class).getReturnType()==int[].class,"WGCore multiblock core resolution API");
+  com.hbm.tileentity.machine.TileEntityTransporterRocket transporter=new com.hbm.tileentity.machine.TileEntityTransporterRocket();
+  java.lang.reflect.Field fuelModule=com.hbm.tileentity.machine.TileEntityTransporterBase.class.getDeclaredField("moduleFuelPorts");fuelModule.setAccessible(true);
+  ModulePortManFluidAdaptive fuelPorts=(ModulePortManFluidAdaptive)fuelModule.get(transporter);Port fuelPort=new Port();fuelPorts.inPorts=new TilePort[]{fuelPort};
+  java.lang.reflect.Field fuelReceiver=com.hbm.tileentity.machine.TileEntityTransporterBase.class.getDeclaredField("fuelReceiver");fuelReceiver.setAccessible(true);
+  api.hbm.tile.ILoadedTile delegate=(api.hbm.tile.ILoadedTile)fuelReceiver.get(transporter);
+  transporter.onChunkUnload();check(fuelPort.releases==1&&!delegate.isLoaded(),"transporter delegate releases fuel ports and follows unload");
+  com.hbm.tileentity.machine.TileEntityTransporterRocket removed=new com.hbm.tileentity.machine.TileEntityTransporterRocket();
+  ModulePortManFluidAdaptive removedPorts=(ModulePortManFluidAdaptive)fuelModule.get(removed);Port removedPort=new Port();removedPorts.inPorts=new TilePort[]{removedPort};
+  removed.invalidate();check(removedPort.releases==1&&!((api.hbm.tile.ILoadedTile)fuelReceiver.get(removed)).isLoaded(),"transporter delegate releases fuel ports and follows invalidation");
   System.out.println("PASS: "+checks+" integration assertions against compiled Minecraft/HBM classes");
  }
 }

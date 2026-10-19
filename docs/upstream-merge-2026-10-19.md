@@ -52,3 +52,11 @@ Validation added: `JAVA_HOME=<Java 8 JDK> python3 tools/test-integration-compat.
 The user explicitly chose to follow upstream removal of FENSU, HTRF4, and the old small turbine. Those removals are accepted upstream behavior, not restored legacy machines. The corresponding existing-world content must not be assumed preserved. Other upstream progression changes, including capacitor/diode redesigns, remain upstream behavior.
 
 Final live QA must additionally cover chunk unload/reload with module-managed ports, old cargo-dock/fluid-tank upgrades on a world copy, science production across restart, RTTY misses, and optional OpenComputers present/absent. No live Forge/Crucible server or complete modpack was launched during this work.
+
+## Pre-push check
+
+Reviewed merge commit `01bb035b4d8b01eca571a34a315d3bd6c1cc550d` (parents: the WG branch at `ee241d23d` and upstream `af4c62f8d`). The working tree was clean when this review started. Its 634 commits ahead of the locally cached origin tracking ref are accounted for by the upstream ancestry introduced by the merge; no remote fetch was performed.
+
+The review reproduced one additional defect: the rocket transporter's fuel port manager registered cleanup on its standalone FuelReceiver delegate, whose lifecycle Minecraft never invokes. After unloading the parent tile, the port was not released and the receiver still reported loaded. The follow-up attaches fuel-port cleanup to the parent and makes the delegate's loaded state follow parent unload/invalidation. Two executable regressions exercise the real rocket transporter rather than only a generic tile. This follow-up is staged separately from the existing merge commit and must be committed before pushing it.
+
+Pre-push follow-up validation: the full Java 8 offline build passed (including reobfuscation); 24 compiled-class integration assertions and 61 isolated spaceflight assertions passed, for 85 total. The follow-up diff passes whitespace checks, there are no unmerged entries or source conflict markers, and no generated build/log/class artifacts were introduced in the merge. Live modpack testing remains outstanding as listed above. No commit or push was performed by the agent during this check.
