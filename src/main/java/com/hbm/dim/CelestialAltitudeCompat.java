@@ -34,9 +34,14 @@ public final class CelestialAltitudeCompat {
         return 800 + heightOffset(world);
     }
 
-    /** Legacy Soyuz orbital deployment and capsule re-entry height (vanilla: Y=600). */
+    /** Shared satellite rocket deployment and Soyuz capsule re-entry height (vanilla: Y=600). */
     public static int soyuzDeploymentY(World world) {
         return 600 + heightOffset(world);
+    }
+
+    /** Cargo pods must spawn above both the build envelope and their destination pad. */
+    public static int cargoPodY(World world, int dockingY) {
+        return Math.max(300 + heightOffset(world), dockingY + 32);
     }
 
     /** High-speed player atmospheric flame effects start above Y=300. */

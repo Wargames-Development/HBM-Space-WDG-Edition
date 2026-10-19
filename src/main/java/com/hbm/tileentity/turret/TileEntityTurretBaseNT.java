@@ -12,7 +12,8 @@ import java.util.function.BiFunction;
 import com.hbm.blocks.BlockDummyable;
 import com.hbm.entity.logic.EntityBomber;
 import com.hbm.entity.missile.EntityMissileBaseNT;
-import com.hbm.entity.missile.EntityMissileCustom;
+import com.hbm.entity.projectile.EntityArtilleryRocket;
+import com.hbm.entity.projectile.EntityArtilleryShell;
 import com.hbm.entity.projectile.EntityBulletBaseMK4;
 import com.hbm.entity.train.EntityRailCarBase;
 import com.hbm.handler.CasingEjector;
@@ -29,6 +30,8 @@ import com.hbm.packet.toclient.AuxParticlePacketNT;
 import com.hbm.particle.SpentCasing;
 import com.hbm.tileentity.IGUIProvider;
 import com.hbm.tileentity.TileEntityMachineBase;
+import com.hbm.tileentity.TilePortShapes;
+import com.hbm.tileentity.TilePort.PortDef;
 import com.hbm.util.BufferUtil;
 import com.hbm.util.CompatExternal;
 
@@ -79,7 +82,7 @@ public abstract class TileEntityTurretBaseNT extends TileEntityMachineBase imple
 	}
 
 	@Override
-	public void receiveControl(NBTTagCompound data) {
+	public void receiveControl(EntityPlayer player, NBTTagCompound data) {
 
 		if(data.hasKey("del")) {
 			this.removeName(data.getInteger("del"));
@@ -140,7 +143,10 @@ public abstract class TileEntityTurretBaseNT extends TileEntityMachineBase imple
 		super(11);
 		this.owningFaction = null;
 	}
-
+	
+	protected PortDef[] cachedPorts;
+	public PortDef[] getPorts() { if(cachedPorts == null) cachedPorts = TilePortShapes.solderer(xCoord, yCoord, zCoord, this.getBlockMetadata()); return cachedPorts; }
+	
 	@Override
 	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
@@ -192,8 +198,10 @@ public abstract class TileEntityTurretBaseNT extends TileEntityMachineBase imple
 
 		if(!worldObj.isRemote) {
 
+			this.setupAllPorts(getPorts());
+			this.updatePortPIFIFO();
+
 			this.aligned = false;
-			this.updateConnections();
 
 			if(this.target != null && !target.isEntityAlive()) {
 				this.target = null;
@@ -301,24 +309,6 @@ public abstract class TileEntityTurretBaseNT extends TileEntityMachineBase imple
 		this.stattrak = buf.readInt();
 	}
 
-	protected void updateConnections() {
-		ForgeDirection dir = ForgeDirection.getOrientation(this.getBlockMetadata() - BlockDummyable.offset).getOpposite();
-		ForgeDirection rot = dir.getRotation(ForgeDirection.UP);
-
-		//how did i even make this? what???
-		this.trySubscribe(worldObj, xCoord + dir.offsetX * -1 + rot.offsetX * 0, yCoord, zCoord + dir.offsetZ * -1 + rot.offsetZ * 0, dir.getOpposite());
-		this.trySubscribe(worldObj, xCoord + dir.offsetX * -1 + rot.offsetX * -1, yCoord, zCoord + dir.offsetZ * -1 + rot.offsetZ * -1, dir.getOpposite());
-
-		this.trySubscribe(worldObj, xCoord + dir.offsetX * 0 + rot.offsetX * -2, yCoord, zCoord + dir.offsetZ * 0 + rot.offsetZ * -2, rot.getOpposite());
-		this.trySubscribe(worldObj, xCoord + dir.offsetX * 1 + rot.offsetX * -2, yCoord, zCoord + dir.offsetZ * 1 + rot.offsetZ * -2, rot.getOpposite());
-
-		this.trySubscribe(worldObj, xCoord + dir.offsetX * 0 + rot.offsetX * 1, yCoord, zCoord + dir.offsetZ * 0 + rot.offsetZ * 1, rot);
-		this.trySubscribe(worldObj, xCoord + dir.offsetX * 1 + rot.offsetX * 1, yCoord, zCoord + dir.offsetZ * 1 + rot.offsetZ * 1, rot);
-
-		this.trySubscribe(worldObj, xCoord + dir.offsetX * 2 + rot.offsetX * 0, yCoord, zCoord + dir.offsetZ * 2 + rot.offsetZ * 0, dir);
-		this.trySubscribe(worldObj, xCoord + dir.offsetX * 2 + rot.offsetX * -1, yCoord, zCoord + dir.offsetZ * 2 + rot.offsetZ * -1, dir);
-	}
-
 	@Override
 	public void handleButtonPacket(int value, int meta) {
 
@@ -359,15 +349,17 @@ public abstract class TileEntityTurretBaseNT extends TileEntityMachineBase imple
 
 		return null;
 	}
+	
+	public abstract float getBaseDamage();
 
-	public void spawnBullet(BulletConfig bullet, float baseDamage) {
+	public void spawnBullet(BulletConfig bullet) {
 
 		Vec3 pos = this.getTurretPos();
 		Vec3 vec = Vec3.createVectorHelper(this.getBarrelLength(), 0, 0);
 		vec.rotateAroundZ((float) -this.rotationPitch);
 		vec.rotateAroundY((float) -(this.rotationYaw + Math.PI * 0.5));
 
-		EntityBulletBaseMK4 proj = new EntityBulletBaseMK4(worldObj, bullet, baseDamage, bullet.spread, (float) rotationYaw, (float) rotationPitch, this.owningFaction);
+		EntityBulletBaseMK4 proj = new EntityBulletBaseMK4(worldObj, bullet, getBaseDamage(), bullet.spread, (float) rotationYaw, (float) rotationPitch, this.owningFaction);
 		proj.setPositionAndRotation(pos.xCoord + vec.xCoord, pos.yCoord + vec.yCoord, pos.zCoord + vec.zCoord, proj.rotationYaw, proj.rotationPitch);
 		worldObj.spawnEntityInWorld(proj);
 
@@ -405,7 +397,7 @@ public abstract class TileEntityTurretBaseNT extends TileEntityMachineBase imple
 			String[] array = ItemTurretBiometry.getNames(slots[0]);
 
 			if(array == null)
-				return null;
+				return new ArrayList<>();
 
 			return Arrays.asList(ItemTurretBiometry.getNames(slots[0]));
 		}
@@ -581,7 +573,7 @@ public abstract class TileEntityTurretBaseNT extends TileEntityMachineBase imple
 		Vec3 ent = this.getEntityPos(e);
 		Vec3 delta = Vec3.createVectorHelper(ent.xCoord - pos.xCoord, ent.yCoord - pos.yCoord, ent.zCoord - pos.zCoord);
 		double length = delta.lengthVector();
-
+		
 		if(length < this.getDecetorGrace() || length > this.getDecetorRange() * 1.1) //the latter statement is only relevant for entities that have already been detected
 			return false;
 
@@ -653,10 +645,12 @@ public abstract class TileEntityTurretBaseNT extends TileEntityMachineBase imple
 
 			if(e instanceof IRadarDetectableNT && !((IRadarDetectableNT)e).canBeSeenBy(this)) return false;
 			if(e instanceof EntityMissileBaseNT) return e.motionY < 0;
-			if(e instanceof EntityMissileCustom) return e.motionY < 0;
+//			if(e instanceof EntityMissileCustom) return e.motionY < 0; Is not needed as EntityMissileBaseNT already covers EntityMissileCustom
 			if(e instanceof EntityMinecart) return true;
 			if(e instanceof EntityRailCarBase) return true;
 			if(e instanceof EntityBomber) return true;
+			if(e instanceof EntityArtilleryRocket) return true;
+			if(e instanceof EntityArtilleryShell) return true;
 			for(Class c : CompatExternal.turretTargetMachine) if(c.isAssignableFrom(e.getClass())) return true;
 		}
 
@@ -1115,14 +1109,18 @@ public abstract class TileEntityTurretBaseNT extends TileEntityMachineBase imple
 		if((PREFIX_FUNCTION + "addwhitelist").equals(name) && params.length > 0) {
 			String playerName = params[0];
 			List<String> whitelist = this.getWhitelist();
-			if(!whitelist.contains(playerName)) this.addName(playerName);
-			this.markChanged();
+			if(whitelist != null) {
+				if(!whitelist.contains(playerName)) this.addName(playerName);
+				this.markChanged();
+			}
 		}
 		if((PREFIX_FUNCTION + "removewhitelist").equals(name) && params.length > 0) {
 			String playerName = params[0];
 			List<String> whitelist = this.getWhitelist();
-			if(whitelist.contains(playerName)) this.removeName(whitelist.indexOf(playerName));
-			this.markChanged();
+			if(whitelist != null) {
+				if(whitelist.contains(playerName)) this.removeName(whitelist.indexOf(playerName));
+				this.markChanged();
+			}
 		}
 
 		return null;

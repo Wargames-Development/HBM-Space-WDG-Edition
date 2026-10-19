@@ -189,7 +189,7 @@ public class TileEntityOrbitalStationComputer extends TileEntityMachineBase impl
 	}
 
 	@Override
-	public void receiveControl(NBTTagCompound data) {
+	public void receiveControl(EntityPlayer player, NBTTagCompound data) {
 		if(data.hasKey("name")) {
 			OrbitalStation station = OrbitalStation.getStationFromPosition(xCoord, zCoord);
 			SolarSystemWorldSavedData savedData = SolarSystemWorldSavedData.get(worldObj);

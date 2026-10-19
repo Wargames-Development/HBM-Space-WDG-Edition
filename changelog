@@ -1,6 +1,8 @@
+Includes all changes and bugfixes from the latest 3 upstream NTMain updates - [X5842 - smallest NTM update](https://github.com/HbmMods/Hbm-s-Nuclear-Tech-GIT/releases/tag/1.0.27_X5842) [X5844 - the mcbroken fucking shit deluxe with extra cheese](https://github.com/HbmMods/Hbm-s-Nuclear-Tech-GIT/releases/tag/1.0.27_X5844) [X5846 - this release was brought to you by: sludgehost - enter code SLIME for 20% off](https://github.com/HbmMods/Hbm-s-Nuclear-Tech-GIT/releases/tag/1.0.27_X5846)
+
 ## Changed
-* Machines no longer tilt at all when unsupported in orbit
+* HTRF4 for the old fusion reactor has been removed
+* Titanium bedrock ore on all planets changed to ilmenite, except for Tekto, which still provides pure titanium!
 
 ## Fixed
-* Can't launch the 2 new satellites with custom rockets
-* Satellites don't travel to the correct dimension on launch
+* Solar panel ports inconsistent and don't match model

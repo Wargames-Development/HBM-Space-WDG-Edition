@@ -17,6 +17,8 @@ import com.hbm.items.ModItems;
 import com.hbm.lib.Library;
 import com.hbm.tileentity.IGUIProvider;
 import com.hbm.tileentity.TileEntityMachineBase;
+import com.hbm.tileentity.TilePort.PortDef;
+import com.hbm.tileentity.TilePortShapes;
 import com.hbm.util.BufferUtil;
 
 import cpw.mods.fml.relauncher.Side;
@@ -29,7 +31,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 
 /**
  * Physical replacement for player-facing /ntm station create/raid programming.
@@ -46,6 +47,12 @@ public class TileEntityMachineStationDriveTerminal extends TileEntityMachineBase
     public String status = EnumChatFormatting.GREEN + "READY";
     public int selectedMode = MODE_NONE;
     private int statusTimer;
+    private PortDef[] cachedPorts;
+
+    public PortDef[] getPorts() {
+        if(cachedPorts == null) cachedPorts = TilePortShapes.around(xCoord, yCoord, zCoord);
+        return cachedPorts;
+    }
 
     public TileEntityMachineStationDriveTerminal() {
         super(3);
@@ -55,9 +62,9 @@ public class TileEntityMachineStationDriveTerminal extends TileEntityMachineBase
     public void updateEntity() {
         if(worldObj.isRemote) return;
         power = Library.chargeTEFromItems(slots, 2, power, maxPower);
-        for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
-            trySubscribe(worldObj, xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ, dir);
-        }
+        setupPowerPorts(getPorts());
+        updateAllPorts();
+        receivePower();
         if(statusTimer > 0) statusTimer--;
         if(statusTimer <= 0) {
             if(power < requiredPower()) status = EnumChatFormatting.RED + "NO POWER";
@@ -284,11 +291,6 @@ public class TileEntityMachineStationDriveTerminal extends TileEntityMachineBase
         if(data.getBoolean("start")) { startSelected(player); return; }
         if(data.getBoolean("orbit")) { selectMode(MODE_ORBIT); return; }
         if(data.getBoolean("raid")) selectMode(MODE_BREACH);
-    }
-
-    @Override
-    public void receiveControl(NBTTagCompound data) {
-        // Intentionally empty: the player-aware overload above is authoritative for faction checks.
     }
 
     @Override

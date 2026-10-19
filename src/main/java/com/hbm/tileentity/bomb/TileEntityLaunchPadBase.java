@@ -37,12 +37,12 @@ import com.hbm.main.MainRegistry;
 import com.hbm.tileentity.IGUIProvider;
 import com.hbm.tileentity.IRadarCommandReceiver;
 import com.hbm.tileentity.TileEntityMachineBase;
+import com.hbm.tileentity.TilePort.PortDef;
 import com.hbm.util.TrackerUtil;
 import com.hbm.util.fauxpointtwelve.BlockPos;
-import com.hbm.util.fauxpointtwelve.DirPos;
 
 import api.hbm.energymk2.IEnergyReceiverMK2;
-import api.hbm.fluid.IFluidStandardReceiver;
+import api.hbm.fluidmk2.IFluidStandardReceiverMK2;
 import api.hbm.item.IDesignatorItem;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -59,8 +59,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 @Optional.InterfaceList({@Optional.Interface(iface = "li.cil.oc.api.network.SimpleComponent", modid = "OpenComputers")})
-public abstract class TileEntityLaunchPadBase extends TileEntityMachineBase implements IEnergyReceiverMK2, IFluidStandardReceiver, IGUIProvider, IRadarCommandReceiver, SimpleComponent, CompatHandler.OCComponent, IFluidCopiable, IPartyOwned {
-
+public abstract class TileEntityLaunchPadBase extends TileEntityMachineBase implements IEnergyReceiverMK2, IFluidStandardReceiverMK2, IGUIProvider, IRadarCommandReceiver, SimpleComponent, CompatHandler.OCComponent, IFluidCopiable, IPartyOwned {
+	
 	/** Automatic instantiation of generic missiles, i.e. everything that both extends EntityMissileBaseNT and needs a designator */
 	public static final HashMap<ComparableStack, Class<? extends EntityMissileBaseNT>> missiles = new HashMap();
 
@@ -124,6 +124,9 @@ public abstract class TileEntityLaunchPadBase extends TileEntityMachineBase impl
 		this.tanks[0] = new FluidTank(Fluids.NONE, 24_000);
 		this.tanks[1] = new FluidTank(Fluids.NONE, 24_000);
 	}
+	
+	protected PortDef[] cachedPorts;
+	public abstract PortDef[] getPorts();
 
 	@Override
 	public String getName() {
@@ -144,22 +147,15 @@ public abstract class TileEntityLaunchPadBase extends TileEntityMachineBase impl
 	public boolean isItemValidForSlot(int slot, ItemStack stack) {
 		return slot == 0 && this.isMissileValid(stack);
 	}
-
-	public abstract DirPos[] getConPos();
-
+	
 	@Override
 	public void updateEntity() {
 
 		if(!worldObj.isRemote) {
 
-			if(worldObj.getTotalWorldTime() % 20 == 0) {
-				for(DirPos pos : getConPos()) {
-					this.trySubscribe(worldObj, pos.getX(), pos.getY(), pos.getZ(), pos.getDir());
-					if(tanks[0].getTankType() != Fluids.NONE) this.trySubscribe(tanks[0].getTankType(), worldObj, pos.getX(), pos.getY(), pos.getZ(), pos.getDir());
-					if(tanks[1].getTankType() != Fluids.NONE) this.trySubscribe(tanks[1].getTankType(), worldObj, pos.getX(), pos.getY(), pos.getZ(), pos.getDir());
-				}
-			}
-
+			this.setupAllPorts(getPorts());
+			this.updatePortPIFIFO();
+			
 			if(this.redstonePower > 0 && this.prevRedstonePower <= 0) {
 				this.launchFromDesignator();
 			}
@@ -533,6 +529,16 @@ public abstract class TileEntityLaunchPadBase extends TileEntityMachineBase impl
 		return new Object[] {false};
 	}
 
+	@Callback
+	@Optional.Method(modid = "OpenComputers")
+	public Object[] launchEntity(Context context, Arguments args) {
+		Entity entity = worldObj.getEntityByID(args.checkInteger(0));
+		if(canLaunch() && entity != null && entity.isEntityAlive()) {
+			return new Object[] {sendCommandEntity(entity)};
+		}
+		return new Object[] {false};
+	}
+
 	@Callback(direct = true)
 	@Optional.Method(modid = "OpenComputers")
 	public Object[] getPos(Context context, Arguments args) {
@@ -548,6 +554,7 @@ public abstract class TileEntityLaunchPadBase extends TileEntityMachineBase impl
 				"canLaunch",
 				"getTier",
 				"launch",
+				"launchEntity",
 				"getPos"
 		};
 	}
@@ -566,6 +573,8 @@ public abstract class TileEntityLaunchPadBase extends TileEntityMachineBase impl
 				return getTier(context, args);
 			case ("launch"):
 				return launch(context, args);
+			case ("launchEntity"):
+				return launchEntity(context, args);
 			case ("getPos"):
 				return getPos(context, args);
 		}

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import com.hbm.blocks.BlockDummyable;
+import com.hbm.config.ServerConfig;
 import com.hbm.handler.atmosphere.IBlockSealable;
 import com.hbm.handler.MultiblockHandlerXR;
 import com.hbm.interfaces.IBomb;
@@ -74,8 +75,9 @@ public class BlockDoorGeneric extends BlockDummyable implements IBomb, IBlockSea
 			if(pos1 == null) return false;
 			TileEntityDoorGeneric door = (TileEntityDoorGeneric) world.getTileEntity(pos1[0], pos1[1], pos1[2]);
 
-			if(door != null) {
-				return door.tryToggle(playerIn);
+			if(door != null && door.getDoorType() != null) {
+				if(!ServerConfig.ULTRA_LARP_MODE.get() || door.getDoorType().neverDemandRedstone())
+					return door.tryToggle(playerIn);
 			}
 		}
 		return !playerIn.isSneaking();
