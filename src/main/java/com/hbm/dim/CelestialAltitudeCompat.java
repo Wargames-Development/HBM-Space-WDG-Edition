@@ -6,7 +6,9 @@ import net.minecraft.world.World;
  * Keeps the original HBM Space atmosphere and rocket altitudes in 256-block worlds.
  *
  * Extended-height worlds shift the same atmospheric envelope upward by the
- * amount their effective vertical build height exceeds 256. Read the active
+ * amount their effective vertical build height exceeds 256, plus 72 blocks
+ * of additional flight clearance. In a 384-block world, effects therefore
+ * begin at Y=500 (116 blocks above the build envelope). Read the active
  * world instead of requiring or importing EFR+: EFR+ exposes its optional
  * 384-block Overworld through World#getHeight().
  *
@@ -21,7 +23,8 @@ public final class CelestialAltitudeCompat {
 
     public static int heightOffset(World world) {
         if(world == null) return 0;
-        return Math.max(0, world.getHeight() - LEGACY_HEIGHT);
+        int extraHeight = Math.max(0, world.getHeight() - LEGACY_HEIGHT);
+        return extraHeight == 0 ? 0 : extraHeight + 72;
     }
 
     /** Rideable rocket's atmospheric exit threshold (vanilla: Y=900). */
@@ -52,6 +55,16 @@ public final class CelestialAltitudeCompat {
     /** Upper end of the high-speed player atmospheric flame effect. */
     public static int reentryHeatEndY(World world) {
         return 1000 + heightOffset(world);
+    }
+
+    /** Sky colour starts fading alongside the lower atmospheric effects. */
+    public static int skyFadeStartY(World world) {
+        return reentryHeatStartY(world);
+    }
+
+    /** Sky colour finishes fading at the planetary descent entry altitude. */
+    public static int skyFadeEndY(World world) {
+        return reentryStartY(world);
     }
 
     /** High-atmosphere fog colour begins fading at Y=600. */

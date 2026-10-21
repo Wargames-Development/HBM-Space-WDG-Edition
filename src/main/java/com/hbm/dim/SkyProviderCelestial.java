@@ -159,8 +159,9 @@ public class SkyProviderCelestial extends IRenderHandler {
 		float skyB = (float) skyColor.zCoord;
 
 		// Diminish sky colour when leaving the atmosphere
-		if(mc.renderViewEntity.posY > 300) {
-			double curvature = MathHelper.clamp_float((800.0F - (float) mc.renderViewEntity.posY) / 500.0F, 0.0F, 1.0F);
+		if(mc.renderViewEntity.posY > CelestialAltitudeCompat.skyFadeStartY(world)) {
+			double curvature = MathHelper.clamp_float((CelestialAltitudeCompat.skyFadeEndY(world) - (float) mc.renderViewEntity.posY)
+					/ (CelestialAltitudeCompat.skyFadeEndY(world) - CelestialAltitudeCompat.skyFadeStartY(world)), 0.0F, 1.0F);
 			skyR *= curvature;
 			skyG *= curvature;
 			skyB *= curvature;

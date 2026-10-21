@@ -24,8 +24,11 @@ public class SpaceflightCheck {
  static class Rocket extends EntityRocketBase {int deployments; Rocket(World w){super(w,18);} protected void deployPayload(){deployments++;} ItemStack item(int i){return payload[i];}}
  public static void main(String[] args){
   check(CelestialAltitudeCompat.heightOffset(null)==0,"null world");
-  for(int height:new int[]{128,256,384,512}){World w=new World(height,false);int offset=Math.max(0,height-256);
+  for(int height:new int[]{128,256,384,512}){World w=new World(height,false);int offset=height<=256?0:height-256+72;
    check(CelestialAltitudeCompat.heightOffset(w)==offset,"height offset");
+   check(CelestialAltitudeCompat.skyFadeStartY(w)==300+offset,"sky start");
+   check(CelestialAltitudeCompat.skyFadeEndY(w)==800+offset,"sky end");
+   check(height!=384 || CelestialAltitudeCompat.skyFadeStartY(w)==500,"extended Earth starts at 500");
    check(CelestialAltitudeCompat.departureY(w)==900+offset,"departure");
    check(CelestialAltitudeCompat.reentryStartY(w)==800+offset,"reentry");
    check(CelestialAltitudeCompat.soyuzDeploymentY(w)==600+offset,"deployment");
