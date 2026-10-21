@@ -124,6 +124,8 @@ public class ItemChopper extends Item {
 		if(this == ModItems.spawn_duck)
 			entity = new EntityDuck(world);
 		
+		if(com.hbm.config.BanItemsConfig.blocksSpawn(entity)) return null;
+
 		if(entity != null) {
 
 			EntityLiving entityliving = (EntityLiving) entity;
@@ -131,7 +133,7 @@ public class ItemChopper extends Item {
 			entityliving.rotationYawHead = entityliving.rotationYaw;
 			entityliving.renderYawOffset = entityliving.rotationYaw;
 			entityliving.onSpawnWithEgg((IEntityLivingData) null);
-			world.spawnEntityInWorld(entity);
+			if(!world.spawnEntityInWorld(entity)) return null;
 		}
 
 		return entity;

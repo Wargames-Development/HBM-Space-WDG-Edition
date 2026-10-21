@@ -43,9 +43,9 @@ public class ItemPool {
 		pools.put(name, this);
 	}
 
-	public ItemPool add(Item item, int meta, int min, int max, int weight) {	buildingList.add(new WeightedRandomChestContent(item, meta, min, max, weight));							return this; }
-	public ItemPool add(Block block, int meta, int min, int max, int weight) {	buildingList.add(new WeightedRandomChestContent(Item.getItemFromBlock(block), meta, min, max, weight));	return this; }
-	public ItemPool add(ItemStack item, int min, int max, int weight) {			buildingList.add(new WeightedRandomChestContent(item, min, max, weight));								return this; }
+	public ItemPool add(Item item, int meta, int min, int max, int weight) {	buildingList.add(com.hbm.config.BanItems.loot(new WeightedRandomChestContent(item, meta, min, max, weight)));							return this; }
+	public ItemPool add(Block block, int meta, int min, int max, int weight) {	buildingList.add(com.hbm.config.BanItems.loot(new WeightedRandomChestContent(com.hbm.config.BanItems.itemForData(block), meta, min, max, weight)));	return this; }
+	public ItemPool add(ItemStack item, int min, int max, int weight) {			buildingList.add(com.hbm.config.BanItems.loot(new WeightedRandomChestContent(item, min, max, weight)));								return this; }
 	
 	public ItemPool build() {
 		
@@ -63,8 +63,8 @@ public class ItemPool {
 	/** Grabs the specified item pool out of the pool map, will return the backup pool if the given pool is not present */
 	public static WeightedRandomChestContent[] getPool(String name) {
 		ItemPool pool = pools.get(name);
-		if(pool == null) return backupPool;
-		return pool.pool;
+		if(pool == null) return com.hbm.config.BanItems.enabled ? com.hbm.config.BanItems.noLoot() : backupPool;
+		return com.hbm.config.BanItems.enabled && pool.pool.length == 0 ? com.hbm.config.BanItems.noLoot() : pool.pool;
 	}
 	
 	public static ItemStack getStack(String pool, Random rand) {
@@ -72,7 +72,9 @@ public class ItemPool {
 	}
 	
 	public static ItemStack getStack(WeightedRandomChestContent[] pool, Random rand) {
+		if(pool == null || pool.length == 0) return null;
 		WeightedRandomChestContent weighted = (WeightedRandomChestContent) WeightedRandom.getRandomItem(rand, pool);
+		if(weighted == null || weighted instanceof com.hbm.config.BanItems.EmptyLootEntry || com.hbm.config.BanItems.disabled(weighted.theItemId)) return null;
 		ItemStack stack = weighted.theItemId.copy();
 		stack.stackSize = weighted.theMinimumChanceToGenerateItem + rand.nextInt(weighted.theMaximumChanceToGenerateItem - weighted.theMinimumChanceToGenerateItem + 1);
 		return stack;

@@ -1,0 +1,154 @@
+pool,entry_index,registry,metadata,nbt,min,max,weight,exact_metadata_selected,decision
+POOL_AMMO,0,hbm:item.ammo_standard,5,,12,12,10,True,Selected candidate; needs loot decision
+POOL_AMMO,1,hbm:item.ammo_standard,6,,6,6,10,True,Selected candidate; needs loot decision
+POOL_AMMO,2,hbm:item.ammo_standard,11,,12,12,5,True,Selected candidate; needs loot decision
+POOL_AMMO,3,hbm:item.ammo_standard,12,,6,6,5,True,Selected candidate; needs loot decision
+POOL_AMMO,4,hbm:item.ammo_standard,20,,12,12,10,False,KEEP unselected metadata
+POOL_AMMO,5,hbm:item.ammo_standard,21,,6,6,10,False,KEEP unselected metadata
+POOL_AMMO,6,hbm:item.ammo_standard,28,,6,6,5,True,Selected candidate; needs loot decision
+POOL_AMMO,7,hbm:item.ammo_standard,41,,6,6,10,True,Selected candidate; needs loot decision
+POOL_AMMO,8,hbm:item.ammo_standard,58,,1,1,3,False,KEEP unselected metadata
+POOL_AMMO,9,hbm:item.ammo_container,0,,1,1,1,True,Selected candidate; needs loot decision
+POOL_ANTENNA,18,hbm:item.bottle_cherry,0,,1,1,2,True,Selected candidate; needs loot decision
+POOL_ANTENNA,21,hbm:item.bomb_caller,0,,1,1,1,False,KEEP unselected metadata
+POOL_EXPENSIVE,6,hbm:item.gun_panzerschreck,0,,1,1,4,True,Selected candidate; needs loot decision
+POOL_EXPENSIVE,7,hbm:item.ammo_standard,58,,1,4,5,False,KEEP unselected metadata
+POOL_EXPENSIVE,8,hbm:item.ammo_standard,51,,1,1,5,False,KEEP unselected metadata
+POOL_EXPENSIVE,9,hbm:item.ammo_standard,52,,1,1,3,False,KEEP unselected metadata
+POOL_EXPENSIVE,10,hbm:item.grenade_universal,0,"{filling:10,shell:3,fuze:1}",1,1,2,True,NBT needs exact configuration review; no automatic removal
+POOL_EXPENSIVE,11,hbm:item.grenade_universal,0,"{filling:5,shell:0,fuze:1}",1,3,3,True,NBT needs exact configuration review; no automatic removal
+POOL_EXPENSIVE,12,hbm:item.grenade_extra,3,,1,1,1,True,Selected candidate; needs loot decision
+POOL_EXPENSIVE,15,hbm:item.syringe_awesome,0,,1,1,1,True,Selected candidate; needs loot decision
+POOL_EXPENSIVE,18,hbm:item.bottle_quantum,0,,1,1,3,True,Selected candidate; needs loot decision
+POOL_EXPENSIVE,23,hbm:item.bomb_caller,0,,1,1,2,False,KEEP unselected metadata
+POOL_EXPENSIVE,24,hbm:item.bomb_caller,1,,1,1,1,False,KEEP unselected metadata
+POOL_EXPENSIVE,25,hbm:item.bomb_caller,2,,1,1,1,False,KEEP unselected metadata
+POOL_EXPENSIVE,28,hbm:item.gun_double_barrel,0,,1,1,1,True,Selected candidate; needs loot decision
+POOL_FILING_CABINET,4,hbm:item.cigarette,0,,1,16,20,True,Selected candidate; needs loot decision
+POOL_FILING_CABINET,7,hbm:item.ink,0,,1,1,1,True,Selected candidate; needs loot decision
+POOL_GENERIC,7,hbm:item.gun_light_revolver,0,,1,1,3,True,Selected candidate; needs loot decision
+POOL_GENERIC,8,hbm:item.ammo_standard,5,,2,6,4,True,Selected candidate; needs loot decision
+POOL_GENERIC,9,hbm:item.ammo_standard,41,,3,6,3,True,Selected candidate; needs loot decision
+POOL_GENERIC,10,hbm:item.ammo_standard,51,,1,1,1,False,KEEP unselected metadata
+POOL_GENERIC,12,hbm:item.gun_maresleg,0,,1,1,1,True,Selected candidate; needs loot decision
+POOL_GENERIC,21,hbm:item.bottle_cherry,0,,1,1,2,True,Selected candidate; needs loot decision
+POOL_METEORITE_TREASURE,9,hbm:item.definitelyfood,0,,16,32,25,True,Selected candidate; needs loot decision
+POOL_METEORITE_TREASURE,12,hbm:item.serum,0,,1,1,5,True,Selected candidate; needs loot decision
+POOL_METEORITE_TREASURE,13,hbm:item.heart_piece,0,,1,1,5,True,Selected candidate; needs loot decision
+POOL_METEORITE_TREASURE,14,hbm:item.scrumpy,0,,1,1,5,True,Selected candidate; needs loot decision
+POOL_NUKE_MISC,19,hbm:item.bottle_quantum,0,,1,1,1,True,Selected candidate; needs loot decision
+POOL_NUKE_TRASH,6,hbm:item.bottle_quantum,0,,1,1,1,True,Selected candidate; needs loot decision
+POOL_OFFICE_TRASH,3,hbm:item.coffee,0,,1,1,4,True,Selected candidate; needs loot decision
+POOL_OFFICE_TRASH,9,hbm:item.can_creature,0,,1,2,2,True,Selected candidate; needs loot decision
+POOL_OFFICE_TRASH,10,hbm:item.can_smart,0,,1,3,2,True,Selected candidate; needs loot decision
+POOL_OFFICE_TRASH,11,hbm:item.can_mrsugar,0,,1,2,2,True,Selected candidate; needs loot decision
+POOL_PILE_CAPS,1,hbm:item.cap_quantum,0,,4,4,3,True,Selected candidate; needs loot decision
+POOL_PILE_CAPS,2,hbm:item.cap_sparkle,0,,4,4,1,True,Selected candidate; needs loot decision
+POOL_PILE_GEAR,2,hbm:item.canteen_vodka,0,,1,1,40,True,Selected candidate; needs loot decision
+POOL_PILE_GEAR,6,hbm:item.canned_conserve,0,,2,5,40,True,Selected candidate; needs loot decision
+POOL_PILE_GEAR,7,hbm:item.taurun_helmet,0,,1,1,20,True,Selected candidate; needs loot decision
+POOL_PILE_GEAR,8,hbm:item.taurun_plate,0,,1,1,20,True,Selected candidate; needs loot decision
+POOL_PILE_GEAR,9,hbm:item.taurun_legs,0,,1,1,20,True,Selected candidate; needs loot decision
+POOL_PILE_GEAR,10,hbm:item.taurun_boots,0,,1,1,20,True,Selected candidate; needs loot decision
+POOL_PILE_HIVE,9,hbm:item.gun_maresleg,0,,1,1,5,True,Selected candidate; needs loot decision
+POOL_PILE_HIVE,10,hbm:item.gun_light_revolver,0,,1,1,1,True,Selected candidate; needs loot decision
+POOL_PILE_HIVE,11,hbm:item.grenade_universal,0,"{filling:1,shell:0,extra:2,fuze:0}",1,2,5,True,NBT needs exact configuration review; no automatic removal
+POOL_PILE_HIVE,12,hbm:item.grenade_universal,0,"{filling:2,shell:1,fuze:3}",1,2,3,True,NBT needs exact configuration review; no automatic removal
+POOL_PILE_HIVE,13,hbm:item.ammo_standard,44,,4,4,10,True,Selected candidate; needs loot decision
+POOL_PILE_HIVE,14,hbm:item.ammo_standard,5,,6,12,10,True,Selected candidate; needs loot decision
+POOL_PILE_HIVE,15,hbm:item.ammo_standard,53,,1,1,2,True,Selected candidate; needs loot decision
+POOL_PILE_HIVE,17,hbm:item.bottle_quantum,0,,1,2,1,True,Selected candidate; needs loot decision
+POOL_PILE_HIVE,18,hbm:item.definitelyfood,0,,5,12,20,True,Selected candidate; needs loot decision
+POOL_PILE_HIVE,20,hbm:item.syringe_metal_stimpak,0,,1,1,5,True,Selected candidate; needs loot decision
+POOL_PILE_HIVE,21,hbm:item.iv_blood,0,,1,1,10,True,Selected candidate; needs loot decision
+POOL_PILE_MAKESHIFT_GUN,0,hbm:item.gun_maresleg,0,,1,1,10,True,Selected candidate; needs loot decision
+POOL_PILE_MED_PILLS,2,hbm:item.iv_blood,0,,1,1,15,True,Selected candidate; needs loot decision
+POOL_PILE_MED_SYRINGE,0,hbm:item.syringe_metal_stimpak,0,,1,1,10,True,Selected candidate; needs loot decision
+POOL_PILE_MED_SYRINGE,1,hbm:item.syringe_metal_medx,0,,1,1,5,True,Selected candidate; needs loot decision
+POOL_PILE_MED_SYRINGE,2,hbm:item.syringe_metal_psycho,0,,1,1,5,True,Selected candidate; needs loot decision
+POOL_PILE_NUKE_STORAGE,0,hbm:item.ammo_standard,73,,1,1,50,False,KEEP unselected metadata
+POOL_PILE_NUKE_STORAGE,1,hbm:item.ammo_standard,75,,1,1,10,False,KEEP unselected metadata
+POOL_PILE_NUKE_STORAGE,2,hbm:item.ammo_standard,76,,1,1,10,True,Selected candidate; needs loot decision
+POOL_PILE_OF_GARBAGE,22,hbm:item.canned_conserve,2,,0,1,5,True,Selected candidate; needs loot decision
+POOL_PILE_SUPPLIES,0,hbm:item.grenade_universal,0,"{filling:1,shell:0,extra:2,fuze:0}",3,5,10,True,NBT needs exact configuration review; no automatic removal
+POOL_PILE_SUPPLIES,1,hbm:item.grenade_universal,0,"{filling:1,shell:0,extra:2,fuze:0}",3,5,10,True,NBT needs exact configuration review; no automatic removal
+POOL_PILE_SUPPLIES,2,hbm:item.grenade_universal,0,"{filling:1,shell:0,extra:2,fuze:0}",3,5,10,True,NBT needs exact configuration review; no automatic removal
+POOL_PILE_SUPPLIES,3,hbm:item.syringe_metal_stimpak,0,,3,5,30,True,Selected candidate; needs loot decision
+POOL_PILE_SUPPLIES,4,hbm:item.syringe_metal_psycho,0,,3,5,30,True,Selected candidate; needs loot decision
+POOL_PILE_SUPPLIES,6,hbm:item.ammo_container,0,,2,3,40,True,Selected candidate; needs loot decision
+POOL_RED_PEDESTAL,0,hbm:item.ballistic_gauntlet,0,,1,1,10,True,Selected candidate; needs loot decision
+POOL_RED_PEDESTAL,1,hbm:item.armor_polish,0,,1,1,10,True,Selected candidate; needs loot decision
+POOL_RED_PEDESTAL,2,hbm:item.bandaid,0,,1,1,10,True,Selected candidate; needs loot decision
+POOL_RED_PEDESTAL,3,hbm:item.serum,0,,1,1,10,True,Selected candidate; needs loot decision
+POOL_RED_PEDESTAL,4,hbm:item.quartz_plutonium,0,,1,1,10,True,Selected candidate; needs loot decision
+POOL_RED_PEDESTAL,5,hbm:item.morning_glory,0,,1,1,10,True,Selected candidate; needs loot decision
+POOL_RED_PEDESTAL,6,hbm:item.spider_milk,0,,1,1,10,True,Selected candidate; needs loot decision
+POOL_RED_PEDESTAL,7,hbm:item.ink,0,,1,1,10,True,Selected candidate; needs loot decision
+POOL_RED_PEDESTAL,8,hbm:item.heart_container,0,,1,1,10,True,Selected candidate; needs loot decision
+POOL_RED_PEDESTAL,9,hbm:item.black_diamond,0,,1,1,10,True,Selected candidate; needs loot decision
+POOL_RED_PEDESTAL,10,hbm:item.scrumpy,0,,1,1,10,True,Selected candidate; needs loot decision
+POOL_RED_PEDESTAL,11,hbm:item.wild_p,0,,1,1,5,True,Selected candidate; needs loot decision
+POOL_RED_PEDESTAL,14,hbm:item.starmetal_sword,0,,1,1,5,True,Selected candidate; needs loot decision
+POOL_RED_PEDESTAL,16,hbm:item.crackpipe,0,,1,1,5,True,Selected candidate; needs loot decision
+POOL_RED_PEDESTAL,17,hbm:item.flask_infusion,0,,1,1,5,True,Selected candidate; needs loot decision
+POOL_SILO,9,hbm:item.bomb_caller,0,,1,1,1,False,KEEP unselected metadata
+POOL_SILO,10,hbm:item.bomb_caller,3,,1,1,1,False,KEEP unselected metadata
+POOL_SNACKS,0,hbm:item.definitelyfood,0,,1,1,10,True,Selected candidate; needs loot decision
+POOL_SNACKS,1,hbm:item.canned_conserve,0,,1,1,5,True,Selected candidate; needs loot decision
+POOL_SNACKS,2,hbm:item.canned_conserve,9,,1,1,5,True,Selected candidate; needs loot decision
+POOL_SNACKS,4,hbm:item.chocolate,0,,1,1,10,True,Selected candidate; needs loot decision
+POOL_SODA,1,hbm:item.bottle_cherry,0,,1,1,5,True,Selected candidate; needs loot decision
+POOL_SODA,2,hbm:item.bottle_quantum,0,,1,1,1,True,Selected candidate; needs loot decision
+POOL_SODA,3,hbm:item.can_bepis,0,,1,1,10,True,Selected candidate; needs loot decision
+POOL_SODA,4,hbm:item.can_luna,0,,1,1,10,True,Selected candidate; needs loot decision
+POOL_SODA,5,hbm:item.can_mug,0,,1,1,10,True,Selected candidate; needs loot decision
+POOL_SODA,6,hbm:item.can_breen,0,,1,1,1,True,Selected candidate; needs loot decision
+POOL_SUBMARINE,10,hbm:item.gun_carbine,0,,1,1,2,True,Selected candidate; needs loot decision
+POOL_SUBMARINE,11,hbm:item.ammo_standard,29,,8,32,4,True,Selected candidate; needs loot decision
+POOL_SUPPLIES,0,hbm:item.definitelyfood,0,,3,10,25,True,Selected candidate; needs loot decision
+POOL_SUPPLIES,1,hbm:item.syringe_metal_stimpak,0,,1,3,10,True,Selected candidate; needs loot decision
+POOL_VAULT_LAB,4,hbm:item.morning_glory,0,,1,1,1,True,Selected candidate; needs loot decision
+POOL_VAULT_LOCKERS,13,hbm:item.definitelyfood,0,,2,7,5,True,Selected candidate; needs loot decision
+POOL_VAULT_LOCKERS,14,hbm:item.cigarette,0,,1,8,5,True,Selected candidate; needs loot decision
+POOL_VAULT_LOCKERS,15,hbm:item.armor_polish,0,,1,1,3,True,Selected candidate; needs loot decision
+POOL_VAULT_LOCKERS,24,hbm:item.ammo_container,0,,1,1,1,True,Selected candidate; needs loot decision
+POOL_VAULT_REINFORCED,4,hbm:item.ammo_standard,73,,1,3,1,False,KEEP unselected metadata
+POOL_VAULT_REINFORCED,5,hbm:item.ammo_container,0,,1,4,1,True,Selected candidate; needs loot decision
+POOL_VAULT_REINFORCED,6,hbm:item.grenade_universal,0,"{filling:10,shell:3,fuze:1}",1,2,1,True,NBT needs exact configuration review; no automatic removal
+POOL_VAULT_REINFORCED,7,hbm:item.grenade_universal,0,"{filling:1,shell:1,extra:3,fuze:3}",1,1,1,True,NBT needs exact configuration review; no automatic removal
+POOL_VAULT_REINFORCED,9,hbm:item.gun_heavy_revolver,0,,1,1,1,True,Selected candidate; needs loot decision
+POOL_VAULT_RUSTY,1,hbm:item.gun_heavy_revolver,0,,1,1,2,True,Selected candidate; needs loot decision
+POOL_VAULT_RUSTY,3,hbm:item.gun_am180,0,,1,1,1,True,Selected candidate; needs loot decision
+POOL_VAULT_RUSTY,4,hbm:item.bottle_quantum,0,,1,3,1,True,Selected candidate; needs loot decision
+POOL_VAULT_RUSTY,6,hbm:item.ammo_standard,34,,24,48,1,False,KEEP unselected metadata
+POOL_VAULT_RUSTY,7,hbm:item.ammo_standard,22,,48,64,2,True,Selected candidate; needs loot decision
+POOL_VAULT_RUSTY,10,hbm:item.grenade_universal,0,"{filling:1,shell:0,fuze:0}",1,1,1,True,NBT needs exact configuration review; no automatic removal
+POOL_VAULT_RUSTY,11,hbm:item.grenade_universal,0,"{filling:3,shell:0,fuze:0}",1,1,1,True,NBT needs exact configuration review; no automatic removal
+POOL_VAULT_STANDARD,3,hbm:item.ammo_standard,73,,1,1,1,False,KEEP unselected metadata
+POOL_VAULT_STANDARD,4,hbm:item.ammo_container,0,,1,1,1,True,Selected candidate; needs loot decision
+POOL_VAULT_STANDARD,5,hbm:item.grenade_universal,0,"{filling:10,shell:3,fuze:1}",1,1,1,True,NBT needs exact configuration review; no automatic removal
+POOL_VAULT_STANDARD,6,hbm:item.grenade_universal,0,"{filling:6,shell:2,fuze:0}",1,6,1,True,NBT needs exact configuration review; no automatic removal
+POOL_VAULT_STANDARD,8,hbm:item.gun_uzi,0,,1,1,1,True,Selected candidate; needs loot decision
+POOL_VAULT_UNBREAKABLE,0,hbm:item.ammo_container,0,,3,6,1,True,Selected candidate; needs loot decision
+POOL_VAULT_UNBREAKABLE,1,hbm:item.ammo_standard,74,,2,3,1,False,KEEP unselected metadata
+POOL_VAULT_UNBREAKABLE,2,hbm:item.gun_carbine,0,,1,1,1,True,Selected candidate; needs loot decision
+POOL_VAULT_UNBREAKABLE,3,hbm:item.ammo_standard,32,,16,32,1,True,Selected candidate; needs loot decision
+POOL_VAULT_UNBREAKABLE,4,hbm:item.gun_congolake,0,,1,1,1,True,Selected candidate; needs loot decision
+POOL_VERTIBIRD,5,hbm:item.gun_light_revolver,0,,1,1,4,True,Selected candidate; needs loot decision
+POOL_VERTIBIRD,7,hbm:item.ammo_standard,6,,1,24,4,True,Selected candidate; needs loot decision
+POOL_VERTIBIRD,8,hbm:item.ammo_standard,53,,1,6,3,True,Selected candidate; needs loot decision
+POOL_VERTIBIRD,9,hbm:item.ammo_standard,52,,1,1,5,False,KEEP unselected metadata
+POOL_VERTIBIRD,14,hbm:item.bottle_quantum,0,,1,1,3,True,Selected candidate; needs loot decision
+POOL_VERTIBIRD,18,hbm:item.grenade_universal,0,"{filling:10,shell:3,fuze:1}",1,2,2,True,NBT needs exact configuration review; no automatic removal
+POOL_VERTIBIRD,19,hbm:item.bomb_caller,0,,1,1,1,False,KEEP unselected metadata
+POOL_VERTIBIRD,20,hbm:item.bomb_caller,1,,1,1,1,False,KEEP unselected metadata
+POOL_VERTIBIRD,21,hbm:item.bomb_caller,2,,1,1,2,False,KEEP unselected metadata
+POOL_WEAPONS,0,hbm:item.gun_light_revolver,0,,1,1,100,True,Selected candidate; needs loot decision
+POOL_WEAPONS,1,hbm:item.gun_henry,0,,1,1,100,True,Selected candidate; needs loot decision
+POOL_WEAPONS,2,hbm:item.gun_maresleg,0,,1,1,100,True,Selected candidate; needs loot decision
+POOL_WEAPONS,3,hbm:item.gun_greasegun,0,,1,1,100,True,Selected candidate; needs loot decision
+POOL_WEAPONS,4,hbm:item.gun_carbine,0,,1,1,50,True,Selected candidate; needs loot decision
+POOL_WEAPONS,5,hbm:item.gun_heavy_revolver,0,,1,1,50,True,Selected candidate; needs loot decision
+POOL_WEAPONS,6,hbm:item.gun_panzerschreck,0,,1,1,20,True,Selected candidate; needs loot decision
+POOL_WEAPONS,7,hbm:item.gun_double_barrel,0,,1,1,10,True,Selected candidate; needs loot decision
+POOL_WEAPONS,8,hbm:item.gun_n_i_4_n_i,0,,1,1,1,True,Selected candidate; needs loot decision

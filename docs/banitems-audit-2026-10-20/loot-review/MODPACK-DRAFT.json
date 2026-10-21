@@ -1,0 +1,1986 @@
+{
+  "status": "UNAPPROVED cross-mod suggestions, not a ready-to-install config",
+  "scope": "Replaces only the removed-weight budget of each of the 31 affected pools. All 20 unaffected pools and all retained original entries remain unchanged. No live files or source gameplay changed.",
+  "registry_evidence": "/Users/rhysh/Library/Application Support/PrismLauncher/instances/Release Testing/minecraft/saves/Backport Template Earth/level.dat",
+  "registry_limitation": "IDs exist in this saved target registry; this is not a fresh live registry export or a full runtime firing test. Current FMUR content files verify selected Ammo relationships. AE2 metadata verified from the installed jar bytecode.",
+  "mods_considered": [
+    "FMUR-WDG-Edition-1.8.06_X170-dev.jar",
+    "Pam\u2019s HarvestCraft 1.7.10Lb",
+    "AE2 rv3-beta-1065-GTNH",
+    "EFR+ 3.5.28",
+    "NTM WG2.4.0"
+  ],
+  "guns_and_ammunition": {
+    "m9": {
+      "id": "m9",
+      "name": "M9 kit",
+      "gun": {
+        "registry": "flansmod:m9",
+        "meta": 0,
+        "name": "M9",
+        "min": 1,
+        "max": 1
+      },
+      "ammo": {
+        "registry": "flansmod:9x1915rdmag",
+        "meta": 0,
+        "name": "9x19mm 15-Round Magazine",
+        "min": 1,
+        "max": 1
+      },
+      "rounds_total": 15,
+      "gun_file": "/Users/rhysh/Library/Application Support/PrismLauncher/instances/Release Testing/minecraft/Flan/BFMC Gun Pack/guns/US_PT_M9.txt",
+      "ammo_file": "/Users/rhysh/Library/Application Support/PrismLauncher/instances/Release Testing/minecraft/Flan/BFMC Gun Pack/bullets/9x1915rdmag.txt",
+      "max_ammo_stack": 6,
+      "gun_ammo_slots": 1,
+      "implementation": "Paired gun + ammo outcome requires bundle support, or separately validated loaded-gun NBT. It is not one ordinary weighted ItemStack."
+    },
+    "m45": {
+      "id": "m45",
+      "name": "M45A1 kit",
+      "gun": {
+        "registry": "flansmod:m45a1",
+        "meta": 0,
+        "name": "M45A1",
+        "min": 1,
+        "max": 1
+      },
+      "ammo": {
+        "registry": "flansmod:45acp8rdmag",
+        "meta": 0,
+        "name": "45ACP 8-Round Magazine",
+        "min": 1,
+        "max": 1
+      },
+      "rounds_total": 8,
+      "gun_file": "/Users/rhysh/Library/Application Support/PrismLauncher/instances/Release Testing/minecraft/Flan/BFMC Gun Pack/guns/US_PT_M45A1.txt",
+      "ammo_file": "/Users/rhysh/Library/Application Support/PrismLauncher/instances/Release Testing/minecraft/Flan/BFMC Gun Pack/bullets/45acp8rdsmag.txt",
+      "max_ammo_stack": 12,
+      "gun_ammo_slots": 1,
+      "implementation": "Paired gun + ammo outcome requires bundle support, or separately validated loaded-gun NBT. It is not one ordinary weighted ItemStack."
+    },
+    "shotgun": {
+      "id": "shotgun",
+      "name": "870 MCS kit",
+      "gun": {
+        "registry": "flansmod:870mcs",
+        "meta": 0,
+        "name": "870 MCS",
+        "min": 1,
+        "max": 1
+      },
+      "ammo": {
+        "registry": "flansmod:12gaugebuckshot",
+        "meta": 0,
+        "name": "12 Gauge BuckShot",
+        "min": 6,
+        "max": 6
+      },
+      "rounds_total": 6,
+      "gun_file": "/Users/rhysh/Library/Application Support/PrismLauncher/instances/Release Testing/minecraft/Flan/BFMC Gun Pack/guns/US_SG_870 MCS.txt",
+      "ammo_file": "/Users/rhysh/Library/Application Support/PrismLauncher/instances/Release Testing/minecraft/Flan/BFMC Gun Pack/bullets/12GaugeBuckShot.txt",
+      "max_ammo_stack": 40,
+      "gun_ammo_slots": 7,
+      "implementation": "Paired gun + ammo outcome requires bundle support, or separately validated loaded-gun NBT. It is not one ordinary weighted ItemStack."
+    },
+    "m4": {
+      "id": "m4",
+      "name": "M4A1 kit",
+      "gun": {
+        "registry": "flansmod:m4a1",
+        "meta": 0,
+        "name": "M4A1",
+        "min": 1,
+        "max": 1
+      },
+      "ammo": {
+        "registry": "flansmod:556x4530rdmag",
+        "meta": 0,
+        "name": "5.56x45mm 30-Round Magazine",
+        "min": 1,
+        "max": 1
+      },
+      "rounds_total": 30,
+      "gun_file": "/Users/rhysh/Library/Application Support/PrismLauncher/instances/Release Testing/minecraft/Flan/BFMC Gun Pack/guns/US_CR_M4A1.txt",
+      "ammo_file": "/Users/rhysh/Library/Application Support/PrismLauncher/instances/Release Testing/minecraft/Flan/BFMC Gun Pack/bullets/556x4530rdmag.txt",
+      "max_ammo_stack": 10,
+      "gun_ammo_slots": 1,
+      "implementation": "Paired gun + ammo outcome requires bundle support, or separately validated loaded-gun NBT. It is not one ordinary weighted ItemStack."
+    },
+    "ak": {
+      "id": "ak",
+      "name": "AK-74M kit",
+      "gun": {
+        "registry": "flansmod:ak74m",
+        "meta": 0,
+        "name": "AK-74M",
+        "min": 1,
+        "max": 1
+      },
+      "ammo": {
+        "registry": "flansmod:545x3930rdmag",
+        "meta": 0,
+        "name": "5.45x39mm 30-Round Magazine",
+        "min": 1,
+        "max": 1
+      },
+      "rounds_total": 30,
+      "gun_file": "/Users/rhysh/Library/Application Support/PrismLauncher/instances/Release Testing/minecraft/Flan/BFMC Gun Pack/guns/RU_AR_AK-74M.txt",
+      "ammo_file": "/Users/rhysh/Library/Application Support/PrismLauncher/instances/Release Testing/minecraft/Flan/BFMC Gun Pack/bullets/545x3930rdmag.txt",
+      "max_ammo_stack": 10,
+      "gun_ammo_slots": 1,
+      "implementation": "Paired gun + ammo outcome requires bundle support, or separately validated loaded-gun NBT. It is not one ordinary weighted ItemStack."
+    },
+    "mp5": {
+      "id": "mp5",
+      "name": "MP5SD kit",
+      "gun": {
+        "registry": "flansmod:mp5sd",
+        "meta": 0,
+        "name": "MP5SD",
+        "min": 1,
+        "max": 1
+      },
+      "ammo": {
+        "registry": "flansmod:9x1930rdmag",
+        "meta": 0,
+        "name": "9x19mm 30-Round Magazine",
+        "min": 1,
+        "max": 1
+      },
+      "rounds_total": 30,
+      "gun_file": "/Users/rhysh/Library/Application Support/PrismLauncher/instances/Release Testing/minecraft/Flan/BFMC Gun Pack/guns/US_SMG_MP5SD.txt",
+      "ammo_file": "/Users/rhysh/Library/Application Support/PrismLauncher/instances/Release Testing/minecraft/Flan/BFMC Gun Pack/bullets/9x1930rdmag.txt",
+      "max_ammo_stack": 6,
+      "gun_ammo_slots": 1,
+      "implementation": "Paired gun + ammo outcome requires bundle support, or separately validated loaded-gun NBT. It is not one ordinary weighted ItemStack."
+    }
+  },
+  "pool_proposals": [
+    {
+      "pool": "POOL_OFFICE_TRASH",
+      "existing_total_weight": 52,
+      "removed_weight_budget": 10,
+      "retained_entries": "Unchanged, including NBT, quantities and weights",
+      "new_outcomes": [
+        {
+          "weight": 4,
+          "outcome": {
+            "registry": "harvestcraft:coffeeItem",
+            "meta": 0,
+            "name": "Cup of Coffee",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 2,
+          "outcome": {
+            "registry": "harvestcraft:teaItem",
+            "meta": 0,
+            "name": "Cup of Tea",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 2,
+          "outcome": {
+            "registry": "harvestcraft:applejuiceItem",
+            "meta": 0,
+            "name": "Apple Juice",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 2,
+          "outcome": {
+            "registry": "harvestcraft:trailmixItem",
+            "meta": 0,
+            "name": "Trail Mix",
+            "min": 1,
+            "max": 1
+          }
+        }
+      ],
+      "gun_kit_chance_percent_per_draw": 0.0,
+      "approved": false,
+      "notes": []
+    },
+    {
+      "pool": "POOL_FILING_CABINET",
+      "existing_total_weight": 591,
+      "removed_weight_budget": 21,
+      "retained_entries": "Unchanged, including NBT, quantities and weights",
+      "new_outcomes": [
+        {
+          "weight": 15,
+          "outcome": {
+            "registry": "hbm:item.rag",
+            "meta": 0,
+            "name": "Rag",
+            "min": 1,
+            "max": 2
+          }
+        },
+        {
+          "weight": 5,
+          "outcome": {
+            "registry": "flansmod:chemlight_green",
+            "meta": 0,
+            "name": "Green Chem Light",
+            "min": 1,
+            "max": 2
+          }
+        },
+        {
+          "weight": 1,
+          "outcome": {
+            "registry": "etfuturum:candle",
+            "meta": 0,
+            "name": "Candle",
+            "min": 1,
+            "max": 1
+          }
+        }
+      ],
+      "gun_kit_chance_percent_per_draw": 0.0,
+      "approved": false,
+      "notes": []
+    },
+    {
+      "pool": "POOL_ANTENNA",
+      "existing_total_weight": 101,
+      "removed_weight_budget": 2,
+      "retained_entries": "Unchanged, including NBT, quantities and weights",
+      "new_outcomes": [
+        {
+          "weight": 1,
+          "outcome": {
+            "registry": "harvestcraft:coffeeItem",
+            "meta": 0,
+            "name": "Cup of Coffee",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 1,
+          "outcome": {
+            "registry": "appliedenergistics2:item.ItemMultiMaterial",
+            "meta": 2,
+            "name": "Certus Quartz Dust",
+            "min": 1,
+            "max": 2
+          }
+        }
+      ],
+      "gun_kit_chance_percent_per_draw": 0.0,
+      "approved": false,
+      "notes": []
+    },
+    {
+      "pool": "POOL_GENERIC",
+      "existing_total_weight": 119,
+      "removed_weight_budget": 13,
+      "retained_entries": "Unchanged, including NBT, quantities and weights",
+      "new_outcomes": [
+        {
+          "weight": 2,
+          "outcome": {
+            "kit": "m9",
+            "name": "M9 kit",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 1,
+          "outcome": {
+            "kit": "shotgun",
+            "name": "870 MCS kit",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 3,
+          "outcome": {
+            "registry": "flansmod:9x1915rdmag",
+            "meta": 0,
+            "name": "9x19mm 15-round Magazine",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 2,
+          "outcome": {
+            "registry": "flansmod:12gaugebuckshot",
+            "meta": 0,
+            "name": "12 Gauge Buckshot",
+            "min": 4,
+            "max": 8
+          }
+        },
+        {
+          "weight": 3,
+          "outcome": {
+            "registry": "harvestcraft:beefjerkyItem",
+            "meta": 0,
+            "name": "Beef Jerky",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 2,
+          "outcome": {
+            "registry": "harvestcraft:applejuiceItem",
+            "meta": 0,
+            "name": "Apple Juice",
+            "min": 1,
+            "max": 1
+          }
+        }
+      ],
+      "gun_kit_chance_percent_per_draw": 2.521,
+      "approved": false,
+      "notes": [
+        "Paired kit handling needed. Independent ammo rolls do not guarantee compatibility; keep loose-magazine rows separate from guaranteed kit ammunition.",
+        "Gun kit rate 3/119 (~2.52%) per pool draw. Eight independent draws mean ~18.48% chance of at least one kit selection before slot overwrite or multi-item bundle insertion; not a promised final chest rate."
+      ]
+    },
+    {
+      "pool": "POOL_VAULT_RUSTY",
+      "existing_total_weight": 15,
+      "removed_weight_budget": 8,
+      "retained_entries": "Unchanged, including NBT, quantities and weights",
+      "new_outcomes": [
+        {
+          "weight": 3,
+          "outcome": {
+            "registry": "harvestcraft:beefjerkyItem",
+            "meta": 0,
+            "name": "Beef Jerky",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 2,
+          "outcome": {
+            "registry": "hbm:item.plate_steel",
+            "meta": 0,
+            "name": "Steel Plate",
+            "min": 1,
+            "max": 2
+          }
+        },
+        {
+          "weight": 1,
+          "outcome": {
+            "registry": "appliedenergistics2:item.ItemMultiMaterial",
+            "meta": 2,
+            "name": "Certus Quartz Dust",
+            "min": 1,
+            "max": 2
+          }
+        },
+        {
+          "weight": 1,
+          "outcome": {
+            "kit": "m9",
+            "name": "M9 kit",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 1,
+          "outcome": {
+            "registry": "flansmod:9x1915rdmag",
+            "meta": 0,
+            "name": "9x19mm 15-round Magazine",
+            "min": 1,
+            "max": 1
+          }
+        }
+      ],
+      "gun_kit_chance_percent_per_draw": 6.667,
+      "approved": false,
+      "notes": [
+        "Paired kit handling needed. Independent ammo rolls do not guarantee compatibility; keep loose-magazine rows separate from guaranteed kit ammunition."
+      ]
+    },
+    {
+      "pool": "POOL_VAULT_STANDARD",
+      "existing_total_weight": 11,
+      "removed_weight_budget": 4,
+      "retained_entries": "Unchanged, including NBT, quantities and weights",
+      "new_outcomes": [
+        {
+          "weight": 1,
+          "outcome": {
+            "kit": "m9",
+            "name": "M9 kit",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 1,
+          "outcome": {
+            "registry": "flansmod:556x4530rdmag",
+            "meta": 0,
+            "name": "5.56x45mm 30-round Magazine",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 1,
+          "outcome": {
+            "registry": "appliedenergistics2:item.ItemMultiMaterial",
+            "meta": 0,
+            "name": "Certus Quartz Crystal",
+            "min": 1,
+            "max": 2
+          }
+        },
+        {
+          "weight": 1,
+          "outcome": {
+            "registry": "harvestcraft:beefjerkyItem",
+            "meta": 0,
+            "name": "Beef Jerky",
+            "min": 1,
+            "max": 1
+          }
+        }
+      ],
+      "gun_kit_chance_percent_per_draw": 9.091,
+      "approved": false,
+      "notes": [
+        "Paired kit handling needed. Independent ammo rolls do not guarantee compatibility; keep loose-magazine rows separate from guaranteed kit ammunition."
+      ]
+    },
+    {
+      "pool": "POOL_VAULT_REINFORCED",
+      "existing_total_weight": 12,
+      "removed_weight_budget": 4,
+      "retained_entries": "Unchanged, including NBT, quantities and weights",
+      "new_outcomes": [
+        {
+          "weight": 1,
+          "outcome": {
+            "kit": "m4",
+            "name": "M4A1 kit",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 1,
+          "outcome": {
+            "registry": "appliedenergistics2:item.ItemMultiMaterial",
+            "meta": 5,
+            "name": "Silicon",
+            "min": 1,
+            "max": 2
+          }
+        },
+        {
+          "weight": 1,
+          "outcome": {
+            "registry": "harvestcraft:beefjerkyItem",
+            "meta": 0,
+            "name": "Beef Jerky",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 1,
+          "outcome": {
+            "registry": "flansmod:chemlight_green",
+            "meta": 0,
+            "name": "Green Chem Light",
+            "min": 1,
+            "max": 2
+          }
+        }
+      ],
+      "gun_kit_chance_percent_per_draw": 8.333,
+      "approved": false,
+      "notes": [
+        "Paired kit handling needed. Independent ammo rolls do not guarantee compatibility; keep loose-magazine rows separate from guaranteed kit ammunition."
+      ]
+    },
+    {
+      "pool": "POOL_VAULT_UNBREAKABLE",
+      "existing_total_weight": 6,
+      "removed_weight_budget": 4,
+      "retained_entries": "Unchanged, including NBT, quantities and weights",
+      "new_outcomes": [
+        {
+          "weight": 1,
+          "outcome": {
+            "kit": "m4",
+            "name": "M4A1 kit",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 1,
+          "outcome": {
+            "kit": "ak",
+            "name": "AK-74M kit",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 1,
+          "outcome": {
+            "registry": "appliedenergistics2:item.ItemMultiMaterial",
+            "meta": 7,
+            "name": "Fluix Crystal",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 1,
+          "outcome": {
+            "registry": "appliedenergistics2:item.ItemMultiMaterial",
+            "meta": 5,
+            "name": "Silicon",
+            "min": 1,
+            "max": 2
+          }
+        }
+      ],
+      "gun_kit_chance_percent_per_draw": 33.333,
+      "approved": false,
+      "notes": [
+        "Paired kit handling needed. Independent ammo rolls do not guarantee compatibility; keep loose-magazine rows separate from guaranteed kit ammunition."
+      ]
+    },
+    {
+      "pool": "POOL_VAULT_LAB",
+      "existing_total_weight": 94,
+      "removed_weight_budget": 1,
+      "retained_entries": "Unchanged, including NBT, quantities and weights",
+      "new_outcomes": [
+        {
+          "weight": 1,
+          "outcome": {
+            "registry": "appliedenergistics2:item.ItemMultiMaterial",
+            "meta": 5,
+            "name": "Silicon",
+            "min": 1,
+            "max": 2
+          }
+        }
+      ],
+      "gun_kit_chance_percent_per_draw": 0.0,
+      "approved": false,
+      "notes": []
+    },
+    {
+      "pool": "POOL_VERTIBIRD",
+      "existing_total_weight": 128,
+      "removed_weight_budget": 16,
+      "retained_entries": "Unchanged, including NBT, quantities and weights",
+      "new_outcomes": [
+        {
+          "weight": 2,
+          "outcome": {
+            "kit": "m9",
+            "name": "M9 kit",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 1,
+          "outcome": {
+            "kit": "m4",
+            "name": "M4A1 kit",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 3,
+          "outcome": {
+            "registry": "flansmod:556x4530rdmag",
+            "meta": 0,
+            "name": "5.56x45mm 30-round Magazine",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 5,
+          "outcome": {
+            "registry": "harvestcraft:beefjerkyItem",
+            "meta": 0,
+            "name": "Beef Jerky",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 3,
+          "outcome": {
+            "registry": "hbm:item.coil_copper",
+            "meta": 0,
+            "name": "Copper Coil",
+            "min": 1,
+            "max": 2
+          }
+        },
+        {
+          "weight": 2,
+          "outcome": {
+            "registry": "flansmod:chemlight_green",
+            "meta": 0,
+            "name": "Green Chem Light",
+            "min": 1,
+            "max": 2
+          }
+        }
+      ],
+      "gun_kit_chance_percent_per_draw": 2.344,
+      "approved": false,
+      "notes": [
+        "Paired kit handling needed. Independent ammo rolls do not guarantee compatibility; keep loose-magazine rows separate from guaranteed kit ammunition."
+      ]
+    },
+    {
+      "pool": "POOL_EXPENSIVE",
+      "existing_total_weight": 86,
+      "removed_weight_budget": 15,
+      "retained_entries": "Unchanged, including NBT, quantities and weights",
+      "new_outcomes": [
+        {
+          "weight": 1,
+          "outcome": {
+            "kit": "m4",
+            "name": "M4A1 kit",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 1,
+          "outcome": {
+            "kit": "ak",
+            "name": "AK-74M kit",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 2,
+          "outcome": {
+            "registry": "flansmod:556x4530rdmag",
+            "meta": 0,
+            "name": "5.56x45mm 30-round Magazine",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 2,
+          "outcome": {
+            "registry": "flansmod:545x3930rdmag",
+            "meta": 0,
+            "name": "5.45x39mm 30-round Magazine",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 3,
+          "outcome": {
+            "registry": "appliedenergistics2:item.ItemMultiMaterial",
+            "meta": 0,
+            "name": "Certus Quartz Crystal",
+            "min": 1,
+            "max": 2
+          }
+        },
+        {
+          "weight": 2,
+          "outcome": {
+            "registry": "appliedenergistics2:item.ItemMultiMaterial",
+            "meta": 5,
+            "name": "Silicon",
+            "min": 1,
+            "max": 2
+          }
+        },
+        {
+          "weight": 2,
+          "outcome": {
+            "registry": "harvestcraft:beefjerkyItem",
+            "meta": 0,
+            "name": "Beef Jerky",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 2,
+          "outcome": {
+            "registry": "etfuturum:lantern",
+            "meta": 0,
+            "name": "Lantern",
+            "min": 1,
+            "max": 1
+          }
+        }
+      ],
+      "gun_kit_chance_percent_per_draw": 2.326,
+      "approved": false,
+      "notes": [
+        "Paired kit handling needed. Independent ammo rolls do not guarantee compatibility; keep loose-magazine rows separate from guaranteed kit ammunition."
+      ]
+    },
+    {
+      "pool": "POOL_SUBMARINE",
+      "existing_total_weight": 61,
+      "removed_weight_budget": 6,
+      "retained_entries": "Unchanged, including NBT, quantities and weights",
+      "new_outcomes": [
+        {
+          "weight": 1,
+          "outcome": {
+            "kit": "m9",
+            "name": "M9 kit",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 1,
+          "outcome": {
+            "registry": "flansmod:9x1915rdmag",
+            "meta": 0,
+            "name": "9x19mm 15-round Magazine",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 2,
+          "outcome": {
+            "registry": "hbm:item.cell_empty",
+            "meta": 0,
+            "name": "Empty Cell",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 2,
+          "outcome": {
+            "registry": "appliedenergistics2:item.ItemMultiMaterial",
+            "meta": 5,
+            "name": "Silicon",
+            "min": 1,
+            "max": 2
+          }
+        }
+      ],
+      "gun_kit_chance_percent_per_draw": 1.639,
+      "approved": false,
+      "notes": [
+        "Paired kit handling needed. Independent ammo rolls do not guarantee compatibility; keep loose-magazine rows separate from guaranteed kit ammunition."
+      ]
+    },
+    {
+      "pool": "POOL_NUKE_TRASH",
+      "existing_total_weight": 36,
+      "removed_weight_budget": 1,
+      "retained_entries": "Unchanged, including NBT, quantities and weights",
+      "new_outcomes": [
+        {
+          "weight": 1,
+          "outcome": {
+            "registry": "harvestcraft:lemonlimesodaItem",
+            "meta": 0,
+            "name": "Lemon-Lime Soda",
+            "min": 1,
+            "max": 1
+          }
+        }
+      ],
+      "gun_kit_chance_percent_per_draw": 0.0,
+      "approved": false,
+      "notes": []
+    },
+    {
+      "pool": "POOL_NUKE_MISC",
+      "existing_total_weight": 67,
+      "removed_weight_budget": 1,
+      "retained_entries": "Unchanged, including NBT, quantities and weights",
+      "new_outcomes": [
+        {
+          "weight": 1,
+          "outcome": {
+            "registry": "hbm:item.cell_empty",
+            "meta": 0,
+            "name": "Empty Cell",
+            "min": 1,
+            "max": 1
+          }
+        }
+      ],
+      "gun_kit_chance_percent_per_draw": 0.0,
+      "approved": false,
+      "notes": []
+    },
+    {
+      "pool": "POOL_SUPPLIES",
+      "existing_total_weight": 58,
+      "removed_weight_budget": 35,
+      "retained_entries": "Unchanged, including NBT, quantities and weights",
+      "new_outcomes": [
+        {
+          "weight": 12,
+          "outcome": {
+            "registry": "harvestcraft:trailmixItem",
+            "meta": 0,
+            "name": "Trail Mix",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 8,
+          "outcome": {
+            "registry": "harvestcraft:beefjerkyItem",
+            "meta": 0,
+            "name": "Beef Jerky",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 8,
+          "outcome": {
+            "registry": "harvestcraft:grapejuiceItem",
+            "meta": 0,
+            "name": "Grape Juice",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 4,
+          "outcome": {
+            "registry": "hbm:item.rag",
+            "meta": 0,
+            "name": "Rag",
+            "min": 1,
+            "max": 2
+          }
+        },
+        {
+          "weight": 3,
+          "outcome": {
+            "registry": "etfuturum:candle",
+            "meta": 0,
+            "name": "Candle",
+            "min": 1,
+            "max": 2
+          }
+        }
+      ],
+      "gun_kit_chance_percent_per_draw": 0.0,
+      "approved": false,
+      "notes": []
+    },
+    {
+      "pool": "POOL_SODA",
+      "existing_total_weight": 47,
+      "removed_weight_budget": 37,
+      "retained_entries": "Unchanged, including NBT, quantities and weights",
+      "new_outcomes": [
+        {
+          "weight": 12,
+          "outcome": {
+            "registry": "harvestcraft:colasodaItem",
+            "meta": 0,
+            "name": "Cola Soda",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 8,
+          "outcome": {
+            "registry": "harvestcraft:cherrysodaItem",
+            "meta": 0,
+            "name": "Cherry Soda",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 6,
+          "outcome": {
+            "registry": "harvestcraft:gingersodaItem",
+            "meta": 0,
+            "name": "Ginger Soda",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 6,
+          "outcome": {
+            "registry": "harvestcraft:applejuiceItem",
+            "meta": 0,
+            "name": "Apple Juice",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 5,
+          "outcome": {
+            "registry": "harvestcraft:lemonlimesodaItem",
+            "meta": 0,
+            "name": "Lemon-Lime Soda",
+            "min": 1,
+            "max": 1
+          }
+        }
+      ],
+      "gun_kit_chance_percent_per_draw": 0.0,
+      "approved": false,
+      "notes": [
+        "Retained Nuka Cola weight stays 10/47 (~21.28%). All new drinks are one per draw."
+      ]
+    },
+    {
+      "pool": "POOL_SNACKS",
+      "existing_total_weight": 40,
+      "removed_weight_budget": 30,
+      "retained_entries": "Unchanged, including NBT, quantities and weights",
+      "new_outcomes": [
+        {
+          "weight": 12,
+          "outcome": {
+            "registry": "harvestcraft:trailmixItem",
+            "meta": 0,
+            "name": "Trail Mix",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 8,
+          "outcome": {
+            "registry": "harvestcraft:beefjerkyItem",
+            "meta": 0,
+            "name": "Beef Jerky",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 6,
+          "outcome": {
+            "registry": "harvestcraft:chickensandwichItem",
+            "meta": 0,
+            "name": "Chicken Sandwich",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 4,
+          "outcome": {
+            "registry": "harvestcraft:cheeseontoastItem",
+            "meta": 0,
+            "name": "Cheese on Toast",
+            "min": 1,
+            "max": 1
+          }
+        }
+      ],
+      "gun_kit_chance_percent_per_draw": 0.0,
+      "approved": false,
+      "notes": [
+        "Retained Twinkie weight stays 10/40 (25%). Replacement food quantities are one each; AppleCore/HarvestCraft nutrition balance still needs review."
+      ]
+    },
+    {
+      "pool": "POOL_AMMO",
+      "existing_total_weight": 69,
+      "removed_weight_budget": 46,
+      "retained_entries": "Unchanged, including NBT, quantities and weights",
+      "new_outcomes": [
+        {
+          "weight": 12,
+          "outcome": {
+            "registry": "flansmod:9x1915rdmag",
+            "meta": 0,
+            "name": "9x19mm 15-round Magazine",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 6,
+          "outcome": {
+            "registry": "flansmod:45acp8rdmag",
+            "meta": 0,
+            "name": ".45 ACP 8-round Magazine",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 8,
+          "outcome": {
+            "registry": "flansmod:556x4530rdmag",
+            "meta": 0,
+            "name": "5.56x45mm 30-round Magazine",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 8,
+          "outcome": {
+            "registry": "flansmod:545x3930rdmag",
+            "meta": 0,
+            "name": "5.45x39mm 30-round Magazine",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 8,
+          "outcome": {
+            "registry": "flansmod:12gaugebuckshot",
+            "meta": 0,
+            "name": "12 Gauge Buckshot",
+            "min": 4,
+            "max": 8
+          }
+        },
+        {
+          "weight": 4,
+          "outcome": {
+            "registry": "flansmod:9x1930rdmag",
+            "meta": 0,
+            "name": "9x19mm 30-round Magazine",
+            "min": 1,
+            "max": 1
+          }
+        }
+      ],
+      "gun_kit_chance_percent_per_draw": 0.0,
+      "approved": false,
+      "notes": []
+    },
+    {
+      "pool": "POOL_WEAPONS",
+      "existing_total_weight": 531,
+      "removed_weight_budget": 531,
+      "retained_entries": "Unchanged, including NBT, quantities and weights",
+      "new_outcomes": [
+        {
+          "weight": 60,
+          "outcome": {
+            "kit": "m9",
+            "name": "M9 kit",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 30,
+          "outcome": {
+            "kit": "m45",
+            "name": "M45A1 kit",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 40,
+          "outcome": {
+            "kit": "shotgun",
+            "name": "870 MCS kit",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 12,
+          "outcome": {
+            "kit": "m4",
+            "name": "M4A1 kit",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 12,
+          "outcome": {
+            "kit": "ak",
+            "name": "AK-74M kit",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 5,
+          "outcome": {
+            "kit": "mp5",
+            "name": "MP5SD kit",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 60,
+          "outcome": {
+            "registry": "flansmod:9x1915rdmag",
+            "meta": 0,
+            "name": "9x19mm 15-round Magazine",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 30,
+          "outcome": {
+            "registry": "flansmod:12gaugebuckshot",
+            "meta": 0,
+            "name": "12 Gauge Buckshot",
+            "min": 4,
+            "max": 8
+          }
+        },
+        {
+          "weight": 20,
+          "outcome": {
+            "registry": "flansmod:556x4530rdmag",
+            "meta": 0,
+            "name": "5.56x45mm 30-round Magazine",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 20,
+          "outcome": {
+            "registry": "flansmod:545x3930rdmag",
+            "meta": 0,
+            "name": "5.45x39mm 30-round Magazine",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 60,
+          "outcome": {
+            "registry": "harvestcraft:beefjerkyItem",
+            "meta": 0,
+            "name": "Beef Jerky",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 50,
+          "outcome": {
+            "registry": "hbm:item.plate_steel",
+            "meta": 0,
+            "name": "Steel Plate",
+            "min": 1,
+            "max": 2
+          }
+        },
+        {
+          "weight": 80,
+          "outcome": {
+            "registry": "hbm:item.scrap",
+            "meta": 0,
+            "name": "Scrap",
+            "min": 1,
+            "max": 3
+          }
+        },
+        {
+          "weight": 30,
+          "outcome": {
+            "registry": "flansmod:chemlight_green",
+            "meta": 0,
+            "name": "Green Chem Light",
+            "min": 1,
+            "max": 2
+          }
+        },
+        {
+          "weight": 22,
+          "outcome": {
+            "registry": "hbm:item.syringe_metal_empty",
+            "meta": 0,
+            "name": "Empty Metal Syringe",
+            "min": 1,
+            "max": 1
+          }
+        }
+      ],
+      "gun_kit_chance_percent_per_draw": 29.944,
+      "approved": false,
+      "notes": [
+        "Paired kit handling needed. Independent ammo rolls do not guarantee compatibility; keep loose-magazine rows separate from guaranteed kit ammunition.",
+        "C130 uses 1\u20132 rolls plus six POOL_AMMO rolls; embedded structure uses vary. Gun kit rate is 159/531 (~29.94%), not a percent per whole chest. C130 averages ~0.45 kit per weapon payload from these rolls."
+      ]
+    },
+    {
+      "pool": "POOL_PILE_CAPS",
+      "existing_total_weight": 24,
+      "removed_weight_budget": 4,
+      "retained_entries": "Unchanged, including NBT, quantities and weights",
+      "new_outcomes": [
+        {
+          "weight": 4,
+          "outcome": {
+            "registry": "hbm:item.cap_nuka",
+            "meta": 0,
+            "name": "Nuka Cola Bottle Cap",
+            "min": 1,
+            "max": 2
+          }
+        }
+      ],
+      "gun_kit_chance_percent_per_draw": 0.0,
+      "approved": false,
+      "notes": []
+    },
+    {
+      "pool": "POOL_PILE_OF_GARBAGE",
+      "existing_total_weight": 410,
+      "removed_weight_budget": 5,
+      "retained_entries": "Unchanged, including NBT, quantities and weights",
+      "new_outcomes": [
+        {
+          "weight": 5,
+          "outcome": {
+            "registry": "hbm:item.can_empty",
+            "meta": 0,
+            "name": "Empty Can",
+            "min": 0,
+            "max": 1
+          }
+        }
+      ],
+      "gun_kit_chance_percent_per_draw": 0.0,
+      "approved": false,
+      "notes": []
+    },
+    {
+      "pool": "POOL_PILE_HIVE",
+      "existing_total_weight": 197,
+      "removed_weight_budget": 72,
+      "retained_entries": "Unchanged, including NBT, quantities and weights",
+      "new_outcomes": [
+        {
+          "weight": 20,
+          "outcome": {
+            "registry": "harvestcraft:beefjerkyItem",
+            "meta": 0,
+            "name": "Beef Jerky",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 15,
+          "outcome": {
+            "registry": "harvestcraft:trailmixItem",
+            "meta": 0,
+            "name": "Trail Mix",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 10,
+          "outcome": {
+            "registry": "flansmod:9x1915rdmag",
+            "meta": 0,
+            "name": "9x19mm 15-round Magazine",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 2,
+          "outcome": {
+            "kit": "m9",
+            "name": "M9 kit",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 10,
+          "outcome": {
+            "registry": "hbm:item.plate_steel",
+            "meta": 0,
+            "name": "Steel Plate",
+            "min": 1,
+            "max": 2
+          }
+        },
+        {
+          "weight": 10,
+          "outcome": {
+            "registry": "hbm:item.rag",
+            "meta": 0,
+            "name": "Rag",
+            "min": 1,
+            "max": 2
+          }
+        },
+        {
+          "weight": 5,
+          "outcome": {
+            "registry": "etfuturum:lantern",
+            "meta": 0,
+            "name": "Lantern",
+            "min": 1,
+            "max": 1
+          }
+        }
+      ],
+      "gun_kit_chance_percent_per_draw": 1.015,
+      "approved": false,
+      "notes": [
+        "Paired kit handling needed. Independent ammo rolls do not guarantee compatibility; keep loose-magazine rows separate from guaranteed kit ammunition."
+      ]
+    },
+    {
+      "pool": "POOL_PILE_GEAR",
+      "existing_total_weight": 340,
+      "removed_weight_budget": 160,
+      "retained_entries": "Unchanged, including NBT, quantities and weights",
+      "new_outcomes": [
+        {
+          "weight": 5,
+          "outcome": {
+            "kit": "m9",
+            "name": "M9 kit",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 5,
+          "outcome": {
+            "kit": "shotgun",
+            "name": "870 MCS kit",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 20,
+          "outcome": {
+            "registry": "flansmod:9x1915rdmag",
+            "meta": 0,
+            "name": "9x19mm 15-round Magazine",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 20,
+          "outcome": {
+            "registry": "flansmod:12gaugebuckshot",
+            "meta": 0,
+            "name": "12 Gauge Buckshot",
+            "min": 4,
+            "max": 8
+          }
+        },
+        {
+          "weight": 30,
+          "outcome": {
+            "registry": "hbm:item.plate_steel",
+            "meta": 0,
+            "name": "Steel Plate",
+            "min": 1,
+            "max": 2
+          }
+        },
+        {
+          "weight": 30,
+          "outcome": {
+            "registry": "hbm:item.rag",
+            "meta": 0,
+            "name": "Rag",
+            "min": 1,
+            "max": 2
+          }
+        },
+        {
+          "weight": 30,
+          "outcome": {
+            "registry": "harvestcraft:beefjerkyItem",
+            "meta": 0,
+            "name": "Beef Jerky",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 20,
+          "outcome": {
+            "registry": "etfuturum:lantern",
+            "meta": 0,
+            "name": "Lantern",
+            "min": 1,
+            "max": 1
+          }
+        }
+      ],
+      "gun_kit_chance_percent_per_draw": 2.941,
+      "approved": false,
+      "notes": [
+        "Paired kit handling needed. Independent ammo rolls do not guarantee compatibility; keep loose-magazine rows separate from guaranteed kit ammunition."
+      ]
+    },
+    {
+      "pool": "POOL_PILE_MED_PILLS",
+      "existing_total_weight": 40,
+      "removed_weight_budget": 15,
+      "retained_entries": "Unchanged, including NBT, quantities and weights",
+      "new_outcomes": [
+        {
+          "weight": 5,
+          "outcome": {
+            "registry": "harvestcraft:grapejuiceItem",
+            "meta": 0,
+            "name": "Grape Juice",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 10,
+          "outcome": {
+            "registry": "hbm:item.rag",
+            "meta": 0,
+            "name": "Rag",
+            "min": 1,
+            "max": 2
+          }
+        }
+      ],
+      "gun_kit_chance_percent_per_draw": 0.0,
+      "approved": false,
+      "notes": []
+    },
+    {
+      "pool": "POOL_PILE_MED_SYRINGE",
+      "existing_total_weight": 20,
+      "removed_weight_budget": 20,
+      "retained_entries": "Unchanged, including NBT, quantities and weights",
+      "new_outcomes": [
+        {
+          "weight": 10,
+          "outcome": {
+            "registry": "hbm:item.syringe_metal_empty",
+            "meta": 0,
+            "name": "Empty Metal Syringe",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 6,
+          "outcome": {
+            "registry": "hbm:item.rag",
+            "meta": 0,
+            "name": "Rag",
+            "min": 1,
+            "max": 2
+          }
+        },
+        {
+          "weight": 4,
+          "outcome": {
+            "registry": "harvestcraft:grapejuiceItem",
+            "meta": 0,
+            "name": "Grape Juice",
+            "min": 1,
+            "max": 1
+          }
+        }
+      ],
+      "gun_kit_chance_percent_per_draw": 0.0,
+      "approved": false,
+      "notes": []
+    },
+    {
+      "pool": "POOL_PILE_MAKESHIFT_GUN",
+      "existing_total_weight": 10,
+      "removed_weight_budget": 10,
+      "retained_entries": "Unchanged, including NBT, quantities and weights",
+      "new_outcomes": [
+        {
+          "weight": 1,
+          "outcome": {
+            "kit": "m9",
+            "name": "M9 kit",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 1,
+          "outcome": {
+            "kit": "shotgun",
+            "name": "870 MCS kit",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 4,
+          "outcome": {
+            "registry": "hbm:item.plate_steel",
+            "meta": 0,
+            "name": "Steel Plate",
+            "min": 1,
+            "max": 2
+          }
+        },
+        {
+          "weight": 4,
+          "outcome": {
+            "registry": "hbm:item.scrap",
+            "meta": 0,
+            "name": "Scrap",
+            "min": 1,
+            "max": 3
+          }
+        }
+      ],
+      "gun_kit_chance_percent_per_draw": 20.0,
+      "approved": false,
+      "notes": [
+        "Paired kit handling needed. Independent ammo rolls do not guarantee compatibility; keep loose-magazine rows separate from guaranteed kit ammunition."
+      ]
+    },
+    {
+      "pool": "POOL_PILE_NUKE_STORAGE",
+      "existing_total_weight": 70,
+      "removed_weight_budget": 10,
+      "retained_entries": "Unchanged, including NBT, quantities and weights",
+      "new_outcomes": [
+        {
+          "weight": 4,
+          "outcome": {
+            "registry": "harvestcraft:beefjerkyItem",
+            "meta": 0,
+            "name": "Beef Jerky",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 4,
+          "outcome": {
+            "registry": "hbm:item.plate_steel",
+            "meta": 0,
+            "name": "Steel Plate",
+            "min": 1,
+            "max": 2
+          }
+        },
+        {
+          "weight": 2,
+          "outcome": {
+            "registry": "flansmod:chemlight_green",
+            "meta": 0,
+            "name": "Green Chem Light",
+            "min": 1,
+            "max": 2
+          }
+        }
+      ],
+      "gun_kit_chance_percent_per_draw": 0.0,
+      "approved": false,
+      "notes": []
+    },
+    {
+      "pool": "POOL_PILE_SUPPLIES",
+      "existing_total_weight": 160,
+      "removed_weight_budget": 130,
+      "retained_entries": "Unchanged, including NBT, quantities and weights",
+      "new_outcomes": [
+        {
+          "weight": 30,
+          "outcome": {
+            "registry": "harvestcraft:beefjerkyItem",
+            "meta": 0,
+            "name": "Beef Jerky",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 25,
+          "outcome": {
+            "registry": "harvestcraft:grapejuiceItem",
+            "meta": 0,
+            "name": "Grape Juice",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 20,
+          "outcome": {
+            "registry": "flansmod:9x1915rdmag",
+            "meta": 0,
+            "name": "9x19mm 15-round Magazine",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 10,
+          "outcome": {
+            "registry": "flansmod:556x4530rdmag",
+            "meta": 0,
+            "name": "5.56x45mm 30-round Magazine",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 10,
+          "outcome": {
+            "registry": "flansmod:545x3930rdmag",
+            "meta": 0,
+            "name": "5.45x39mm 30-round Magazine",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 10,
+          "outcome": {
+            "registry": "flansmod:12gaugebuckshot",
+            "meta": 0,
+            "name": "12 Gauge Buckshot",
+            "min": 4,
+            "max": 8
+          }
+        },
+        {
+          "weight": 15,
+          "outcome": {
+            "registry": "hbm:item.rag",
+            "meta": 0,
+            "name": "Rag",
+            "min": 1,
+            "max": 2
+          }
+        },
+        {
+          "weight": 10,
+          "outcome": {
+            "registry": "etfuturum:lantern",
+            "meta": 0,
+            "name": "Lantern",
+            "min": 1,
+            "max": 1
+          }
+        }
+      ],
+      "gun_kit_chance_percent_per_draw": 0.0,
+      "approved": false,
+      "notes": []
+    },
+    {
+      "pool": "POOL_VAULT_LOCKERS",
+      "existing_total_weight": 81,
+      "removed_weight_budget": 14,
+      "retained_entries": "Unchanged, including NBT, quantities and weights",
+      "new_outcomes": [
+        {
+          "weight": 5,
+          "outcome": {
+            "registry": "harvestcraft:beefjerkyItem",
+            "meta": 0,
+            "name": "Beef Jerky",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 4,
+          "outcome": {
+            "registry": "harvestcraft:trailmixItem",
+            "meta": 0,
+            "name": "Trail Mix",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 3,
+          "outcome": {
+            "registry": "flansmod:chemlight_green",
+            "meta": 0,
+            "name": "Green Chem Light",
+            "min": 1,
+            "max": 2
+          }
+        },
+        {
+          "weight": 2,
+          "outcome": {
+            "registry": "etfuturum:lantern",
+            "meta": 0,
+            "name": "Lantern",
+            "min": 1,
+            "max": 1
+          }
+        }
+      ],
+      "gun_kit_chance_percent_per_draw": 0.0,
+      "approved": false,
+      "notes": []
+    },
+    {
+      "pool": "POOL_METEORITE_TREASURE",
+      "existing_total_weight": 157,
+      "removed_weight_budget": 40,
+      "retained_entries": "Unchanged, including NBT, quantities and weights",
+      "new_outcomes": [
+        {
+          "weight": 8,
+          "outcome": {
+            "registry": "appliedenergistics2:item.ItemMultiMaterial",
+            "meta": 0,
+            "name": "Certus Quartz Crystal",
+            "min": 1,
+            "max": 2
+          }
+        },
+        {
+          "weight": 6,
+          "outcome": {
+            "registry": "appliedenergistics2:item.ItemMultiMaterial",
+            "meta": 2,
+            "name": "Certus Quartz Dust",
+            "min": 1,
+            "max": 2
+          }
+        },
+        {
+          "weight": 12,
+          "outcome": {
+            "registry": "harvestcraft:beefjerkyItem",
+            "meta": 0,
+            "name": "Beef Jerky",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 10,
+          "outcome": {
+            "registry": "harvestcraft:trailmixItem",
+            "meta": 0,
+            "name": "Trail Mix",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 4,
+          "outcome": {
+            "registry": "etfuturum:lantern",
+            "meta": 0,
+            "name": "Lantern",
+            "min": 1,
+            "max": 1
+          }
+        }
+      ],
+      "gun_kit_chance_percent_per_draw": 0.0,
+      "approved": false,
+      "notes": []
+    },
+    {
+      "pool": "POOL_RED_PEDESTAL",
+      "existing_total_weight": 160,
+      "removed_weight_budget": 132,
+      "retained_entries": "Unchanged, including NBT, quantities and weights",
+      "new_outcomes": [
+        {
+          "weight": 24,
+          "outcome": {
+            "registry": "appliedenergistics2:item.ItemMultiMaterial",
+            "meta": 0,
+            "name": "Certus Quartz Crystal",
+            "min": 2,
+            "max": 4
+          }
+        },
+        {
+          "weight": 12,
+          "outcome": {
+            "registry": "appliedenergistics2:item.ItemMultiMaterial",
+            "meta": 7,
+            "name": "Fluix Crystal",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 20,
+          "outcome": {
+            "registry": "appliedenergistics2:item.ItemMultiMaterial",
+            "meta": 5,
+            "name": "Silicon",
+            "min": 2,
+            "max": 4
+          }
+        },
+        {
+          "weight": 4,
+          "outcome": {
+            "kit": "m9",
+            "name": "M9 kit",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 4,
+          "outcome": {
+            "kit": "shotgun",
+            "name": "870 MCS kit",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 2,
+          "outcome": {
+            "kit": "m4",
+            "name": "M4A1 kit",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 20,
+          "outcome": {
+            "registry": "hbm:item.scrap",
+            "meta": 0,
+            "name": "Scrap",
+            "min": 3,
+            "max": 6
+          }
+        },
+        {
+          "weight": 20,
+          "outcome": {
+            "registry": "hbm:item.plate_steel",
+            "meta": 0,
+            "name": "Steel Plate",
+            "min": 2,
+            "max": 4
+          }
+        },
+        {
+          "weight": 12,
+          "outcome": {
+            "registry": "etfuturum:lantern",
+            "meta": 0,
+            "name": "Lantern",
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "weight": 14,
+          "outcome": {
+            "registry": "harvestcraft:trailmixItem",
+            "meta": 0,
+            "name": "Trail Mix",
+            "min": 1,
+            "max": 1
+          }
+        }
+      ],
+      "gun_kit_chance_percent_per_draw": 6.25,
+      "approved": false,
+      "notes": [
+        "Paired kit handling needed. Independent ammo rolls do not guarantee compatibility; keep loose-magazine rows separate from guaranteed kit ammunition.",
+        "Hold for separate approval: conservative placeholder redesign for a special reward room, not a claim these common supplies match its intended reward value."
+      ]
+    }
+  ],
+  "evidence_sha256": {
+    "/Users/rhysh/Library/Application Support/PrismLauncher/instances/Release Testing/minecraft/Flan/BFMC Gun Pack/guns/US_PT_M9.txt": "d6b43a71c7cadcc7712b03609f7b6794564d3a96a955649493779962017afbd8",
+    "/Users/rhysh/Library/Application Support/PrismLauncher/instances/Release Testing/minecraft/Flan/BFMC Gun Pack/bullets/9x1915rdmag.txt": "bb54b667f0055182c83b9f8948e85e07ff9c56f0b72e2c8e755e46c0f443d5fd",
+    "/Users/rhysh/Library/Application Support/PrismLauncher/instances/Release Testing/minecraft/Flan/BFMC Gun Pack/guns/US_PT_M45A1.txt": "37573c350404ccf2076141f62bf1439d3e0c9f4943400cf8816ea7a5eb3fc247",
+    "/Users/rhysh/Library/Application Support/PrismLauncher/instances/Release Testing/minecraft/Flan/BFMC Gun Pack/bullets/45acp8rdsmag.txt": "4d1dbabfb8b1218af0cebab2d98d623fc6c6c129b23d1b898f9877481f9a3380",
+    "/Users/rhysh/Library/Application Support/PrismLauncher/instances/Release Testing/minecraft/Flan/BFMC Gun Pack/guns/US_SG_870 MCS.txt": "f26f8c40641b3a375dbb172e33fa7a09776e8eb24d39d4681043b200088da6cd",
+    "/Users/rhysh/Library/Application Support/PrismLauncher/instances/Release Testing/minecraft/Flan/BFMC Gun Pack/bullets/12GaugeBuckShot.txt": "3e2990f2357a5c435eb24defdc7d6f36721be522b3420efa125a0547680d4d58",
+    "/Users/rhysh/Library/Application Support/PrismLauncher/instances/Release Testing/minecraft/Flan/BFMC Gun Pack/guns/US_CR_M4A1.txt": "036179946b8485f0edbc0452ade255eb29d2231132f6d8d1f5d1915fafc5d2a3",
+    "/Users/rhysh/Library/Application Support/PrismLauncher/instances/Release Testing/minecraft/Flan/BFMC Gun Pack/bullets/556x4530rdmag.txt": "fdf0a00f55466b98221c869b7c1ebb04b9a1fe5a144239638f917d12ac585e6c",
+    "/Users/rhysh/Library/Application Support/PrismLauncher/instances/Release Testing/minecraft/Flan/BFMC Gun Pack/guns/RU_AR_AK-74M.txt": "54e535293c1d05c466e491c86f5d1a5e289dfd937e80a3d7aea54cd8d7c833c8",
+    "/Users/rhysh/Library/Application Support/PrismLauncher/instances/Release Testing/minecraft/Flan/BFMC Gun Pack/bullets/545x3930rdmag.txt": "f2425aed6acb9b648ef426b61a5a3e2f689bc88be010ca43927650bb3e3c4f13",
+    "/Users/rhysh/Library/Application Support/PrismLauncher/instances/Release Testing/minecraft/Flan/BFMC Gun Pack/guns/US_SMG_MP5SD.txt": "bd3f5e6e810ddcf743fb9042a0c60cd2d87313a186a337b44892457a71a9ce10",
+    "/Users/rhysh/Library/Application Support/PrismLauncher/instances/Release Testing/minecraft/Flan/BFMC Gun Pack/bullets/9x1930rdmag.txt": "ba5df655af7507eb7caeba5920a8095a9f14f44092044b0c29fed1cea6c5203f",
+    "/Users/rhysh/Library/Application Support/PrismLauncher/instances/Release Testing/minecraft/mods/FMUR-WDG-Edition-1.8.06_X170-dev.jar": "f8e2ce3ffb01b9cb07c93faaa2b856493b05b5b50236b44354d2672ff5393dae",
+    "/Users/rhysh/Library/Application Support/PrismLauncher/instances/Release Testing/minecraft/mods/Pam's HarvestCraft 1.7.10Lb.jar": "b0dc253702948d19d9c2d5191ae78ae022b65fac73210ca7313d7ef3b1cd7a57",
+    "/Users/rhysh/Library/Application Support/PrismLauncher/instances/Release Testing/minecraft/mods/appliedenergistics2-rv3-beta-1065-GTNH.jar": "055839840904ea075f63b2e1907c21b4faa6f6c3d82d64c21229451db7f38d8f",
+    "/Users/rhysh/Library/Application Support/PrismLauncher/instances/Release Testing/minecraft/saves/Backport Template Earth/level.dat": "6f1a4c560dcb2e2997f9a6c6034676490d2bf0efa2b74ad0e1002a6b0807750e"
+  },
+  "policy": [
+    "All gun/ammo IDs use registry names, not the legacy numeric ItemID fields in content text.",
+    "No new FMUR explosives, launchers, tracer/special ammo or high-damage sniper rifles in this default suggestion.",
+    "No new AE2 presses, processors, storage cells, machines or power units. Raw Certus, dust, silicon and small rare Fluix drops only.",
+    "AE2/Nuclear rare retained rewards remain at their existing weights; proposed items gain their explicitly listed replacement weight.",
+    "Nutrition and actual weapon gameplay are not fully tested. Kit support and restriction-route fixes must be validated before installation."
+  ],
+  "ae2_material_metadata": {
+    "CertusQuartzCrystal": 0,
+    "CertusQuartzDust": 2,
+    "Silicon": 5,
+    "FluixCrystal": 7
+  },
+  "ae2_metadata_proof": "Installed MaterialType bytecode constructor damage value, confirmed ItemMultiMaterial uses getDamageValue; not enum ordinal.",
+  "harvestcraft_ingredient_exclusions": [
+    "freshwaterItem",
+    "bubblywaterItem"
+  ],
+  "harvestcraft_proof": "Installed ItemRegistry bytecode creates Fresh Water/Bubbly Water as plain Item; selected prepared foods/drinks as ItemFood or ItemPamPotionFood."
+}

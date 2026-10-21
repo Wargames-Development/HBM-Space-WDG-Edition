@@ -591,187 +591,187 @@ public class OreDictManager {
 		/*
 		 * TAR
 		 */
-		OreDictionary.registerOre(KEY_OIL_TAR, fromOne(oil_tar, EnumTarType.CRUDE));
-		OreDictionary.registerOre(KEY_CRACK_TAR, fromOne(oil_tar, EnumTarType.CRACK));
-		OreDictionary.registerOre(KEY_COAL_TAR, fromOne(oil_tar, EnumTarType.COAL));
-		OreDictionary.registerOre(KEY_WOOD_TAR, fromOne(oil_tar, EnumTarType.WOOD));
+		com.hbm.config.BanItems.registerOre(KEY_OIL_TAR, fromOne(oil_tar, EnumTarType.CRUDE));
+		com.hbm.config.BanItems.registerOre(KEY_CRACK_TAR, fromOne(oil_tar, EnumTarType.CRACK));
+		com.hbm.config.BanItems.registerOre(KEY_COAL_TAR, fromOne(oil_tar, EnumTarType.COAL));
+		com.hbm.config.BanItems.registerOre(KEY_WOOD_TAR, fromOne(oil_tar, EnumTarType.WOOD));
 
 		/*
 		 * TANKS
 		 */
-		OreDictionary.registerOre(KEY_UNIVERSAL_TANK, new ItemStack(fluid_tank_full, 1, OreDictionary.WILDCARD_VALUE));
-		OreDictionary.registerOre(KEY_HAZARD_TANK, new ItemStack(fluid_tank_lead_full, 1, OreDictionary.WILDCARD_VALUE));
-		OreDictionary.registerOre(KEY_UNIVERSAL_BARREL, new ItemStack(fluid_barrel_full, 1, OreDictionary.WILDCARD_VALUE));
+		com.hbm.config.BanItems.registerOre(KEY_UNIVERSAL_TANK, new ItemStack(fluid_tank_full, 1, OreDictionary.WILDCARD_VALUE));
+		com.hbm.config.BanItems.registerOre(KEY_HAZARD_TANK, new ItemStack(fluid_tank_lead_full, 1, OreDictionary.WILDCARD_VALUE));
+		com.hbm.config.BanItems.registerOre(KEY_UNIVERSAL_BARREL, new ItemStack(fluid_barrel_full, 1, OreDictionary.WILDCARD_VALUE));
 
 		/*
 		 * TOOLS
 		 */
-		OreDictionary.registerOre(KEY_TOOL_SCREWDRIVER, new ItemStack(screwdriver, 1, OreDictionary.WILDCARD_VALUE));
-		OreDictionary.registerOre(KEY_TOOL_SCREWDRIVER, new ItemStack(screwdriver_desh, 1, OreDictionary.WILDCARD_VALUE));
-		OreDictionary.registerOre(KEY_TOOL_HANDDRILL, new ItemStack(hand_drill, 1, OreDictionary.WILDCARD_VALUE));
-		OreDictionary.registerOre(KEY_TOOL_HANDDRILL, new ItemStack(hand_drill_desh, 1, OreDictionary.WILDCARD_VALUE));
-		OreDictionary.registerOre(KEY_TOOL_CHEMISTRYSET, new ItemStack(chemistry_set, 1, OreDictionary.WILDCARD_VALUE));
-		OreDictionary.registerOre(KEY_TOOL_CHEMISTRYSET, new ItemStack(chemistry_set_boron, 1, OreDictionary.WILDCARD_VALUE));
-		OreDictionary.registerOre(KEY_TOOL_TORCH, new ItemStack(blowtorch, 1, OreDictionary.WILDCARD_VALUE));
-		OreDictionary.registerOre(KEY_TOOL_TORCH, new ItemStack(acetylene_torch, 1, OreDictionary.WILDCARD_VALUE));
+		com.hbm.config.BanItems.registerOre(KEY_TOOL_SCREWDRIVER, new ItemStack(screwdriver, 1, OreDictionary.WILDCARD_VALUE));
+		com.hbm.config.BanItems.registerOre(KEY_TOOL_SCREWDRIVER, new ItemStack(screwdriver_desh, 1, OreDictionary.WILDCARD_VALUE));
+		com.hbm.config.BanItems.registerOre(KEY_TOOL_HANDDRILL, new ItemStack(hand_drill, 1, OreDictionary.WILDCARD_VALUE));
+		com.hbm.config.BanItems.registerOre(KEY_TOOL_HANDDRILL, new ItemStack(hand_drill_desh, 1, OreDictionary.WILDCARD_VALUE));
+		com.hbm.config.BanItems.registerOre(KEY_TOOL_CHEMISTRYSET, new ItemStack(chemistry_set, 1, OreDictionary.WILDCARD_VALUE));
+		com.hbm.config.BanItems.registerOre(KEY_TOOL_CHEMISTRYSET, new ItemStack(chemistry_set_boron, 1, OreDictionary.WILDCARD_VALUE));
+		com.hbm.config.BanItems.registerOre(KEY_TOOL_TORCH, new ItemStack(blowtorch, 1, OreDictionary.WILDCARD_VALUE));
+		com.hbm.config.BanItems.registerOre(KEY_TOOL_TORCH, new ItemStack(acetylene_torch, 1, OreDictionary.WILDCARD_VALUE));
 
 		/*
 		 * GLYPHID M E A T
 		 */
-		OreDictionary.registerOre(KEY_GLYPHID_MEAT, new ItemStack(glyphid_meat));
-		OreDictionary.registerOre(KEY_GLYPHID_MEAT, new ItemStack(glyphid_meat_grilled));
+		com.hbm.config.BanItems.registerOre(KEY_GLYPHID_MEAT, new ItemStack(glyphid_meat));
+		com.hbm.config.BanItems.registerOre(KEY_GLYPHID_MEAT, new ItemStack(glyphid_meat_grilled));
 
 		/*
 		 * foude
 		 */
-		OreDictionary.registerOre(KEY_FLOUR, new ItemStack(flour));
-		OreDictionary.registerOre(KEY_BUTTER, new ItemStack(butter));
-		OreDictionary.registerOre(KEY_CHEESE, new ItemStack(cheese));
-		OreDictionary.registerOre(KEY_STRAWBERRY, new ItemStack(strawberry));
-		OreDictionary.registerOre(KEY_STRAWBERRY_ICECREAM, new ItemStack(s_cream));
-		OreDictionary.registerOre(KEY_STRAWBERRY_MILKSHAKE, new ItemStack(glass_smilk));
+		com.hbm.config.BanItems.registerOre(KEY_FLOUR, new ItemStack(flour));
+		com.hbm.config.BanItems.registerOre(KEY_BUTTER, new ItemStack(butter));
+		com.hbm.config.BanItems.registerOre(KEY_CHEESE, new ItemStack(cheese));
+		com.hbm.config.BanItems.registerOre(KEY_STRAWBERRY, new ItemStack(strawberry));
+		com.hbm.config.BanItems.registerOre(KEY_STRAWBERRY_ICECREAM, new ItemStack(s_cream));
+		com.hbm.config.BanItems.registerOre(KEY_STRAWBERRY_MILKSHAKE, new ItemStack(glass_smilk));
 
 		for(NTMMaterial mat : Mats.orderedList) {
 			if(mat.smeltable == SmeltingBehavior.SMELTABLE) {
-				if(mat.autogen.contains(MaterialShapes.CASTPLATE)) for(String name : mat.names) OreDictionary.registerOre(MaterialShapes.CASTPLATE.name() + name, new ItemStack(ModItems.plate_cast, 1, mat.id));
-				if(mat.autogen.contains(MaterialShapes.WELDEDPLATE)) for(String name : mat.names) OreDictionary.registerOre(MaterialShapes.WELDEDPLATE.name() + name, new ItemStack(ModItems.plate_welded, 1, mat.id));
-				if(mat.autogen.contains(MaterialShapes.DENSEWIRE)) for(String name : mat.names) OreDictionary.registerOre(MaterialShapes.DENSEWIRE.name() + name, new ItemStack(ModItems.wire_dense, 1, mat.id));
+				if(mat.autogen.contains(MaterialShapes.CASTPLATE)) for(String name : mat.names) com.hbm.config.BanItems.registerOre(MaterialShapes.CASTPLATE.name() + name, new ItemStack(ModItems.plate_cast, 1, mat.id));
+				if(mat.autogen.contains(MaterialShapes.WELDEDPLATE)) for(String name : mat.names) com.hbm.config.BanItems.registerOre(MaterialShapes.WELDEDPLATE.name() + name, new ItemStack(ModItems.plate_welded, 1, mat.id));
+				if(mat.autogen.contains(MaterialShapes.DENSEWIRE)) for(String name : mat.names) com.hbm.config.BanItems.registerOre(MaterialShapes.DENSEWIRE.name() + name, new ItemStack(ModItems.wire_dense, 1, mat.id));
 			}
-			if(mat.autogen.contains(MaterialShapes.BOLT)) for(String name : mat.names) OreDictionary.registerOre(MaterialShapes.BOLT.name() + name, new ItemStack(ModItems.bolt, 1, mat.id));
-			if(mat.autogen.contains(MaterialShapes.INGOT)) for(String name : mat.names) OreDictionary.registerOre(MaterialShapes.INGOT.name() + name, new ItemStack(ModItems.ingot_raw, 1, mat.id));
-			if(mat.autogen.contains(MaterialShapes.NUGGET)) for(String name : mat.names) OreDictionary.registerOre(MaterialShapes.NUGGET.name() + name, new ItemStack(ModItems.nugget_raw, 1, mat.id));
-			if(mat.autogen.contains(MaterialShapes.SHELL)) for(String name : mat.names) OreDictionary.registerOre(MaterialShapes.SHELL.name() + name, new ItemStack(ModItems.shell, 1, mat.id));
-			if(mat.autogen.contains(MaterialShapes.PIPE)) for(String name : mat.names) OreDictionary.registerOre(MaterialShapes.PIPE.name() + name, new ItemStack(ModItems.pipe, 1, mat.id));
-			if(mat.autogen.contains(MaterialShapes.FRAGMENT)) for(String name : mat.names) OreDictionary.registerOre(MaterialShapes.FRAGMENT.name() + name, new ItemStack(ModItems.bedrock_ore_fragment, 1, mat.id));
-			if(mat.autogen.contains(MaterialShapes.WIRE)) for(String name : mat.names) OreDictionary.registerOre(MaterialShapes.WIRE.name() + name, new ItemStack(ModItems.wire_fine, 1, mat.id));
+			if(mat.autogen.contains(MaterialShapes.BOLT)) for(String name : mat.names) com.hbm.config.BanItems.registerOre(MaterialShapes.BOLT.name() + name, new ItemStack(ModItems.bolt, 1, mat.id));
+			if(mat.autogen.contains(MaterialShapes.INGOT)) for(String name : mat.names) com.hbm.config.BanItems.registerOre(MaterialShapes.INGOT.name() + name, new ItemStack(ModItems.ingot_raw, 1, mat.id));
+			if(mat.autogen.contains(MaterialShapes.NUGGET)) for(String name : mat.names) com.hbm.config.BanItems.registerOre(MaterialShapes.NUGGET.name() + name, new ItemStack(ModItems.nugget_raw, 1, mat.id));
+			if(mat.autogen.contains(MaterialShapes.SHELL)) for(String name : mat.names) com.hbm.config.BanItems.registerOre(MaterialShapes.SHELL.name() + name, new ItemStack(ModItems.shell, 1, mat.id));
+			if(mat.autogen.contains(MaterialShapes.PIPE)) for(String name : mat.names) com.hbm.config.BanItems.registerOre(MaterialShapes.PIPE.name() + name, new ItemStack(ModItems.pipe, 1, mat.id));
+			if(mat.autogen.contains(MaterialShapes.FRAGMENT)) for(String name : mat.names) com.hbm.config.BanItems.registerOre(MaterialShapes.FRAGMENT.name() + name, new ItemStack(ModItems.bedrock_ore_fragment, 1, mat.id));
+			if(mat.autogen.contains(MaterialShapes.WIRE)) for(String name : mat.names) com.hbm.config.BanItems.registerOre(MaterialShapes.WIRE.name() + name, new ItemStack(ModItems.wire_fine, 1, mat.id));
 
-			if(mat.autogen.contains(MaterialShapes.LIGHTBARREL)) for(String name : mat.names) OreDictionary.registerOre(MaterialShapes.LIGHTBARREL.name() + name, new ItemStack(ModItems.part_barrel_light, 1, mat.id));
-			if(mat.autogen.contains(MaterialShapes.HEAVYBARREL)) for(String name : mat.names) OreDictionary.registerOre(MaterialShapes.HEAVYBARREL.name() + name, new ItemStack(ModItems.part_barrel_heavy, 1, mat.id));
-			if(mat.autogen.contains(MaterialShapes.LIGHTRECEIVER)) for(String name : mat.names) OreDictionary.registerOre(MaterialShapes.LIGHTRECEIVER.name() + name, new ItemStack(ModItems.part_receiver_light, 1, mat.id));
-			if(mat.autogen.contains(MaterialShapes.HEAVYRECEIVER)) for(String name : mat.names) OreDictionary.registerOre(MaterialShapes.HEAVYRECEIVER.name() + name, new ItemStack(ModItems.part_receiver_heavy, 1, mat.id));
-			if(mat.autogen.contains(MaterialShapes.MECHANISM)) for(String name : mat.names) OreDictionary.registerOre(MaterialShapes.MECHANISM.name() + name, new ItemStack(ModItems.part_mechanism, 1, mat.id));
-			if(mat.autogen.contains(MaterialShapes.STOCK)) for(String name : mat.names) OreDictionary.registerOre(MaterialShapes.STOCK.name() + name, new ItemStack(ModItems.part_stock, 1, mat.id));
-			if(mat.autogen.contains(MaterialShapes.GRIP)) for(String name : mat.names) OreDictionary.registerOre(MaterialShapes.GRIP.name() + name, new ItemStack(ModItems.part_grip, 1, mat.id));
+			if(mat.autogen.contains(MaterialShapes.LIGHTBARREL)) for(String name : mat.names) com.hbm.config.BanItems.registerOre(MaterialShapes.LIGHTBARREL.name() + name, new ItemStack(ModItems.part_barrel_light, 1, mat.id));
+			if(mat.autogen.contains(MaterialShapes.HEAVYBARREL)) for(String name : mat.names) com.hbm.config.BanItems.registerOre(MaterialShapes.HEAVYBARREL.name() + name, new ItemStack(ModItems.part_barrel_heavy, 1, mat.id));
+			if(mat.autogen.contains(MaterialShapes.LIGHTRECEIVER)) for(String name : mat.names) com.hbm.config.BanItems.registerOre(MaterialShapes.LIGHTRECEIVER.name() + name, new ItemStack(ModItems.part_receiver_light, 1, mat.id));
+			if(mat.autogen.contains(MaterialShapes.HEAVYRECEIVER)) for(String name : mat.names) com.hbm.config.BanItems.registerOre(MaterialShapes.HEAVYRECEIVER.name() + name, new ItemStack(ModItems.part_receiver_heavy, 1, mat.id));
+			if(mat.autogen.contains(MaterialShapes.MECHANISM)) for(String name : mat.names) com.hbm.config.BanItems.registerOre(MaterialShapes.MECHANISM.name() + name, new ItemStack(ModItems.part_mechanism, 1, mat.id));
+			if(mat.autogen.contains(MaterialShapes.STOCK)) for(String name : mat.names) com.hbm.config.BanItems.registerOre(MaterialShapes.STOCK.name() + name, new ItemStack(ModItems.part_stock, 1, mat.id));
+			if(mat.autogen.contains(MaterialShapes.GRIP)) for(String name : mat.names) com.hbm.config.BanItems.registerOre(MaterialShapes.GRIP.name() + name, new ItemStack(ModItems.part_grip, 1, mat.id));
 			for(Item custom : MaterialShapes.customShapesItem) {
 				MaterialShapes customShape = ((ItemAutogen) custom).getShape();
-				if(mat.autogen.contains(customShape)) for(String name : mat.names) OreDictionary.registerOre(customShape.name() + name, new ItemStack(custom, 1, mat.id));
+				if(mat.autogen.contains(customShape)) for(String name : mat.names) com.hbm.config.BanItems.registerOre(customShape.name() + name, new ItemStack(custom, 1, mat.id));
 			}
 		}
 
 		for(EnumBedrockOre ore : EnumBedrockOre.values()) {
-			OreDictionary.registerOre("ore" + ore.oreName, new ItemStack(ModItems.ore_enriched, 1, ore.ordinal()));
+			com.hbm.config.BanItems.registerOre("ore" + ore.oreName, new ItemStack(ModItems.ore_enriched, 1, ore.ordinal()));
 		}
 
-		OreDictionary.registerOre("itemRubber", ingot_rubber);
+		com.hbm.config.BanItems.registerOre("itemRubber", ingot_rubber);
 
-		OreDictionary.registerOre("coalCoke", fromOne(coke, EnumCokeType.COAL));
+		com.hbm.config.BanItems.registerOre("coalCoke", fromOne(coke, EnumCokeType.COAL));
 
 		for(String name : new String[] {"fuelCoke", "coke"}) {
-			OreDictionary.registerOre(name, fromOne(coke, EnumCokeType.COAL));
-			OreDictionary.registerOre(name, fromOne(coke, EnumCokeType.LIGNITE));
-			OreDictionary.registerOre(name, fromOne(coke, EnumCokeType.PETROLEUM));
+			com.hbm.config.BanItems.registerOre(name, fromOne(coke, EnumCokeType.COAL));
+			com.hbm.config.BanItems.registerOre(name, fromOne(coke, EnumCokeType.LIGNITE));
+			com.hbm.config.BanItems.registerOre(name, fromOne(coke, EnumCokeType.PETROLEUM));
 		}
 
-		OreDictionary.registerOre("briquetteCoal", fromOne(briquette, EnumBriquetteType.COAL));
-		OreDictionary.registerOre("briquetteLignite", fromOne(briquette, EnumBriquetteType.LIGNITE));
-		OreDictionary.registerOre("briquetteWood", fromOne(briquette, EnumBriquetteType.WOOD));
+		com.hbm.config.BanItems.registerOre("briquetteCoal", fromOne(briquette, EnumBriquetteType.COAL));
+		com.hbm.config.BanItems.registerOre("briquetteLignite", fromOne(briquette, EnumBriquetteType.LIGNITE));
+		com.hbm.config.BanItems.registerOre("briquetteWood", fromOne(briquette, EnumBriquetteType.WOOD));
 
-		OreDictionary.registerOre("logWood", pink_log);
-		OreDictionary.registerOre("logWoodPink", pink_log);
-		OreDictionary.registerOre("plankWood", pink_planks);
-		OreDictionary.registerOre("plankWoodPink", pink_planks);
-		OreDictionary.registerOre("slabWood", pink_slab);
-		OreDictionary.registerOre("slabWoodPink", pink_slab);
-		OreDictionary.registerOre("stairWood", pink_stairs);
-		OreDictionary.registerOre("stairWoodPink", pink_stairs);
+		com.hbm.config.BanItems.registerOre("logWood", pink_log);
+		com.hbm.config.BanItems.registerOre("logWoodPink", pink_log);
+		com.hbm.config.BanItems.registerOre("plankWood", pink_planks);
+		com.hbm.config.BanItems.registerOre("plankWoodPink", pink_planks);
+		com.hbm.config.BanItems.registerOre("slabWood", pink_slab);
+		com.hbm.config.BanItems.registerOre("slabWoodPink", pink_slab);
+		com.hbm.config.BanItems.registerOre("stairWood", pink_stairs);
+		com.hbm.config.BanItems.registerOre("stairWoodPink", pink_stairs);
 
 		String[] dyes = { "Black", "Red", "Green", "Brown", "Blue", "Purple", "Cyan", "LightGray", "Gray", "Pink", "Lime", "Yellow", "LightBlue", "Magenta", "Orange", "White" };
 		for(int i = 0; i < 16; i++) {
 			String dyeName = "dye" + dyes[i];
 
-			OreDictionary.registerOre(dyeName, new ItemStack(ModItems.chemical_dye, 1, i));
+			com.hbm.config.BanItems.registerOre(dyeName, new ItemStack(ModItems.chemical_dye, 1, i));
 
-			OreDictionary.registerOre(dyeName, new ItemStack(ModItems.crayon, 1, i));
+			com.hbm.config.BanItems.registerOre(dyeName, new ItemStack(ModItems.crayon, 1, i));
 		}
-		OreDictionary.registerOre("dye", new ItemStack(chemical_dye, 1, OreDictionary.WILDCARD_VALUE));
-		OreDictionary.registerOre("dye", new ItemStack(crayon, 1, OreDictionary.WILDCARD_VALUE));
+		com.hbm.config.BanItems.registerOre("dye", new ItemStack(chemical_dye, 1, OreDictionary.WILDCARD_VALUE));
+		com.hbm.config.BanItems.registerOre("dye", new ItemStack(crayon, 1, OreDictionary.WILDCARD_VALUE));
 
-		OreDictionary.registerOre("dyeRed", cinnebar);
-		OreDictionary.registerOre("dye", cinnebar);
-		OreDictionary.registerOre("dyeYellow", sulfur);
-		OreDictionary.registerOre("dye", sulfur);
-		OreDictionary.registerOre("dyeBlack", powder_coal);
-		OreDictionary.registerOre("dye", powder_coal);
-		OreDictionary.registerOre("dyeBrown", powder_lignite);
-		OreDictionary.registerOre("dye", powder_lignite);
-		OreDictionary.registerOre("dyeLightGray", powder_titanium);
-		OreDictionary.registerOre("dye", powder_titanium);
-		OreDictionary.registerOre("dyeWhite", fluorite);
-		OreDictionary.registerOre("dye", fluorite);
-		OreDictionary.registerOre("dyeBlue", powder_lapis);
-		OreDictionary.registerOre("dye", powder_lapis);
-		OreDictionary.registerOre("dyeBlack", fromOne(oil_tar, EnumTarType.CRUDE));
-		OreDictionary.registerOre("dyeBlack", fromOne(oil_tar, EnumTarType.CRACK));
-		OreDictionary.registerOre("dyeGray", fromOne(oil_tar, EnumTarType.COAL));
-		OreDictionary.registerOre("dyeBrown", fromOne(oil_tar, EnumTarType.WOOD));
-		OreDictionary.registerOre("dyeCyan", fromOne(oil_tar, EnumTarType.WAX));
-		OreDictionary.registerOre("dyeWhite", fromOne(oil_tar, EnumTarType.PARAFFIN));
-		OreDictionary.registerOre("dye", new ItemStack(oil_tar, 1, OreDictionary.WILDCARD_VALUE));
-		OreDictionary.registerOre("dyeOrange", powder_cadmium);
-		OreDictionary.registerOre("dye", powder_cadmium);
-		OreDictionary.registerOre("dyeLightGray", fromOne(powder_ash, EnumAshType.WOOD));
-		OreDictionary.registerOre("dyeBlack", fromOne(powder_ash, EnumAshType.COAL));
-		OreDictionary.registerOre("dyeGray", fromOne(powder_ash, EnumAshType.MISC));
-		OreDictionary.registerOre("dyeBrown", fromOne(powder_ash, EnumAshType.FLY));
-		OreDictionary.registerOre("dyeBlack", fromOne(powder_ash, EnumAshType.SOOT));
-		OreDictionary.registerOre("dyeMagenta", fromOne(powder_ash, EnumAshType.FULLERENE));
-		OreDictionary.registerOre("dye", new ItemStack(powder_ash, 1, OreDictionary.WILDCARD_VALUE));
+		com.hbm.config.BanItems.registerOre("dyeRed", cinnebar);
+		com.hbm.config.BanItems.registerOre("dye", cinnebar);
+		com.hbm.config.BanItems.registerOre("dyeYellow", sulfur);
+		com.hbm.config.BanItems.registerOre("dye", sulfur);
+		com.hbm.config.BanItems.registerOre("dyeBlack", powder_coal);
+		com.hbm.config.BanItems.registerOre("dye", powder_coal);
+		com.hbm.config.BanItems.registerOre("dyeBrown", powder_lignite);
+		com.hbm.config.BanItems.registerOre("dye", powder_lignite);
+		com.hbm.config.BanItems.registerOre("dyeLightGray", powder_titanium);
+		com.hbm.config.BanItems.registerOre("dye", powder_titanium);
+		com.hbm.config.BanItems.registerOre("dyeWhite", fluorite);
+		com.hbm.config.BanItems.registerOre("dye", fluorite);
+		com.hbm.config.BanItems.registerOre("dyeBlue", powder_lapis);
+		com.hbm.config.BanItems.registerOre("dye", powder_lapis);
+		com.hbm.config.BanItems.registerOre("dyeBlack", fromOne(oil_tar, EnumTarType.CRUDE));
+		com.hbm.config.BanItems.registerOre("dyeBlack", fromOne(oil_tar, EnumTarType.CRACK));
+		com.hbm.config.BanItems.registerOre("dyeGray", fromOne(oil_tar, EnumTarType.COAL));
+		com.hbm.config.BanItems.registerOre("dyeBrown", fromOne(oil_tar, EnumTarType.WOOD));
+		com.hbm.config.BanItems.registerOre("dyeCyan", fromOne(oil_tar, EnumTarType.WAX));
+		com.hbm.config.BanItems.registerOre("dyeWhite", fromOne(oil_tar, EnumTarType.PARAFFIN));
+		com.hbm.config.BanItems.registerOre("dye", new ItemStack(oil_tar, 1, OreDictionary.WILDCARD_VALUE));
+		com.hbm.config.BanItems.registerOre("dyeOrange", powder_cadmium);
+		com.hbm.config.BanItems.registerOre("dye", powder_cadmium);
+		com.hbm.config.BanItems.registerOre("dyeLightGray", fromOne(powder_ash, EnumAshType.WOOD));
+		com.hbm.config.BanItems.registerOre("dyeBlack", fromOne(powder_ash, EnumAshType.COAL));
+		com.hbm.config.BanItems.registerOre("dyeGray", fromOne(powder_ash, EnumAshType.MISC));
+		com.hbm.config.BanItems.registerOre("dyeBrown", fromOne(powder_ash, EnumAshType.FLY));
+		com.hbm.config.BanItems.registerOre("dyeBlack", fromOne(powder_ash, EnumAshType.SOOT));
+		com.hbm.config.BanItems.registerOre("dyeMagenta", fromOne(powder_ash, EnumAshType.FULLERENE));
+		com.hbm.config.BanItems.registerOre("dye", new ItemStack(powder_ash, 1, OreDictionary.WILDCARD_VALUE));
 
-		OreDictionary.registerOre("blockGlass", glass_boron);
-		OreDictionary.registerOre("blockGlass", glass_lead);
-		OreDictionary.registerOre("blockGlass", glass_uranium);
-		OreDictionary.registerOre("blockGlass", glass_trinitite);
-		OreDictionary.registerOre("blockGlass", glass_polonium);
-		OreDictionary.registerOre("blockGlass", glass_ash);
-		OreDictionary.registerOre("blockGlassYellow", glass_uranium);
-		OreDictionary.registerOre("blockGlassLime", glass_trinitite);
-		OreDictionary.registerOre("blockGlassRed", glass_polonium);
-		OreDictionary.registerOre("blockGlassBlack", glass_ash);
+		com.hbm.config.BanItems.registerOre("blockGlass", glass_boron);
+		com.hbm.config.BanItems.registerOre("blockGlass", glass_lead);
+		com.hbm.config.BanItems.registerOre("blockGlass", glass_uranium);
+		com.hbm.config.BanItems.registerOre("blockGlass", glass_trinitite);
+		com.hbm.config.BanItems.registerOre("blockGlass", glass_polonium);
+		com.hbm.config.BanItems.registerOre("blockGlass", glass_ash);
+		com.hbm.config.BanItems.registerOre("blockGlassYellow", glass_uranium);
+		com.hbm.config.BanItems.registerOre("blockGlassLime", glass_trinitite);
+		com.hbm.config.BanItems.registerOre("blockGlassRed", glass_polonium);
+		com.hbm.config.BanItems.registerOre("blockGlassBlack", glass_ash);
 
-		OreDictionary.registerOre("container1000lubricant", bdcl);
-		OreDictionary.registerOre("itemSilicon", billet_silicon);
+		com.hbm.config.BanItems.registerOre("container1000lubricant", bdcl);
+		com.hbm.config.BanItems.registerOre("itemSilicon", billet_silicon);
 
-		OreDictionary.registerOre(KEY_SAND, duna_sands);
-		OreDictionary.registerOre(KEY_SAND, laythe_silt);
-		OreDictionary.registerOre(KEY_SAND, eve_silt);
-		OreDictionary.registerOre(KEY_SAND, moon_turf);
-		OreDictionary.registerOre(KEY_SAND, rubber_silt);
-		OreDictionary.registerOre(KEY_SAND, vinyl_sand);
+		com.hbm.config.BanItems.registerOre(KEY_SAND, duna_sands);
+		com.hbm.config.BanItems.registerOre(KEY_SAND, laythe_silt);
+		com.hbm.config.BanItems.registerOre(KEY_SAND, eve_silt);
+		com.hbm.config.BanItems.registerOre(KEY_SAND, moon_turf);
+		com.hbm.config.BanItems.registerOre(KEY_SAND, rubber_silt);
+		com.hbm.config.BanItems.registerOre(KEY_SAND, vinyl_sand);
 
-		OreDictionary.registerOre(KEY_STONE, duna_rock);
-		OreDictionary.registerOre(KEY_COBBLESTONE, duna_cobble);
-		OreDictionary.registerOre(KEY_COBBLESTONE, dres_rock);
-		OreDictionary.registerOre(KEY_COBBLESTONE, ike_regolith);
-		OreDictionary.registerOre(KEY_STONE, ike_stone);
-		OreDictionary.registerOre(KEY_COBBLESTONE, eve_rock);
-		OreDictionary.registerOre(KEY_COBBLESTONE, moho_regolith);
-		OreDictionary.registerOre(KEY_STONE, moho_stone);
-		OreDictionary.registerOre(KEY_COBBLESTONE, moon_rock);
-		OreDictionary.registerOre(KEY_COBBLESTONE, minmus_regolith);
-		OreDictionary.registerOre(KEY_STONE, minmus_smooth);
-		OreDictionary.registerOre(KEY_STONE, minmus_stone);
-		OreDictionary.registerOre(KEY_COBBLESTONE, basalt);
-		OreDictionary.registerOre(KEY_STONE, basalt_smooth);
+		com.hbm.config.BanItems.registerOre(KEY_STONE, duna_rock);
+		com.hbm.config.BanItems.registerOre(KEY_COBBLESTONE, duna_cobble);
+		com.hbm.config.BanItems.registerOre(KEY_COBBLESTONE, dres_rock);
+		com.hbm.config.BanItems.registerOre(KEY_COBBLESTONE, ike_regolith);
+		com.hbm.config.BanItems.registerOre(KEY_STONE, ike_stone);
+		com.hbm.config.BanItems.registerOre(KEY_COBBLESTONE, eve_rock);
+		com.hbm.config.BanItems.registerOre(KEY_COBBLESTONE, moho_regolith);
+		com.hbm.config.BanItems.registerOre(KEY_STONE, moho_stone);
+		com.hbm.config.BanItems.registerOre(KEY_COBBLESTONE, moon_rock);
+		com.hbm.config.BanItems.registerOre(KEY_COBBLESTONE, minmus_regolith);
+		com.hbm.config.BanItems.registerOre(KEY_STONE, minmus_smooth);
+		com.hbm.config.BanItems.registerOre(KEY_STONE, minmus_stone);
+		com.hbm.config.BanItems.registerOre(KEY_COBBLESTONE, basalt);
+		com.hbm.config.BanItems.registerOre(KEY_STONE, basalt_smooth);
 
-		OreDictionary.registerOre(KEY_LOG, vinyl_log);
-		OreDictionary.registerOre(KEY_LOG, pvc_log);
-		OreDictionary.registerOre(KEY_LOG, laythe_root);
+		com.hbm.config.BanItems.registerOre(KEY_LOG, vinyl_log);
+		com.hbm.config.BanItems.registerOre(KEY_LOG, pvc_log);
+		com.hbm.config.BanItems.registerOre(KEY_LOG, laythe_root);
 
-		OreDictionary.registerOre(KEY_PLANKS, vinyl_planks);
-		OreDictionary.registerOre(KEY_PLANKS, pvc_planks);
+		com.hbm.config.BanItems.registerOre(KEY_PLANKS, vinyl_planks);
+		com.hbm.config.BanItems.registerOre(KEY_PLANKS, pvc_planks);
 
-		OreDictionary.registerOre(KEY_STICK, stick_vinyl);
-		OreDictionary.registerOre(KEY_STICK, stick_pvc);
+		com.hbm.config.BanItems.registerOre(KEY_STICK, stick_vinyl);
+		com.hbm.config.BanItems.registerOre(KEY_STICK, stick_pvc);
 
 		for(NTMMaterial mat : Mats.orderedList) {
 			if(mat.autogen.contains(MaterialShapes.FRAGMENT)) {
@@ -821,7 +821,7 @@ public class OreDictManager {
 
 		if(strings != null) {
 			for(String name : strings) {
-				OreDictionary.registerOre(name, event.Ore);
+				com.hbm.config.BanItems.registerOre(name, event.Ore);
 				MainRegistry.logger.info("Re-registration for " + event.Name + " to " + name);
 			}
 		}
@@ -1082,7 +1082,7 @@ public class OreDictManager {
 
 		public void registerStack(String tag, ItemStack stack) {
 			for(String mat : mats) {
-				OreDictionary.registerOre(tag + mat, stack);
+				com.hbm.config.BanItems.registerOre(tag + mat, stack);
 				registerHazards(hazards, hazMult, tag + mat);
 			}
 

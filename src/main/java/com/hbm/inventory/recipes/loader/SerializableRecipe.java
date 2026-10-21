@@ -156,13 +156,16 @@ public abstract class SerializableRecipe {
 					listener.onRecipeLoad(recipe.getClass().getSimpleName());
 				}
 
+                com.hbm.config.BanItemsRecipes.filterHandler(recipe);
 				File recTemplate = new File(recDir.getAbsolutePath() + File.separatorChar + "_" + recipe.getFileName());
 				MainRegistry.logger.info("Writing template file " + recTemplate.getName());
 				recipe.writeTemplateFile(recTemplate);
 				recipe.modified = false;
 			}
 
+            com.hbm.config.BanItemsRecipes.filterHandler(recipe);
 			recipe.registerPost();
+            com.hbm.config.BanItemsRecipes.filterHandler(recipe);
 		}
 
 		MainRegistry.logger.info("Finished recipe init!");
@@ -261,7 +264,7 @@ public abstract class SerializableRecipe {
 		JsonObject json = gson.fromJson(reader, JsonObject.class);
 		JsonArray recipes = json.get("recipes").getAsJsonArray();
 		for(JsonElement recipe : recipes) {
-			if(recipe != null) this.readRecipe(recipe);
+			if(recipe != null && !com.hbm.config.BanItemsRecipes.containsJson(recipe)) this.readRecipe(recipe);
 		}
 	}
 
@@ -274,12 +277,12 @@ public abstract class SerializableRecipe {
 			String type = array.get(0).getAsString();
 			int stacksize = array.size() > 2 ? array.get(2).getAsInt() : 1;
 			if("nbt".equals(type)) {
-				Item item = (Item) Item.itemRegistry.getObject(array.get(1).getAsString());
+				Item item = com.hbm.config.BanItems.findItem(array.get(1).getAsString());
 				NBTBase nbt = array.size() > 4 ? JsonToNBT.func_150315_a(array.get(4).getAsString()) : null;
 				return new NBTStack(item, stacksize, 0).withNBT(nbt instanceof NBTTagCompound ? (NBTTagCompound) nbt : null);
 			}
 			if("item".equals(type)) {
-				Item item = (Item) Item.itemRegistry.getObject(array.get(1).getAsString());
+				Item item = com.hbm.config.BanItems.findItem(array.get(1).getAsString());
 				int meta = array.size() > 3 ? array.get(3).getAsInt() : 0;
 				return new ComparableStack(item, stacksize, meta);
 			}
@@ -330,7 +333,7 @@ public abstract class SerializableRecipe {
 
 	public static ItemStack readItemStack(JsonArray array) {
 		try {
-			Item item = (Item) Item.itemRegistry.getObject(array.get(0).getAsString());
+			Item item = com.hbm.config.BanItems.findItem(array.get(0).getAsString());
 			int stacksize = array.size() > 1 ? array.get(1).getAsInt() : 1;
 			int meta = array.size() > 2 ? array.get(2).getAsInt() : 0;
 			if(item != null) {
@@ -345,7 +348,7 @@ public abstract class SerializableRecipe {
 
 	public static Pair<ItemStack, Float> readItemStackChance(JsonArray array) {
 		try {
-			Item item = (Item) Item.itemRegistry.getObject(array.get(0).getAsString());
+			Item item = com.hbm.config.BanItems.findItem(array.get(0).getAsString());
 			int stacksize = array.size() > 2 ? array.get(1).getAsInt() : 1;
 			int meta = array.size() > 3 ? array.get(2).getAsInt() : 0;
 			if(item != null) {

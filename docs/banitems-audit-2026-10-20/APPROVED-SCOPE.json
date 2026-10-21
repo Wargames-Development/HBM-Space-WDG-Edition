@@ -1,0 +1,1063 @@
+{
+  "schema": 1,
+  "status": "registration/metadata policy and restriction route cleanup validated; checkpoint ready; replacement loot unapproved",
+  "original_chest_selection": "selected-items.csv",
+  "disable_all_guns": true,
+  "disable_all_grenades": true,
+  "weapon_expansion": [
+    {
+      "registry": "hbm:item.grenade_universal",
+      "field": "grenade_universal",
+      "class": "ItemGrenadeUniversal",
+      "english": "Grenade",
+      "file": "src/main/java/com/hbm/items/ModItems.java",
+      "line": 4098,
+      "reason": "all_grenades"
+    },
+    {
+      "registry": "hbm:item.gun_aberrator",
+      "field": "gun_aberrator",
+      "class": "ItemGunBaseNT",
+      "english": "Aberrator",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory35800.java",
+      "line": 72,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_aberrator_eott",
+      "field": "gun_aberrator_eott",
+      "class": "ItemGunBaseNT",
+      "english": "Eyes Of The Tempest",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory35800.java",
+      "line": 83,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_am180",
+      "field": "gun_am180",
+      "class": "ItemGunBaseNT",
+      "english": ".22 Submachine Gun",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory22lr.java",
+      "line": 64,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_amat",
+      "field": "gun_amat",
+      "class": "ItemGunBaseNT",
+      "english": "Anti-Materiel Rifle",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory50.java",
+      "line": 98,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_amat_penance",
+      "field": "gun_amat_penance",
+      "class": "ItemGunBaseNT",
+      "english": "Penance",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory50.java",
+      "line": 118,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_amat_subtlety",
+      "field": "gun_amat_subtlety",
+      "class": "ItemGunBaseNT",
+      "english": "Subtlety",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory50.java",
+      "line": 108,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_autoshotgun",
+      "field": "gun_autoshotgun",
+      "class": "ItemGunBaseNT",
+      "english": "Auto Shotgun",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory12ga.java",
+      "line": 381,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_autoshotgun_heretic",
+      "field": "gun_autoshotgun_heretic",
+      "class": "ItemGunBaseNT",
+      "english": "The Heretic",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory10ga.java",
+      "line": 87,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_autoshotgun_sexy",
+      "field": "gun_autoshotgun_sexy",
+      "class": "ItemGunBaseNT",
+      "english": "Sexy",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory12ga.java",
+      "line": 402,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_autoshotgun_shredder",
+      "field": "gun_autoshotgun_shredder",
+      "class": "ItemGunBaseNT",
+      "english": "Shredder",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory12ga.java",
+      "line": 391,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_b92",
+      "field": "gun_b92",
+      "class": "GunB92",
+      "english": "\u00a79B92 Energy Pistol\u00a7r",
+      "file": "src/main/java/com/hbm/items/ModItems.java",
+      "line": 4083,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_bolter",
+      "field": "gun_bolter",
+      "class": "ItemGunBaseNT",
+      "english": "Bolter",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory75Bolt.java",
+      "line": 67,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_carbine",
+      "field": "gun_carbine",
+      "class": "ItemGunBaseNT",
+      "english": "Carbine",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory762mm.java",
+      "line": 92,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_charge_thrower",
+      "field": "gun_charge_thrower",
+      "class": "ItemGunChargeThrower",
+      "english": "Charge Thrower",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactoryTool.java",
+      "line": 281,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_chemthrower",
+      "field": "gun_chemthrower",
+      "class": "ItemGunChemthrower",
+      "english": "Chemthrower",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactoryFlamer.java",
+      "line": 184,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_coilgun",
+      "field": "gun_coilgun",
+      "class": "ItemGunBaseNT",
+      "english": "Coilgun",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactoryAccelerator.java",
+      "line": 136,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_congolake",
+      "field": "gun_congolake",
+      "class": "ItemGunBaseNT",
+      "english": "Congo Lake",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory40mm.java",
+      "line": 208,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_debug",
+      "field": "gun_debug",
+      "class": "ItemGunBaseNT",
+      "english": "(no en_US translation)",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/GunFactory.java",
+      "line": 44,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_double_barrel",
+      "field": "gun_double_barrel",
+      "class": "ItemGunBaseNT",
+      "english": "An Old Classic",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory10ga.java",
+      "line": 66,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_double_barrel_sacred_dragon",
+      "field": "gun_double_barrel_sacred_dragon",
+      "class": "ItemGunBaseNT",
+      "english": "Sacred Dragon",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory10ga.java",
+      "line": 76,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_fatman",
+      "field": "gun_fatman",
+      "class": "ItemGunBaseNT",
+      "english": "Fat Man",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactoryCatapult.java",
+      "line": 194,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_flamer",
+      "field": "gun_flamer",
+      "class": "ItemGunBaseNT",
+      "english": "Flamethrower",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactoryFlamer.java",
+      "line": 153,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_flamer_daybreaker",
+      "field": "gun_flamer_daybreaker",
+      "class": "ItemGunBaseNT",
+      "english": "Daybreaker",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactoryFlamer.java",
+      "line": 173,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_flamer_topaz",
+      "field": "gun_flamer_topaz",
+      "class": "ItemGunBaseNT",
+      "english": "Mister Topaz",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactoryFlamer.java",
+      "line": 163,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_flaregun",
+      "field": "gun_flaregun",
+      "class": "ItemGunBaseNT",
+      "english": "Flare Gun",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory40mm.java",
+      "line": 197,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_folly",
+      "field": "gun_folly",
+      "class": "ItemGunBaseNT",
+      "english": "Folly",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactoryFolly.java",
+      "line": 112,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_g3",
+      "field": "gun_g3",
+      "class": "ItemGunBaseNT",
+      "english": "Assault Rifle",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory556mm.java",
+      "line": 88,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_g3_zebra",
+      "field": "gun_g3_zebra",
+      "class": "ItemGunBaseNT",
+      "english": "Zebra Rifle",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory556mm.java",
+      "line": 98,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_greasegun",
+      "field": "gun_greasegun",
+      "class": "ItemGunBaseNT",
+      "english": "Grease Gun",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory9mm.java",
+      "line": 70,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_hangman",
+      "field": "gun_hangman",
+      "class": "ItemGunBaseNT",
+      "english": "Hangman",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory44.java",
+      "line": 162,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_heavy_revolver",
+      "field": "gun_heavy_revolver",
+      "class": "ItemGunBaseNT",
+      "english": "Heavy Revolver",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory44.java",
+      "line": 130,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_heavy_revolver_lilmac",
+      "field": "gun_heavy_revolver_lilmac",
+      "class": "ItemGunBaseNT",
+      "english": "Little Macintosh",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory44.java",
+      "line": 141,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_heavy_revolver_protege",
+      "field": "gun_heavy_revolver_protege",
+      "class": "ItemGunBaseNT",
+      "english": "Prot\u00e8ge",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory44.java",
+      "line": 151,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_henry",
+      "field": "gun_henry",
+      "class": "ItemGunBaseNT",
+      "english": "Lever Action Rifle",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory44.java",
+      "line": 109,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_henry_lincoln",
+      "field": "gun_henry_lincoln",
+      "class": "ItemGunBaseNT",
+      "english": "Lincoln's Repeater",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory44.java",
+      "line": 119,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_lag",
+      "field": "gun_lag",
+      "class": "ItemGunBaseNT",
+      "english": "Comically Long Pistol",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory9mm.java",
+      "line": 82,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_laser_pistol",
+      "field": "gun_laser_pistol",
+      "class": "ItemGunBaseNT",
+      "english": "Laser Pistol",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactoryEnergy.java",
+      "line": 201,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_laser_pistol_morning_glory",
+      "field": "gun_laser_pistol_morning_glory",
+      "class": "ItemGunBaseNT",
+      "english": "Morning Glory",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactoryEnergy.java",
+      "line": 221,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_laser_pistol_pew_pew",
+      "field": "gun_laser_pistol_pew_pew",
+      "class": "ItemGunBaseNT",
+      "english": "Pew Pew",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactoryEnergy.java",
+      "line": 211,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_lasrifle",
+      "field": "gun_lasrifle",
+      "class": "ItemGunBaseNT",
+      "english": "Laser Rifle",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactoryEnergy.java",
+      "line": 232,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_liberator",
+      "field": "gun_liberator",
+      "class": "ItemGunBaseNT",
+      "english": "Liberator",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory12ga.java",
+      "line": 359,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_light_revolver",
+      "field": "gun_light_revolver",
+      "class": "ItemGunBaseNT",
+      "english": "Break-Action Revolver",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory357.java",
+      "line": 57,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_light_revolver_atlas",
+      "field": "gun_light_revolver_atlas",
+      "class": "ItemGunBaseNT",
+      "english": "Atlas",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory357.java",
+      "line": 67,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_light_revolver_dani",
+      "field": "gun_light_revolver_dani",
+      "class": "ItemGunBaseNT",
+      "english": "Day And Night",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory357.java",
+      "line": 77,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_m2",
+      "field": "gun_m2",
+      "class": "ItemGunBaseNT",
+      "english": "Ma Deuce",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory50.java",
+      "line": 129,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_maresleg",
+      "field": "gun_maresleg",
+      "class": "ItemGunBaseNT",
+      "english": "Lever Action Shotgun",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory12ga.java",
+      "line": 317,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_maresleg_akimbo",
+      "field": "gun_maresleg_akimbo",
+      "class": "ItemGunBaseNT",
+      "english": "Lever Action Shotguns",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory12ga.java",
+      "line": 328,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_maresleg_broken",
+      "field": "gun_maresleg_broken",
+      "class": "ItemGunBaseNT",
+      "english": "Broken",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory12ga.java",
+      "line": 348,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_mas36",
+      "field": "gun_mas36",
+      "class": "ItemGunBaseNT",
+      "english": "South Star",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory762mm.java",
+      "line": 146,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_minigun",
+      "field": "gun_minigun",
+      "class": "ItemGunBaseNT",
+      "english": "Minigun",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory762mm.java",
+      "line": 103,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_minigun_dual",
+      "field": "gun_minigun_dual",
+      "class": "ItemGunBaseNT",
+      "english": "Dual Miniguns",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory762mm.java",
+      "line": 123,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_minigun_lacunae",
+      "field": "gun_minigun_lacunae",
+      "class": "ItemGunBaseNT",
+      "english": "Lacunae",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory762mm.java",
+      "line": 113,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_missile_launcher",
+      "field": "gun_missile_launcher",
+      "class": "ItemGunBaseNT",
+      "english": "Missile Launcher",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactoryRocket.java",
+      "line": 233,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_mk108",
+      "field": "gun_mk108",
+      "class": "ItemGunBaseNT",
+      "english": "Grenade Machinegun",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory40mm.java",
+      "line": 219,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_n_i_4_n_i",
+      "field": "gun_n_i_4_n_i",
+      "class": "ItemGunNI4NI",
+      "english": "N I 4 N I",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactoryAccelerator.java",
+      "line": 147,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_pa_melee",
+      "field": "gun_pa_melee",
+      "class": "ItemGunPA",
+      "english": "Power Armor - Melee Controller",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactoryPA.java",
+      "line": 52,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_pa_ranged",
+      "field": "gun_pa_ranged",
+      "class": "ItemGunPA",
+      "english": "Power Armor - Ranged Controller",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactoryPA.java",
+      "line": 59,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_panzerschreck",
+      "field": "gun_panzerschreck",
+      "class": "ItemGunBaseNT",
+      "english": "Panzerschreck",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactoryRocket.java",
+      "line": 200,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_pepperbox",
+      "field": "gun_pepperbox",
+      "class": "ItemGunBaseNT",
+      "english": "Pepperbox",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactoryBlackPowder.java",
+      "line": 41,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_quadro",
+      "field": "gun_quadro",
+      "class": "ItemGunBaseNT",
+      "english": "Quad Rocket Launcher",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactoryRocket.java",
+      "line": 222,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_spas12",
+      "field": "gun_spas12",
+      "class": "ItemGunBaseNT",
+      "english": "SPAS-12",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory12ga.java",
+      "line": 370,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_star_f",
+      "field": "gun_star_f",
+      "class": "ItemGunBaseNT",
+      "english": "Target Pistol",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory22lr.java",
+      "line": 76,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_star_f_akimbo",
+      "field": "gun_star_f_akimbo",
+      "class": "ItemGunBaseNT",
+      "english": "Target Pistols",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory22lr.java",
+      "line": 88,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_stg77",
+      "field": "gun_stg77",
+      "class": "ItemGunBaseNT",
+      "english": "StG 77",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory556mm.java",
+      "line": 109,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_stinger",
+      "field": "gun_stinger",
+      "class": "ItemGunStinger",
+      "english": "FIM-92 Stinger",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactoryRocket.java",
+      "line": 211,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_tau",
+      "field": "gun_tau",
+      "class": "ItemGunBaseNT",
+      "english": "Tau Cannon",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactoryAccelerator.java",
+      "line": 120,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_tesla_cannon",
+      "field": "gun_tesla_cannon",
+      "class": "ItemGunBaseNT",
+      "english": "Tesla Cannon",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactoryEnergy.java",
+      "line": 190,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_uzi",
+      "field": "gun_uzi",
+      "class": "ItemGunBaseNT",
+      "english": "Uzi",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory9mm.java",
+      "line": 93,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.gun_uzi_akimbo",
+      "field": "gun_uzi_akimbo",
+      "class": "ItemGunBaseNT",
+      "english": "Uzis",
+      "file": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory9mm.java",
+      "line": 104,
+      "reason": "all_guns"
+    },
+    {
+      "registry": "hbm:item.stick_dynamite",
+      "field": "stick_dynamite",
+      "class": "ItemGrenadeDynamite",
+      "english": "Stick of Dynamite",
+      "file": "src/main/java/com/hbm/items/ModItems.java",
+      "line": 4088,
+      "reason": "all_grenades"
+    },
+    {
+      "registry": "hbm:item.stick_dynamite_fishing",
+      "field": "stick_dynamite_fishing",
+      "class": "ItemGrenadeFishing",
+      "english": "Stick of Fishing Dynamite",
+      "file": "src/main/java/com/hbm/items/ModItems.java",
+      "line": 4089,
+      "reason": "all_grenades"
+    }
+  ],
+  "additional_registry_names": [
+    "hbm:item.gun_aberrator",
+    "hbm:item.gun_aberrator_eott",
+    "hbm:item.gun_amat_penance",
+    "hbm:item.gun_amat_subtlety",
+    "hbm:item.gun_autoshotgun_heretic",
+    "hbm:item.gun_autoshotgun_sexy",
+    "hbm:item.gun_autoshotgun_shredder",
+    "hbm:item.gun_debug",
+    "hbm:item.gun_double_barrel_sacred_dragon",
+    "hbm:item.gun_flamer_daybreaker",
+    "hbm:item.gun_flamer_topaz",
+    "hbm:item.gun_flaregun",
+    "hbm:item.gun_folly",
+    "hbm:item.gun_g3_zebra",
+    "hbm:item.gun_hangman",
+    "hbm:item.gun_heavy_revolver_lilmac",
+    "hbm:item.gun_heavy_revolver_protege",
+    "hbm:item.gun_henry_lincoln",
+    "hbm:item.gun_laser_pistol_morning_glory",
+    "hbm:item.gun_laser_pistol_pew_pew",
+    "hbm:item.gun_light_revolver_atlas",
+    "hbm:item.gun_light_revolver_dani",
+    "hbm:item.gun_maresleg_akimbo",
+    "hbm:item.gun_maresleg_broken",
+    "hbm:item.gun_mas36",
+    "hbm:item.gun_minigun_dual",
+    "hbm:item.gun_minigun_lacunae",
+    "hbm:item.gun_star_f_akimbo",
+    "hbm:item.gun_uzi_akimbo",
+    "hbm:item.stick_dynamite",
+    "hbm:item.stick_dynamite_fishing"
+  ],
+  "utility_items_outside_expansion": [
+    "hbm:item.gun_drill",
+    "hbm:item.gun_fireext"
+  ],
+  "remove_block_and_item_registrations": [
+    "hbm:tile.broadcaster_pc",
+    "hbm:tile.float_bomb",
+    "hbm:tile.machine_missile_assembly",
+    "hbm:tile.nuke_antimatter",
+    "hbm:tile.nuke_custom",
+    "hbm:tile.nuke_fleija",
+    "hbm:tile.nuke_fstbmb",
+    "hbm:tile.nuke_prototype",
+    "hbm:tile.struct_launcher_core",
+    "hbm:tile.struct_launcher_core_large",
+    "hbm:tile.taint_barrel",
+    "hbm:tile.turret_maxwell",
+    "hbm:tile.turret_tauon"
+  ],
+  "prevent_boss_families": [
+    "EntityHunterChopper",
+    "EntityBOTPrimeBase (head and segments)",
+    "EntityUFO",
+    "EntityBFAngel"
+  ],
+  "preserve_unselected_variants": [
+    {
+      "registry": "hbm:item.ammo_arty",
+      "meta": "0",
+      "language_key": "item.ammo_arty.name",
+      "english": "16\" Artillery Shell",
+      "instruction": "KEEP: not selected in BanItems"
+    },
+    {
+      "registry": "hbm:item.ammo_arty",
+      "meta": "1",
+      "language_key": "item.ammo_arty_airburst.name",
+      "english": "16\" Airburst Artillery Shell",
+      "instruction": "KEEP: not selected in BanItems"
+    },
+    {
+      "registry": "hbm:item.ammo_arty",
+      "meta": "2",
+      "language_key": "item.ammo_arty_guided.name",
+      "english": "16\" GPS Guided Artillery Shell",
+      "instruction": "KEEP: not selected in BanItems"
+    },
+    {
+      "registry": "hbm:item.ammo_arty",
+      "meta": "5",
+      "language_key": "item.ammo_arty_phosphorus.name",
+      "english": "16\" Phosphorus Shell",
+      "instruction": "KEEP: not selected in BanItems"
+    },
+    {
+      "registry": "hbm:item.ammo_arty",
+      "meta": "6",
+      "language_key": "item.ammo_arty_empty.name",
+      "english": "16\" Empty Artillery Shell",
+      "instruction": "KEEP: not selected in BanItems"
+    },
+    {
+      "registry": "hbm:item.ammo_arty",
+      "meta": "7",
+      "language_key": "item.ammo_arty_chlorine.name",
+      "english": "16\" Chlorine Gas Artillery Shell",
+      "instruction": "KEEP: not selected in BanItems"
+    },
+    {
+      "registry": "hbm:item.ammo_arty",
+      "meta": "8",
+      "language_key": "item.ammo_arty_phosgene.name",
+      "english": "16\" Phosgene Artillery Shell",
+      "instruction": "KEEP: not selected in BanItems"
+    },
+    {
+      "registry": "hbm:item.ammo_arty",
+      "meta": "9",
+      "language_key": "item.ammo_arty_mustard_gas.name",
+      "english": "16\" Mustard Gas Artillery Shell",
+      "instruction": "KEEP: not selected in BanItems"
+    },
+    {
+      "registry": "hbm:item.ammo_himars",
+      "meta": "0",
+      "language_key": "item.ammo_himars_standard.name",
+      "english": "227mm Guided Artillery Rocket Pod",
+      "instruction": "KEEP: not selected in BanItems"
+    },
+    {
+      "registry": "hbm:item.ammo_himars",
+      "meta": "1",
+      "language_key": "item.ammo_himars_single.name",
+      "english": "610mm Guided Artillery Rocket Pod",
+      "instruction": "KEEP: not selected in BanItems"
+    },
+    {
+      "registry": "hbm:item.ammo_himars",
+      "meta": "2",
+      "language_key": "item.ammo_himars_standard_he.name",
+      "english": "227mm Guided Artillery Rocket Pod (HE)",
+      "instruction": "KEEP: not selected in BanItems"
+    },
+    {
+      "registry": "hbm:item.ammo_himars",
+      "meta": "3",
+      "language_key": "item.ammo_himars_standard_wp.name",
+      "english": "227mm Guided Artillery Rocket Pod (WP)",
+      "instruction": "KEEP: not selected in BanItems"
+    },
+    {
+      "registry": "hbm:item.ammo_shell",
+      "meta": "0",
+      "language_key": "item.ammo_shell.name",
+      "english": "240mm Shell",
+      "instruction": "KEEP: not selected in BanItems"
+    },
+    {
+      "registry": "hbm:item.ammo_shell",
+      "meta": "1",
+      "language_key": "item.ammo_shell_explosive.name",
+      "english": "240mm HE Shell",
+      "instruction": "KEEP: not selected in BanItems"
+    },
+    {
+      "registry": "hbm:item.ammo_standard",
+      "meta": "0",
+      "language_key": "item.ammo_standard.stone.name",
+      "english": "Ball and Powder",
+      "instruction": "KEEP: not selected in BanItems"
+    },
+    {
+      "registry": "hbm:item.ammo_standard",
+      "meta": "1",
+      "language_key": "item.ammo_standard.stone_ap.name",
+      "english": "Flint and Powder",
+      "instruction": "KEEP: not selected in BanItems"
+    },
+    {
+      "registry": "hbm:item.ammo_standard",
+      "meta": "2",
+      "language_key": "item.ammo_standard.stone_iron.name",
+      "english": "Iron Ball and Powder",
+      "instruction": "KEEP: not selected in BanItems"
+    },
+    {
+      "registry": "hbm:item.ammo_standard",
+      "meta": "3",
+      "language_key": "item.ammo_standard.stone_shot.name",
+      "english": "Shot and Powder",
+      "instruction": "KEEP: not selected in BanItems"
+    },
+    {
+      "registry": "hbm:item.ammo_standard",
+      "meta": "20",
+      "language_key": "item.ammo_standard.p9_sp.name",
+      "english": "9mm Round (Soft Point)",
+      "instruction": "KEEP: not selected in BanItems"
+    },
+    {
+      "registry": "hbm:item.ammo_standard",
+      "meta": "21",
+      "language_key": "item.ammo_standard.p9_fmj.name",
+      "english": "9mm Round (Full Metal Jacket)",
+      "instruction": "KEEP: not selected in BanItems"
+    },
+    {
+      "registry": "hbm:item.ammo_standard",
+      "meta": "24",
+      "language_key": "item.ammo_standard.r556_sp.name",
+      "english": "5.56mm Round (Soft Point)",
+      "instruction": "KEEP: not selected in BanItems"
+    },
+    {
+      "registry": "hbm:item.ammo_standard",
+      "meta": "25",
+      "language_key": "item.ammo_standard.r556_fmj.name",
+      "english": "5.56mm Round (Full Metal Jacket)",
+      "instruction": "KEEP: not selected in BanItems"
+    },
+    {
+      "registry": "hbm:item.ammo_standard",
+      "meta": "33",
+      "language_key": "item.ammo_standard.bmg50_sp.name",
+      "english": ".50 BMG Round (Soft Point)",
+      "instruction": "KEEP: not selected in BanItems"
+    },
+    {
+      "registry": "hbm:item.ammo_standard",
+      "meta": "34",
+      "language_key": "item.ammo_standard.bmg50_fmj.name",
+      "english": ".50 BMG Round (Full Metal Jacket)",
+      "instruction": "KEEP: not selected in BanItems"
+    },
+    {
+      "registry": "hbm:item.ammo_standard",
+      "meta": "50",
+      "language_key": "item.ammo_standard.g26_flare.name",
+      "english": "26mm Signal Flare",
+      "instruction": "KEEP: not selected in BanItems"
+    },
+    {
+      "registry": "hbm:item.ammo_standard",
+      "meta": "51",
+      "language_key": "item.ammo_standard.g26_flare_supply.name",
+      "english": "26mm Signal Flare (Supply Airdrop)",
+      "instruction": "KEEP: not selected in BanItems"
+    },
+    {
+      "registry": "hbm:item.ammo_standard",
+      "meta": "52",
+      "language_key": "item.ammo_standard.g26_flare_weapon.name",
+      "english": "26mm Signal Flare (Weapon Airdrop)",
+      "instruction": "KEEP: not selected in BanItems"
+    },
+    {
+      "registry": "hbm:item.ammo_standard",
+      "meta": "58",
+      "language_key": "item.ammo_standard.rocket_he.name",
+      "english": "Rocket, High-Explosive",
+      "instruction": "KEEP: not selected in BanItems"
+    },
+    {
+      "registry": "hbm:item.ammo_standard",
+      "meta": "61",
+      "language_key": "item.ammo_standard.rocket_inc.name",
+      "english": "Rocket, Incendiary",
+      "instruction": "KEEP: not selected in BanItems"
+    },
+    {
+      "registry": "hbm:item.ammo_standard",
+      "meta": "63",
+      "language_key": "item.ammo_standard.flame_diesel.name",
+      "english": "Flamer Fuel, Diesel",
+      "instruction": "KEEP: not selected in BanItems"
+    },
+    {
+      "registry": "hbm:item.ammo_standard",
+      "meta": "64",
+      "language_key": "item.ammo_standard.flame_gas.name",
+      "english": "Flamer Fuel, Gas",
+      "instruction": "KEEP: not selected in BanItems"
+    },
+    {
+      "registry": "hbm:item.ammo_standard",
+      "meta": "65",
+      "language_key": "item.ammo_standard.flame_napalm.name",
+      "english": "Flamer Fuel, Napalm",
+      "instruction": "KEEP: not selected in BanItems"
+    },
+    {
+      "registry": "hbm:item.ammo_standard",
+      "meta": "73",
+      "language_key": "item.ammo_standard.nuke_standard.name",
+      "english": "Mini Nuke",
+      "instruction": "KEEP: not selected in BanItems"
+    },
+    {
+      "registry": "hbm:item.ammo_standard",
+      "meta": "74",
+      "language_key": "item.ammo_standard.nuke_demo.name",
+      "english": "Mini Nuke, Demolition",
+      "instruction": "KEEP: not selected in BanItems"
+    },
+    {
+      "registry": "hbm:item.ammo_standard",
+      "meta": "75",
+      "language_key": "item.ammo_standard.nuke_high.name",
+      "english": "Mini Nuke, High Yield",
+      "instruction": "KEEP: not selected in BanItems"
+    },
+    {
+      "registry": "hbm:item.ammo_standard",
+      "meta": "95",
+      "language_key": "item.ammo_standard.g26_flare_artillery.name",
+      "english": "26mm Signal Flare (Artillery Barrage)",
+      "instruction": "KEEP: not selected in BanItems"
+    },
+    {
+      "registry": "hbm:item.bomb_caller",
+      "meta": "0",
+      "language_key": "item.bomb_caller.name",
+      "english": "Airstrike Designator",
+      "instruction": "KEEP: not selected in BanItems"
+    },
+    {
+      "registry": "hbm:item.bomb_caller",
+      "meta": "1",
+      "language_key": "item.bomb_caller.name",
+      "english": "Airstrike Designator",
+      "instruction": "KEEP: not selected in BanItems"
+    },
+    {
+      "registry": "hbm:item.bomb_caller",
+      "meta": "2",
+      "language_key": "item.bomb_caller.name",
+      "english": "Airstrike Designator",
+      "instruction": "KEEP: not selected in BanItems"
+    },
+    {
+      "registry": "hbm:item.bomb_caller",
+      "meta": "3",
+      "language_key": "item.bomb_caller.name",
+      "english": "Airstrike Designator",
+      "instruction": "KEEP: not selected in BanItems"
+    },
+    {
+      "registry": "hbm:item.bomb_caller",
+      "meta": "5",
+      "language_key": "item.bomb_caller.name",
+      "english": "Airstrike Designator",
+      "instruction": "KEEP: not selected in BanItems"
+    },
+    {
+      "registry": "hbm:item.bomb_caller",
+      "meta": "6",
+      "language_key": "item.bomb_caller.name",
+      "english": "Airstrike Designator",
+      "instruction": "KEEP: not selected in BanItems"
+    },
+    {
+      "registry": "hbm:item.bomb_caller",
+      "meta": "7",
+      "language_key": "item.bomb_caller.name",
+      "english": "Airstrike Designator",
+      "instruction": "KEEP: not selected in BanItems"
+    },
+    {
+      "registry": "hbm:item.bomb_caller",
+      "meta": "8",
+      "language_key": "item.bomb_caller.name",
+      "english": "Airstrike Designator",
+      "instruction": "KEEP: not selected in BanItems"
+    }
+  ],
+  "loot_replacements": "deferred; no vanilla substitutions approved",
+  "commits": "not authorized for this pass",
+  "implementation_completed": [
+    "selected boss world-entry gate",
+    "selected boss ordinary item-drop suppression",
+    "direct UFO/worm coin grant suppression",
+    "iron/uranium smelting bonus suppression",
+    "direct angel core reward suppression",
+    "chopper death/damage debris suppression",
+    "311 whole registrations omitted, including 13 blocks and inventory forms",
+    "87 exact metadata availability restrictions; 44 intentionally unselected variants retained",
+    "recipe, ore dictionary, inventory and grant filtering",
+    "loot empty draws preserve weights without substitutions",
+    "281 pack-script removal rules migrated and installed with backups",
+    "selected Forge chest hook empty draws",
+    "pedestal assignment/persistence/use filtering",
+    "restricted decorative dispatch without reward fall-through"
+  ],
+  "implementation_pending": [
+    "follow-up NEI check",
+    "loot pool decisions",
+    "EFR/backporter target contract refresh",
+    "optional real-world copy migration and visual check"
+  ],
+  "additional_whole_registrations": [
+    "hbm:item.disperser_canister",
+    "hbm:item.glitch"
+  ],
+  "additional_metadata_restrictions": [
+    "hbm:tile.block_cap@1",
+    "hbm:tile.block_cap@2",
+    "hbm:tile.block_cap@3",
+    "hbm:tile.block_cap@4",
+    "hbm:tile.block_cap@5",
+    "hbm:item.ammo_secret@6"
+  ],
+  "loot_review": "loot-review/REVIEW.md; all 31 affected pools and 132 entries reviewed, proposals unapproved",
+  "additional_loot_review": "loot-review/SUPPLEMENTAL-ROUTES.md; 9 selected vanilla-hook additions and 3 fixed-grant branches"
+}

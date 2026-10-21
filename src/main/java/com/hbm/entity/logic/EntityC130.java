@@ -47,12 +47,12 @@ public class EntityC130 extends EntityPlaneBase {
 			crate.setPosition(posX - motionX * 7, posY - 10, posZ - motionZ * 7);
 
 			if(this.payload == C130PayloadType.SUPPLIES) {
-				for(int i = 0; i < 5; i++) crate.items.add(ItemPool.getStack(ItemPoolsC130.POOL_SUPPLIES, this.rand));
+				for(int i = 0; i < 5; i++) com.hbm.config.BanItems.addLoot(crate.items, ItemPool.getStack(ItemPoolsC130.POOL_SUPPLIES, this.rand));
 			}
 			if(this.payload == C130PayloadType.WEAPONS) {
 				int amount = 1 + rand.nextInt(2);
-				for(int i = 0; i < amount; i++) crate.items.add(ItemPool.getStack(ItemPoolsC130.POOL_WEAPONS, this.rand));
-				for(int i = 0; i < 6; i++) crate.items.add(ItemPool.getStack(ItemPoolsC130.POOL_AMMO, this.rand));
+				for(int i = 0; i < amount; i++) com.hbm.config.BanItems.addLoot(crate.items, ItemPool.getStack(ItemPoolsC130.POOL_WEAPONS, this.rand));
+				for(int i = 0; i < 6; i++) com.hbm.config.BanItems.addLoot(crate.items, ItemPool.getStack(ItemPoolsC130.POOL_AMMO, this.rand));
 			}
 			
 			worldObj.spawnEntityInWorld(crate);

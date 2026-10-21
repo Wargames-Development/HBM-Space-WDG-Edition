@@ -111,6 +111,7 @@ public class FluidContainerRegistry {
 	}
 
 	public static void registerContainer(FluidContainer con) {
+        if(com.hbm.config.BanItems.disabled(con.fullContainer) || com.hbm.config.BanItems.disabled(con.emptyContainer)) return;
 		allContainers.add(con);
 		OreDictionary.registerOre(con.type.getDict(con.content), con.fullContainer);
 

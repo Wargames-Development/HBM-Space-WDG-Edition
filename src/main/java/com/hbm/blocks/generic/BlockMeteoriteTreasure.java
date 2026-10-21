@@ -25,7 +25,7 @@ public class BlockMeteoriteTreasure extends Block {
 		WeightedRandomChestContent[] pool = ItemPool.getPool(ItemPoolsSingle.POOL_METEORITE_TREASURE);
 		
 		for(int i = 0; i < count; i++) {
-			ret.add(ItemPool.getStack(pool, world.rand));
+			com.hbm.config.BanItems.addLoot(ret, ItemPool.getStack(pool, world.rand));
 		}
 		
 		return ret;

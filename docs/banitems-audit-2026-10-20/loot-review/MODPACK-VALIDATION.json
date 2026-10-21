@@ -1,0 +1,12 @@
+{
+  "status": "suggestions only; no live tables modified",
+  "pool_budgets_verified": 31,
+  "configured_gun_ammo_pairs_verified": 6,
+  "weapon_pool_kit_weight": "159/531 (29.9435% per draw)",
+  "all_proposed_ids_found_in_saved_target_registry": true,
+  "full_runtime_firing_test": false,
+  "food_ingredient_misidentification_checked": true,
+  "ae2_metadata_checked_against_installed_jar": true,
+  "kit_implementation_pending": true,
+  "committed": false
+}

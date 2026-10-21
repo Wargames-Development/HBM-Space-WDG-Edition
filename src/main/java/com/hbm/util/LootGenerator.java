@@ -35,21 +35,23 @@ public class LootGenerator {
 	public static final String LOOT_SUPPLIES = "LOOT_SUPPLIES";
 
 	public static void applyLoot(World world, int x, int y, int z, String name) {
+        // The restricted profile must not turn an empty chosen layout into another reward.
+        // Preserve legacy fall-through when the profile is disabled.
 		switch(name) {
-			case LOOT_BOOKLET: lootBooklet(world, x, y, z);
-			case LOOT_CAPNUKE: lootCapNuke(world, x, y, z);
-			case LOOT_MEDICINE: lootMedicine(world, x, y, z);
-			case LOOT_CAPSTASH: lootCapStash(world, x, y, z);
-			case LOOT_MAKESHIFT_GUN: lootMakeshiftGun(world, x, y, z);
-			case LOOT_NUKE_STORAGE: lootNukeStorage(world, x, y, z);
-			case LOOT_BONES: lootBones(world, x, y, z);
-			case LOOT_GLYPHID_HIVE: lootGlyphidHive(world, x, y, z);
-			case LOOT_METEOR: lootBookMeteor(world, x, y, z);
-			case LOOT_FLAREGUN: lootFlareGun(world, x, y, z);
-			case LOOT_SHIT: lootShit(world, x, y, z);
-			case LOOT_MECHANICAL: lootMechanical(world, x, y, z);
-			case LOOT_GEAR: lootGear(world, x, y, z);
-			case LOOT_SUPPLIES: lootSupplies(world, x, y, z);
+			case LOOT_BOOKLET: lootBooklet(world, x, y, z); if(com.hbm.config.BanItems.enabled) break;
+			case LOOT_CAPNUKE: lootCapNuke(world, x, y, z); if(com.hbm.config.BanItems.enabled) break;
+			case LOOT_MEDICINE: lootMedicine(world, x, y, z); if(com.hbm.config.BanItems.enabled) break;
+			case LOOT_CAPSTASH: lootCapStash(world, x, y, z); if(com.hbm.config.BanItems.enabled) break;
+			case LOOT_MAKESHIFT_GUN: lootMakeshiftGun(world, x, y, z); if(com.hbm.config.BanItems.enabled) break;
+			case LOOT_NUKE_STORAGE: lootNukeStorage(world, x, y, z); if(com.hbm.config.BanItems.enabled) break;
+			case LOOT_BONES: lootBones(world, x, y, z); if(com.hbm.config.BanItems.enabled) break;
+			case LOOT_GLYPHID_HIVE: lootGlyphidHive(world, x, y, z); if(com.hbm.config.BanItems.enabled) break;
+			case LOOT_METEOR: lootBookMeteor(world, x, y, z); if(com.hbm.config.BanItems.enabled) break;
+			case LOOT_FLAREGUN: lootFlareGun(world, x, y, z); if(com.hbm.config.BanItems.enabled) break;
+			case LOOT_SHIT: lootShit(world, x, y, z); if(com.hbm.config.BanItems.enabled) break;
+			case LOOT_MECHANICAL: lootMechanical(world, x, y, z); if(com.hbm.config.BanItems.enabled) break;
+			case LOOT_GEAR: lootGear(world, x, y, z); if(com.hbm.config.BanItems.enabled) break;
+			case LOOT_SUPPLIES: lootSupplies(world, x, y, z); if(com.hbm.config.BanItems.enabled) break;
 			default: lootBones(world, x, y, z); break;
 		}
 	}

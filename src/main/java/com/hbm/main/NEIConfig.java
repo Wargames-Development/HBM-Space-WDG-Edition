@@ -37,6 +37,7 @@ public class NEIConfig implements IConfigureNEI {
 
 	@Override
 	public void loadConfig() {
+        for(ItemStack stack : com.hbm.config.BanItems.selectedVariants()) hideAvailableItem(stack);
 		for (TemplateRecipeHandler handler: NEIRegistry.listAllHandlers()) {
 			registerHandler(handler);
 		}
@@ -47,74 +48,74 @@ public class NEIConfig implements IConfigureNEI {
 		}
 
 		if(ClientConfig.NEI_HIDE_SECRETS.get()) {
-			for(Item item : ItemGunBaseNT.secrets) API.hideItem(new ItemStack(item));
-			for(int i = 0; i < EnumAmmoSecret.values().length; i++) API.hideItem(new ItemStack(ModItems.ammo_secret, 1, i));
-			for(int i = 0; i < EnumSecretType.values().length; i++) API.hideItem(new ItemStack(ModItems.item_secret, 1, i));
+			for(Item item : ItemGunBaseNT.secrets) hideAvailableItem(new ItemStack(item));
+			for(int i = 0; i < EnumAmmoSecret.values().length; i++) hideAvailableItem(new ItemStack(ModItems.ammo_secret, 1, i));
+			for(int i = 0; i < EnumSecretType.values().length; i++) hideAvailableItem(new ItemStack(ModItems.item_secret, 1, i));
 		}
 
-		for(int i = 0; i < EnumIngotMetal.values().length; i++) API.hideItem(new ItemStack(ModItems.ingot_metal, 1, i));
+		for(int i = 0; i < EnumIngotMetal.values().length; i++) hideAvailableItem(new ItemStack(ModItems.ingot_metal, 1, i));
 
 		//Some things are even beyond my control...or are they?
-		API.hideItem(ItemBattery.getEmptyBattery(ModItems.memory));
-		API.hideItem(ItemBattery.getFullBattery(ModItems.memory));
+		hideAvailableItem(ItemBattery.getEmptyBattery(ModItems.memory));
+		hideAvailableItem(ItemBattery.getFullBattery(ModItems.memory));
 
-		API.hideItem(new ItemStack(ModBlocks.machine_electric_furnace_on));
-		API.hideItem(new ItemStack(ModBlocks.machine_difurnace_on));
-		API.hideItem(new ItemStack(ModBlocks.machine_rtg_furnace_on));
-		API.hideItem(new ItemStack(ModBlocks.reinforced_lamp_on));
-		API.hideItem(new ItemStack(ModBlocks.statue_elb_f));
-		API.hideItem(new ItemStack(ModItems.euphemium_kit));
-		API.hideItem(new ItemStack(ModItems.bobmazon_hidden));
-		API.hideItem(new ItemStack(ModItems.book_lore)); //the broken nbt-less one shouldn't show up in normal play anyway
+		hideAvailableItem(new ItemStack(ModBlocks.machine_electric_furnace_on));
+		hideAvailableItem(new ItemStack(ModBlocks.machine_difurnace_on));
+		hideAvailableItem(new ItemStack(ModBlocks.machine_rtg_furnace_on));
+		hideAvailableItem(new ItemStack(ModBlocks.reinforced_lamp_on));
+		hideAvailableItem(new ItemStack(ModBlocks.statue_elb_f));
+		hideAvailableItem(new ItemStack(ModItems.euphemium_kit));
+		hideAvailableItem(new ItemStack(ModItems.bobmazon_hidden));
+		hideAvailableItem(new ItemStack(ModItems.book_lore)); //the broken nbt-less one shouldn't show up in normal play anyway
 		if(MainRegistry.polaroidID != 11) {
-			API.hideItem(new ItemStack(ModItems.book_secret));
-			API.hideItem(new ItemStack(ModItems.book_of_));
-			API.hideItem(new ItemStack(ModItems.burnt_bark));
-			API.hideItem(new ItemStack(ModItems.ams_core_thingy));
+			hideAvailableItem(new ItemStack(ModItems.book_secret));
+			hideAvailableItem(new ItemStack(ModItems.book_of_));
+			hideAvailableItem(new ItemStack(ModItems.burnt_bark));
+			hideAvailableItem(new ItemStack(ModItems.ams_core_thingy));
 		}
-		API.hideItem(new ItemStack(ModBlocks.dummy_block_blast));
-		API.hideItem(new ItemStack(ModBlocks.dummy_port_compact_launcher));
-		API.hideItem(new ItemStack(ModBlocks.dummy_port_launch_table));
-		API.hideItem(new ItemStack(ModBlocks.dummy_plate_compact_launcher));
-		API.hideItem(new ItemStack(ModBlocks.dummy_plate_launch_table));
+		hideAvailableItem(new ItemStack(ModBlocks.dummy_block_blast));
+		hideAvailableItem(new ItemStack(ModBlocks.dummy_port_compact_launcher));
+		hideAvailableItem(new ItemStack(ModBlocks.dummy_port_launch_table));
+		hideAvailableItem(new ItemStack(ModBlocks.dummy_plate_compact_launcher));
+		hideAvailableItem(new ItemStack(ModBlocks.dummy_plate_launch_table));
 
-		API.hideItem(new ItemStack(ModBlocks.pink_log));
-		API.hideItem(new ItemStack(ModBlocks.pink_planks));
-		API.hideItem(new ItemStack(ModBlocks.pink_slab));
-		API.hideItem(new ItemStack(ModBlocks.pink_double_slab));
-		API.hideItem(new ItemStack(ModBlocks.pink_stairs));
+		hideAvailableItem(new ItemStack(ModBlocks.pink_log));
+		hideAvailableItem(new ItemStack(ModBlocks.pink_planks));
+		hideAvailableItem(new ItemStack(ModBlocks.pink_slab));
+		hideAvailableItem(new ItemStack(ModBlocks.pink_double_slab));
+		hideAvailableItem(new ItemStack(ModBlocks.pink_stairs));
 
-		API.hideItem(new ItemStack(ModBlocks.spotlight_incandescent_off));
-		API.hideItem(new ItemStack(ModBlocks.spotlight_fluoro_off));
-		API.hideItem(new ItemStack(ModBlocks.spotlight_halogen_off));
-		API.hideItem(new ItemStack(ModBlocks.spotlight_beam));
+		hideAvailableItem(new ItemStack(ModBlocks.spotlight_incandescent_off));
+		hideAvailableItem(new ItemStack(ModBlocks.spotlight_fluoro_off));
+		hideAvailableItem(new ItemStack(ModBlocks.spotlight_halogen_off));
+		hideAvailableItem(new ItemStack(ModBlocks.spotlight_beam));
 
-		API.hideItem(new ItemStack(ModItems.rocket_custom));
-		API.hideItem(new ItemStack(ModBlocks.orbital_station));
+		hideAvailableItem(new ItemStack(ModItems.rocket_custom));
+		hideAvailableItem(new ItemStack(ModBlocks.orbital_station));
 
-		API.hideItem(new ItemStack(ModBlocks.conveyor));
-		API.hideItem(new ItemStack(ModBlocks.conveyor_chute));
-		API.hideItem(new ItemStack(ModBlocks.conveyor_lift));
-		API.hideItem(new ItemStack(ModBlocks.conveyor_express));
-		API.hideItem(new ItemStack(ModBlocks.conveyor_double));
-		API.hideItem(new ItemStack(ModBlocks.conveyor_triple));
+		hideAvailableItem(new ItemStack(ModBlocks.conveyor));
+		hideAvailableItem(new ItemStack(ModBlocks.conveyor_chute));
+		hideAvailableItem(new ItemStack(ModBlocks.conveyor_lift));
+		hideAvailableItem(new ItemStack(ModBlocks.conveyor_express));
+		hideAvailableItem(new ItemStack(ModBlocks.conveyor_double));
+		hideAvailableItem(new ItemStack(ModBlocks.conveyor_triple));
 		
-		API.hideItem(new ItemStack(ModBlocks.war_controller));
-		API.hideItem(new ItemStack(ModItems.sat_war));
+		hideAvailableItem(new ItemStack(ModBlocks.war_controller));
+		hideAvailableItem(new ItemStack(ModItems.sat_war));
 
-		API.hideItem(new ItemStack(ModBlocks.furnace));
-		API.hideItem(new ItemStack(ModBlocks.lit_furnace));
+		hideAvailableItem(new ItemStack(ModBlocks.furnace));
+		hideAvailableItem(new ItemStack(ModBlocks.lit_furnace));
 
 		for(BedrockOreGrade grade : BedrockOreGrade.values()) {
 			if(grade == BedrockOreGrade.BASE) continue;
 			for(CelestialBedrockOreType type : CelestialBedrockOre.getAllTypes()) {
-				API.hideItem(ItemBedrockOreNew.make(grade, type));
+				hideAvailableItem(ItemBedrockOreNew.make(grade, type));
 			}
 		}
 
-		API.hideItem(new ItemStack(ModBlocks.brick_forgotten, 1, OreDictionary.WILDCARD_VALUE));
-		API.hideItem(new ItemStack(ModBlocks.brick_forgotten_lock, 1, OreDictionary.WILDCARD_VALUE));
-		API.hideItem(new ItemStack(ModItems.coal_eternal));
+		hideAvailableItem(new ItemStack(ModBlocks.brick_forgotten, 1, OreDictionary.WILDCARD_VALUE));
+		hideAvailableItem(new ItemStack(ModBlocks.brick_forgotten_lock, 1, OreDictionary.WILDCARD_VALUE));
+		hideAvailableItem(new ItemStack(ModItems.coal_eternal));
 
 		API.registerHighlightIdentifier(ModBlocks.plushie, new IHighlightHandler() {
 			@Override public ItemStack identifyHighlight(World world, EntityPlayer player, MovingObjectPosition mop) {
@@ -131,6 +132,10 @@ public class NEIConfig implements IConfigureNEI {
 			@Override public List<String> handleTextData(ItemStack itemStack, World world, EntityPlayer player, MovingObjectPosition mop, List<String> currenttip, Layout layout) { return currenttip; }
 		});
 	}
+
+    private static void hideAvailableItem(ItemStack stack) {
+        if(stack != null && stack.getItem() != null && Item.itemRegistry.getNameForObject(stack.getItem()) != null) API.hideItem(stack);
+    }
 
 	public static void registerHandler(Object o) {
 		API.registerRecipeHandler((ICraftingHandler) o);

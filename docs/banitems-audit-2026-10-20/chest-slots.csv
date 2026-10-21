@@ -1,0 +1,514 @@
+registry,meta,count,chest_x,chest_y,chest_z,slot,nbt
+hbm:tile.nuke_fstbmb,0,1,-1129,6,-306,0,null
+hbm:tile.nuke_antimatter,0,1,-1129,6,-306,1,null
+hbm:tile.nuke_custom,0,1,-1129,6,-306,2,null
+hbm:tile.nuke_prototype,0,1,-1129,6,-306,3,null
+hbm:tile.nuke_fleija,0,1,-1129,6,-306,4,null
+hbm:item.missile_taint,0,1,-1129,6,-306,5,null
+hbm:item.missile_bhole,0,1,-1129,6,-306,6,null
+hbm:item.missile_schrabidium,0,1,-1129,6,-306,7,null
+hbm:item.prototype_kit,0,1,-1129,6,-306,8,null
+hbm:item.fleija_kit,0,1,-1129,6,-306,9,null
+hbm:item.custom_kit,0,1,-1129,6,-306,10,null
+hbm:tile.taint_barrel,0,1,-1129,6,-306,11,null
+hbm:tile.float_bomb,0,1,-1129,6,-306,12,null
+hbm:item.grenade_fuze,4,1,-1129,6,-306,13,null
+hbm:item.grenade_extra,0,1,-1129,6,-306,14,null
+hbm:item.grenade_extra,1,1,-1129,6,-306,15,null
+hbm:item.grenade_extra,2,1,-1129,6,-306,16,null
+hbm:item.grenade_extra,3,1,-1129,6,-306,17,null
+hbm:item.book_lemegeton,0,1,-1129,6,-306,18,null
+hbm:item.bobmazon_hidden,0,1,-1129,6,-306,19,null
+hbm:item.coin_maskman,0,1,-1129,6,-306,20,null
+hbm:item.coin_worm,0,1,-1129,6,-306,21,null
+hbm:item.coin_ufo,0,1,-1129,6,-306,22,null
+hbm:item.coin_airliner,0,1,-1129,6,-306,23,null
+hbm:item.coin_creeper,0,1,-1129,6,-306,24,null
+hbm:item.coin_radiation,0,1,-1129,6,-306,25,null
+hbm:item.plastic_bag,0,1,-1129,6,-306,26,null
+hbm:item.grenade_universal,0,1,-1129,4,-306,0,"{""eqipped"": 1, ""filling"": 0, ""fuze"": 0, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-306,1,"{""eqipped"": 0, ""extra"": 0, ""filling"": 0, ""fuze"": 0, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-306,2,"{""eqipped"": 0, ""extra"": 1, ""filling"": 0, ""fuze"": 0, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-306,3,"{""eqipped"": 0, ""extra"": 2, ""filling"": 0, ""fuze"": 0, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-306,4,"{""eqipped"": 0, ""extra"": 3, ""filling"": 0, ""fuze"": 0, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-306,5,"{""eqipped"": 0, ""filling"": 0, ""fuze"": 1, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-306,6,"{""eqipped"": 0, ""extra"": 0, ""filling"": 0, ""fuze"": 1, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-306,7,"{""eqipped"": 0, ""extra"": 1, ""filling"": 0, ""fuze"": 1, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-306,8,"{""eqipped"": 0, ""extra"": 2, ""filling"": 0, ""fuze"": 1, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-306,9,"{""eqipped"": 1, ""extra"": 3, ""filling"": 0, ""fuze"": 1, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-306,10,"{""eqipped"": 0, ""filling"": 0, ""fuze"": 2, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-306,11,"{""eqipped"": 0, ""extra"": 0, ""filling"": 0, ""fuze"": 2, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-306,12,"{""eqipped"": 0, ""extra"": 1, ""filling"": 0, ""fuze"": 2, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-306,13,"{""eqipped"": 0, ""extra"": 2, ""filling"": 0, ""fuze"": 2, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-306,14,"{""eqipped"": 0, ""extra"": 3, ""filling"": 0, ""fuze"": 2, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-306,15,"{""eqipped"": 0, ""filling"": 0, ""fuze"": 3, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-306,16,"{""eqipped"": 0, ""extra"": 0, ""filling"": 0, ""fuze"": 3, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-306,17,"{""eqipped"": 0, ""extra"": 1, ""filling"": 0, ""fuze"": 3, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-306,18,"{""eqipped"": 0, ""extra"": 3, ""filling"": 0, ""fuze"": 3, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-306,19,"{""eqipped"": 1, ""extra"": 2, ""filling"": 0, ""fuze"": 3, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-306,20,"{""eqipped"": 0, ""filling"": 0, ""fuze"": 4, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-306,21,"{""eqipped"": 0, ""extra"": 0, ""filling"": 0, ""fuze"": 4, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-306,22,"{""eqipped"": 0, ""extra"": 1, ""filling"": 0, ""fuze"": 4, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-306,23,"{""eqipped"": 0, ""extra"": 2, ""filling"": 0, ""fuze"": 4, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-306,24,"{""eqipped"": 0, ""extra"": 3, ""filling"": 0, ""fuze"": 4, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-306,25,"{""eqipped"": 0, ""filling"": 1, ""fuze"": 0, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-306,26,"{""eqipped"": 0, ""extra"": 0, ""filling"": 1, ""fuze"": 0, ""shell"": 0}"
+hbm:item.ammo_bag,0,1,-1129,6,-305,0,null
+hbm:item.ammo_bag_infinite,0,1,-1129,6,-305,1,null
+hbm:item.casing_bag,0,1,-1129,6,-305,2,null
+hbm:tile.broadcaster_pc,0,1,-1129,6,-305,3,null
+hbm:item.meltdown_tool,0,1,-1129,6,-305,4,null
+hbm:item.grenade_universal,0,1,-1129,5,-306,0,"{""eqipped"": 1, ""extra"": 3, ""filling"": 2, ""fuze"": 0, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,5,-306,1,"{""eqipped"": 0, ""filling"": 2, ""fuze"": 1, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,5,-306,2,"{""eqipped"": 0, ""extra"": 0, ""filling"": 2, ""fuze"": 1, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,5,-306,3,"{""eqipped"": 0, ""extra"": 1, ""filling"": 2, ""fuze"": 1, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,5,-306,4,"{""eqipped"": 0, ""extra"": 2, ""filling"": 2, ""fuze"": 1, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,5,-306,5,"{""eqipped"": 0, ""extra"": 3, ""filling"": 2, ""fuze"": 1, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,5,-306,6,"{""eqipped"": 0, ""filling"": 2, ""fuze"": 2, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,5,-306,7,"{""eqipped"": 0, ""extra"": 0, ""filling"": 2, ""fuze"": 2, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,5,-306,8,"{""eqipped"": 0, ""extra"": 1, ""filling"": 2, ""fuze"": 2, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,5,-306,9,"{""eqipped"": 1, ""extra"": 2, ""filling"": 2, ""fuze"": 2, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,5,-306,10,"{""eqipped"": 0, ""extra"": 3, ""filling"": 2, ""fuze"": 2, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,5,-306,11,"{""eqipped"": 0, ""filling"": 2, ""fuze"": 3, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,5,-306,12,"{""eqipped"": 0, ""extra"": 0, ""filling"": 2, ""fuze"": 3, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,5,-306,13,"{""eqipped"": 0, ""extra"": 1, ""filling"": 2, ""fuze"": 3, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,5,-306,14,"{""eqipped"": 0, ""extra"": 2, ""filling"": 2, ""fuze"": 3, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,5,-306,15,"{""eqipped"": 0, ""extra"": 3, ""filling"": 2, ""fuze"": 3, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,5,-306,16,"{""eqipped"": 0, ""filling"": 2, ""fuze"": 4, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,5,-306,17,"{""eqipped"": 0, ""extra"": 0, ""filling"": 2, ""fuze"": 4, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,5,-306,18,"{""eqipped"": 1, ""extra"": 3, ""filling"": 3, ""fuze"": 4, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,5,-306,19,"{""eqipped"": 0, ""filling"": 4, ""fuze"": 0, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,5,-306,20,"{""eqipped"": 0, ""extra"": 0, ""filling"": 4, ""fuze"": 0, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,5,-306,21,"{""eqipped"": 0, ""extra"": 1, ""filling"": 4, ""fuze"": 0, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,5,-306,22,"{""eqipped"": 0, ""extra"": 2, ""filling"": 4, ""fuze"": 0, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,5,-306,23,"{""eqipped"": 0, ""extra"": 3, ""filling"": 4, ""fuze"": 0, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,5,-306,24,"{""eqipped"": 0, ""filling"": 4, ""fuze"": 1, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,5,-306,25,"{""eqipped"": 0, ""extra"": 0, ""filling"": 4, ""fuze"": 1, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,5,-306,26,"{""eqipped"": 0, ""extra"": 1, ""filling"": 4, ""fuze"": 1, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,5,-305,0,"{""eqipped"": 1, ""extra"": 2, ""filling"": 4, ""fuze"": 1, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,5,-305,1,"{""eqipped"": 0, ""extra"": 3, ""filling"": 4, ""fuze"": 1, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,5,-305,2,"{""eqipped"": 0, ""filling"": 4, ""fuze"": 2, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,5,-305,3,"{""eqipped"": 0, ""extra"": 0, ""filling"": 4, ""fuze"": 2, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,5,-305,4,"{""eqipped"": 0, ""extra"": 1, ""filling"": 4, ""fuze"": 2, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,5,-305,5,"{""eqipped"": 0, ""extra"": 2, ""filling"": 4, ""fuze"": 2, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,5,-305,6,"{""eqipped"": 0, ""extra"": 3, ""filling"": 4, ""fuze"": 2, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,5,-305,7,"{""eqipped"": 0, ""filling"": 4, ""fuze"": 3, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,5,-305,8,"{""eqipped"": 0, ""extra"": 0, ""filling"": 4, ""fuze"": 3, ""shell"": 0}"
+hbm:item.disperser_canister_empty,0,1,-1129,5,-305,9,null
+hbm:item.disperser_canister,6,1,-1129,5,-305,10,null
+hbm:item.glyphid_gland_empty,0,1,-1129,5,-305,11,null
+hbm:item.glyphid_gland,75,1,-1129,5,-305,12,null
+hbm:item.glyphid_gland,172,1,-1129,5,-305,13,null
+hbm:item.ullapool_caber,0,1,-1129,5,-305,14,null
+hbm:item.weaponized_starblaster_cell,0,1,-1129,5,-305,15,null
+hbm:tile.machine_missile_assembly,0,1,-1129,5,-305,16,null
+hbm:item.grenade_universal,0,1,-1129,4,-305,0,"{""eqipped"": 1, ""extra"": 1, ""filling"": 1, ""fuze"": 0, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-305,1,"{""eqipped"": 0, ""extra"": 2, ""filling"": 1, ""fuze"": 0, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-305,2,"{""eqipped"": 0, ""extra"": 3, ""filling"": 1, ""fuze"": 0, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-305,3,"{""eqipped"": 0, ""filling"": 1, ""fuze"": 1, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-305,4,"{""eqipped"": 0, ""extra"": 0, ""filling"": 1, ""fuze"": 1, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-305,5,"{""eqipped"": 0, ""extra"": 1, ""filling"": 1, ""fuze"": 1, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-305,6,"{""eqipped"": 0, ""extra"": 2, ""filling"": 1, ""fuze"": 1, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-305,7,"{""eqipped"": 0, ""extra"": 3, ""filling"": 1, ""fuze"": 1, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-305,8,"{""eqipped"": 0, ""filling"": 1, ""fuze"": 2, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-305,9,"{""eqipped"": 1, ""extra"": 0, ""filling"": 1, ""fuze"": 2, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-305,10,"{""eqipped"": 0, ""extra"": 1, ""filling"": 1, ""fuze"": 2, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-305,11,"{""eqipped"": 0, ""extra"": 2, ""filling"": 1, ""fuze"": 2, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-305,12,"{""eqipped"": 0, ""extra"": 3, ""filling"": 1, ""fuze"": 2, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-305,13,"{""eqipped"": 0, ""filling"": 1, ""fuze"": 3, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-305,14,"{""eqipped"": 0, ""extra"": 0, ""filling"": 1, ""fuze"": 3, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-305,15,"{""eqipped"": 0, ""extra"": 1, ""filling"": 1, ""fuze"": 3, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-305,16,"{""eqipped"": 0, ""extra"": 2, ""filling"": 1, ""fuze"": 3, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-305,17,"{""eqipped"": 0, ""extra"": 3, ""filling"": 1, ""fuze"": 3, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-305,18,"{""eqipped"": 1, ""filling"": 1, ""fuze"": 4, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-305,19,"{""eqipped"": 0, ""extra"": 0, ""filling"": 1, ""fuze"": 4, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-305,20,"{""eqipped"": 0, ""extra"": 1, ""filling"": 1, ""fuze"": 4, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-305,21,"{""eqipped"": 0, ""extra"": 2, ""filling"": 1, ""fuze"": 4, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-305,22,"{""eqipped"": 0, ""extra"": 3, ""filling"": 1, ""fuze"": 4, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-305,23,"{""eqipped"": 0, ""filling"": 2, ""fuze"": 0, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-305,24,"{""eqipped"": 0, ""extra"": 0, ""filling"": 2, ""fuze"": 0, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-305,25,"{""eqipped"": 0, ""extra"": 1, ""filling"": 2, ""fuze"": 0, ""shell"": 0}"
+hbm:item.grenade_universal,0,1,-1129,4,-305,26,"{""eqipped"": 0, ""extra"": 2, ""filling"": 2, ""fuze"": 0, ""shell"": 0}"
+hbm:item.ammo_standard,53,1,-1129,6,-304,0,null
+hbm:item.ammo_standard,54,1,-1129,6,-304,1,null
+hbm:item.ammo_standard,55,1,-1129,6,-304,2,null
+hbm:item.ammo_standard,56,1,-1129,6,-304,3,null
+hbm:item.ammo_standard,57,1,-1129,6,-304,4,null
+hbm:item.ammo_standard,59,1,-1129,6,-304,5,null
+hbm:item.ammo_standard,60,1,-1129,6,-304,6,null
+hbm:item.ammo_standard,62,1,-1129,6,-304,7,null
+hbm:item.ammo_standard,66,1,-1129,6,-304,8,null
+hbm:item.ammo_standard,67,1,-1129,6,-304,9,null
+hbm:item.ammo_standard,68,1,-1129,6,-304,10,null
+hbm:item.ammo_standard,69,1,-1129,6,-304,11,null
+hbm:item.ammo_standard,70,1,-1129,6,-304,12,null
+hbm:item.ammo_standard,71,1,-1129,6,-304,13,null
+hbm:item.ammo_standard,72,1,-1129,6,-304,14,null
+hbm:item.ammo_standard,76,1,-1129,6,-304,15,null
+hbm:item.ammo_standard,77,1,-1129,6,-304,16,null
+hbm:item.ammo_standard,93,1,-1129,6,-304,17,null
+hbm:item.ammo_standard,90,1,-1129,6,-304,18,null
+hbm:item.ammo_standard,91,1,-1129,6,-304,19,null
+hbm:item.ammo_standard,92,1,-1129,6,-304,20,null
+hbm:item.gun_b92_ammo,0,1,-1129,6,-304,21,{}
+hbm:item.ammo_shell,4,1,-1129,6,-304,22,null
+hbm:item.ammo_shell,3,1,-1129,6,-304,23,null
+hbm:item.ammo_shell,2,1,-1129,6,-304,24,null
+hbm:item.ammo_arty,3,1,-1129,6,-304,25,null
+hbm:item.ammo_arty,4,1,-1129,6,-304,26,null
+hbm:item.australium_iii,0,1,-1129,5,-302,0,null
+hbm:item.ballistic_gauntlet,0,1,-1129,5,-302,1,null
+hbm:item.v1,0,1,-1129,5,-302,2,null
+hbm:item.back_tesla,0,1,-1129,5,-302,3,null
+hbm:item.chopper,0,1,-1129,5,-302,4,null
+hbm:item.spawn_worm,0,1,-1129,5,-302,5,null
+hbm:item.spawn_ufo,0,1,-1129,5,-302,6,null
+hbm:item.spawn_angel,0,1,-1129,5,-302,7,null
+hbm:item.syringe_awesome,0,1,-1129,5,-302,8,null
+hbm:item.syringe_metal_stimpak,0,1,-1129,5,-302,9,null
+hbm:item.syringe_metal_medx,0,1,-1129,5,-302,10,null
+hbm:item.syringe_metal_psycho,0,1,-1129,5,-302,11,null
+hbm:item.syringe_metal_super,0,1,-1129,5,-302,12,null
+hbm:item.syringe_taint,0,1,-1129,5,-302,13,null
+hbm:item.iv_blood,0,1,-1129,5,-302,14,null
+hbm:item.insert_kevlar,0,1,-1129,5,-302,15,null
+hbm:item.insert_sapi,0,1,-1129,5,-302,16,null
+hbm:item.insert_esapi,0,1,-1129,5,-302,17,null
+hbm:item.insert_xsapi,0,1,-1129,5,-302,18,null
+hbm:item.insert_steel,0,1,-1129,5,-302,19,null
+hbm:item.insert_du,0,1,-1129,5,-302,20,null
+hbm:item.insert_polonium,0,1,-1129,5,-302,21,null
+hbm:item.insert_ghiorsium,0,1,-1129,5,-302,22,null
+hbm:item.insert_cmb,0,1,-1129,5,-302,23,null
+hbm:item.insert_era,0,1,-1129,5,-302,24,null
+hbm:item.insert_yharonite,0,1,-1129,5,-302,25,null
+hbm:item.insert_doxium,0,1,-1129,5,-302,26,null
+hbm:item.armor_polish,0,1,-1129,5,-301,0,null
+hbm:item.bandaid,0,1,-1129,5,-301,1,null
+hbm:item.serum,0,1,-1129,5,-301,2,null
+hbm:item.quartz_plutonium,0,1,-1129,5,-301,3,null
+hbm:item.morning_glory,0,1,-1129,5,-301,4,null
+hbm:item.bathwater,0,1,-1129,5,-301,5,null
+hbm:item.bathwater_mk2,0,1,-1129,5,-301,6,null
+hbm:item.spider_milk,0,1,-1129,5,-301,7,null
+hbm:item.ink,0,1,-1129,5,-301,8,null
+hbm:item.heart_piece,0,1,-1129,5,-301,9,null
+hbm:item.heart_container,0,1,-1129,5,-301,10,null
+hbm:item.heart_booster,0,1,-1129,5,-301,11,null
+hbm:item.heart_fab,0,1,-1129,5,-301,12,null
+hbm:item.black_diamond,0,1,-1129,5,-301,13,null
+hbm:item.wd40,0,1,-1129,5,-301,14,null
+hbm:item.scrumpy,0,1,-1129,5,-301,15,null
+hbm:item.wild_p,0,1,-1129,5,-301,16,null
+hbm:item.shackles,0,1,-1129,5,-301,17,null
+hbm:item.injector_5htp,0,1,-1129,5,-301,18,null
+hbm:item.injector_knife,0,1,-1129,5,-301,19,null
+hbm:item.bomb_caller,4,1,-1129,5,-301,20,null
+hbm:item.anchor_remote,0,1,-1129,5,-301,21,"{""charge"": 0}"
+hbm:item.rod_of_discord,0,1,-1129,5,-301,22,null
+hbm:item.ammo_standard,30,1,-1129,5,-303,0,null
+hbm:item.ammo_standard,31,1,-1129,5,-303,1,null
+hbm:item.ammo_standard,32,1,-1129,5,-303,2,null
+hbm:item.ammo_standard,82,1,-1129,5,-303,3,null
+hbm:item.ammo_standard,35,1,-1129,5,-303,4,null
+hbm:item.ammo_standard,36,1,-1129,5,-303,5,null
+hbm:item.ammo_standard,37,1,-1129,5,-303,6,null
+hbm:item.ammo_standard,94,1,-1129,5,-303,7,null
+hbm:item.ammo_standard,83,1,-1129,5,-303,8,null
+hbm:item.ammo_standard,38,1,-1129,5,-303,9,null
+hbm:item.ammo_standard,39,1,-1129,5,-303,10,null
+hbm:item.ammo_standard,40,1,-1129,5,-303,11,null
+hbm:item.ammo_standard,41,1,-1129,5,-303,12,null
+hbm:item.ammo_standard,42,1,-1129,5,-303,13,null
+hbm:item.ammo_standard,43,1,-1129,5,-303,14,null
+hbm:item.ammo_standard,44,1,-1129,5,-303,15,null
+hbm:item.ammo_standard,45,1,-1129,5,-303,16,null
+hbm:item.ammo_standard,46,1,-1129,5,-303,17,null
+hbm:item.ammo_standard,47,1,-1129,5,-303,18,null
+hbm:item.ammo_standard,48,1,-1129,5,-303,19,null
+hbm:item.ammo_standard,49,1,-1129,5,-303,20,null
+hbm:item.ammo_standard,78,1,-1129,5,-303,21,null
+hbm:item.ammo_standard,79,1,-1129,5,-303,22,null
+hbm:item.ammo_standard,80,1,-1129,5,-303,23,null
+hbm:item.ammo_standard,81,1,-1129,5,-303,24,null
+hbm:item.ammo_standard,84,1,-1129,5,-303,25,null
+hbm:tile.turret_tauon,0,1,-1129,4,-304,0,null
+hbm:tile.turret_maxwell,0,1,-1129,4,-304,1,null
+hbm:item.gun_b92,0,1,-1129,4,-304,2,{}
+hbm:item.crucible,0,1,-1129,4,-304,3,null
+hbm:item.gun_pepperbox,0,1,-1129,4,-304,4,"{""aiming"": 0, ""cancel"": 0, ""eqipped"": 0, ""lastanim_0"": 3, ""state_0"": 0, ""timer_0"": 4}"
+hbm:item.gun_light_revolver,0,1,-1129,4,-304,5,"{""aiming"": 0, ""cancel"": 0, ""eqipped"": 0, ""lastanim_0"": 3, ""state_0"": 0, ""timer_0"": 4}"
+hbm:item.gun_henry,0,1,-1129,4,-304,6,"{""aiming"": 0, ""cancel"": 0, ""eqipped"": 0, ""lastanim_0"": 3, ""state_0"": 0, ""timer_0"": 15}"
+hbm:item.gun_greasegun,0,1,-1129,4,-304,7,"{""animtimer_0"": 147, ""eqipped"": 1, ""lastanim_0"": 9, ""mouse1_0"": 0, ""mouse2_0"": 1, ""mouse3_0"": 0, ""reload_0"": 0, ""state_0"": 1, ""timer_0"": 0}"
+hbm:item.gun_maresleg,0,1,-1129,4,-304,8,"{""aiming"": 0, ""cancel"": 0, ""eqipped"": 0, ""lastanim_0"": 3, ""state_0"": 0, ""timer_0"": 10}"
+hbm:item.gun_heavy_revolver,0,1,-1129,4,-304,9,"{""aiming"": 0, ""cancel"": 0, ""eqipped"": 0, ""lastanim_0"": 3, ""state_0"": 0, ""timer_0"": 10}"
+hbm:item.gun_carbine,0,1,-1129,4,-304,10,"{""aiming"": 0, ""cancel"": 0, ""eqipped"": 0, ""lastanim_0"": 3, ""state_0"": 0, ""timer_0"": 10}"
+hbm:item.gun_am180,0,1,-1129,4,-304,11,"{""aiming"": 0, ""cancel"": 0, ""eqipped"": 0, ""lastanim_0"": 3, ""state_0"": 0, ""timer_0"": 15}"
+hbm:item.gun_liberator,0,1,-1129,4,-304,12,"{""aiming"": 0, ""cancel"": 0, ""eqipped"": 0, ""lastanim_0"": 3, ""state_0"": 0, ""timer_0"": 20}"
+hbm:item.gun_congolake,0,1,-1129,4,-304,13,"{""aiming"": 0, ""cancel"": 0, ""eqipped"": 0, ""lastanim_0"": 3, ""state_0"": 0, ""timer_0"": 7}"
+hbm:item.gun_flamer,0,1,-1129,4,-304,14,"{""aiming"": 0, ""cancel"": 0, ""eqipped"": 0, ""lastanim_0"": 3, ""state_0"": 0, ""timer_0"": 10}"
+hbm:item.gun_uzi,0,1,-1129,4,-304,15,"{""animtimer_0"": 378, ""eqipped"": 1, ""lastanim_0"": 9, ""mouse1_0"": 0, ""mouse2_0"": 1, ""mouse3_0"": 0, ""reload_0"": 0, ""state_0"": 1, ""timer_0"": 0}"
+hbm:item.gun_star_f,0,1,-1129,4,-304,16,"{""aiming"": 0, ""cancel"": 0, ""eqipped"": 0, ""lastanim_0"": 3, ""state_0"": 0, ""timer_0"": 15}"
+hbm:item.gun_g3,0,1,-1129,4,-304,17,"{""aiming"": 0, ""cancel"": 0, ""eqipped"": 0, ""lastanim_0"": 3, ""state_0"": 0, ""timer_0"": 10}"
+hbm:item.gun_mk108,0,1,-1129,4,-304,18,"{""aiming"": 0, ""cancel"": 0, ""eqipped"": 0, ""lastanim_0"": 3, ""state_0"": 0, ""timer_0"": 20}"
+hbm:item.gun_chemthrower,0,1,-1129,4,-304,19,"{""aiming"": 0, ""cancel"": 0, ""eqipped"": 0, ""lastanim_0"": 3, ""state_0"": 0, ""timer_0"": 10}"
+hbm:item.gun_amat,0,1,-1129,4,-304,20,"{""aiming"": 0, ""cancel"": 0, ""eqipped"": 0, ""lastanim_0"": 3, ""state_0"": 0, ""timer_0"": 20}"
+hbm:item.gun_panzerschreck,0,1,-1129,4,-304,21,"{""aiming"": 0, ""cancel"": 0, ""eqipped"": 0, ""lastanim_0"": 3, ""state_0"": 0, ""timer_0"": 7}"
+hbm:item.gun_spas12,0,1,-1129,4,-304,22,"{""aiming"": 0, ""cancel"": 0, ""eqipped"": 0, ""lastanim_0"": 3, ""state_0"": 0, ""timer_0"": 20}"
+hbm:item.gun_m2,0,1,-1129,4,-304,23,"{""aiming"": 0, ""cancel"": 0, ""eqipped"": 0, ""lastanim_0"": 3, ""magtype"": 127, ""state_0"": 0, ""timer_0"": 10}"
+hbm:item.gun_autoshotgun,0,1,-1129,4,-304,24,"{""animtimer_0"": 91, ""eqipped"": 1, ""lastanim_0"": 9, ""mouse1_0"": 0, ""mouse2_0"": 1, ""mouse3_0"": 0, ""reload_0"": 0, ""state_0"": 1, ""timer_0"": 0}"
+hbm:item.gun_lag,0,1,-1129,4,-304,25,"{""aiming"": 0, ""cancel"": 0, ""eqipped"": 0, ""lastanim_0"": 3, ""state_0"": 0, ""timer_0"": 7}"
+hbm:item.gun_minigun,0,1,-1129,4,-304,26,"{""aiming"": 0, ""cancel"": 0, ""eqipped"": 0, ""lastanim_0"": 3, ""magtype"": 61, ""state_0"": 0, ""timer_0"": 20}"
+hbm:item.gun_missile_launcher,0,1,-1129,4,-303,0,"{""aiming"": 0, ""cancel"": 0, ""eqipped"": 0, ""lastanim_0"": 3, ""state_0"": 0, ""timer_0"": 20}"
+hbm:item.gun_tesla_cannon,0,1,-1129,4,-303,1,"{""aiming"": 0, ""cancel"": 0, ""eqipped"": 0, ""lastanim_0"": 3, ""magtype"": 136, ""state_0"": 0, ""timer_0"": 10}"
+hbm:item.gun_laser_pistol,0,1,-1129,4,-303,2,"{""aiming"": 0, ""cancel"": 0, ""eqipped"": 0, ""lastanim_0"": 3, ""state_0"": 0, ""timer_0"": 10}"
+hbm:item.gun_quadro,0,1,-1129,4,-303,3,"{""aiming"": 0, ""cancel"": 0, ""eqipped"": 0, ""lastanim_0"": 3, ""state_0"": 0, ""timer_0"": 7}"
+hbm:item.gun_stg77,0,1,-1129,4,-303,4,"{""aiming"": 0, ""cancel"": 0, ""eqipped"": 0, ""lastanim_0"": 3, ""state_0"": 0, ""timer_0"": 10}"
+hbm:item.gun_tau,0,1,-1129,4,-303,5,"{""aiming"": 0, ""animtimer_0"": 7, ""cancel"": 0, ""eqipped"": 0, ""lastanim_0"": 3, ""magtype"": 146, ""mouse1_0"": 0, ""mouse2_0"": 0, ""mouse3_0"": 0, ""reload_0"": 0, ""state_0"": 0, ""timer_0"": 10}"
+hbm:item.gun_fatman,0,1,-1129,4,-303,6,"{""aiming"": 0, ""animtimer_0"": 2, ""cancel"": 0, ""eqipped"": 0, ""lastanim_0"": 3, ""mouse1_0"": 0, ""mouse2_0"": 0, ""mouse3_0"": 0, ""reload_0"": 0, ""state_0"": 0, ""timer_0"": 20}"
+hbm:item.gun_lasrifle,0,1,-1129,4,-303,7,"{""aiming"": 0, ""animtimer_0"": 1, ""cancel"": 0, ""eqipped"": 0, ""lastanim_0"": 3, ""mouse1_0"": 0, ""mouse2_0"": 0, ""mouse3_0"": 0, ""reload_0"": 0, ""state_0"": 0, ""timer_0"": 10}"
+hbm:item.gun_stinger,0,1,-1129,4,-303,8,"{""aiming"": 0, ""animtimer_0"": 1, ""cancel"": 0, ""eqipped"": 0, ""lastanim_0"": 3, ""lockedon"": 0, ""lockonprogress"": 0, ""mouse1_0"": 0, ""mouse2_0"": 0, ""mouse3_0"": 0, ""reload_0"": 0, ""state_0"": 0, ""timer_0"": 7}"
+hbm:item.gun_coilgun,0,1,-1129,4,-303,9,"{""aiming"": 0, ""animtimer_0"": 9, ""cancel"": 0, ""eqipped"": 0, ""lastanim_0"": 3, ""mouse1_0"": 0, ""mouse2_0"": 0, ""mouse3_0"": 0, ""reload_0"": 0, ""state_0"": 0, ""timer_0"": 5}"
+hbm:item.gun_bolter,0,1,-1129,4,-303,10,"{""aiming"": 0, ""animtimer_0"": 9, ""cancel"": 0, ""eqipped"": 0, ""lastanim_0"": 3, ""mouse1_0"": 0, ""mouse2_0"": 0, ""mouse3_0"": 0, ""reload_0"": 0, ""state_0"": 0, ""timer_0"": 20}"
+hbm:item.gun_double_barrel,0,1,-1129,4,-303,11,"{""aiming"": 0, ""animtimer_0"": 39, ""cancel"": 0, ""eqipped"": 0, ""lastanim_0"": 3, ""magafter0"": 2, ""magcount0"": 2, ""magprev0"": 0, ""magtype0"": 173, ""mouse1_0"": 0, ""mouse2_0"": 0, ""mouse3_0"": 0, ""reload_0"": 0, ""state_0"": 0, ""timer_0"": 10, ""wear_0"": 24.0}"
+hbm:item.gun_n_i_4_n_i,0,1,-1129,4,-303,12,"{""aiming"": 0, ""animtimer_0"": 13, ""cancel"": 0, ""coincharge"": 77, ""coincount"": 2, ""eqipped"": 0, ""lastanim_0"": 3, ""mouse1_0"": 0, ""mouse2_0"": 0, ""mouse3_0"": 0, ""reload_0"": 0, ""state_0"": 0, ""timer_0"": 5}"
+hbm:item.gun_charge_thrower,0,1,-1129,4,-303,13,"{""aiming"": 0, ""animtimer_0"": 4, ""cancel"": 0, ""eqipped"": 0, ""lastanim_0"": 3, ""lasthook"": -1, ""mouse1_0"": 0, ""mouse2_0"": 0, ""mouse3_0"": 0, ""reload_0"": 0, ""state_0"": 0, ""timer_0"": 10}"
+hbm:item.gun_pa_melee,0,1,-1129,4,-303,14,"{""aiming"": 0, ""animtimer_0"": 2, ""cancel"": 0, ""eqipped"": 0, ""lastanim_0"": 3, ""mouse1_0"": 0, ""mouse2_0"": 0, ""mouse3_0"": 0, ""reload_0"": 0, ""state_0"": 0, ""timer_0"": 10}"
+hbm:item.gun_pa_ranged,0,1,-1129,4,-303,15,"{""aiming"": 0, ""animtimer_0"": 7, ""cancel"": 0, ""eqipped"": 0, ""lastanim_0"": 3, ""mouse1_0"": 0, ""mouse2_0"": 0, ""mouse3_0"": 0, ""reload_0"": 0, ""state_0"": 0, ""timer_0"": 0}"
+hbm:item.bottle2_fritz,0,1,-1129,4,-300,0,null
+hbm:item.bottle2_korl,0,1,-1129,4,-300,1,null
+hbm:item.bottle_quantum,0,1,-1129,4,-300,2,null
+hbm:item.bottle_rad,0,1,-1129,4,-300,3,null
+hbm:item.bottle_sparkle,0,1,-1129,4,-300,4,null
+hbm:item.canned_conserve,0,1,-1129,4,-300,5,null
+hbm:item.canned_conserve,1,1,-1129,4,-300,6,null
+hbm:item.canned_conserve,2,1,-1129,4,-300,7,null
+hbm:item.canned_conserve,3,1,-1129,4,-300,8,null
+hbm:item.canned_conserve,4,1,-1129,4,-300,9,null
+hbm:item.canned_conserve,5,1,-1129,4,-300,10,null
+hbm:item.canned_conserve,6,1,-1129,4,-300,11,null
+hbm:item.canned_conserve,7,1,-1129,4,-300,12,null
+hbm:item.canned_conserve,8,1,-1129,4,-300,13,null
+hbm:item.canned_conserve,9,1,-1129,4,-300,14,null
+hbm:item.canned_conserve,10,1,-1129,4,-300,15,null
+hbm:item.canned_conserve,11,1,-1129,4,-300,16,null
+hbm:item.canned_conserve,12,1,-1129,4,-300,17,null
+hbm:item.canned_conserve,13,1,-1129,4,-300,18,null
+hbm:item.canned_conserve,14,1,-1129,4,-300,19,null
+hbm:item.canned_conserve,15,1,-1129,4,-300,20,null
+hbm:item.canned_conserve,16,1,-1129,4,-300,21,null
+hbm:item.canned_conserve,17,1,-1129,4,-300,22,null
+hbm:item.canned_conserve,18,1,-1129,4,-300,23,null
+hbm:item.canned_conserve,19,1,-1129,4,-300,24,null
+hbm:item.canned_conserve,20,1,-1129,4,-300,25,null
+hbm:item.canned_conserve,21,1,-1129,4,-300,26,null
+hbm:item.canned_conserve,22,1,-1129,4,-299,0,null
+hbm:item.canned_conserve,23,1,-1129,4,-299,1,null
+hbm:item.canned_conserve,24,1,-1129,4,-299,2,null
+hbm:item.canned_conserve,25,1,-1129,4,-299,3,null
+hbm:item.canned_conserve,26,1,-1129,4,-299,4,null
+hbm:item.cap_fritz,0,1,-1129,4,-299,5,null
+hbm:item.cap_korl,0,1,-1129,4,-299,6,null
+hbm:item.cap_quantum,0,1,-1129,4,-299,7,null
+hbm:item.cap_rad,0,1,-1129,4,-299,8,null
+hbm:item.cap_sparkle,0,1,-1129,4,-299,9,null
+hbm:item.chocolate_milk,0,1,-1129,4,-299,10,null
+hbm:item.cigarette,0,1,-1129,4,-299,11,null
+hbm:item.crackpipe,0,1,-1129,4,-299,12,null
+hbm:item.flask_infusion,0,1,-1129,4,-299,13,null
+hbm:item.flask_infusion,1,1,-1129,4,-299,14,null
+hbm:item.glass_smilk,0,1,-1129,4,-299,15,null
+hbm:item.chocolate_mint_billet,0,1,-1129,4,-299,16,null
+hbm:item.meteorite_sword_baleful,0,1,-1129,4,-301,0,null
+hbm:item.elec_sword,0,1,-1129,4,-301,1,"{""charge"": 500000}"
+hbm:item.desh_sword,0,1,-1129,4,-301,2,null
+hbm:item.mese_gavel,0,1,-1129,4,-301,3,null
+hbm:item.memespoon,0,1,-1129,4,-301,4,null
+hbm:item.schrabidium_sword,0,1,-1129,4,-301,5,null
+hbm:item.schrabidium_hammer,0,1,-1129,4,-301,6,null
+hbm:item.shimmer_sledge,0,1,-1129,4,-301,7,null
+hbm:item.shimmer_axe,0,1,-1129,4,-301,8,null
+hbm:item.starmetal_sword,0,1,-1129,4,-301,9,null
+hbm:item.cmb_sword,0,1,-1129,4,-301,10,null
+hbm:item.steamsuit_helmet,0,1,-1129,4,-301,11,"{""fuel"": 64000}"
+hbm:item.steamsuit_plate,0,1,-1129,4,-301,12,"{""fuel"": 64000}"
+hbm:item.steamsuit_legs,0,1,-1129,4,-301,13,"{""fuel"": 64000}"
+hbm:item.steamsuit_boots,0,1,-1129,4,-301,14,"{""fuel"": 64000}"
+hbm:item.dieselsuit_helmet,0,1,-1129,4,-301,15,"{""fuel"": 64000}"
+hbm:item.dieselsuit_plate,0,1,-1129,4,-301,16,"{""fuel"": 64000}"
+hbm:item.dieselsuit_legs,0,1,-1129,4,-301,17,"{""fuel"": 64000}"
+hbm:item.dieselsuit_boots,0,1,-1129,4,-301,18,"{""fuel"": 64000}"
+hbm:item.wings_murk,0,1,-1129,4,-302,0,null
+hbm:item.sat_gerald,0,1,-1129,4,-302,1,"{""satAltitude"": 100.0, ""satBlink"": 0.30000001192092896, ""satColorB"": 0.0, ""satColorG"": 0.0, ""satColorR"": 0.0, ""satInclination"": 0.0, ""satIsBlinking"": 0, ""satOwner"": ""None"", ""satPhaseOffset"": 0.0}"
+hbm:item.sat_resonator,0,1,-1129,4,-302,2,"{""satAltitude"": 100.0, ""satBlink"": 0.30000001192092896, ""satColorB"": 0.1809999942779541, ""satColorG"": 0.6460000276565552, ""satColorR"": 1.0, ""satInclination"": 0.0, ""satIsBlinking"": 0, ""satOwner"": ""None"", ""satPhaseOffset"": 0.0}"
+hbm:tile.struct_launcher_core,0,1,-1129,4,-302,3,null
+hbm:tile.struct_launcher_core_large,0,1,-1129,4,-302,4,null
+hbm:item.jetpack_vector,0,1,-1129,4,-302,5,{}
+hbm:item.jetpack_boost,0,1,-1129,4,-302,6,{}
+hbm:item.euphemium_helmet,0,1,-1129,4,-302,7,null
+hbm:item.euphemium_plate,0,1,-1129,4,-302,8,null
+hbm:item.euphemium_legs,0,1,-1129,4,-302,9,null
+hbm:item.euphemium_boots,0,1,-1129,4,-302,10,null
+hbm:item.apple_euphemium,0,1,-1129,4,-302,11,null
+hbm:item.schrabidium_helmet,0,1,-1129,4,-302,12,null
+hbm:item.schrabidium_plate,0,1,-1129,4,-302,13,null
+hbm:item.schrabidium_legs,0,1,-1129,4,-302,14,null
+hbm:item.schrabidium_boots,0,1,-1129,4,-302,15,null
+hbm:item.meteorite_sword,0,1,-1129,4,-302,16,null
+hbm:item.meteorite_sword_seared,0,1,-1129,4,-302,17,null
+hbm:item.meteorite_sword_reforged,0,1,-1129,4,-302,18,null
+hbm:item.meteorite_sword_hardened,0,1,-1129,4,-302,19,null
+hbm:item.meteorite_sword_alloyed,0,1,-1129,4,-302,20,null
+hbm:item.meteorite_sword_machined,0,1,-1129,4,-302,21,null
+hbm:item.meteorite_sword_treated,0,1,-1129,4,-302,22,null
+hbm:item.meteorite_sword_etched,0,1,-1129,4,-302,23,null
+hbm:item.meteorite_sword_bred,0,1,-1129,4,-302,24,null
+hbm:item.meteorite_sword_irradiated,0,1,-1129,4,-302,25,null
+hbm:item.meteorite_sword_fused,0,1,-1129,4,-302,26,null
+hbm:item.rpa_helmet,0,1,-1129,6,-302,0,"{""charge"": 2500000}"
+hbm:item.rpa_plate,0,1,-1129,6,-302,1,"{""charge"": 2500000}"
+hbm:item.rpa_legs,0,1,-1129,6,-302,2,"{""charge"": 2500000}"
+hbm:item.rpa_boots,0,1,-1129,6,-302,3,"{""charge"": 2500000}"
+hbm:item.bj_helmet,0,1,-1129,6,-302,4,"{""charge"": 10000000}"
+hbm:item.bj_plate,0,1,-1129,6,-302,5,"{""charge"": 10000000}"
+hbm:item.bj_plate_jetpack,0,1,-1129,6,-302,6,"{""charge"": 10000000}"
+hbm:item.bj_legs,0,1,-1129,6,-302,7,"{""charge"": 10000000}"
+hbm:item.bj_boots,0,1,-1129,6,-302,8,"{""charge"": 10000000}"
+hbm:item.dns_helmet,0,1,-1129,6,-302,9,"{""charge"": 1000000000}"
+hbm:item.dns_plate,0,1,-1129,6,-302,10,"{""charge"": 1000000000}"
+hbm:item.dns_legs,0,1,-1129,6,-302,11,"{""charge"": 1000000000}"
+hbm:item.dns_boots,0,1,-1129,6,-302,12,"{""charge"": 1000000000}"
+hbm:item.taurun_helmet,0,1,-1129,6,-302,13,null
+hbm:item.taurun_plate,0,1,-1129,6,-302,14,null
+hbm:item.taurun_legs,0,1,-1129,6,-302,15,null
+hbm:item.taurun_boots,0,1,-1129,6,-302,16,null
+hbm:item.trenchmaster_helmet,0,1,-1129,6,-302,17,null
+hbm:item.trenchmaster_plate,0,1,-1129,6,-302,18,null
+hbm:item.trenchmaster_legs,0,1,-1129,6,-302,19,null
+hbm:item.trenchmaster_boots,0,1,-1129,6,-302,20,null
+hbm:item.cmb_helmet,0,1,-1129,6,-302,21,null
+hbm:item.cmb_plate,0,1,-1129,6,-302,22,null
+hbm:item.cmb_legs,0,1,-1129,6,-302,23,null
+hbm:item.cmb_boots,0,1,-1129,6,-302,24,null
+hbm:item.security_helmet,0,1,-1129,6,-302,25,null
+hbm:item.security_plate,0,1,-1129,6,-302,26,null
+hbm:item.ammo_standard,12,1,-1129,5,-304,0,null
+hbm:item.ammo_standard,11,1,-1129,5,-304,1,null
+hbm:item.ammo_standard,10,1,-1129,5,-304,2,null
+hbm:item.ammo_standard,9,1,-1129,5,-304,3,null
+hbm:item.ammo_standard,8,1,-1129,5,-304,4,null
+hbm:item.ammo_standard,7,1,-1129,5,-304,5,null
+hbm:item.ammo_standard,6,1,-1129,5,-304,6,null
+hbm:item.ammo_standard,5,1,-1129,5,-304,7,null
+hbm:item.ammo_standard,13,1,-1129,5,-304,8,null
+hbm:item.ammo_standard,4,1,-1129,5,-304,9,null
+hbm:item.ammo_standard,14,1,-1129,5,-304,10,null
+hbm:item.ammo_standard,15,1,-1129,5,-304,11,null
+hbm:item.ammo_standard,16,1,-1129,5,-304,12,null
+hbm:item.ammo_standard,17,1,-1129,5,-304,13,null
+hbm:item.ammo_standard,18,1,-1129,5,-304,14,null
+hbm:item.ammo_standard,19,1,-1129,5,-304,15,null
+hbm:item.ammo_standard,23,1,-1129,5,-304,16,null
+hbm:item.ammo_standard,22,1,-1129,5,-304,17,null
+hbm:item.ammo_standard,85,1,-1129,5,-304,18,null
+hbm:item.ammo_standard,86,1,-1129,5,-304,19,null
+hbm:item.ammo_standard,87,1,-1129,5,-304,20,null
+hbm:item.ammo_standard,88,1,-1129,5,-304,21,null
+hbm:item.ammo_standard,89,1,-1129,5,-304,22,null
+hbm:item.ammo_standard,26,1,-1129,5,-304,23,null
+hbm:item.ammo_standard,27,1,-1129,5,-304,24,null
+hbm:item.ammo_standard,28,1,-1129,5,-304,25,null
+hbm:item.ammo_standard,29,1,-1129,5,-304,26,null
+hbm:item.animan,0,1,-1129,5,-300,0,null
+hbm:item.apple_lead,0,1,-1129,5,-300,1,null
+hbm:item.apple_lead,1,1,-1129,5,-300,2,null
+hbm:item.apple_lead,2,1,-1129,5,-300,3,null
+hbm:item.apple_schrabidium,0,1,-1129,5,-300,4,null
+hbm:item.apple_schrabidium,1,1,-1129,5,-300,5,null
+hbm:item.apple_schrabidium,2,1,-1129,5,-300,6,null
+hbm:item.balefire_and_ham,0,1,-1129,5,-300,7,null
+hbm:item.balefire_scrambled,0,1,-1129,5,-300,8,null
+hbm:item.bomb_waffle,0,1,-1129,5,-300,9,null
+hbm:item.bottle_cherry,0,1,-1129,5,-300,10,null
+hbm:item.butter,0,1,-1129,5,-300,11,null
+hbm:item.can_bepis,0,1,-1129,5,-300,12,null
+hbm:item.can_breen,0,1,-1129,5,-300,13,null
+hbm:item.can_creature,0,1,-1129,5,-300,14,null
+hbm:item.can_luna,0,1,-1129,5,-300,15,null
+hbm:item.can_mrsugar,0,1,-1129,5,-300,16,null
+hbm:item.can_mug,0,1,-1129,5,-300,17,null
+hbm:item.can_overcharge,0,1,-1129,5,-300,18,null
+hbm:item.can_redbomb,0,1,-1129,5,-300,19,null
+hbm:item.can_smart,0,1,-1129,5,-300,20,null
+hbm:item.canteen_vodka,0,1,-1129,5,-300,21,null
+hbm:item.cheese,0,1,-1129,5,-300,22,null
+hbm:item.cheese_quesadilla,0,1,-1129,5,-300,23,null
+hbm:item.chocolate,0,1,-1129,5,-300,24,null
+hbm:item.coffee,0,1,-1129,5,-300,25,null
+hbm:item.coffee_radium,0,1,-1129,5,-300,26,null
+hbm:item.security_legs,0,1,-1129,6,-301,0,null
+hbm:item.security_boots,0,1,-1129,6,-301,1,null
+hbm:item.starmetal_helmet,0,1,-1129,6,-301,2,null
+hbm:item.starmetal_plate,0,1,-1129,6,-301,3,null
+hbm:item.starmetal_legs,0,1,-1129,6,-301,4,null
+hbm:item.starmetal_boots,0,1,-1129,6,-301,5,null
+hbm:item.fau_helmet,0,1,-1129,6,-301,6,"{""charge"": 10000000}"
+hbm:item.fau_plate,0,1,-1129,6,-301,7,"{""charge"": 10000000}"
+hbm:item.fau_legs,0,1,-1129,6,-301,8,"{""charge"": 10000000}"
+hbm:item.fau_boots,0,1,-1129,6,-301,9,"{""charge"": 10000000}"
+hbm:item.bismuth_helmet,0,1,-1129,6,-301,10,null
+hbm:item.bismuth_plate,0,1,-1129,6,-301,11,null
+hbm:item.bismuth_legs,0,1,-1129,6,-301,12,null
+hbm:item.bismuth_boots,0,1,-1129,6,-301,13,null
+hbm:item.paa_plate,0,1,-1129,6,-301,14,null
+hbm:item.paa_legs,0,1,-1129,6,-301,15,null
+hbm:item.paa_boots,0,1,-1129,6,-301,16,null
+hbm:item.cotton_candy,0,1,-1129,5,-299,0,null
+hbm:item.definitelyfood,0,1,-1129,5,-299,1,null
+hbm:item.fooditem,0,1,-1129,5,-299,2,null
+hbm:item.glowing_stew,0,1,-1129,5,-299,3,null
+hbm:item.lemon,0,1,-1129,5,-299,4,null
+hbm:item.loop_stew,0,1,-1129,5,-299,5,null
+hbm:item.loops,0,1,-1129,5,-299,6,null
+hbm:item.marshmallow,0,1,-1129,5,-299,7,null
+hbm:item.marshmallow,1,1,-1129,5,-299,8,null
+hbm:item.med_ipecac,0,1,-1129,5,-299,9,null
+hbm:item.med_ptsd,0,1,-1129,5,-299,10,null
+hbm:item.min_cream,0,1,-1129,5,-299,11,null
+hbm:item.mucho_mango,0,1,-1129,5,-299,12,null
+hbm:item.pancake,0,1,-1129,5,-299,13,null
+hbm:item.pudding,0,1,-1129,5,-299,14,null
+hbm:item.s_cream,0,1,-1129,5,-299,15,null
+hbm:item.schnitzel_vegan,0,1,-1129,5,-299,16,null
+hbm:item.spongebob_macaroni,0,1,-1129,5,-299,17,null
+hbm:item.static_sandwich,0,1,-1129,5,-299,18,null
+hbm:item.tem_flakes,0,1,-1129,5,-299,19,null
+hbm:item.tem_flakes,1,1,-1129,5,-299,20,null
+hbm:item.tem_flakes,2,1,-1129,5,-299,21,null
+hbm:item.ammo_himars,6,1,-1129,6,-303,0,null
+hbm:item.ammo_himars,5,1,-1129,6,-303,1,null
+hbm:item.ammo_container,0,1,-1129,6,-303,2,null
+hbm:item.ammo_container,1,1,-1129,6,-303,3,null
+hbm:item.ammo_himars,4,1,-1129,6,-303,4,null
+hbm:item.ammo_himars,7,1,-1129,6,-303,5,null
+hbm:item.grenade_shell,0,1,-1129,6,-303,6,null
+hbm:item.grenade_shell,1,1,-1129,6,-303,7,null
+hbm:item.grenade_shell,2,1,-1129,6,-303,8,null
+hbm:item.grenade_shell,3,1,-1129,6,-303,9,null
+hbm:item.grenade_filling,0,1,-1129,6,-303,10,null
+hbm:item.grenade_filling,1,1,-1129,6,-303,11,null
+hbm:item.grenade_filling,2,1,-1129,6,-303,12,null
+hbm:item.grenade_filling,3,1,-1129,6,-303,13,null
+hbm:item.grenade_filling,4,1,-1129,6,-303,14,null
+hbm:item.grenade_filling,5,1,-1129,6,-303,15,null
+hbm:item.grenade_filling,6,1,-1129,6,-303,16,null
+hbm:item.grenade_filling,7,1,-1129,6,-303,17,null
+hbm:item.grenade_filling,8,1,-1129,6,-303,18,null
+hbm:item.grenade_filling,9,1,-1129,6,-303,19,null
+hbm:item.grenade_filling,10,1,-1129,6,-303,20,null
+hbm:item.grenade_filling,11,1,-1129,6,-303,21,null
+hbm:item.grenade_filling,12,1,-1129,6,-303,22,null
+hbm:item.grenade_fuze,0,1,-1129,6,-303,23,null
+hbm:item.grenade_fuze,1,1,-1129,6,-303,24,null
+hbm:item.grenade_fuze,2,1,-1129,6,-303,25,null
+hbm:item.grenade_fuze,3,1,-1129,6,-303,26,null

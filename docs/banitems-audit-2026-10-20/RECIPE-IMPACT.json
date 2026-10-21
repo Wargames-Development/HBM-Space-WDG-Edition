@@ -1,0 +1,4712 @@
+{
+  "removed_machine_recipes": [
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          16,
+          4
+        ],
+        "input": [
+          null,
+          [
+            "dict",
+            "ingotLead",
+            2
+          ],
+          null,
+          null,
+          [
+            "item",
+            "minecraft:gunpowder"
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing"
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          8,
+          5
+        ],
+        "input": [
+          null,
+          [
+            "dict",
+            "ingotLead"
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless"
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing"
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          8,
+          6
+        ],
+        "input": [
+          null,
+          [
+            "dict",
+            "ingotSteel"
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless"
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing"
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          8,
+          7
+        ],
+        "input": [
+          [
+            "dict",
+            "ingotAnyPlastic"
+          ],
+          [
+            "dict",
+            "ingotCopper"
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless"
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing"
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          8,
+          8
+        ],
+        "input": [
+          null,
+          [
+            "dict",
+            "ingotWeaponSteel"
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless",
+            2
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing",
+            1,
+            2
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          8,
+          9
+        ],
+        "input": [
+          null,
+          [
+            "dict",
+            "ingotSteel"
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless",
+            3
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing"
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          12,
+          10
+        ],
+        "input": [
+          null,
+          [
+            "dict",
+            "ingotLead",
+            2
+          ],
+          null,
+          null,
+          [
+            "item",
+            "minecraft:gunpowder"
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing"
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          6,
+          11
+        ],
+        "input": [
+          null,
+          [
+            "dict",
+            "ingotLead"
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless"
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing"
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          6,
+          12
+        ],
+        "input": [
+          null,
+          [
+            "dict",
+            "ingotSteel"
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless"
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing"
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          6,
+          13
+        ],
+        "input": [
+          [
+            "dict",
+            "ingotAnyPlastic"
+          ],
+          [
+            "dict",
+            "ingotCopper"
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless"
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing"
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          6,
+          14
+        ],
+        "input": [
+          null,
+          [
+            "dict",
+            "ingotWeaponSteel"
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless",
+            2
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing",
+            1,
+            2
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          6,
+          15
+        ],
+        "input": [
+          null,
+          [
+            "dict",
+            "ingotSteel"
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless",
+            3
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing"
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          24,
+          16
+        ],
+        "input": [
+          null,
+          [
+            "dict",
+            "ingotLead"
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless"
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing"
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          24,
+          17
+        ],
+        "input": [
+          null,
+          [
+            "dict",
+            "ingotSteel"
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless"
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing"
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          24,
+          18
+        ],
+        "input": [
+          [
+            "dict",
+            "ingotAnyPlastic"
+          ],
+          [
+            "dict",
+            "ingotCopper"
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless"
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing"
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          24,
+          19
+        ],
+        "input": [
+          null,
+          [
+            "dict",
+            "ingotWeaponSteel"
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless",
+            2
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing",
+            1,
+            2
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          12,
+          22
+        ],
+        "input": [
+          [
+            "dict",
+            "ingotAnyPlastic"
+          ],
+          [
+            "dict",
+            "ingotCopper"
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless"
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing"
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          12,
+          23
+        ],
+        "input": [
+          null,
+          [
+            "dict",
+            "ingotWeaponSteel"
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless",
+            2
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing",
+            1,
+            2
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          8,
+          85
+        ],
+        "input": [
+          null,
+          [
+            "dict",
+            "ingotLead"
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless"
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing"
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          8,
+          86
+        ],
+        "input": [
+          null,
+          [
+            "dict",
+            "ingotSteel"
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless"
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing"
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          8,
+          87
+        ],
+        "input": [
+          [
+            "dict",
+            "ingotAnyPlastic"
+          ],
+          [
+            "dict",
+            "ingotCopper"
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless"
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing"
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          8,
+          88
+        ],
+        "input": [
+          null,
+          [
+            "dict",
+            "ingotWeaponSteel"
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless",
+            2
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing",
+            1,
+            2
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          8,
+          89
+        ],
+        "input": [
+          null,
+          [
+            "dict",
+            "ingotUranium238"
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless",
+            2
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing",
+            1,
+            2
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          16,
+          26
+        ],
+        "input": [
+          [
+            "dict",
+            "ingotAnyPlastic"
+          ],
+          [
+            "dict",
+            "ingotCopper",
+            2
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless",
+            2
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing",
+            2
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          16,
+          27
+        ],
+        "input": [
+          null,
+          [
+            "dict",
+            "ingotWeaponSteel",
+            2
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless",
+            4
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing",
+            2,
+            2
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          12,
+          28
+        ],
+        "input": [
+          null,
+          [
+            "dict",
+            "ingotLead",
+            2
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless",
+            2
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing",
+            2
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          12,
+          29
+        ],
+        "input": [
+          null,
+          [
+            "dict",
+            "ingotSteel",
+            2
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless",
+            2
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing",
+            2
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          12,
+          30
+        ],
+        "input": [
+          [
+            "dict",
+            "ingotAnyPlastic"
+          ],
+          [
+            "dict",
+            "ingotCopper",
+            2
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless",
+            2
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing",
+            2
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          12,
+          31
+        ],
+        "input": [
+          null,
+          [
+            "dict",
+            "ingotWeaponSteel",
+            2
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless",
+            4
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing",
+            2,
+            2
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          12,
+          32
+        ],
+        "input": [
+          null,
+          [
+            "dict",
+            "ingotUranium238",
+            2
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless",
+            4
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing",
+            2,
+            2
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          12,
+          82
+        ],
+        "input": [
+          [
+            "dict",
+            "ingotAnyHighexplosive"
+          ],
+          [
+            "dict",
+            "ingotFerrouranium"
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless",
+            4
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing",
+            2,
+            2
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          12,
+          35
+        ],
+        "input": [
+          [
+            "dict",
+            "ingotAnyPlastic"
+          ],
+          [
+            "dict",
+            "ingotCopper",
+            2
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless",
+            3
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing",
+            1,
+            1
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          12,
+          36
+        ],
+        "input": [
+          null,
+          [
+            "dict",
+            "ingotWeaponSteel",
+            2
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless",
+            6
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing",
+            1,
+            3
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          12,
+          37
+        ],
+        "input": [
+          null,
+          [
+            "dict",
+            "ingotUranium238",
+            2
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless",
+            6
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing",
+            1,
+            3
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          12,
+          83
+        ],
+        "input": [
+          [
+            "dict",
+            "ingotAnyHighexplosive"
+          ],
+          [
+            "dict",
+            "ingotFerrouranium"
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless",
+            6
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing",
+            1,
+            3
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          6,
+          41
+        ],
+        "input": [
+          null,
+          [
+            "dict",
+            "nuggetLead",
+            6
+          ],
+          null,
+          null,
+          [
+            "item",
+            "minecraft:gunpowder"
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing",
+            1,
+            4
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          6,
+          42
+        ],
+        "input": [
+          null,
+          [
+            "dict",
+            "nuggetLead",
+            8
+          ],
+          null,
+          null,
+          [
+            "item",
+            "minecraft:gunpowder"
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing",
+            1,
+            4
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          6,
+          43
+        ],
+        "input": [
+          null,
+          [
+            "dict",
+            "ingotLead"
+          ],
+          null,
+          null,
+          [
+            "item",
+            "minecraft:gunpowder"
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing",
+            1,
+            4
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          6,
+          44
+        ],
+        "input": [
+          null,
+          [
+            "dict",
+            "nuggetLead",
+            6
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless"
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing",
+            1,
+            5
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          6,
+          45
+        ],
+        "input": [
+          null,
+          [
+            "dict",
+            "ingotLead"
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless"
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing",
+            1,
+            5
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          6,
+          46
+        ],
+        "input": [
+          null,
+          [
+            "dict",
+            "boltLead",
+            12
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless"
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing",
+            1,
+            5
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          6,
+          47
+        ],
+        "input": [
+          null,
+          [
+            "dict",
+            "nuggetLead",
+            8
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless"
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing",
+            1,
+            6
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          6,
+          48
+        ],
+        "input": [
+          null,
+          [
+            "dict",
+            "ingotAnyHighexplosive"
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless"
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing",
+            1,
+            6
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          6,
+          49
+        ],
+        "input": [
+          null,
+          [
+            "dict",
+            "ingotWhitePhosphorus"
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless"
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing",
+            1,
+            6
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          4,
+          78
+        ],
+        "input": [
+          null,
+          [
+            "dict",
+            "nuggetLead",
+            8
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless",
+            2
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing",
+            1,
+            6
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          4,
+          79
+        ],
+        "input": [
+          [
+            "dict",
+            "ingotAnyPlastic"
+          ],
+          [
+            "dict",
+            "nuggetLead",
+            8
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless",
+            2
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing",
+            1,
+            6
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          4,
+          80
+        ],
+        "input": [
+          null,
+          [
+            "dict",
+            "ingotUranium238"
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless",
+            2
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing",
+            1,
+            6
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          4,
+          81
+        ],
+        "input": [
+          null,
+          [
+            "dict",
+            "ingotLead"
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless",
+            2
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing",
+            1,
+            6
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          4,
+          84
+        ],
+        "input": [
+          [
+            "dict",
+            "ingotAnyHighexplosive"
+          ],
+          [
+            "dict",
+            "ingotFerrouranium"
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless",
+            2
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing",
+            1,
+            6
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          4,
+          53
+        ],
+        "input": [
+          null,
+          [
+            "item",
+            "hbm:item.ball_dynamite"
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless"
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing",
+            1,
+            1
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          4,
+          54
+        ],
+        "input": [
+          [
+            "dict",
+            "plateCopper"
+          ],
+          [
+            "dict",
+            "ingotAnyHighexplosive"
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless"
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing",
+            1,
+            1
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          4,
+          55
+        ],
+        "input": [
+          null,
+          [
+            "dict",
+            "ingotAnyHighexplosive",
+            2
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless"
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing",
+            1,
+            1
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          4,
+          56
+        ],
+        "input": [
+          [
+            "dict",
+            "container1000diesel"
+          ],
+          [
+            "item",
+            "hbm:item.ball_dynamite"
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless"
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing",
+            1,
+            1
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          4,
+          57
+        ],
+        "input": [
+          [
+            "dict",
+            "ingotWhitePhosphorus"
+          ],
+          [
+            "dict",
+            "ingotAnyHighexplosive"
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless"
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing",
+            1,
+            1
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          2,
+          59
+        ],
+        "input": [
+          [
+            "dict",
+            "plateCopper"
+          ],
+          [
+            "dict",
+            "ingotAnyHighexplosive"
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing",
+            1,
+            1
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless",
+            3
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          2,
+          59
+        ],
+        "input": [
+          [
+            "dict",
+            "plateCopper"
+          ],
+          [
+            "dict",
+            "ingotAnyHighexplosive"
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing",
+            1,
+            1
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.rocket_fuel"
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          2,
+          60
+        ],
+        "input": [
+          null,
+          [
+            "dict",
+            "ingotAnyHighexplosive",
+            2
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing",
+            1,
+            1
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless",
+            3
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          2,
+          60
+        ],
+        "input": [
+          null,
+          [
+            "dict",
+            "ingotAnyHighexplosive",
+            2
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing",
+            1,
+            1
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.rocket_fuel"
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          2,
+          62
+        ],
+        "input": [
+          [
+            "dict",
+            "ingotWhitePhosphorus"
+          ],
+          [
+            "dict",
+            "ingotAnyHighexplosive"
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing",
+            1,
+            1
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless",
+            3
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          2,
+          62
+        ],
+        "input": [
+          [
+            "dict",
+            "ingotWhitePhosphorus"
+          ],
+          [
+            "dict",
+            "ingotAnyHighexplosive"
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing",
+            1,
+            1
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.rocket_fuel"
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          1,
+          66
+        ],
+        "input": [
+          null,
+          [
+            "dict",
+            "plateSteel"
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "container1000balefire"
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "plateSteel"
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          4,
+          67
+        ],
+        "input": [
+          null,
+          [
+            "dict",
+            "ingotAnyPlastic"
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "billetSilicon",
+            4
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "ingotAnyPlastic"
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          4,
+          68
+        ],
+        "input": [
+          null,
+          [
+            "dict",
+            "ingotAnyPlastic"
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "billetSilicon",
+            6
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "ingotAnyPlastic"
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          4,
+          69
+        ],
+        "input": [
+          null,
+          [
+            "dict",
+            "ingotAnyPlastic"
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "ingotNiobium"
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "ingotAnyPlastic"
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          16,
+          70
+        ],
+        "input": [
+          null,
+          [
+            "dict",
+            "plateLead"
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "ingotUranium238"
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "plateLead"
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          4,
+          71
+        ],
+        "input": [
+          null,
+          null,
+          null,
+          null,
+          [
+            "dict",
+            "ingotTungsten"
+          ],
+          null,
+          null,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          4,
+          72
+        ],
+        "input": [
+          null,
+          null,
+          null,
+          null,
+          [
+            "dict",
+            "ingotFerrouranium"
+          ],
+          null,
+          null,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          1,
+          76
+        ],
+        "input": [
+          null,
+          [
+            "dict",
+            "nuggetPlutonium239",
+            2
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.ball_tatb",
+            2
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "plateSteel",
+            4
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          1,
+          77
+        ],
+        "input": [
+          null,
+          [
+            "dict",
+            "ingotAnyHighexplosive",
+            8
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.casing",
+            2,
+            3
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "plateSteel",
+            4
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          1,
+          93
+        ],
+        "input": [
+          null,
+          [
+            "item",
+            "hbm:item.egg_balefire_shard"
+          ],
+          null,
+          null,
+          [
+            "item",
+            "hbm:item.assembly_nuke"
+          ],
+          null,
+          null,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          16,
+          90
+        ],
+        "input": [
+          null,
+          [
+            "dict",
+            "ingotSteel"
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "ntmpipeSteel"
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless"
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAmmoPress.json",
+      "recipe": {
+        "output": [
+          "hbm:item.ammo_standard",
+          4,
+          91
+        ],
+        "input": [
+          null,
+          [
+            "dict",
+            "ingotAnyHighexplosive",
+            4
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "ntmpipeSteel"
+          ],
+          null,
+          null,
+          [
+            "dict",
+            "dustAnySmokeless"
+          ],
+          null
+        ]
+      }
+    },
+    {
+      "file": "_hbmAnvil.json",
+      "recipe": {
+        "inputs": [
+          [
+            "item",
+            "hbm:tile.glass_quartz",
+            3
+          ],
+          [
+            "item",
+            "hbm:item.pill_herbal",
+            2
+          ],
+          [
+            "item",
+            "hbm:item.powder_magic",
+            2
+          ]
+        ],
+        "outputs": [
+          [
+            "hbm:item.flask_infusion",
+            1,
+            1,
+            1.0
+          ]
+        ],
+        "tierLower": 2,
+        "tierUpper": -1,
+        "overlay": "CONSTRUCTION"
+      }
+    },
+    {
+      "file": "_hbmArcWelder.json",
+      "recipe": {
+        "inputs": [
+          [
+            "dict",
+            "plateCMBSteel",
+            2
+          ],
+          [
+            "dict",
+            "ingotUranium238"
+          ]
+        ],
+        "fluid": [
+          "NEON",
+          2000
+        ],
+        "output": [
+          "hbm:item.insert_cmb"
+        ],
+        "duration": 600,
+        "consumption": 50000
+      }
+    },
+    {
+      "file": "_hbmAssemblyMachine.json",
+      "recipe": {
+        "name": "ass.capquantum",
+        "inputItem": [
+          [
+            "item",
+            "hbm:item.cap_quantum",
+            64
+          ],
+          [
+            "item",
+            "hbm:item.cap_quantum",
+            64
+          ]
+        ],
+        "outputItem": [
+          [
+            "single",
+            [
+              "hbm:tile.block_cap",
+              1,
+              1
+            ]
+          ]
+        ],
+        "duration": 10,
+        "power": 100
+      }
+    },
+    {
+      "file": "_hbmAssemblyMachine.json",
+      "recipe": {
+        "name": "ass.capsparkle",
+        "inputItem": [
+          [
+            "item",
+            "hbm:item.cap_sparkle",
+            64
+          ],
+          [
+            "item",
+            "hbm:item.cap_sparkle",
+            64
+          ]
+        ],
+        "outputItem": [
+          [
+            "single",
+            [
+              "hbm:tile.block_cap",
+              1,
+              2
+            ]
+          ]
+        ],
+        "duration": 10,
+        "power": 100
+      }
+    },
+    {
+      "file": "_hbmAssemblyMachine.json",
+      "recipe": {
+        "name": "ass.caprad",
+        "inputItem": [
+          [
+            "item",
+            "hbm:item.cap_rad",
+            64
+          ],
+          [
+            "item",
+            "hbm:item.cap_rad",
+            64
+          ]
+        ],
+        "outputItem": [
+          [
+            "single",
+            [
+              "hbm:tile.block_cap",
+              1,
+              3
+            ]
+          ]
+        ],
+        "duration": 10,
+        "power": 100
+      }
+    },
+    {
+      "file": "_hbmAssemblyMachine.json",
+      "recipe": {
+        "name": "ass.capfritz",
+        "inputItem": [
+          [
+            "item",
+            "hbm:item.cap_fritz",
+            64
+          ],
+          [
+            "item",
+            "hbm:item.cap_fritz",
+            64
+          ]
+        ],
+        "outputItem": [
+          [
+            "single",
+            [
+              "hbm:tile.block_cap",
+              1,
+              5
+            ]
+          ]
+        ],
+        "duration": 10,
+        "power": 100
+      }
+    },
+    {
+      "file": "_hbmAssemblyMachine.json",
+      "recipe": {
+        "name": "ass.capkorl",
+        "inputItem": [
+          [
+            "item",
+            "hbm:item.cap_korl",
+            64
+          ],
+          [
+            "item",
+            "hbm:item.cap_korl",
+            64
+          ]
+        ],
+        "outputItem": [
+          [
+            "single",
+            [
+              "hbm:tile.block_cap",
+              1,
+              4
+            ]
+          ]
+        ],
+        "duration": 10,
+        "power": 100
+      }
+    },
+    {
+      "file": "_hbmAssemblyMachine.json",
+      "recipe": {
+        "name": "ass.chopper",
+        "inputItem": [
+          [
+            "dict",
+            "plateTripleCMBSteel",
+            24
+          ],
+          [
+            "dict",
+            "plateSteel",
+            32
+          ],
+          [
+            "dict",
+            "wireFineMagnetizedTungsten",
+            48
+          ],
+          [
+            "item",
+            "hbm:item.motor_desh",
+            5
+          ],
+          [
+            "item",
+            "hbm:item.circuit",
+            1,
+            17
+          ]
+        ],
+        "outputItem": [
+          [
+            "single",
+            [
+              "hbm:item.chopper"
+            ]
+          ]
+        ],
+        "duration": 1200,
+        "power": 100
+      }
+    },
+    {
+      "file": "_hbmAssemblyMachine.json",
+      "recipe": {
+        "name": "ass.ballsotron",
+        "inputItem": [
+          [
+            "dict",
+            "plateSextupleTitanium",
+            32
+          ],
+          [
+            "dict",
+            "ingotRubber",
+            64
+          ],
+          [
+            "item",
+            "hbm:item.motor",
+            64
+          ],
+          [
+            "dict",
+            "wireDenseGold",
+            64
+          ],
+          [
+            "dict",
+            "blockUranium238",
+            10
+          ],
+          [
+            "item",
+            "hbm:item.mech_key"
+          ]
+        ],
+        "outputItem": [
+          [
+            "single",
+            [
+              "hbm:item.spawn_worm"
+            ]
+          ]
+        ],
+        "duration": 1200,
+        "power": 100
+      }
+    },
+    {
+      "file": "_hbmAssemblyMachine.json",
+      "recipe": {
+        "name": "ass.ninadidnothingwrong",
+        "inputItem": [
+          [
+            "item",
+            "hbm:item.dysfunctional_reactor"
+          ],
+          [
+            "dict",
+            "shellSteel",
+            2
+          ],
+          [
+            "item",
+            "hbm:item.ingot_euphemium",
+            3
+          ],
+          [
+            "item",
+            "hbm:item.circuit",
+            8,
+            17
+          ]
+        ],
+        "outputItem": [
+          [
+            "single",
+            [
+              "hbm:tile.nuke_prototype"
+            ]
+          ]
+        ],
+        "duration": 300,
+        "power": 100
+      }
+    },
+    {
+      "file": "_hbmAssemblyMachine.json",
+      "recipe": {
+        "name": "ass.fleija",
+        "inputItem": [
+          [
+            "dict",
+            "shellAluminum"
+          ],
+          [
+            "item",
+            "hbm:item.fins_quad_titanium"
+          ],
+          [
+            "item",
+            "hbm:item.circuit",
+            1,
+            16
+          ],
+          [
+            "dict",
+            "dyeWhite",
+            4
+          ]
+        ],
+        "outputItem": [
+          [
+            "single",
+            [
+              "hbm:tile.nuke_fleija"
+            ]
+          ]
+        ],
+        "duration": 300,
+        "power": 100
+      }
+    },
+    {
+      "file": "_hbmAssemblyMachine.json",
+      "recipe": {
+        "name": "ass.balefirebomb",
+        "inputItem": [
+          [
+            "item",
+            "hbm:item.sphere_steel"
+          ],
+          [
+            "dict",
+            "shellTitanium",
+            6
+          ],
+          [
+            "item",
+            "hbm:item.fins_big_steel"
+          ],
+          [
+            "item",
+            "hbm:item.powder_magic",
+            8
+          ],
+          [
+            "item",
+            "hbm:item.circuit",
+            4,
+            17
+          ],
+          [
+            "dict",
+            "dyeGray",
+            8
+          ]
+        ],
+        "outputItem": [
+          [
+            "single",
+            [
+              "hbm:tile.nuke_fstbmb"
+            ]
+          ]
+        ],
+        "duration": 400,
+        "power": 100
+      }
+    },
+    {
+      "file": "_hbmAssemblyMachine.json",
+      "recipe": {
+        "name": "ass.customnuke",
+        "inputItem": [
+          [
+            "dict",
+            "shellSteel",
+            2
+          ],
+          [
+            "item",
+            "hbm:item.fins_small_steel"
+          ],
+          [
+            "item",
+            "hbm:item.circuit",
+            8,
+            17
+          ],
+          [
+            "dict",
+            "dyeGray",
+            4
+          ]
+        ],
+        "outputItem": [
+          [
+            "single",
+            [
+              "hbm:tile.nuke_custom"
+            ]
+          ]
+        ],
+        "duration": 300,
+        "power": 100
+      }
+    },
+    {
+      "file": "_hbmAssemblyMachine.json",
+      "recipe": {
+        "name": "ass.levibomb",
+        "inputItem": [
+          [
+            "dict",
+            "plateTitanium",
+            12
+          ],
+          [
+            "dict",
+            "nuggetSchrabidium",
+            3
+          ],
+          [
+            "item",
+            "hbm:item.circuit",
+            4,
+            10
+          ],
+          [
+            "dict",
+            "wireDenseGold",
+            8
+          ]
+        ],
+        "outputItem": [
+          [
+            "single",
+            [
+              "hbm:tile.float_bomb"
+            ]
+          ]
+        ],
+        "duration": 200,
+        "power": 100
+      }
+    },
+    {
+      "file": "_hbmAssemblyMachine.json",
+      "recipe": {
+        "name": "ass.turrettauon",
+        "inputItem": [
+          [
+            "item",
+            "hbm:item.battery_pack",
+            1,
+            8
+          ],
+          [
+            "dict",
+            "ingotSteel",
+            16
+          ],
+          [
+            "dict",
+            "ingotAnyPlastic",
+            4
+          ],
+          [
+            "item",
+            "hbm:item.motor",
+            2
+          ],
+          [
+            "item",
+            "hbm:item.circuit",
+            1,
+            10
+          ],
+          [
+            "item",
+            "hbm:item.motor_desh"
+          ],
+          [
+            "dict",
+            "ingotCopper",
+            32
+          ],
+          [
+            "dict",
+            "gunMechanismSaturnite",
+            3
+          ],
+          [
+            "item",
+            "hbm:item.crt_display"
+          ]
+        ],
+        "outputItem": [
+          [
+            "single",
+            [
+              "hbm:tile.turret_tauon"
+            ]
+          ]
+        ],
+        "duration": 200,
+        "power": 100
+      }
+    },
+    {
+      "file": "_hbmAssemblyMachine.json",
+      "recipe": {
+        "name": "ass.maxwell",
+        "inputItem": [
+          [
+            "item",
+            "hbm:item.battery_pack",
+            1,
+            8
+          ],
+          [
+            "dict",
+            "ingotSteel",
+            24
+          ],
+          [
+            "item",
+            "hbm:item.motor",
+            2
+          ],
+          [
+            "item",
+            "hbm:item.circuit",
+            2,
+            10
+          ],
+          [
+            "dict",
+            "ntmpipeSteel",
+            4
+          ],
+          [
+            "dict",
+            "gunMechanismSaturnite",
+            3
+          ],
+          [
+            "item",
+            "hbm:item.magnetron",
+            16
+          ],
+          [
+            "dict",
+            "ingotAnyResistantAlloy",
+            8
+          ],
+          [
+            "item",
+            "hbm:item.crt_display"
+          ]
+        ],
+        "outputItem": [
+          [
+            "single",
+            [
+              "hbm:tile.turret_maxwell"
+            ]
+          ]
+        ],
+        "duration": 200,
+        "power": 100
+      }
+    },
+    {
+      "file": "_hbmAssemblyMachine.json",
+      "recipe": {
+        "name": "ass.himarssmalltb",
+        "inputItem": [
+          [
+            "dict",
+            "plateSteel",
+            24
+          ],
+          [
+            "dict",
+            "ingotAnyPlastic",
+            24
+          ],
+          [
+            "item",
+            "hbm:item.rocket_fuel",
+            48
+          ],
+          [
+            "item",
+            "hbm:item.ball_tatb",
+            32
+          ],
+          [
+            "dict",
+            "container1000kerosenereform",
+            12
+          ],
+          [
+            "dict",
+            "container1000peroxide",
+            12
+          ],
+          [
+            "item",
+            "hbm:item.circuit",
+            6,
+            9
+          ]
+        ],
+        "outputItem": [
+          [
+            "single",
+            [
+              "hbm:item.ammo_himars",
+              1,
+              4
+            ]
+          ]
+        ],
+        "duration": 100,
+        "power": 100
+      }
+    },
+    {
+      "file": "_hbmAssemblyMachine.json",
+      "recipe": {
+        "name": "ass.himarssmallnuke",
+        "inputItem": [
+          [
+            "dict",
+            "plateSteel",
+            24
+          ],
+          [
+            "dict",
+            "ingotAnyPlastic",
+            24
+          ],
+          [
+            "item",
+            "hbm:item.rocket_fuel",
+            48
+          ],
+          [
+            "item",
+            "hbm:item.ball_tatb",
+            6
+          ],
+          [
+            "dict",
+            "nuggetPlutonium239",
+            12
+          ],
+          [
+            "item",
+            "hbm:item.neutron_reflector",
+            12
+          ],
+          [
+            "item",
+            "hbm:item.circuit",
+            6,
+            9
+          ]
+        ],
+        "outputItem": [
+          [
+            "single",
+            [
+              "hbm:item.ammo_himars",
+              1,
+              6
+            ]
+          ]
+        ],
+        "duration": 100,
+        "power": 100
+      }
+    },
+    {
+      "file": "_hbmAssemblyMachine.json",
+      "recipe": {
+        "name": "ass.himarssmalllava",
+        "inputItem": [
+          [
+            "dict",
+            "plateSteel",
+            24
+          ],
+          [
+            "dict",
+            "ingotAnyHardPlastic",
+            12
+          ],
+          [
+            "item",
+            "hbm:item.rocket_fuel",
+            32
+          ],
+          [
+            "item",
+            "hbm:item.ball_tatb",
+            4
+          ],
+          [
+            "dict",
+            "gemVolcanic"
+          ],
+          [
+            "item",
+            "hbm:item.circuit",
+            6,
+            9
+          ]
+        ],
+        "outputItem": [
+          [
+            "single",
+            [
+              "hbm:item.ammo_himars",
+              1,
+              7
+            ]
+          ]
+        ],
+        "duration": 100,
+        "power": 100
+      }
+    },
+    {
+      "file": "_hbmAssemblyMachine.json",
+      "recipe": {
+        "name": "ass.himarslargetb",
+        "inputItem": [
+          [
+            "dict",
+            "plateSteel",
+            24
+          ],
+          [
+            "dict",
+            "ingotAnyHardPlastic",
+            12
+          ],
+          [
+            "item",
+            "hbm:item.rocket_fuel",
+            36
+          ],
+          [
+            "item",
+            "hbm:item.ball_tatb",
+            24
+          ],
+          [
+            "dict",
+            "container1000kerosenereform",
+            16
+          ],
+          [
+            "dict",
+            "container1000peroxide",
+            16
+          ],
+          [
+            "item",
+            "hbm:item.circuit",
+            1,
+            10
+          ]
+        ],
+        "outputItem": [
+          [
+            "single",
+            [
+              "hbm:item.ammo_himars",
+              1,
+              5
+            ]
+          ]
+        ],
+        "duration": 200,
+        "power": 100
+      }
+    },
+    {
+      "file": "_hbmAssemblyMachine.json",
+      "recipe": {
+        "name": "ass.50bmgsm",
+        "inputItem": [
+          [
+            "item",
+            "hbm:item.casing",
+            1,
+            3
+          ],
+          [
+            "dict",
+            "dustAnySmokeless",
+            6
+          ],
+          [
+            "dict",
+            "ingotStarmetal",
+            3
+          ]
+        ],
+        "outputItem": [
+          [
+            "single",
+            [
+              "hbm:item.ammo_standard",
+              6,
+              94
+            ]
+          ]
+        ],
+        "duration": 100,
+        "power": 100,
+        "blueprintpool": "discover.silverstorm"
+      }
+    },
+    {
+      "file": "_hbmAssemblyMachine.json",
+      "recipe": {
+        "name": "ass.50bmgbypass",
+        "inputItem": [
+          [
+            "item",
+            "hbm:item.casing",
+            2,
+            3
+          ],
+          [
+            "dict",
+            "dustAnySmokeless",
+            24
+          ],
+          [
+            "item",
+            "hbm:item.item_secret",
+            1,
+            2
+          ],
+          [
+            "item",
+            "hbm:item.black_diamond"
+          ]
+        ],
+        "outputItem": [
+          [
+            "single",
+            [
+              "hbm:item.ammo_secret",
+              12,
+              6
+            ]
+          ]
+        ],
+        "duration": 100,
+        "power": 100,
+        "blueprintpool": "secret.psalm"
+      }
+    },
+    {
+      "file": "_hbmAssemblyMachine.json",
+      "recipe": {
+        "name": "ass.xenrelay",
+        "inputItem": [
+          [
+            "dict",
+            "plateTripleGold",
+            16
+          ],
+          [
+            "item",
+            "hbm:item.photo_panel",
+            32
+          ],
+          [
+            "item",
+            "hbm:item.crystal_xen"
+          ],
+          [
+            "item",
+            "hbm:item.circuit",
+            24,
+            12
+          ],
+          [
+            "item",
+            "hbm:item.part_generic",
+            4,
+            3
+          ],
+          [
+            "item",
+            "hbm:item.circuit",
+            1,
+            17
+          ]
+        ],
+        "outputItem": [
+          [
+            "single",
+            [
+              "hbm:item.sat_resonator"
+            ]
+          ]
+        ],
+        "duration": 1200,
+        "power": 25000
+      }
+    },
+    {
+      "file": "_hbmAssemblyMachine.json",
+      "recipe": {
+        "name": "ass.nukeantimatter",
+        "inputItem": [
+          [
+            "dict",
+            "plateStainlessSteel",
+            16
+          ],
+          [
+            "dict",
+            "wireFineMingrade",
+            32
+          ],
+          [
+            "item",
+            "hbm:item.ingot_hafnium",
+            2
+          ],
+          [
+            "item",
+            "hbm:item.circuit",
+            1,
+            8
+          ],
+          [
+            "item",
+            "hbm:item.billet_gaas"
+          ],
+          [
+            "item",
+            "hbm:item.magnetron",
+            4
+          ]
+        ],
+        "outputItem": [
+          [
+            "single",
+            [
+              "hbm:tile.nuke_antimatter"
+            ]
+          ]
+        ],
+        "duration": 400,
+        "power": 100
+      }
+    },
+    {
+      "file": "_hbmAssemblyMachine.json",
+      "recipe": {
+        "name": "ass.nitra",
+        "inputItem": [
+          [
+            "item",
+            "hbm:item.nitra"
+          ]
+        ],
+        "outputItem": [
+          [
+            "multi",
+            [
+              [
+                "hbm:item.casing",
+                1,
+                4
+              ],
+              1.0,
+              20
+            ],
+            [
+              [
+                "hbm:item.casing",
+                1,
+                5
+              ],
+              1.0,
+              10
+            ],
+            [
+              [
+                "hbm:item.casing",
+                2
+              ],
+              1.0,
+              20
+            ],
+            [
+              [
+                "hbm:item.casing",
+                1,
+                1
+              ],
+              1.0,
+              10
+            ],
+            [
+              [
+                "minecraft:gunpowder"
+              ],
+              1.0,
+              30
+            ],
+            [
+              [
+                "hbm:item.cordite"
+              ],
+              1.0,
+              20
+            ],
+            [
+              [
+                "hbm:item.ballistite"
+              ],
+              1.0,
+              20
+            ],
+            [
+              [
+                "hbm:item.grenade_shell"
+              ],
+              1.0,
+              5
+            ],
+            [
+              [
+                "hbm:item.grenade_shell",
+                1,
+                1
+              ],
+              1.0,
+              5
+            ],
+            [
+              [
+                "hbm:item.grenade_fuze"
+              ],
+              1.0,
+              10
+            ]
+          ]
+        ],
+        "duration": 200,
+        "power": 500,
+        "named": true
+      }
+    },
+    {
+      "file": "_hbmBlastFurnace.json",
+      "recipe": {
+        "name": "blast.meteorSword",
+        "inputItem": [
+          [
+            "dict",
+            "ingotCobalt"
+          ],
+          [
+            "item",
+            "hbm:item.meteorite_sword_hardened"
+          ]
+        ],
+        "outputItem": [
+          [
+            "single",
+            [
+              "hbm:item.meteorite_sword_alloyed"
+            ]
+          ]
+        ],
+        "duration": 1200,
+        "power": 0
+      }
+    },
+    {
+      "file": "_hbmBlastFurnaceLegacy.json",
+      "recipe": {
+        "output": [
+          "hbm:item.meteorite_sword_alloyed"
+        ],
+        "input1": [
+          "item",
+          "hbm:item.meteorite_sword_hardened"
+        ],
+        "input2": [
+          "dictframe",
+          "Cobalt"
+        ],
+        "hidden": true
+      }
+    },
+    {
+      "file": "_hbmBreeder.json",
+      "recipe": {
+        "input": [
+          "item",
+          "hbm:item.meteorite_sword_etched"
+        ],
+        "flux": 1000,
+        "output": [
+          "hbm:item.meteorite_sword_bred"
+        ]
+      }
+    },
+    {
+      "file": "_hbmChemicalPlant.json",
+      "recipe": {
+        "name": "chem.meth",
+        "inputItem": [
+          [
+            "item",
+            "minecraft:wheat"
+          ],
+          [
+            "item",
+            "minecraft:dye",
+            2,
+            3
+          ]
+        ],
+        "inputFluid": [
+          [
+            "LUBRICANT",
+            400
+          ],
+          [
+            "PEROXIDE",
+            500
+          ]
+        ],
+        "outputItem": [
+          [
+            "single",
+            [
+              "hbm:item.chocolate",
+              4
+            ]
+          ]
+        ],
+        "duration": 60,
+        "power": 300
+      }
+    },
+    {
+      "file": "_hbmChemicalPlant.json",
+      "recipe": {
+        "name": "chem.butter",
+        "inputFluid": [
+          [
+            "EMILK",
+            1000
+          ]
+        ],
+        "outputItem": [
+          [
+            "single",
+            [
+              "hbm:item.butter"
+            ]
+          ]
+        ],
+        "duration": 100,
+        "power": 100
+      }
+    },
+    {
+      "file": "_hbmChemicalPlant.json",
+      "recipe": {
+        "name": "chem.strawberryicecream",
+        "inputItem": [
+          [
+            "dict",
+            "foodButter",
+            2
+          ],
+          [
+            "item",
+            "minecraft:packed_ice"
+          ],
+          [
+            "dict",
+            "cropStrawberry",
+            4
+          ]
+        ],
+        "inputFluid": [
+          [
+            "CREAM",
+            1000
+          ]
+        ],
+        "outputItem": [
+          [
+            "single",
+            [
+              "hbm:item.s_cream",
+              4
+            ]
+          ]
+        ],
+        "duration": 150,
+        "power": 100
+      }
+    },
+    {
+      "file": "_hbmChemicalPlant.json",
+      "recipe": {
+        "name": "chem.minmusicecream",
+        "inputItem": [
+          [
+            "dict",
+            "foodButter",
+            4
+          ],
+          [
+            "item",
+            "hbm:tile.minmus_smooth",
+            2
+          ],
+          [
+            "item",
+            "hbm:tile.minmus_stone",
+            2
+          ]
+        ],
+        "inputFluid": [
+          [
+            "CREAM",
+            1000
+          ]
+        ],
+        "outputItem": [
+          [
+            "single",
+            [
+              "hbm:item.min_cream",
+              4
+            ]
+          ]
+        ],
+        "duration": 150,
+        "power": 100
+      }
+    },
+    {
+      "file": "_hbmChemicalPlant.json",
+      "recipe": {
+        "name": "chem.mintslice",
+        "inputItem": [
+          [
+            "item",
+            "hbm:item.billet_menthol",
+            3
+          ],
+          [
+            "item",
+            "hbm:tile.minmus_stone"
+          ],
+          [
+            "item",
+            "minecraft:sugar",
+            6
+          ]
+        ],
+        "inputFluid": [
+          [
+            "MILK",
+            350
+          ]
+        ],
+        "outputItem": [
+          [
+            "single",
+            [
+              "hbm:item.chocolate_mint_billet",
+              3
+            ]
+          ]
+        ],
+        "duration": 50,
+        "power": 100
+      }
+    },
+    {
+      "file": "_hbmCrystallizer.json",
+      "recipe": {
+        "duration": 600,
+        "fluid": [
+          "PEROXIDE",
+          500
+        ],
+        "input": [
+          "item",
+          "hbm:item.meteorite_sword_treated"
+        ],
+        "output": [
+          "hbm:item.meteorite_sword_etched"
+        ],
+        "productivity": 0.0
+      }
+    },
+    {
+      "file": "_hbmIrradiation.json",
+      "recipe": {
+        "input": [
+          "item",
+          "minecraft:mushroom_stew"
+        ],
+        "solidOutput": [
+          "hbm:item.glowing_stew"
+        ],
+        "fusionOnly": false
+      }
+    },
+    {
+      "file": "_hbmLiquefactor.json",
+      "recipe": {
+        "input": [
+          "item",
+          "hbm:item.glyphid_gland_empty"
+        ],
+        "output": [
+          "BIOGAS",
+          2000
+        ]
+      }
+    },
+    {
+      "file": "_hbmPedestal.json",
+      "recipe": {
+        "output": [
+          "hbm:item.gun_light_revolver_dani"
+        ],
+        "input": [
+          null,
+          [
+            "dict",
+            "plateLead"
+          ],
+          null,
+          [
+            "dict",
+            "plateGold"
+          ],
+          [
+            "item",
+            "hbm:item.gun_light_revolver"
+          ],
+          [
+            "dict",
+            "plateGold"
+          ],
+          null,
+          [
+            "dict",
+            "plateLead"
+          ],
+          null
+        ],
+        "extra": "NEW_MOON"
+      }
+    },
+    {
+      "file": "_hbmPedestal.json",
+      "recipe": {
+        "output": [
+          "hbm:item.gun_maresleg_broken"
+        ],
+        "input": [
+          [
+            "item",
+            "hbm:tile.barbed_wire"
+          ],
+          [
+            "dict",
+            "plateWeaponSteel"
+          ],
+          [
+            "item",
+            "hbm:tile.barbed_wire"
+          ],
+          [
+            "dict",
+            "plateWeaponSteel"
+          ],
+          [
+            "item",
+            "hbm:item.gun_maresleg"
+          ],
+          [
+            "dict",
+            "plateWeaponSteel"
+          ],
+          [
+            "item",
+            "hbm:tile.barbed_wire"
+          ],
+          [
+            "dict",
+            "plateWeaponSteel"
+          ],
+          [
+            "item",
+            "hbm:tile.barbed_wire"
+          ]
+        ],
+        "extra": "NONE"
+      }
+    },
+    {
+      "file": "_hbmPedestal.json",
+      "recipe": {
+        "output": [
+          "hbm:item.gun_heavy_revolver_lilmac"
+        ],
+        "input": [
+          null,
+          [
+            "item",
+            "hbm:item.weapon_mod_special",
+            1,
+            1
+          ],
+          null,
+          [
+            "item",
+            "hbm:item.powder_magic"
+          ],
+          [
+            "item",
+            "hbm:item.gun_heavy_revolver"
+          ],
+          [
+            "dict",
+            "plateWeaponSteel"
+          ],
+          null,
+          [
+            "dict",
+            "gripBone"
+          ],
+          [
+            "item",
+            "minecraft:apple",
+            3
+          ]
+        ],
+        "extra": "NONE"
+      }
+    },
+    {
+      "file": "_hbmPedestal.json",
+      "recipe": {
+        "output": [
+          "hbm:item.gun_heavy_revolver_protege"
+        ],
+        "input": [
+          [
+            "item",
+            "hbm:tile.dungeon_chain",
+            16
+          ],
+          [
+            "dict",
+            "gemCinnabar"
+          ],
+          [
+            "item",
+            "hbm:tile.dungeon_chain",
+            16
+          ],
+          [
+            "item",
+            "hbm:item.scrap_nuclear"
+          ],
+          [
+            "item",
+            "hbm:item.gun_heavy_revolver"
+          ],
+          [
+            "item",
+            "hbm:item.scrap_nuclear"
+          ],
+          [
+            "item",
+            "hbm:tile.dungeon_chain",
+            16
+          ],
+          [
+            "dict",
+            "gemCinnabar"
+          ],
+          [
+            "item",
+            "hbm:tile.dungeon_chain",
+            16
+          ]
+        ],
+        "extra": "NONE"
+      }
+    },
+    {
+      "file": "_hbmPedestal.json",
+      "recipe": {
+        "output": [
+          "hbm:item.gun_amat_subtlety"
+        ],
+        "input": [
+          [
+            "dict",
+            "ingotStarmetal"
+          ],
+          [
+            "dict",
+            "plateTripleAluminum"
+          ],
+          [
+            "dict",
+            "ingotStarmetal"
+          ],
+          [
+            "dict",
+            "plateTripleAluminum"
+          ],
+          [
+            "item",
+            "hbm:item.gun_amat"
+          ],
+          [
+            "dict",
+            "plateTripleAluminum"
+          ],
+          [
+            "dict",
+            "ingotStarmetal"
+          ],
+          [
+            "dict",
+            "plateTripleAluminum"
+          ],
+          [
+            "dict",
+            "ingotStarmetal"
+          ]
+        ],
+        "extra": "NONE"
+      }
+    },
+    {
+      "file": "_hbmPedestal.json",
+      "recipe": {
+        "output": [
+          "hbm:item.gun_amat_penance"
+        ],
+        "input": [
+          [
+            "dict",
+            "ingotStarmetal"
+          ],
+          [
+            "dict",
+            "plateTripleDuraSteel"
+          ],
+          [
+            "dict",
+            "ingotStarmetal"
+          ],
+          [
+            "item",
+            "hbm:item.weapon_mod_special"
+          ],
+          [
+            "item",
+            "hbm:item.gun_amat"
+          ],
+          [
+            "item",
+            "hbm:item.weapon_mod_special",
+            1,
+            9
+          ],
+          [
+            "dict",
+            "ingotStarmetal"
+          ],
+          [
+            "dict",
+            "plateTripleDuraSteel"
+          ],
+          [
+            "dict",
+            "ingotStarmetal"
+          ]
+        ],
+        "extra": "NONE"
+      }
+    },
+    {
+      "file": "_hbmPedestal.json",
+      "recipe": {
+        "output": [
+          "hbm:item.gun_flamer_daybreaker"
+        ],
+        "input": [
+          [
+            "dict",
+            "plateTripleGold"
+          ],
+          [
+            "item",
+            "hbm:item.canned_conserve",
+            1,
+            5
+          ],
+          [
+            "dict",
+            "plateTripleGold"
+          ],
+          [
+            "dict",
+            "ingotWhitePhosphorus"
+          ],
+          [
+            "item",
+            "hbm:item.gun_flamer"
+          ],
+          [
+            "dict",
+            "ingotWhitePhosphorus"
+          ],
+          [
+            "dict",
+            "plateTripleGold"
+          ],
+          [
+            "item",
+            "hbm:item.stick_dynamite"
+          ],
+          [
+            "dict",
+            "plateTripleGold"
+          ]
+        ],
+        "extra": "SUN"
+      }
+    },
+    {
+      "file": "_hbmPedestal.json",
+      "recipe": {
+        "output": [
+          "hbm:item.gun_autoshotgun_sexy"
+        ],
+        "input": [
+          [
+            "item",
+            "hbm:item.bolt_spike",
+            16
+          ],
+          [
+            "item",
+            "hbm:item.wild_p"
+          ],
+          [
+            "item",
+            "hbm:item.bolt_spike",
+            16
+          ],
+          [
+            "item",
+            "hbm:item.card_qos"
+          ],
+          [
+            "item",
+            "hbm:item.gun_autoshotgun"
+          ],
+          [
+            "item",
+            "hbm:item.card_aos"
+          ],
+          [
+            "item",
+            "hbm:item.bolt_spike",
+            16
+          ],
+          [
+            "dict",
+            "ingotStarmetal",
+            16
+          ],
+          [
+            "item",
+            "hbm:item.bolt_spike",
+            16
+          ]
+        ],
+        "extra": "NONE"
+      }
+    },
+    {
+      "file": "_hbmPedestal.json",
+      "recipe": {
+        "output": [
+          "hbm:item.gun_minigun_lacunae"
+        ],
+        "input": [
+          null,
+          [
+            "item",
+            "hbm:item.powder_magic",
+            4
+          ],
+          null,
+          [
+            "item",
+            "hbm:item.item_secret",
+            4,
+            2
+          ],
+          [
+            "item",
+            "hbm:item.gun_minigun"
+          ],
+          [
+            "item",
+            "hbm:item.item_secret",
+            4,
+            2
+          ],
+          null,
+          [
+            "item",
+            "hbm:item.powder_magic",
+            4
+          ],
+          null
+        ],
+        "extra": "FULL_MOON"
+      }
+    },
+    {
+      "file": "_hbmPedestal.json",
+      "recipe": {
+        "output": [
+          "hbm:item.gun_laser_pistol_morning_glory"
+        ],
+        "input": [
+          null,
+          [
+            "item",
+            "hbm:item.morning_glory"
+          ],
+          null,
+          [
+            "item",
+            "hbm:item.item_secret",
+            2,
+            2
+          ],
+          [
+            "item",
+            "hbm:item.gun_laser_pistol"
+          ],
+          [
+            "item",
+            "hbm:item.item_secret",
+            2,
+            2
+          ],
+          null,
+          [
+            "dict",
+            "gemEmerald",
+            16
+          ],
+          null
+        ],
+        "extra": "NONE"
+      }
+    },
+    {
+      "file": "_hbmPedestal.json",
+      "recipe": {
+        "output": [
+          "hbm:item.gun_folly"
+        ],
+        "input": [
+          [
+            "item",
+            "hbm:item.item_secret",
+            4,
+            4
+          ],
+          [
+            "item",
+            "hbm:item.item_secret",
+            2,
+            1
+          ],
+          [
+            "item",
+            "hbm:item.item_secret",
+            4,
+            4
+          ],
+          [
+            "dict",
+            "ingotBSCCO",
+            16
+          ],
+          [
+            "dict",
+            "blockStarmetal",
+            64
+          ],
+          [
+            "dict",
+            "ingotBSCCO",
+            16
+          ],
+          [
+            "item",
+            "hbm:item.item_secret",
+            4,
+            4
+          ],
+          [
+            "item",
+            "hbm:item.item_secret",
+            2,
+            1
+          ],
+          [
+            "item",
+            "hbm:item.item_secret",
+            4,
+            4
+          ]
+        ],
+        "extra": "FULL_MOON",
+        "set": 1
+      }
+    },
+    {
+      "file": "_hbmPedestal.json",
+      "recipe": {
+        "output": [
+          "hbm:item.gun_aberrator"
+        ],
+        "input": [
+          null,
+          [
+            "item",
+            "hbm:item.item_secret",
+            1,
+            3
+          ],
+          null,
+          [
+            "item",
+            "hbm:item.item_secret",
+            1,
+            3
+          ],
+          [
+            "dict",
+            "gunMechanismSaturnite",
+            4
+          ],
+          [
+            "item",
+            "hbm:item.item_secret",
+            1,
+            3
+          ],
+          null,
+          [
+            "item",
+            "hbm:item.item_secret",
+            1,
+            3
+          ],
+          null
+        ],
+        "extra": "NONE",
+        "set": 1
+      }
+    },
+    {
+      "file": "_hbmPedestal.json",
+      "recipe": {
+        "output": [
+          "hbm:item.gun_aberrator_eott"
+        ],
+        "input": [
+          [
+            "item",
+            "hbm:item.item_secret",
+            1,
+            3
+          ],
+          [
+            "item",
+            "hbm:item.item_secret",
+            1,
+            3
+          ],
+          [
+            "item",
+            "hbm:item.item_secret",
+            1,
+            3
+          ],
+          [
+            "item",
+            "hbm:item.item_secret",
+            1,
+            3
+          ],
+          [
+            "dict",
+            "gunMechanismSaturnite",
+            16
+          ],
+          [
+            "item",
+            "hbm:item.item_secret",
+            1,
+            3
+          ],
+          [
+            "item",
+            "hbm:item.item_secret",
+            1,
+            3
+          ],
+          [
+            "item",
+            "hbm:item.item_secret",
+            1,
+            3
+          ],
+          [
+            "item",
+            "hbm:item.item_secret",
+            1,
+            3
+          ]
+        ],
+        "extra": "GOOD_KARMA",
+        "set": 1
+      }
+    },
+    {
+      "file": "_hbmPlasmaForge.json",
+      "recipe": {
+        "name": "plsm.schrabhammer",
+        "inputItem": [
+          [
+            "dict",
+            "blockSchrabidium",
+            35
+          ],
+          [
+            "item",
+            "hbm:item.billet_yharonite",
+            64
+          ],
+          [
+            "item",
+            "hbm:item.billet_yharonite",
+            64
+          ],
+          [
+            "item",
+            "hbm:item.coin_ufo"
+          ],
+          [
+            "item",
+            "hbm:item.fragment_meteorite",
+            64
+          ],
+          [
+            "item",
+            "hbm:item.fragment_meteorite",
+            64
+          ],
+          [
+            "item",
+            "hbm:item.fragment_meteorite",
+            64
+          ],
+          [
+            "item",
+            "hbm:item.fragment_meteorite",
+            64
+          ],
+          [
+            "item",
+            "hbm:item.fragment_meteorite",
+            64
+          ],
+          [
+            "item",
+            "hbm:item.fragment_meteorite",
+            64
+          ],
+          [
+            "item",
+            "hbm:item.fragment_meteorite",
+            64
+          ],
+          [
+            "item",
+            "hbm:item.fragment_meteorite",
+            64
+          ]
+        ],
+        "outputItem": [
+          [
+            "single",
+            [
+              "hbm:item.schrabidium_hammer"
+            ]
+          ]
+        ],
+        "duration": 6000,
+        "power": 10000000,
+        "ignitionTemp": 25000000
+      }
+    },
+    {
+      "file": "_hbmPlasmaForge.json",
+      "recipe": {
+        "name": "plsm.gerald",
+        "inputItem": [
+          [
+            "dict",
+            "plateTripleSchrabidate",
+            64
+          ],
+          [
+            "dict",
+            "plateTripleSchrabidate",
+            64
+          ],
+          [
+            "dict",
+            "wireDenseBSCCO",
+            64
+          ],
+          [
+            "dict",
+            "wireDenseBSCCO",
+            64
+          ],
+          [
+            "item",
+            "hbm:tile.det_nuke",
+            64
+          ],
+          [
+            "item",
+            "hbm:item.part_generic",
+            64,
+            4
+          ],
+          [
+            "item",
+            "hbm:item.part_generic",
+            64,
+            4
+          ],
+          [
+            "item",
+            "hbm:item.part_generic",
+            64,
+            4
+          ],
+          [
+            "item",
+            "hbm:item.part_generic",
+            64,
+            4
+          ],
+          [
+            "item",
+            "hbm:item.circuit",
+            64,
+            20
+          ],
+          [
+            "item",
+            "hbm:item.circuit",
+            12,
+            30
+          ],
+          [
+            "item",
+            "hbm:item.drive",
+            16,
+            9
+          ]
+        ],
+        "outputItem": [
+          [
+            "single",
+            [
+              "hbm:item.sat_gerald"
+            ]
+          ]
+        ],
+        "duration": 12000,
+        "power": 50000000,
+        "ignitionTemp": 25000000
+      }
+    },
+    {
+      "file": "_hbmPrecisionAssembly.json",
+      "recipe": {
+        "name": "precass.rpahelmet",
+        "inputItem": [
+          [
+            "item",
+            "hbm:item.plate_armor_ajr",
+            12
+          ],
+          [
+            "dict",
+            "plateTripleSaturnite",
+            4
+          ],
+          [
+            "item",
+            "hbm:item.circuit",
+            4,
+            10
+          ],
+          [
+            "item",
+            "hbm:item.plate_kevlar",
+            8
+          ]
+        ],
+        "outputItem": [
+          [
+            "single",
+            [
+              "hbm:item.rpa_helmet"
+            ]
+          ]
+        ],
+        "duration": 3600,
+        "power": 25000,
+        "blueprintpool": "discover..rpa"
+      }
+    },
+    {
+      "file": "_hbmPrecisionAssembly.json",
+      "recipe": {
+        "name": "precass.rpaplate",
+        "inputItem": [
+          [
+            "item",
+            "hbm:item.plate_armor_ajr",
+            24
+          ],
+          [
+            "dict",
+            "plateTripleSaturnite",
+            8
+          ],
+          [
+            "dict",
+            "gunMechanismSaturnite",
+            8
+          ],
+          [
+            "item",
+            "hbm:item.motor_desh",
+            8
+          ],
+          [
+            "item",
+            "hbm:item.plate_kevlar",
+            16
+          ],
+          [
+            "item",
+            "hbm:item.parts_legendary",
+            1,
+            1
+          ]
+        ],
+        "outputItem": [
+          [
+            "single",
+            [
+              "hbm:item.rpa_plate"
+            ]
+          ]
+        ],
+        "duration": 3600,
+        "power": 25000,
+        "blueprintpool": "discover..rpa"
+      }
+    },
+    {
+      "file": "_hbmPrecisionAssembly.json",
+      "recipe": {
+        "name": "precass.rpalegs",
+        "inputItem": [
+          [
+            "item",
+            "hbm:item.plate_armor_ajr",
+            24
+          ],
+          [
+            "dict",
+            "plateTripleSaturnite",
+            8
+          ],
+          [
+            "item",
+            "hbm:item.motor_desh",
+            8
+          ],
+          [
+            "item",
+            "hbm:item.plate_kevlar",
+            16
+          ]
+        ],
+        "outputItem": [
+          [
+            "single",
+            [
+              "hbm:item.rpa_legs"
+            ]
+          ]
+        ],
+        "duration": 3600,
+        "power": 25000,
+        "blueprintpool": "discover..rpa"
+      }
+    },
+    {
+      "file": "_hbmPrecisionAssembly.json",
+      "recipe": {
+        "name": "precass.rpaboots",
+        "inputItem": [
+          [
+            "item",
+            "hbm:item.plate_armor_ajr",
+            12
+          ],
+          [
+            "dict",
+            "plateTripleSaturnite",
+            4
+          ],
+          [
+            "item",
+            "hbm:item.plate_kevlar",
+            8
+          ]
+        ],
+        "outputItem": [
+          [
+            "single",
+            [
+              "hbm:item.rpa_boots"
+            ]
+          ]
+        ],
+        "duration": 3600,
+        "power": 25000,
+        "blueprintpool": "discover..rpa"
+      }
+    },
+    {
+      "file": "_hbmPress.json",
+      "recipe": {
+        "input": [
+          "item",
+          "hbm:item.meteorite_sword_reforged"
+        ],
+        "stamp": "flat",
+        "output": [
+          "hbm:item.meteorite_sword_hardened"
+        ]
+      }
+    }
+  ],
+  "loot_defaults_identical": true
+}

@@ -1,0 +1,5753 @@
+[
+  {
+    "family": "bunker",
+    "capture": "bunker.nbt",
+    "registry": "hbm:item.ammo_container",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2004/tile/Items/4",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2535/tile/Items/1",
+    "count": 5
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker.nbt",
+    "registry": "hbm:item.bomb_caller",
+    "metadata": 0,
+    "selected_meta": false,
+    "path": "/cells/2877/tile/Items/2",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/5068/tile/Items/0",
+    "count": 6
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/5068/tile/Items/2",
+    "count": 5
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/5074/tile/Items/2",
+    "count": 6
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/5075/tile/Items/0",
+    "count": 4
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/5075/tile/Items/2",
+    "count": 7
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker.nbt",
+    "registry": "hbm:item.ammo_container",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/4/rolled/4",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/5/rolled/1",
+    "count": 5
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker.nbt",
+    "registry": "hbm:item.bomb_caller",
+    "metadata": 0,
+    "selected_meta": false,
+    "path": "/inventoryLoot/6/rolled/2",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/7/rolled/0",
+    "count": 6
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/7/rolled/2",
+    "count": 5
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/9/rolled/2",
+    "count": 6
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/10/rolled/0",
+    "count": 4
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/10/rolled/2",
+    "count": 7
+  },
+  {
+    "family": "features",
+    "capture": "features.nbt",
+    "registry": "hbm:item.can_creature",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/261/tile/items/1",
+    "count": 2
+  },
+  {
+    "family": "features",
+    "capture": "features.nbt",
+    "registry": "hbm:item.coffee",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/261/tile/items/2",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features.nbt",
+    "registry": "hbm:item.can_creature",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/0/rolled/1",
+    "count": 2
+  },
+  {
+    "family": "features",
+    "capture": "features.nbt",
+    "registry": "hbm:item.coffee",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/0/rolled/2",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r0.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 51,
+    "selected_meta": false,
+    "path": "/cells/1217/tile/items/0",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r0.nbt",
+    "registry": "hbm:item.ammo_container",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/1229/tile/items/5",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r0.nbt",
+    "registry": "hbm:item.armor_polish",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/1241/tile/items/1",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r0.nbt",
+    "registry": "hbm:item.bottle_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/5200/tile/items/0",
+    "count": 2
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r0.nbt",
+    "registry": "hbm:item.grenade_universal",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/5200/tile/items/1",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r0.nbt",
+    "registry": "hbm:item.bottle_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/5200/tile/items/2",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r0.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 58,
+    "selected_meta": false,
+    "path": "/cells/8300/tile/items/1",
+    "count": 3
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r0.nbt",
+    "registry": "hbm:item.bottle_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/8300/tile/items/3",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r0.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/13265/tile/items/2",
+    "count": 12
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r0.nbt",
+    "registry": "hbm:item.coffee",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/13271/tile/items/2",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r0.nbt",
+    "registry": "hbm:item.coffee",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/13271/tile/items/3",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r0.nbt",
+    "registry": "hbm:item.can_creature",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/13271/tile/items/4",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r0.nbt",
+    "registry": "hbm:item.can_smart",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/13271/tile/items/6",
+    "count": 3
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r0.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 53,
+    "selected_meta": true,
+    "path": "/cells/15242/tile/Items/0",
+    "count": 5
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r0.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 52,
+    "selected_meta": false,
+    "path": "/cells/15242/tile/Items/2",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r0.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 6,
+    "selected_meta": true,
+    "path": "/cells/15242/tile/Items/4",
+    "count": 9
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r0.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 51,
+    "selected_meta": false,
+    "path": "/inventoryLoot/1/rolled/0",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r0.nbt",
+    "registry": "hbm:item.ammo_container",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/2/rolled/5",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r0.nbt",
+    "registry": "hbm:item.armor_polish",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/3/rolled/1",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r0.nbt",
+    "registry": "hbm:item.bottle_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/8/rolled/0",
+    "count": 2
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r0.nbt",
+    "registry": "hbm:item.grenade_universal",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/8/rolled/1",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r0.nbt",
+    "registry": "hbm:item.bottle_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/8/rolled/2",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r0.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 58,
+    "selected_meta": false,
+    "path": "/inventoryLoot/11/rolled/1",
+    "count": 3
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r0.nbt",
+    "registry": "hbm:item.bottle_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/11/rolled/3",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r0.nbt",
+    "registry": "hbm:item.coffee",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/20/rolled/2",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r0.nbt",
+    "registry": "hbm:item.coffee",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/20/rolled/3",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r0.nbt",
+    "registry": "hbm:item.can_creature",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/20/rolled/4",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r0.nbt",
+    "registry": "hbm:item.can_smart",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/20/rolled/6",
+    "count": 3
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r0.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/22/rolled/2",
+    "count": 12
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r0.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 53,
+    "selected_meta": true,
+    "path": "/inventoryLoot/23/rolled/0",
+    "count": 5
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r0.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 52,
+    "selected_meta": false,
+    "path": "/inventoryLoot/23/rolled/2",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r0.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 6,
+    "selected_meta": true,
+    "path": "/inventoryLoot/23/rolled/4",
+    "count": 9
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r1.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2268/tile/items/5",
+    "count": 4
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r1.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 51,
+    "selected_meta": false,
+    "path": "/cells/2272/tile/items/1",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r1.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2280/tile/items/1",
+    "count": 7
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r1.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2280/tile/items/3",
+    "count": 4
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r1.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2280/tile/items/4",
+    "count": 2
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r1.nbt",
+    "registry": "hbm:item.coffee",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/6019/tile/items/5",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r1.nbt",
+    "registry": "hbm:item.bottle_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/9577/tile/items/3",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r1.nbt",
+    "registry": "hbm:item.gun_panzerschreck",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/9577/tile/items/5",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r1.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/11465/tile/items/0",
+    "count": 12
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r1.nbt",
+    "registry": "hbm:item.grenade_universal",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/11477/tile/items/0",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r1.nbt",
+    "registry": "hbm:item.grenade_universal",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/11477/tile/items/1",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r1.nbt",
+    "registry": "hbm:item.grenade_universal",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/11477/tile/items/2",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r1.nbt",
+    "registry": "hbm:item.grenade_universal",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/13313/tile/Items/0",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r1.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 6,
+    "selected_meta": true,
+    "path": "/cells/13313/tile/Items/1",
+    "count": 8
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r1.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 6,
+    "selected_meta": true,
+    "path": "/cells/13313/tile/Items/2",
+    "count": 23
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r1.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/2/rolled/5",
+    "count": 4
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r1.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 51,
+    "selected_meta": false,
+    "path": "/inventoryLoot/3/rolled/1",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r1.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/5/rolled/1",
+    "count": 7
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r1.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/5/rolled/3",
+    "count": 4
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r1.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/5/rolled/4",
+    "count": 2
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r1.nbt",
+    "registry": "hbm:item.coffee",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/11/rolled/5",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r1.nbt",
+    "registry": "hbm:item.bottle_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/16/rolled/3",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r1.nbt",
+    "registry": "hbm:item.gun_panzerschreck",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/16/rolled/5",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r1.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/19/rolled/0",
+    "count": 12
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r1.nbt",
+    "registry": "hbm:item.grenade_universal",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/20/rolled/0",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r1.nbt",
+    "registry": "hbm:item.grenade_universal",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/20/rolled/1",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r1.nbt",
+    "registry": "hbm:item.grenade_universal",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/20/rolled/2",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r1.nbt",
+    "registry": "hbm:item.grenade_universal",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/21/rolled/0",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r1.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 6,
+    "selected_meta": true,
+    "path": "/inventoryLoot/21/rolled/1",
+    "count": 8
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r1.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 6,
+    "selected_meta": true,
+    "path": "/inventoryLoot/21/rolled/2",
+    "count": 23
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r2.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 22,
+    "selected_meta": true,
+    "path": "/cells/1578/tile/items/0",
+    "count": 62
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r2.nbt",
+    "registry": "hbm:item.gun_am180",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/1578/tile/items/1",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r2.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 53,
+    "selected_meta": true,
+    "path": "/cells/4047/tile/Items/0",
+    "count": 3
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r2.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 51,
+    "selected_meta": false,
+    "path": "/cells/6227/tile/items/1",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r2.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/11805/tile/items/0",
+    "count": 2
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r2.nbt",
+    "registry": "hbm:item.armor_polish",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/11805/tile/items/1",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r2.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 22,
+    "selected_meta": true,
+    "path": "/inventoryLoot/2/rolled/0",
+    "count": 62
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r2.nbt",
+    "registry": "hbm:item.gun_am180",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/2/rolled/1",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r2.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 53,
+    "selected_meta": true,
+    "path": "/inventoryLoot/3/rolled/0",
+    "count": 3
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r2.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 51,
+    "selected_meta": false,
+    "path": "/inventoryLoot/15/rolled/1",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r2.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/19/rolled/0",
+    "count": 2
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r2.nbt",
+    "registry": "hbm:item.armor_polish",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/19/rolled/1",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r3.nbt",
+    "registry": "hbm:item.gun_am180",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2385/tile/items/2",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r3.nbt",
+    "registry": "hbm:item.gun_panzerschreck",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/9502/tile/items/1",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r3.nbt",
+    "registry": "hbm:item.gun_double_barrel",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/9502/tile/items/3",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r3.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 51,
+    "selected_meta": false,
+    "path": "/cells/9502/tile/items/4",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r3.nbt",
+    "registry": "hbm:item.can_creature",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/10506/tile/items/2",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r3.nbt",
+    "registry": "hbm:item.can_creature",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/10506/tile/items/3",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r3.nbt",
+    "registry": "hbm:item.coffee",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/10506/tile/items/5",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r3.nbt",
+    "registry": "hbm:item.ammo_container",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/13904/tile/items/0",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r3.nbt",
+    "registry": "hbm:item.grenade_universal",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/13916/tile/items/1",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r3.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/14906/tile/items/0",
+    "count": 2
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r3.nbt",
+    "registry": "hbm:item.gun_am180",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/2/rolled/2",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r3.nbt",
+    "registry": "hbm:item.gun_panzerschreck",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/8/rolled/1",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r3.nbt",
+    "registry": "hbm:item.gun_double_barrel",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/8/rolled/3",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r3.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 51,
+    "selected_meta": false,
+    "path": "/inventoryLoot/8/rolled/4",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r3.nbt",
+    "registry": "hbm:item.can_creature",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/15/rolled/2",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r3.nbt",
+    "registry": "hbm:item.can_creature",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/15/rolled/3",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r3.nbt",
+    "registry": "hbm:item.coffee",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/15/rolled/5",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r3.nbt",
+    "registry": "hbm:item.ammo_container",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/19/rolled/0",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r3.nbt",
+    "registry": "hbm:item.grenade_universal",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/20/rolled/1",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-silo-r3.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/24/rolled/0",
+    "count": 2
+  },
+  {
+    "family": "features",
+    "capture": "features-NTMHouse1-r0.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 41,
+    "selected_meta": true,
+    "path": "/cells/82/tile/Items/0",
+    "count": 6
+  },
+  {
+    "family": "features",
+    "capture": "features-NTMHouse1-r0.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 41,
+    "selected_meta": true,
+    "path": "/inventoryLoot/0/rolled/0",
+    "count": 6
+  },
+  {
+    "family": "features",
+    "capture": "features-NTMHouse1-r1.nbt",
+    "registry": "hbm:item.bottle_cherry",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/85/tile/Items/6",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-NTMHouse1-r1.nbt",
+    "registry": "hbm:item.bottle_cherry",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/0/rolled/6",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-NTMHouse2-r0.nbt",
+    "registry": "hbm:item.bottle_cherry",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/513/tile/Items/3",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-NTMHouse2-r0.nbt",
+    "registry": "hbm:item.bottle_cherry",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/513/tile/Items/4",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-NTMHouse2-r0.nbt",
+    "registry": "hbm:item.bottle_cherry",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/1/rolled/3",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-NTMHouse2-r0.nbt",
+    "registry": "hbm:item.bottle_cherry",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/1/rolled/4",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-NTMLab1-r0.nbt",
+    "registry": "hbm:item.syringe_metal_psycho",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/113/tile/item0",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-NTMLab1-r0.nbt",
+    "registry": "hbm:item.syringe_metal_psycho",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/113/tile/item2",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-NTMLab1-r0.nbt",
+    "registry": "hbm:item.syringe_metal_stimpak",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/113/tile/item1",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-NTMLab1-r0.nbt",
+    "registry": "hbm:item.syringe_metal_stimpak",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/113/tile/item3",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-NTMLab1-r0.nbt",
+    "registry": "hbm:item.bottle_cherry",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/207/tile/items/1",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-NTMLab1-r0.nbt",
+    "registry": "hbm:item.bottle_cherry",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/0/rolled/1",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-NTMLab1-r1.nbt",
+    "registry": "hbm:item.syringe_metal_medx",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/113/tile/item0",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-NTMLab1-r1.nbt",
+    "registry": "hbm:item.syringe_metal_stimpak",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/113/tile/item2",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-NTMLab1-r1.nbt",
+    "registry": "hbm:item.syringe_metal_psycho",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/113/tile/item1",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-NTMLab1-r1.nbt",
+    "registry": "hbm:item.iv_blood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/113/tile/item4",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-NTMLab1-r1.nbt",
+    "registry": "hbm:item.syringe_metal_stimpak",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/113/tile/item3",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-NTMLab1-r1.nbt",
+    "registry": "hbm:item.gun_light_revolver",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/207/tile/items/2",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-NTMLab1-r1.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 5,
+    "selected_meta": true,
+    "path": "/cells/207/tile/items/5",
+    "count": 4
+  },
+  {
+    "family": "features",
+    "capture": "features-NTMLab1-r1.nbt",
+    "registry": "hbm:item.gun_light_revolver",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/0/rolled/2",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-NTMLab1-r1.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 5,
+    "selected_meta": true,
+    "path": "/inventoryLoot/0/rolled/5",
+    "count": 4
+  },
+  {
+    "family": "features",
+    "capture": "features-NTMLab1-r2.nbt",
+    "registry": "hbm:item.syringe_metal_stimpak",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/113/tile/item0",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-NTMLab1-r2.nbt",
+    "registry": "hbm:item.syringe_metal_medx",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/113/tile/item2",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-NTMLab1-r2.nbt",
+    "registry": "hbm:item.syringe_metal_medx",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/113/tile/item1",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-NTMLab1-r2.nbt",
+    "registry": "hbm:item.syringe_metal_stimpak",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/113/tile/item3",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-NTMLab1-r2.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 41,
+    "selected_meta": true,
+    "path": "/cells/207/tile/items/0",
+    "count": 6
+  },
+  {
+    "family": "features",
+    "capture": "features-NTMLab1-r2.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 41,
+    "selected_meta": true,
+    "path": "/inventoryLoot/0/rolled/0",
+    "count": 6
+  },
+  {
+    "family": "features",
+    "capture": "features-NTMLab1-r3.nbt",
+    "registry": "hbm:item.syringe_metal_psycho",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/113/tile/item0",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-NTMLab1-r3.nbt",
+    "registry": "hbm:item.syringe_metal_medx",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/113/tile/item2",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-NTMLab1-r3.nbt",
+    "registry": "hbm:item.syringe_metal_stimpak",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/113/tile/item1",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-NTMLab1-r3.nbt",
+    "registry": "hbm:item.syringe_metal_stimpak",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/113/tile/item3",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-NTMLab1-r3.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 5,
+    "selected_meta": true,
+    "path": "/cells/207/tile/items/4",
+    "count": 4
+  },
+  {
+    "family": "features",
+    "capture": "features-NTMLab1-r3.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 5,
+    "selected_meta": true,
+    "path": "/inventoryLoot/0/rolled/4",
+    "count": 4
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOffice-r1.nbt",
+    "registry": "hbm:item.coffee",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/204/tile/items/3",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOffice-r1.nbt",
+    "registry": "hbm:item.coffee",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/0/rolled/3",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOffice-r2.nbt",
+    "registry": "hbm:item.coffee",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/204/tile/items/3",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOffice-r2.nbt",
+    "registry": "hbm:item.coffee",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/0/rolled/3",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r0.nbt",
+    "registry": "hbm:item.syringe_metal_medx",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/9/tile/item0",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r0.nbt",
+    "registry": "hbm:item.syringe_metal_medx",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/9/tile/item2",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r0.nbt",
+    "registry": "hbm:item.syringe_metal_stimpak",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/9/tile/item1",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r0.nbt",
+    "registry": "hbm:item.syringe_metal_medx",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/9/tile/item3",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r0.nbt",
+    "registry": "hbm:item.can_mrsugar",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/32/tile/items/2",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r0.nbt",
+    "registry": "hbm:item.can_smart",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/32/tile/items/3",
+    "count": 3
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r0.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/68/tile/items/2",
+    "count": 8
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r0.nbt",
+    "registry": "hbm:item.grenade_extra",
+    "metadata": 3,
+    "selected_meta": true,
+    "path": "/cells/105/tile/items/3",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r0.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 52,
+    "selected_meta": false,
+    "path": "/cells/105/tile/items/4",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r0.nbt",
+    "registry": "hbm:item.cap_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2090/tile/item3",
+    "count": 4
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r0.nbt",
+    "registry": "hbm:item.cap_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2090/tile/item35",
+    "count": 4
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r0.nbt",
+    "registry": "hbm:item.cap_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2090/tile/item32",
+    "count": 4
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r0.nbt",
+    "registry": "hbm:item.cap_sparkle",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2090/tile/item30",
+    "count": 4
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r0.nbt",
+    "registry": "hbm:item.cap_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2090/tile/item29",
+    "count": 4
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r0.nbt",
+    "registry": "hbm:item.cap_sparkle",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2090/tile/item51",
+    "count": 4
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r0.nbt",
+    "registry": "hbm:item.cap_sparkle",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2090/tile/item49",
+    "count": 4
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r0.nbt",
+    "registry": "hbm:item.cap_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2090/tile/item44",
+    "count": 4
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r0.nbt",
+    "registry": "hbm:item.cap_sparkle",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2090/tile/item18",
+    "count": 4
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r0.nbt",
+    "registry": "hbm:item.can_mrsugar",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/7/rolled/2",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r0.nbt",
+    "registry": "hbm:item.can_smart",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/7/rolled/3",
+    "count": 3
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r0.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/8/rolled/2",
+    "count": 8
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r0.nbt",
+    "registry": "hbm:item.grenade_extra",
+    "metadata": 3,
+    "selected_meta": true,
+    "path": "/inventoryLoot/10/rolled/3",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r0.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 52,
+    "selected_meta": false,
+    "path": "/inventoryLoot/10/rolled/4",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r1.nbt",
+    "registry": "hbm:item.syringe_metal_stimpak",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/9/tile/item0",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r1.nbt",
+    "registry": "hbm:item.syringe_metal_stimpak",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/9/tile/item2",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r1.nbt",
+    "registry": "hbm:item.syringe_metal_medx",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/9/tile/item1",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r1.nbt",
+    "registry": "hbm:item.iv_blood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/9/tile/item4",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r1.nbt",
+    "registry": "hbm:item.syringe_metal_medx",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/9/tile/item3",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r1.nbt",
+    "registry": "hbm:item.cap_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2074/tile/item31",
+    "count": 4
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r1.nbt",
+    "registry": "hbm:item.cap_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2074/tile/item27",
+    "count": 4
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r1.nbt",
+    "registry": "hbm:item.cap_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2074/tile/item25",
+    "count": 4
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r1.nbt",
+    "registry": "hbm:item.cap_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2074/tile/item41",
+    "count": 4
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r1.nbt",
+    "registry": "hbm:item.cap_sparkle",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2074/tile/item15",
+    "count": 4
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r1.nbt",
+    "registry": "hbm:item.cap_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2074/tile/item10",
+    "count": 4
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r2.nbt",
+    "registry": "hbm:item.syringe_metal_stimpak",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/9/tile/item0",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r2.nbt",
+    "registry": "hbm:item.syringe_metal_medx",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/9/tile/item2",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r2.nbt",
+    "registry": "hbm:item.syringe_metal_stimpak",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/9/tile/item1",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r2.nbt",
+    "registry": "hbm:item.syringe_metal_stimpak",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/9/tile/item3",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r2.nbt",
+    "registry": "hbm:item.coffee",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/32/tile/items/0",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r2.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 52,
+    "selected_meta": false,
+    "path": "/cells/105/tile/items/2",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r2.nbt",
+    "registry": "hbm:item.gun_panzerschreck",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/105/tile/items/3",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r2.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 52,
+    "selected_meta": false,
+    "path": "/cells/105/tile/items/4",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r2.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/437/tile/items/3",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r2.nbt",
+    "registry": "hbm:item.cap_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2081/tile/item33",
+    "count": 4
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r2.nbt",
+    "registry": "hbm:item.cap_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2081/tile/item31",
+    "count": 4
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r2.nbt",
+    "registry": "hbm:item.cap_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2081/tile/item29",
+    "count": 4
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r2.nbt",
+    "registry": "hbm:item.cap_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2081/tile/item28",
+    "count": 4
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r2.nbt",
+    "registry": "hbm:item.cap_sparkle",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2081/tile/item20",
+    "count": 4
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r2.nbt",
+    "registry": "hbm:item.cap_sparkle",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2081/tile/item9",
+    "count": 4
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r2.nbt",
+    "registry": "hbm:item.cap_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2081/tile/item3",
+    "count": 4
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r2.nbt",
+    "registry": "hbm:item.cap_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2081/tile/item5",
+    "count": 4
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r2.nbt",
+    "registry": "hbm:item.cap_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2081/tile/item2",
+    "count": 4
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r2.nbt",
+    "registry": "hbm:item.cap_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2081/tile/item13",
+    "count": 4
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r2.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/2/rolled/3",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r2.nbt",
+    "registry": "hbm:item.coffee",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/7/rolled/0",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r2.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 52,
+    "selected_meta": false,
+    "path": "/inventoryLoot/10/rolled/2",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r2.nbt",
+    "registry": "hbm:item.gun_panzerschreck",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/10/rolled/3",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r2.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 52,
+    "selected_meta": false,
+    "path": "/inventoryLoot/10/rolled/4",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r3.nbt",
+    "registry": "hbm:item.syringe_metal_stimpak",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/9/tile/item0",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r3.nbt",
+    "registry": "hbm:item.syringe_metal_psycho",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/9/tile/item2",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r3.nbt",
+    "registry": "hbm:item.syringe_metal_medx",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/9/tile/item1",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r3.nbt",
+    "registry": "hbm:item.iv_blood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/9/tile/item4",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r3.nbt",
+    "registry": "hbm:item.syringe_metal_stimpak",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/9/tile/item3",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r3.nbt",
+    "registry": "hbm:item.coffee",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/32/tile/items/1",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r3.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/68/tile/items/2",
+    "count": 14
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r3.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/104/tile/items/3",
+    "count": 8
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r3.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 51,
+    "selected_meta": false,
+    "path": "/cells/105/tile/items/1",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r3.nbt",
+    "registry": "hbm:item.syringe_awesome",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/105/tile/items/2",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r3.nbt",
+    "registry": "hbm:item.gun_double_barrel",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/105/tile/items/4",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r3.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/437/tile/items/1",
+    "count": 2
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r3.nbt",
+    "registry": "hbm:item.cap_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2075/tile/item7",
+    "count": 4
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r3.nbt",
+    "registry": "hbm:item.cap_sparkle",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2075/tile/item3",
+    "count": 4
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r3.nbt",
+    "registry": "hbm:item.cap_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2075/tile/item5",
+    "count": 4
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r3.nbt",
+    "registry": "hbm:item.cap_sparkle",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2075/tile/item2",
+    "count": 4
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r3.nbt",
+    "registry": "hbm:item.cap_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2075/tile/item39",
+    "count": 4
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r3.nbt",
+    "registry": "hbm:item.cap_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2075/tile/item20",
+    "count": 4
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r3.nbt",
+    "registry": "hbm:item.cap_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2075/tile/item46",
+    "count": 4
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r3.nbt",
+    "registry": "hbm:item.cap_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2075/tile/item42",
+    "count": 4
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r3.nbt",
+    "registry": "hbm:item.cap_sparkle",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2075/tile/item19",
+    "count": 4
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r3.nbt",
+    "registry": "hbm:item.cap_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2075/tile/item10",
+    "count": 4
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r3.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/2/rolled/1",
+    "count": 2
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r3.nbt",
+    "registry": "hbm:item.coffee",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/7/rolled/1",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r3.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/8/rolled/2",
+    "count": 14
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r3.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/9/rolled/3",
+    "count": 8
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r3.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 51,
+    "selected_meta": false,
+    "path": "/inventoryLoot/10/rolled/1",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r3.nbt",
+    "registry": "hbm:item.syringe_awesome",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/10/rolled/2",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-LargeOfficeCorner-r3.nbt",
+    "registry": "hbm:item.gun_double_barrel",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/10/rolled/4",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-RuralHouse1-r0.nbt",
+    "registry": "hbm:item.can_creature",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/261/tile/items/3",
+    "count": 2
+  },
+  {
+    "family": "features",
+    "capture": "features-RuralHouse1-r0.nbt",
+    "registry": "hbm:item.bottle_cherry",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/1127/tile/Items/2",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-RuralHouse1-r0.nbt",
+    "registry": "hbm:item.gun_maresleg",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/1128/tile/item0",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-RuralHouse1-r0.nbt",
+    "registry": "hbm:item.can_creature",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/0/rolled/3",
+    "count": 2
+  },
+  {
+    "family": "features",
+    "capture": "features-RuralHouse1-r0.nbt",
+    "registry": "hbm:item.bottle_cherry",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/1/rolled/2",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-RuralHouse1-r1.nbt",
+    "registry": "hbm:item.coffee",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/261/tile/items/1",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-RuralHouse1-r1.nbt",
+    "registry": "hbm:item.coffee",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/0/rolled/1",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-RuralHouse1-r2.nbt",
+    "registry": "hbm:item.gun_maresleg",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/1128/tile/item0",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-RuralHouse1-r3.nbt",
+    "registry": "hbm:item.can_mrsugar",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/261/tile/items/1",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-RuralHouse1-r3.nbt",
+    "registry": "hbm:item.gun_maresleg",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/1123/tile/item0",
+    "count": 1
+  },
+  {
+    "family": "features",
+    "capture": "features-RuralHouse1-r3.nbt",
+    "registry": "hbm:item.can_mrsugar",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/0/rolled/1",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v1.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2794/tile/Items/3",
+    "count": 5
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v1.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2794/tile/Items/5",
+    "count": 5
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v1.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/3913/tile/Items/6",
+    "count": 6
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v1.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/5599/tile/Items/6",
+    "count": 5
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v1.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/4/rolled/3",
+    "count": 5
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v1.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/4/rolled/5",
+    "count": 5
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v1.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/6/rolled/6",
+    "count": 6
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v1.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/11/rolled/6",
+    "count": 5
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v2.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/1741/tile/Items/1",
+    "count": 2
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v2.nbt",
+    "registry": "hbm:item.morning_glory",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2764/tile/Items/1",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v2.nbt",
+    "registry": "hbm:item.armor_polish",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/3695/tile/Items/3",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v2.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/4/rolled/1",
+    "count": 2
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v2.nbt",
+    "registry": "hbm:item.morning_glory",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/7/rolled/1",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v2.nbt",
+    "registry": "hbm:item.armor_polish",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/9/rolled/3",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v3.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/5308/tile/Items/0",
+    "count": 4
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v3.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/5309/tile/Items/1",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v3.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/5788/tile/Items/0",
+    "count": 6
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v3.nbt",
+    "registry": "hbm:item.ammo_container",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/5789/tile/Items/4",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v3.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/6955/tile/Items/5",
+    "count": 2
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v3.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/6955/tile/Items/6",
+    "count": 3
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v3.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/8/rolled/0",
+    "count": 4
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v3.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/9/rolled/1",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v3.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/11/rolled/0",
+    "count": 6
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v3.nbt",
+    "registry": "hbm:item.ammo_container",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/12/rolled/4",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v3.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/15/rolled/5",
+    "count": 2
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v3.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/15/rolled/6",
+    "count": 3
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v4.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/1476/tile/Items/3",
+    "count": 5
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v4.nbt",
+    "registry": "hbm:item.armor_polish",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2073/tile/Items/1",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v4.nbt",
+    "registry": "hbm:item.ammo_container",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2074/tile/Items/0",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v4.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2074/tile/Items/4",
+    "count": 6
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v4.nbt",
+    "registry": "hbm:item.armor_polish",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/3826/tile/Items/2",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v4.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/4942/tile/items/1",
+    "count": 6
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v4.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/5422/tile/items/1",
+    "count": 15
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v4.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/5452/tile/Items/2",
+    "count": 6
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v4.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/5453/tile/Items/3",
+    "count": 4
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v4.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/4/rolled/3",
+    "count": 5
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v4.nbt",
+    "registry": "hbm:item.armor_polish",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/5/rolled/1",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v4.nbt",
+    "registry": "hbm:item.ammo_container",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/6/rolled/0",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v4.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/6/rolled/4",
+    "count": 6
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v4.nbt",
+    "registry": "hbm:item.armor_polish",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/8/rolled/2",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v4.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/12/rolled/1",
+    "count": 6
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v4.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/13/rolled/1",
+    "count": 15
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v4.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/14/rolled/2",
+    "count": 6
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v4.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/15/rolled/3",
+    "count": 4
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v5.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2055/tile/Items/2",
+    "count": 7
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v5.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/3030/tile/Items/2",
+    "count": 4
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v5.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/3030/tile/Items/4",
+    "count": 3
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v5.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/3546/tile/Items/3",
+    "count": 8
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v5.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/3546/tile/Items/4",
+    "count": 6
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v5.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/6208/tile/Items/1",
+    "count": 2
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v5.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/6208/tile/Items/4",
+    "count": 4
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v5.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/6/rolled/2",
+    "count": 7
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v5.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/8/rolled/2",
+    "count": 4
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v5.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/8/rolled/4",
+    "count": 3
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v5.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/9/rolled/3",
+    "count": 8
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v5.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/9/rolled/4",
+    "count": 6
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v5.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/13/rolled/1",
+    "count": 2
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v5.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/13/rolled/4",
+    "count": 4
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v6.nbt",
+    "registry": "hbm:item.morning_glory",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/204/tile/Items/1",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v6.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2118/tile/Items/0",
+    "count": 8
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v6.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2118/tile/Items/2",
+    "count": 5
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v6.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2118/tile/Items/5",
+    "count": 7
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v6.nbt",
+    "registry": "hbm:item.armor_polish",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/5068/tile/Items/1",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v6.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/5068/tile/Items/7",
+    "count": 4
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v6.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/5578/tile/Items/0",
+    "count": 6
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v6.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/5578/tile/Items/5",
+    "count": 8
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v6.nbt",
+    "registry": "hbm:item.ammo_container",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/6346/tile/Items/2",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v6.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/6670/tile/items/3",
+    "count": 5
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v6.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/6973/tile/Items/0",
+    "count": 6
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v6.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/6980/tile/Items/1",
+    "count": 8
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v6.nbt",
+    "registry": "hbm:item.armor_polish",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/6980/tile/Items/3",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v6.nbt",
+    "registry": "hbm:item.ammo_container",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/6980/tile/Items/4",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v6.nbt",
+    "registry": "hbm:item.morning_glory",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/0/rolled/1",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v6.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/2/rolled/0",
+    "count": 8
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v6.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/2/rolled/2",
+    "count": 5
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v6.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/2/rolled/5",
+    "count": 7
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v6.nbt",
+    "registry": "hbm:item.armor_polish",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/5/rolled/1",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v6.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/5/rolled/7",
+    "count": 4
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v6.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/6/rolled/0",
+    "count": 6
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v6.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/6/rolled/5",
+    "count": 8
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v6.nbt",
+    "registry": "hbm:item.ammo_container",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/7/rolled/2",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v6.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/9/rolled/3",
+    "count": 5
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v6.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/13/rolled/0",
+    "count": 6
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v6.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/16/rolled/1",
+    "count": 8
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v6.nbt",
+    "registry": "hbm:item.armor_polish",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/16/rolled/3",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v6.nbt",
+    "registry": "hbm:item.ammo_container",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/16/rolled/4",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v7.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/4531/tile/Items/3",
+    "count": 8
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v7.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/4531/tile/Items/4",
+    "count": 7
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v7.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/7183/tile/Items/1",
+    "count": 4
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v7.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/7184/tile/Items/0",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v7.nbt",
+    "registry": "hbm:item.armor_polish",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/7184/tile/Items/1",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v7.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/7184/tile/Items/2",
+    "count": 6
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v7.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/9/rolled/3",
+    "count": 8
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v7.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/9/rolled/4",
+    "count": 7
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v7.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/15/rolled/1",
+    "count": 4
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v7.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/16/rolled/0",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v7.nbt",
+    "registry": "hbm:item.armor_polish",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/16/rolled/1",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v7.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/16/rolled/2",
+    "count": 6
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v8.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2016/tile/Items/6",
+    "count": 6
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v8.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2605/tile/Items/4",
+    "count": 7
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v8.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2611/tile/Items/3",
+    "count": 2
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v8.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/3120/tile/items/3",
+    "count": 15
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v8.nbt",
+    "registry": "hbm:item.bottle_cherry",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/3501/tile/Items/3",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v8.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/5194/tile/Items/0",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v8.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/5368/tile/Items/2",
+    "count": 2
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v8.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/3/rolled/6",
+    "count": 6
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v8.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/5/rolled/4",
+    "count": 7
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v8.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/7/rolled/3",
+    "count": 2
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v8.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/8/rolled/3",
+    "count": 15
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v8.nbt",
+    "registry": "hbm:item.bottle_cherry",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/9/rolled/3",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v8.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/13/rolled/0",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v8.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/17/rolled/2",
+    "count": 2
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v9.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/4840/tile/Items/1",
+    "count": 2
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v9.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/4840/tile/Items/2",
+    "count": 3
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v9.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/8/rolled/1",
+    "count": 2
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v9.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/8/rolled/2",
+    "count": 3
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v10.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/178/tile/Items/1",
+    "count": 6
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v10.nbt",
+    "registry": "hbm:item.armor_polish",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/178/tile/Items/3",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v10.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/178/tile/Items/4",
+    "count": 5
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v10.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/718/tile/Items/2",
+    "count": 2
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v10.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/724/tile/Items/4",
+    "count": 3
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v10.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/4720/tile/Items/0",
+    "count": 6
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v10.nbt",
+    "registry": "hbm:item.ammo_container",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/4915/tile/Items/2",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v10.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/4915/tile/Items/6",
+    "count": 7
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v10.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/4915/tile/Items/7",
+    "count": 7
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v10.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/5437/tile/items/1",
+    "count": 12
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v10.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/4/rolled/1",
+    "count": 6
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v10.nbt",
+    "registry": "hbm:item.armor_polish",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/4/rolled/3",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v10.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/4/rolled/4",
+    "count": 5
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v10.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/7/rolled/2",
+    "count": 2
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v10.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/9/rolled/4",
+    "count": 3
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v10.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/15/rolled/0",
+    "count": 6
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v10.nbt",
+    "registry": "hbm:item.ammo_container",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/16/rolled/2",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v10.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/16/rolled/6",
+    "count": 7
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v10.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/16/rolled/7",
+    "count": 7
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v10.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/17/rolled/1",
+    "count": 12
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v11.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/321/tile/Items/3",
+    "count": 3
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v11.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/7468/tile/Items/1",
+    "count": 3
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v11.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/3/rolled/3",
+    "count": 3
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v11.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/14/rolled/1",
+    "count": 3
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v12.nbt",
+    "registry": "hbm:item.armor_polish",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/669/tile/Items/1",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v12.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/4633/tile/Items/2",
+    "count": 8
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v12.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/4634/tile/Items/1",
+    "count": 5
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v12.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/4640/tile/Items/1",
+    "count": 7
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v12.nbt",
+    "registry": "hbm:item.armor_polish",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/0/rolled/1",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v12.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/9/rolled/2",
+    "count": 8
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v12.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/10/rolled/1",
+    "count": 5
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v12.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/12/rolled/1",
+    "count": 7
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v13.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/1/tile/Items/1",
+    "count": 6
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v13.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/7/tile/Items/1",
+    "count": 3
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v13.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/7/tile/Items/3",
+    "count": 5
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v13.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/264/tile/Items/0",
+    "count": 2
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v13.nbt",
+    "registry": "hbm:item.armor_polish",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/264/tile/Items/4",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v13.nbt",
+    "registry": "hbm:item.armor_polish",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/1806/tile/Items/5",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v13.nbt",
+    "registry": "hbm:item.armor_polish",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2142/tile/Items/2",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v13.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2142/tile/Items/3",
+    "count": 3
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v13.nbt",
+    "registry": "hbm:item.bottle_cherry",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/4125/tile/Items/3",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v13.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/7120/tile/Items/0",
+    "count": 4
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v13.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/7121/tile/Items/3",
+    "count": 4
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v13.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/7126/tile/Items/2",
+    "count": 4
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v13.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/7127/tile/Items/0",
+    "count": 2
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v13.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/7127/tile/Items/1",
+    "count": 3
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v13.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/1/rolled/1",
+    "count": 6
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v13.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/3/rolled/1",
+    "count": 3
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v13.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/3/rolled/3",
+    "count": 5
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v13.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/5/rolled/0",
+    "count": 2
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v13.nbt",
+    "registry": "hbm:item.armor_polish",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/5/rolled/4",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v13.nbt",
+    "registry": "hbm:item.armor_polish",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/8/rolled/5",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v13.nbt",
+    "registry": "hbm:item.armor_polish",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/9/rolled/2",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v13.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/9/rolled/3",
+    "count": 3
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v13.nbt",
+    "registry": "hbm:item.bottle_cherry",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/13/rolled/3",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v13.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/15/rolled/0",
+    "count": 4
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v13.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/16/rolled/3",
+    "count": 4
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v13.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/17/rolled/2",
+    "count": 4
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v13.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/18/rolled/0",
+    "count": 2
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v13.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/18/rolled/1",
+    "count": 3
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v14.nbt",
+    "registry": "hbm:item.armor_polish",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/192/tile/Items/1",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v14.nbt",
+    "registry": "hbm:item.armor_polish",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/193/tile/Items/0",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v14.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/198/tile/Items/1",
+    "count": 3
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v14.nbt",
+    "registry": "hbm:item.ammo_container",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/198/tile/Items/3",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v14.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/199/tile/Items/1",
+    "count": 4
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v14.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/882/tile/Items/0",
+    "count": 4
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v14.nbt",
+    "registry": "hbm:item.ammo_container",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/883/tile/Items/3",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v14.nbt",
+    "registry": "hbm:item.armor_polish",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/883/tile/Items/4",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v14.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/1230/tile/Items/2",
+    "count": 7
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v14.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/1828/tile/Items/2",
+    "count": 4
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v14.nbt",
+    "registry": "hbm:item.bomb_caller",
+    "metadata": 0,
+    "selected_meta": false,
+    "path": "/cells/2343/tile/Items/4",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v14.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/4315/tile/Items/1",
+    "count": 2
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v14.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/4810/tile/Items/2",
+    "count": 4
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v14.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/6196/tile/Items/3",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v14.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/6197/tile/Items/2",
+    "count": 7
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v14.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/6424/tile/items/0",
+    "count": 5
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v14.nbt",
+    "registry": "hbm:item.armor_polish",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/0/rolled/1",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v14.nbt",
+    "registry": "hbm:item.armor_polish",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/1/rolled/0",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v14.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/2/rolled/1",
+    "count": 3
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v14.nbt",
+    "registry": "hbm:item.ammo_container",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/2/rolled/3",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v14.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/3/rolled/1",
+    "count": 4
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v14.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/8/rolled/0",
+    "count": 4
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v14.nbt",
+    "registry": "hbm:item.ammo_container",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/9/rolled/3",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v14.nbt",
+    "registry": "hbm:item.armor_polish",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/9/rolled/4",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v14.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/10/rolled/2",
+    "count": 7
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v14.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/12/rolled/2",
+    "count": 4
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v14.nbt",
+    "registry": "hbm:item.bomb_caller",
+    "metadata": 0,
+    "selected_meta": false,
+    "path": "/inventoryLoot/13/rolled/4",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v14.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/15/rolled/1",
+    "count": 2
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v14.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/17/rolled/2",
+    "count": 4
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v14.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/21/rolled/3",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v14.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/22/rolled/2",
+    "count": 7
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v14.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/23/rolled/0",
+    "count": 5
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v15.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/57/tile/items/0",
+    "count": 16
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v15.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/127/tile/Items/1",
+    "count": 4
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v15.nbt",
+    "registry": "hbm:item.armor_polish",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/132/tile/Items/1",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v15.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2934/tile/Items/1",
+    "count": 5
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v15.nbt",
+    "registry": "hbm:item.bottle_cherry",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/4329/tile/Items/3",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v15.nbt",
+    "registry": "hbm:item.armor_polish",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/5758/tile/Items/7",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v15.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/0/rolled/0",
+    "count": 16
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v15.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/2/rolled/1",
+    "count": 4
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v15.nbt",
+    "registry": "hbm:item.armor_polish",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/3/rolled/1",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v15.nbt",
+    "registry": "hbm:item.cigarette",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/10/rolled/1",
+    "count": 5
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v15.nbt",
+    "registry": "hbm:item.bottle_cherry",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/13/rolled/3",
+    "count": 1
+  },
+  {
+    "family": "bunker",
+    "capture": "bunker-v15.nbt",
+    "registry": "hbm:item.armor_polish",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/14/rolled/7",
+    "count": 1
+  },
+  {
+    "family": "legacy-antenna",
+    "capture": "legacy-antenna.nbt",
+    "registry": "hbm:item.bottle_cherry",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/8/tile/Items/1",
+    "count": 1
+  },
+  {
+    "family": "legacy-antenna",
+    "capture": "legacy-antenna.nbt",
+    "registry": "hbm:item.bottle_cherry",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/0/rolled/1",
+    "count": 1
+  },
+  {
+    "family": "legacy-antenna",
+    "capture": "legacy-antenna-v3.nbt",
+    "registry": "hbm:item.bomb_caller",
+    "metadata": 0,
+    "selected_meta": false,
+    "path": "/cells/8/tile/Items/0",
+    "count": 1
+  },
+  {
+    "family": "legacy-antenna",
+    "capture": "legacy-antenna-v3.nbt",
+    "registry": "hbm:item.bomb_caller",
+    "metadata": 0,
+    "selected_meta": false,
+    "path": "/inventoryLoot/0/rolled/0",
+    "count": 1
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom.nbt",
+    "registry": "hbm:item.gun_light_revolver",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2110/tile/Items/3",
+    "count": 1
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 5,
+    "selected_meta": true,
+    "path": "/cells/2127/tile/Items/5",
+    "count": 5
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 51,
+    "selected_meta": false,
+    "path": "/cells/2661/tile/items/2",
+    "count": 1
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom.nbt",
+    "registry": "hbm:item.gun_panzerschreck",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2661/tile/items/10",
+    "count": 1
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom.nbt",
+    "registry": "hbm:item.gun_light_revolver",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/1/rolled/3",
+    "count": 1
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 5,
+    "selected_meta": true,
+    "path": "/inventoryLoot/2/rolled/5",
+    "count": 5
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 51,
+    "selected_meta": false,
+    "path": "/inventoryLoot/4/rolled/2",
+    "count": 1
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom.nbt",
+    "registry": "hbm:item.gun_panzerschreck",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/4/rolled/10",
+    "count": 1
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom-v1.nbt",
+    "registry": "hbm:item.bottle_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/100/tile/Items/5",
+    "count": 1
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom-v1.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 5,
+    "selected_meta": true,
+    "path": "/cells/2110/tile/Items/2",
+    "count": 5
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom-v1.nbt",
+    "registry": "hbm:item.gun_light_revolver",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2127/tile/Items/3",
+    "count": 1
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom-v1.nbt",
+    "registry": "hbm:item.gun_light_revolver",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2127/tile/Items/5",
+    "count": 1
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom-v1.nbt",
+    "registry": "hbm:item.gun_panzerschreck",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2661/tile/items/0",
+    "count": 1
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom-v1.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 52,
+    "selected_meta": false,
+    "path": "/cells/2661/tile/items/6",
+    "count": 1
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom-v1.nbt",
+    "registry": "hbm:item.gun_panzerschreck",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2661/tile/items/8",
+    "count": 1
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom-v1.nbt",
+    "registry": "hbm:item.grenade_universal",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2661/tile/items/9",
+    "count": 1
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom-v1.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 52,
+    "selected_meta": false,
+    "path": "/cells/2661/tile/items/10",
+    "count": 1
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom-v1.nbt",
+    "registry": "hbm:item.bottle_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2661/tile/items/11",
+    "count": 1
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom-v1.nbt",
+    "registry": "hbm:item.bottle_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/0/rolled/5",
+    "count": 1
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom-v1.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 5,
+    "selected_meta": true,
+    "path": "/inventoryLoot/1/rolled/2",
+    "count": 5
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom-v1.nbt",
+    "registry": "hbm:item.gun_light_revolver",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/2/rolled/3",
+    "count": 1
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom-v1.nbt",
+    "registry": "hbm:item.gun_light_revolver",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/2/rolled/5",
+    "count": 1
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom-v1.nbt",
+    "registry": "hbm:item.gun_panzerschreck",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/4/rolled/0",
+    "count": 1
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom-v1.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 52,
+    "selected_meta": false,
+    "path": "/inventoryLoot/4/rolled/6",
+    "count": 1
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom-v1.nbt",
+    "registry": "hbm:item.gun_panzerschreck",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/4/rolled/8",
+    "count": 1
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom-v1.nbt",
+    "registry": "hbm:item.grenade_universal",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/4/rolled/9",
+    "count": 1
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom-v1.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 52,
+    "selected_meta": false,
+    "path": "/inventoryLoot/4/rolled/10",
+    "count": 1
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom-v1.nbt",
+    "registry": "hbm:item.bottle_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/4/rolled/11",
+    "count": 1
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom-v2.nbt",
+    "registry": "hbm:item.bottle_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/100/tile/Items/3",
+    "count": 1
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom-v2.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 41,
+    "selected_meta": true,
+    "path": "/cells/2110/tile/Items/2",
+    "count": 6
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom-v2.nbt",
+    "registry": "hbm:item.gun_light_revolver",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2127/tile/Items/1",
+    "count": 1
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom-v2.nbt",
+    "registry": "hbm:item.bottle_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2661/tile/items/0",
+    "count": 1
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom-v2.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 58,
+    "selected_meta": false,
+    "path": "/cells/2661/tile/items/3",
+    "count": 4
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom-v2.nbt",
+    "registry": "hbm:item.bottle_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2661/tile/items/5",
+    "count": 1
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom-v2.nbt",
+    "registry": "hbm:item.gun_panzerschreck",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2661/tile/items/8",
+    "count": 1
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom-v2.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 58,
+    "selected_meta": false,
+    "path": "/cells/2661/tile/items/9",
+    "count": 1
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom-v2.nbt",
+    "registry": "hbm:item.bottle_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/0/rolled/3",
+    "count": 1
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom-v2.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 41,
+    "selected_meta": true,
+    "path": "/inventoryLoot/1/rolled/2",
+    "count": 6
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom-v2.nbt",
+    "registry": "hbm:item.gun_light_revolver",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/2/rolled/1",
+    "count": 1
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom-v2.nbt",
+    "registry": "hbm:item.bottle_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/4/rolled/0",
+    "count": 1
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom-v2.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 58,
+    "selected_meta": false,
+    "path": "/inventoryLoot/4/rolled/3",
+    "count": 4
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom-v2.nbt",
+    "registry": "hbm:item.bottle_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/4/rolled/5",
+    "count": 1
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom-v2.nbt",
+    "registry": "hbm:item.gun_panzerschreck",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/4/rolled/8",
+    "count": 1
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom-v2.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 58,
+    "selected_meta": false,
+    "path": "/inventoryLoot/4/rolled/9",
+    "count": 1
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom-v3.nbt",
+    "registry": "hbm:item.bottle_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/100/tile/Items/5",
+    "count": 1
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom-v3.nbt",
+    "registry": "hbm:item.bottle_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2661/tile/items/0",
+    "count": 1
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom-v3.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 58,
+    "selected_meta": false,
+    "path": "/cells/2661/tile/items/1",
+    "count": 1
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom-v3.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 58,
+    "selected_meta": false,
+    "path": "/cells/2661/tile/items/4",
+    "count": 2
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom-v3.nbt",
+    "registry": "hbm:item.bottle_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/2661/tile/items/7",
+    "count": 1
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom-v3.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 51,
+    "selected_meta": false,
+    "path": "/cells/2661/tile/items/9",
+    "count": 1
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom-v3.nbt",
+    "registry": "hbm:item.bottle_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/0/rolled/5",
+    "count": 1
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom-v3.nbt",
+    "registry": "hbm:item.bottle_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/4/rolled/0",
+    "count": 1
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom-v3.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 58,
+    "selected_meta": false,
+    "path": "/inventoryLoot/4/rolled/1",
+    "count": 1
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom-v3.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 58,
+    "selected_meta": false,
+    "path": "/inventoryLoot/4/rolled/4",
+    "count": 2
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom-v3.nbt",
+    "registry": "hbm:item.bottle_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/4/rolled/7",
+    "count": 1
+  },
+  {
+    "family": "legacy-desert_atom",
+    "capture": "legacy-desert_atom-v3.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 51,
+    "selected_meta": false,
+    "path": "/inventoryLoot/4/rolled/9",
+    "count": 1
+  },
+  {
+    "family": "legacy-library_dungeon",
+    "capture": "legacy-library_dungeon.nbt",
+    "registry": "hbm:item.heart_piece",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/603/tile/Items/6",
+    "count": 1
+  },
+  {
+    "family": "legacy-library_dungeon",
+    "capture": "legacy-library_dungeon-v2.nbt",
+    "registry": "hbm:item.scrumpy",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/145/tile/Items/5",
+    "count": 1
+  },
+  {
+    "family": "legacy-library_dungeon",
+    "capture": "legacy-library_dungeon-v2.nbt",
+    "registry": "hbm:item.heart_piece",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/554/tile/Items/0",
+    "count": 1
+  },
+  {
+    "family": "legacy-locked_safe",
+    "capture": "legacy-locked_safe.nbt",
+    "registry": "hbm:item.grenade_universal",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/0/tile/items/0",
+    "count": 1
+  },
+  {
+    "family": "legacy-locked_safe",
+    "capture": "legacy-locked_safe.nbt",
+    "registry": "hbm:item.gun_heavy_revolver",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/0/tile/items/1",
+    "count": 1
+  },
+  {
+    "family": "legacy-locked_safe",
+    "capture": "legacy-locked_safe.nbt",
+    "registry": "hbm:item.gun_am180",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/0/tile/items/3",
+    "count": 1
+  },
+  {
+    "family": "legacy-locked_safe",
+    "capture": "legacy-locked_safe.nbt",
+    "registry": "hbm:item.grenade_universal",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/0/rolled/0",
+    "count": 1
+  },
+  {
+    "family": "legacy-locked_safe",
+    "capture": "legacy-locked_safe.nbt",
+    "registry": "hbm:item.gun_heavy_revolver",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/0/rolled/1",
+    "count": 1
+  },
+  {
+    "family": "legacy-locked_safe",
+    "capture": "legacy-locked_safe.nbt",
+    "registry": "hbm:item.gun_am180",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/0/rolled/3",
+    "count": 1
+  },
+  {
+    "family": "legacy-locked_safe",
+    "capture": "legacy-locked_safe-v1.nbt",
+    "registry": "hbm:item.gun_uzi",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/0/tile/items/1",
+    "count": 1
+  },
+  {
+    "family": "legacy-locked_safe",
+    "capture": "legacy-locked_safe-v1.nbt",
+    "registry": "hbm:item.gun_uzi",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/0/rolled/1",
+    "count": 1
+  },
+  {
+    "family": "legacy-locked_safe",
+    "capture": "legacy-locked_safe-v2.nbt",
+    "registry": "hbm:item.ammo_container",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/0/tile/items/0",
+    "count": 1
+  },
+  {
+    "family": "legacy-locked_safe",
+    "capture": "legacy-locked_safe-v2.nbt",
+    "registry": "hbm:item.ammo_container",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/0/tile/items/1",
+    "count": 1
+  },
+  {
+    "family": "legacy-locked_safe",
+    "capture": "legacy-locked_safe-v2.nbt",
+    "registry": "hbm:item.ammo_container",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/0/rolled/0",
+    "count": 1
+  },
+  {
+    "family": "legacy-locked_safe",
+    "capture": "legacy-locked_safe-v2.nbt",
+    "registry": "hbm:item.ammo_container",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/0/rolled/1",
+    "count": 1
+  },
+  {
+    "family": "legacy-locked_safe",
+    "capture": "legacy-locked_safe-v3.nbt",
+    "registry": "hbm:item.gun_congolake",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/0/tile/items/0",
+    "count": 1
+  },
+  {
+    "family": "legacy-locked_safe",
+    "capture": "legacy-locked_safe-v3.nbt",
+    "registry": "hbm:item.gun_congolake",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/0/rolled/0",
+    "count": 1
+  },
+  {
+    "family": "legacy-waste_tank",
+    "capture": "legacy-waste_tank.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 52,
+    "selected_meta": false,
+    "path": "/cells/58/tile/items/1",
+    "count": 1
+  },
+  {
+    "family": "legacy-waste_tank",
+    "capture": "legacy-waste_tank.nbt",
+    "registry": "hbm:item.bomb_caller",
+    "metadata": 0,
+    "selected_meta": false,
+    "path": "/cells/58/tile/items/4",
+    "count": 1
+  },
+  {
+    "family": "legacy-waste_tank",
+    "capture": "legacy-waste_tank.nbt",
+    "registry": "hbm:item.bottle_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/58/tile/items/6",
+    "count": 1
+  },
+  {
+    "family": "legacy-waste_tank",
+    "capture": "legacy-waste_tank.nbt",
+    "registry": "hbm:item.grenade_extra",
+    "metadata": 3,
+    "selected_meta": true,
+    "path": "/cells/58/tile/items/8",
+    "count": 1
+  },
+  {
+    "family": "legacy-waste_tank",
+    "capture": "legacy-waste_tank.nbt",
+    "registry": "hbm:item.gun_double_barrel",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/58/tile/items/14",
+    "count": 1
+  },
+  {
+    "family": "legacy-waste_tank",
+    "capture": "legacy-waste_tank.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 52,
+    "selected_meta": false,
+    "path": "/inventoryLoot/0/rolled/1",
+    "count": 1
+  },
+  {
+    "family": "legacy-waste_tank",
+    "capture": "legacy-waste_tank.nbt",
+    "registry": "hbm:item.bomb_caller",
+    "metadata": 0,
+    "selected_meta": false,
+    "path": "/inventoryLoot/0/rolled/4",
+    "count": 1
+  },
+  {
+    "family": "legacy-waste_tank",
+    "capture": "legacy-waste_tank.nbt",
+    "registry": "hbm:item.bottle_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/0/rolled/6",
+    "count": 1
+  },
+  {
+    "family": "legacy-waste_tank",
+    "capture": "legacy-waste_tank.nbt",
+    "registry": "hbm:item.grenade_extra",
+    "metadata": 3,
+    "selected_meta": true,
+    "path": "/inventoryLoot/0/rolled/8",
+    "count": 1
+  },
+  {
+    "family": "legacy-waste_tank",
+    "capture": "legacy-waste_tank.nbt",
+    "registry": "hbm:item.gun_double_barrel",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/0/rolled/14",
+    "count": 1
+  },
+  {
+    "family": "legacy-waste_tank",
+    "capture": "legacy-waste_tank-v1.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 58,
+    "selected_meta": false,
+    "path": "/cells/58/tile/items/0",
+    "count": 2
+  },
+  {
+    "family": "legacy-waste_tank",
+    "capture": "legacy-waste_tank-v1.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 51,
+    "selected_meta": false,
+    "path": "/cells/58/tile/items/3",
+    "count": 1
+  },
+  {
+    "family": "legacy-waste_tank",
+    "capture": "legacy-waste_tank-v1.nbt",
+    "registry": "hbm:item.gun_double_barrel",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/58/tile/items/4",
+    "count": 1
+  },
+  {
+    "family": "legacy-waste_tank",
+    "capture": "legacy-waste_tank-v1.nbt",
+    "registry": "hbm:item.grenade_universal",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/58/tile/items/5",
+    "count": 1
+  },
+  {
+    "family": "legacy-waste_tank",
+    "capture": "legacy-waste_tank-v1.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 58,
+    "selected_meta": false,
+    "path": "/cells/58/tile/items/7",
+    "count": 1
+  },
+  {
+    "family": "legacy-waste_tank",
+    "capture": "legacy-waste_tank-v1.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 58,
+    "selected_meta": false,
+    "path": "/cells/58/tile/items/10",
+    "count": 1
+  },
+  {
+    "family": "legacy-waste_tank",
+    "capture": "legacy-waste_tank-v1.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 58,
+    "selected_meta": false,
+    "path": "/inventoryLoot/0/rolled/0",
+    "count": 2
+  },
+  {
+    "family": "legacy-waste_tank",
+    "capture": "legacy-waste_tank-v1.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 51,
+    "selected_meta": false,
+    "path": "/inventoryLoot/0/rolled/3",
+    "count": 1
+  },
+  {
+    "family": "legacy-waste_tank",
+    "capture": "legacy-waste_tank-v1.nbt",
+    "registry": "hbm:item.gun_double_barrel",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/0/rolled/4",
+    "count": 1
+  },
+  {
+    "family": "legacy-waste_tank",
+    "capture": "legacy-waste_tank-v1.nbt",
+    "registry": "hbm:item.grenade_universal",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/0/rolled/5",
+    "count": 1
+  },
+  {
+    "family": "legacy-waste_tank",
+    "capture": "legacy-waste_tank-v1.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 58,
+    "selected_meta": false,
+    "path": "/inventoryLoot/0/rolled/7",
+    "count": 1
+  },
+  {
+    "family": "legacy-waste_tank",
+    "capture": "legacy-waste_tank-v1.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 58,
+    "selected_meta": false,
+    "path": "/inventoryLoot/0/rolled/10",
+    "count": 1
+  },
+  {
+    "family": "legacy-waste_tank",
+    "capture": "legacy-waste_tank-v2.nbt",
+    "registry": "hbm:item.bomb_caller",
+    "metadata": 0,
+    "selected_meta": false,
+    "path": "/cells/58/tile/items/0",
+    "count": 1
+  },
+  {
+    "family": "legacy-waste_tank",
+    "capture": "legacy-waste_tank-v2.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 51,
+    "selected_meta": false,
+    "path": "/cells/58/tile/items/13",
+    "count": 1
+  },
+  {
+    "family": "legacy-waste_tank",
+    "capture": "legacy-waste_tank-v2.nbt",
+    "registry": "hbm:item.bomb_caller",
+    "metadata": 0,
+    "selected_meta": false,
+    "path": "/inventoryLoot/0/rolled/0",
+    "count": 1
+  },
+  {
+    "family": "legacy-waste_tank",
+    "capture": "legacy-waste_tank-v2.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 51,
+    "selected_meta": false,
+    "path": "/inventoryLoot/0/rolled/13",
+    "count": 1
+  },
+  {
+    "family": "legacy-waste_tank",
+    "capture": "legacy-waste_tank-v3.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 52,
+    "selected_meta": false,
+    "path": "/cells/58/tile/items/4",
+    "count": 1
+  },
+  {
+    "family": "legacy-waste_tank",
+    "capture": "legacy-waste_tank-v3.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 58,
+    "selected_meta": false,
+    "path": "/cells/58/tile/items/7",
+    "count": 2
+  },
+  {
+    "family": "legacy-waste_tank",
+    "capture": "legacy-waste_tank-v3.nbt",
+    "registry": "hbm:item.gun_double_barrel",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/58/tile/items/9",
+    "count": 1
+  },
+  {
+    "family": "legacy-waste_tank",
+    "capture": "legacy-waste_tank-v3.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 51,
+    "selected_meta": false,
+    "path": "/cells/58/tile/items/11",
+    "count": 1
+  },
+  {
+    "family": "legacy-waste_tank",
+    "capture": "legacy-waste_tank-v3.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 51,
+    "selected_meta": false,
+    "path": "/cells/58/tile/items/14",
+    "count": 1
+  },
+  {
+    "family": "legacy-waste_tank",
+    "capture": "legacy-waste_tank-v3.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 52,
+    "selected_meta": false,
+    "path": "/cells/58/tile/items/15",
+    "count": 1
+  },
+  {
+    "family": "legacy-waste_tank",
+    "capture": "legacy-waste_tank-v3.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 52,
+    "selected_meta": false,
+    "path": "/inventoryLoot/0/rolled/4",
+    "count": 1
+  },
+  {
+    "family": "legacy-waste_tank",
+    "capture": "legacy-waste_tank-v3.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 58,
+    "selected_meta": false,
+    "path": "/inventoryLoot/0/rolled/7",
+    "count": 2
+  },
+  {
+    "family": "legacy-waste_tank",
+    "capture": "legacy-waste_tank-v3.nbt",
+    "registry": "hbm:item.gun_double_barrel",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/0/rolled/9",
+    "count": 1
+  },
+  {
+    "family": "legacy-waste_tank",
+    "capture": "legacy-waste_tank-v3.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 51,
+    "selected_meta": false,
+    "path": "/inventoryLoot/0/rolled/11",
+    "count": 1
+  },
+  {
+    "family": "legacy-waste_tank",
+    "capture": "legacy-waste_tank-v3.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 51,
+    "selected_meta": false,
+    "path": "/inventoryLoot/0/rolled/14",
+    "count": 1
+  },
+  {
+    "family": "legacy-waste_tank",
+    "capture": "legacy-waste_tank-v3.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 52,
+    "selected_meta": false,
+    "path": "/inventoryLoot/0/rolled/15",
+    "count": 1
+  },
+  {
+    "family": "legacy-glyphid_hive",
+    "capture": "legacy-glyphid_hive.nbt",
+    "registry": "hbm:item.bottle_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/117/tile/item0",
+    "count": 1
+  },
+  {
+    "family": "legacy-glyphid_hive",
+    "capture": "legacy-glyphid_hive.nbt",
+    "registry": "hbm:item.syringe_metal_stimpak",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/117/tile/item3",
+    "count": 1
+  },
+  {
+    "family": "legacy-glyphid_hive",
+    "capture": "legacy-glyphid_hive.nbt",
+    "registry": "hbm:item.iv_blood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/154/tile/item2",
+    "count": 1
+  },
+  {
+    "family": "legacy-glyphid_hive",
+    "capture": "legacy-glyphid_hive.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/155/tile/item1",
+    "count": 5
+  },
+  {
+    "family": "legacy-glyphid_hive",
+    "capture": "legacy-glyphid_hive-v1.nbt",
+    "registry": "hbm:item.iv_blood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/81/tile/item0",
+    "count": 1
+  },
+  {
+    "family": "legacy-glyphid_hive",
+    "capture": "legacy-glyphid_hive-v1.nbt",
+    "registry": "hbm:item.iv_blood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/118/tile/item0",
+    "count": 1
+  },
+  {
+    "family": "legacy-glyphid_hive",
+    "capture": "legacy-glyphid_hive-v1.nbt",
+    "registry": "hbm:item.bottle_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/118/tile/item3",
+    "count": 1
+  },
+  {
+    "family": "legacy-glyphid_hive",
+    "capture": "legacy-glyphid_hive-v1.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 44,
+    "selected_meta": true,
+    "path": "/cells/156/tile/item2",
+    "count": 4
+  },
+  {
+    "family": "legacy-glyphid_hive",
+    "capture": "legacy-glyphid_hive-v2.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/81/tile/item0",
+    "count": 6
+  },
+  {
+    "family": "legacy-glyphid_hive",
+    "capture": "legacy-glyphid_hive-v2.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 5,
+    "selected_meta": true,
+    "path": "/cells/81/tile/item1",
+    "count": 7
+  },
+  {
+    "family": "legacy-glyphid_hive",
+    "capture": "legacy-glyphid_hive-v2.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 5,
+    "selected_meta": true,
+    "path": "/cells/117/tile/item0",
+    "count": 6
+  },
+  {
+    "family": "legacy-glyphid_hive",
+    "capture": "legacy-glyphid_hive-v2.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/117/tile/item2",
+    "count": 11
+  },
+  {
+    "family": "legacy-glyphid_hive",
+    "capture": "legacy-glyphid_hive-v2.nbt",
+    "registry": "hbm:item.iv_blood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/118/tile/item2",
+    "count": 1
+  },
+  {
+    "family": "legacy-glyphid_hive",
+    "capture": "legacy-glyphid_hive-v2.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/118/tile/item1",
+    "count": 9
+  },
+  {
+    "family": "legacy-glyphid_hive",
+    "capture": "legacy-glyphid_hive-v2.nbt",
+    "registry": "hbm:item.iv_blood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/118/tile/item4",
+    "count": 1
+  },
+  {
+    "family": "legacy-glyphid_hive",
+    "capture": "legacy-glyphid_hive-v2.nbt",
+    "registry": "hbm:item.iv_blood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/119/tile/item2",
+    "count": 1
+  },
+  {
+    "family": "legacy-glyphid_hive",
+    "capture": "legacy-glyphid_hive-v2.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/154/tile/item0",
+    "count": 6
+  },
+  {
+    "family": "legacy-glyphid_hive",
+    "capture": "legacy-glyphid_hive-v2.nbt",
+    "registry": "hbm:item.iv_blood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/154/tile/item2",
+    "count": 1
+  },
+  {
+    "family": "legacy-glyphid_hive",
+    "capture": "legacy-glyphid_hive-v2.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 44,
+    "selected_meta": true,
+    "path": "/cells/154/tile/item1",
+    "count": 4
+  },
+  {
+    "family": "legacy-glyphid_hive",
+    "capture": "legacy-glyphid_hive-v2.nbt",
+    "registry": "hbm:item.definitelyfood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/156/tile/item0",
+    "count": 11
+  },
+  {
+    "family": "legacy-glyphid_hive",
+    "capture": "legacy-glyphid_hive-v2.nbt",
+    "registry": "hbm:item.gun_maresleg",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/156/tile/item1",
+    "count": 1
+  },
+  {
+    "family": "legacy-glyphid_hive",
+    "capture": "legacy-glyphid_hive-v3.nbt",
+    "registry": "hbm:item.iv_blood",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/80/tile/item2",
+    "count": 1
+  },
+  {
+    "family": "legacy-glyphid_hive",
+    "capture": "legacy-glyphid_hive-v3.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 53,
+    "selected_meta": true,
+    "path": "/cells/81/tile/item2",
+    "count": 1
+  },
+  {
+    "family": "legacy-glyphid_hive",
+    "capture": "legacy-glyphid_hive-v3.nbt",
+    "registry": "hbm:item.syringe_metal_stimpak",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/81/tile/item1",
+    "count": 1
+  },
+  {
+    "family": "legacy-glyphid_hive",
+    "capture": "legacy-glyphid_hive-v3.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 53,
+    "selected_meta": true,
+    "path": "/cells/82/tile/item1",
+    "count": 1
+  },
+  {
+    "family": "legacy-spaceship",
+    "capture": "legacy-spaceship.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 51,
+    "selected_meta": false,
+    "path": "/cells/511/tile/Items/2",
+    "count": 1
+  },
+  {
+    "family": "legacy-spaceship",
+    "capture": "legacy-spaceship.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 52,
+    "selected_meta": false,
+    "path": "/cells/511/tile/Items/6",
+    "count": 1
+  },
+  {
+    "family": "legacy-spaceship",
+    "capture": "legacy-spaceship.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 51,
+    "selected_meta": false,
+    "path": "/cells/511/tile/Items/7",
+    "count": 1
+  },
+  {
+    "family": "legacy-spaceship",
+    "capture": "legacy-spaceship.nbt",
+    "registry": "hbm:item.bomb_caller",
+    "metadata": 0,
+    "selected_meta": false,
+    "path": "/cells/511/tile/Items/9",
+    "count": 1
+  },
+  {
+    "family": "legacy-spaceship",
+    "capture": "legacy-spaceship.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 51,
+    "selected_meta": false,
+    "path": "/inventoryLoot/4/rolled/2",
+    "count": 1
+  },
+  {
+    "family": "legacy-spaceship",
+    "capture": "legacy-spaceship.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 52,
+    "selected_meta": false,
+    "path": "/inventoryLoot/4/rolled/6",
+    "count": 1
+  },
+  {
+    "family": "legacy-spaceship",
+    "capture": "legacy-spaceship.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 51,
+    "selected_meta": false,
+    "path": "/inventoryLoot/4/rolled/7",
+    "count": 1
+  },
+  {
+    "family": "legacy-spaceship",
+    "capture": "legacy-spaceship.nbt",
+    "registry": "hbm:item.bomb_caller",
+    "metadata": 0,
+    "selected_meta": false,
+    "path": "/inventoryLoot/4/rolled/9",
+    "count": 1
+  },
+  {
+    "family": "legacy-spaceship",
+    "capture": "legacy-spaceship-v1.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 58,
+    "selected_meta": false,
+    "path": "/cells/511/tile/Items/1",
+    "count": 2
+  },
+  {
+    "family": "legacy-spaceship",
+    "capture": "legacy-spaceship-v1.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 51,
+    "selected_meta": false,
+    "path": "/cells/511/tile/Items/3",
+    "count": 1
+  },
+  {
+    "family": "legacy-spaceship",
+    "capture": "legacy-spaceship-v1.nbt",
+    "registry": "hbm:item.bottle_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/511/tile/Items/6",
+    "count": 1
+  },
+  {
+    "family": "legacy-spaceship",
+    "capture": "legacy-spaceship-v1.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 58,
+    "selected_meta": false,
+    "path": "/inventoryLoot/4/rolled/1",
+    "count": 2
+  },
+  {
+    "family": "legacy-spaceship",
+    "capture": "legacy-spaceship-v1.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 51,
+    "selected_meta": false,
+    "path": "/inventoryLoot/4/rolled/3",
+    "count": 1
+  },
+  {
+    "family": "legacy-spaceship",
+    "capture": "legacy-spaceship-v1.nbt",
+    "registry": "hbm:item.bottle_quantum",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/4/rolled/6",
+    "count": 1
+  },
+  {
+    "family": "legacy-spaceship",
+    "capture": "legacy-spaceship-v2.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 58,
+    "selected_meta": false,
+    "path": "/cells/511/tile/Items/1",
+    "count": 2
+  },
+  {
+    "family": "legacy-spaceship",
+    "capture": "legacy-spaceship-v2.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 58,
+    "selected_meta": false,
+    "path": "/cells/511/tile/Items/2",
+    "count": 1
+  },
+  {
+    "family": "legacy-spaceship",
+    "capture": "legacy-spaceship-v2.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 58,
+    "selected_meta": false,
+    "path": "/cells/511/tile/Items/5",
+    "count": 1
+  },
+  {
+    "family": "legacy-spaceship",
+    "capture": "legacy-spaceship-v2.nbt",
+    "registry": "hbm:item.gun_panzerschreck",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/511/tile/Items/9",
+    "count": 1
+  },
+  {
+    "family": "legacy-spaceship",
+    "capture": "legacy-spaceship-v2.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 58,
+    "selected_meta": false,
+    "path": "/inventoryLoot/4/rolled/1",
+    "count": 2
+  },
+  {
+    "family": "legacy-spaceship",
+    "capture": "legacy-spaceship-v2.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 58,
+    "selected_meta": false,
+    "path": "/inventoryLoot/4/rolled/2",
+    "count": 1
+  },
+  {
+    "family": "legacy-spaceship",
+    "capture": "legacy-spaceship-v2.nbt",
+    "registry": "hbm:item.ammo_standard",
+    "metadata": 58,
+    "selected_meta": false,
+    "path": "/inventoryLoot/4/rolled/5",
+    "count": 1
+  },
+  {
+    "family": "legacy-spaceship",
+    "capture": "legacy-spaceship-v2.nbt",
+    "registry": "hbm:item.gun_panzerschreck",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/4/rolled/9",
+    "count": 1
+  },
+  {
+    "family": "legacy-spaceship",
+    "capture": "legacy-spaceship-v3.nbt",
+    "registry": "hbm:item.grenade_universal",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/511/tile/Items/1",
+    "count": 1
+  },
+  {
+    "family": "legacy-spaceship",
+    "capture": "legacy-spaceship-v3.nbt",
+    "registry": "hbm:item.grenade_universal",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/cells/511/tile/Items/3",
+    "count": 3
+  },
+  {
+    "family": "legacy-spaceship",
+    "capture": "legacy-spaceship-v3.nbt",
+    "registry": "hbm:item.bomb_caller",
+    "metadata": 1,
+    "selected_meta": false,
+    "path": "/cells/511/tile/Items/8",
+    "count": 1
+  },
+  {
+    "family": "legacy-spaceship",
+    "capture": "legacy-spaceship-v3.nbt",
+    "registry": "hbm:item.grenade_universal",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/4/rolled/1",
+    "count": 1
+  },
+  {
+    "family": "legacy-spaceship",
+    "capture": "legacy-spaceship-v3.nbt",
+    "registry": "hbm:item.grenade_universal",
+    "metadata": 0,
+    "selected_meta": true,
+    "path": "/inventoryLoot/4/rolled/3",
+    "count": 3
+  },
+  {
+    "family": "legacy-spaceship",
+    "capture": "legacy-spaceship-v3.nbt",
+    "registry": "hbm:item.bomb_caller",
+    "metadata": 1,
+    "selected_meta": false,
+    "path": "/inventoryLoot/4/rolled/8",
+    "count": 1
+  }
+]

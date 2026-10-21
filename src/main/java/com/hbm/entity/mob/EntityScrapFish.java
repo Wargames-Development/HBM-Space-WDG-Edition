@@ -1,4 +1,5 @@
 package com.hbm.entity.mob;
+import net.minecraft.item.ItemStack;
 
 import com.hbm.itempool.ItemPool;
 import com.hbm.itempool.ItemPoolsComponent;
@@ -38,7 +39,8 @@ public class EntityScrapFish extends EntityFish implements IEntityEnumMulti {
         int j = rand.nextInt(3 + looting) + 1;
 
         for(int k = 0; k < j; ++k) {
-            this.entityDropItem(ItemPool.getStack(pool, rand).copy(), 0.0F);
+            ItemStack drop = ItemPool.getStack(pool, rand);
+            if(drop != null) this.entityDropItem(drop, 0.0F);
         }
     }
 

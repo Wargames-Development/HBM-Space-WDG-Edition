@@ -110,7 +110,8 @@ public class GenericRecipe {
 
 	public ItemStack getIcon() {
 
-		if(icon == null) {
+		if(icon == null || com.hbm.config.BanItems.disabled(icon)) {
+            icon = null;
 			if(outputItem != null) {
 				if(outputItem[0] instanceof ChanceOutput) icon = ((ChanceOutput) outputItem[0]).stack.copy();
 				if(outputItem[0] instanceof ChanceOutputMulti) icon = ((ChanceOutputMulti) outputItem[0]).pool.get(0).stack.copy();

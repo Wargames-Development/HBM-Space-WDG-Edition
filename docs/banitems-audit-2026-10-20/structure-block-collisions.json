@@ -1,0 +1,17 @@
+{
+  "hbm:tile.broadcaster_pc": [
+    "legacy-corrupt_broadcaster"
+  ],
+  "hbm:tile.float_bomb": [],
+  "hbm:tile.machine_missile_assembly": [],
+  "hbm:tile.nuke_antimatter": [],
+  "hbm:tile.nuke_custom": [],
+  "hbm:tile.nuke_fleija": [],
+  "hbm:tile.nuke_fstbmb": [],
+  "hbm:tile.nuke_prototype": [],
+  "hbm:tile.struct_launcher_core": [],
+  "hbm:tile.struct_launcher_core_large": [],
+  "hbm:tile.taint_barrel": [],
+  "hbm:tile.turret_maxwell": [],
+  "hbm:tile.turret_tauon": []
+}

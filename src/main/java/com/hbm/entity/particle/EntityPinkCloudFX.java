@@ -79,7 +79,7 @@ public class EntityPinkCloudFX extends EntityModFX {
 			if(worldObj.getBlock((int) posX, (int) posY, (int) posZ) == ModBlocks.radiorec) {
 				this.setDead();
 				int meta = worldObj.getBlockMetadata((int) posX, (int) posY, (int) posZ);
-				worldObj.setBlock((int) posX, (int) posY, (int) posZ, ModBlocks.broadcaster_pc, meta, 2);
+				if(!com.hbm.config.BanItems.disabled(ModBlocks.broadcaster_pc)) worldObj.setBlock((int) posX, (int) posY, (int) posZ, ModBlocks.broadcaster_pc, meta, 2);
 			}
 
 			if (worldObj.getBlock((int) posX, (int) posY, (int) posZ).isNormalCube()) {

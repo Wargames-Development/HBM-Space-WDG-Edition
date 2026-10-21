@@ -10,9 +10,9 @@ import java.util.Random;
 
 public class HbmChestContents {
 
-	public static WeightedRandomChestContent weighted(Item item, int meta, int min, int max, int weight) { return new WeightedRandomChestContent(item, meta, Math.min(min, max), Math.max(min, max), weight); }
-	public static WeightedRandomChestContent weighted(Block block, int meta, int min, int max, int weight) { return new WeightedRandomChestContent(Item.getItemFromBlock(block), meta, Math.min(min, max), Math.max(min, max), weight); }
-	public static WeightedRandomChestContent weighted(ItemStack item, int min, int max, int weight) { return new WeightedRandomChestContent(item, Math.min(min, max), Math.max(min, max), weight); }
+	public static WeightedRandomChestContent weighted(Item item, int meta, int min, int max, int weight) { return com.hbm.config.BanItems.loot(new WeightedRandomChestContent(item, meta, Math.min(min, max), Math.max(min, max), weight)); }
+	public static WeightedRandomChestContent weighted(Block block, int meta, int min, int max, int weight) { return com.hbm.config.BanItems.loot(new WeightedRandomChestContent(com.hbm.config.BanItems.itemForData(block), meta, Math.min(min, max), Math.max(min, max), weight)); }
+	public static WeightedRandomChestContent weighted(ItemStack item, int min, int max, int weight) { return com.hbm.config.BanItems.loot(new WeightedRandomChestContent(item, Math.min(min, max), Math.max(min, max), weight)); }
 
 	/** ITEMBOOKLORE SHIT */
 	//one downside of all this huge flexibility, make a wrapper if it's too annoying

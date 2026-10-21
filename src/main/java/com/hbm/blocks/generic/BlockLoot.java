@@ -106,7 +106,7 @@ public class BlockLoot extends BlockContainer {
 		}
 		
 		public TileEntityLoot addItem(ItemStack stack, double x, double y, double z) {
-			items.add(new Quartet(stack, x, y, z));
+			if(stack != null && !com.hbm.config.BanItems.disabled(stack)) items.add(new Quartet(stack, x, y, z));
 			return this;
 		}
 
@@ -134,7 +134,7 @@ public class BlockLoot extends BlockContainer {
 				double x = nbt.getDouble("x" + i);
 				double y = nbt.getDouble("y" + i);
 				double z = nbt.getDouble("z" + i);
-				items.add(new Quartet(stack, x, y, z));
+				if(stack != null && !com.hbm.config.BanItems.disabled(stack)) items.add(new Quartet(stack, x, y, z));
 			}
 		}
 

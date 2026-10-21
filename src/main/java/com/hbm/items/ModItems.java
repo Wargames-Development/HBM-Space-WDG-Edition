@@ -5167,7 +5167,7 @@ public class ModItems {
 		GameRegistry.registerItem(billet_flashlead, billet_flashlead.getUnlocalizedName());
 		GameRegistry.registerItem(billet_nuclear_waste, billet_nuclear_waste.getUnlocalizedName());
 		GameRegistry.registerItem(billet_menthol, billet_menthol.getUnlocalizedName());
-		GameRegistry.registerItem(chocolate_mint_billet, chocolate_mint_billet.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(chocolate_mint_billet, chocolate_mint_billet.getUnlocalizedName());
 
 		//Dusts & Other
 		GameRegistry.registerItem(cinnebar, cinnebar.getUnlocalizedName());
@@ -5795,7 +5795,7 @@ public class ModItems {
 		GameRegistry.registerItem(blueprints, blueprints.getUnlocalizedName());
 		GameRegistry.registerItem(blueprint_folder, blueprint_folder.getUnlocalizedName());
 		GameRegistry.registerItem(bobmazon, bobmazon.getUnlocalizedName());
-		GameRegistry.registerItem(bobmazon_hidden, bobmazon_hidden.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(bobmazon_hidden, bobmazon_hidden.getUnlocalizedName());
 
 		//Hydraulic Press Stamps
 		GameRegistry.registerItem(stamp_stone_flat, stamp_stone_flat.getUnlocalizedName());
@@ -6041,7 +6041,7 @@ public class ModItems {
 		GameRegistry.registerItem(rbmk_fuel_mea, rbmk_fuel_mea.getUnlocalizedName());
 		GameRegistry.registerItem(rbmk_fuel_hea241, rbmk_fuel_hea241.getUnlocalizedName());
 		GameRegistry.registerItem(rbmk_fuel_hea242, rbmk_fuel_hea242.getUnlocalizedName());
-		GameRegistry.registerItem( rbmk_fuel_bk247,  rbmk_fuel_bk247.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem( rbmk_fuel_bk247,  rbmk_fuel_bk247.getUnlocalizedName());
 		GameRegistry.registerItem(rbmk_fuel_men, rbmk_fuel_men.getUnlocalizedName());
 		GameRegistry.registerItem(rbmk_fuel_hen, rbmk_fuel_hen.getUnlocalizedName());
 		GameRegistry.registerItem(rbmk_fuel_mox, rbmk_fuel_mox.getUnlocalizedName());
@@ -6137,11 +6137,11 @@ public class ModItems {
 		GameRegistry.registerItem(nuclear_waste_vitrified_tiny, nuclear_waste_vitrified_tiny.getUnlocalizedName());
 
 		//Spawners
-		GameRegistry.registerItem(spawn_chopper, spawn_chopper.getUnlocalizedName());
-		GameRegistry.registerItem(spawn_worm, spawn_worm.getUnlocalizedName());
-		GameRegistry.registerItem(spawn_ufo, spawn_ufo.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(spawn_chopper, spawn_chopper.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(spawn_worm, spawn_worm.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(spawn_ufo, spawn_ufo.getUnlocalizedName());
 		GameRegistry.registerItem(spawn_duck, spawn_duck.getUnlocalizedName());
-		GameRegistry.registerItem(spawn_angel, spawn_angel.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(spawn_angel, spawn_angel.getUnlocalizedName());
 
 		//Computer Tools
 		GameRegistry.registerItem(rangefinder, rangefinder.getUnlocalizedName());
@@ -6171,12 +6171,12 @@ public class ModItems {
 		GameRegistry.registerItem(digamma_diagnostic, digamma_diagnostic.getUnlocalizedName());
 		GameRegistry.registerItem(pollution_detector, pollution_detector.getUnlocalizedName());
 		GameRegistry.registerItem(containment_box, containment_box.getUnlocalizedName());
-		GameRegistry.registerItem(plastic_bag, plastic_bag.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(plastic_bag, plastic_bag.getUnlocalizedName());
 		GameRegistry.registerItem(atmosphere_scanner, atmosphere_scanner.getUnlocalizedName());
 
-		GameRegistry.registerItem(ammo_bag, ammo_bag.getUnlocalizedName());
-		GameRegistry.registerItem(ammo_bag_infinite, ammo_bag_infinite.getUnlocalizedName());
-		GameRegistry.registerItem(casing_bag, casing_bag.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(ammo_bag, ammo_bag.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(ammo_bag_infinite, ammo_bag_infinite.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(casing_bag, casing_bag.getUnlocalizedName());
 
 		//Keys and Locks
 		GameRegistry.registerItem(key, key.getUnlocalizedName());
@@ -6197,10 +6197,10 @@ public class ModItems {
 		//Missiles
 		//Tier 0
 		GameRegistry.registerItem(missile_test, missile_test.getUnlocalizedName());
-		GameRegistry.registerItem(missile_taint, missile_taint.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(missile_taint, missile_taint.getUnlocalizedName());
 		GameRegistry.registerItem(missile_micro, missile_micro.getUnlocalizedName());
-		GameRegistry.registerItem(missile_bhole, missile_bhole.getUnlocalizedName());
-		GameRegistry.registerItem(missile_schrabidium, missile_schrabidium.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(missile_bhole, missile_bhole.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(missile_schrabidium, missile_schrabidium.getUnlocalizedName());
 		GameRegistry.registerItem(missile_emp, missile_emp.getUnlocalizedName());
 		//Tier 1
 		GameRegistry.registerItem(missile_generic, missile_generic.getUnlocalizedName());
@@ -6387,10 +6387,10 @@ public class ModItems {
 		GameRegistry.registerItem(sat_radar, sat_radar.getUnlocalizedName());
 		GameRegistry.registerItem(sat_laser, sat_laser.getUnlocalizedName());
 		GameRegistry.registerItem(sat_foeq, sat_foeq.getUnlocalizedName());
-		GameRegistry.registerItem(sat_resonator, sat_resonator.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(sat_resonator, sat_resonator.getUnlocalizedName());
 		GameRegistry.registerItem(sat_miner, sat_miner.getUnlocalizedName());
 		GameRegistry.registerItem(sat_lunar_miner, sat_lunar_miner.getUnlocalizedName());
-		GameRegistry.registerItem(sat_gerald, sat_gerald.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(sat_gerald, sat_gerald.getUnlocalizedName());
 		GameRegistry.registerItem(sat_precision_laser, sat_precision_laser.getUnlocalizedName());
 		GameRegistry.registerItem(sat_detector, sat_detector.getUnlocalizedName());
 		GameRegistry.registerItem(sat_ray_scan, sat_ray_scan.getUnlocalizedName());
@@ -6405,82 +6405,82 @@ public class ModItems {
 		GameRegistry.registerItem(orbital_assembly, orbital_assembly.getUnlocalizedName());
 
 		//Guns
-		GameRegistry.registerItem(gun_b92, gun_b92.getUnlocalizedName());
-		GameRegistry.registerItem(crucible, crucible.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_b92, gun_b92.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(crucible, crucible.getUnlocalizedName());
 
-		GameRegistry.registerItem(gun_debug, gun_debug.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_debug, gun_debug.getUnlocalizedName());
 		GameRegistry.registerItem(ammo_debug, ammo_debug.getUnlocalizedName());
 
-		GameRegistry.registerItem(gun_pepperbox, gun_pepperbox.getUnlocalizedName());
-		GameRegistry.registerItem(gun_light_revolver, gun_light_revolver.getUnlocalizedName());
-		GameRegistry.registerItem(gun_light_revolver_atlas, gun_light_revolver_atlas.getUnlocalizedName());
-		GameRegistry.registerItem(gun_light_revolver_dani, gun_light_revolver_dani.getUnlocalizedName());
-		GameRegistry.registerItem(gun_henry, gun_henry.getUnlocalizedName());
-		GameRegistry.registerItem(gun_henry_lincoln, gun_henry_lincoln.getUnlocalizedName());
-		GameRegistry.registerItem(gun_greasegun, gun_greasegun.getUnlocalizedName());
-		GameRegistry.registerItem(gun_maresleg, gun_maresleg.getUnlocalizedName());
-		GameRegistry.registerItem(gun_maresleg_akimbo, gun_maresleg_akimbo.getUnlocalizedName());
-		GameRegistry.registerItem(gun_maresleg_broken, gun_maresleg_broken.getUnlocalizedName());
-		GameRegistry.registerItem(gun_flaregun, gun_flaregun.getUnlocalizedName());
-		GameRegistry.registerItem(gun_heavy_revolver, gun_heavy_revolver.getUnlocalizedName());
-		GameRegistry.registerItem(gun_heavy_revolver_lilmac, gun_heavy_revolver_lilmac.getUnlocalizedName());
-		GameRegistry.registerItem(gun_heavy_revolver_protege, gun_heavy_revolver_protege.getUnlocalizedName());
-		GameRegistry.registerItem(gun_carbine, gun_carbine.getUnlocalizedName());
-		GameRegistry.registerItem(gun_am180, gun_am180.getUnlocalizedName());
-		GameRegistry.registerItem(gun_liberator, gun_liberator.getUnlocalizedName());
-		GameRegistry.registerItem(gun_congolake, gun_congolake.getUnlocalizedName());
-		GameRegistry.registerItem(gun_flamer, gun_flamer.getUnlocalizedName());
-		GameRegistry.registerItem(gun_flamer_topaz, gun_flamer_topaz.getUnlocalizedName());
-		GameRegistry.registerItem(gun_flamer_daybreaker, gun_flamer_daybreaker.getUnlocalizedName());
-		GameRegistry.registerItem(gun_uzi, gun_uzi.getUnlocalizedName());
-		GameRegistry.registerItem(gun_uzi_akimbo, gun_uzi_akimbo.getUnlocalizedName());
-		GameRegistry.registerItem(gun_spas12, gun_spas12.getUnlocalizedName());
-		GameRegistry.registerItem(gun_panzerschreck, gun_panzerschreck.getUnlocalizedName());
-		GameRegistry.registerItem(gun_star_f, gun_star_f.getUnlocalizedName());
-		GameRegistry.registerItem(gun_star_f_akimbo, gun_star_f_akimbo.getUnlocalizedName());
-		GameRegistry.registerItem(gun_g3, gun_g3.getUnlocalizedName());
-		GameRegistry.registerItem(gun_g3_zebra, gun_g3_zebra.getUnlocalizedName());
-		GameRegistry.registerItem(gun_mk108, gun_mk108.getUnlocalizedName());
-		GameRegistry.registerItem(gun_chemthrower, gun_chemthrower.getUnlocalizedName());
-		GameRegistry.registerItem(gun_amat, gun_amat.getUnlocalizedName());
-		GameRegistry.registerItem(gun_amat_subtlety, gun_amat_subtlety.getUnlocalizedName());
-		GameRegistry.registerItem(gun_amat_penance, gun_amat_penance.getUnlocalizedName());
-		GameRegistry.registerItem(gun_m2, gun_m2.getUnlocalizedName());
-		GameRegistry.registerItem(gun_autoshotgun, gun_autoshotgun.getUnlocalizedName());
-		GameRegistry.registerItem(gun_autoshotgun_shredder, gun_autoshotgun_shredder.getUnlocalizedName());
-		GameRegistry.registerItem(gun_autoshotgun_sexy, gun_autoshotgun_sexy.getUnlocalizedName());
-		GameRegistry.registerItem(gun_autoshotgun_heretic, gun_autoshotgun_heretic.getUnlocalizedName());
-		GameRegistry.registerItem(gun_quadro, gun_quadro.getUnlocalizedName());
-		GameRegistry.registerItem(gun_lag, gun_lag.getUnlocalizedName());
-		GameRegistry.registerItem(gun_minigun, gun_minigun.getUnlocalizedName());
-		GameRegistry.registerItem(gun_minigun_dual, gun_minigun_dual.getUnlocalizedName());
-		GameRegistry.registerItem(gun_minigun_lacunae, gun_minigun_lacunae.getUnlocalizedName());
-		GameRegistry.registerItem(gun_missile_launcher, gun_missile_launcher.getUnlocalizedName());
-		GameRegistry.registerItem(gun_tesla_cannon, gun_tesla_cannon.getUnlocalizedName());
-		GameRegistry.registerItem(gun_laser_pistol, gun_laser_pistol.getUnlocalizedName());
-		GameRegistry.registerItem(gun_laser_pistol_pew_pew, gun_laser_pistol_pew_pew.getUnlocalizedName());
-		GameRegistry.registerItem(gun_laser_pistol_morning_glory, gun_laser_pistol_morning_glory.getUnlocalizedName());
-		GameRegistry.registerItem(gun_stg77, gun_stg77.getUnlocalizedName());
-		GameRegistry.registerItem(gun_tau, gun_tau.getUnlocalizedName());
-		GameRegistry.registerItem(gun_fatman, gun_fatman.getUnlocalizedName());
-		GameRegistry.registerItem(gun_lasrifle, gun_lasrifle.getUnlocalizedName());
-		GameRegistry.registerItem(gun_stinger, gun_stinger.getUnlocalizedName());
-		GameRegistry.registerItem(gun_coilgun, gun_coilgun.getUnlocalizedName());
-		GameRegistry.registerItem(gun_hangman, gun_hangman.getUnlocalizedName());
-		GameRegistry.registerItem(gun_mas36, gun_mas36.getUnlocalizedName());
-		GameRegistry.registerItem(gun_bolter, gun_bolter.getUnlocalizedName());
-		GameRegistry.registerItem(gun_folly, gun_folly.getUnlocalizedName());
-		GameRegistry.registerItem(gun_aberrator, gun_aberrator.getUnlocalizedName());
-		GameRegistry.registerItem(gun_aberrator_eott, gun_aberrator_eott.getUnlocalizedName());
-		GameRegistry.registerItem(gun_double_barrel, gun_double_barrel.getUnlocalizedName());
-		GameRegistry.registerItem(gun_double_barrel_sacred_dragon, gun_double_barrel_sacred_dragon.getUnlocalizedName());
-		GameRegistry.registerItem(gun_n_i_4_n_i, gun_n_i_4_n_i.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_pepperbox, gun_pepperbox.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_light_revolver, gun_light_revolver.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_light_revolver_atlas, gun_light_revolver_atlas.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_light_revolver_dani, gun_light_revolver_dani.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_henry, gun_henry.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_henry_lincoln, gun_henry_lincoln.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_greasegun, gun_greasegun.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_maresleg, gun_maresleg.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_maresleg_akimbo, gun_maresleg_akimbo.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_maresleg_broken, gun_maresleg_broken.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_flaregun, gun_flaregun.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_heavy_revolver, gun_heavy_revolver.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_heavy_revolver_lilmac, gun_heavy_revolver_lilmac.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_heavy_revolver_protege, gun_heavy_revolver_protege.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_carbine, gun_carbine.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_am180, gun_am180.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_liberator, gun_liberator.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_congolake, gun_congolake.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_flamer, gun_flamer.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_flamer_topaz, gun_flamer_topaz.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_flamer_daybreaker, gun_flamer_daybreaker.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_uzi, gun_uzi.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_uzi_akimbo, gun_uzi_akimbo.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_spas12, gun_spas12.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_panzerschreck, gun_panzerschreck.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_star_f, gun_star_f.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_star_f_akimbo, gun_star_f_akimbo.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_g3, gun_g3.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_g3_zebra, gun_g3_zebra.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_mk108, gun_mk108.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_chemthrower, gun_chemthrower.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_amat, gun_amat.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_amat_subtlety, gun_amat_subtlety.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_amat_penance, gun_amat_penance.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_m2, gun_m2.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_autoshotgun, gun_autoshotgun.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_autoshotgun_shredder, gun_autoshotgun_shredder.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_autoshotgun_sexy, gun_autoshotgun_sexy.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_autoshotgun_heretic, gun_autoshotgun_heretic.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_quadro, gun_quadro.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_lag, gun_lag.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_minigun, gun_minigun.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_minigun_dual, gun_minigun_dual.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_minigun_lacunae, gun_minigun_lacunae.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_missile_launcher, gun_missile_launcher.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_tesla_cannon, gun_tesla_cannon.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_laser_pistol, gun_laser_pistol.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_laser_pistol_pew_pew, gun_laser_pistol_pew_pew.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_laser_pistol_morning_glory, gun_laser_pistol_morning_glory.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_stg77, gun_stg77.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_tau, gun_tau.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_fatman, gun_fatman.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_lasrifle, gun_lasrifle.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_stinger, gun_stinger.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_coilgun, gun_coilgun.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_hangman, gun_hangman.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_mas36, gun_mas36.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_bolter, gun_bolter.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_folly, gun_folly.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_aberrator, gun_aberrator.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_aberrator_eott, gun_aberrator_eott.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_double_barrel, gun_double_barrel.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_double_barrel_sacred_dragon, gun_double_barrel_sacred_dragon.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_n_i_4_n_i, gun_n_i_4_n_i.getUnlocalizedName());
 
 		GameRegistry.registerItem(gun_fireext, gun_fireext.getUnlocalizedName());
-		GameRegistry.registerItem(gun_charge_thrower, gun_charge_thrower.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_charge_thrower, gun_charge_thrower.getUnlocalizedName());
 		GameRegistry.registerItem(gun_drill, gun_drill.getUnlocalizedName());
-		GameRegistry.registerItem(gun_pa_melee, gun_pa_melee.getUnlocalizedName());
-		GameRegistry.registerItem(gun_pa_ranged, gun_pa_ranged.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_pa_melee, gun_pa_melee.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_pa_ranged, gun_pa_ranged.getUnlocalizedName());
 
 		GameRegistry.registerItem(ammo_standard, ammo_standard.getUnlocalizedName());
 		GameRegistry.registerItem(ammo_secret, ammo_secret.getUnlocalizedName());
@@ -6491,7 +6491,7 @@ public class ModItems {
 		GameRegistry.registerItem(weapon_mod_caliber, weapon_mod_caliber.getUnlocalizedName());
 
 		//Ammo
-		GameRegistry.registerItem(gun_b92_ammo, gun_b92_ammo.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(gun_b92_ammo, gun_b92_ammo.getUnlocalizedName());
 
 		GameRegistry.registerItem(ammo_fireext, ammo_fireext.getUnlocalizedName());
 		GameRegistry.registerItem(ammo_shell, ammo_shell.getUnlocalizedName());
@@ -6499,40 +6499,40 @@ public class ModItems {
 		GameRegistry.registerItem(ammo_arty, ammo_arty.getUnlocalizedName());
 		GameRegistry.registerItem(ammo_himars, ammo_himars.getUnlocalizedName());
 
-		GameRegistry.registerItem(ammo_container, ammo_container.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(ammo_container, ammo_container.getUnlocalizedName());
 
 		//Grenades
-		GameRegistry.registerItem(stick_dynamite, stick_dynamite.getUnlocalizedName()); //heave-ho!
-		GameRegistry.registerItem(stick_dynamite_fishing, stick_dynamite_fishing.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(stick_dynamite, stick_dynamite.getUnlocalizedName()); //heave-ho!
+		com.hbm.config.BanItems.registerItem(stick_dynamite_fishing, stick_dynamite_fishing.getUnlocalizedName());
 		GameRegistry.registerItem(stick_tnt, stick_tnt.getUnlocalizedName());
 		GameRegistry.registerItem(stick_semtex, stick_semtex.getUnlocalizedName());
 		GameRegistry.registerItem(stick_c4, stick_c4.getUnlocalizedName());
 
-		GameRegistry.registerItem(grenade_shell, grenade_shell.getUnlocalizedName());
-		GameRegistry.registerItem(grenade_filling, grenade_filling.getUnlocalizedName());
-		GameRegistry.registerItem(grenade_fuze, grenade_fuze.getUnlocalizedName());
-		GameRegistry.registerItem(grenade_extra, grenade_extra.getUnlocalizedName());
-		GameRegistry.registerItem(grenade_universal, grenade_universal.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(grenade_shell, grenade_shell.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(grenade_filling, grenade_filling.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(grenade_fuze, grenade_fuze.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(grenade_extra, grenade_extra.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(grenade_universal, grenade_universal.getUnlocalizedName());
 
 		//Disperser Canister
-		GameRegistry.registerItem(disperser_canister_empty, disperser_canister_empty.getUnlocalizedName());
-		GameRegistry.registerItem(disperser_canister, disperser_canister.getUnlocalizedName());
-		GameRegistry.registerItem(glyphid_gland_empty, glyphid_gland_empty.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(disperser_canister_empty, disperser_canister_empty.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(disperser_canister, disperser_canister.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(glyphid_gland_empty, glyphid_gland_empty.getUnlocalizedName());
 		GameRegistry.registerItem(glyphid_gland, glyphid_gland.getUnlocalizedName());
 
-		GameRegistry.registerItem(ullapool_caber, ullapool_caber.getUnlocalizedName());
-		GameRegistry.registerItem(weaponized_starblaster_cell, weaponized_starblaster_cell.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(ullapool_caber, ullapool_caber.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(weaponized_starblaster_cell, weaponized_starblaster_cell.getUnlocalizedName());
 
 		//Tools
 		GameRegistry.registerItem(dwarven_pickaxe, dwarven_pickaxe.getUnlocalizedName());
-		GameRegistry.registerItem(schrabidium_sword, schrabidium_sword.getUnlocalizedName());
-		GameRegistry.registerItem(schrabidium_hammer, schrabidium_hammer.getUnlocalizedName());
-		GameRegistry.registerItem(shimmer_sledge, shimmer_sledge.getUnlocalizedName());
-		GameRegistry.registerItem(shimmer_axe, shimmer_axe.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(schrabidium_sword, schrabidium_sword.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(schrabidium_hammer, schrabidium_hammer.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(shimmer_sledge, shimmer_sledge.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(shimmer_axe, shimmer_axe.getUnlocalizedName());
 		GameRegistry.registerItem(wood_gavel, wood_gavel.getUnlocalizedName());
 		GameRegistry.registerItem(lead_gavel, lead_gavel.getUnlocalizedName());
 		GameRegistry.registerItem(diamond_gavel, diamond_gavel.getUnlocalizedName());
-		GameRegistry.registerItem(mese_gavel, mese_gavel.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(mese_gavel, mese_gavel.getUnlocalizedName());
 		GameRegistry.registerItem(schrabidium_pickaxe, schrabidium_pickaxe.getUnlocalizedName());
 		GameRegistry.registerItem(schrabidium_axe, schrabidium_axe.getUnlocalizedName());
 		GameRegistry.registerItem(schrabidium_shovel, schrabidium_shovel.getUnlocalizedName());
@@ -6557,7 +6557,7 @@ public class ModItems {
 		GameRegistry.registerItem(cobalt_decorated_axe, cobalt_decorated_axe.getUnlocalizedName());
 		GameRegistry.registerItem(cobalt_decorated_shovel, cobalt_decorated_shovel.getUnlocalizedName());
 		GameRegistry.registerItem(cobalt_decorated_hoe, cobalt_decorated_hoe.getUnlocalizedName());
-		GameRegistry.registerItem(starmetal_sword, starmetal_sword.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(starmetal_sword, starmetal_sword.getUnlocalizedName());
 		GameRegistry.registerItem(starmetal_pickaxe, starmetal_pickaxe.getUnlocalizedName());
 		GameRegistry.registerItem(starmetal_axe, starmetal_axe.getUnlocalizedName());
 		GameRegistry.registerItem(starmetal_shovel, starmetal_shovel.getUnlocalizedName());
@@ -6567,17 +6567,17 @@ public class ModItems {
 		GameRegistry.registerItem(alloy_axe, alloy_axe.getUnlocalizedName());
 		GameRegistry.registerItem(alloy_shovel, alloy_shovel.getUnlocalizedName());
 		GameRegistry.registerItem(alloy_hoe, alloy_hoe.getUnlocalizedName());
-		GameRegistry.registerItem(cmb_sword, cmb_sword.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(cmb_sword, cmb_sword.getUnlocalizedName());
 		GameRegistry.registerItem(cmb_pickaxe, cmb_pickaxe.getUnlocalizedName());
 		GameRegistry.registerItem(cmb_axe, cmb_axe.getUnlocalizedName());
 		GameRegistry.registerItem(cmb_shovel, cmb_shovel.getUnlocalizedName());
 		GameRegistry.registerItem(cmb_hoe, cmb_hoe.getUnlocalizedName());
-		GameRegistry.registerItem(desh_sword, desh_sword.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(desh_sword, desh_sword.getUnlocalizedName());
 		GameRegistry.registerItem(desh_pickaxe, desh_pickaxe.getUnlocalizedName());
 		GameRegistry.registerItem(desh_axe, desh_axe.getUnlocalizedName());
 		GameRegistry.registerItem(desh_shovel, desh_shovel.getUnlocalizedName());
 		GameRegistry.registerItem(desh_hoe, desh_hoe.getUnlocalizedName());
-		GameRegistry.registerItem(elec_sword, elec_sword.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(elec_sword, elec_sword.getUnlocalizedName());
 		GameRegistry.registerItem(elec_pickaxe, elec_pickaxe.getUnlocalizedName());
 		GameRegistry.registerItem(elec_axe, elec_axe.getUnlocalizedName());
 		GameRegistry.registerItem(elec_shovel, elec_shovel.getUnlocalizedName());
@@ -6598,41 +6598,41 @@ public class ModItems {
 		GameRegistry.registerItem(wrench, wrench.getUnlocalizedName());
 		GameRegistry.registerItem(wrench_archineer, wrench_archineer.getUnlocalizedName());
 		GameRegistry.registerItem(wrench_flipped, wrench_flipped.getUnlocalizedName());
-		GameRegistry.registerItem(memespoon, memespoon.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(memespoon, memespoon.getUnlocalizedName());
 		GameRegistry.registerItem(pipe_lead, pipe_lead.getUnlocalizedName());
 		GameRegistry.registerItem(reer_graar, reer_graar.getUnlocalizedName());
 		GameRegistry.registerItem(stopsign, stopsign.getUnlocalizedName());
 		GameRegistry.registerItem(sopsign, sopsign.getUnlocalizedName());
 		GameRegistry.registerItem(chernobylsign, chernobylsign.getUnlocalizedName());
 
-		GameRegistry.registerItem(meteorite_sword, meteorite_sword.getUnlocalizedName());
-		GameRegistry.registerItem(meteorite_sword_seared, meteorite_sword_seared.getUnlocalizedName());
-		GameRegistry.registerItem(meteorite_sword_reforged, meteorite_sword_reforged.getUnlocalizedName());
-		GameRegistry.registerItem(meteorite_sword_hardened, meteorite_sword_hardened.getUnlocalizedName());
-		GameRegistry.registerItem(meteorite_sword_alloyed, meteorite_sword_alloyed.getUnlocalizedName());
-		GameRegistry.registerItem(meteorite_sword_machined, meteorite_sword_machined.getUnlocalizedName());
-		GameRegistry.registerItem(meteorite_sword_treated, meteorite_sword_treated.getUnlocalizedName());
-		GameRegistry.registerItem(meteorite_sword_etched, meteorite_sword_etched.getUnlocalizedName());
-		GameRegistry.registerItem(meteorite_sword_bred, meteorite_sword_bred.getUnlocalizedName());
-		GameRegistry.registerItem(meteorite_sword_irradiated, meteorite_sword_irradiated.getUnlocalizedName());
-		GameRegistry.registerItem(meteorite_sword_fused, meteorite_sword_fused.getUnlocalizedName());
-		GameRegistry.registerItem(meteorite_sword_baleful, meteorite_sword_baleful.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(meteorite_sword, meteorite_sword.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(meteorite_sword_seared, meteorite_sword_seared.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(meteorite_sword_reforged, meteorite_sword_reforged.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(meteorite_sword_hardened, meteorite_sword_hardened.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(meteorite_sword_alloyed, meteorite_sword_alloyed.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(meteorite_sword_machined, meteorite_sword_machined.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(meteorite_sword_treated, meteorite_sword_treated.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(meteorite_sword_etched, meteorite_sword_etched.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(meteorite_sword_bred, meteorite_sword_bred.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(meteorite_sword_irradiated, meteorite_sword_irradiated.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(meteorite_sword_fused, meteorite_sword_fused.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(meteorite_sword_baleful, meteorite_sword_baleful.getUnlocalizedName());
 
 		//Syringes & Pills
 		GameRegistry.registerItem(syringe_empty, syringe_empty.getUnlocalizedName());
 		GameRegistry.registerItem(syringe_antidote, syringe_antidote.getUnlocalizedName());
 		GameRegistry.registerItem(syringe_poison, syringe_poison.getUnlocalizedName());
-		GameRegistry.registerItem(syringe_awesome, syringe_awesome.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(syringe_awesome, syringe_awesome.getUnlocalizedName());
 		GameRegistry.registerItem(syringe_metal_empty, syringe_metal_empty.getUnlocalizedName());
-		GameRegistry.registerItem(syringe_metal_stimpak, syringe_metal_stimpak.getUnlocalizedName());
-		GameRegistry.registerItem(syringe_metal_medx, syringe_metal_medx.getUnlocalizedName());
-		GameRegistry.registerItem(syringe_metal_psycho, syringe_metal_psycho.getUnlocalizedName());
-		GameRegistry.registerItem(syringe_metal_super, syringe_metal_super.getUnlocalizedName());
-		GameRegistry.registerItem(syringe_taint, syringe_taint.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(syringe_metal_stimpak, syringe_metal_stimpak.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(syringe_metal_medx, syringe_metal_medx.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(syringe_metal_psycho, syringe_metal_psycho.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(syringe_metal_super, syringe_metal_super.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(syringe_taint, syringe_taint.getUnlocalizedName());
 		GameRegistry.registerItem(syringe_mkunicorn, syringe_mkunicorn.getUnlocalizedName());
 		GameRegistry.registerItem(med_bag, med_bag.getUnlocalizedName());
 		GameRegistry.registerItem(iv_empty, iv_empty.getUnlocalizedName());
-		GameRegistry.registerItem(iv_blood, iv_blood.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(iv_blood, iv_blood.getUnlocalizedName());
 		GameRegistry.registerItem(iv_xp_empty, iv_xp_empty.getUnlocalizedName());
 		GameRegistry.registerItem(iv_xp, iv_xp.getUnlocalizedName());
 		GameRegistry.registerItem(radaway, radaway.getUnlocalizedName());
@@ -6658,108 +6658,108 @@ public class ModItems {
 		GameRegistry.registerItem(gun_kit_1, gun_kit_1.getUnlocalizedName());
 		GameRegistry.registerItem(gun_kit_2, gun_kit_2.getUnlocalizedName());
 
-		GameRegistry.registerItem(animan, animan.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(animan, animan.getUnlocalizedName());
 
 		//Food
-		GameRegistry.registerItem(bomb_waffle, bomb_waffle.getUnlocalizedName());
-		GameRegistry.registerItem(schnitzel_vegan, schnitzel_vegan.getUnlocalizedName());
-		GameRegistry.registerItem(cotton_candy, cotton_candy.getUnlocalizedName());
-		GameRegistry.registerItem(apple_lead, apple_lead.getUnlocalizedName());
-		GameRegistry.registerItem(apple_schrabidium, apple_schrabidium.getUnlocalizedName());
-		GameRegistry.registerItem(tem_flakes, tem_flakes.getUnlocalizedName());
-		GameRegistry.registerItem(glowing_stew, glowing_stew.getUnlocalizedName());
-		GameRegistry.registerItem(balefire_scrambled, balefire_scrambled.getUnlocalizedName());
-		GameRegistry.registerItem(balefire_and_ham, balefire_and_ham.getUnlocalizedName());
-		GameRegistry.registerItem(lemon, lemon.getUnlocalizedName());
-		GameRegistry.registerItem(definitelyfood, definitelyfood.getUnlocalizedName());
-		GameRegistry.registerItem(loops, loops.getUnlocalizedName());
-		GameRegistry.registerItem(loop_stew, loop_stew.getUnlocalizedName());
-		GameRegistry.registerItem(spongebob_macaroni, spongebob_macaroni.getUnlocalizedName());
-		GameRegistry.registerItem(fooditem, fooditem.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(bomb_waffle, bomb_waffle.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(schnitzel_vegan, schnitzel_vegan.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(cotton_candy, cotton_candy.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(apple_lead, apple_lead.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(apple_schrabidium, apple_schrabidium.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(tem_flakes, tem_flakes.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(glowing_stew, glowing_stew.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(balefire_scrambled, balefire_scrambled.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(balefire_and_ham, balefire_and_ham.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(lemon, lemon.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(definitelyfood, definitelyfood.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(loops, loops.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(loop_stew, loop_stew.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(spongebob_macaroni, spongebob_macaroni.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(fooditem, fooditem.getUnlocalizedName());
 		GameRegistry.registerItem(twinkie, twinkie.getUnlocalizedName());
-		GameRegistry.registerItem(static_sandwich, static_sandwich.getUnlocalizedName());
-		GameRegistry.registerItem(pudding, pudding.getUnlocalizedName());
-		GameRegistry.registerItem(pancake, pancake.getUnlocalizedName());
-		GameRegistry.registerItem(butter, butter.getUnlocalizedName());
-		GameRegistry.registerItem(s_cream, s_cream.getUnlocalizedName());
-		GameRegistry.registerItem(min_cream, min_cream.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(static_sandwich, static_sandwich.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(pudding, pudding.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(pancake, pancake.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(butter, butter.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(s_cream, s_cream.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(min_cream, min_cream.getUnlocalizedName());
 		GameRegistry.registerItem(nugget, nugget.getUnlocalizedName());
 		GameRegistry.registerItem(peas, peas.getUnlocalizedName());
-		GameRegistry.registerItem(marshmallow, marshmallow.getUnlocalizedName());
-		GameRegistry.registerItem(cheese, cheese.getUnlocalizedName());
-		GameRegistry.registerItem(quesadilla, quesadilla.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(marshmallow, marshmallow.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(cheese, cheese.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(quesadilla, quesadilla.getUnlocalizedName());
 		GameRegistry.registerItem(glyphid_meat, glyphid_meat.getUnlocalizedName());
 		GameRegistry.registerItem(glyphid_meat_grilled, glyphid_meat_grilled.getUnlocalizedName());
 		GameRegistry.registerItem(egg_glyphid, egg_glyphid.getUnlocalizedName());
-		GameRegistry.registerItem(med_ipecac, med_ipecac.getUnlocalizedName());
-		GameRegistry.registerItem(med_ptsd, med_ptsd.getUnlocalizedName());
-		GameRegistry.registerItem(canteen_vodka, canteen_vodka.getUnlocalizedName());
-		GameRegistry.registerItem(mucho_mango, mucho_mango.getUnlocalizedName());
-		GameRegistry.registerItem(chocolate, chocolate.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(med_ipecac, med_ipecac.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(med_ptsd, med_ptsd.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(canteen_vodka, canteen_vodka.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(mucho_mango, mucho_mango.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(chocolate, chocolate.getUnlocalizedName());
 		GameRegistry.registerItem(flour, flour.getUnlocalizedName());
 
 		//Energy Drinks
 		GameRegistry.registerItem(can_empty, can_empty.getUnlocalizedName());
-		GameRegistry.registerItem(can_smart, can_smart.getUnlocalizedName());
-		GameRegistry.registerItem(can_creature, can_creature.getUnlocalizedName());
-		GameRegistry.registerItem(can_redbomb, can_redbomb.getUnlocalizedName());
-		GameRegistry.registerItem(can_mrsugar, can_mrsugar.getUnlocalizedName());
-		GameRegistry.registerItem(can_overcharge, can_overcharge.getUnlocalizedName());
-		GameRegistry.registerItem(can_luna, can_luna.getUnlocalizedName());
-		GameRegistry.registerItem(can_bepis, can_bepis.getUnlocalizedName());
-		GameRegistry.registerItem(can_breen, can_breen.getUnlocalizedName());
-		GameRegistry.registerItem(can_mug, can_mug.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(can_smart, can_smart.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(can_creature, can_creature.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(can_redbomb, can_redbomb.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(can_mrsugar, can_mrsugar.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(can_overcharge, can_overcharge.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(can_luna, can_luna.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(can_bepis, can_bepis.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(can_breen, can_breen.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(can_mug, can_mug.getUnlocalizedName());
 
 		//Coffee
-		GameRegistry.registerItem(coffee, coffee.getUnlocalizedName());
-		GameRegistry.registerItem(coffee_radium, coffee_radium.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(coffee, coffee.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(coffee_radium, coffee_radium.getUnlocalizedName());
 
 		//Cola
 		GameRegistry.registerItem(bottle_empty, bottle_empty.getUnlocalizedName());
 		GameRegistry.registerItem(bottle_nuka, bottle_nuka.getUnlocalizedName());
-		GameRegistry.registerItem(bottle_cherry, bottle_cherry.getUnlocalizedName());
-		GameRegistry.registerItem(bottle_quantum, bottle_quantum.getUnlocalizedName());
-		GameRegistry.registerItem(bottle_sparkle, bottle_sparkle.getUnlocalizedName());
-		GameRegistry.registerItem(bottle_rad, bottle_rad.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(bottle_cherry, bottle_cherry.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(bottle_quantum, bottle_quantum.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(bottle_sparkle, bottle_sparkle.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(bottle_rad, bottle_rad.getUnlocalizedName());
 		GameRegistry.registerItem(bottle2_empty, bottle2_empty.getUnlocalizedName());
-		GameRegistry.registerItem(bottle2_korl, bottle2_korl.getUnlocalizedName());
-		GameRegistry.registerItem(bottle2_fritz, bottle2_fritz.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(bottle2_korl, bottle2_korl.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(bottle2_fritz, bottle2_fritz.getUnlocalizedName());
 		GameRegistry.registerItem(bottle_opener, bottle_opener.getUnlocalizedName());
 
 		//Flasks
-		GameRegistry.registerItem(flask_infusion, flask_infusion.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(flask_infusion, flask_infusion.getUnlocalizedName());
 
 		//Canned Food
-		GameRegistry.registerItem(canned_conserve, canned_conserve.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(canned_conserve, canned_conserve.getUnlocalizedName());
 
 		//Money
 		GameRegistry.registerItem(cap_nuka, cap_nuka.getUnlocalizedName());
-		GameRegistry.registerItem(cap_quantum, cap_quantum.getUnlocalizedName());
-		GameRegistry.registerItem(cap_sparkle, cap_sparkle.getUnlocalizedName());
-		GameRegistry.registerItem(cap_rad, cap_rad.getUnlocalizedName());
-		GameRegistry.registerItem(cap_korl, cap_korl.getUnlocalizedName());
-		GameRegistry.registerItem(cap_fritz, cap_fritz.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(cap_quantum, cap_quantum.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(cap_sparkle, cap_sparkle.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(cap_rad, cap_rad.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(cap_korl, cap_korl.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(cap_fritz, cap_fritz.getUnlocalizedName());
 		GameRegistry.registerItem(ring_pull, ring_pull.getUnlocalizedName());
 		GameRegistry.registerItem(can_key, can_key.getUnlocalizedName());
-		GameRegistry.registerItem(coin_creeper, coin_creeper.getUnlocalizedName());
-		GameRegistry.registerItem(coin_radiation,coin_radiation.getUnlocalizedName());
-		GameRegistry.registerItem(coin_maskman, coin_maskman.getUnlocalizedName());
-		GameRegistry.registerItem(coin_worm, coin_worm.getUnlocalizedName());
-		GameRegistry.registerItem(coin_ufo, coin_ufo.getUnlocalizedName());
-		GameRegistry.registerItem(coin_airliner, coin_airliner.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(coin_creeper, coin_creeper.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(coin_radiation,coin_radiation.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(coin_maskman, coin_maskman.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(coin_worm, coin_worm.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(coin_ufo, coin_ufo.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(coin_airliner, coin_airliner.getUnlocalizedName());
 		GameRegistry.registerItem(coin_token, coin_token.getUnlocalizedName());
 		GameRegistry.registerItem(medal_liquidator, medal_liquidator.getUnlocalizedName());
-		GameRegistry.registerItem(v1, v1.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(v1, v1.getUnlocalizedName());
 		GameRegistry.registerItem(protection_charm, protection_charm.getUnlocalizedName());
 		GameRegistry.registerItem(meteor_charm, meteor_charm.getUnlocalizedName());
 		GameRegistry.registerItem(neutrino_lens, neutrino_lens.getUnlocalizedName());
 		GameRegistry.registerItem(gas_tester, gas_tester.getUnlocalizedName());
 		GameRegistry.registerItem(defuser_gold, defuser_gold.getUnlocalizedName());
-		GameRegistry.registerItem(ballistic_gauntlet, ballistic_gauntlet.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(ballistic_gauntlet, ballistic_gauntlet.getUnlocalizedName());
 		GameRegistry.registerItem(night_vision, night_vision.getUnlocalizedName());
 		GameRegistry.registerItem(card_aos, card_aos.getUnlocalizedName());
 		GameRegistry.registerItem(card_qos, card_qos.getUnlocalizedName());
-		GameRegistry.registerItem(australium_iii, australium_iii.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(australium_iii, australium_iii.getUnlocalizedName());
 		GameRegistry.registerItem(armor_battery, armor_battery.getUnlocalizedName());
 		GameRegistry.registerItem(armor_battery_mk2, armor_battery_mk2.getUnlocalizedName());
 		GameRegistry.registerItem(armor_battery_mk3, armor_battery_mk3.getUnlocalizedName());
@@ -6767,14 +6767,14 @@ public class ModItems {
 		GameRegistry.registerItem(heavy_boots, heavy_boots.getUnlocalizedName());
 
 		//Chaos
-		GameRegistry.registerItem(chocolate_milk, chocolate_milk.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(chocolate_milk, chocolate_milk.getUnlocalizedName());
 		GameRegistry.registerItem(cbt_device, cbt_device.getUnlocalizedName());
-		GameRegistry.registerItem(cigarette, cigarette.getUnlocalizedName());
-		GameRegistry.registerItem(crackpipe, crackpipe.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(cigarette, cigarette.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(crackpipe, crackpipe.getUnlocalizedName());
 		GameRegistry.registerItem(bdcl, bdcl.getUnlocalizedName());
 
 
-		GameRegistry.registerItem(glass_smilk, glass_smilk.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(glass_smilk, glass_smilk.getUnlocalizedName());
 		GameRegistry.registerItem(glass_empty, glass_empty.getUnlocalizedName());
 		GameRegistry.registerItem(strawberry, strawberry.getUnlocalizedName());
 		GameRegistry.registerItem(mint_leaves, mint_leaves.getUnlocalizedName());
@@ -6793,7 +6793,7 @@ public class ModItems {
 		//Armor mods
 		GameRegistry.registerItem(attachment_mask, attachment_mask.getUnlocalizedName());
 		GameRegistry.registerItem(attachment_mask_mono, attachment_mask_mono.getUnlocalizedName());
-		GameRegistry.registerItem(back_tesla, back_tesla.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(back_tesla, back_tesla.getUnlocalizedName());
 		GameRegistry.registerItem(servo_set, servo_set.getUnlocalizedName());
 		GameRegistry.registerItem(servo_set_desh, servo_set_desh.getUnlocalizedName());
 		GameRegistry.registerItem(pads_rubber, pads_rubber.getUnlocalizedName());
@@ -6806,41 +6806,41 @@ public class ModItems {
 		GameRegistry.registerItem(cladding_ghiorsium, cladding_ghiorsium.getUnlocalizedName());
 		GameRegistry.registerItem(cladding_iron, cladding_iron.getUnlocalizedName());
 		GameRegistry.registerItem(cladding_obsidian, cladding_obsidian.getUnlocalizedName());
-		GameRegistry.registerItem(insert_kevlar, insert_kevlar.getUnlocalizedName());
-		GameRegistry.registerItem(insert_sapi, insert_sapi.getUnlocalizedName());
-		GameRegistry.registerItem(insert_esapi, insert_esapi.getUnlocalizedName());
-		GameRegistry.registerItem(insert_xsapi, insert_xsapi.getUnlocalizedName());
-		GameRegistry.registerItem(insert_steel, insert_steel.getUnlocalizedName());
-		GameRegistry.registerItem(insert_du, insert_du.getUnlocalizedName());
-		GameRegistry.registerItem(insert_polonium, insert_polonium.getUnlocalizedName());
-		GameRegistry.registerItem(insert_ghiorsium, insert_ghiorsium.getUnlocalizedName());
-		GameRegistry.registerItem(insert_cmb, insert_cmb.getUnlocalizedName());
-		GameRegistry.registerItem(insert_era, insert_era.getUnlocalizedName());
-		GameRegistry.registerItem(insert_yharonite, insert_yharonite.getUnlocalizedName());
-		GameRegistry.registerItem(insert_doxium, insert_doxium.getUnlocalizedName());
-		GameRegistry.registerItem(armor_polish, armor_polish.getUnlocalizedName());
-		GameRegistry.registerItem(bandaid, bandaid.getUnlocalizedName());
-		GameRegistry.registerItem(serum, serum.getUnlocalizedName());
-		GameRegistry.registerItem(quartz_plutonium, quartz_plutonium.getUnlocalizedName());
-		GameRegistry.registerItem(morning_glory, morning_glory.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(insert_kevlar, insert_kevlar.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(insert_sapi, insert_sapi.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(insert_esapi, insert_esapi.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(insert_xsapi, insert_xsapi.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(insert_steel, insert_steel.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(insert_du, insert_du.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(insert_polonium, insert_polonium.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(insert_ghiorsium, insert_ghiorsium.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(insert_cmb, insert_cmb.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(insert_era, insert_era.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(insert_yharonite, insert_yharonite.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(insert_doxium, insert_doxium.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(armor_polish, armor_polish.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(bandaid, bandaid.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(serum, serum.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(quartz_plutonium, quartz_plutonium.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(morning_glory, morning_glory.getUnlocalizedName());
 		GameRegistry.registerItem(lodestone, lodestone.getUnlocalizedName());
 		GameRegistry.registerItem(horseshoe_magnet, horseshoe_magnet.getUnlocalizedName());
 		GameRegistry.registerItem(industrial_magnet, industrial_magnet.getUnlocalizedName());
-		GameRegistry.registerItem(bathwater, bathwater.getUnlocalizedName());
-		GameRegistry.registerItem(bathwater_mk2, bathwater_mk2.getUnlocalizedName());
-		GameRegistry.registerItem(spider_milk, spider_milk.getUnlocalizedName());
-		GameRegistry.registerItem(ink, ink.getUnlocalizedName());
-		GameRegistry.registerItem(heart_piece, heart_piece.getUnlocalizedName());
-		GameRegistry.registerItem(heart_container, heart_container.getUnlocalizedName());
-		GameRegistry.registerItem(heart_booster, heart_booster.getUnlocalizedName());
-		GameRegistry.registerItem(heart_fab, heart_fab.getUnlocalizedName());
-		GameRegistry.registerItem(black_diamond, black_diamond.getUnlocalizedName());
-		GameRegistry.registerItem(wd40, wd40.getUnlocalizedName());
-		GameRegistry.registerItem(scrumpy, scrumpy.getUnlocalizedName());
-		GameRegistry.registerItem(wild_p, wild_p.getUnlocalizedName());
-		GameRegistry.registerItem(shackles, shackles.getUnlocalizedName());
-		GameRegistry.registerItem(injector_5htp, injector_5htp.getUnlocalizedName());
-		GameRegistry.registerItem(injector_knife, injector_knife.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(bathwater, bathwater.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(bathwater_mk2, bathwater_mk2.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(spider_milk, spider_milk.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(ink, ink.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(heart_piece, heart_piece.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(heart_container, heart_container.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(heart_booster, heart_booster.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(heart_fab, heart_fab.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(black_diamond, black_diamond.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(wd40, wd40.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(scrumpy, scrumpy.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(wild_p, wild_p.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(shackles, shackles.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(injector_5htp, injector_5htp.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(injector_knife, injector_knife.getUnlocalizedName());
 
 		//Vehicles
 		GameRegistry.registerItem(boat_rubber, boat_rubber.getUnlocalizedName());
@@ -6928,14 +6928,14 @@ public class ModItems {
 		GameRegistry.registerItem(custom_fall, custom_fall.getUnlocalizedName());
 
 		//Power Armor
-		GameRegistry.registerItem(steamsuit_helmet, steamsuit_helmet.getUnlocalizedName());
-		GameRegistry.registerItem(steamsuit_plate, steamsuit_plate.getUnlocalizedName());
-		GameRegistry.registerItem(steamsuit_legs, steamsuit_legs.getUnlocalizedName());
-		GameRegistry.registerItem(steamsuit_boots, steamsuit_boots.getUnlocalizedName());
-		GameRegistry.registerItem(dieselsuit_helmet, dieselsuit_helmet.getUnlocalizedName());
-		GameRegistry.registerItem(dieselsuit_plate, dieselsuit_plate.getUnlocalizedName());
-		GameRegistry.registerItem(dieselsuit_legs, dieselsuit_legs.getUnlocalizedName());
-		GameRegistry.registerItem(dieselsuit_boots, dieselsuit_boots.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(steamsuit_helmet, steamsuit_helmet.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(steamsuit_plate, steamsuit_plate.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(steamsuit_legs, steamsuit_legs.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(steamsuit_boots, steamsuit_boots.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(dieselsuit_helmet, dieselsuit_helmet.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(dieselsuit_plate, dieselsuit_plate.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(dieselsuit_legs, dieselsuit_legs.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(dieselsuit_boots, dieselsuit_boots.getUnlocalizedName());
 		GameRegistry.registerItem(t51_helmet, t51_helmet.getUnlocalizedName());
 		GameRegistry.registerItem(t51_plate, t51_plate.getUnlocalizedName());
 		GameRegistry.registerItem(t51_legs, t51_legs.getUnlocalizedName());
@@ -6948,19 +6948,19 @@ public class ModItems {
 		GameRegistry.registerItem(ajro_plate, ajro_plate.getUnlocalizedName());
 		GameRegistry.registerItem(ajro_legs, ajro_legs.getUnlocalizedName());
 		GameRegistry.registerItem(ajro_boots, ajro_boots.getUnlocalizedName());
-		GameRegistry.registerItem(rpa_helmet, rpa_helmet.getUnlocalizedName());
-		GameRegistry.registerItem(rpa_plate, rpa_plate.getUnlocalizedName());
-		GameRegistry.registerItem(rpa_legs, rpa_legs.getUnlocalizedName());
-		GameRegistry.registerItem(rpa_boots, rpa_boots.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(rpa_helmet, rpa_helmet.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(rpa_plate, rpa_plate.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(rpa_legs, rpa_legs.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(rpa_boots, rpa_boots.getUnlocalizedName());
 		GameRegistry.registerItem(ncrpa_helmet, ncrpa_helmet.getUnlocalizedName());
 		GameRegistry.registerItem(ncrpa_plate, ncrpa_plate.getUnlocalizedName());
 		GameRegistry.registerItem(ncrpa_legs, ncrpa_legs.getUnlocalizedName());
 		GameRegistry.registerItem(ncrpa_boots, ncrpa_boots.getUnlocalizedName());
-		GameRegistry.registerItem(bj_helmet, bj_helmet.getUnlocalizedName());
-		GameRegistry.registerItem(bj_plate, bj_plate.getUnlocalizedName());
-		GameRegistry.registerItem(bj_plate_jetpack, bj_plate_jetpack.getUnlocalizedName());
-		GameRegistry.registerItem(bj_legs, bj_legs.getUnlocalizedName());
-		GameRegistry.registerItem(bj_boots, bj_boots.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(bj_helmet, bj_helmet.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(bj_plate, bj_plate.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(bj_plate_jetpack, bj_plate_jetpack.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(bj_legs, bj_legs.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(bj_boots, bj_boots.getUnlocalizedName());
 		GameRegistry.registerItem(envsuit_helmet, envsuit_helmet.getUnlocalizedName());
 		GameRegistry.registerItem(envsuit_plate, envsuit_plate.getUnlocalizedName());
 		GameRegistry.registerItem(envsuit_legs, envsuit_legs.getUnlocalizedName());
@@ -6969,22 +6969,22 @@ public class ModItems {
 		GameRegistry.registerItem(hev_plate, hev_plate.getUnlocalizedName());
 		GameRegistry.registerItem(hev_legs, hev_legs.getUnlocalizedName());
 		GameRegistry.registerItem(hev_boots, hev_boots.getUnlocalizedName());
-		GameRegistry.registerItem(fau_helmet, fau_helmet.getUnlocalizedName());
-		GameRegistry.registerItem(fau_plate, fau_plate.getUnlocalizedName());
-		GameRegistry.registerItem(fau_legs, fau_legs.getUnlocalizedName());
-		GameRegistry.registerItem(fau_boots, fau_boots.getUnlocalizedName());
-		GameRegistry.registerItem(dns_helmet, dns_helmet.getUnlocalizedName());
-		GameRegistry.registerItem(dns_plate, dns_plate.getUnlocalizedName());
-		GameRegistry.registerItem(dns_legs, dns_legs.getUnlocalizedName());
-		GameRegistry.registerItem(dns_boots, dns_boots.getUnlocalizedName());
-		GameRegistry.registerItem(taurun_helmet, taurun_helmet.getUnlocalizedName());
-		GameRegistry.registerItem(taurun_plate, taurun_plate.getUnlocalizedName());
-		GameRegistry.registerItem(taurun_legs, taurun_legs.getUnlocalizedName());
-		GameRegistry.registerItem(taurun_boots, taurun_boots.getUnlocalizedName());
-		GameRegistry.registerItem(trenchmaster_helmet, trenchmaster_helmet.getUnlocalizedName());
-		GameRegistry.registerItem(trenchmaster_plate, trenchmaster_plate.getUnlocalizedName());
-		GameRegistry.registerItem(trenchmaster_legs, trenchmaster_legs.getUnlocalizedName());
-		GameRegistry.registerItem(trenchmaster_boots, trenchmaster_boots.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(fau_helmet, fau_helmet.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(fau_plate, fau_plate.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(fau_legs, fau_legs.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(fau_boots, fau_boots.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(dns_helmet, dns_helmet.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(dns_plate, dns_plate.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(dns_legs, dns_legs.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(dns_boots, dns_boots.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(taurun_helmet, taurun_helmet.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(taurun_plate, taurun_plate.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(taurun_legs, taurun_legs.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(taurun_boots, taurun_boots.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(trenchmaster_helmet, trenchmaster_helmet.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(trenchmaster_plate, trenchmaster_plate.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(trenchmaster_legs, trenchmaster_legs.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(trenchmaster_boots, trenchmaster_boots.getUnlocalizedName());
 
 		//Nobody will ever read this anyway, so it shouldn't matter.
 		GameRegistry.registerItem(chainsaw, chainsaw.getUnlocalizedName());
@@ -6996,11 +6996,11 @@ public class ModItems {
 		GameRegistry.registerItem(detonator_de, detonator_de.getUnlocalizedName());
 		GameRegistry.registerItem(bomb_caller, bomb_caller.getUnlocalizedName());
 		GameRegistry.registerItem(meteor_remote, meteor_remote.getUnlocalizedName());
-		GameRegistry.registerItem(anchor_remote, anchor_remote.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(anchor_remote, anchor_remote.getUnlocalizedName());
 		GameRegistry.registerItem(defuser, defuser.getUnlocalizedName());
 		GameRegistry.registerItem(reacher, reacher.getUnlocalizedName());
 		GameRegistry.registerItem(bismuth_tool, bismuth_tool.getUnlocalizedName());
-		GameRegistry.registerItem(meltdown_tool, meltdown_tool.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(meltdown_tool, meltdown_tool.getUnlocalizedName());
 
 		GameRegistry.registerItem(hazmat_helmet, hazmat_helmet.getUnlocalizedName());
 		GameRegistry.registerItem(hazmat_plate, hazmat_plate.getUnlocalizedName());
@@ -7022,61 +7022,61 @@ public class ModItems {
 		GameRegistry.registerItem(liquidator_plate, liquidator_plate.getUnlocalizedName());
 		GameRegistry.registerItem(liquidator_legs, liquidator_legs.getUnlocalizedName());
 		GameRegistry.registerItem(liquidator_boots, liquidator_boots.getUnlocalizedName());
-		GameRegistry.registerItem(cmb_helmet, cmb_helmet.getUnlocalizedName());
-		GameRegistry.registerItem(cmb_plate, cmb_plate.getUnlocalizedName());
-		GameRegistry.registerItem(cmb_legs, cmb_legs.getUnlocalizedName());
-		GameRegistry.registerItem(cmb_boots, cmb_boots.getUnlocalizedName());
-		GameRegistry.registerItem(paa_plate, paa_plate.getUnlocalizedName());
-		GameRegistry.registerItem(paa_legs, paa_legs.getUnlocalizedName());
-		GameRegistry.registerItem(paa_boots, paa_boots.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(cmb_helmet, cmb_helmet.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(cmb_plate, cmb_plate.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(cmb_legs, cmb_legs.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(cmb_boots, cmb_boots.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(paa_plate, paa_plate.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(paa_legs, paa_legs.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(paa_boots, paa_boots.getUnlocalizedName());
 		GameRegistry.registerItem(asbestos_helmet, asbestos_helmet.getUnlocalizedName());
 		GameRegistry.registerItem(asbestos_plate, asbestos_plate.getUnlocalizedName());
 		GameRegistry.registerItem(asbestos_legs, asbestos_legs.getUnlocalizedName());
 		GameRegistry.registerItem(asbestos_boots, asbestos_boots.getUnlocalizedName());
-		GameRegistry.registerItem(security_helmet, security_helmet.getUnlocalizedName());
-		GameRegistry.registerItem(security_plate, security_plate.getUnlocalizedName());
-		GameRegistry.registerItem(security_legs, security_legs.getUnlocalizedName());
-		GameRegistry.registerItem(security_boots, security_boots.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(security_helmet, security_helmet.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(security_plate, security_plate.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(security_legs, security_legs.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(security_boots, security_boots.getUnlocalizedName());
 		GameRegistry.registerItem(cobalt_helmet, cobalt_helmet.getUnlocalizedName());
 		GameRegistry.registerItem(cobalt_plate, cobalt_plate.getUnlocalizedName());
 		GameRegistry.registerItem(cobalt_legs, cobalt_legs.getUnlocalizedName());
 		GameRegistry.registerItem(cobalt_boots, cobalt_boots.getUnlocalizedName());
-		GameRegistry.registerItem(starmetal_helmet, starmetal_helmet.getUnlocalizedName());
-		GameRegistry.registerItem(starmetal_plate, starmetal_plate.getUnlocalizedName());
-		GameRegistry.registerItem(starmetal_legs, starmetal_legs.getUnlocalizedName());
-		GameRegistry.registerItem(starmetal_boots, starmetal_boots.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(starmetal_helmet, starmetal_helmet.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(starmetal_plate, starmetal_plate.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(starmetal_legs, starmetal_legs.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(starmetal_boots, starmetal_boots.getUnlocalizedName());
 		GameRegistry.registerItem(zirconium_legs, zirconium_legs.getUnlocalizedName());
 		GameRegistry.registerItem(dnt_helmet, dnt_helmet.getUnlocalizedName());
 		GameRegistry.registerItem(dnt_plate, dnt_plate.getUnlocalizedName());
 		GameRegistry.registerItem(dnt_legs, dnt_legs.getUnlocalizedName());
 		GameRegistry.registerItem(dnt_boots, dnt_boots.getUnlocalizedName());
-		GameRegistry.registerItem(schrabidium_helmet, schrabidium_helmet.getUnlocalizedName());
-		GameRegistry.registerItem(schrabidium_plate, schrabidium_plate.getUnlocalizedName());
-		GameRegistry.registerItem(schrabidium_legs, schrabidium_legs.getUnlocalizedName());
-		GameRegistry.registerItem(schrabidium_boots, schrabidium_boots.getUnlocalizedName());
-		GameRegistry.registerItem(bismuth_helmet, bismuth_helmet.getUnlocalizedName());
-		GameRegistry.registerItem(bismuth_plate, bismuth_plate.getUnlocalizedName());
-		GameRegistry.registerItem(bismuth_legs, bismuth_legs.getUnlocalizedName());
-		GameRegistry.registerItem(bismuth_boots, bismuth_boots.getUnlocalizedName());
-		GameRegistry.registerItem(euphemium_helmet, euphemium_helmet.getUnlocalizedName());
-		GameRegistry.registerItem(euphemium_plate, euphemium_plate.getUnlocalizedName());
-		GameRegistry.registerItem(euphemium_legs, euphemium_legs.getUnlocalizedName());
-		GameRegistry.registerItem(euphemium_boots, euphemium_boots.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(schrabidium_helmet, schrabidium_helmet.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(schrabidium_plate, schrabidium_plate.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(schrabidium_legs, schrabidium_legs.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(schrabidium_boots, schrabidium_boots.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(bismuth_helmet, bismuth_helmet.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(bismuth_plate, bismuth_plate.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(bismuth_legs, bismuth_legs.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(bismuth_boots, bismuth_boots.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(euphemium_helmet, euphemium_helmet.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(euphemium_plate, euphemium_plate.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(euphemium_legs, euphemium_legs.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(euphemium_boots, euphemium_boots.getUnlocalizedName());
 		GameRegistry.registerItem(robes_helmet, robes_helmet.getUnlocalizedName());
 		GameRegistry.registerItem(robes_plate, robes_plate.getUnlocalizedName());
 		GameRegistry.registerItem(robes_legs, robes_legs.getUnlocalizedName());
 		GameRegistry.registerItem(robes_boots, robes_boots.getUnlocalizedName());
-		GameRegistry.registerItem(apple_euphemium, apple_euphemium.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(apple_euphemium, apple_euphemium.getUnlocalizedName());
 		GameRegistry.registerItem(watch, watch.getUnlocalizedName());
 		GameRegistry.registerItem(mask_of_infamy, mask_of_infamy.getUnlocalizedName());
 		GameRegistry.registerItem(jackt, jackt.getUnlocalizedName());
 		GameRegistry.registerItem(jackt2, jackt2.getUnlocalizedName());
 		GameRegistry.registerItem(jetpack_fly, jetpack_fly.getUnlocalizedName());
 		GameRegistry.registerItem(jetpack_break, jetpack_break.getUnlocalizedName());
-		GameRegistry.registerItem(jetpack_vector, jetpack_vector.getUnlocalizedName());
-		GameRegistry.registerItem(jetpack_boost, jetpack_boost.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(jetpack_vector, jetpack_vector.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(jetpack_boost, jetpack_boost.getUnlocalizedName());
 		GameRegistry.registerItem(wings_limp, wings_limp.getUnlocalizedName());
-		GameRegistry.registerItem(wings_murk, wings_murk.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(wings_murk, wings_murk.getUnlocalizedName());
 		GameRegistry.registerItem(oxy_plss, oxy_plss.getUnlocalizedName());
 
 		//Expensive Ass Shit
@@ -7095,15 +7095,15 @@ public class ModItems {
 		GameRegistry.registerItem(structure_randomized, structure_randomized.getUnlocalizedName());
 		GameRegistry.registerItem(structure_randomly, structure_randomly.getUnlocalizedName());
 		GameRegistry.registerItem(structure_custommachine, structure_custommachine.getUnlocalizedName());
-		GameRegistry.registerItem(rod_of_discord, rod_of_discord.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(rod_of_discord, rod_of_discord.getUnlocalizedName());
 		//GameRegistry.registerItem(analyzer, analyzer.getUnlocalizedName());
 		//GameRegistry.registerItem(remote, remote.getUnlocalizedName());
 		GameRegistry.registerItem(polaroid, polaroid.getUnlocalizedName());
-		GameRegistry.registerItem(glitch, glitch.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(glitch, glitch.getUnlocalizedName());
 		GameRegistry.registerItem(book_secret, book_secret.getUnlocalizedName());
 		GameRegistry.registerItem(book_of_, book_of_.getUnlocalizedName());
 		GameRegistry.registerItem(page_of_, page_of_.getUnlocalizedName());
-		GameRegistry.registerItem(book_lemegeton, book_lemegeton.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(book_lemegeton, book_lemegeton.getUnlocalizedName());
 		GameRegistry.registerItem(burnt_bark, burnt_bark.getUnlocalizedName());
 
 		//Kits
@@ -7116,11 +7116,11 @@ public class ModItems {
 		GameRegistry.registerItem(man_kit, man_kit.getUnlocalizedName());
 		GameRegistry.registerItem(mike_kit, mike_kit.getUnlocalizedName());
 		GameRegistry.registerItem(tsar_kit, tsar_kit.getUnlocalizedName());
-		GameRegistry.registerItem(prototype_kit, prototype_kit.getUnlocalizedName());
-		GameRegistry.registerItem(fleija_kit, fleija_kit.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(prototype_kit, prototype_kit.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(fleija_kit, fleija_kit.getUnlocalizedName());
 		GameRegistry.registerItem(solinium_kit, solinium_kit.getUnlocalizedName());
 		GameRegistry.registerItem(multi_kit, multi_kit.getUnlocalizedName());
-		GameRegistry.registerItem(custom_kit, custom_kit.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(custom_kit, custom_kit.getUnlocalizedName());
 		GameRegistry.registerItem(missile_kit, missile_kit.getUnlocalizedName());
 		GameRegistry.registerItem(hazmat_kit, hazmat_kit.getUnlocalizedName());
 		GameRegistry.registerItem(hazmat_red_kit, hazmat_red_kit.getUnlocalizedName());

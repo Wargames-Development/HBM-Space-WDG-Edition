@@ -174,6 +174,7 @@ public class BlockCrate extends BlockFalling {
 		}
 
 		for(ItemStack stack : list) {
+            if(stack == null || com.hbm.config.BanItems.disabled(stack)) continue;
 			float f = rand.nextFloat() * 0.8F + 0.1F;
 			float f1 = rand.nextFloat() * 0.8F + 0.1F;
 			float f2 = rand.nextFloat() * 0.8F + 0.1F;

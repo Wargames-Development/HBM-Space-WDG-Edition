@@ -1,0 +1,1699 @@
+{
+  "mode": "staged only",
+  "entries": [
+    {
+      "source": "/Users/rhysh/Library/Application Support/PrismLauncher/instances/Release Testing/minecraft/scripts/MineTweakerRecipeMaker.zs",
+      "staged": "/Users/rhysh/Documents/GitHub/HBM-Space-WDG-Edition/docs/banitems-audit-2026-10-20/pack-script-migration/scripts/MineTweakerRecipeMaker.zs",
+      "original_sha256": "f9132534b1d02fc615d4af5800148a443374f44ec54028cba4f02beb577cd856",
+      "updated_sha256": "f4340b4c936bdd1980d37fa3e12c541c80e446fade772f92c81611b275da6ee0",
+      "edits": [
+        {
+          "line": 53,
+          "registry": "hbm:item.chopper",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.chopper>);"
+        },
+        {
+          "line": 54,
+          "registry": "hbm:item.euphemium_boots",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.euphemium_boots>);"
+        },
+        {
+          "line": 55,
+          "registry": "hbm:item.euphemium_legs",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.euphemium_legs>);"
+        },
+        {
+          "line": 56,
+          "registry": "hbm:item.euphemium_helmet",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.euphemium_helmet>);"
+        },
+        {
+          "line": 57,
+          "registry": "hbm:item.euphemium_plate",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.euphemium_plate>);"
+        },
+        {
+          "line": 58,
+          "registry": "hbm:item.meteorite_sword_seared",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.meteorite_sword_seared>);"
+        },
+        {
+          "line": 59,
+          "registry": "hbm:item.meteorite_sword_seared",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.meteorite_sword_seared>);"
+        },
+        {
+          "line": 60,
+          "registry": "hbm:item.crucible",
+          "metadata": 3,
+          "original": "recipes.remove(<hbm:item.crucible:3>);"
+        },
+        {
+          "line": 61,
+          "registry": "hbm:item.crucible",
+          "metadata": 3,
+          "original": "recipes.remove(<hbm:item.crucible:3>);"
+        },
+        {
+          "line": 62,
+          "registry": "hbm:item.crucible",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.crucible>);"
+        },
+        {
+          "line": 66,
+          "registry": "hbm:item.starmetal_helmet",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.starmetal_helmet>);"
+        },
+        {
+          "line": 67,
+          "registry": "hbm:item.starmetal_plate",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.starmetal_plate>);"
+        },
+        {
+          "line": 68,
+          "registry": "hbm:item.starmetal_legs",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.starmetal_legs>);"
+        },
+        {
+          "line": 69,
+          "registry": "hbm:item.starmetal_boots",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.starmetal_boots>);"
+        },
+        {
+          "line": 71,
+          "registry": "hbm:item.jetpack_boost",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.jetpack_boost>);"
+        },
+        {
+          "line": 72,
+          "registry": "hbm:item.jetpack_vector",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.jetpack_vector>);"
+        },
+        {
+          "line": 77,
+          "registry": "hbm:item.bismuth_boots",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.bismuth_boots>);"
+        },
+        {
+          "line": 78,
+          "registry": "hbm:item.bismuth_legs",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.bismuth_legs>);"
+        },
+        {
+          "line": 79,
+          "registry": "hbm:item.bismuth_plate",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.bismuth_plate>);"
+        },
+        {
+          "line": 80,
+          "registry": "hbm:item.bismuth_helmet",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.bismuth_helmet>);"
+        },
+        {
+          "line": 81,
+          "registry": "hbm:item.schrabidium_boots",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.schrabidium_boots>);"
+        },
+        {
+          "line": 82,
+          "registry": "hbm:item.schrabidium_legs",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.schrabidium_legs>);"
+        },
+        {
+          "line": 84,
+          "registry": "hbm:item.wings_murk",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.wings_murk>);"
+        },
+        {
+          "line": 91,
+          "registry": "hbm:item.trenchmaster_helmet",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.trenchmaster_helmet>);"
+        },
+        {
+          "line": 92,
+          "registry": "hbm:item.trenchmaster_plate",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.trenchmaster_plate>);"
+        },
+        {
+          "line": 93,
+          "registry": "hbm:item.trenchmaster_legs",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.trenchmaster_legs>);"
+        },
+        {
+          "line": 94,
+          "registry": "hbm:item.trenchmaster_boots",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.trenchmaster_boots>);"
+        },
+        {
+          "line": 95,
+          "registry": "hbm:item.cmb_helmet",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.cmb_helmet>);"
+        },
+        {
+          "line": 96,
+          "registry": "hbm:item.cmb_plate",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.cmb_plate>);"
+        },
+        {
+          "line": 97,
+          "registry": "hbm:item.cmb_legs",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.cmb_legs>);"
+        },
+        {
+          "line": 98,
+          "registry": "hbm:item.cmb_boots",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.cmb_boots>);"
+        },
+        {
+          "line": 99,
+          "registry": "hbm:item.security_helmet",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.security_helmet>);"
+        },
+        {
+          "line": 100,
+          "registry": "hbm:item.security_plate",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.security_plate>);"
+        },
+        {
+          "line": 101,
+          "registry": "hbm:item.security_legs",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.security_legs>);"
+        },
+        {
+          "line": 102,
+          "registry": "hbm:item.security_boots",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.security_boots>);"
+        },
+        {
+          "line": 104,
+          "registry": "hbm:item.schrabidium_plate",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.schrabidium_plate>);"
+        },
+        {
+          "line": 105,
+          "registry": "hbm:item.schrabidium_helmet",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.schrabidium_helmet>);"
+        },
+        {
+          "line": 111,
+          "registry": "hbm:tile.broadcaster_pc",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:tile.broadcaster_pc>);"
+        },
+        {
+          "line": 113,
+          "registry": "hbm:item.steamsuit_legs",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.steamsuit_legs>);"
+        },
+        {
+          "line": 114,
+          "registry": "hbm:item.steamsuit_plate",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.steamsuit_plate>);"
+        },
+        {
+          "line": 115,
+          "registry": "hbm:item.steamsuit_helmet",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.steamsuit_helmet>);"
+        },
+        {
+          "line": 116,
+          "registry": "hbm:item.schrabidium_hammer",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.schrabidium_hammer>);"
+        },
+        {
+          "line": 117,
+          "registry": "hbm:item.rpa_boots",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.rpa_boots>);"
+        },
+        {
+          "line": 118,
+          "registry": "hbm:item.taurun_boots",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.taurun_boots>);"
+        },
+        {
+          "line": 119,
+          "registry": "hbm:item.taurun_legs",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.taurun_legs>);"
+        },
+        {
+          "line": 120,
+          "registry": "hbm:item.taurun_plate",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.taurun_plate>);"
+        },
+        {
+          "line": 121,
+          "registry": "hbm:item.taurun_helmet",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.taurun_helmet>);"
+        },
+        {
+          "line": 126,
+          "registry": "hbm:item.steamsuit_boots",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.steamsuit_boots>);"
+        },
+        {
+          "line": 127,
+          "registry": "hbm:tile.struct_launcher_core",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:tile.struct_launcher_core>);"
+        },
+        {
+          "line": 128,
+          "registry": "hbm:tile.struct_launcher_core_large",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:tile.struct_launcher_core_large>);"
+        },
+        {
+          "line": 130,
+          "registry": "hbm:item.starmetal_sword",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.starmetal_sword>);"
+        },
+        {
+          "line": 131,
+          "registry": "hbm:item.shimmer_sledge",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.shimmer_sledge>);"
+        },
+        {
+          "line": 132,
+          "registry": "hbm:item.shimmer_axe",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.shimmer_axe>);"
+        },
+        {
+          "line": 133,
+          "registry": "hbm:item.schrabidium_sword",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.schrabidium_sword>);"
+        },
+        {
+          "line": 134,
+          "registry": "hbm:item.schrabidium_sword",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.schrabidium_sword>);"
+        },
+        {
+          "line": 135,
+          "registry": "hbm:item.meteorite_sword_irradiated",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.meteorite_sword_irradiated>);"
+        },
+        {
+          "line": 136,
+          "registry": "hbm:item.meteorite_sword_bred",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.meteorite_sword_bred>);"
+        },
+        {
+          "line": 137,
+          "registry": "hbm:item.meteorite_sword_treated",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.meteorite_sword_treated>);"
+        },
+        {
+          "line": 138,
+          "registry": "hbm:item.meteorite_sword_alloyed",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.meteorite_sword_alloyed>);"
+        },
+        {
+          "line": 140,
+          "registry": "hbm:item.meteorite_sword_baleful",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.meteorite_sword_baleful>);"
+        },
+        {
+          "line": 141,
+          "registry": "hbm:item.meteorite_sword_fused",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.meteorite_sword_fused>);"
+        },
+        {
+          "line": 142,
+          "registry": "hbm:item.meteorite_sword_etched",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.meteorite_sword_etched>);"
+        },
+        {
+          "line": 143,
+          "registry": "hbm:item.meteorite_sword_machined",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.meteorite_sword_machined>);"
+        },
+        {
+          "line": 144,
+          "registry": "hbm:item.plastic_bag",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.plastic_bag>);"
+        },
+        {
+          "line": 145,
+          "registry": "hbm:item.rpa_helmet",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.rpa_helmet>);"
+        },
+        {
+          "line": 146,
+          "registry": "hbm:item.rpa_plate",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.rpa_plate>);"
+        },
+        {
+          "line": 147,
+          "registry": "hbm:item.rpa_legs",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.rpa_legs>);"
+        },
+        {
+          "line": 154,
+          "registry": "hbm:item.fau_boots",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.fau_boots>);"
+        },
+        {
+          "line": 155,
+          "registry": "hbm:item.dieselsuit_helmet",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.dieselsuit_helmet>);"
+        },
+        {
+          "line": 156,
+          "registry": "hbm:item.dns_legs",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.dns_legs>);"
+        },
+        {
+          "line": 160,
+          "registry": "hbm:item.meteorite_sword_hardened",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.meteorite_sword_hardened>);"
+        },
+        {
+          "line": 161,
+          "registry": "hbm:item.meteorite_sword_reforged",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.meteorite_sword_reforged>);"
+        },
+        {
+          "line": 162,
+          "registry": "hbm:item.meteorite_sword_seared",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.meteorite_sword_seared>);"
+        },
+        {
+          "line": 163,
+          "registry": "hbm:item.meteorite_sword",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.meteorite_sword>);"
+        },
+        {
+          "line": 164,
+          "registry": "hbm:item.mese_gavel",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.mese_gavel>);"
+        },
+        {
+          "line": 165,
+          "registry": "hbm:item.memespoon",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.memespoon>);"
+        },
+        {
+          "line": 166,
+          "registry": "hbm:item.bj_helmet",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.bj_helmet>);"
+        },
+        {
+          "line": 167,
+          "registry": "hbm:item.bj_plate",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.bj_plate>);"
+        },
+        {
+          "line": 168,
+          "registry": "hbm:item.bj_plate_jetpack",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.bj_plate_jetpack>);"
+        },
+        {
+          "line": 169,
+          "registry": "hbm:item.bj_legs",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.bj_legs>);"
+        },
+        {
+          "line": 170,
+          "registry": "hbm:item.bj_boots",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.bj_boots>);"
+        },
+        {
+          "line": 171,
+          "registry": "hbm:item.pancake",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.pancake>);"
+        },
+        {
+          "line": 172,
+          "registry": "hbm:item.bobmazon_hidden",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.bobmazon_hidden>);"
+        },
+        {
+          "line": 174,
+          "registry": "hbm:item.fau_legs",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.fau_legs>);"
+        },
+        {
+          "line": 175,
+          "registry": "hbm:item.dieselsuit_legs",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.dieselsuit_legs>);"
+        },
+        {
+          "line": 176,
+          "registry": "hbm:item.dieselsuit_boots",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.dieselsuit_boots>);"
+        },
+        {
+          "line": 177,
+          "registry": "hbm:item.dns_helmet",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.dns_helmet>);"
+        },
+        {
+          "line": 178,
+          "registry": "hbm:item.dns_plate",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.dns_plate>);"
+        },
+        {
+          "line": 179,
+          "registry": "hbm:item.dns_boots",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.dns_boots>);"
+        },
+        {
+          "line": 181,
+          "registry": "hbm:item.elec_sword",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.elec_sword>);"
+        },
+        {
+          "line": 182,
+          "registry": "hbm:item.fau_helmet",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.fau_helmet>);"
+        },
+        {
+          "line": 183,
+          "registry": "hbm:item.fau_plate",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.fau_plate>);"
+        },
+        {
+          "line": 184,
+          "registry": "hbm:item.dieselsuit_plate",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.dieselsuit_plate>);"
+        },
+        {
+          "line": 195,
+          "registry": "hbm:item.cmb_sword",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.cmb_sword>);"
+        },
+        {
+          "line": 198,
+          "registry": "hbm:item.desh_sword",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.desh_sword>);"
+        },
+        {
+          "line": 212,
+          "registry": "hbm:item.missile_taint",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.missile_taint>);"
+        },
+        {
+          "line": 219,
+          "registry": "hbm:item.gun_double_barrel",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.gun_double_barrel>);"
+        },
+        {
+          "line": 220,
+          "registry": "hbm:item.gun_n_i_4_n_i",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.gun_n_i_4_n_i>);"
+        },
+        {
+          "line": 228,
+          "registry": "hbm:item.missile_bhole",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.missile_bhole>);"
+        },
+        {
+          "line": 229,
+          "registry": "hbm:item.missile_schrabidium",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.missile_schrabidium>);"
+        },
+        {
+          "line": 230,
+          "registry": "hbm:item.gun_uzi",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.gun_uzi>);"
+        },
+        {
+          "line": 231,
+          "registry": "hbm:item.gun_spas12",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.gun_spas12>);"
+        },
+        {
+          "line": 232,
+          "registry": "hbm:item.gun_panzerschreck",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.gun_panzerschreck>);"
+        },
+        {
+          "line": 233,
+          "registry": "hbm:item.gun_star_f",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.gun_star_f>);"
+        },
+        {
+          "line": 234,
+          "registry": "hbm:item.gun_stinger",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.gun_stinger>);"
+        },
+        {
+          "line": 235,
+          "registry": "hbm:item.gun_chemthrower",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.gun_chemthrower>);"
+        },
+        {
+          "line": 236,
+          "registry": "hbm:item.gun_amat",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.gun_amat>);"
+        },
+        {
+          "line": 237,
+          "registry": "hbm:item.gun_g3",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.gun_g3>);"
+        },
+        {
+          "line": 238,
+          "registry": "hbm:item.gun_m2",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.gun_m2>);"
+        },
+        {
+          "line": 239,
+          "registry": "hbm:item.gun_bolter",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.gun_bolter>);"
+        },
+        {
+          "line": 240,
+          "registry": "hbm:item.gun_coilgun",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.gun_coilgun>);"
+        },
+        {
+          "line": 241,
+          "registry": "hbm:item.gun_lasrifle",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.gun_lasrifle>);"
+        },
+        {
+          "line": 242,
+          "registry": "hbm:item.gun_fatman",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.gun_fatman>);"
+        },
+        {
+          "line": 243,
+          "registry": "hbm:item.gun_tau",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.gun_tau>);"
+        },
+        {
+          "line": 244,
+          "registry": "hbm:item.gun_missile_launcher",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.gun_missile_launcher>);"
+        },
+        {
+          "line": 245,
+          "registry": "hbm:item.gun_stg77",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.gun_stg77>);"
+        },
+        {
+          "line": 246,
+          "registry": "hbm:item.gun_laser_pistol",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.gun_laser_pistol>);"
+        },
+        {
+          "line": 247,
+          "registry": "hbm:item.gun_tesla_cannon",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.gun_tesla_cannon>);"
+        },
+        {
+          "line": 248,
+          "registry": "hbm:item.gun_b92",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.gun_b92>);"
+        },
+        {
+          "line": 249,
+          "registry": "hbm:item.crucible",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.crucible>);"
+        },
+        {
+          "line": 250,
+          "registry": "hbm:item.gun_pepperbox",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.gun_pepperbox>);"
+        },
+        {
+          "line": 251,
+          "registry": "hbm:item.gun_light_revolver",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.gun_light_revolver>);"
+        },
+        {
+          "line": 252,
+          "registry": "hbm:item.gun_greasegun",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.gun_greasegun>);"
+        },
+        {
+          "line": 253,
+          "registry": "hbm:item.gun_maresleg",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.gun_maresleg>);"
+        },
+        {
+          "line": 254,
+          "registry": "hbm:item.gun_henry",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.gun_henry>);"
+        },
+        {
+          "line": 255,
+          "registry": "hbm:item.gun_flaregun",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.gun_flaregun>);"
+        },
+        {
+          "line": 256,
+          "registry": "hbm:item.gun_heavy_revolver",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.gun_heavy_revolver>);"
+        },
+        {
+          "line": 257,
+          "registry": "hbm:item.gun_autoshotgun",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.gun_autoshotgun>);"
+        },
+        {
+          "line": 258,
+          "registry": "hbm:item.gun_minigun",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.gun_minigun>);"
+        },
+        {
+          "line": 259,
+          "registry": "hbm:item.gun_flamer",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.gun_flamer>);"
+        },
+        {
+          "line": 260,
+          "registry": "hbm:item.gun_quadro",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.gun_quadro>);"
+        },
+        {
+          "line": 261,
+          "registry": "hbm:item.gun_lag",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.gun_lag>);"
+        },
+        {
+          "line": 262,
+          "registry": "hbm:item.gun_congolake",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.gun_congolake>);"
+        },
+        {
+          "line": 263,
+          "registry": "hbm:item.gun_carbine",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.gun_carbine>);"
+        },
+        {
+          "line": 264,
+          "registry": "hbm:item.gun_liberator",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.gun_liberator>);"
+        },
+        {
+          "line": 265,
+          "registry": "hbm:item.gun_am180",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.gun_am180>);"
+        },
+        {
+          "line": 275,
+          "registry": "hbm:tile.turret_tauon",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:tile.turret_tauon>);"
+        },
+        {
+          "line": 276,
+          "registry": "hbm:tile.turret_maxwell",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:tile.turret_maxwell>);"
+        },
+        {
+          "line": 279,
+          "registry": "hbm:item.sat_gerald",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.sat_gerald>);"
+        },
+        {
+          "line": 280,
+          "registry": "hbm:item.sat_resonator",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.sat_resonator>);"
+        },
+        {
+          "line": 289,
+          "registry": "hbm:tile.nuke_antimatter",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:tile.nuke_antimatter>);"
+        },
+        {
+          "line": 290,
+          "registry": "hbm:tile.machine_missile_assembly",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:tile.machine_missile_assembly>);"
+        },
+        {
+          "line": 304,
+          "registry": "hbm:item.stick_dynamite",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.stick_dynamite>);"
+        },
+        {
+          "line": 312,
+          "registry": "hbm:item.memespoon",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.memespoon>);"
+        },
+        {
+          "line": 313,
+          "registry": "hbm:item.glyphid_gland_empty",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.glyphid_gland_empty>);"
+        },
+        {
+          "line": 314,
+          "registry": "hbm:item.ullapool_caber",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.ullapool_caber>);"
+        },
+        {
+          "line": 317,
+          "registry": "hbm:item.weaponized_starblaster_cell",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.weaponized_starblaster_cell>);"
+        },
+        {
+          "line": 318,
+          "registry": "hbm:item.ammo_container",
+          "metadata": 1,
+          "original": "recipes.remove(<hbm:item.ammo_container:1>);"
+        },
+        {
+          "line": 319,
+          "registry": "hbm:item.ammo_container",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.ammo_container>);"
+        },
+        {
+          "line": 358,
+          "registry": "hbm:item.disperser_canister_empty",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.disperser_canister_empty>);"
+        },
+        {
+          "line": 363,
+          "registry": "hbm:item.chocolate_milk",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.chocolate_milk>);"
+        },
+        {
+          "line": 364,
+          "registry": "hbm:item.crackpipe",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.crackpipe>);"
+        },
+        {
+          "line": 365,
+          "registry": "hbm:item.canned_conserve",
+          "metadata": 26,
+          "original": "recipes.remove(<hbm:item.canned_conserve:26>);"
+        },
+        {
+          "line": 366,
+          "registry": "hbm:item.canned_conserve",
+          "metadata": 25,
+          "original": "recipes.remove(<hbm:item.canned_conserve:25>);"
+        },
+        {
+          "line": 367,
+          "registry": "hbm:item.canned_conserve",
+          "metadata": 24,
+          "original": "recipes.remove(<hbm:item.canned_conserve:24>);"
+        },
+        {
+          "line": 368,
+          "registry": "hbm:item.canned_conserve",
+          "metadata": 23,
+          "original": "recipes.remove(<hbm:item.canned_conserve:23>);"
+        },
+        {
+          "line": 369,
+          "registry": "hbm:item.canned_conserve",
+          "metadata": 22,
+          "original": "recipes.remove(<hbm:item.canned_conserve:22>);"
+        },
+        {
+          "line": 370,
+          "registry": "hbm:item.canned_conserve",
+          "metadata": 21,
+          "original": "recipes.remove(<hbm:item.canned_conserve:21>);"
+        },
+        {
+          "line": 371,
+          "registry": "hbm:item.canned_conserve",
+          "metadata": 20,
+          "original": "recipes.remove(<hbm:item.canned_conserve:20>);"
+        },
+        {
+          "line": 372,
+          "registry": "hbm:item.canned_conserve",
+          "metadata": 19,
+          "original": "recipes.remove(<hbm:item.canned_conserve:19>);"
+        },
+        {
+          "line": 373,
+          "registry": "hbm:item.canned_conserve",
+          "metadata": 18,
+          "original": "recipes.remove(<hbm:item.canned_conserve:18>);"
+        },
+        {
+          "line": 374,
+          "registry": "hbm:item.canned_conserve",
+          "metadata": 17,
+          "original": "recipes.remove(<hbm:item.canned_conserve:17>);"
+        },
+        {
+          "line": 375,
+          "registry": "hbm:item.canned_conserve",
+          "metadata": 16,
+          "original": "recipes.remove(<hbm:item.canned_conserve:16>);"
+        },
+        {
+          "line": 376,
+          "registry": "hbm:item.canned_conserve",
+          "metadata": 15,
+          "original": "recipes.remove(<hbm:item.canned_conserve:15>);"
+        },
+        {
+          "line": 377,
+          "registry": "hbm:item.canned_conserve",
+          "metadata": 14,
+          "original": "recipes.remove(<hbm:item.canned_conserve:14>);"
+        },
+        {
+          "line": 378,
+          "registry": "hbm:item.canned_conserve",
+          "metadata": 12,
+          "original": "recipes.remove(<hbm:item.canned_conserve:12>);"
+        },
+        {
+          "line": 379,
+          "registry": "hbm:item.canned_conserve",
+          "metadata": 13,
+          "original": "recipes.remove(<hbm:item.canned_conserve:13>);"
+        },
+        {
+          "line": 380,
+          "registry": "hbm:item.canned_conserve",
+          "metadata": 11,
+          "original": "recipes.remove(<hbm:item.canned_conserve:11>);"
+        },
+        {
+          "line": 381,
+          "registry": "hbm:item.canned_conserve",
+          "metadata": 10,
+          "original": "recipes.remove(<hbm:item.canned_conserve:10>);"
+        },
+        {
+          "line": 382,
+          "registry": "hbm:item.canned_conserve",
+          "metadata": 9,
+          "original": "recipes.remove(<hbm:item.canned_conserve:9>);"
+        },
+        {
+          "line": 383,
+          "registry": "hbm:item.canned_conserve",
+          "metadata": 8,
+          "original": "recipes.remove(<hbm:item.canned_conserve:8>);"
+        },
+        {
+          "line": 384,
+          "registry": "hbm:item.canned_conserve",
+          "metadata": 7,
+          "original": "recipes.remove(<hbm:item.canned_conserve:7>);"
+        },
+        {
+          "line": 385,
+          "registry": "hbm:item.canned_conserve",
+          "metadata": 6,
+          "original": "recipes.remove(<hbm:item.canned_conserve:6>);"
+        },
+        {
+          "line": 386,
+          "registry": "hbm:item.canned_conserve",
+          "metadata": 5,
+          "original": "recipes.remove(<hbm:item.canned_conserve:5>);"
+        },
+        {
+          "line": 387,
+          "registry": "hbm:item.canned_conserve",
+          "metadata": 4,
+          "original": "recipes.remove(<hbm:item.canned_conserve:4>);"
+        },
+        {
+          "line": 388,
+          "registry": "hbm:item.canned_conserve",
+          "metadata": 3,
+          "original": "recipes.remove(<hbm:item.canned_conserve:3>);"
+        },
+        {
+          "line": 389,
+          "registry": "hbm:item.canned_conserve",
+          "metadata": 2,
+          "original": "recipes.remove(<hbm:item.canned_conserve:2>);"
+        },
+        {
+          "line": 390,
+          "registry": "hbm:item.canned_conserve",
+          "metadata": 1,
+          "original": "recipes.remove(<hbm:item.canned_conserve:1>);"
+        },
+        {
+          "line": 391,
+          "registry": "hbm:item.canned_conserve",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.canned_conserve>);"
+        },
+        {
+          "line": 392,
+          "registry": "hbm:item.flask_infusion",
+          "metadata": 1,
+          "original": "recipes.remove(<hbm:item.flask_infusion:1>);"
+        },
+        {
+          "line": 393,
+          "registry": "hbm:item.flask_infusion",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.flask_infusion>);"
+        },
+        {
+          "line": 395,
+          "registry": "hbm:item.bottle2_fritz",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.bottle2_fritz>);"
+        },
+        {
+          "line": 396,
+          "registry": "hbm:item.bottle2_korl",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.bottle2_korl>);"
+        },
+        {
+          "line": 397,
+          "registry": "hbm:item.bottle_rad",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.bottle_rad>);"
+        },
+        {
+          "line": 398,
+          "registry": "hbm:item.bottle_sparkle",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.bottle_sparkle>);"
+        },
+        {
+          "line": 399,
+          "registry": "hbm:item.bottle_quantum",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.bottle_quantum>);"
+        },
+        {
+          "line": 400,
+          "registry": "hbm:item.bottle_cherry",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.bottle_cherry>);"
+        },
+        {
+          "line": 401,
+          "registry": "hbm:item.glass_smilk",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.glass_smilk>);"
+        },
+        {
+          "line": 402,
+          "registry": "hbm:item.coffee_radium",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.coffee_radium>);"
+        },
+        {
+          "line": 403,
+          "registry": "hbm:item.coffee",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.coffee>);"
+        },
+        {
+          "line": 404,
+          "registry": "hbm:item.can_mug",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.can_mug>);"
+        },
+        {
+          "line": 405,
+          "registry": "hbm:item.can_breen",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.can_breen>);"
+        },
+        {
+          "line": 406,
+          "registry": "hbm:item.can_bepis",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.can_bepis>);"
+        },
+        {
+          "line": 407,
+          "registry": "hbm:item.can_luna",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.can_luna>);"
+        },
+        {
+          "line": 408,
+          "registry": "hbm:item.can_overcharge",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.can_overcharge>);"
+        },
+        {
+          "line": 409,
+          "registry": "hbm:item.can_mrsugar",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.can_mrsugar>);"
+        },
+        {
+          "line": 410,
+          "registry": "hbm:item.can_redbomb",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.can_redbomb>);"
+        },
+        {
+          "line": 411,
+          "registry": "hbm:item.can_creature",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.can_creature>);"
+        },
+        {
+          "line": 414,
+          "registry": "hbm:item.can_smart",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.can_smart>);"
+        },
+        {
+          "line": 415,
+          "registry": "hbm:item.chocolate",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.chocolate>);"
+        },
+        {
+          "line": 416,
+          "registry": "hbm:item.mucho_mango",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.mucho_mango>);"
+        },
+        {
+          "line": 417,
+          "registry": "hbm:item.med_ptsd",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.med_ptsd>);"
+        },
+        {
+          "line": 418,
+          "registry": "hbm:item.canteen_vodka",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.canteen_vodka>);"
+        },
+        {
+          "line": 419,
+          "registry": "hbm:item.med_ipecac",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.med_ipecac>);"
+        },
+        {
+          "line": 420,
+          "registry": "hbm:item.cheese_quesadilla",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.cheese_quesadilla>);"
+        },
+        {
+          "line": 421,
+          "registry": "hbm:item.cheese",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.cheese>);"
+        },
+        {
+          "line": 422,
+          "registry": "hbm:item.marshmallow",
+          "metadata": 1,
+          "original": "recipes.remove(<hbm:item.marshmallow:1>);"
+        },
+        {
+          "line": 423,
+          "registry": "hbm:item.marshmallow",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.marshmallow>);"
+        },
+        {
+          "line": 425,
+          "registry": "hbm:item.min_cream",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.min_cream>);"
+        },
+        {
+          "line": 427,
+          "registry": "hbm:item.s_cream",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.s_cream>);"
+        },
+        {
+          "line": 428,
+          "registry": "hbm:item.pudding",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.pudding>);"
+        },
+        {
+          "line": 429,
+          "registry": "hbm:item.static_sandwich",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.static_sandwich>);"
+        },
+        {
+          "line": 430,
+          "registry": "hbm:item.fooditem",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.fooditem>);"
+        },
+        {
+          "line": 431,
+          "registry": "hbm:item.spongebob_macaroni",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.spongebob_macaroni>);"
+        },
+        {
+          "line": 432,
+          "registry": "hbm:item.loop_stew",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.loop_stew>);"
+        },
+        {
+          "line": 433,
+          "registry": "hbm:item.loops",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.loops>);"
+        },
+        {
+          "line": 434,
+          "registry": "hbm:item.definitelyfood",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.definitelyfood>);"
+        },
+        {
+          "line": 435,
+          "registry": "hbm:item.lemon",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.lemon>);"
+        },
+        {
+          "line": 436,
+          "registry": "hbm:item.balefire_and_ham",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.balefire_and_ham>);"
+        },
+        {
+          "line": 437,
+          "registry": "hbm:item.balefire_scrambled",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.balefire_scrambled>);"
+        },
+        {
+          "line": 438,
+          "registry": "hbm:item.glowing_stew",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.glowing_stew>);"
+        },
+        {
+          "line": 439,
+          "registry": "hbm:item.tem_flakes",
+          "metadata": 2,
+          "original": "recipes.remove(<hbm:item.tem_flakes:2>);"
+        },
+        {
+          "line": 440,
+          "registry": "hbm:item.tem_flakes",
+          "metadata": 1,
+          "original": "recipes.remove(<hbm:item.tem_flakes:1>);"
+        },
+        {
+          "line": 441,
+          "registry": "hbm:item.tem_flakes",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.tem_flakes>);"
+        },
+        {
+          "line": 442,
+          "registry": "hbm:item.animan",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.animan>);"
+        },
+        {
+          "line": 444,
+          "registry": "hbm:item.apple_euphemium",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.apple_euphemium>);"
+        },
+        {
+          "line": 447,
+          "registry": "hbm:item.apple_schrabidium",
+          "metadata": 2,
+          "original": "recipes.remove(<hbm:item.apple_schrabidium:2>);"
+        },
+        {
+          "line": 448,
+          "registry": "hbm:item.apple_schrabidium",
+          "metadata": 1,
+          "original": "recipes.remove(<hbm:item.apple_schrabidium:1>);"
+        },
+        {
+          "line": 449,
+          "registry": "hbm:item.apple_schrabidium",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.apple_schrabidium>);"
+        },
+        {
+          "line": 450,
+          "registry": "hbm:item.apple_lead",
+          "metadata": 2,
+          "original": "recipes.remove(<hbm:item.apple_lead:2>);"
+        },
+        {
+          "line": 451,
+          "registry": "hbm:item.apple_lead",
+          "metadata": 1,
+          "original": "recipes.remove(<hbm:item.apple_lead:1>);"
+        },
+        {
+          "line": 452,
+          "registry": "hbm:item.apple_lead",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.apple_lead>);"
+        },
+        {
+          "line": 453,
+          "registry": "hbm:item.cotton_candy",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.cotton_candy>);"
+        },
+        {
+          "line": 454,
+          "registry": "hbm:item.schnitzel_vegan",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.schnitzel_vegan>);"
+        },
+        {
+          "line": 455,
+          "registry": "hbm:item.bomb_waffle",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.bomb_waffle>);"
+        },
+        {
+          "line": 456,
+          "registry": "hbm:item.rod_of_discord",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.rod_of_discord>);"
+        },
+        {
+          "line": 462,
+          "registry": "hbm:item.iv_blood",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.iv_blood>);"
+        },
+        {
+          "line": 464,
+          "registry": "hbm:item.syringe_taint",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.syringe_taint>);"
+        },
+        {
+          "line": 465,
+          "registry": "hbm:item.syringe_metal_super",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.syringe_metal_super>);"
+        },
+        {
+          "line": 466,
+          "registry": "hbm:item.syringe_metal_psycho",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.syringe_metal_psycho>);"
+        },
+        {
+          "line": 467,
+          "registry": "hbm:item.syringe_metal_medx",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.syringe_metal_medx>);"
+        },
+        {
+          "line": 468,
+          "registry": "hbm:item.syringe_metal_stimpak",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.syringe_metal_stimpak>);"
+        },
+        {
+          "line": 470,
+          "registry": "hbm:item.syringe_awesome",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.syringe_awesome>);"
+        },
+        {
+          "line": 472,
+          "registry": "hbm:item.chocolate_mint_billet",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.chocolate_mint_billet>);"
+        },
+        {
+          "line": 474,
+          "registry": "hbm:item.injector_knife",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.injector_knife>);"
+        },
+        {
+          "line": 476,
+          "registry": "hbm:item.injector_5htp",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.injector_5htp>);"
+        },
+        {
+          "line": 477,
+          "registry": "hbm:item.shackles",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.shackles>);"
+        },
+        {
+          "line": 478,
+          "registry": "hbm:item.wild_p",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.wild_p>);"
+        },
+        {
+          "line": 479,
+          "registry": "hbm:item.scrumpy",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.scrumpy>);"
+        },
+        {
+          "line": 480,
+          "registry": "hbm:item.wd40",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.wd40>);"
+        },
+        {
+          "line": 481,
+          "registry": "hbm:item.black_diamond",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.black_diamond>);"
+        },
+        {
+          "line": 482,
+          "registry": "hbm:item.heart_fab",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.heart_fab>);"
+        },
+        {
+          "line": 483,
+          "registry": "hbm:item.heart_booster",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.heart_booster>);"
+        },
+        {
+          "line": 484,
+          "registry": "hbm:item.heart_container",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.heart_container>);"
+        },
+        {
+          "line": 485,
+          "registry": "hbm:item.heart_piece",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.heart_piece>);"
+        },
+        {
+          "line": 486,
+          "registry": "hbm:item.ink",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.ink>);"
+        },
+        {
+          "line": 487,
+          "registry": "hbm:item.spider_milk",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.spider_milk>);"
+        },
+        {
+          "line": 488,
+          "registry": "hbm:item.bathwater_mk2",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.bathwater_mk2>);"
+        },
+        {
+          "line": 489,
+          "registry": "hbm:item.bathwater",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.bathwater>);"
+        },
+        {
+          "line": 490,
+          "registry": "hbm:item.morning_glory",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.morning_glory>);"
+        },
+        {
+          "line": 491,
+          "registry": "hbm:item.quartz_plutonium",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.quartz_plutonium>);"
+        },
+        {
+          "line": 492,
+          "registry": "hbm:item.serum",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.serum>);"
+        },
+        {
+          "line": 493,
+          "registry": "hbm:item.bandaid",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.bandaid>);"
+        },
+        {
+          "line": 494,
+          "registry": "hbm:item.armor_polish",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.armor_polish>);"
+        },
+        {
+          "line": 497,
+          "registry": "hbm:item.back_tesla",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.back_tesla>);"
+        },
+        {
+          "line": 498,
+          "registry": "hbm:item.insert_doxium",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.insert_doxium>);"
+        },
+        {
+          "line": 499,
+          "registry": "hbm:item.insert_yharonite",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.insert_yharonite>);"
+        },
+        {
+          "line": 500,
+          "registry": "hbm:item.insert_era",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.insert_era>);"
+        },
+        {
+          "line": 501,
+          "registry": "hbm:item.insert_cmb",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.insert_cmb>);"
+        },
+        {
+          "line": 502,
+          "registry": "hbm:item.insert_ghiorsium",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.insert_ghiorsium>);"
+        },
+        {
+          "line": 504,
+          "registry": "hbm:item.anchor_remote",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.anchor_remote>);"
+        },
+        {
+          "line": 505,
+          "registry": "hbm:item.insert_kevlar",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.insert_kevlar>);"
+        },
+        {
+          "line": 506,
+          "registry": "hbm:item.insert_sapi",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.insert_sapi>);"
+        },
+        {
+          "line": 507,
+          "registry": "hbm:item.insert_esapi",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.insert_esapi>);"
+        },
+        {
+          "line": 508,
+          "registry": "hbm:item.insert_xsapi",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.insert_xsapi>);"
+        },
+        {
+          "line": 509,
+          "registry": "hbm:item.insert_steel",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.insert_steel>);"
+        },
+        {
+          "line": 510,
+          "registry": "hbm:item.insert_du",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.insert_du>);"
+        },
+        {
+          "line": 511,
+          "registry": "hbm:item.insert_polonium",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.insert_polonium>);"
+        },
+        {
+          "line": 512,
+          "registry": "hbm:item.australium_iii",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.australium_iii>);"
+        },
+        {
+          "line": 513,
+          "registry": "hbm:item.ballistic_gauntlet",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.ballistic_gauntlet>);"
+        },
+        {
+          "line": 514,
+          "registry": "hbm:item.v1",
+          "metadata": 0,
+          "original": "recipes.remove(<hbm:item.v1>);"
+        }
+      ]
+    }
+  ]
+}

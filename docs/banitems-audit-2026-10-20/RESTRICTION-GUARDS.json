@@ -1,0 +1,25 @@
+{
+  "status": "restriction cleanup validated; replacement loot remains unapproved",
+  "lifecycle": [
+    "PASS: 9783 lifecycle assertions; profile=true",
+    "PASS: 652 lifecycle assertions; profile=false"
+  ],
+  "policy_assertions": 16,
+  "integration_assertions": 24,
+  "migration_synthetic_tests": "passed",
+  "build": "passed",
+  "built_jar_sha256": "370207ae4e5f4095934a96fc1a0f16a565b38673f72f4a6b2d6be71238a018c5",
+  "installed_in_pack": false,
+  "loot_defaults_identical": true,
+  "fixes": [
+    "Nine selected raw Forge chest additions now produce empty weighted draws",
+    "Pedestal assignment/read/write/tick/interaction/drop paths respect exact restrictions without rerolling",
+    "Restricted decorative layout dispatch stops at selected case; config-off legacy fall-through retained"
+  ],
+  "source_sha256": {
+    "src/main/java/com/hbm/main/MainRegistry.java": "3ed4a8091a3cb9e9b2114242e89885fae36622d7fd8c18986f085f5488d7a711",
+    "src/main/java/com/hbm/blocks/generic/BlockKeyhole.java": "79a56428e6c31a916c67776a703e0e3530555a737967ec77e03f30015f5b568c",
+    "src/main/java/com/hbm/blocks/generic/BlockPedestal.java": "224682399b53ad51ec27225895e6428c3a0ab9a7ee77cde2ae717ffd4487c986",
+    "src/main/java/com/hbm/util/LootGenerator.java": "6cf6c448826d4667aebd4faedf61816122fd1763e1648e22e4db02fdeae4046f"
+  }
+}

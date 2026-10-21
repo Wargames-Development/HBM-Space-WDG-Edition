@@ -75,7 +75,7 @@ public class CraftingManager {
 		GameRegistry.addRecipe(new MKUCraftingHandler());
 		GameRegistry.addRecipe(new CargoShellCraftingHandler());
 		GameRegistry.addRecipe(new ScrapsCraftingHandler());
-		GameRegistry.addRecipe(new GrenadeCraftingHandler());
+		if(!com.hbm.config.BanItems.disabledName("hbm:item.grenade_universal")) GameRegistry.addRecipe(new GrenadeCraftingHandler());
 
 		RecipeSorter.register("hbm:rbmk", RBMKFuelCraftingHandler.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
 		RecipeSorter.register("hbm:cargo", CargoShellCraftingHandler.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
@@ -1158,6 +1158,7 @@ public class CraftingManager {
 	//option 1: find every entry that needs to be ore dicted and change the recipe method by hand and commit to doing it right in the future
 	//option 2: just make the computer do all the stupid work for us
 	public static void addRecipeAuto(ItemStack result, Object... ins) {
+        if(com.hbm.config.BanItems.disabled(result) || com.hbm.config.BanItemsRecipes.contains(ins)) return;
 
 		boolean shouldUseOD = false;
 		boolean engage = false;
@@ -1183,6 +1184,7 @@ public class CraftingManager {
 	}
 
 	public static void addShapelessAuto(ItemStack result, Object... ins) {
+        if(com.hbm.config.BanItems.disabled(result) || com.hbm.config.BanItemsRecipes.contains(ins)) return;
 
 		boolean shouldUseOD = false;
 

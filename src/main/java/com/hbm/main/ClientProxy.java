@@ -533,7 +533,7 @@ public class ClientProxy extends ServerProxy {
 		ItemRenderLibrary.init();
 
 		for(Entry<Item, ItemRenderBase> entry : ItemRenderLibrary.renderers.entrySet())
-			MinecraftForgeClient.registerItemRenderer(entry.getKey(), entry.getValue());
+			if(entry.getKey() != null && !com.hbm.config.BanItems.disabled(entry.getKey())) MinecraftForgeClient.registerItemRenderer(entry.getKey(), entry.getValue());
 
 		//this bit registers an item renderer for every existing tile entity renderer that implements IItemRendererProvider
 		Iterator iterator = TileEntityRendererDispatcher.instance.mapSpecialRenderers.values().iterator();
@@ -542,7 +542,7 @@ public class ClientProxy extends ServerProxy {
 			if(renderer instanceof IItemRendererProvider) {
 				IItemRendererProvider prov = (IItemRendererProvider) renderer;
 				for(Item item : prov.getItemsForRenderer()) {
-					MinecraftForgeClient.registerItemRenderer(item, prov.getRenderer());
+					if(item != null && !com.hbm.config.BanItems.disabled(item)) MinecraftForgeClient.registerItemRenderer(item, prov.getRenderer());
 				}
 			}
 		}
@@ -554,7 +554,7 @@ public class ClientProxy extends ServerProxy {
 			if(o instanceof IItemRendererProvider) {
 				IItemRendererProvider prov = (IItemRendererProvider) o;
 				for(Item item : prov.getItemsForRenderer()) {
-					MinecraftForgeClient.registerItemRenderer(item, prov.getRenderer());
+					if(item != null && !com.hbm.config.BanItems.disabled(item)) MinecraftForgeClient.registerItemRenderer(item, prov.getRenderer());
 				}
 			}
 		}

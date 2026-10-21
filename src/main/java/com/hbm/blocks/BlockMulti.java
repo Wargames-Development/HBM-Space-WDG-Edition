@@ -28,7 +28,7 @@ public abstract class BlockMulti extends BlockBase implements IBlockMulti {
 	@SideOnly(Side.CLIENT)
 	public void getSubBlocks(Item item, CreativeTabs tab, List list) {
 		for(int i = 0; i < getSubCount(); ++i) {
-			list.add(new ItemStack(item, 1, i));
+			com.hbm.config.BanItems.addCreative(list, new ItemStack(item, 1, i));
 		}
 	}
 }

@@ -141,7 +141,7 @@ public class EntityBOTPrimeHead extends EntityBOTPrimeBase implements IBossDispl
 
 		for(EntityPlayer player : players) {
 			player.triggerAchievement(MainRegistry.bossWorm);
-			player.inventory.addItemStackToInventory(new ItemStack(ModItems.coin_worm));
+			if(!com.hbm.config.BanItemsConfig.disableSelectedBossRewards) player.inventory.addItemStackToInventory(new ItemStack(ModItems.coin_worm));
 		}
 	}
 

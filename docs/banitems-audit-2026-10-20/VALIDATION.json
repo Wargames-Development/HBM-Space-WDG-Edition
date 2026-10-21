@@ -1,0 +1,19 @@
+{
+  "forge_lifecycle": [
+    "PASS: 9767 lifecycle assertions; profile=true",
+    "PASS: 645 lifecycle assertions; profile=false"
+  ],
+  "policy_checks": 16,
+  "integration_checks": 24,
+  "release_build": "passed",
+  "crafttweaker_adapter": "passed with mock registry interfaces; full-pack smoke pending",
+  "jar_sha256": "ca716dd513a5efba0afc6fbb9b45b68df951a3a2e91e4fdef39b0cc412bb848e",
+  "source_sha256": {
+    "src/main/java/com/hbm/config/BanItems.java": "b067da093c185556ecdd47e343ef930bad7ed8a9b29df91bfb1629052db879da",
+    "src/main/java/com/hbm/config/BanItemsConfig.java": "3bc43f9a0cb0ff33aebaef4e35a46b447bc081f50d3b50a644643a36c847204e",
+    "src/main/java/com/hbm/config/BanItemsRecipes.java": "a7d202963216209c852c8470234b884913c9aa8a708ed098ab08290df0c0f0f4",
+    "src/main/java/com/hbm/items/ModItems.java": "39ecf7f2601a7d7c17effa95577aed4dbbe18e6bd5bd4b256ccfe32402270fdc",
+    "src/main/resources/assets/hbm/banitems-default.json": "a6850894f41a58f4891118cbc297face6aac89f78c3579e33719f0960b34904a",
+    "src/main/java/com/hbm/blocks/BlockMulti.java": "a7819531c0242447ac84261c0467848fd06586358aa8d22c71ac79c3965db27a"
+  }
+}

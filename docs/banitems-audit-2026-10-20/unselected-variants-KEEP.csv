@@ -1,0 +1,45 @@
+registry,meta,language_key,english,instruction
+hbm:item.ammo_arty,0,item.ammo_arty.name,"16"" Artillery Shell",KEEP: not selected in BanItems
+hbm:item.ammo_arty,1,item.ammo_arty_airburst.name,"16"" Airburst Artillery Shell",KEEP: not selected in BanItems
+hbm:item.ammo_arty,2,item.ammo_arty_guided.name,"16"" GPS Guided Artillery Shell",KEEP: not selected in BanItems
+hbm:item.ammo_arty,5,item.ammo_arty_phosphorus.name,"16"" Phosphorus Shell",KEEP: not selected in BanItems
+hbm:item.ammo_arty,6,item.ammo_arty_empty.name,"16"" Empty Artillery Shell",KEEP: not selected in BanItems
+hbm:item.ammo_arty,7,item.ammo_arty_chlorine.name,"16"" Chlorine Gas Artillery Shell",KEEP: not selected in BanItems
+hbm:item.ammo_arty,8,item.ammo_arty_phosgene.name,"16"" Phosgene Artillery Shell",KEEP: not selected in BanItems
+hbm:item.ammo_arty,9,item.ammo_arty_mustard_gas.name,"16"" Mustard Gas Artillery Shell",KEEP: not selected in BanItems
+hbm:item.ammo_himars,0,item.ammo_himars_standard.name,227mm Guided Artillery Rocket Pod,KEEP: not selected in BanItems
+hbm:item.ammo_himars,1,item.ammo_himars_single.name,610mm Guided Artillery Rocket Pod,KEEP: not selected in BanItems
+hbm:item.ammo_himars,2,item.ammo_himars_standard_he.name,227mm Guided Artillery Rocket Pod (HE),KEEP: not selected in BanItems
+hbm:item.ammo_himars,3,item.ammo_himars_standard_wp.name,227mm Guided Artillery Rocket Pod (WP),KEEP: not selected in BanItems
+hbm:item.ammo_shell,0,item.ammo_shell.name,240mm Shell,KEEP: not selected in BanItems
+hbm:item.ammo_shell,1,item.ammo_shell_explosive.name,240mm HE Shell,KEEP: not selected in BanItems
+hbm:item.ammo_standard,0,item.ammo_standard.stone.name,Ball and Powder,KEEP: not selected in BanItems
+hbm:item.ammo_standard,1,item.ammo_standard.stone_ap.name,Flint and Powder,KEEP: not selected in BanItems
+hbm:item.ammo_standard,2,item.ammo_standard.stone_iron.name,Iron Ball and Powder,KEEP: not selected in BanItems
+hbm:item.ammo_standard,3,item.ammo_standard.stone_shot.name,Shot and Powder,KEEP: not selected in BanItems
+hbm:item.ammo_standard,20,item.ammo_standard.p9_sp.name,9mm Round (Soft Point),KEEP: not selected in BanItems
+hbm:item.ammo_standard,21,item.ammo_standard.p9_fmj.name,9mm Round (Full Metal Jacket),KEEP: not selected in BanItems
+hbm:item.ammo_standard,24,item.ammo_standard.r556_sp.name,5.56mm Round (Soft Point),KEEP: not selected in BanItems
+hbm:item.ammo_standard,25,item.ammo_standard.r556_fmj.name,5.56mm Round (Full Metal Jacket),KEEP: not selected in BanItems
+hbm:item.ammo_standard,33,item.ammo_standard.bmg50_sp.name,.50 BMG Round (Soft Point),KEEP: not selected in BanItems
+hbm:item.ammo_standard,34,item.ammo_standard.bmg50_fmj.name,.50 BMG Round (Full Metal Jacket),KEEP: not selected in BanItems
+hbm:item.ammo_standard,50,item.ammo_standard.g26_flare.name,26mm Signal Flare,KEEP: not selected in BanItems
+hbm:item.ammo_standard,51,item.ammo_standard.g26_flare_supply.name,26mm Signal Flare (Supply Airdrop),KEEP: not selected in BanItems
+hbm:item.ammo_standard,52,item.ammo_standard.g26_flare_weapon.name,26mm Signal Flare (Weapon Airdrop),KEEP: not selected in BanItems
+hbm:item.ammo_standard,58,item.ammo_standard.rocket_he.name,"Rocket, High-Explosive",KEEP: not selected in BanItems
+hbm:item.ammo_standard,61,item.ammo_standard.rocket_inc.name,"Rocket, Incendiary",KEEP: not selected in BanItems
+hbm:item.ammo_standard,63,item.ammo_standard.flame_diesel.name,"Flamer Fuel, Diesel",KEEP: not selected in BanItems
+hbm:item.ammo_standard,64,item.ammo_standard.flame_gas.name,"Flamer Fuel, Gas",KEEP: not selected in BanItems
+hbm:item.ammo_standard,65,item.ammo_standard.flame_napalm.name,"Flamer Fuel, Napalm",KEEP: not selected in BanItems
+hbm:item.ammo_standard,73,item.ammo_standard.nuke_standard.name,Mini Nuke,KEEP: not selected in BanItems
+hbm:item.ammo_standard,74,item.ammo_standard.nuke_demo.name,"Mini Nuke, Demolition",KEEP: not selected in BanItems
+hbm:item.ammo_standard,75,item.ammo_standard.nuke_high.name,"Mini Nuke, High Yield",KEEP: not selected in BanItems
+hbm:item.ammo_standard,95,item.ammo_standard.g26_flare_artillery.name,26mm Signal Flare (Artillery Barrage),KEEP: not selected in BanItems
+hbm:item.bomb_caller,0,item.bomb_caller.name,Airstrike Designator,KEEP: not selected in BanItems
+hbm:item.bomb_caller,1,item.bomb_caller.name,Airstrike Designator,KEEP: not selected in BanItems
+hbm:item.bomb_caller,2,item.bomb_caller.name,Airstrike Designator,KEEP: not selected in BanItems
+hbm:item.bomb_caller,3,item.bomb_caller.name,Airstrike Designator,KEEP: not selected in BanItems
+hbm:item.bomb_caller,5,item.bomb_caller.name,Airstrike Designator,KEEP: not selected in BanItems
+hbm:item.bomb_caller,6,item.bomb_caller.name,Airstrike Designator,KEEP: not selected in BanItems
+hbm:item.bomb_caller,7,item.bomb_caller.name,Airstrike Designator,KEEP: not selected in BanItems
+hbm:item.bomb_caller,8,item.bomb_caller.name,Airstrike Designator,KEEP: not selected in BanItems

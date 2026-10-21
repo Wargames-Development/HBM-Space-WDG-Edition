@@ -3348,13 +3348,13 @@ public class ModBlocks {
 		GameRegistry.registerBlock(nuke_man, nuke_man.getUnlocalizedName());
 		GameRegistry.registerBlock(nuke_mike, nuke_mike.getUnlocalizedName());
 		GameRegistry.registerBlock(nuke_tsar, nuke_tsar.getUnlocalizedName());
-		GameRegistry.registerBlock(nuke_prototype, ItemPrototypeBlock.class, nuke_prototype.getUnlocalizedName());
-		GameRegistry.registerBlock(nuke_fleija, nuke_fleija.getUnlocalizedName());
+		com.hbm.config.BanItems.registerBlock(nuke_prototype, ItemPrototypeBlock.class, nuke_prototype.getUnlocalizedName());
+		com.hbm.config.BanItems.registerBlock(nuke_fleija, nuke_fleija.getUnlocalizedName());
 		GameRegistry.registerBlock(nuke_solinium, nuke_solinium.getUnlocalizedName());
 		GameRegistry.registerBlock(nuke_n2, nuke_n2.getUnlocalizedName());
-		GameRegistry.registerBlock(nuke_antimatter, nuke_antimatter.getUnlocalizedName());
-		GameRegistry.registerBlock(nuke_fstbmb, nuke_fstbmb.getUnlocalizedName());
-		GameRegistry.registerBlock(nuke_custom, nuke_custom.getUnlocalizedName());
+		com.hbm.config.BanItems.registerBlock(nuke_antimatter, nuke_antimatter.getUnlocalizedName());
+		com.hbm.config.BanItems.registerBlock(nuke_fstbmb, nuke_fstbmb.getUnlocalizedName());
+		com.hbm.config.BanItems.registerBlock(nuke_custom, nuke_custom.getUnlocalizedName());
 
 		//Generic Bombs
 		GameRegistry.registerBlock(bomb_multi, bomb_multi.getUnlocalizedName());
@@ -3370,11 +3370,11 @@ public class ModBlocks {
 		GameRegistry.registerBlock(turret_chekhov, turret_chekhov.getUnlocalizedName());
 		GameRegistry.registerBlock(turret_friendly, turret_friendly.getUnlocalizedName());
 		GameRegistry.registerBlock(turret_jeremy, turret_jeremy.getUnlocalizedName());
-		GameRegistry.registerBlock(turret_tauon, turret_tauon.getUnlocalizedName());
+		com.hbm.config.BanItems.registerBlock(turret_tauon, turret_tauon.getUnlocalizedName());
 		GameRegistry.registerBlock(turret_richard, turret_richard.getUnlocalizedName());
 		GameRegistry.registerBlock(turret_howard, turret_howard.getUnlocalizedName());
 		GameRegistry.registerBlock(turret_howard_damaged, turret_howard_damaged.getUnlocalizedName());
-		GameRegistry.registerBlock(turret_maxwell, turret_maxwell.getUnlocalizedName());
+		com.hbm.config.BanItems.registerBlock(turret_maxwell, turret_maxwell.getUnlocalizedName());
 		GameRegistry.registerBlock(turret_fritz, turret_fritz.getUnlocalizedName());
 		//GameRegistry.registerBlock(turret_brandon, turret_brandon.getUnlocalizedName());
 		GameRegistry.registerBlock(turret_arty, turret_arty.getUnlocalizedName());
@@ -3397,7 +3397,7 @@ public class ModBlocks {
 
 		//Block Bombs
 		GameRegistry.registerBlock(flame_war, flame_war.getUnlocalizedName());
-		GameRegistry.registerBlock(float_bomb, float_bomb.getUnlocalizedName());
+		com.hbm.config.BanItems.registerBlock(float_bomb, float_bomb.getUnlocalizedName());
 		GameRegistry.registerBlock(therm_endo, therm_endo.getUnlocalizedName());
 		GameRegistry.registerBlock(therm_exo, therm_exo.getUnlocalizedName());
 		GameRegistry.registerBlock(emp_bomb, emp_bomb.getUnlocalizedName());
@@ -3409,7 +3409,7 @@ public class ModBlocks {
 		GameRegistry.registerBlock(red_barrel, ItemBlockLore.class, red_barrel.getUnlocalizedName());
 		GameRegistry.registerBlock(pink_barrel, ItemBlockLore.class, pink_barrel.getUnlocalizedName());
 		GameRegistry.registerBlock(lox_barrel, ItemBlockLore.class, lox_barrel.getUnlocalizedName());
-		GameRegistry.registerBlock(taint_barrel, ItemBlockLore.class, taint_barrel.getUnlocalizedName());
+		com.hbm.config.BanItems.registerBlock(taint_barrel, ItemBlockLore.class, taint_barrel.getUnlocalizedName());
 		GameRegistry.registerBlock(yellow_barrel, yellow_barrel.getUnlocalizedName());
 		GameRegistry.registerBlock(vitrified_barrel, vitrified_barrel.getUnlocalizedName());
 		GameRegistry.registerBlock(oil_barrel, oil_barrel.getUnlocalizedName());
@@ -3418,7 +3418,7 @@ public class ModBlocks {
 		GameRegistry.registerBlock(machine_siren, machine_siren.getUnlocalizedName());
 
 		//This Thing
-		GameRegistry.registerBlock(broadcaster_pc, broadcaster_pc.getUnlocalizedName());
+		com.hbm.config.BanItems.registerBlock(broadcaster_pc, broadcaster_pc.getUnlocalizedName());
 
 		//Geiger Counter
 		GameRegistry.registerBlock(geiger, geiger.getUnlocalizedName());
@@ -3832,8 +3832,8 @@ public class ModBlocks {
 		//Multiblock Parts
 		GameRegistry.registerBlock(struct_launcher, struct_launcher.getUnlocalizedName());
 		GameRegistry.registerBlock(struct_scaffold, struct_scaffold.getUnlocalizedName());
-		GameRegistry.registerBlock(struct_launcher_core, struct_launcher_core.getUnlocalizedName());
-		GameRegistry.registerBlock(struct_launcher_core_large, struct_launcher_core_large.getUnlocalizedName());
+		com.hbm.config.BanItems.registerBlock(struct_launcher_core, struct_launcher_core.getUnlocalizedName());
+		com.hbm.config.BanItems.registerBlock(struct_launcher_core_large, struct_launcher_core_large.getUnlocalizedName());
 		GameRegistry.registerBlock(struct_soyuz_core, struct_soyuz_core.getUnlocalizedName());
 		register(struct_torus_core);
 		GameRegistry.registerBlock(struct_watz_core, struct_watz_core.getUnlocalizedName());
@@ -3920,7 +3920,7 @@ public class ModBlocks {
 		GameRegistry.registerBlock(dfc_core, dfc_core.getUnlocalizedName());
 
 		//Missile Blocks
-		GameRegistry.registerBlock(machine_missile_assembly, machine_missile_assembly.getUnlocalizedName());
+		com.hbm.config.BanItems.registerBlock(machine_missile_assembly, machine_missile_assembly.getUnlocalizedName());
 		register(machine_rocket_assembly);
 		GameRegistry.registerBlock(launch_pad, launch_pad.getUnlocalizedName());
 		register(launch_pad_rocket);

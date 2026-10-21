@@ -115,7 +115,7 @@ public class ItemPoolConfigJSON {
 	public static void writeItemStack(ItemStack stack, JsonWriter writer) throws IOException {
 		writer.beginArray();
 		writer.setIndent("");
-		writer.value(Item.itemRegistry.getNameForObject(stack.getItem()));
+		writer.value(com.hbm.config.BanItems.name(stack.getItem()));
 		if(stack.stackSize != 1 || stack.getItemDamage() != 0 || stack.hasTagCompound()) writer.value(stack.stackSize);
 		if(stack.getItemDamage() != 0 || stack.hasTagCompound()) writer.value(stack.getItemDamage());
 		if(stack.hasTagCompound()) writer.value(stack.stackTagCompound.toString());
@@ -125,7 +125,7 @@ public class ItemPoolConfigJSON {
 	
 	public static ItemStack readItemStack(JsonArray array) {
 		try {
-			Item item = (Item) Item.itemRegistry.getObject(array.get(0).getAsString());
+			Item item = com.hbm.config.BanItems.findItem(array.get(0).getAsString());
 			int stacksize = array.size() > 1 ? array.get(1).getAsInt() : 1;
 			int meta = array.size() > 2 ? array.get(2).getAsInt() : 0;
 			if(item != null) {

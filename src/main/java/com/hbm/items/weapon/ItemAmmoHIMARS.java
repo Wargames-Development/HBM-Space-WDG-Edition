@@ -62,14 +62,14 @@ public class ItemAmmoHIMARS extends Item {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item, CreativeTabs tab, List list) {
-		list.add(new ItemStack(item, 1, SMALL));
-		list.add(new ItemStack(item, 1, SMALL_HE));
-		list.add(new ItemStack(item, 1, SMALL_WP));
-		list.add(new ItemStack(item, 1, SMALL_TB));
-		list.add(new ItemStack(item, 1, SMALL_LAVA));
-		list.add(new ItemStack(item, 1, SMALL_MINI_NUKE));
-		list.add(new ItemStack(item, 1, LARGE));
-		list.add(new ItemStack(item, 1, LARGE_TB));
+		com.hbm.config.BanItems.addCreative(list, new ItemStack(item, 1, SMALL));
+		com.hbm.config.BanItems.addCreative(list, new ItemStack(item, 1, SMALL_HE));
+		com.hbm.config.BanItems.addCreative(list, new ItemStack(item, 1, SMALL_WP));
+		com.hbm.config.BanItems.addCreative(list, new ItemStack(item, 1, SMALL_TB));
+		com.hbm.config.BanItems.addCreative(list, new ItemStack(item, 1, SMALL_LAVA));
+		com.hbm.config.BanItems.addCreative(list, new ItemStack(item, 1, SMALL_MINI_NUKE));
+		com.hbm.config.BanItems.addCreative(list, new ItemStack(item, 1, LARGE));
+		com.hbm.config.BanItems.addCreative(list, new ItemStack(item, 1, LARGE_TB));
 	}
 
 	@Override

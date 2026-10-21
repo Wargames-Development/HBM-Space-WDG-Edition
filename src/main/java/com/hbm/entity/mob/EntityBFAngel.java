@@ -415,7 +415,7 @@ public class EntityBFAngel extends EntityFlying implements IMob, IBossDisplayDat
 			PacketThreading.createAllAroundThreadedPacket(new AuxParticlePacketNT(data, posX, posY + 0.5, posZ), new TargetPoint(this.dimension, posX, posY, posZ, 250));
 			worldObj.playSoundEffect(posX, posY, posZ, "hbm:weapon.mukeExplosion", 15.0F, 1.0F);
 
-			this.entityDropItem(new ItemStack(ModItems.core_angel, 1, 0), 1);
+			if(!com.hbm.config.BanItemsConfig.disableSelectedBossRewards) this.entityDropItem(new ItemStack(ModItems.core_angel, 1, 0), 1);
 
 			List<EntityPlayer> players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, this.boundingBox.expand(200, 200, 200));
 

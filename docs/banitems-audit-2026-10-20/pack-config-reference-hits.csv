@@ -1,0 +1,797 @@
+file,line,registry,role,source
+scripts/MineTweakerRecipeMaker.zs,45,hbm:item.ammo_arty,script/config; activation needs loader verification,recipes.remove(<hbm:item.ammo_arty:7>);
+scripts/MineTweakerRecipeMaker.zs,53,hbm:item.chopper,script/config; activation needs loader verification,recipes.remove(<hbm:item.chopper>);
+scripts/MineTweakerRecipeMaker.zs,54,hbm:item.euphemium_boots,script/config; activation needs loader verification,recipes.remove(<hbm:item.euphemium_boots>);
+scripts/MineTweakerRecipeMaker.zs,55,hbm:item.euphemium_legs,script/config; activation needs loader verification,recipes.remove(<hbm:item.euphemium_legs>);
+scripts/MineTweakerRecipeMaker.zs,56,hbm:item.euphemium_helmet,script/config; activation needs loader verification,recipes.remove(<hbm:item.euphemium_helmet>);
+scripts/MineTweakerRecipeMaker.zs,57,hbm:item.euphemium_plate,script/config; activation needs loader verification,recipes.remove(<hbm:item.euphemium_plate>);
+scripts/MineTweakerRecipeMaker.zs,58,hbm:item.meteorite_sword_seared,script/config; activation needs loader verification,recipes.remove(<hbm:item.meteorite_sword_seared>);
+scripts/MineTweakerRecipeMaker.zs,59,hbm:item.meteorite_sword_seared,script/config; activation needs loader verification,recipes.remove(<hbm:item.meteorite_sword_seared>);
+scripts/MineTweakerRecipeMaker.zs,60,hbm:item.crucible,script/config; activation needs loader verification,recipes.remove(<hbm:item.crucible:3>);
+scripts/MineTweakerRecipeMaker.zs,61,hbm:item.crucible,script/config; activation needs loader verification,recipes.remove(<hbm:item.crucible:3>);
+scripts/MineTweakerRecipeMaker.zs,62,hbm:item.crucible,script/config; activation needs loader verification,recipes.remove(<hbm:item.crucible>);
+scripts/MineTweakerRecipeMaker.zs,66,hbm:item.starmetal_helmet,script/config; activation needs loader verification,recipes.remove(<hbm:item.starmetal_helmet>);
+scripts/MineTweakerRecipeMaker.zs,67,hbm:item.starmetal_plate,script/config; activation needs loader verification,recipes.remove(<hbm:item.starmetal_plate>);
+scripts/MineTweakerRecipeMaker.zs,68,hbm:item.starmetal_legs,script/config; activation needs loader verification,recipes.remove(<hbm:item.starmetal_legs>);
+scripts/MineTweakerRecipeMaker.zs,69,hbm:item.starmetal_boots,script/config; activation needs loader verification,recipes.remove(<hbm:item.starmetal_boots>);
+scripts/MineTweakerRecipeMaker.zs,71,hbm:item.jetpack_boost,script/config; activation needs loader verification,recipes.remove(<hbm:item.jetpack_boost>);
+scripts/MineTweakerRecipeMaker.zs,72,hbm:item.jetpack_vector,script/config; activation needs loader verification,recipes.remove(<hbm:item.jetpack_vector>);
+scripts/MineTweakerRecipeMaker.zs,77,hbm:item.bismuth_boots,script/config; activation needs loader verification,recipes.remove(<hbm:item.bismuth_boots>);
+scripts/MineTweakerRecipeMaker.zs,78,hbm:item.bismuth_legs,script/config; activation needs loader verification,recipes.remove(<hbm:item.bismuth_legs>);
+scripts/MineTweakerRecipeMaker.zs,79,hbm:item.bismuth_plate,script/config; activation needs loader verification,recipes.remove(<hbm:item.bismuth_plate>);
+scripts/MineTweakerRecipeMaker.zs,80,hbm:item.bismuth_helmet,script/config; activation needs loader verification,recipes.remove(<hbm:item.bismuth_helmet>);
+scripts/MineTweakerRecipeMaker.zs,81,hbm:item.schrabidium_boots,script/config; activation needs loader verification,recipes.remove(<hbm:item.schrabidium_boots>);
+scripts/MineTweakerRecipeMaker.zs,82,hbm:item.schrabidium_legs,script/config; activation needs loader verification,recipes.remove(<hbm:item.schrabidium_legs>);
+scripts/MineTweakerRecipeMaker.zs,84,hbm:item.wings_murk,script/config; activation needs loader verification,recipes.remove(<hbm:item.wings_murk>);
+scripts/MineTweakerRecipeMaker.zs,91,hbm:item.trenchmaster_helmet,script/config; activation needs loader verification,recipes.remove(<hbm:item.trenchmaster_helmet>);
+scripts/MineTweakerRecipeMaker.zs,92,hbm:item.trenchmaster_plate,script/config; activation needs loader verification,recipes.remove(<hbm:item.trenchmaster_plate>);
+scripts/MineTweakerRecipeMaker.zs,93,hbm:item.trenchmaster_legs,script/config; activation needs loader verification,recipes.remove(<hbm:item.trenchmaster_legs>);
+scripts/MineTweakerRecipeMaker.zs,94,hbm:item.trenchmaster_boots,script/config; activation needs loader verification,recipes.remove(<hbm:item.trenchmaster_boots>);
+scripts/MineTweakerRecipeMaker.zs,95,hbm:item.cmb_helmet,script/config; activation needs loader verification,recipes.remove(<hbm:item.cmb_helmet>);
+scripts/MineTweakerRecipeMaker.zs,96,hbm:item.cmb_plate,script/config; activation needs loader verification,recipes.remove(<hbm:item.cmb_plate>);
+scripts/MineTweakerRecipeMaker.zs,97,hbm:item.cmb_legs,script/config; activation needs loader verification,recipes.remove(<hbm:item.cmb_legs>);
+scripts/MineTweakerRecipeMaker.zs,98,hbm:item.cmb_boots,script/config; activation needs loader verification,recipes.remove(<hbm:item.cmb_boots>);
+scripts/MineTweakerRecipeMaker.zs,99,hbm:item.security_helmet,script/config; activation needs loader verification,recipes.remove(<hbm:item.security_helmet>);
+scripts/MineTweakerRecipeMaker.zs,100,hbm:item.security_plate,script/config; activation needs loader verification,recipes.remove(<hbm:item.security_plate>);
+scripts/MineTweakerRecipeMaker.zs,101,hbm:item.security_legs,script/config; activation needs loader verification,recipes.remove(<hbm:item.security_legs>);
+scripts/MineTweakerRecipeMaker.zs,102,hbm:item.security_boots,script/config; activation needs loader verification,recipes.remove(<hbm:item.security_boots>);
+scripts/MineTweakerRecipeMaker.zs,104,hbm:item.schrabidium_plate,script/config; activation needs loader verification,recipes.remove(<hbm:item.schrabidium_plate>);
+scripts/MineTweakerRecipeMaker.zs,105,hbm:item.schrabidium_helmet,script/config; activation needs loader verification,recipes.remove(<hbm:item.schrabidium_helmet>);
+scripts/MineTweakerRecipeMaker.zs,111,hbm:tile.broadcaster_pc,script/config; activation needs loader verification,recipes.remove(<hbm:tile.broadcaster_pc>);
+scripts/MineTweakerRecipeMaker.zs,113,hbm:item.steamsuit_legs,script/config; activation needs loader verification,recipes.remove(<hbm:item.steamsuit_legs>);
+scripts/MineTweakerRecipeMaker.zs,114,hbm:item.steamsuit_plate,script/config; activation needs loader verification,recipes.remove(<hbm:item.steamsuit_plate>);
+scripts/MineTweakerRecipeMaker.zs,115,hbm:item.steamsuit_helmet,script/config; activation needs loader verification,recipes.remove(<hbm:item.steamsuit_helmet>);
+scripts/MineTweakerRecipeMaker.zs,116,hbm:item.schrabidium_hammer,script/config; activation needs loader verification,recipes.remove(<hbm:item.schrabidium_hammer>);
+scripts/MineTweakerRecipeMaker.zs,117,hbm:item.rpa_boots,script/config; activation needs loader verification,recipes.remove(<hbm:item.rpa_boots>);
+scripts/MineTweakerRecipeMaker.zs,118,hbm:item.taurun_boots,script/config; activation needs loader verification,recipes.remove(<hbm:item.taurun_boots>);
+scripts/MineTweakerRecipeMaker.zs,119,hbm:item.taurun_legs,script/config; activation needs loader verification,recipes.remove(<hbm:item.taurun_legs>);
+scripts/MineTweakerRecipeMaker.zs,120,hbm:item.taurun_plate,script/config; activation needs loader verification,recipes.remove(<hbm:item.taurun_plate>);
+scripts/MineTweakerRecipeMaker.zs,121,hbm:item.taurun_helmet,script/config; activation needs loader verification,recipes.remove(<hbm:item.taurun_helmet>);
+scripts/MineTweakerRecipeMaker.zs,126,hbm:item.steamsuit_boots,script/config; activation needs loader verification,recipes.remove(<hbm:item.steamsuit_boots>);
+scripts/MineTweakerRecipeMaker.zs,127,hbm:tile.struct_launcher_core,script/config; activation needs loader verification,recipes.remove(<hbm:tile.struct_launcher_core>);
+scripts/MineTweakerRecipeMaker.zs,128,hbm:tile.struct_launcher_core_large,script/config; activation needs loader verification,recipes.remove(<hbm:tile.struct_launcher_core_large>);
+scripts/MineTweakerRecipeMaker.zs,130,hbm:item.starmetal_sword,script/config; activation needs loader verification,recipes.remove(<hbm:item.starmetal_sword>);
+scripts/MineTweakerRecipeMaker.zs,131,hbm:item.shimmer_sledge,script/config; activation needs loader verification,recipes.remove(<hbm:item.shimmer_sledge>);
+scripts/MineTweakerRecipeMaker.zs,132,hbm:item.shimmer_axe,script/config; activation needs loader verification,recipes.remove(<hbm:item.shimmer_axe>);
+scripts/MineTweakerRecipeMaker.zs,133,hbm:item.schrabidium_sword,script/config; activation needs loader verification,recipes.remove(<hbm:item.schrabidium_sword>);
+scripts/MineTweakerRecipeMaker.zs,134,hbm:item.schrabidium_sword,script/config; activation needs loader verification,recipes.remove(<hbm:item.schrabidium_sword>);
+scripts/MineTweakerRecipeMaker.zs,135,hbm:item.meteorite_sword_irradiated,script/config; activation needs loader verification,recipes.remove(<hbm:item.meteorite_sword_irradiated>);
+scripts/MineTweakerRecipeMaker.zs,136,hbm:item.meteorite_sword_bred,script/config; activation needs loader verification,recipes.remove(<hbm:item.meteorite_sword_bred>);
+scripts/MineTweakerRecipeMaker.zs,137,hbm:item.meteorite_sword_treated,script/config; activation needs loader verification,recipes.remove(<hbm:item.meteorite_sword_treated>);
+scripts/MineTweakerRecipeMaker.zs,138,hbm:item.meteorite_sword_alloyed,script/config; activation needs loader verification,recipes.remove(<hbm:item.meteorite_sword_alloyed>);
+scripts/MineTweakerRecipeMaker.zs,140,hbm:item.meteorite_sword_baleful,script/config; activation needs loader verification,recipes.remove(<hbm:item.meteorite_sword_baleful>);
+scripts/MineTweakerRecipeMaker.zs,141,hbm:item.meteorite_sword_fused,script/config; activation needs loader verification,recipes.remove(<hbm:item.meteorite_sword_fused>);
+scripts/MineTweakerRecipeMaker.zs,142,hbm:item.meteorite_sword_etched,script/config; activation needs loader verification,recipes.remove(<hbm:item.meteorite_sword_etched>);
+scripts/MineTweakerRecipeMaker.zs,143,hbm:item.meteorite_sword_machined,script/config; activation needs loader verification,recipes.remove(<hbm:item.meteorite_sword_machined>);
+scripts/MineTweakerRecipeMaker.zs,144,hbm:item.plastic_bag,script/config; activation needs loader verification,recipes.remove(<hbm:item.plastic_bag>);
+scripts/MineTweakerRecipeMaker.zs,145,hbm:item.rpa_helmet,script/config; activation needs loader verification,recipes.remove(<hbm:item.rpa_helmet>);
+scripts/MineTweakerRecipeMaker.zs,146,hbm:item.rpa_plate,script/config; activation needs loader verification,recipes.remove(<hbm:item.rpa_plate>);
+scripts/MineTweakerRecipeMaker.zs,147,hbm:item.rpa_legs,script/config; activation needs loader verification,recipes.remove(<hbm:item.rpa_legs>);
+scripts/MineTweakerRecipeMaker.zs,154,hbm:item.fau_boots,script/config; activation needs loader verification,recipes.remove(<hbm:item.fau_boots>);
+scripts/MineTweakerRecipeMaker.zs,155,hbm:item.dieselsuit_helmet,script/config; activation needs loader verification,recipes.remove(<hbm:item.dieselsuit_helmet>);
+scripts/MineTweakerRecipeMaker.zs,156,hbm:item.dns_legs,script/config; activation needs loader verification,recipes.remove(<hbm:item.dns_legs>);
+scripts/MineTweakerRecipeMaker.zs,160,hbm:item.meteorite_sword_hardened,script/config; activation needs loader verification,recipes.remove(<hbm:item.meteorite_sword_hardened>);
+scripts/MineTweakerRecipeMaker.zs,161,hbm:item.meteorite_sword_reforged,script/config; activation needs loader verification,recipes.remove(<hbm:item.meteorite_sword_reforged>);
+scripts/MineTweakerRecipeMaker.zs,162,hbm:item.meteorite_sword_seared,script/config; activation needs loader verification,recipes.remove(<hbm:item.meteorite_sword_seared>);
+scripts/MineTweakerRecipeMaker.zs,163,hbm:item.meteorite_sword,script/config; activation needs loader verification,recipes.remove(<hbm:item.meteorite_sword>);
+scripts/MineTweakerRecipeMaker.zs,164,hbm:item.mese_gavel,script/config; activation needs loader verification,recipes.remove(<hbm:item.mese_gavel>);
+scripts/MineTweakerRecipeMaker.zs,165,hbm:item.memespoon,script/config; activation needs loader verification,recipes.remove(<hbm:item.memespoon>);
+scripts/MineTweakerRecipeMaker.zs,166,hbm:item.bj_helmet,script/config; activation needs loader verification,recipes.remove(<hbm:item.bj_helmet>);
+scripts/MineTweakerRecipeMaker.zs,167,hbm:item.bj_plate,script/config; activation needs loader verification,recipes.remove(<hbm:item.bj_plate>);
+scripts/MineTweakerRecipeMaker.zs,168,hbm:item.bj_plate_jetpack,script/config; activation needs loader verification,recipes.remove(<hbm:item.bj_plate_jetpack>);
+scripts/MineTweakerRecipeMaker.zs,169,hbm:item.bj_legs,script/config; activation needs loader verification,recipes.remove(<hbm:item.bj_legs>);
+scripts/MineTweakerRecipeMaker.zs,170,hbm:item.bj_boots,script/config; activation needs loader verification,recipes.remove(<hbm:item.bj_boots>);
+scripts/MineTweakerRecipeMaker.zs,171,hbm:item.pancake,script/config; activation needs loader verification,recipes.remove(<hbm:item.pancake>);
+scripts/MineTweakerRecipeMaker.zs,172,hbm:item.bobmazon_hidden,script/config; activation needs loader verification,recipes.remove(<hbm:item.bobmazon_hidden>);
+scripts/MineTweakerRecipeMaker.zs,173,hbm:item.butter,script/config; activation needs loader verification,recipes.remove(<hbm:item.butter_sword>);
+scripts/MineTweakerRecipeMaker.zs,174,hbm:item.fau_legs,script/config; activation needs loader verification,recipes.remove(<hbm:item.fau_legs>);
+scripts/MineTweakerRecipeMaker.zs,175,hbm:item.dieselsuit_legs,script/config; activation needs loader verification,recipes.remove(<hbm:item.dieselsuit_legs>);
+scripts/MineTweakerRecipeMaker.zs,176,hbm:item.dieselsuit_boots,script/config; activation needs loader verification,recipes.remove(<hbm:item.dieselsuit_boots>);
+scripts/MineTweakerRecipeMaker.zs,177,hbm:item.dns_helmet,script/config; activation needs loader verification,recipes.remove(<hbm:item.dns_helmet>);
+scripts/MineTweakerRecipeMaker.zs,178,hbm:item.dns_plate,script/config; activation needs loader verification,recipes.remove(<hbm:item.dns_plate>);
+scripts/MineTweakerRecipeMaker.zs,179,hbm:item.dns_boots,script/config; activation needs loader verification,recipes.remove(<hbm:item.dns_boots>);
+scripts/MineTweakerRecipeMaker.zs,181,hbm:item.elec_sword,script/config; activation needs loader verification,recipes.remove(<hbm:item.elec_sword>);
+scripts/MineTweakerRecipeMaker.zs,182,hbm:item.fau_helmet,script/config; activation needs loader verification,recipes.remove(<hbm:item.fau_helmet>);
+scripts/MineTweakerRecipeMaker.zs,183,hbm:item.fau_plate,script/config; activation needs loader verification,recipes.remove(<hbm:item.fau_plate>);
+scripts/MineTweakerRecipeMaker.zs,184,hbm:item.dieselsuit_plate,script/config; activation needs loader verification,recipes.remove(<hbm:item.dieselsuit_plate>);
+scripts/MineTweakerRecipeMaker.zs,195,hbm:item.cmb_sword,script/config; activation needs loader verification,recipes.remove(<hbm:item.cmb_sword>);
+scripts/MineTweakerRecipeMaker.zs,198,hbm:item.desh_sword,script/config; activation needs loader verification,recipes.remove(<hbm:item.desh_sword>);
+scripts/MineTweakerRecipeMaker.zs,204,hbm:item.ammo_arty,script/config; activation needs loader verification,recipes.remove(<hbm:item.ammo_arty:3>);
+scripts/MineTweakerRecipeMaker.zs,205,hbm:item.ammo_arty,script/config; activation needs loader verification,recipes.remove(<hbm:item.ammo_arty:6>);
+scripts/MineTweakerRecipeMaker.zs,206,hbm:item.ammo_arty,script/config; activation needs loader verification,recipes.remove(<hbm:item.ammo_arty:4>);
+scripts/MineTweakerRecipeMaker.zs,207,hbm:item.ammo_arty,script/config; activation needs loader verification,recipes.remove(<hbm:item.ammo_arty:8>);
+scripts/MineTweakerRecipeMaker.zs,208,hbm:item.ammo_arty,script/config; activation needs loader verification,recipes.remove(<hbm:item.ammo_arty:9>);
+scripts/MineTweakerRecipeMaker.zs,209,hbm:item.ammo_arty,script/config; activation needs loader verification,recipes.remove(<hbm:item.ammo_arty:10>);
+scripts/MineTweakerRecipeMaker.zs,210,hbm:item.ammo_arty,script/config; activation needs loader verification,recipes.remove(<hbm:item.ammo_arty:11>);
+scripts/MineTweakerRecipeMaker.zs,211,hbm:item.ammo_arty,script/config; activation needs loader verification,recipes.remove(<hbm:item.ammo_arty:11>);
+scripts/MineTweakerRecipeMaker.zs,212,hbm:item.missile_taint,script/config; activation needs loader verification,recipes.remove(<hbm:item.missile_taint>);
+scripts/MineTweakerRecipeMaker.zs,213,hbm:item.ammo_himars,script/config; activation needs loader verification,recipes.remove(<hbm:item.ammo_himars:6>);
+scripts/MineTweakerRecipeMaker.zs,214,hbm:item.ammo_himars,script/config; activation needs loader verification,recipes.remove(<hbm:item.ammo_himars:3>);
+scripts/MineTweakerRecipeMaker.zs,215,hbm:item.ammo_himars,script/config; activation needs loader verification,recipes.remove(<hbm:item.ammo_himars:4>);
+scripts/MineTweakerRecipeMaker.zs,216,hbm:item.ammo_himars,script/config; activation needs loader verification,recipes.remove(<hbm:item.ammo_himars:7>);
+scripts/MineTweakerRecipeMaker.zs,217,hbm:item.ammo_standard,script/config; activation needs loader verification,recipes.remove(<hbm:item.ammo_standard:92>);
+scripts/MineTweakerRecipeMaker.zs,218,hbm:item.ammo_standard,script/config; activation needs loader verification,recipes.remove(<hbm:item.ammo_standard:91>);
+scripts/MineTweakerRecipeMaker.zs,219,hbm:item.gun_double_barrel,script/config; activation needs loader verification,recipes.remove(<hbm:item.gun_double_barrel>);
+scripts/MineTweakerRecipeMaker.zs,220,hbm:item.gun_n_i_4_n_i,script/config; activation needs loader verification,recipes.remove(<hbm:item.gun_n_i_4_n_i>);
+scripts/MineTweakerRecipeMaker.zs,221,hbm:item.ammo_himars,script/config; activation needs loader verification,recipes.remove(<hbm:item.ammo_himars:5>);
+scripts/MineTweakerRecipeMaker.zs,222,hbm:item.ammo_standard,script/config; activation needs loader verification,recipes.remove(<hbm:item.ammo_standard:36>);
+scripts/MineTweakerRecipeMaker.zs,223,hbm:item.ammo_standard,script/config; activation needs loader verification,recipes.remove(<hbm:item.ammo_standard:37>);
+scripts/MineTweakerRecipeMaker.zs,224,hbm:item.ammo_standard,script/config; activation needs loader verification,recipes.remove(<hbm:item.ammo_standard:94>);
+scripts/MineTweakerRecipeMaker.zs,225,hbm:item.ammo_standard,script/config; activation needs loader verification,recipes.remove(<hbm:item.ammo_standard:83>);
+scripts/MineTweakerRecipeMaker.zs,226,hbm:item.ammo_shell,script/config; activation needs loader verification,recipes.remove(<hbm:item.ammo_shell:4>);
+scripts/MineTweakerRecipeMaker.zs,227,hbm:item.ammo_standard,script/config; activation needs loader verification,recipes.remove(<hbm:item.ammo_standard:27>);
+scripts/MineTweakerRecipeMaker.zs,228,hbm:item.missile_bhole,script/config; activation needs loader verification,recipes.remove(<hbm:item.missile_bhole>);
+scripts/MineTweakerRecipeMaker.zs,229,hbm:item.missile_schrabidium,script/config; activation needs loader verification,recipes.remove(<hbm:item.missile_schrabidium>);
+scripts/MineTweakerRecipeMaker.zs,230,hbm:item.gun_uzi,script/config; activation needs loader verification,recipes.remove(<hbm:item.gun_uzi>);
+scripts/MineTweakerRecipeMaker.zs,231,hbm:item.gun_spas12,script/config; activation needs loader verification,recipes.remove(<hbm:item.gun_spas12>);
+scripts/MineTweakerRecipeMaker.zs,232,hbm:item.gun_panzerschreck,script/config; activation needs loader verification,recipes.remove(<hbm:item.gun_panzerschreck>);
+scripts/MineTweakerRecipeMaker.zs,233,hbm:item.gun_star_f,script/config; activation needs loader verification,recipes.remove(<hbm:item.gun_star_f>);
+scripts/MineTweakerRecipeMaker.zs,234,hbm:item.gun_stinger,script/config; activation needs loader verification,recipes.remove(<hbm:item.gun_stinger>);
+scripts/MineTweakerRecipeMaker.zs,235,hbm:item.gun_chemthrower,script/config; activation needs loader verification,recipes.remove(<hbm:item.gun_chemthrower>);
+scripts/MineTweakerRecipeMaker.zs,236,hbm:item.gun_amat,script/config; activation needs loader verification,recipes.remove(<hbm:item.gun_amat>);
+scripts/MineTweakerRecipeMaker.zs,237,hbm:item.gun_g3,script/config; activation needs loader verification,recipes.remove(<hbm:item.gun_g3>);
+scripts/MineTweakerRecipeMaker.zs,238,hbm:item.gun_m2,script/config; activation needs loader verification,recipes.remove(<hbm:item.gun_m2>);
+scripts/MineTweakerRecipeMaker.zs,239,hbm:item.gun_bolter,script/config; activation needs loader verification,recipes.remove(<hbm:item.gun_bolter>);
+scripts/MineTweakerRecipeMaker.zs,240,hbm:item.gun_coilgun,script/config; activation needs loader verification,recipes.remove(<hbm:item.gun_coilgun>);
+scripts/MineTweakerRecipeMaker.zs,241,hbm:item.gun_lasrifle,script/config; activation needs loader verification,recipes.remove(<hbm:item.gun_lasrifle>);
+scripts/MineTweakerRecipeMaker.zs,242,hbm:item.gun_fatman,script/config; activation needs loader verification,recipes.remove(<hbm:item.gun_fatman>);
+scripts/MineTweakerRecipeMaker.zs,243,hbm:item.gun_tau,script/config; activation needs loader verification,recipes.remove(<hbm:item.gun_tau>);
+scripts/MineTweakerRecipeMaker.zs,244,hbm:item.gun_missile_launcher,script/config; activation needs loader verification,recipes.remove(<hbm:item.gun_missile_launcher>);
+scripts/MineTweakerRecipeMaker.zs,245,hbm:item.gun_stg77,script/config; activation needs loader verification,recipes.remove(<hbm:item.gun_stg77>);
+scripts/MineTweakerRecipeMaker.zs,246,hbm:item.gun_laser_pistol,script/config; activation needs loader verification,recipes.remove(<hbm:item.gun_laser_pistol>);
+scripts/MineTweakerRecipeMaker.zs,247,hbm:item.gun_tesla_cannon,script/config; activation needs loader verification,recipes.remove(<hbm:item.gun_tesla_cannon>);
+scripts/MineTweakerRecipeMaker.zs,248,hbm:item.gun_b92,script/config; activation needs loader verification,recipes.remove(<hbm:item.gun_b92>);
+scripts/MineTweakerRecipeMaker.zs,249,hbm:item.crucible,script/config; activation needs loader verification,recipes.remove(<hbm:item.crucible>);
+scripts/MineTweakerRecipeMaker.zs,250,hbm:item.gun_pepperbox,script/config; activation needs loader verification,recipes.remove(<hbm:item.gun_pepperbox>);
+scripts/MineTweakerRecipeMaker.zs,251,hbm:item.gun_light_revolver,script/config; activation needs loader verification,recipes.remove(<hbm:item.gun_light_revolver>);
+scripts/MineTweakerRecipeMaker.zs,252,hbm:item.gun_greasegun,script/config; activation needs loader verification,recipes.remove(<hbm:item.gun_greasegun>);
+scripts/MineTweakerRecipeMaker.zs,253,hbm:item.gun_maresleg,script/config; activation needs loader verification,recipes.remove(<hbm:item.gun_maresleg>);
+scripts/MineTweakerRecipeMaker.zs,254,hbm:item.gun_henry,script/config; activation needs loader verification,recipes.remove(<hbm:item.gun_henry>);
+scripts/MineTweakerRecipeMaker.zs,256,hbm:item.gun_heavy_revolver,script/config; activation needs loader verification,recipes.remove(<hbm:item.gun_heavy_revolver>);
+scripts/MineTweakerRecipeMaker.zs,257,hbm:item.gun_autoshotgun,script/config; activation needs loader verification,recipes.remove(<hbm:item.gun_autoshotgun>);
+scripts/MineTweakerRecipeMaker.zs,258,hbm:item.gun_minigun,script/config; activation needs loader verification,recipes.remove(<hbm:item.gun_minigun>);
+scripts/MineTweakerRecipeMaker.zs,259,hbm:item.gun_flamer,script/config; activation needs loader verification,recipes.remove(<hbm:item.gun_flamer>);
+scripts/MineTweakerRecipeMaker.zs,260,hbm:item.gun_quadro,script/config; activation needs loader verification,recipes.remove(<hbm:item.gun_quadro>);
+scripts/MineTweakerRecipeMaker.zs,261,hbm:item.gun_lag,script/config; activation needs loader verification,recipes.remove(<hbm:item.gun_lag>);
+scripts/MineTweakerRecipeMaker.zs,262,hbm:item.gun_congolake,script/config; activation needs loader verification,recipes.remove(<hbm:item.gun_congolake>);
+scripts/MineTweakerRecipeMaker.zs,263,hbm:item.gun_carbine,script/config; activation needs loader verification,recipes.remove(<hbm:item.gun_carbine>);
+scripts/MineTweakerRecipeMaker.zs,264,hbm:item.gun_liberator,script/config; activation needs loader verification,recipes.remove(<hbm:item.gun_liberator>);
+scripts/MineTweakerRecipeMaker.zs,265,hbm:item.gun_am180,script/config; activation needs loader verification,recipes.remove(<hbm:item.gun_am180>);
+scripts/MineTweakerRecipeMaker.zs,275,hbm:tile.turret_tauon,script/config; activation needs loader verification,recipes.remove(<hbm:tile.turret_tauon>);
+scripts/MineTweakerRecipeMaker.zs,276,hbm:tile.turret_maxwell,script/config; activation needs loader verification,recipes.remove(<hbm:tile.turret_maxwell>);
+scripts/MineTweakerRecipeMaker.zs,279,hbm:item.sat_gerald,script/config; activation needs loader verification,recipes.remove(<hbm:item.sat_gerald>);
+scripts/MineTweakerRecipeMaker.zs,280,hbm:item.sat_resonator,script/config; activation needs loader verification,recipes.remove(<hbm:item.sat_resonator>);
+scripts/MineTweakerRecipeMaker.zs,289,hbm:tile.nuke_antimatter,script/config; activation needs loader verification,recipes.remove(<hbm:tile.nuke_antimatter>);
+scripts/MineTweakerRecipeMaker.zs,290,hbm:tile.machine_missile_assembly,script/config; activation needs loader verification,recipes.remove(<hbm:tile.machine_missile_assembly>);
+scripts/MineTweakerRecipeMaker.zs,312,hbm:item.memespoon,script/config; activation needs loader verification,recipes.remove(<hbm:item.memespoon>);
+scripts/MineTweakerRecipeMaker.zs,313,hbm:item.glyphid_gland_empty,script/config; activation needs loader verification,recipes.remove(<hbm:item.glyphid_gland_empty>);
+scripts/MineTweakerRecipeMaker.zs,314,hbm:item.ullapool_caber,script/config; activation needs loader verification,recipes.remove(<hbm:item.ullapool_caber>);
+scripts/MineTweakerRecipeMaker.zs,315,hbm:item.glyphid_gland,script/config; activation needs loader verification,recipes.remove(<hbm:item.glyphid_gland:172>);
+scripts/MineTweakerRecipeMaker.zs,316,hbm:item.glyphid_gland,script/config; activation needs loader verification,recipes.remove(<hbm:item.glyphid_gland:75>);
+scripts/MineTweakerRecipeMaker.zs,317,hbm:item.weaponized_starblaster_cell,script/config; activation needs loader verification,recipes.remove(<hbm:item.weaponized_starblaster_cell>);
+scripts/MineTweakerRecipeMaker.zs,318,hbm:item.ammo_container,script/config; activation needs loader verification,recipes.remove(<hbm:item.ammo_container:1>);
+scripts/MineTweakerRecipeMaker.zs,319,hbm:item.ammo_container,script/config; activation needs loader verification,recipes.remove(<hbm:item.ammo_container>);
+scripts/MineTweakerRecipeMaker.zs,358,hbm:item.disperser_canister_empty,script/config; activation needs loader verification,recipes.remove(<hbm:item.disperser_canister_empty>);
+scripts/MineTweakerRecipeMaker.zs,363,hbm:item.chocolate_milk,script/config; activation needs loader verification,recipes.remove(<hbm:item.chocolate_milk>);
+scripts/MineTweakerRecipeMaker.zs,364,hbm:item.crackpipe,script/config; activation needs loader verification,recipes.remove(<hbm:item.crackpipe>);
+scripts/MineTweakerRecipeMaker.zs,365,hbm:item.canned_conserve,script/config; activation needs loader verification,recipes.remove(<hbm:item.canned_conserve:26>);
+scripts/MineTweakerRecipeMaker.zs,366,hbm:item.canned_conserve,script/config; activation needs loader verification,recipes.remove(<hbm:item.canned_conserve:25>);
+scripts/MineTweakerRecipeMaker.zs,367,hbm:item.canned_conserve,script/config; activation needs loader verification,recipes.remove(<hbm:item.canned_conserve:24>);
+scripts/MineTweakerRecipeMaker.zs,368,hbm:item.canned_conserve,script/config; activation needs loader verification,recipes.remove(<hbm:item.canned_conserve:23>);
+scripts/MineTweakerRecipeMaker.zs,369,hbm:item.canned_conserve,script/config; activation needs loader verification,recipes.remove(<hbm:item.canned_conserve:22>);
+scripts/MineTweakerRecipeMaker.zs,370,hbm:item.canned_conserve,script/config; activation needs loader verification,recipes.remove(<hbm:item.canned_conserve:21>);
+scripts/MineTweakerRecipeMaker.zs,371,hbm:item.canned_conserve,script/config; activation needs loader verification,recipes.remove(<hbm:item.canned_conserve:20>);
+scripts/MineTweakerRecipeMaker.zs,372,hbm:item.canned_conserve,script/config; activation needs loader verification,recipes.remove(<hbm:item.canned_conserve:19>);
+scripts/MineTweakerRecipeMaker.zs,373,hbm:item.canned_conserve,script/config; activation needs loader verification,recipes.remove(<hbm:item.canned_conserve:18>);
+scripts/MineTweakerRecipeMaker.zs,374,hbm:item.canned_conserve,script/config; activation needs loader verification,recipes.remove(<hbm:item.canned_conserve:17>);
+scripts/MineTweakerRecipeMaker.zs,375,hbm:item.canned_conserve,script/config; activation needs loader verification,recipes.remove(<hbm:item.canned_conserve:16>);
+scripts/MineTweakerRecipeMaker.zs,376,hbm:item.canned_conserve,script/config; activation needs loader verification,recipes.remove(<hbm:item.canned_conserve:15>);
+scripts/MineTweakerRecipeMaker.zs,377,hbm:item.canned_conserve,script/config; activation needs loader verification,recipes.remove(<hbm:item.canned_conserve:14>);
+scripts/MineTweakerRecipeMaker.zs,378,hbm:item.canned_conserve,script/config; activation needs loader verification,recipes.remove(<hbm:item.canned_conserve:12>);
+scripts/MineTweakerRecipeMaker.zs,379,hbm:item.canned_conserve,script/config; activation needs loader verification,recipes.remove(<hbm:item.canned_conserve:13>);
+scripts/MineTweakerRecipeMaker.zs,380,hbm:item.canned_conserve,script/config; activation needs loader verification,recipes.remove(<hbm:item.canned_conserve:11>);
+scripts/MineTweakerRecipeMaker.zs,381,hbm:item.canned_conserve,script/config; activation needs loader verification,recipes.remove(<hbm:item.canned_conserve:10>);
+scripts/MineTweakerRecipeMaker.zs,382,hbm:item.canned_conserve,script/config; activation needs loader verification,recipes.remove(<hbm:item.canned_conserve:9>);
+scripts/MineTweakerRecipeMaker.zs,383,hbm:item.canned_conserve,script/config; activation needs loader verification,recipes.remove(<hbm:item.canned_conserve:8>);
+scripts/MineTweakerRecipeMaker.zs,384,hbm:item.canned_conserve,script/config; activation needs loader verification,recipes.remove(<hbm:item.canned_conserve:7>);
+scripts/MineTweakerRecipeMaker.zs,385,hbm:item.canned_conserve,script/config; activation needs loader verification,recipes.remove(<hbm:item.canned_conserve:6>);
+scripts/MineTweakerRecipeMaker.zs,386,hbm:item.canned_conserve,script/config; activation needs loader verification,recipes.remove(<hbm:item.canned_conserve:5>);
+scripts/MineTweakerRecipeMaker.zs,387,hbm:item.canned_conserve,script/config; activation needs loader verification,recipes.remove(<hbm:item.canned_conserve:4>);
+scripts/MineTweakerRecipeMaker.zs,388,hbm:item.canned_conserve,script/config; activation needs loader verification,recipes.remove(<hbm:item.canned_conserve:3>);
+scripts/MineTweakerRecipeMaker.zs,389,hbm:item.canned_conserve,script/config; activation needs loader verification,recipes.remove(<hbm:item.canned_conserve:2>);
+scripts/MineTweakerRecipeMaker.zs,390,hbm:item.canned_conserve,script/config; activation needs loader verification,recipes.remove(<hbm:item.canned_conserve:1>);
+scripts/MineTweakerRecipeMaker.zs,391,hbm:item.canned_conserve,script/config; activation needs loader verification,recipes.remove(<hbm:item.canned_conserve>);
+scripts/MineTweakerRecipeMaker.zs,392,hbm:item.flask_infusion,script/config; activation needs loader verification,recipes.remove(<hbm:item.flask_infusion:1>);
+scripts/MineTweakerRecipeMaker.zs,393,hbm:item.flask_infusion,script/config; activation needs loader verification,recipes.remove(<hbm:item.flask_infusion>);
+scripts/MineTweakerRecipeMaker.zs,395,hbm:item.bottle2_fritz,script/config; activation needs loader verification,recipes.remove(<hbm:item.bottle2_fritz>);
+scripts/MineTweakerRecipeMaker.zs,396,hbm:item.bottle2_korl,script/config; activation needs loader verification,recipes.remove(<hbm:item.bottle2_korl>);
+scripts/MineTweakerRecipeMaker.zs,397,hbm:item.bottle_rad,script/config; activation needs loader verification,recipes.remove(<hbm:item.bottle_rad>);
+scripts/MineTweakerRecipeMaker.zs,398,hbm:item.bottle_sparkle,script/config; activation needs loader verification,recipes.remove(<hbm:item.bottle_sparkle>);
+scripts/MineTweakerRecipeMaker.zs,399,hbm:item.bottle_quantum,script/config; activation needs loader verification,recipes.remove(<hbm:item.bottle_quantum>);
+scripts/MineTweakerRecipeMaker.zs,400,hbm:item.bottle_cherry,script/config; activation needs loader verification,recipes.remove(<hbm:item.bottle_cherry>);
+scripts/MineTweakerRecipeMaker.zs,401,hbm:item.glass_smilk,script/config; activation needs loader verification,recipes.remove(<hbm:item.glass_smilk>);
+scripts/MineTweakerRecipeMaker.zs,402,hbm:item.coffee_radium,script/config; activation needs loader verification,recipes.remove(<hbm:item.coffee_radium>);
+scripts/MineTweakerRecipeMaker.zs,403,hbm:item.coffee,script/config; activation needs loader verification,recipes.remove(<hbm:item.coffee>);
+scripts/MineTweakerRecipeMaker.zs,404,hbm:item.can_mug,script/config; activation needs loader verification,recipes.remove(<hbm:item.can_mug>);
+scripts/MineTweakerRecipeMaker.zs,405,hbm:item.can_breen,script/config; activation needs loader verification,recipes.remove(<hbm:item.can_breen>);
+scripts/MineTweakerRecipeMaker.zs,406,hbm:item.can_bepis,script/config; activation needs loader verification,recipes.remove(<hbm:item.can_bepis>);
+scripts/MineTweakerRecipeMaker.zs,407,hbm:item.can_luna,script/config; activation needs loader verification,recipes.remove(<hbm:item.can_luna>);
+scripts/MineTweakerRecipeMaker.zs,408,hbm:item.can_overcharge,script/config; activation needs loader verification,recipes.remove(<hbm:item.can_overcharge>);
+scripts/MineTweakerRecipeMaker.zs,409,hbm:item.can_mrsugar,script/config; activation needs loader verification,recipes.remove(<hbm:item.can_mrsugar>);
+scripts/MineTweakerRecipeMaker.zs,410,hbm:item.can_redbomb,script/config; activation needs loader verification,recipes.remove(<hbm:item.can_redbomb>);
+scripts/MineTweakerRecipeMaker.zs,411,hbm:item.can_creature,script/config; activation needs loader verification,recipes.remove(<hbm:item.can_creature>);
+scripts/MineTweakerRecipeMaker.zs,414,hbm:item.can_smart,script/config; activation needs loader verification,recipes.remove(<hbm:item.can_smart>);
+scripts/MineTweakerRecipeMaker.zs,415,hbm:item.chocolate,script/config; activation needs loader verification,recipes.remove(<hbm:item.chocolate>);
+scripts/MineTweakerRecipeMaker.zs,416,hbm:item.mucho_mango,script/config; activation needs loader verification,recipes.remove(<hbm:item.mucho_mango>);
+scripts/MineTweakerRecipeMaker.zs,417,hbm:item.med_ptsd,script/config; activation needs loader verification,recipes.remove(<hbm:item.med_ptsd>);
+scripts/MineTweakerRecipeMaker.zs,418,hbm:item.canteen_vodka,script/config; activation needs loader verification,recipes.remove(<hbm:item.canteen_vodka>);
+scripts/MineTweakerRecipeMaker.zs,419,hbm:item.med_ipecac,script/config; activation needs loader verification,recipes.remove(<hbm:item.med_ipecac>);
+scripts/MineTweakerRecipeMaker.zs,420,hbm:item.cheese_quesadilla,script/config; activation needs loader verification,recipes.remove(<hbm:item.cheese_quesadilla>);
+scripts/MineTweakerRecipeMaker.zs,421,hbm:item.cheese,script/config; activation needs loader verification,recipes.remove(<hbm:item.cheese>);
+scripts/MineTweakerRecipeMaker.zs,422,hbm:item.marshmallow,script/config; activation needs loader verification,recipes.remove(<hbm:item.marshmallow:1>);
+scripts/MineTweakerRecipeMaker.zs,423,hbm:item.marshmallow,script/config; activation needs loader verification,recipes.remove(<hbm:item.marshmallow>);
+scripts/MineTweakerRecipeMaker.zs,425,hbm:item.min_cream,script/config; activation needs loader verification,recipes.remove(<hbm:item.min_cream>);
+scripts/MineTweakerRecipeMaker.zs,427,hbm:item.s_cream,script/config; activation needs loader verification,recipes.remove(<hbm:item.s_cream>);
+scripts/MineTweakerRecipeMaker.zs,428,hbm:item.pudding,script/config; activation needs loader verification,recipes.remove(<hbm:item.pudding>);
+scripts/MineTweakerRecipeMaker.zs,429,hbm:item.static_sandwich,script/config; activation needs loader verification,recipes.remove(<hbm:item.static_sandwich>);
+scripts/MineTweakerRecipeMaker.zs,430,hbm:item.fooditem,script/config; activation needs loader verification,recipes.remove(<hbm:item.fooditem>);
+scripts/MineTweakerRecipeMaker.zs,431,hbm:item.spongebob_macaroni,script/config; activation needs loader verification,recipes.remove(<hbm:item.spongebob_macaroni>);
+scripts/MineTweakerRecipeMaker.zs,432,hbm:item.loop_stew,script/config; activation needs loader verification,recipes.remove(<hbm:item.loop_stew>);
+scripts/MineTweakerRecipeMaker.zs,433,hbm:item.loops,script/config; activation needs loader verification,recipes.remove(<hbm:item.loops>);
+scripts/MineTweakerRecipeMaker.zs,434,hbm:item.definitelyfood,script/config; activation needs loader verification,recipes.remove(<hbm:item.definitelyfood>);
+scripts/MineTweakerRecipeMaker.zs,435,hbm:item.lemon,script/config; activation needs loader verification,recipes.remove(<hbm:item.lemon>);
+scripts/MineTweakerRecipeMaker.zs,436,hbm:item.balefire_and_ham,script/config; activation needs loader verification,recipes.remove(<hbm:item.balefire_and_ham>);
+scripts/MineTweakerRecipeMaker.zs,437,hbm:item.balefire_scrambled,script/config; activation needs loader verification,recipes.remove(<hbm:item.balefire_scrambled>);
+scripts/MineTweakerRecipeMaker.zs,438,hbm:item.glowing_stew,script/config; activation needs loader verification,recipes.remove(<hbm:item.glowing_stew>);
+scripts/MineTweakerRecipeMaker.zs,439,hbm:item.tem_flakes,script/config; activation needs loader verification,recipes.remove(<hbm:item.tem_flakes:2>);
+scripts/MineTweakerRecipeMaker.zs,440,hbm:item.tem_flakes,script/config; activation needs loader verification,recipes.remove(<hbm:item.tem_flakes:1>);
+scripts/MineTweakerRecipeMaker.zs,441,hbm:item.tem_flakes,script/config; activation needs loader verification,recipes.remove(<hbm:item.tem_flakes>);
+scripts/MineTweakerRecipeMaker.zs,442,hbm:item.animan,script/config; activation needs loader verification,recipes.remove(<hbm:item.animan>);
+scripts/MineTweakerRecipeMaker.zs,444,hbm:item.apple_euphemium,script/config; activation needs loader verification,recipes.remove(<hbm:item.apple_euphemium>);
+scripts/MineTweakerRecipeMaker.zs,447,hbm:item.apple_schrabidium,script/config; activation needs loader verification,recipes.remove(<hbm:item.apple_schrabidium:2>);
+scripts/MineTweakerRecipeMaker.zs,448,hbm:item.apple_schrabidium,script/config; activation needs loader verification,recipes.remove(<hbm:item.apple_schrabidium:1>);
+scripts/MineTweakerRecipeMaker.zs,449,hbm:item.apple_schrabidium,script/config; activation needs loader verification,recipes.remove(<hbm:item.apple_schrabidium>);
+scripts/MineTweakerRecipeMaker.zs,450,hbm:item.apple_lead,script/config; activation needs loader verification,recipes.remove(<hbm:item.apple_lead:2>);
+scripts/MineTweakerRecipeMaker.zs,451,hbm:item.apple_lead,script/config; activation needs loader verification,recipes.remove(<hbm:item.apple_lead:1>);
+scripts/MineTweakerRecipeMaker.zs,452,hbm:item.apple_lead,script/config; activation needs loader verification,recipes.remove(<hbm:item.apple_lead>);
+scripts/MineTweakerRecipeMaker.zs,453,hbm:item.cotton_candy,script/config; activation needs loader verification,recipes.remove(<hbm:item.cotton_candy>);
+scripts/MineTweakerRecipeMaker.zs,454,hbm:item.schnitzel_vegan,script/config; activation needs loader verification,recipes.remove(<hbm:item.schnitzel_vegan>);
+scripts/MineTweakerRecipeMaker.zs,455,hbm:item.bomb_waffle,script/config; activation needs loader verification,recipes.remove(<hbm:item.bomb_waffle>);
+scripts/MineTweakerRecipeMaker.zs,456,hbm:item.rod_of_discord,script/config; activation needs loader verification,recipes.remove(<hbm:item.rod_of_discord>);
+scripts/MineTweakerRecipeMaker.zs,462,hbm:item.iv_blood,script/config; activation needs loader verification,recipes.remove(<hbm:item.iv_blood>);
+scripts/MineTweakerRecipeMaker.zs,464,hbm:item.syringe_taint,script/config; activation needs loader verification,recipes.remove(<hbm:item.syringe_taint>);
+scripts/MineTweakerRecipeMaker.zs,465,hbm:item.syringe_metal_super,script/config; activation needs loader verification,recipes.remove(<hbm:item.syringe_metal_super>);
+scripts/MineTweakerRecipeMaker.zs,466,hbm:item.syringe_metal_psycho,script/config; activation needs loader verification,recipes.remove(<hbm:item.syringe_metal_psycho>);
+scripts/MineTweakerRecipeMaker.zs,467,hbm:item.syringe_metal_medx,script/config; activation needs loader verification,recipes.remove(<hbm:item.syringe_metal_medx>);
+scripts/MineTweakerRecipeMaker.zs,468,hbm:item.syringe_metal_stimpak,script/config; activation needs loader verification,recipes.remove(<hbm:item.syringe_metal_stimpak>);
+scripts/MineTweakerRecipeMaker.zs,470,hbm:item.syringe_awesome,script/config; activation needs loader verification,recipes.remove(<hbm:item.syringe_awesome>);
+scripts/MineTweakerRecipeMaker.zs,472,hbm:item.chocolate_mint_billet,script/config; activation needs loader verification,recipes.remove(<hbm:item.chocolate_mint_billet>);
+scripts/MineTweakerRecipeMaker.zs,474,hbm:item.injector_knife,script/config; activation needs loader verification,recipes.remove(<hbm:item.injector_knife>);
+scripts/MineTweakerRecipeMaker.zs,476,hbm:item.injector_5htp,script/config; activation needs loader verification,recipes.remove(<hbm:item.injector_5htp>);
+scripts/MineTweakerRecipeMaker.zs,477,hbm:item.shackles,script/config; activation needs loader verification,recipes.remove(<hbm:item.shackles>);
+scripts/MineTweakerRecipeMaker.zs,478,hbm:item.wild_p,script/config; activation needs loader verification,recipes.remove(<hbm:item.wild_p>);
+scripts/MineTweakerRecipeMaker.zs,479,hbm:item.scrumpy,script/config; activation needs loader verification,recipes.remove(<hbm:item.scrumpy>);
+scripts/MineTweakerRecipeMaker.zs,480,hbm:item.wd40,script/config; activation needs loader verification,recipes.remove(<hbm:item.wd40>);
+scripts/MineTweakerRecipeMaker.zs,481,hbm:item.black_diamond,script/config; activation needs loader verification,recipes.remove(<hbm:item.black_diamond>);
+scripts/MineTweakerRecipeMaker.zs,482,hbm:item.heart_fab,script/config; activation needs loader verification,recipes.remove(<hbm:item.heart_fab>);
+scripts/MineTweakerRecipeMaker.zs,483,hbm:item.heart_booster,script/config; activation needs loader verification,recipes.remove(<hbm:item.heart_booster>);
+scripts/MineTweakerRecipeMaker.zs,484,hbm:item.heart_container,script/config; activation needs loader verification,recipes.remove(<hbm:item.heart_container>);
+scripts/MineTweakerRecipeMaker.zs,485,hbm:item.heart_piece,script/config; activation needs loader verification,recipes.remove(<hbm:item.heart_piece>);
+scripts/MineTweakerRecipeMaker.zs,486,hbm:item.ink,script/config; activation needs loader verification,recipes.remove(<hbm:item.ink>);
+scripts/MineTweakerRecipeMaker.zs,487,hbm:item.spider_milk,script/config; activation needs loader verification,recipes.remove(<hbm:item.spider_milk>);
+scripts/MineTweakerRecipeMaker.zs,488,hbm:item.bathwater_mk2,script/config; activation needs loader verification,recipes.remove(<hbm:item.bathwater_mk2>);
+scripts/MineTweakerRecipeMaker.zs,489,hbm:item.bathwater,script/config; activation needs loader verification,recipes.remove(<hbm:item.bathwater>);
+scripts/MineTweakerRecipeMaker.zs,490,hbm:item.morning_glory,script/config; activation needs loader verification,recipes.remove(<hbm:item.morning_glory>);
+scripts/MineTweakerRecipeMaker.zs,491,hbm:item.quartz_plutonium,script/config; activation needs loader verification,recipes.remove(<hbm:item.quartz_plutonium>);
+scripts/MineTweakerRecipeMaker.zs,492,hbm:item.serum,script/config; activation needs loader verification,recipes.remove(<hbm:item.serum>);
+scripts/MineTweakerRecipeMaker.zs,493,hbm:item.bandaid,script/config; activation needs loader verification,recipes.remove(<hbm:item.bandaid>);
+scripts/MineTweakerRecipeMaker.zs,494,hbm:item.armor_polish,script/config; activation needs loader verification,recipes.remove(<hbm:item.armor_polish>);
+scripts/MineTweakerRecipeMaker.zs,497,hbm:item.back_tesla,script/config; activation needs loader verification,recipes.remove(<hbm:item.back_tesla>);
+scripts/MineTweakerRecipeMaker.zs,498,hbm:item.insert_doxium,script/config; activation needs loader verification,recipes.remove(<hbm:item.insert_doxium>);
+scripts/MineTweakerRecipeMaker.zs,499,hbm:item.insert_yharonite,script/config; activation needs loader verification,recipes.remove(<hbm:item.insert_yharonite>);
+scripts/MineTweakerRecipeMaker.zs,500,hbm:item.insert_era,script/config; activation needs loader verification,recipes.remove(<hbm:item.insert_era>);
+scripts/MineTweakerRecipeMaker.zs,501,hbm:item.insert_cmb,script/config; activation needs loader verification,recipes.remove(<hbm:item.insert_cmb>);
+scripts/MineTweakerRecipeMaker.zs,502,hbm:item.insert_ghiorsium,script/config; activation needs loader verification,recipes.remove(<hbm:item.insert_ghiorsium>);
+scripts/MineTweakerRecipeMaker.zs,504,hbm:item.anchor_remote,script/config; activation needs loader verification,recipes.remove(<hbm:item.anchor_remote>);
+scripts/MineTweakerRecipeMaker.zs,505,hbm:item.insert_kevlar,script/config; activation needs loader verification,recipes.remove(<hbm:item.insert_kevlar>);
+scripts/MineTweakerRecipeMaker.zs,506,hbm:item.insert_sapi,script/config; activation needs loader verification,recipes.remove(<hbm:item.insert_sapi>);
+scripts/MineTweakerRecipeMaker.zs,507,hbm:item.insert_esapi,script/config; activation needs loader verification,recipes.remove(<hbm:item.insert_esapi>);
+scripts/MineTweakerRecipeMaker.zs,508,hbm:item.insert_xsapi,script/config; activation needs loader verification,recipes.remove(<hbm:item.insert_xsapi>);
+scripts/MineTweakerRecipeMaker.zs,509,hbm:item.insert_steel,script/config; activation needs loader verification,recipes.remove(<hbm:item.insert_steel>);
+scripts/MineTweakerRecipeMaker.zs,510,hbm:item.insert_du,script/config; activation needs loader verification,recipes.remove(<hbm:item.insert_du>);
+scripts/MineTweakerRecipeMaker.zs,511,hbm:item.insert_polonium,script/config; activation needs loader verification,recipes.remove(<hbm:item.insert_polonium>);
+scripts/MineTweakerRecipeMaker.zs,512,hbm:item.australium_iii,script/config; activation needs loader verification,recipes.remove(<hbm:item.australium_iii>);
+scripts/MineTweakerRecipeMaker.zs,513,hbm:item.ballistic_gauntlet,script/config; activation needs loader verification,recipes.remove(<hbm:item.ballistic_gauntlet>);
+scripts/MineTweakerRecipeMaker.zs,514,hbm:item.v1,script/config; activation needs loader verification,recipes.remove(<hbm:item.v1>);
+scripts/MineTweakerRecipeMaker.zs,515,hbm:item.bomb_caller,script/config; activation needs loader verification,recipes.remove(<hbm:item.bomb_caller>);
+scripts/MineTweakerRecipeMaker.zs,516,hbm:item.bomb_caller,script/config; activation needs loader verification,recipes.remove(<hbm:item.bomb_caller:1>);
+scripts/MineTweakerRecipeMaker.zs,517,hbm:item.bomb_caller,script/config; activation needs loader verification,recipes.remove(<hbm:item.bomb_caller:2>);
+scripts/MineTweakerRecipeMaker.zs,518,hbm:item.bomb_caller,script/config; activation needs loader verification,recipes.remove(<hbm:item.bomb_caller:3>);
+scripts/MineTweakerRecipeMaker.zs,519,hbm:item.bomb_caller,script/config; activation needs loader verification,recipes.remove(<hbm:item.bomb_caller:4>);
+scripts/MineTweakerRecipeMaker.zs,520,hbm:item.bomb_caller,script/config; activation needs loader verification,recipes.remove(<hbm:item.bomb_caller:8>);
+scripts/MineTweakerRecipeMaker.zs,536,hbm:item.ammo_standard,script/config; activation needs loader verification,"recipes.addShapeless(<hbm:item.missile_micro>, [<vp:T4MissileCoin>, <hbm:item.missile_assembly>, <hbm:item.ducttape>, <hbm:item.ammo_standard:75>]);"
+config/hbmConfig/_hbmItemPools.json,8,hbm:item.coffee,exported template; not automatically active,"[[""hbm:item.coffee""],1,1,4],"
+config/hbmConfig/_hbmItemPools.json,14,hbm:item.can_creature,exported template; not automatically active,"[[""hbm:item.can_creature""],1,2,2],"
+config/hbmConfig/_hbmItemPools.json,15,hbm:item.can_smart,exported template; not automatically active,"[[""hbm:item.can_smart""],1,3,2],"
+config/hbmConfig/_hbmItemPools.json,16,hbm:item.can_mrsugar,exported template; not automatically active,"[[""hbm:item.can_mrsugar""],1,2,2],"
+config/hbmConfig/_hbmItemPools.json,44,hbm:item.gun_heavy_revolver,exported template; not automatically active,"[[""hbm:item.gun_heavy_revolver""],1,1,2],"
+config/hbmConfig/_hbmItemPools.json,46,hbm:item.gun_am180,exported template; not automatically active,"[[""hbm:item.gun_am180""],1,1,1],"
+config/hbmConfig/_hbmItemPools.json,47,hbm:item.bottle_quantum,exported template; not automatically active,"[[""hbm:item.bottle_quantum""],1,3,1],"
+config/hbmConfig/_hbmItemPools.json,49,hbm:item.ammo_standard,exported template; not automatically active,"[[""hbm:item.ammo_standard"",1,34],24,48,1],"
+config/hbmConfig/_hbmItemPools.json,50,hbm:item.ammo_standard,exported template; not automatically active,"[[""hbm:item.ammo_standard"",1,22],48,64,2],"
+config/hbmConfig/_hbmItemPools.json,53,hbm:item.grenade_universal,exported template; not automatically active,"[[""hbm:item.grenade_universal"",1,0,""{filling:1,shell:0,fuze:0}""],1,1,1],"
+config/hbmConfig/_hbmItemPools.json,54,hbm:item.grenade_universal,exported template; not automatically active,"[[""hbm:item.grenade_universal"",1,0,""{filling:3,shell:0,fuze:0}""],1,1,1],"
+config/hbmConfig/_hbmItemPools.json,83,hbm:item.cigarette,exported template; not automatically active,"[[""hbm:item.cigarette""],1,16,20],"
+config/hbmConfig/_hbmItemPools.json,86,hbm:item.ink,exported template; not automatically active,"[[""hbm:item.ink""],1,1,1],"
+config/hbmConfig/_hbmItemPools.json,97,hbm:item.gun_light_revolver,exported template; not automatically active,"[[""hbm:item.gun_light_revolver""],1,1,4],"
+config/hbmConfig/_hbmItemPools.json,99,hbm:item.ammo_standard,exported template; not automatically active,"[[""hbm:item.ammo_standard"",1,6],1,24,4],"
+config/hbmConfig/_hbmItemPools.json,100,hbm:item.ammo_standard,exported template; not automatically active,"[[""hbm:item.ammo_standard"",1,53],1,6,3],"
+config/hbmConfig/_hbmItemPools.json,101,hbm:item.ammo_standard,exported template; not automatically active,"[[""hbm:item.ammo_standard"",1,52],1,1,5],"
+config/hbmConfig/_hbmItemPools.json,106,hbm:item.bottle_quantum,exported template; not automatically active,"[[""hbm:item.bottle_quantum""],1,1,3],"
+config/hbmConfig/_hbmItemPools.json,110,hbm:item.grenade_universal,exported template; not automatically active,"[[""hbm:item.grenade_universal"",1,0,""{filling:10,shell:3,fuze:1}""],1,2,2],"
+config/hbmConfig/_hbmItemPools.json,111,hbm:item.bomb_caller,exported template; not automatically active,"[[""hbm:item.bomb_caller""],1,1,1],"
+config/hbmConfig/_hbmItemPools.json,112,hbm:item.bomb_caller,exported template; not automatically active,"[[""hbm:item.bomb_caller"",1,1],1,1,1],"
+config/hbmConfig/_hbmItemPools.json,113,hbm:item.bomb_caller,exported template; not automatically active,"[[""hbm:item.bomb_caller"",1,2],1,1,2]"
+config/hbmConfig/_hbmItemPools.json,137,hbm:item.morning_glory,exported template; not automatically active,"[[""hbm:item.morning_glory""],1,1,1],"
+config/hbmConfig/_hbmItemPools.json,151,hbm:item.ammo_container,exported template; not automatically active,"[[""hbm:item.ammo_container""],3,6,1],"
+config/hbmConfig/_hbmItemPools.json,152,hbm:item.ammo_standard,exported template; not automatically active,"[[""hbm:item.ammo_standard"",1,74],2,3,1],"
+config/hbmConfig/_hbmItemPools.json,153,hbm:item.gun_carbine,exported template; not automatically active,"[[""hbm:item.gun_carbine""],1,1,1],"
+config/hbmConfig/_hbmItemPools.json,154,hbm:item.ammo_standard,exported template; not automatically active,"[[""hbm:item.ammo_standard"",1,32],16,32,1],"
+config/hbmConfig/_hbmItemPools.json,155,hbm:item.gun_congolake,exported template; not automatically active,"[[""hbm:item.gun_congolake""],1,1,1],"
+config/hbmConfig/_hbmItemPools.json,159,hbm:item.definitelyfood,exported template; not automatically active,"[[""hbm:item.definitelyfood""],3,10,25],"
+config/hbmConfig/_hbmItemPools.json,160,hbm:item.syringe_metal_stimpak,exported template; not automatically active,"[[""hbm:item.syringe_metal_stimpak""],1,3,10],"
+config/hbmConfig/_hbmItemPools.json,182,hbm:item.cap_quantum,exported template; not automatically active,"[[""hbm:item.cap_quantum""],4,4,3],"
+config/hbmConfig/_hbmItemPools.json,183,hbm:item.cap_sparkle,exported template; not automatically active,"[[""hbm:item.cap_sparkle""],4,4,1]"
+config/hbmConfig/_hbmItemPools.json,204,hbm:item.bottle_cherry,exported template; not automatically active,"[[""hbm:item.bottle_cherry""],1,1,2],"
+config/hbmConfig/_hbmItemPools.json,207,hbm:item.bomb_caller,exported template; not automatically active,"[[""hbm:item.bomb_caller""],1,1,1],"
+config/hbmConfig/_hbmItemPools.json,218,hbm:item.gun_light_revolver,exported template; not automatically active,"[[""hbm:item.gun_light_revolver""],1,1,3],"
+config/hbmConfig/_hbmItemPools.json,219,hbm:item.ammo_standard,exported template; not automatically active,"[[""hbm:item.ammo_standard"",1,5],2,6,4],"
+config/hbmConfig/_hbmItemPools.json,220,hbm:item.ammo_standard,exported template; not automatically active,"[[""hbm:item.ammo_standard"",1,41],3,6,3],"
+config/hbmConfig/_hbmItemPools.json,221,hbm:item.ammo_standard,exported template; not automatically active,"[[""hbm:item.ammo_standard"",1,51],1,1,1],"
+config/hbmConfig/_hbmItemPools.json,223,hbm:item.gun_maresleg,exported template; not automatically active,"[[""hbm:item.gun_maresleg""],1,1,1],"
+config/hbmConfig/_hbmItemPools.json,232,hbm:item.bottle_cherry,exported template; not automatically active,"[[""hbm:item.bottle_cherry""],1,1,2],"
+config/hbmConfig/_hbmItemPools.json,249,hbm:item.bottle_quantum,exported template; not automatically active,"[[""hbm:item.bottle_quantum""],1,1,1],"
+config/hbmConfig/_hbmItemPools.json,283,hbm:item.gun_maresleg,exported template; not automatically active,"[[""hbm:item.gun_maresleg""],1,1,5],"
+config/hbmConfig/_hbmItemPools.json,284,hbm:item.gun_light_revolver,exported template; not automatically active,"[[""hbm:item.gun_light_revolver""],1,1,1],"
+config/hbmConfig/_hbmItemPools.json,285,hbm:item.grenade_universal,exported template; not automatically active,"[[""hbm:item.grenade_universal"",1,0,""{filling:1,shell:0,extra:2,fuze:0}""],1,2,5],"
+config/hbmConfig/_hbmItemPools.json,286,hbm:item.grenade_universal,exported template; not automatically active,"[[""hbm:item.grenade_universal"",1,0,""{filling:2,shell:1,fuze:3}""],1,2,3],"
+config/hbmConfig/_hbmItemPools.json,287,hbm:item.ammo_standard,exported template; not automatically active,"[[""hbm:item.ammo_standard"",1,44],4,4,10],"
+config/hbmConfig/_hbmItemPools.json,288,hbm:item.ammo_standard,exported template; not automatically active,"[[""hbm:item.ammo_standard"",1,5],6,12,10],"
+config/hbmConfig/_hbmItemPools.json,289,hbm:item.ammo_standard,exported template; not automatically active,"[[""hbm:item.ammo_standard"",1,53],1,1,2],"
+config/hbmConfig/_hbmItemPools.json,291,hbm:item.bottle_quantum,exported template; not automatically active,"[[""hbm:item.bottle_quantum""],1,2,1],"
+config/hbmConfig/_hbmItemPools.json,292,hbm:item.definitelyfood,exported template; not automatically active,"[[""hbm:item.definitelyfood""],5,12,20],"
+config/hbmConfig/_hbmItemPools.json,294,hbm:item.syringe_metal_stimpak,exported template; not automatically active,"[[""hbm:item.syringe_metal_stimpak""],1,1,5],"
+config/hbmConfig/_hbmItemPools.json,295,hbm:item.iv_blood,exported template; not automatically active,"[[""hbm:item.iv_blood""],1,1,10],"
+config/hbmConfig/_hbmItemPools.json,305,hbm:item.gun_panzerschreck,exported template; not automatically active,"[[""hbm:item.gun_panzerschreck""],1,1,4],"
+config/hbmConfig/_hbmItemPools.json,306,hbm:item.ammo_standard,exported template; not automatically active,"[[""hbm:item.ammo_standard"",1,58],1,4,5],"
+config/hbmConfig/_hbmItemPools.json,307,hbm:item.ammo_standard,exported template; not automatically active,"[[""hbm:item.ammo_standard"",1,51],1,1,5],"
+config/hbmConfig/_hbmItemPools.json,308,hbm:item.ammo_standard,exported template; not automatically active,"[[""hbm:item.ammo_standard"",1,52],1,1,3],"
+config/hbmConfig/_hbmItemPools.json,309,hbm:item.grenade_universal,exported template; not automatically active,"[[""hbm:item.grenade_universal"",1,0,""{filling:10,shell:3,fuze:1}""],1,1,2],"
+config/hbmConfig/_hbmItemPools.json,310,hbm:item.grenade_universal,exported template; not automatically active,"[[""hbm:item.grenade_universal"",1,0,""{filling:5,shell:0,fuze:1}""],1,3,3],"
+config/hbmConfig/_hbmItemPools.json,311,hbm:item.grenade_extra,exported template; not automatically active,"[[""hbm:item.grenade_extra"",1,3],1,1,1],"
+config/hbmConfig/_hbmItemPools.json,314,hbm:item.syringe_awesome,exported template; not automatically active,"[[""hbm:item.syringe_awesome""],1,1,1],"
+config/hbmConfig/_hbmItemPools.json,317,hbm:item.bottle_quantum,exported template; not automatically active,"[[""hbm:item.bottle_quantum""],1,1,3],"
+config/hbmConfig/_hbmItemPools.json,322,hbm:item.bomb_caller,exported template; not automatically active,"[[""hbm:item.bomb_caller""],1,1,2],"
+config/hbmConfig/_hbmItemPools.json,323,hbm:item.bomb_caller,exported template; not automatically active,"[[""hbm:item.bomb_caller"",1,1],1,1,1],"
+config/hbmConfig/_hbmItemPools.json,324,hbm:item.bomb_caller,exported template; not automatically active,"[[""hbm:item.bomb_caller"",1,2],1,1,1],"
+config/hbmConfig/_hbmItemPools.json,327,hbm:item.gun_double_barrel,exported template; not automatically active,"[[""hbm:item.gun_double_barrel""],1,1,1],"
+config/hbmConfig/_hbmItemPools.json,341,hbm:item.ammo_standard,exported template; not automatically active,"[[""hbm:item.ammo_standard"",1,73],1,1,1],"
+config/hbmConfig/_hbmItemPools.json,342,hbm:item.ammo_container,exported template; not automatically active,"[[""hbm:item.ammo_container""],1,1,1],"
+config/hbmConfig/_hbmItemPools.json,343,hbm:item.grenade_universal,exported template; not automatically active,"[[""hbm:item.grenade_universal"",1,0,""{filling:10,shell:3,fuze:1}""],1,1,1],"
+config/hbmConfig/_hbmItemPools.json,344,hbm:item.grenade_universal,exported template; not automatically active,"[[""hbm:item.grenade_universal"",1,0,""{filling:6,shell:2,fuze:0}""],1,6,1],"
+config/hbmConfig/_hbmItemPools.json,346,hbm:item.gun_uzi,exported template; not automatically active,"[[""hbm:item.gun_uzi""],1,1,1],"
+config/hbmConfig/_hbmItemPools.json,389,hbm:item.canned_conserve,exported template; not automatically active,"[[""hbm:item.canned_conserve"",1,2],0,1,5]"
+config/hbmConfig/_hbmItemPools.json,417,hbm:item.bottle_quantum,exported template; not automatically active,"[[""hbm:item.bottle_quantum""],1,1,1],"
+config/hbmConfig/_hbmItemPools.json,424,hbm:item.gun_light_revolver,exported template; not automatically active,"[[""hbm:item.gun_light_revolver""],1,1,100],"
+config/hbmConfig/_hbmItemPools.json,425,hbm:item.gun_henry,exported template; not automatically active,"[[""hbm:item.gun_henry""],1,1,100],"
+config/hbmConfig/_hbmItemPools.json,426,hbm:item.gun_maresleg,exported template; not automatically active,"[[""hbm:item.gun_maresleg""],1,1,100],"
+config/hbmConfig/_hbmItemPools.json,427,hbm:item.gun_greasegun,exported template; not automatically active,"[[""hbm:item.gun_greasegun""],1,1,100],"
+config/hbmConfig/_hbmItemPools.json,428,hbm:item.gun_carbine,exported template; not automatically active,"[[""hbm:item.gun_carbine""],1,1,50],"
+config/hbmConfig/_hbmItemPools.json,429,hbm:item.gun_heavy_revolver,exported template; not automatically active,"[[""hbm:item.gun_heavy_revolver""],1,1,50],"
+config/hbmConfig/_hbmItemPools.json,430,hbm:item.gun_panzerschreck,exported template; not automatically active,"[[""hbm:item.gun_panzerschreck""],1,1,20],"
+config/hbmConfig/_hbmItemPools.json,431,hbm:item.gun_double_barrel,exported template; not automatically active,"[[""hbm:item.gun_double_barrel""],1,1,10],"
+config/hbmConfig/_hbmItemPools.json,432,hbm:item.gun_n_i_4_n_i,exported template; not automatically active,"[[""hbm:item.gun_n_i_4_n_i""],1,1,1]"
+config/hbmConfig/_hbmItemPools.json,444,hbm:item.definitelyfood,exported template; not automatically active,"[[""hbm:item.definitelyfood""],16,32,25],"
+config/hbmConfig/_hbmItemPools.json,447,hbm:item.serum,exported template; not automatically active,"[[""hbm:item.serum""],1,1,5],"
+config/hbmConfig/_hbmItemPools.json,448,hbm:item.heart_piece,exported template; not automatically active,"[[""hbm:item.heart_piece""],1,1,5],"
+config/hbmConfig/_hbmItemPools.json,449,hbm:item.scrumpy,exported template; not automatically active,"[[""hbm:item.scrumpy""],1,1,5],"
+config/hbmConfig/_hbmItemPools.json,458,hbm:item.iv_blood,exported template; not automatically active,"[[""hbm:item.iv_blood""],1,1,15],"
+config/hbmConfig/_hbmItemPools.json,507,hbm:item.gun_carbine,exported template; not automatically active,"[[""hbm:item.gun_carbine""],1,1,2],"
+config/hbmConfig/_hbmItemPools.json,508,hbm:item.ammo_standard,exported template; not automatically active,"[[""hbm:item.ammo_standard"",1,29],8,32,4],"
+config/hbmConfig/_hbmItemPools.json,524,hbm:item.ammo_standard,exported template; not automatically active,"[[""hbm:item.ammo_standard"",1,73],1,3,1],"
+config/hbmConfig/_hbmItemPools.json,525,hbm:item.ammo_container,exported template; not automatically active,"[[""hbm:item.ammo_container""],1,4,1],"
+config/hbmConfig/_hbmItemPools.json,526,hbm:item.grenade_universal,exported template; not automatically active,"[[""hbm:item.grenade_universal"",1,0,""{filling:10,shell:3,fuze:1}""],1,2,1],"
+config/hbmConfig/_hbmItemPools.json,527,hbm:item.grenade_universal,exported template; not automatically active,"[[""hbm:item.grenade_universal"",1,0,""{filling:1,shell:1,extra:3,fuze:3}""],1,1,1],"
+config/hbmConfig/_hbmItemPools.json,529,hbm:item.gun_heavy_revolver,exported template; not automatically active,"[[""hbm:item.gun_heavy_revolver""],1,1,1],"
+config/hbmConfig/_hbmItemPools.json,536,hbm:item.canteen_vodka,exported template; not automatically active,"[[""hbm:item.canteen_vodka""],1,1,40],"
+config/hbmConfig/_hbmItemPools.json,540,hbm:item.canned_conserve,exported template; not automatically active,"[[""hbm:item.canned_conserve""],2,5,40],"
+config/hbmConfig/_hbmItemPools.json,541,hbm:item.taurun_helmet,exported template; not automatically active,"[[""hbm:item.taurun_helmet""],1,1,20],"
+config/hbmConfig/_hbmItemPools.json,542,hbm:item.taurun_plate,exported template; not automatically active,"[[""hbm:item.taurun_plate""],1,1,20],"
+config/hbmConfig/_hbmItemPools.json,543,hbm:item.taurun_legs,exported template; not automatically active,"[[""hbm:item.taurun_legs""],1,1,20],"
+config/hbmConfig/_hbmItemPools.json,544,hbm:item.taurun_boots,exported template; not automatically active,"[[""hbm:item.taurun_boots""],1,1,20]"
+config/hbmConfig/_hbmItemPools.json,556,hbm:item.bomb_caller,exported template; not automatically active,"[[""hbm:item.bomb_caller""],1,1,1],"
+config/hbmConfig/_hbmItemPools.json,557,hbm:item.bomb_caller,exported template; not automatically active,"[[""hbm:item.bomb_caller"",1,3],1,1,1],"
+config/hbmConfig/_hbmItemPools.json,562,hbm:item.bottle_cherry,exported template; not automatically active,"[[""hbm:item.bottle_cherry""],1,1,5],"
+config/hbmConfig/_hbmItemPools.json,563,hbm:item.bottle_quantum,exported template; not automatically active,"[[""hbm:item.bottle_quantum""],1,1,1],"
+config/hbmConfig/_hbmItemPools.json,564,hbm:item.can_bepis,exported template; not automatically active,"[[""hbm:item.can_bepis""],1,1,10],"
+config/hbmConfig/_hbmItemPools.json,565,hbm:item.can_luna,exported template; not automatically active,"[[""hbm:item.can_luna""],1,1,10],"
+config/hbmConfig/_hbmItemPools.json,566,hbm:item.can_mug,exported template; not automatically active,"[[""hbm:item.can_mug""],1,1,10],"
+config/hbmConfig/_hbmItemPools.json,567,hbm:item.can_breen,exported template; not automatically active,"[[""hbm:item.can_breen""],1,1,1]"
+config/hbmConfig/_hbmItemPools.json,570,hbm:item.ammo_standard,exported template; not automatically active,"[[""hbm:item.ammo_standard"",1,5],12,12,10],"
+config/hbmConfig/_hbmItemPools.json,571,hbm:item.ammo_standard,exported template; not automatically active,"[[""hbm:item.ammo_standard"",1,6],6,6,10],"
+config/hbmConfig/_hbmItemPools.json,572,hbm:item.ammo_standard,exported template; not automatically active,"[[""hbm:item.ammo_standard"",1,11],12,12,5],"
+config/hbmConfig/_hbmItemPools.json,573,hbm:item.ammo_standard,exported template; not automatically active,"[[""hbm:item.ammo_standard"",1,12],6,6,5],"
+config/hbmConfig/_hbmItemPools.json,574,hbm:item.ammo_standard,exported template; not automatically active,"[[""hbm:item.ammo_standard"",1,20],12,12,10],"
+config/hbmConfig/_hbmItemPools.json,575,hbm:item.ammo_standard,exported template; not automatically active,"[[""hbm:item.ammo_standard"",1,21],6,6,10],"
+config/hbmConfig/_hbmItemPools.json,576,hbm:item.ammo_standard,exported template; not automatically active,"[[""hbm:item.ammo_standard"",1,28],6,6,5],"
+config/hbmConfig/_hbmItemPools.json,577,hbm:item.ammo_standard,exported template; not automatically active,"[[""hbm:item.ammo_standard"",1,41],6,6,10],"
+config/hbmConfig/_hbmItemPools.json,578,hbm:item.ammo_standard,exported template; not automatically active,"[[""hbm:item.ammo_standard"",1,58],1,1,3],"
+config/hbmConfig/_hbmItemPools.json,579,hbm:item.ammo_container,exported template; not automatically active,"[[""hbm:item.ammo_container""],1,1,1]"
+config/hbmConfig/_hbmItemPools.json,598,hbm:item.syringe_metal_stimpak,exported template; not automatically active,"[[""hbm:item.syringe_metal_stimpak""],1,1,10],"
+config/hbmConfig/_hbmItemPools.json,599,hbm:item.syringe_metal_medx,exported template; not automatically active,"[[""hbm:item.syringe_metal_medx""],1,1,5],"
+config/hbmConfig/_hbmItemPools.json,600,hbm:item.syringe_metal_psycho,exported template; not automatically active,"[[""hbm:item.syringe_metal_psycho""],1,1,5]"
+config/hbmConfig/_hbmItemPools.json,603,hbm:item.ballistic_gauntlet,exported template; not automatically active,"[[""hbm:item.ballistic_gauntlet""],1,1,10],"
+config/hbmConfig/_hbmItemPools.json,604,hbm:item.armor_polish,exported template; not automatically active,"[[""hbm:item.armor_polish""],1,1,10],"
+config/hbmConfig/_hbmItemPools.json,605,hbm:item.bandaid,exported template; not automatically active,"[[""hbm:item.bandaid""],1,1,10],"
+config/hbmConfig/_hbmItemPools.json,606,hbm:item.serum,exported template; not automatically active,"[[""hbm:item.serum""],1,1,10],"
+config/hbmConfig/_hbmItemPools.json,607,hbm:item.quartz_plutonium,exported template; not automatically active,"[[""hbm:item.quartz_plutonium""],1,1,10],"
+config/hbmConfig/_hbmItemPools.json,608,hbm:item.morning_glory,exported template; not automatically active,"[[""hbm:item.morning_glory""],1,1,10],"
+config/hbmConfig/_hbmItemPools.json,609,hbm:item.spider_milk,exported template; not automatically active,"[[""hbm:item.spider_milk""],1,1,10],"
+config/hbmConfig/_hbmItemPools.json,610,hbm:item.ink,exported template; not automatically active,"[[""hbm:item.ink""],1,1,10],"
+config/hbmConfig/_hbmItemPools.json,611,hbm:item.heart_container,exported template; not automatically active,"[[""hbm:item.heart_container""],1,1,10],"
+config/hbmConfig/_hbmItemPools.json,612,hbm:item.black_diamond,exported template; not automatically active,"[[""hbm:item.black_diamond""],1,1,10],"
+config/hbmConfig/_hbmItemPools.json,613,hbm:item.scrumpy,exported template; not automatically active,"[[""hbm:item.scrumpy""],1,1,10],"
+config/hbmConfig/_hbmItemPools.json,614,hbm:item.wild_p,exported template; not automatically active,"[[""hbm:item.wild_p""],1,1,5],"
+config/hbmConfig/_hbmItemPools.json,617,hbm:item.starmetal_sword,exported template; not automatically active,"[[""hbm:item.starmetal_sword""],1,1,5],"
+config/hbmConfig/_hbmItemPools.json,619,hbm:item.crackpipe,exported template; not automatically active,"[[""hbm:item.crackpipe""],1,1,5],"
+config/hbmConfig/_hbmItemPools.json,620,hbm:item.flask_infusion,exported template; not automatically active,"[[""hbm:item.flask_infusion""],1,1,5],"
+config/hbmConfig/_hbmItemPools.json,630,hbm:item.gun_maresleg,exported template; not automatically active,"[[""hbm:item.gun_maresleg""],1,1,10]"
+config/hbmConfig/_hbmItemPools.json,636,hbm:item.ammo_standard,exported template; not automatically active,"[[""hbm:item.ammo_standard"",1,73],1,1,50],"
+config/hbmConfig/_hbmItemPools.json,637,hbm:item.ammo_standard,exported template; not automatically active,"[[""hbm:item.ammo_standard"",1,75],1,1,10],"
+config/hbmConfig/_hbmItemPools.json,638,hbm:item.ammo_standard,exported template; not automatically active,"[[""hbm:item.ammo_standard"",1,76],1,1,10]"
+config/hbmConfig/_hbmItemPools.json,663,hbm:item.definitelyfood,exported template; not automatically active,"[[""hbm:item.definitelyfood""],2,7,5],"
+config/hbmConfig/_hbmItemPools.json,664,hbm:item.cigarette,exported template; not automatically active,"[[""hbm:item.cigarette""],1,8,5],"
+config/hbmConfig/_hbmItemPools.json,665,hbm:item.armor_polish,exported template; not automatically active,"[[""hbm:item.armor_polish""],1,1,3],"
+config/hbmConfig/_hbmItemPools.json,674,hbm:item.ammo_container,exported template; not automatically active,"[[""hbm:item.ammo_container""],1,1,1],"
+config/hbmConfig/_hbmItemPools.json,678,hbm:item.definitelyfood,exported template; not automatically active,"[[""hbm:item.definitelyfood""],1,1,10],"
+config/hbmConfig/_hbmItemPools.json,679,hbm:item.canned_conserve,exported template; not automatically active,"[[""hbm:item.canned_conserve""],1,1,5],"
+config/hbmConfig/_hbmItemPools.json,680,hbm:item.canned_conserve,exported template; not automatically active,"[[""hbm:item.canned_conserve"",1,9],1,1,5],"
+config/hbmConfig/_hbmItemPools.json,682,hbm:item.chocolate,exported template; not automatically active,"[[""hbm:item.chocolate""],1,1,10]"
+config/hbmConfig/_hbmItemPools.json,685,hbm:item.grenade_universal,exported template; not automatically active,"[[""hbm:item.grenade_universal"",1,0,""{filling:1,shell:0,extra:2,fuze:0}""],3,5,10],"
+config/hbmConfig/_hbmItemPools.json,686,hbm:item.grenade_universal,exported template; not automatically active,"[[""hbm:item.grenade_universal"",1,0,""{filling:1,shell:0,extra:2,fuze:0}""],3,5,10],"
+config/hbmConfig/_hbmItemPools.json,687,hbm:item.grenade_universal,exported template; not automatically active,"[[""hbm:item.grenade_universal"",1,0,""{filling:1,shell:0,extra:2,fuze:0}""],3,5,10],"
+config/hbmConfig/_hbmItemPools.json,688,hbm:item.syringe_metal_stimpak,exported template; not automatically active,"[[""hbm:item.syringe_metal_stimpak""],3,5,30],"
+config/hbmConfig/_hbmItemPools.json,689,hbm:item.syringe_metal_psycho,exported template; not automatically active,"[[""hbm:item.syringe_metal_psycho""],3,5,30],"
+config/hbmConfig/_hbmItemPools.json,691,hbm:item.ammo_container,exported template; not automatically active,"[[""hbm:item.ammo_container""],2,3,40]"
+config/hbmConfig/_hbmArmor.json,28,hbm:item.cmb_legs,exported template; not automatically active,"[""hbm:item.cmb_helmet"",""hbm:item.cmb_plate"",""hbm:item.cmb_legs"",""hbm:item.cmb_boots"","
+config/hbmConfig/_hbmArmor.json,28,hbm:item.cmb_helmet,exported template; not automatically active,"[""hbm:item.cmb_helmet"",""hbm:item.cmb_plate"",""hbm:item.cmb_legs"",""hbm:item.cmb_boots"","
+config/hbmConfig/_hbmArmor.json,28,hbm:item.cmb_plate,exported template; not automatically active,"[""hbm:item.cmb_helmet"",""hbm:item.cmb_plate"",""hbm:item.cmb_legs"",""hbm:item.cmb_boots"","
+config/hbmConfig/_hbmArmor.json,28,hbm:item.cmb_boots,exported template; not automatically active,"[""hbm:item.cmb_helmet"",""hbm:item.cmb_plate"",""hbm:item.cmb_legs"",""hbm:item.cmb_boots"","
+config/hbmConfig/_hbmArmor.json,34,hbm:item.rpa_plate,exported template; not automatically active,"[""hbm:item.rpa_helmet"",""hbm:item.rpa_plate"",""hbm:item.rpa_legs"",""hbm:item.rpa_boots"","
+config/hbmConfig/_hbmArmor.json,34,hbm:item.rpa_boots,exported template; not automatically active,"[""hbm:item.rpa_helmet"",""hbm:item.rpa_plate"",""hbm:item.rpa_legs"",""hbm:item.rpa_boots"","
+config/hbmConfig/_hbmArmor.json,34,hbm:item.rpa_helmet,exported template; not automatically active,"[""hbm:item.rpa_helmet"",""hbm:item.rpa_plate"",""hbm:item.rpa_legs"",""hbm:item.rpa_boots"","
+config/hbmConfig/_hbmArmor.json,34,hbm:item.rpa_legs,exported template; not automatically active,"[""hbm:item.rpa_helmet"",""hbm:item.rpa_plate"",""hbm:item.rpa_legs"",""hbm:item.rpa_boots"","
+config/hbmConfig/_hbmArmor.json,46,hbm:item.bj_helmet,exported template; not automatically active,"[""hbm:item.bj_helmet"",""hbm:item.bj_plate_jetpack"",""hbm:item.bj_legs"",""hbm:item.bj_boots"","
+config/hbmConfig/_hbmArmor.json,46,hbm:item.bj_boots,exported template; not automatically active,"[""hbm:item.bj_helmet"",""hbm:item.bj_plate_jetpack"",""hbm:item.bj_legs"",""hbm:item.bj_boots"","
+config/hbmConfig/_hbmArmor.json,46,hbm:item.bj_plate_jetpack,exported template; not automatically active,"[""hbm:item.bj_helmet"",""hbm:item.bj_plate_jetpack"",""hbm:item.bj_legs"",""hbm:item.bj_boots"","
+config/hbmConfig/_hbmArmor.json,46,hbm:item.bj_legs,exported template; not automatically active,"[""hbm:item.bj_helmet"",""hbm:item.bj_plate_jetpack"",""hbm:item.bj_legs"",""hbm:item.bj_boots"","
+config/hbmConfig/_hbmArmor.json,101,hbm:item.bj_helmet,exported template; not automatically active,"[""hbm:item.bj_helmet"",""hbm:item.bj_plate"",""hbm:item.bj_legs"",""hbm:item.bj_boots"","
+config/hbmConfig/_hbmArmor.json,101,hbm:item.bj_boots,exported template; not automatically active,"[""hbm:item.bj_helmet"",""hbm:item.bj_plate"",""hbm:item.bj_legs"",""hbm:item.bj_boots"","
+config/hbmConfig/_hbmArmor.json,101,hbm:item.bj_legs,exported template; not automatically active,"[""hbm:item.bj_helmet"",""hbm:item.bj_plate"",""hbm:item.bj_legs"",""hbm:item.bj_boots"","
+config/hbmConfig/_hbmArmor.json,101,hbm:item.bj_plate,exported template; not automatically active,"[""hbm:item.bj_helmet"",""hbm:item.bj_plate"",""hbm:item.bj_legs"",""hbm:item.bj_boots"","
+config/hbmConfig/_hbmArmor.json,112,hbm:item.trenchmaster_boots,exported template; not automatically active,"[""hbm:item.trenchmaster_helmet"",""hbm:item.trenchmaster_plate"",""hbm:item.trenchmaster_legs"",""hbm:item.trenchmaster_boots"","
+config/hbmConfig/_hbmArmor.json,112,hbm:item.trenchmaster_plate,exported template; not automatically active,"[""hbm:item.trenchmaster_helmet"",""hbm:item.trenchmaster_plate"",""hbm:item.trenchmaster_legs"",""hbm:item.trenchmaster_boots"","
+config/hbmConfig/_hbmArmor.json,112,hbm:item.trenchmaster_legs,exported template; not automatically active,"[""hbm:item.trenchmaster_helmet"",""hbm:item.trenchmaster_plate"",""hbm:item.trenchmaster_legs"",""hbm:item.trenchmaster_boots"","
+config/hbmConfig/_hbmArmor.json,112,hbm:item.trenchmaster_helmet,exported template; not automatically active,"[""hbm:item.trenchmaster_helmet"",""hbm:item.trenchmaster_plate"",""hbm:item.trenchmaster_legs"",""hbm:item.trenchmaster_boots"","
+config/hbmConfig/_hbmArmor.json,126,hbm:item.schrabidium_plate,exported template; not automatically active,"[""hbm:item.schrabidium_helmet"",""hbm:item.schrabidium_plate"",""hbm:item.schrabidium_legs"",""hbm:item.schrabidium_boots"","
+config/hbmConfig/_hbmArmor.json,126,hbm:item.schrabidium_helmet,exported template; not automatically active,"[""hbm:item.schrabidium_helmet"",""hbm:item.schrabidium_plate"",""hbm:item.schrabidium_legs"",""hbm:item.schrabidium_boots"","
+config/hbmConfig/_hbmArmor.json,126,hbm:item.schrabidium_boots,exported template; not automatically active,"[""hbm:item.schrabidium_helmet"",""hbm:item.schrabidium_plate"",""hbm:item.schrabidium_legs"",""hbm:item.schrabidium_boots"","
+config/hbmConfig/_hbmArmor.json,126,hbm:item.schrabidium_legs,exported template; not automatically active,"[""hbm:item.schrabidium_helmet"",""hbm:item.schrabidium_plate"",""hbm:item.schrabidium_legs"",""hbm:item.schrabidium_boots"","
+config/hbmConfig/_hbmArmor.json,144,hbm:item.taurun_plate,exported template; not automatically active,"[""hbm:item.taurun_helmet"",""hbm:item.taurun_plate"",""hbm:item.taurun_legs"",""hbm:item.taurun_boots"","
+config/hbmConfig/_hbmArmor.json,144,hbm:item.taurun_helmet,exported template; not automatically active,"[""hbm:item.taurun_helmet"",""hbm:item.taurun_plate"",""hbm:item.taurun_legs"",""hbm:item.taurun_boots"","
+config/hbmConfig/_hbmArmor.json,144,hbm:item.taurun_legs,exported template; not automatically active,"[""hbm:item.taurun_helmet"",""hbm:item.taurun_plate"",""hbm:item.taurun_legs"",""hbm:item.taurun_boots"","
+config/hbmConfig/_hbmArmor.json,144,hbm:item.taurun_boots,exported template; not automatically active,"[""hbm:item.taurun_helmet"",""hbm:item.taurun_plate"",""hbm:item.taurun_legs"",""hbm:item.taurun_boots"","
+config/hbmConfig/_hbmArmor.json,165,hbm:item.dieselsuit_boots,exported template; not automatically active,"[""hbm:item.dieselsuit_helmet"",""hbm:item.dieselsuit_plate"",""hbm:item.dieselsuit_legs"",""hbm:item.dieselsuit_boots"","
+config/hbmConfig/_hbmArmor.json,165,hbm:item.dieselsuit_plate,exported template; not automatically active,"[""hbm:item.dieselsuit_helmet"",""hbm:item.dieselsuit_plate"",""hbm:item.dieselsuit_legs"",""hbm:item.dieselsuit_boots"","
+config/hbmConfig/_hbmArmor.json,165,hbm:item.dieselsuit_legs,exported template; not automatically active,"[""hbm:item.dieselsuit_helmet"",""hbm:item.dieselsuit_plate"",""hbm:item.dieselsuit_legs"",""hbm:item.dieselsuit_boots"","
+config/hbmConfig/_hbmArmor.json,165,hbm:item.dieselsuit_helmet,exported template; not automatically active,"[""hbm:item.dieselsuit_helmet"",""hbm:item.dieselsuit_plate"",""hbm:item.dieselsuit_legs"",""hbm:item.dieselsuit_boots"","
+config/hbmConfig/_hbmArmor.json,176,hbm:item.security_legs,exported template; not automatically active,"[""hbm:item.security_helmet"",""hbm:item.security_plate"",""hbm:item.security_legs"",""hbm:item.security_boots"","
+config/hbmConfig/_hbmArmor.json,176,hbm:item.security_boots,exported template; not automatically active,"[""hbm:item.security_helmet"",""hbm:item.security_plate"",""hbm:item.security_legs"",""hbm:item.security_boots"","
+config/hbmConfig/_hbmArmor.json,176,hbm:item.security_helmet,exported template; not automatically active,"[""hbm:item.security_helmet"",""hbm:item.security_plate"",""hbm:item.security_legs"",""hbm:item.security_boots"","
+config/hbmConfig/_hbmArmor.json,176,hbm:item.security_plate,exported template; not automatically active,"[""hbm:item.security_helmet"",""hbm:item.security_plate"",""hbm:item.security_legs"",""hbm:item.security_boots"","
+config/hbmConfig/_hbmArmor.json,182,hbm:item.dns_legs,exported template; not automatically active,"[""hbm:item.dns_helmet"",""hbm:item.dns_plate"",""hbm:item.dns_legs"",""hbm:item.dns_boots"","
+config/hbmConfig/_hbmArmor.json,182,hbm:item.dns_boots,exported template; not automatically active,"[""hbm:item.dns_helmet"",""hbm:item.dns_plate"",""hbm:item.dns_legs"",""hbm:item.dns_boots"","
+config/hbmConfig/_hbmArmor.json,182,hbm:item.dns_helmet,exported template; not automatically active,"[""hbm:item.dns_helmet"",""hbm:item.dns_plate"",""hbm:item.dns_legs"",""hbm:item.dns_boots"","
+config/hbmConfig/_hbmArmor.json,182,hbm:item.dns_plate,exported template; not automatically active,"[""hbm:item.dns_helmet"",""hbm:item.dns_plate"",""hbm:item.dns_legs"",""hbm:item.dns_boots"","
+config/hbmConfig/_hbmArmor.json,192,hbm:item.steamsuit_legs,exported template; not automatically active,"[""hbm:item.steamsuit_helmet"",""hbm:item.steamsuit_plate"",""hbm:item.steamsuit_legs"",""hbm:item.steamsuit_boots"","
+config/hbmConfig/_hbmArmor.json,192,hbm:item.steamsuit_boots,exported template; not automatically active,"[""hbm:item.steamsuit_helmet"",""hbm:item.steamsuit_plate"",""hbm:item.steamsuit_legs"",""hbm:item.steamsuit_boots"","
+config/hbmConfig/_hbmArmor.json,192,hbm:item.steamsuit_helmet,exported template; not automatically active,"[""hbm:item.steamsuit_helmet"",""hbm:item.steamsuit_plate"",""hbm:item.steamsuit_legs"",""hbm:item.steamsuit_boots"","
+config/hbmConfig/_hbmArmor.json,192,hbm:item.steamsuit_plate,exported template; not automatically active,"[""hbm:item.steamsuit_helmet"",""hbm:item.steamsuit_plate"",""hbm:item.steamsuit_legs"",""hbm:item.steamsuit_boots"","
+config/hbmConfig/_hbmArmor.json,202,hbm:item.euphemium_helmet,exported template; not automatically active,"[""hbm:item.euphemium_helmet"",""hbm:item.euphemium_plate"",""hbm:item.euphemium_legs"",""hbm:item.euphemium_boots"","
+config/hbmConfig/_hbmArmor.json,202,hbm:item.euphemium_plate,exported template; not automatically active,"[""hbm:item.euphemium_helmet"",""hbm:item.euphemium_plate"",""hbm:item.euphemium_legs"",""hbm:item.euphemium_boots"","
+config/hbmConfig/_hbmArmor.json,202,hbm:item.euphemium_boots,exported template; not automatically active,"[""hbm:item.euphemium_helmet"",""hbm:item.euphemium_plate"",""hbm:item.euphemium_legs"",""hbm:item.euphemium_boots"","
+config/hbmConfig/_hbmArmor.json,202,hbm:item.euphemium_legs,exported template; not automatically active,"[""hbm:item.euphemium_helmet"",""hbm:item.euphemium_plate"",""hbm:item.euphemium_legs"",""hbm:item.euphemium_boots"","
+config/hbmConfig/_hbmArmor.json,207,hbm:item.bismuth_plate,exported template; not automatically active,"[""hbm:item.bismuth_helmet"",""hbm:item.bismuth_plate"",""hbm:item.bismuth_legs"",""hbm:item.bismuth_boots"","
+config/hbmConfig/_hbmArmor.json,207,hbm:item.bismuth_legs,exported template; not automatically active,"[""hbm:item.bismuth_helmet"",""hbm:item.bismuth_plate"",""hbm:item.bismuth_legs"",""hbm:item.bismuth_boots"","
+config/hbmConfig/_hbmArmor.json,207,hbm:item.bismuth_helmet,exported template; not automatically active,"[""hbm:item.bismuth_helmet"",""hbm:item.bismuth_plate"",""hbm:item.bismuth_legs"",""hbm:item.bismuth_boots"","
+config/hbmConfig/_hbmArmor.json,207,hbm:item.bismuth_boots,exported template; not automatically active,"[""hbm:item.bismuth_helmet"",""hbm:item.bismuth_plate"",""hbm:item.bismuth_legs"",""hbm:item.bismuth_boots"","
+config/hbmConfig/_hbmArmor.json,230,hbm:item.fau_helmet,exported template; not automatically active,"[""hbm:item.fau_helmet"",""hbm:item.fau_plate"",""hbm:item.fau_legs"",""hbm:item.fau_boots"","
+config/hbmConfig/_hbmArmor.json,230,hbm:item.fau_plate,exported template; not automatically active,"[""hbm:item.fau_helmet"",""hbm:item.fau_plate"",""hbm:item.fau_legs"",""hbm:item.fau_boots"","
+config/hbmConfig/_hbmArmor.json,230,hbm:item.fau_boots,exported template; not automatically active,"[""hbm:item.fau_helmet"",""hbm:item.fau_plate"",""hbm:item.fau_legs"",""hbm:item.fau_boots"","
+config/hbmConfig/_hbmArmor.json,230,hbm:item.fau_legs,exported template; not automatically active,"[""hbm:item.fau_helmet"",""hbm:item.fau_plate"",""hbm:item.fau_legs"",""hbm:item.fau_boots"","
+config/hbmConfig/_hbmArmor.json,252,hbm:item.starmetal_plate,exported template; not automatically active,"[""hbm:item.starmetal_helmet"",""hbm:item.starmetal_plate"",""hbm:item.starmetal_legs"",""hbm:item.starmetal_boots"","
+config/hbmConfig/_hbmArmor.json,252,hbm:item.starmetal_legs,exported template; not automatically active,"[""hbm:item.starmetal_helmet"",""hbm:item.starmetal_plate"",""hbm:item.starmetal_legs"",""hbm:item.starmetal_boots"","
+config/hbmConfig/_hbmArmor.json,252,hbm:item.starmetal_helmet,exported template; not automatically active,"[""hbm:item.starmetal_helmet"",""hbm:item.starmetal_plate"",""hbm:item.starmetal_legs"",""hbm:item.starmetal_boots"","
+config/hbmConfig/_hbmArmor.json,252,hbm:item.starmetal_boots,exported template; not automatically active,"[""hbm:item.starmetal_helmet"",""hbm:item.starmetal_plate"",""hbm:item.starmetal_legs"",""hbm:item.starmetal_boots"","
+config/hbmConfig/_hbmRadResist.json,5,hbm:item.dns_plate,exported template; not automatically active,"""item"": ""hbm:item.dns_plate"","
+config/hbmConfig/_hbmRadResist.json,13,hbm:item.paa_plate,exported template; not automatically active,"""item"": ""hbm:item.paa_plate"","
+config/hbmConfig/_hbmRadResist.json,25,hbm:item.euphemium_plate,exported template; not automatically active,"""item"": ""hbm:item.euphemium_plate"","
+config/hbmConfig/_hbmRadResist.json,29,hbm:item.bj_plate,exported template; not automatically active,"""item"": ""hbm:item.bj_plate"","
+config/hbmConfig/_hbmRadResist.json,53,hbm:item.rpa_legs,exported template; not automatically active,"""item"": ""hbm:item.rpa_legs"","
+config/hbmConfig/_hbmRadResist.json,57,hbm:item.fau_plate,exported template; not automatically active,"""item"": ""hbm:item.fau_plate"","
+config/hbmConfig/_hbmRadResist.json,69,hbm:item.paa_boots,exported template; not automatically active,"""item"": ""hbm:item.paa_boots"","
+config/hbmConfig/_hbmRadResist.json,105,hbm:item.cmb_plate,exported template; not automatically active,"""item"": ""hbm:item.cmb_plate"","
+config/hbmConfig/_hbmRadResist.json,117,hbm:item.bj_legs,exported template; not automatically active,"""item"": ""hbm:item.bj_legs"","
+config/hbmConfig/_hbmRadResist.json,125,hbm:item.euphemium_boots,exported template; not automatically active,"""item"": ""hbm:item.euphemium_boots"","
+config/hbmConfig/_hbmRadResist.json,133,hbm:item.paa_legs,exported template; not automatically active,"""item"": ""hbm:item.paa_legs"","
+config/hbmConfig/_hbmRadResist.json,157,hbm:item.schrabidium_plate,exported template; not automatically active,"""item"": ""hbm:item.schrabidium_plate"","
+config/hbmConfig/_hbmRadResist.json,161,hbm:item.taurun_plate,exported template; not automatically active,"""item"": ""hbm:item.taurun_plate"","
+config/hbmConfig/_hbmRadResist.json,181,hbm:item.euphemium_legs,exported template; not automatically active,"""item"": ""hbm:item.euphemium_legs"","
+config/hbmConfig/_hbmRadResist.json,185,hbm:item.bj_boots,exported template; not automatically active,"""item"": ""hbm:item.bj_boots"","
+config/hbmConfig/_hbmRadResist.json,189,hbm:item.schrabidium_legs,exported template; not automatically active,"""item"": ""hbm:item.schrabidium_legs"","
+config/hbmConfig/_hbmRadResist.json,197,hbm:item.starmetal_helmet,exported template; not automatically active,"""item"": ""hbm:item.starmetal_helmet"","
+config/hbmConfig/_hbmRadResist.json,205,hbm:item.cmb_legs,exported template; not automatically active,"""item"": ""hbm:item.cmb_legs"","
+config/hbmConfig/_hbmRadResist.json,209,hbm:item.dns_helmet,exported template; not automatically active,"""item"": ""hbm:item.dns_helmet"","
+config/hbmConfig/_hbmRadResist.json,213,hbm:item.taurun_helmet,exported template; not automatically active,"""item"": ""hbm:item.taurun_helmet"","
+config/hbmConfig/_hbmRadResist.json,221,hbm:item.trenchmaster_legs,exported template; not automatically active,"""item"": ""hbm:item.trenchmaster_legs"","
+config/hbmConfig/_hbmRadResist.json,237,hbm:item.fau_helmet,exported template; not automatically active,"""item"": ""hbm:item.fau_helmet"","
+config/hbmConfig/_hbmRadResist.json,241,hbm:item.starmetal_legs,exported template; not automatically active,"""item"": ""hbm:item.starmetal_legs"","
+config/hbmConfig/_hbmRadResist.json,253,hbm:item.dns_boots,exported template; not automatically active,"""item"": ""hbm:item.dns_boots"","
+config/hbmConfig/_hbmRadResist.json,273,hbm:item.security_boots,exported template; not automatically active,"""item"": ""hbm:item.security_boots"","
+config/hbmConfig/_hbmRadResist.json,277,hbm:item.schrabidium_helmet,exported template; not automatically active,"""item"": ""hbm:item.schrabidium_helmet"","
+config/hbmConfig/_hbmRadResist.json,281,hbm:item.steamsuit_boots,exported template; not automatically active,"""item"": ""hbm:item.steamsuit_boots"","
+config/hbmConfig/_hbmRadResist.json,289,hbm:item.starmetal_boots,exported template; not automatically active,"""item"": ""hbm:item.starmetal_boots"","
+config/hbmConfig/_hbmRadResist.json,293,hbm:item.trenchmaster_helmet,exported template; not automatically active,"""item"": ""hbm:item.trenchmaster_helmet"","
+config/hbmConfig/_hbmRadResist.json,297,hbm:item.schrabidium_boots,exported template; not automatically active,"""item"": ""hbm:item.schrabidium_boots"","
+config/hbmConfig/_hbmRadResist.json,313,hbm:item.rpa_helmet,exported template; not automatically active,"""item"": ""hbm:item.rpa_helmet"","
+config/hbmConfig/_hbmRadResist.json,321,hbm:item.fau_boots,exported template; not automatically active,"""item"": ""hbm:item.fau_boots"","
+config/hbmConfig/_hbmRadResist.json,365,hbm:item.bj_helmet,exported template; not automatically active,"""item"": ""hbm:item.bj_helmet"","
+config/hbmConfig/_hbmRadResist.json,369,hbm:item.bj_plate_jetpack,exported template; not automatically active,"""item"": ""hbm:item.bj_plate_jetpack"","
+config/hbmConfig/_hbmRadResist.json,373,hbm:item.cmb_boots,exported template; not automatically active,"""item"": ""hbm:item.cmb_boots"","
+config/hbmConfig/_hbmRadResist.json,377,hbm:item.steamsuit_legs,exported template; not automatically active,"""item"": ""hbm:item.steamsuit_legs"","
+config/hbmConfig/_hbmRadResist.json,393,hbm:item.trenchmaster_plate,exported template; not automatically active,"""item"": ""hbm:item.trenchmaster_plate"","
+config/hbmConfig/_hbmRadResist.json,397,hbm:item.steamsuit_plate,exported template; not automatically active,"""item"": ""hbm:item.steamsuit_plate"","
+config/hbmConfig/_hbmRadResist.json,405,hbm:item.trenchmaster_boots,exported template; not automatically active,"""item"": ""hbm:item.trenchmaster_boots"","
+config/hbmConfig/_hbmRadResist.json,425,hbm:item.rpa_boots,exported template; not automatically active,"""item"": ""hbm:item.rpa_boots"","
+config/hbmConfig/_hbmRadResist.json,429,hbm:item.security_helmet,exported template; not automatically active,"""item"": ""hbm:item.security_helmet"","
+config/hbmConfig/_hbmRadResist.json,453,hbm:item.steamsuit_helmet,exported template; not automatically active,"""item"": ""hbm:item.steamsuit_helmet"","
+config/hbmConfig/_hbmRadResist.json,457,hbm:item.taurun_legs,exported template; not automatically active,"""item"": ""hbm:item.taurun_legs"","
+config/hbmConfig/_hbmRadResist.json,461,hbm:item.security_legs,exported template; not automatically active,"""item"": ""hbm:item.security_legs"","
+config/hbmConfig/_hbmRadResist.json,465,hbm:item.fau_legs,exported template; not automatically active,"""item"": ""hbm:item.fau_legs"","
+config/hbmConfig/_hbmRadResist.json,469,hbm:item.taurun_boots,exported template; not automatically active,"""item"": ""hbm:item.taurun_boots"","
+config/hbmConfig/_hbmRadResist.json,473,hbm:item.starmetal_plate,exported template; not automatically active,"""item"": ""hbm:item.starmetal_plate"","
+config/hbmConfig/_hbmRadResist.json,477,hbm:item.dns_legs,exported template; not automatically active,"""item"": ""hbm:item.dns_legs"","
+config/hbmConfig/_hbmRadResist.json,497,hbm:item.rpa_plate,exported template; not automatically active,"""item"": ""hbm:item.rpa_plate"","
+config/hbmConfig/_hbmRadResist.json,505,hbm:item.security_plate,exported template; not automatically active,"""item"": ""hbm:item.security_plate"","
+config/hbmConfig/_hbmRadResist.json,509,hbm:item.cmb_helmet,exported template; not automatically active,"""item"": ""hbm:item.cmb_helmet"","
+config/hbmConfig/_hbmRadResist.json,513,hbm:item.euphemium_helmet,exported template; not automatically active,"""item"": ""hbm:item.euphemium_helmet"","
+config/hbmRecipes/_hbmChemplant.json,743,hbm:item.chocolate,exported template; not automatically active,"[""hbm:item.chocolate"",4]"
+config/hbmRecipes/_hbmChemplant.json,897,hbm:item.canned_conserve,exported template; not automatically active,"[""item"",""hbm:item.canned_conserve"",1,5]"
+config/hbmRecipes/_hbmChemplant.json,901,hbm:item.animan,exported template; not automatically active,"[""hbm:item.animan""]"
+config/hbmRecipes/_hbmChemplant.json,965,hbm:item.ammo_arty,exported template; not automatically active,"[""item"",""hbm:item.ammo_arty""],"
+config/hbmRecipes/_hbmChemplant.json,970,hbm:item.ammo_arty,exported template; not automatically active,"[""hbm:item.ammo_arty"",1,9]"
+config/hbmRecipes/_hbmChemplant.json,981,hbm:item.ammo_arty,exported template; not automatically active,"[""item"",""hbm:item.ammo_arty""],"
+config/hbmRecipes/_hbmChemplant.json,986,hbm:item.ammo_arty,exported template; not automatically active,"[""hbm:item.ammo_arty"",1,10]"
+config/hbmRecipes/_hbmChemplant.json,997,hbm:item.ammo_arty,exported template; not automatically active,"[""item"",""hbm:item.ammo_arty""],"
+config/hbmRecipes/_hbmChemplant.json,1002,hbm:item.ammo_arty,exported template; not automatically active,"[""hbm:item.ammo_arty"",1,11]"
+config/hbmRecipes/_hbmChemplant.json,1050,hbm:item.butter,exported template; not automatically active,"[""hbm:item.butter""]"
+config/hbmRecipes/_hbmChemplant.json,1061,hbm:item.butter,exported template; not automatically active,"[""item"",""hbm:item.butter"",2],"
+config/hbmRecipes/_hbmChemplant.json,1067,hbm:item.s_cream,exported template; not automatically active,"[""hbm:item.s_cream"",4]"
+config/hbmRecipes/_hbmBreeder.json,144,hbm:item.meteorite_sword_etched,exported template; not automatically active,"""input"": [""item"",""hbm:item.meteorite_sword_etched""],"
+config/hbmRecipes/_hbmBreeder.json,146,hbm:item.meteorite_sword_bred,exported template; not automatically active,"""output"": [""hbm:item.meteorite_sword_bred""]"
+config/hbmRecipes/_hbmAssemblyMachine.json,1218,hbm:item.cap_quantum,exported template; not automatically active,"[""item"",""hbm:item.cap_quantum"",64],"
+config/hbmRecipes/_hbmAssemblyMachine.json,1219,hbm:item.cap_quantum,exported template; not automatically active,"[""item"",""hbm:item.cap_quantum"",64]"
+config/hbmRecipes/_hbmAssemblyMachine.json,1230,hbm:item.cap_sparkle,exported template; not automatically active,"[""item"",""hbm:item.cap_sparkle"",64],"
+config/hbmRecipes/_hbmAssemblyMachine.json,1231,hbm:item.cap_sparkle,exported template; not automatically active,"[""item"",""hbm:item.cap_sparkle"",64]"
+config/hbmRecipes/_hbmAssemblyMachine.json,1242,hbm:item.cap_rad,exported template; not automatically active,"[""item"",""hbm:item.cap_rad"",64],"
+config/hbmRecipes/_hbmAssemblyMachine.json,1243,hbm:item.cap_rad,exported template; not automatically active,"[""item"",""hbm:item.cap_rad"",64]"
+config/hbmRecipes/_hbmAssemblyMachine.json,1254,hbm:item.cap_fritz,exported template; not automatically active,"[""item"",""hbm:item.cap_fritz"",64],"
+config/hbmRecipes/_hbmAssemblyMachine.json,1255,hbm:item.cap_fritz,exported template; not automatically active,"[""item"",""hbm:item.cap_fritz"",64]"
+config/hbmRecipes/_hbmAssemblyMachine.json,1266,hbm:item.cap_korl,exported template; not automatically active,"[""item"",""hbm:item.cap_korl"",64],"
+config/hbmRecipes/_hbmAssemblyMachine.json,1267,hbm:item.cap_korl,exported template; not automatically active,"[""item"",""hbm:item.cap_korl"",64]"
+config/hbmRecipes/_hbmAssemblyMachine.json,2981,hbm:item.chopper,exported template; not automatically active,"[""single"",[""hbm:item.chopper""]]"
+config/hbmRecipes/_hbmAssemblyMachine.json,2997,hbm:item.spawn_worm,exported template; not automatically active,"[""single"",[""hbm:item.spawn_worm""]]"
+config/hbmRecipes/_hbmAssemblyMachine.json,3122,hbm:tile.nuke_prototype,exported template; not automatically active,"[""single"",[""hbm:tile.nuke_prototype""]]"
+config/hbmRecipes/_hbmAssemblyMachine.json,3136,hbm:tile.nuke_fleija,exported template; not automatically active,"[""single"",[""hbm:tile.nuke_fleija""]]"
+config/hbmRecipes/_hbmAssemblyMachine.json,3180,hbm:tile.nuke_fstbmb,exported template; not automatically active,"[""single"",[""hbm:tile.nuke_fstbmb""]]"
+config/hbmRecipes/_hbmAssemblyMachine.json,3194,hbm:tile.nuke_custom,exported template; not automatically active,"[""single"",[""hbm:tile.nuke_custom""]]"
+config/hbmRecipes/_hbmAssemblyMachine.json,3208,hbm:tile.float_bomb,exported template; not automatically active,"[""single"",[""hbm:tile.float_bomb""]]"
+config/hbmRecipes/_hbmAssemblyMachine.json,3570,hbm:tile.turret_tauon,exported template; not automatically active,"[""single"",[""hbm:tile.turret_tauon""]]"
+config/hbmRecipes/_hbmAssemblyMachine.json,3627,hbm:tile.turret_maxwell,exported template; not automatically active,"[""single"",[""hbm:tile.turret_maxwell""]]"
+config/hbmRecipes/_hbmAssemblyMachine.json,3675,hbm:item.ammo_arty,exported template; not automatically active,"[""single"",[""hbm:item.ammo_arty"",1,6]]"
+config/hbmRecipes/_hbmAssemblyMachine.json,3685,hbm:item.ammo_arty,exported template; not automatically active,"[""item"",""hbm:item.ammo_arty"",1,6]"
+config/hbmRecipes/_hbmAssemblyMachine.json,3688,hbm:item.ammo_arty,exported template; not automatically active,"[""single"",[""hbm:item.ammo_arty"",1,2]]"
+config/hbmRecipes/_hbmAssemblyMachine.json,3699,hbm:item.ammo_arty,exported template; not automatically active,"[""item"",""hbm:item.ammo_arty"",1,6]"
+config/hbmRecipes/_hbmAssemblyMachine.json,3702,hbm:item.ammo_arty,exported template; not automatically active,"[""single"",[""hbm:item.ammo_arty"",1,1]]"
+config/hbmRecipes/_hbmAssemblyMachine.json,3711,hbm:item.ammo_arty,exported template; not automatically active,"[""item"",""hbm:item.ammo_arty"",1,6]"
+config/hbmRecipes/_hbmAssemblyMachine.json,3714,hbm:item.ammo_arty,exported template; not automatically active,"[""single"",[""hbm:item.ammo_arty""]]"
+config/hbmRecipes/_hbmAssemblyMachine.json,3748,hbm:item.ammo_himars,exported template; not automatically active,"[""single"",[""hbm:item.ammo_himars""]]"
+config/hbmRecipes/_hbmAssemblyMachine.json,3764,hbm:item.ammo_himars,exported template; not automatically active,"[""single"",[""hbm:item.ammo_himars"",1,2]]"
+config/hbmRecipes/_hbmAssemblyMachine.json,3780,hbm:item.ammo_himars,exported template; not automatically active,"[""single"",[""hbm:item.ammo_himars"",1,3]]"
+config/hbmRecipes/_hbmAssemblyMachine.json,3797,hbm:item.ammo_himars,exported template; not automatically active,"[""single"",[""hbm:item.ammo_himars"",1,4]]"
+config/hbmRecipes/_hbmAssemblyMachine.json,3814,hbm:item.ammo_himars,exported template; not automatically active,"[""single"",[""hbm:item.ammo_himars"",1,6]]"
+config/hbmRecipes/_hbmAssemblyMachine.json,3830,hbm:item.ammo_himars,exported template; not automatically active,"[""single"",[""hbm:item.ammo_himars"",1,7]]"
+config/hbmRecipes/_hbmAssemblyMachine.json,3845,hbm:item.ammo_himars,exported template; not automatically active,"[""single"",[""hbm:item.ammo_himars"",1,1]]"
+config/hbmRecipes/_hbmAssemblyMachine.json,3862,hbm:item.ammo_himars,exported template; not automatically active,"[""single"",[""hbm:item.ammo_himars"",1,5]]"
+config/hbmRecipes/_hbmAssemblyMachine.json,4344,hbm:item.ammo_standard,exported template; not automatically active,"[""single"",[""hbm:item.ammo_standard"",6,94]]"
+config/hbmRecipes/_hbmAssemblyMachine.json,4356,hbm:item.black_diamond,exported template; not automatically active,"[""item"",""hbm:item.black_diamond""]"
+config/hbmRecipes/_hbmAssemblyMachine.json,4368,hbm:item.ammo_arty,exported template; not automatically active,"[""item"",""hbm:item.ammo_arty"",1,6],"
+config/hbmRecipes/_hbmAssemblyMachine.json,4375,hbm:item.ammo_arty,exported template; not automatically active,"[""single"",[""hbm:item.ammo_arty"",1,7]]"
+config/hbmRecipes/_hbmAssemblyMachine.json,4383,hbm:item.ammo_arty,exported template; not automatically active,"[""item"",""hbm:item.ammo_arty"",1,6],"
+config/hbmRecipes/_hbmAssemblyMachine.json,4390,hbm:item.ammo_arty,exported template; not automatically active,"[""single"",[""hbm:item.ammo_arty"",1,8]]"
+config/hbmRecipes/_hbmAssemblyMachine.json,4398,hbm:item.ammo_arty,exported template; not automatically active,"[""item"",""hbm:item.ammo_arty"",1,6],"
+config/hbmRecipes/_hbmAssemblyMachine.json,4405,hbm:item.ammo_arty,exported template; not automatically active,"[""single"",[""hbm:item.ammo_arty"",1,9]]"
+config/hbmRecipes/_hbmAssemblyMachine.json,4683,hbm:item.sat_resonator,exported template; not automatically active,"[""single"",[""hbm:item.sat_resonator""]]"
+config/hbmRecipes/_hbmAssemblyMachine.json,4760,hbm:tile.nuke_antimatter,exported template; not automatically active,"[""single"",[""hbm:tile.nuke_antimatter""]]"
+config/hbmRecipes/_hbmAssemblyMachine.json,4815,hbm:item.grenade_shell,exported template; not automatically active,"[[""hbm:item.grenade_shell""],1.0,5],"
+config/hbmRecipes/_hbmAssemblyMachine.json,4816,hbm:item.grenade_shell,exported template; not automatically active,"[[""hbm:item.grenade_shell"",1,1],1.0,5],"
+config/hbmRecipes/_hbmAssemblyMachine.json,4817,hbm:item.grenade_fuze,exported template; not automatically active,"[[""hbm:item.grenade_fuze""],1.0,10]"
+config/hbmRecipes/_hbmAmmoPress.json,5,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",16,4],"
+config/hbmRecipes/_hbmAmmoPress.json,19,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",8,5],"
+config/hbmRecipes/_hbmAmmoPress.json,33,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",8,6],"
+config/hbmRecipes/_hbmAmmoPress.json,47,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",8,7],"
+config/hbmRecipes/_hbmAmmoPress.json,61,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",8,8],"
+config/hbmRecipes/_hbmAmmoPress.json,75,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",8,9],"
+config/hbmRecipes/_hbmAmmoPress.json,89,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",12,10],"
+config/hbmRecipes/_hbmAmmoPress.json,103,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",6,11],"
+config/hbmRecipes/_hbmAmmoPress.json,117,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",6,12],"
+config/hbmRecipes/_hbmAmmoPress.json,131,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",6,13],"
+config/hbmRecipes/_hbmAmmoPress.json,145,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",6,14],"
+config/hbmRecipes/_hbmAmmoPress.json,159,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",6,15],"
+config/hbmRecipes/_hbmAmmoPress.json,173,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",24,16],"
+config/hbmRecipes/_hbmAmmoPress.json,187,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",24,17],"
+config/hbmRecipes/_hbmAmmoPress.json,201,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",24,18],"
+config/hbmRecipes/_hbmAmmoPress.json,215,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",24,19],"
+config/hbmRecipes/_hbmAmmoPress.json,229,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",12,20],"
+config/hbmRecipes/_hbmAmmoPress.json,243,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",12,21],"
+config/hbmRecipes/_hbmAmmoPress.json,257,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",12,22],"
+config/hbmRecipes/_hbmAmmoPress.json,271,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",12,23],"
+config/hbmRecipes/_hbmAmmoPress.json,285,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",8,85],"
+config/hbmRecipes/_hbmAmmoPress.json,299,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",8,86],"
+config/hbmRecipes/_hbmAmmoPress.json,313,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",8,87],"
+config/hbmRecipes/_hbmAmmoPress.json,327,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",8,88],"
+config/hbmRecipes/_hbmAmmoPress.json,341,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",8,89],"
+config/hbmRecipes/_hbmAmmoPress.json,355,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",16,24],"
+config/hbmRecipes/_hbmAmmoPress.json,369,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",16,25],"
+config/hbmRecipes/_hbmAmmoPress.json,383,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",16,26],"
+config/hbmRecipes/_hbmAmmoPress.json,397,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",16,27],"
+config/hbmRecipes/_hbmAmmoPress.json,411,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",12,28],"
+config/hbmRecipes/_hbmAmmoPress.json,425,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",12,29],"
+config/hbmRecipes/_hbmAmmoPress.json,439,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",12,30],"
+config/hbmRecipes/_hbmAmmoPress.json,453,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",12,31],"
+config/hbmRecipes/_hbmAmmoPress.json,467,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",12,32],"
+config/hbmRecipes/_hbmAmmoPress.json,481,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",12,82],"
+config/hbmRecipes/_hbmAmmoPress.json,495,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",12,33],"
+config/hbmRecipes/_hbmAmmoPress.json,509,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",12,34],"
+config/hbmRecipes/_hbmAmmoPress.json,523,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",12,35],"
+config/hbmRecipes/_hbmAmmoPress.json,537,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",12,36],"
+config/hbmRecipes/_hbmAmmoPress.json,551,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",12,37],"
+config/hbmRecipes/_hbmAmmoPress.json,565,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",12,83],"
+config/hbmRecipes/_hbmAmmoPress.json,579,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",6,41],"
+config/hbmRecipes/_hbmAmmoPress.json,593,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",6,42],"
+config/hbmRecipes/_hbmAmmoPress.json,607,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",6,43],"
+config/hbmRecipes/_hbmAmmoPress.json,621,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",6,44],"
+config/hbmRecipes/_hbmAmmoPress.json,635,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",6,45],"
+config/hbmRecipes/_hbmAmmoPress.json,649,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",6,46],"
+config/hbmRecipes/_hbmAmmoPress.json,663,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",6,47],"
+config/hbmRecipes/_hbmAmmoPress.json,677,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",6,48],"
+config/hbmRecipes/_hbmAmmoPress.json,691,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",6,49],"
+config/hbmRecipes/_hbmAmmoPress.json,705,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",4,78],"
+config/hbmRecipes/_hbmAmmoPress.json,719,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",4,79],"
+config/hbmRecipes/_hbmAmmoPress.json,733,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",4,80],"
+config/hbmRecipes/_hbmAmmoPress.json,747,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",4,81],"
+config/hbmRecipes/_hbmAmmoPress.json,761,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",4,84],"
+config/hbmRecipes/_hbmAmmoPress.json,775,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",4,50],"
+config/hbmRecipes/_hbmAmmoPress.json,789,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",4,53],"
+config/hbmRecipes/_hbmAmmoPress.json,803,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",4,54],"
+config/hbmRecipes/_hbmAmmoPress.json,817,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",4,55],"
+config/hbmRecipes/_hbmAmmoPress.json,831,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",4,56],"
+config/hbmRecipes/_hbmAmmoPress.json,845,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",4,57],"
+config/hbmRecipes/_hbmAmmoPress.json,859,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",2,58],"
+config/hbmRecipes/_hbmAmmoPress.json,873,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",2,58],"
+config/hbmRecipes/_hbmAmmoPress.json,887,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",2,59],"
+config/hbmRecipes/_hbmAmmoPress.json,901,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",2,59],"
+config/hbmRecipes/_hbmAmmoPress.json,915,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",2,60],"
+config/hbmRecipes/_hbmAmmoPress.json,929,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",2,60],"
+config/hbmRecipes/_hbmAmmoPress.json,943,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",2,61],"
+config/hbmRecipes/_hbmAmmoPress.json,957,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",2,61],"
+config/hbmRecipes/_hbmAmmoPress.json,971,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",2,62],"
+config/hbmRecipes/_hbmAmmoPress.json,985,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",2,62],"
+config/hbmRecipes/_hbmAmmoPress.json,999,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",1,63],"
+config/hbmRecipes/_hbmAmmoPress.json,1013,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",1,65],"
+config/hbmRecipes/_hbmAmmoPress.json,1027,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",1,64],"
+config/hbmRecipes/_hbmAmmoPress.json,1041,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",1,66],"
+config/hbmRecipes/_hbmAmmoPress.json,1055,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",4,67],"
+config/hbmRecipes/_hbmAmmoPress.json,1069,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",4,68],"
+config/hbmRecipes/_hbmAmmoPress.json,1083,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",4,69],"
+config/hbmRecipes/_hbmAmmoPress.json,1097,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",16,70],"
+config/hbmRecipes/_hbmAmmoPress.json,1111,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",4,71],"
+config/hbmRecipes/_hbmAmmoPress.json,1125,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",4,72],"
+config/hbmRecipes/_hbmAmmoPress.json,1139,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",1,73],"
+config/hbmRecipes/_hbmAmmoPress.json,1153,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",1,74],"
+config/hbmRecipes/_hbmAmmoPress.json,1167,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",1,75],"
+config/hbmRecipes/_hbmAmmoPress.json,1181,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",1,76],"
+config/hbmRecipes/_hbmAmmoPress.json,1195,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",1,77],"
+config/hbmRecipes/_hbmAmmoPress.json,1209,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",1,93],"
+config/hbmRecipes/_hbmAmmoPress.json,1223,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",16,90],"
+config/hbmRecipes/_hbmAmmoPress.json,1237,hbm:item.ammo_standard,exported template; not automatically active,"""output"": [""hbm:item.ammo_standard"",4,91],"
+config/hbmRecipes/_hbmPrecisionAssembly.json,80,hbm:item.rpa_helmet,exported template; not automatically active,"[""single"",[""hbm:item.rpa_helmet""]]"
+config/hbmRecipes/_hbmPrecisionAssembly.json,97,hbm:item.rpa_plate,exported template; not automatically active,"[""single"",[""hbm:item.rpa_plate""]]"
+config/hbmRecipes/_hbmPrecisionAssembly.json,112,hbm:item.rpa_legs,exported template; not automatically active,"[""single"",[""hbm:item.rpa_legs""]]"
+config/hbmRecipes/_hbmPrecisionAssembly.json,126,hbm:item.rpa_boots,exported template; not automatically active,"[""single"",[""hbm:item.rpa_boots""]]"
+config/hbmRecipes/_hbmChemicalPlant.json,623,hbm:item.chocolate,exported template; not automatically active,"[""single"",[""hbm:item.chocolate"",4]]"
+config/hbmRecipes/_hbmChemicalPlant.json,1249,hbm:item.butter,exported template; not automatically active,"[""single"",[""hbm:item.butter""]]"
+config/hbmRecipes/_hbmChemicalPlant.json,1265,hbm:item.s_cream,exported template; not automatically active,"[""single"",[""hbm:item.s_cream"",4]]"
+config/hbmRecipes/_hbmChemicalPlant.json,1281,hbm:item.min_cream,exported template; not automatically active,"[""single"",[""hbm:item.min_cream"",4]]"
+config/hbmRecipes/_hbmChemicalPlant.json,1344,hbm:item.chocolate_mint_billet,exported template; not automatically active,"[""single"",[""hbm:item.chocolate_mint_billet"",3]]"
+config/hbmRecipes/_hbmBlastFurnaceLegacy.json,70,hbm:item.meteorite_sword_alloyed,exported template; not automatically active,"""output"": [""hbm:item.meteorite_sword_alloyed""],"
+config/hbmRecipes/_hbmBlastFurnaceLegacy.json,71,hbm:item.meteorite_sword_hardened,exported template; not automatically active,"""input1"": [""item"",""hbm:item.meteorite_sword_hardened""],"
+config/hbmRecipes/_hbmIrradiation.json,31,hbm:item.glowing_stew,exported template; not automatically active,"""solidOutput"": [""hbm:item.glowing_stew""],"
+config/hbmRecipes/_hbmBlastFurnace.json,120,hbm:item.meteorite_sword_hardened,exported template; not automatically active,"[""item"",""hbm:item.meteorite_sword_hardened""]"
+config/hbmRecipes/_hbmBlastFurnace.json,123,hbm:item.meteorite_sword_alloyed,exported template; not automatically active,"[""single"",[""hbm:item.meteorite_sword_alloyed""]]"
+config/hbmRecipes/_hbmLiquefactor.json,77,hbm:item.glyphid_gland_empty,exported template; not automatically active,"""input"": [""item"",""hbm:item.glyphid_gland_empty""],"
+config/hbmRecipes/_hbmArcWelder.json,464,hbm:item.insert_cmb,exported template; not automatically active,"""output"": [""hbm:item.insert_cmb""],"
+config/hbmRecipes/_hbmPlasmaForge.json,588,hbm:item.coin_ufo,exported template; not automatically active,"[""item"",""hbm:item.coin_ufo""],"
+config/hbmRecipes/_hbmPlasmaForge.json,599,hbm:item.schrabidium_hammer,exported template; not automatically active,"[""single"",[""hbm:item.schrabidium_hammer""]]"
+config/hbmRecipes/_hbmPlasmaForge.json,645,hbm:item.sat_gerald,exported template; not automatically active,"[""single"",[""hbm:item.sat_gerald""]]"
+config/hbmRecipes/_hbmPress.json,239,hbm:item.meteorite_sword_reforged,exported template; not automatically active,"""input"": [""item"",""hbm:item.meteorite_sword_reforged""],"
+config/hbmRecipes/_hbmPress.json,241,hbm:item.meteorite_sword_hardened,exported template; not automatically active,"""output"": [""hbm:item.meteorite_sword_hardened""]"
+config/hbmRecipes/_hbmPedestal.json,4,hbm:item.gun_light_revolver,exported template; not automatically active,"""output"": [""hbm:item.gun_light_revolver_dani""],"
+config/hbmRecipes/_hbmPedestal.json,10,hbm:item.gun_light_revolver,exported template; not automatically active,"[""item"",""hbm:item.gun_light_revolver""],"
+config/hbmRecipes/_hbmPedestal.json,19,hbm:item.gun_maresleg,exported template; not automatically active,"""output"": [""hbm:item.gun_maresleg_broken""],"
+config/hbmRecipes/_hbmPedestal.json,25,hbm:item.gun_maresleg,exported template; not automatically active,"[""item"",""hbm:item.gun_maresleg""],"
+config/hbmRecipes/_hbmPedestal.json,34,hbm:item.gun_heavy_revolver,exported template; not automatically active,"""output"": [""hbm:item.gun_heavy_revolver_lilmac""],"
+config/hbmRecipes/_hbmPedestal.json,40,hbm:item.gun_heavy_revolver,exported template; not automatically active,"[""item"",""hbm:item.gun_heavy_revolver""],"
+config/hbmRecipes/_hbmPedestal.json,49,hbm:item.gun_heavy_revolver,exported template; not automatically active,"""output"": [""hbm:item.gun_heavy_revolver_protege""],"
+config/hbmRecipes/_hbmPedestal.json,55,hbm:item.gun_heavy_revolver,exported template; not automatically active,"[""item"",""hbm:item.gun_heavy_revolver""],"
+config/hbmRecipes/_hbmPedestal.json,64,hbm:item.gun_amat,exported template; not automatically active,"""output"": [""hbm:item.gun_amat_subtlety""],"
+config/hbmRecipes/_hbmPedestal.json,70,hbm:item.gun_amat,exported template; not automatically active,"[""item"",""hbm:item.gun_amat""],"
+config/hbmRecipes/_hbmPedestal.json,79,hbm:item.gun_amat,exported template; not automatically active,"""output"": [""hbm:item.gun_amat_penance""],"
+config/hbmRecipes/_hbmPedestal.json,85,hbm:item.gun_amat,exported template; not automatically active,"[""item"",""hbm:item.gun_amat""],"
+config/hbmRecipes/_hbmPedestal.json,94,hbm:item.gun_flamer,exported template; not automatically active,"""output"": [""hbm:item.gun_flamer_daybreaker""],"
+config/hbmRecipes/_hbmPedestal.json,97,hbm:item.canned_conserve,exported template; not automatically active,"[""item"",""hbm:item.canned_conserve"",1,5],"
+config/hbmRecipes/_hbmPedestal.json,100,hbm:item.gun_flamer,exported template; not automatically active,"[""item"",""hbm:item.gun_flamer""],"
+config/hbmRecipes/_hbmPedestal.json,109,hbm:item.gun_autoshotgun,exported template; not automatically active,"""output"": [""hbm:item.gun_autoshotgun_sexy""],"
+config/hbmRecipes/_hbmPedestal.json,112,hbm:item.wild_p,exported template; not automatically active,"[""item"",""hbm:item.wild_p""],"
+config/hbmRecipes/_hbmPedestal.json,115,hbm:item.gun_autoshotgun,exported template; not automatically active,"[""item"",""hbm:item.gun_autoshotgun""],"
+config/hbmRecipes/_hbmPedestal.json,124,hbm:item.gun_minigun,exported template; not automatically active,"""output"": [""hbm:item.gun_minigun_lacunae""],"
+config/hbmRecipes/_hbmPedestal.json,130,hbm:item.gun_minigun,exported template; not automatically active,"[""item"",""hbm:item.gun_minigun""],"
+config/hbmRecipes/_hbmPedestal.json,139,hbm:item.gun_laser_pistol,exported template; not automatically active,"""output"": [""hbm:item.gun_laser_pistol_morning_glory""],"
+config/hbmRecipes/_hbmPedestal.json,142,hbm:item.morning_glory,exported template; not automatically active,"[""item"",""hbm:item.morning_glory""],"
+config/hbmRecipes/_hbmPedestal.json,145,hbm:item.gun_laser_pistol,exported template; not automatically active,"[""item"",""hbm:item.gun_laser_pistol""],"
+config/hbmRecipes/_hbmPedestal.json,224,hbm:item.ammo_standard,exported template; not automatically active,"[""item"",""hbm:item.ammo_standard"",4,75],"
+config/hbmRecipes/_hbmCrystallizer.json,3738,hbm:item.meteorite_sword_treated,exported template; not automatically active,"""input"": [""item"",""hbm:item.meteorite_sword_treated""],"
+config/hbmRecipes/_hbmCrystallizer.json,3739,hbm:item.meteorite_sword_etched,exported template; not automatically active,"""output"": [""hbm:item.meteorite_sword_etched""],"
+config/hbmRecipes/_hbmAnvil.json,1410,hbm:item.flask_infusion,exported template; not automatically active,"[""hbm:item.flask_infusion"",1,1,1.0]"
+config/hbmRecipes/_hbmAssembler.json,48,hbm:tile.nuke_antimatter,exported template; not automatically active,"""output"": [""hbm:tile.nuke_antimatter""],"
+config/hbmRecipes/_hbmAssembler.json,82,hbm:item.ammo_himars,exported template; not automatically active,"""output"": [""hbm:item.ammo_himars"",1,3],"
+config/hbmRecipes/_hbmAssembler.json,311,hbm:item.ammo_himars,exported template; not automatically active,"""output"": [""hbm:item.ammo_himars"",1,2],"
+config/hbmRecipes/_hbmAssembler.json,568,hbm:item.ammo_himars,exported template; not automatically active,"""output"": [""hbm:item.ammo_himars"",1,1],"
+config/hbmRecipes/_hbmAssembler.json,669,hbm:item.cap_quantum,exported template; not automatically active,"[""item"",""hbm:item.cap_quantum"",128]"
+config/hbmRecipes/_hbmAssembler.json,769,hbm:item.ammo_standard,exported template; not automatically active,"[""item"",""hbm:item.ammo_standard"",1,70]"
+config/hbmRecipes/_hbmAssembler.json,818,hbm:item.ammo_himars,exported template; not automatically active,"""output"": [""hbm:item.ammo_himars""],"
+config/hbmRecipes/_hbmAssembler.json,938,hbm:item.cap_sparkle,exported template; not automatically active,"[""item"",""hbm:item.cap_sparkle"",128]"
+config/hbmRecipes/_hbmAssembler.json,1035,hbm:item.ammo_himars,exported template; not automatically active,"""output"": [""hbm:item.ammo_himars"",1,7],"
+config/hbmRecipes/_hbmAssembler.json,1193,hbm:item.cap_rad,exported template; not automatically active,"[""item"",""hbm:item.cap_rad"",128]"
+config/hbmRecipes/_hbmAssembler.json,1287,hbm:item.ammo_himars,exported template; not automatically active,"""output"": [""hbm:item.ammo_himars"",1,6],"
+config/hbmRecipes/_hbmAssembler.json,1391,hbm:item.cap_korl,exported template; not automatically active,"[""item"",""hbm:item.cap_korl"",128]"
+config/hbmRecipes/_hbmAssembler.json,1592,hbm:item.ammo_himars,exported template; not automatically active,"""output"": [""hbm:item.ammo_himars"",1,5],"
+config/hbmRecipes/_hbmAssembler.json,1657,hbm:tile.float_bomb,exported template; not automatically active,"""output"": [""hbm:tile.float_bomb""],"
+config/hbmRecipes/_hbmAssembler.json,1678,hbm:item.cap_fritz,exported template; not automatically active,"[""item"",""hbm:item.cap_fritz"",128]"
+config/hbmRecipes/_hbmAssembler.json,1838,hbm:item.ammo_himars,exported template; not automatically active,"""output"": [""hbm:item.ammo_himars"",1,4],"
+config/hbmRecipes/_hbmAssembler.json,1904,hbm:item.spawn_worm,exported template; not automatically active,"""output"": [""hbm:item.spawn_worm""],"
+config/hbmRecipes/_hbmAssembler.json,1913,hbm:item.coin_worm,exported template; not automatically active,"[""item"",""hbm:item.coin_worm""]"
+config/hbmRecipes/_hbmAssembler.json,2139,hbm:tile.nuke_custom,exported template; not automatically active,"""output"": [""hbm:tile.nuke_custom""],"
+config/hbmRecipes/_hbmAssembler.json,2270,hbm:item.schrabidium_hammer,exported template; not automatically active,"""output"": [""hbm:item.schrabidium_hammer""],"
+config/hbmRecipes/_hbmAssembler.json,2654,hbm:tile.nuke_prototype,exported template; not automatically active,"""output"": [""hbm:tile.nuke_prototype""],"
+config/hbmRecipes/_hbmAssembler.json,2664,hbm:tile.nuke_fleija,exported template; not automatically active,"""output"": [""hbm:tile.nuke_fleija""],"

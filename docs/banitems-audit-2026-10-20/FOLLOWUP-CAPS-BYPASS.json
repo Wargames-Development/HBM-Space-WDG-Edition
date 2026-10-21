@@ -1,0 +1,16 @@
+{
+  "jar_sha256": "ca716dd513a5efba0afc6fbb9b45b68df951a3a2e91e4fdef39b0cc412bb848e",
+  "backup_directory": "/Users/rhysh/Library/Application Support/PrismLauncher/instances/Release Testing/minecraft/.banitems-backups/caps-bypass-20261021-005317",
+  "config_sha256": "49aa96866ea4cf3b1ec09d5bb1efc06a59de61b703dfab31c1d7a95e6016ab35",
+  "whole_registrations": 313,
+  "metadata_rules": 93,
+  "lifecycle": [
+    "PASS: 9767 lifecycle assertions; profile=true",
+    "PASS: 645 lifecycle assertions; profile=false"
+  ],
+  "release_build": "passed",
+  "committed": false,
+  "worlds_modified": false,
+  "placed_block_removal": "copy-only migration prepared and synthetic tests passed; not run on user worlds",
+  "migration_script_sha256": "3caae31b10b0f22a4494fe3bc831e9737d2c701b7d7c4d51d14ddcd937f1dbee"
+}

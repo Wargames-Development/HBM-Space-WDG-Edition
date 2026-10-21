@@ -237,6 +237,6 @@ public class BlockKeyhole extends BlockStone {
 		world.setBlock(x, y, z, ModBlocks.pedestal);
 		TileEntityPedestal pedestal = (TileEntityPedestal) world.getTileEntity(x, y, z);
 		WeightedRandomChestContent content = (WeightedRandomChestContent) WeightedRandom.getRandomItem(world.rand, ItemPool.getPool(ItemPoolsRedRoom.POOL_RED_PEDESTAL));
-		pedestal.item = content.theItemId.copy();
+		pedestal.item = com.hbm.config.BanItems.copyAllowed(content.theItemId);
 	}
 }

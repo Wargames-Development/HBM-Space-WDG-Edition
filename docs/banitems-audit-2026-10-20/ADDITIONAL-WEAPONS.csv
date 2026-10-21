@@ -1,0 +1,32 @@
+registry,english,field,class,file,line,reason
+hbm:item.gun_aberrator,Aberrator,gun_aberrator,ItemGunBaseNT,src/main/java/com/hbm/items/weapon/sedna/factory/XFactory35800.java,72,all_guns
+hbm:item.gun_aberrator_eott,Eyes Of The Tempest,gun_aberrator_eott,ItemGunBaseNT,src/main/java/com/hbm/items/weapon/sedna/factory/XFactory35800.java,83,all_guns
+hbm:item.gun_amat_penance,Penance,gun_amat_penance,ItemGunBaseNT,src/main/java/com/hbm/items/weapon/sedna/factory/XFactory50.java,118,all_guns
+hbm:item.gun_amat_subtlety,Subtlety,gun_amat_subtlety,ItemGunBaseNT,src/main/java/com/hbm/items/weapon/sedna/factory/XFactory50.java,108,all_guns
+hbm:item.gun_autoshotgun_heretic,The Heretic,gun_autoshotgun_heretic,ItemGunBaseNT,src/main/java/com/hbm/items/weapon/sedna/factory/XFactory10ga.java,87,all_guns
+hbm:item.gun_autoshotgun_sexy,Sexy,gun_autoshotgun_sexy,ItemGunBaseNT,src/main/java/com/hbm/items/weapon/sedna/factory/XFactory12ga.java,402,all_guns
+hbm:item.gun_autoshotgun_shredder,Shredder,gun_autoshotgun_shredder,ItemGunBaseNT,src/main/java/com/hbm/items/weapon/sedna/factory/XFactory12ga.java,391,all_guns
+hbm:item.gun_debug,(no en_US translation),gun_debug,ItemGunBaseNT,src/main/java/com/hbm/items/weapon/sedna/factory/GunFactory.java,44,all_guns
+hbm:item.gun_double_barrel_sacred_dragon,Sacred Dragon,gun_double_barrel_sacred_dragon,ItemGunBaseNT,src/main/java/com/hbm/items/weapon/sedna/factory/XFactory10ga.java,76,all_guns
+hbm:item.gun_flamer_daybreaker,Daybreaker,gun_flamer_daybreaker,ItemGunBaseNT,src/main/java/com/hbm/items/weapon/sedna/factory/XFactoryFlamer.java,173,all_guns
+hbm:item.gun_flamer_topaz,Mister Topaz,gun_flamer_topaz,ItemGunBaseNT,src/main/java/com/hbm/items/weapon/sedna/factory/XFactoryFlamer.java,163,all_guns
+hbm:item.gun_flaregun,Flare Gun,gun_flaregun,ItemGunBaseNT,src/main/java/com/hbm/items/weapon/sedna/factory/XFactory40mm.java,197,all_guns
+hbm:item.gun_folly,Folly,gun_folly,ItemGunBaseNT,src/main/java/com/hbm/items/weapon/sedna/factory/XFactoryFolly.java,112,all_guns
+hbm:item.gun_g3_zebra,Zebra Rifle,gun_g3_zebra,ItemGunBaseNT,src/main/java/com/hbm/items/weapon/sedna/factory/XFactory556mm.java,98,all_guns
+hbm:item.gun_hangman,Hangman,gun_hangman,ItemGunBaseNT,src/main/java/com/hbm/items/weapon/sedna/factory/XFactory44.java,162,all_guns
+hbm:item.gun_heavy_revolver_lilmac,Little Macintosh,gun_heavy_revolver_lilmac,ItemGunBaseNT,src/main/java/com/hbm/items/weapon/sedna/factory/XFactory44.java,141,all_guns
+hbm:item.gun_heavy_revolver_protege,Protège,gun_heavy_revolver_protege,ItemGunBaseNT,src/main/java/com/hbm/items/weapon/sedna/factory/XFactory44.java,151,all_guns
+hbm:item.gun_henry_lincoln,Lincoln's Repeater,gun_henry_lincoln,ItemGunBaseNT,src/main/java/com/hbm/items/weapon/sedna/factory/XFactory44.java,119,all_guns
+hbm:item.gun_laser_pistol_morning_glory,Morning Glory,gun_laser_pistol_morning_glory,ItemGunBaseNT,src/main/java/com/hbm/items/weapon/sedna/factory/XFactoryEnergy.java,221,all_guns
+hbm:item.gun_laser_pistol_pew_pew,Pew Pew,gun_laser_pistol_pew_pew,ItemGunBaseNT,src/main/java/com/hbm/items/weapon/sedna/factory/XFactoryEnergy.java,211,all_guns
+hbm:item.gun_light_revolver_atlas,Atlas,gun_light_revolver_atlas,ItemGunBaseNT,src/main/java/com/hbm/items/weapon/sedna/factory/XFactory357.java,67,all_guns
+hbm:item.gun_light_revolver_dani,Day And Night,gun_light_revolver_dani,ItemGunBaseNT,src/main/java/com/hbm/items/weapon/sedna/factory/XFactory357.java,77,all_guns
+hbm:item.gun_maresleg_akimbo,Lever Action Shotguns,gun_maresleg_akimbo,ItemGunBaseNT,src/main/java/com/hbm/items/weapon/sedna/factory/XFactory12ga.java,328,all_guns
+hbm:item.gun_maresleg_broken,Broken,gun_maresleg_broken,ItemGunBaseNT,src/main/java/com/hbm/items/weapon/sedna/factory/XFactory12ga.java,348,all_guns
+hbm:item.gun_mas36,South Star,gun_mas36,ItemGunBaseNT,src/main/java/com/hbm/items/weapon/sedna/factory/XFactory762mm.java,146,all_guns
+hbm:item.gun_minigun_dual,Dual Miniguns,gun_minigun_dual,ItemGunBaseNT,src/main/java/com/hbm/items/weapon/sedna/factory/XFactory762mm.java,123,all_guns
+hbm:item.gun_minigun_lacunae,Lacunae,gun_minigun_lacunae,ItemGunBaseNT,src/main/java/com/hbm/items/weapon/sedna/factory/XFactory762mm.java,113,all_guns
+hbm:item.gun_star_f_akimbo,Target Pistols,gun_star_f_akimbo,ItemGunBaseNT,src/main/java/com/hbm/items/weapon/sedna/factory/XFactory22lr.java,88,all_guns
+hbm:item.gun_uzi_akimbo,Uzis,gun_uzi_akimbo,ItemGunBaseNT,src/main/java/com/hbm/items/weapon/sedna/factory/XFactory9mm.java,104,all_guns
+hbm:item.stick_dynamite,Stick of Dynamite,stick_dynamite,ItemGrenadeDynamite,src/main/java/com/hbm/items/ModItems.java,4088,all_grenades
+hbm:item.stick_dynamite_fishing,Stick of Fishing Dynamite,stick_dynamite_fishing,ItemGrenadeFishing,src/main/java/com/hbm/items/ModItems.java,4089,all_grenades

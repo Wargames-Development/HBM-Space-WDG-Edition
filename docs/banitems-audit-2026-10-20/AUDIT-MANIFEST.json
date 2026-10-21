@@ -1,0 +1,1056 @@
+{
+  "summary": {
+    "registry_entries": 287,
+    "variants": 424,
+    "resolved_english": 424,
+    "unselected_known_variants": 44,
+    "parents_preserved": [
+      "hbm:item.ammo_arty",
+      "hbm:item.ammo_himars",
+      "hbm:item.ammo_shell",
+      "hbm:item.ammo_standard",
+      "hbm:item.bomb_caller"
+    ],
+    "nbt_grenade_configurations": 90,
+    "loot_pools": 32,
+    "loot_entries": 153,
+    "active_pool_override_exists": false,
+    "pool_file": "/Users/rhysh/Library/Application Support/PrismLauncher/instances/Release Testing/minecraft/config/hbmConfig/_hbmItemPools.json",
+    "pool_sha256": "44203fbf4ced4888d97ce4bef4bfd8f9bd2173d274f731286cda03e71dd97b9f",
+    "source_commit": "05c68b7a5bad952a5fcf76edf92fc181575e0a36",
+    "reference_rows": 2769
+  },
+  "world": "/Users/rhysh/Library/Application Support/PrismLauncher/instances/Release Testing/minecraft/saves/BanItems",
+  "read_scope": "Saved Overworld regions intersecting 192-block radius of saved player and spawn; not a whole-world inventory scan.",
+  "level_sha256": "0885378f1c4161984bc5c30ff954ea49391686b28f40ab8603124f9f443a30c4",
+  "region_files": [
+    {
+      "path": "/Users/rhysh/Library/Application Support/PrismLauncher/instances/Release Testing/minecraft/saves/BanItems/region/r.-3.-2.mca",
+      "sha256": "5094f4a6d9e40b4dceb8b6c4bbff250fe89f6051047ddf43c827b2c9f7cd65af"
+    },
+    {
+      "path": "/Users/rhysh/Library/Application Support/PrismLauncher/instances/Release Testing/minecraft/saves/BanItems/region/r.-3.-1.mca",
+      "sha256": "8e38671032dc7e77f80d0b80ecbcff99b815f170b975d51f81eff27d36ecff5d"
+    },
+    {
+      "path": "/Users/rhysh/Library/Application Support/PrismLauncher/instances/Release Testing/minecraft/saves/BanItems/region/r.-2.-2.mca",
+      "sha256": "b37bc5c4d4ba741802e2cecdd040ca060661f3d81a5530e6f85daaca6e677686"
+    },
+    {
+      "path": "/Users/rhysh/Library/Application Support/PrismLauncher/instances/Release Testing/minecraft/saves/BanItems/region/r.-2.-1.mca",
+      "sha256": "f65e784f4580a7fddaff2ee21749c51b8cf4d3a35c6b593126542de29aad53f0"
+    }
+  ],
+  "source_files": [
+    {
+      "path": "src/main/java/api/hbm/block/ICrucibleAcceptor.java",
+      "sha256": "494631f32a9ae81245eeb6613322878fa6032b6623e9cfd4b1364e6578229eb8"
+    },
+    {
+      "path": "src/main/java/com/hbm/animloader/Transform.java",
+      "sha256": "9596b265b61c8a77b9b91ebaf4c2707a1704a870a838092d7b48a19183355c6d"
+    },
+    {
+      "path": "src/main/java/com/hbm/blocks/ModBlocks.java",
+      "sha256": "3b91b8df13b0a782a88164538a6addfee64c7c316bfce7976b425d41da8fb821"
+    },
+    {
+      "path": "src/main/java/com/hbm/blocks/bomb/BombFloat.java",
+      "sha256": "564b1a4101ae7af78946036cf9bc5b0ee64e16829f24d73d0a306d9389b8fa00"
+    },
+    {
+      "path": "src/main/java/com/hbm/blocks/bomb/CompactLauncher.java",
+      "sha256": "4e619b59b9db0e4b22b0bd7dab70440094e57675be4a659190270105a33d3b0d"
+    },
+    {
+      "path": "src/main/java/com/hbm/blocks/bomb/LaunchTable.java",
+      "sha256": "7f269150cbc851cf0a54b444c8d0f201cc0c914624911d1813498c7697771122"
+    },
+    {
+      "path": "src/main/java/com/hbm/blocks/bomb/NukeCustom.java",
+      "sha256": "4f88071bbe0e556fb1ea1a72834a577ddf2e67c114b295fc5bdc08ba9e672b14"
+    },
+    {
+      "path": "src/main/java/com/hbm/blocks/bomb/NukeFleija.java",
+      "sha256": "7b590dcf4f652b6f15fb2138f933c03beb0de0e682d7d678aa9960bc73fcd7ed"
+    },
+    {
+      "path": "src/main/java/com/hbm/blocks/bomb/NukePrototype.java",
+      "sha256": "2f380fcb07f650d7b773af54311004bd88fe619cfcde8a8c666d9d80a33ea691"
+    },
+    {
+      "path": "src/main/java/com/hbm/blocks/generic/BlockAmmoCrate.java",
+      "sha256": "edf74a1083f5b60a35fe11b79bc24cf8bb0ebdb3ec5360ee1220f8e5c4fc29dc"
+    },
+    {
+      "path": "src/main/java/com/hbm/blocks/generic/BlockBobble.java",
+      "sha256": "6d9e4b783e6554a2a4a81b56d476837abbb13521c878f163ac8b3d3e145a05cb"
+    },
+    {
+      "path": "src/main/java/com/hbm/blocks/generic/BlockCanCrate.java",
+      "sha256": "5e919ea587ca86ecb5b034947e7e0110101651b5cfd4df66007904dd69d31911"
+    },
+    {
+      "path": "src/main/java/com/hbm/blocks/generic/BlockCap.java",
+      "sha256": "5b9c179ec7ffd91f8bee6e2e9f44dacf7c74e4534879f8122a8ba2a04a16f600"
+    },
+    {
+      "path": "src/main/java/com/hbm/blocks/generic/BlockCrate.java",
+      "sha256": "2abf395a4d5aae16ce3d5b4ccbfb4d58237a3d4615c5af75ea829ecca271ffd7"
+    },
+    {
+      "path": "src/main/java/com/hbm/blocks/generic/BlockKeyhole.java",
+      "sha256": "b76961e1f1992693da08b726c33f9b6ce0c755b6274079bdacf4641dadbb4495"
+    },
+    {
+      "path": "src/main/java/com/hbm/blocks/generic/BlockPlushie.java",
+      "sha256": "da280a580e687f40f109c74829555c590a3f1a7688bb7a74f7f84e036d244764"
+    },
+    {
+      "path": "src/main/java/com/hbm/blocks/generic/RedBarrel.java",
+      "sha256": "25f76bf479ee3d35b9d09f378778effdba0f37e51fddf824157326f2b00b2e5e"
+    },
+    {
+      "path": "src/main/java/com/hbm/blocks/machine/MachineArcFurnaceLarge.java",
+      "sha256": "d52b9823a3085b1a66f027f26ef343ea14df49162aa1e805f50b9a6a664e243d"
+    },
+    {
+      "path": "src/main/java/com/hbm/blocks/machine/MachineCrucible.java",
+      "sha256": "3f20b3322541506ddbc36b112589e31ef89c472d980639f8a7f535d0df07f452"
+    },
+    {
+      "path": "src/main/java/com/hbm/blocks/machine/pile/BlockGraphiteDrilledBase.java",
+      "sha256": "8921f218f82fb65c97ef01e9b9f4969038be0e97ec187b4006c196f159290730"
+    },
+    {
+      "path": "src/main/java/com/hbm/blocks/machine/rbmk/RBMKDebrisRadiating.java",
+      "sha256": "4c6710b976b983299ea6f96c0e40b11d35222698dcdb796db0c1b0e5b41165c4"
+    },
+    {
+      "path": "src/main/java/com/hbm/commands/CommandPacketInfo.java",
+      "sha256": "33630aa0cdf5b195ef1a3d710f163f6a3cc66b734cc8717fb10454de9070245f"
+    },
+    {
+      "path": "src/main/java/com/hbm/crafting/ArmorRecipes.java",
+      "sha256": "cc5424e834831122e014e28fa27b6465563c2c338df17bedd27a519897cf6ce3"
+    },
+    {
+      "path": "src/main/java/com/hbm/crafting/ConsumableRecipes.java",
+      "sha256": "a5246737685bd33d8c91bfa6e176bb276701388c2cdd4340467d46057a6c62d9"
+    },
+    {
+      "path": "src/main/java/com/hbm/crafting/MineralRecipes.java",
+      "sha256": "fb5cb3d85c95daf0004aaab445beeeeac393ac67f3609cb398a1e0e72b254e38"
+    },
+    {
+      "path": "src/main/java/com/hbm/crafting/SmeltingRecipes.java",
+      "sha256": "e635f266d764598f8d4a3df05cb1be1dbc909265c997d5a7386b93e64e549a2a"
+    },
+    {
+      "path": "src/main/java/com/hbm/crafting/ToolRecipes.java",
+      "sha256": "db7fe2797ff837d3db0fc0dbb8b6790166e52e6b106a9f02f1ac6e0f08164aec"
+    },
+    {
+      "path": "src/main/java/com/hbm/crafting/WeaponRecipes.java",
+      "sha256": "ef7a95367ef0a5d44c9a872c77ef14d42b2c2d0c3f1c4a5a3ed07d301f244fe4"
+    },
+    {
+      "path": "src/main/java/com/hbm/crafting/handlers/CargoShellCraftingHandler.java",
+      "sha256": "a50f3818878bd913a374c1bb9a749f5b36bd9acbe8a456e506116a9bd4ed5298"
+    },
+    {
+      "path": "src/main/java/com/hbm/crafting/handlers/GrenadeCraftingHandler.java",
+      "sha256": "ee6b9b12a3a738bca23d91c100e08abeaa63d285fcf04ce19c82605f052244d5"
+    },
+    {
+      "path": "src/main/java/com/hbm/crafting/handlers/MKUCraftingHandler.java",
+      "sha256": "c5a3ed30d006a278c964c8ea180533be48ad014d32d80e6d745af485af6a6ae5"
+    },
+    {
+      "path": "src/main/java/com/hbm/creativetabs/WeaponTab.java",
+      "sha256": "5da4fb74371d21737cb4394fed67c33a1d563776ad01ecfcc7e5fad9cec72a8c"
+    },
+    {
+      "path": "src/main/java/com/hbm/entity/missile/EntityMissileTier0.java",
+      "sha256": "9fe1146ff9c3ec2449721cafb696eed20c540f130423a77eac53a9449f045583"
+    },
+    {
+      "path": "src/main/java/com/hbm/entity/missile/EntityRideableRocket.java",
+      "sha256": "b4be8c1bc6108d84a6cecdc05f1c184cea45fe4bd160436fd8f3e21eec7f928e"
+    },
+    {
+      "path": "src/main/java/com/hbm/entity/mob/EntityCreeperNuclear.java",
+      "sha256": "7d6c86db84d9159358df3249cc87cb4e4748fad26722dcd6865e3800e2acd318"
+    },
+    {
+      "path": "src/main/java/com/hbm/entity/mob/EntityFBI.java",
+      "sha256": "60ce0aecd7a27cb9682d326896a98f1d969b7bd99f2a0855485fabf0200f52fe"
+    },
+    {
+      "path": "src/main/java/com/hbm/entity/mob/EntityMaskMan.java",
+      "sha256": "348659792e96eed314fc0ce9eef74b8a32273dace427832f1767a0edce49a58b"
+    },
+    {
+      "path": "src/main/java/com/hbm/entity/mob/EntityMoonCow.java",
+      "sha256": "2606751707cd109c2019fbc4d47bc0d5ece3442f9e1ca5481fd59d54d2ed3610"
+    },
+    {
+      "path": "src/main/java/com/hbm/entity/mob/EntityPlasticBag.java",
+      "sha256": "50b5b4f7a1926535ccffe8487c9befcb505b13869c6949eeb9d061dfb395baa5"
+    },
+    {
+      "path": "src/main/java/com/hbm/entity/mob/EntityRADBeast.java",
+      "sha256": "105b1faecb481e38cfd0dfd9cb91f1d39de73760ccc7982e74eed70279871f33"
+    },
+    {
+      "path": "src/main/java/com/hbm/entity/mob/EntityUFO.java",
+      "sha256": "b8c9f0bb7b7132cbf3dda6fbba6b0cc24fb812a893b557556e980a1c720da8d5"
+    },
+    {
+      "path": "src/main/java/com/hbm/entity/mob/EntityUndeadSoldier.java",
+      "sha256": "cd01395a9d45f6a477e3b6bcd1947194921e3858b142659c5ffa32aeb0dc13d9"
+    },
+    {
+      "path": "src/main/java/com/hbm/entity/mob/botprime/EntityBOTPrimeHead.java",
+      "sha256": "e0e4b26e3b32cc66672ede61102f95badebfd40f03aaa736306e7151db7e4c6e"
+    },
+    {
+      "path": "src/main/java/com/hbm/entity/mob/glyphid/EntityGlyphidBehemoth.java",
+      "sha256": "6262276727b47d282e3bf99573930b8cf42dcb2e6ab5059ab57bd5d87bded015"
+    },
+    {
+      "path": "src/main/java/com/hbm/entity/mob/glyphid/EntityGlyphidBrenda.java",
+      "sha256": "74e838eb6e36ceb955f880d0df6501318bfba657585d3563b593e257023eb968"
+    },
+    {
+      "path": "src/main/java/com/hbm/entity/particle/EntityPinkCloudFX.java",
+      "sha256": "1d2e055d1c91c1740665530405e54f8be946956567d641e46b8aad181c7f7daf"
+    },
+    {
+      "path": "src/main/java/com/hbm/handler/BobmazonOfferFactory.java",
+      "sha256": "a138cdb464ef365801b5d7a4f478a94a942b514b8d7928024159c8835fcf2910"
+    },
+    {
+      "path": "src/main/java/com/hbm/handler/DispenserBehaviorHandler.java",
+      "sha256": "a0617c1a928b5a5c282f165b0b796620257fc7b00df3ad4fccd3e35d3ef341ea"
+    },
+    {
+      "path": "src/main/java/com/hbm/handler/HazmatRegistry.java",
+      "sha256": "824f1b88582e3e7400933528ff5d86c7c7c608e7cae34333c9bd385a0fc0e386"
+    },
+    {
+      "path": "src/main/java/com/hbm/handler/guncfg/GunNPCFactory.java",
+      "sha256": "80c8e23d0b35a1c11be7c6d5b9f633641ac867663e54b5082ac4f7f04beb53fa"
+    },
+    {
+      "path": "src/main/java/com/hbm/handler/nei/ConstructionHandler.java",
+      "sha256": "8bd5d552548d78c03f984f5ba420ac4a2d78b7f630d6ca89c58b74704006343e"
+    },
+    {
+      "path": "src/main/java/com/hbm/handler/nei/CrucibleAlloyingHandler.java",
+      "sha256": "cf05a1284b3f886c5166d9d48fb9219c93007f0d1b59495e1d93aa3d628fd161"
+    },
+    {
+      "path": "src/main/java/com/hbm/handler/nei/CrucibleSmeltingHandler.java",
+      "sha256": "49dfedd13756656c6d4b503ad6790ad1213efe05cb09fca3fea416830066f98e"
+    },
+    {
+      "path": "src/main/java/com/hbm/handler/nei/FluidRecipeHandler.java",
+      "sha256": "d2a6c2dd7d6377cfe752ba2a24b9ded5b0c8e19545149562ccd2681737ead4f7"
+    },
+    {
+      "path": "src/main/java/com/hbm/handler/nei/GrenadeRecipeHandler.java",
+      "sha256": "c20686be8b14e57a9c13c027418c1bd7b11626804ebf384e1b09d4dcd03d895a"
+    },
+    {
+      "path": "src/main/java/com/hbm/hazard/HazardRegistry.java",
+      "sha256": "4c734d04bb414fc82b20893c3004b3bd47018be978aa08f2bd24235e99b709f1"
+    },
+    {
+      "path": "src/main/java/com/hbm/hazard/transformer/HazardTransformerRadiationContainer.java",
+      "sha256": "f6886b3be9f4a61d03e5505d39976b55c3ede60e1502fcb3f8197de4f20c4d9e"
+    },
+    {
+      "path": "src/main/java/com/hbm/inventory/FluidContainerRegistry.java",
+      "sha256": "ed143dda7603ab8403a0a9b8b6ba04141763e06adc75a2aab0c8d57e246adbd9"
+    },
+    {
+      "path": "src/main/java/com/hbm/inventory/OreDictManager.java",
+      "sha256": "84ed1f5a4c6c96d0c805b5589e677ccc81d0adaeadb630cce9f2d962f272c65e"
+    },
+    {
+      "path": "src/main/java/com/hbm/inventory/container/ContainerCrucible.java",
+      "sha256": "ab7af45f5752af8710efd1cea28b8cd9aded8d7ec5438453a8f697989331cdab"
+    },
+    {
+      "path": "src/main/java/com/hbm/inventory/container/ContainerLemegeton.java",
+      "sha256": "2aad866573754d8d0778e0bf787fcebe8c4e3577f6204492d206d54cfcd51153"
+    },
+    {
+      "path": "src/main/java/com/hbm/inventory/gui/GUICrucible.java",
+      "sha256": "571fec6bc57ae73e1eee7383fef95592b50415a0a8d7c6edfe537fd0f423774a"
+    },
+    {
+      "path": "src/main/java/com/hbm/inventory/gui/GUIMachineStardar.java",
+      "sha256": "9da904bf8872be947cca89dda89a1fb416239630668d8097a2aa435706040d53"
+    },
+    {
+      "path": "src/main/java/com/hbm/inventory/gui/GUIScreenBobmazon.java",
+      "sha256": "4f2c62e41723bbb87732fcb11617f4bee61aae68367d65f565c4df67df0a9b1e"
+    },
+    {
+      "path": "src/main/java/com/hbm/inventory/gui/GUIScreenRadioAUTOCAL.java",
+      "sha256": "30e49ad938df5d69244849658592f6e774e0489f6e63279ffd33ad56efd6882f"
+    },
+    {
+      "path": "src/main/java/com/hbm/inventory/gui/GUIScreenSatSettings.java",
+      "sha256": "21d4c6635a4d5f4ae5c4ae0fd016107e7101dfc01d71fa28ff1699f82f304415"
+    },
+    {
+      "path": "src/main/java/com/hbm/inventory/gui/GUITurretArty.java",
+      "sha256": "7c14b5fe4f459bf043e5e907def1cee25661351f2d9a298510228967136beae0"
+    },
+    {
+      "path": "src/main/java/com/hbm/inventory/material/Mats.java",
+      "sha256": "baccc022d92d9616193e001e7d2266794b33d21cac09218da71ed8cd0408a492"
+    },
+    {
+      "path": "src/main/java/com/hbm/inventory/material/NTMMaterial.java",
+      "sha256": "6388ac5e5328f586039877ce465f0b95c6b4351b9888fa702fa7efba6fafd741"
+    },
+    {
+      "path": "src/main/java/com/hbm/inventory/recipes/AmmoPressRecipes.java",
+      "sha256": "c73db0eb97745c4dc526b4ae573a5e8e031563301ea8ee332f162543781abf28"
+    },
+    {
+      "path": "src/main/java/com/hbm/inventory/recipes/AnnihilatorRecipes.java",
+      "sha256": "1e338e899357417e521019d26b94db7704a03481860bcbc29a1ca7d3bdeb238d"
+    },
+    {
+      "path": "src/main/java/com/hbm/inventory/recipes/ArcWelderRecipes.java",
+      "sha256": "9326a0f7cf4faafa7eb67f9a5aae681ca153265e2649e21699b2e8d780dcf826"
+    },
+    {
+      "path": "src/main/java/com/hbm/inventory/recipes/AssemblyMachineRecipes.java",
+      "sha256": "2fe8be7dfec13ba2150d5f217180c53c8ecea9b9c23dcfbc07196226f6dd0528"
+    },
+    {
+      "path": "src/main/java/com/hbm/inventory/recipes/BlastFurnaceRecipes.java",
+      "sha256": "abcdc1273f3fdc55fa61fc128d7f0d7288cf37d2f5187adb97579216e88c6124"
+    },
+    {
+      "path": "src/main/java/com/hbm/inventory/recipes/BlastFurnaceRecipesNT.java",
+      "sha256": "7026a0abac56739b7563552b58be13b461809066209da576950af43e9c2e4569"
+    },
+    {
+      "path": "src/main/java/com/hbm/inventory/recipes/BreederRecipes.java",
+      "sha256": "153d98e4b72247cc5e92e816f74c8d8b361dcc1b1fcb59b061acc54689dc6e31"
+    },
+    {
+      "path": "src/main/java/com/hbm/inventory/recipes/ChemicalPlantRecipes.java",
+      "sha256": "942c865ecea5363c7501f1e5a94e7919423adfc206c9acf167c59e0110380f5e"
+    },
+    {
+      "path": "src/main/java/com/hbm/inventory/recipes/CrucibleRecipes.java",
+      "sha256": "29743f6ff5a9678b31c8794c386c6e6dbf57c56ba6cc252f2b51a033c891e96a"
+    },
+    {
+      "path": "src/main/java/com/hbm/inventory/recipes/CrystallizerRecipes.java",
+      "sha256": "b399a8011554ea85743700ec2c0f23a1bdbe06b83519b28d99978a24dba45254"
+    },
+    {
+      "path": "src/main/java/com/hbm/inventory/recipes/LiquefactionRecipes.java",
+      "sha256": "12ab04a608ce5713c8bfbda7e50b6ec7a82c9949d020964f8591a599541bff0f"
+    },
+    {
+      "path": "src/main/java/com/hbm/inventory/recipes/MagicRecipes.java",
+      "sha256": "2c5df22b27bc8ecf3959a452006dcd49cffbfd5eac6eb880b8e93d4a3a50ac02"
+    },
+    {
+      "path": "src/main/java/com/hbm/inventory/recipes/OutgasserRecipes.java",
+      "sha256": "0430fa46f4a54f861c53ff0f31a284ed027c3561f011ab2227f8110b4e37a3c2"
+    },
+    {
+      "path": "src/main/java/com/hbm/inventory/recipes/PedestalRecipes.java",
+      "sha256": "a029a878ba2e1794b90d6157afc17e44d3c2eee934e10261ff1eafa59ae167b4"
+    },
+    {
+      "path": "src/main/java/com/hbm/inventory/recipes/PlasmaForgeRecipes.java",
+      "sha256": "3723f317ecc88582bcabc0313f2f417e7afcbaf50f780e7a270f1a4e69d336ca"
+    },
+    {
+      "path": "src/main/java/com/hbm/inventory/recipes/PrecAssRecipes.java",
+      "sha256": "fab61eea829b52d462866dfa01cc9ae2f17dda03f853b7b6cba48d6f296fb8c6"
+    },
+    {
+      "path": "src/main/java/com/hbm/inventory/recipes/PressRecipes.java",
+      "sha256": "3bda6ed256e03c8713ff1f9e75b67e4b20be02534c54fbb988f2f92e11847289"
+    },
+    {
+      "path": "src/main/java/com/hbm/inventory/recipes/anvil/AnvilRecipes.java",
+      "sha256": "2f71be17f0c28b2defa7ffd4dd7765ff9b815a361c19b5f064edc0ced703bf22"
+    },
+    {
+      "path": "src/main/java/com/hbm/itempool/ItemPoolsC130.java",
+      "sha256": "c0a6ed9e01c12e59a40c89fab10f539af77652b05c2f0196d5dfc90a9e00f68d"
+    },
+    {
+      "path": "src/main/java/com/hbm/itempool/ItemPoolsComponent.java",
+      "sha256": "8f09484664fe8bc59da6ba288174a125cfb93a3b9e8bc69e248237f1b6342584"
+    },
+    {
+      "path": "src/main/java/com/hbm/itempool/ItemPoolsLegacy.java",
+      "sha256": "7fe835364dcff0d33e6be593416770e7bb82c0924e0a80921048f7ed5ff61902"
+    },
+    {
+      "path": "src/main/java/com/hbm/itempool/ItemPoolsPile.java",
+      "sha256": "7b25b40349ab0b4a2ac77a8818e748feb1070c3885b00c4eaff7845dcfb797d2"
+    },
+    {
+      "path": "src/main/java/com/hbm/itempool/ItemPoolsRedRoom.java",
+      "sha256": "2b59993313b49dcf671d58e894315fe80138fbfecc4a93e888b1d739227b8130"
+    },
+    {
+      "path": "src/main/java/com/hbm/itempool/ItemPoolsSingle.java",
+      "sha256": "c01e1d092c936b162cb999984167c11f6b76c2fd8b87f8b763b35f969ec392fe"
+    },
+    {
+      "path": "src/main/java/com/hbm/itempool/ItemPoolsVendingMachine.java",
+      "sha256": "dbdb175a030e5e4c8e839a263f08a557efc50e434f14501ca8883792bc53ba33"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/ItemAmmoEnums.java",
+      "sha256": "9512f7ac8453279fb244c16a69f48c0d7bf98cc30d012462b368a880402367d2"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/ModItems.java",
+      "sha256": "e11dc54506dbdecd8908514138f4d44ff9035c7a88bc531b2be3e6b463e4045c"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/ModItemsArmor.java",
+      "sha256": "af96cdfd1a8fbec432ef348195025173b89e6ed5328201a31cd67d5aa417a0e9"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/armor/ArmorBJ.java",
+      "sha256": "b22e4c458c409981d82203a13201e72a36814d0f5bbcfa2144fba00189f74c33"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/armor/ArmorDNT.java",
+      "sha256": "c6e5616738c9b6db37c94fd3f54d1b744d756d150371d95442a6745b1f5f3852"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/armor/ArmorDesh.java",
+      "sha256": "7af3ba0e6acada4e9a47f8390b76b0ac020a559ab8c34c256866add517286965"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/armor/ArmorDiesel.java",
+      "sha256": "8f6ea18239ee7b107bb04571a5517ebfbeec3f3fa6d67b27a5a48fedc661b268"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/armor/ArmorDigamma.java",
+      "sha256": "7c6028b82dbe5c4c0e522d8a62e6958d6b23da4a8268f2fc788decf14000d62a"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/armor/ArmorEuphemium.java",
+      "sha256": "ca30fc6af291960f32f20fbd2b459641b032b8ec863f1641f9be1eb121b1c116"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/armor/ArmorRPA.java",
+      "sha256": "fcf1a8b4a192ba2c1518e504520f73d47ada52c2bae3bfec1437f19227b79c4f"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/armor/ArmorTaurun.java",
+      "sha256": "b75bc31063e76e760de605e42d116dc89ebba89d3fdbc81a30c230618d7f8af5"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/armor/ArmorTrenchmaster.java",
+      "sha256": "1d41a22e4152edc24755416d59387c1010cc0151b7f8473c1ecdf4929a949135"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/armor/ItemModBathwater.java",
+      "sha256": "4cf35f6a6188a3a7c4a801edfce4728ed722d50c78bcdf7e4028f6437ae95706"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/armor/ItemModHealth.java",
+      "sha256": "df4c3c4dae8e3d0c5ce20f2f51bff9254c005b5053457acdbe93fdbc16be3db3"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/armor/ItemModInsert.java",
+      "sha256": "a94db493a007067d5eaf9ffb01dd483063f7a1963ba2d47dd2a55d4210253ca6"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/armor/ItemModRevive.java",
+      "sha256": "64ef34c6d125f10646d68042c08b05054354f5efc6c7dda9e343b2194ecaca79"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/armor/ModArmor.java",
+      "sha256": "93029040f3ad917a5580b9dd08cb2d15ce01e37b91c479dd8753de25343cb514"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/armor/WingsMurk.java",
+      "sha256": "eb9ce41a99adce337a375822af3aa17d9033bc1887f24db52d61a1aba4f699ab"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/bomb/ItemFleija.java",
+      "sha256": "da40a877e74ed5c8b0b558774ca08df84675f70969a94346ccc699a211302014"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/food/ItemAppleSchrabidium.java",
+      "sha256": "3561fb703195f98d927de1ebbcca260dfb56a018207c88c15753620bb7ce7f52"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/food/ItemCanteen.java",
+      "sha256": "a026f94521e812da159f9f70ea09ceb9e4a9d52078823af3cbc4f6061cc6b297"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/food/ItemEnergy.java",
+      "sha256": "d5c89a7ec2e2e476198ed1f9afbb8609852f68c73f89862863f3cf79108dba57"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/food/ItemLemon.java",
+      "sha256": "6a1bf5cc1fa3383fda9640d66a36119cd96c4975d39725701c237202470d633d"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/food/ItemMuchoMango.java",
+      "sha256": "58160e5a830c222f6612b4e12c4018d8f8ecff595c832168b6cb7c5a24bf932a"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/food/ItemPancake.java",
+      "sha256": "8e9431f7dbb550c6d8d22dd772d79bef7acaf7b11da85b202a3899aeb6c2e66a"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/food/ItemPill.java",
+      "sha256": "4f4786316cce82c6b93f81106b1df03755bcd93e9e06501fa5913be7813746fe"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/machine/ItemSatellite.java",
+      "sha256": "9d89eb107f685d8198f57b9ea18e32bed49d16f18c9d0eb96a86abe9dffa828c"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/special/ItemChopper.java",
+      "sha256": "e3a6c9727f747a92a8d03232893ebed5bfcf7c7ddc6bc64948b460d705ddf769"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/special/ItemCigarette.java",
+      "sha256": "6331c8cb5ee6fe5301cc91b5ede0f554b5fbb85d50a980e6688057892cfb032e"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/special/ItemGlitch.java",
+      "sha256": "52e02e7924a6366e7a71fe080ba120ffb1408df5dbfb0c53e070ca8a7d078e94"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/special/ItemSimpleConsumable.java",
+      "sha256": "685a54fafd9095e8c27d758ab5c5f22293b2fb6a04bcf393c155ef48155f68f9"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/special/ItemStarterKit.java",
+      "sha256": "e5fa2847b9fb8942ad1ef53d6b0db3a32de231717a9614e26d1f2303593d0a18"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/special/ItemSyringe.java",
+      "sha256": "f238637b4842c56e7518400ad00a4e48ecef58c9c2a29b1dd0bdeb20978b84a6"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/tool/ItemAmmoBag.java",
+      "sha256": "16a311001eb0feeb838a1a137bea4bfa5465d4ecb30dee999d470b3cd426ea16"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/tool/ItemCatalog.java",
+      "sha256": "fbf895c9eba8c79202265bfe124fd57e9a276087345f2be0cf660bed30c292fd"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/tool/ItemDefuser.java",
+      "sha256": "af6cbf8d9542c568029f0d95384e146ee7fbc95d61c0169fa94dd59819e942a5"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/tool/ItemSwordAbility.java",
+      "sha256": "ca349ba92b6af327f3ad06ae0ee292bd36a31c027266b2923c007e8bfeaf63b5"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/tool/WeaponSpecial.java",
+      "sha256": "c2e1bd0a9617bcc91790c62f5c4e4475a05fb3d6c0fd6f15506edeea6a46fe2e"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/weapon/GunB92Cell.java",
+      "sha256": "28519a725d8b2ec01d15df9788f956c89cf62a4f03fa996675aaf77a7fe06fe6"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/weapon/ItemAmmoArty.java",
+      "sha256": "6c2f1132f8c4172150164d2c463316afe473cf35aaa841b90f568b2b84f29829"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/weapon/ItemAmmoHIMARS.java",
+      "sha256": "b07ffc5d7fff028f424cda03f4223f93cb1879ebc1ddf16884060d524f77dc8c"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/weapon/ItemCrucible.java",
+      "sha256": "68c2cf399a4d91e264349b8c0fabfb50b5207f36357e7450229f613e5d709af1"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/weapon/ItemDisperser.java",
+      "sha256": "e3e1dbe62f24f3af073e454feaf43773fdedd103ba0f053ef54874ef614462f7"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/weapon/grenade/ItemGrenadeUniversal.java",
+      "sha256": "50aa0c91446003ee2a668f3da97c71e990f97692993e4d5452b7e6a1bdc63473"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/weapon/sedna/BulletConfig.java",
+      "sha256": "72f4cf11340b00df0bcb76d45f874c89347e6fddbc89fad7bcea4dd5328a30fb"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/weapon/sedna/ItemGunBaseNT.java",
+      "sha256": "506a4c95b1c8e33ac82a984bb3f736c2cf5c44481eef1d0f12d2e24abf832a46"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/weapon/sedna/factory/GunFactory.java",
+      "sha256": "efa475d02532ee9f71f6c387371458d4229a38ef889426a27096e8d66069ccb9"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/weapon/sedna/factory/GunFactoryClient.java",
+      "sha256": "39f0cf6175efdafd5127105087a17468facfe7be202448516deecbb27eb98244"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/weapon/sedna/factory/LegoClient.java",
+      "sha256": "d5768517b42199e76065567f99ca5fdced4b27cf1c8342760d307c390a35b75b"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/weapon/sedna/factory/Orchestras.java",
+      "sha256": "6a14e90d5ec5f749e305fd90f4b9ed9baee4b739e3c3acc177561808e3ddb1d4"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory10ga.java",
+      "sha256": "e5f7c82395c44e9a7861b68c45b45ae63dcff039083902c31a68db623f456fd3"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory12ga.java",
+      "sha256": "314bc3f974c9dee594f5fb97ba320ccbee2c7233b0bebc6212a4f3ef46be822f"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory22lr.java",
+      "sha256": "1ab7730bff1db8828ba554356dc75a983fbcc7841833473a08a36b4030c68032"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory357.java",
+      "sha256": "24cb27628495009fff02d8e95a7950eeb829254764e08d8597d518b1a6970c6f"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory40mm.java",
+      "sha256": "f53310fc0111ae95575045f48e769242efccb61acdba6745a13e5a69ebc0b8b0"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory44.java",
+      "sha256": "3f83eb7a6028dd41a04c91741f545d9bd0afdf88282112483b80d494fb0e966f"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory50.java",
+      "sha256": "16247ee494e956c0055a33750d9e7799f4be1ba3dfd5bcd9c1741b778b285e5e"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory556mm.java",
+      "sha256": "661fb438127e388e2809e65cddca3619b7196e4c60610efe6249b930ba1c4957"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory75Bolt.java",
+      "sha256": "f2cf4e8a92931895300c8b99b9613ce82dc7a1b997ce2fe7b6a57d9119e632e3"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory762mm.java",
+      "sha256": "32af4304753eb561cf87d740c709f206cb4b3f012a500ec8dbb78f9a7b47a5ea"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactory9mm.java",
+      "sha256": "d051f25f6931dacc238b92c76461b349d346f620e702a2eddc320f4c743a5400"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactoryAccelerator.java",
+      "sha256": "80e2f2bdba4ac5240b3b966abe631eb002e124c120b396fe62778a7a50010e92"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactoryBlackPowder.java",
+      "sha256": "7de1da7f7ea580c234f87cde308c2b54dbe8e8b7d424d5684ad6e92f58670cbe"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactoryCatapult.java",
+      "sha256": "06eeea8b2b03ce62f693ff2290aa42f713326f16515b7d95504f3fd3c22b857f"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactoryEnergy.java",
+      "sha256": "990d4cad0368c511077d447ea6ecdf62f06f92d1d6ee8f2e0691217861048d33"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactoryFlamer.java",
+      "sha256": "33ff20b0237533a3451acdfbffc024d005344d15ffae4f666146e7e234ba117a"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactoryPA.java",
+      "sha256": "6e6cc2cd950211a63a190d9ea9df1682f50e7564211aea32882626deadc04100"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactoryRocket.java",
+      "sha256": "5dad3e70ef0e2911057cad578ace4b59e1383af1eb6bcd185f79914257fc5f89"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactoryTool.java",
+      "sha256": "5e27201841eedee8e265f718ba1ca7331799a49b409e71cbb3bad2096f48549e"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/weapon/sedna/factory/XFactoryTurret.java",
+      "sha256": "9cedbe0ee855be6329808c055d96ac5cb22f42a169210751e12b4595f980f8f4"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/weapon/sedna/mags/IMagazine.java",
+      "sha256": "dedc6517ac08d011add034d86d7fb110cc75b2aacca320906649288d26f5fde6"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/weapon/sedna/mags/MagazineBelt.java",
+      "sha256": "fba2e1abe603e77a15e69502e180de8736703866150936d5ed79a3cd1dfdb56b"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/weapon/sedna/mags/MagazineSingleTypeBase.java",
+      "sha256": "2da1059082ef9ab8f2f1bd47ddd5b574af4a3364e0c28ef97550d43658344127"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/weapon/sedna/mods/WeaponModSawedOff.java",
+      "sha256": "de781193fda89db1911941086870dc5773caf28e46bad9f6083e531e2f06fda7"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/weapon/sedna/mods/WeaponModScope.java",
+      "sha256": "5c905b3864dc2afe200064a913ca23f1244800f6cefda61bccf6fd283dcf2651"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/weapon/sedna/mods/WeaponModSilencer.java",
+      "sha256": "fa9bfed998c2f660c6201879319d8c21c96bc4491389ca7bec5e431248820064"
+    },
+    {
+      "path": "src/main/java/com/hbm/items/weapon/sedna/mods/XWeaponModManager.java",
+      "sha256": "59d361dbab19f3f2f21fc6e477e170820d61f30cae113f02f272a0dde665f184"
+    },
+    {
+      "path": "src/main/java/com/hbm/lib/HbmWorldGen.java",
+      "sha256": "89c73684e13cf16a9c23eb0cd195d29ae1430ac76a9de9ce5d67c350a9af1dd5"
+    },
+    {
+      "path": "src/main/java/com/hbm/main/ClientProxy.java",
+      "sha256": "ee3563abd8c1ecc83341b7be7f240d866c5a7a3431e948c653fca5442f08cea1"
+    },
+    {
+      "path": "src/main/java/com/hbm/main/CraftingManager.java",
+      "sha256": "c7a0c70022e9af6c67f59d4810c39cb30dc78fb83f251a5aec3b532c90fdb27b"
+    },
+    {
+      "path": "src/main/java/com/hbm/main/MainRegistry.java",
+      "sha256": "73093c3d3cc4934d0a453cf33270f813e966ce0ebeef59b7e0bd1edbfaf26b76"
+    },
+    {
+      "path": "src/main/java/com/hbm/main/ModEventHandler.java",
+      "sha256": "05ee422a9c4b070426e0060b0d311972f63e3d33952fafb5fc8006b0b6930d56"
+    },
+    {
+      "path": "src/main/java/com/hbm/main/NEIConfig.java",
+      "sha256": "8afb2fd1d07db641a8eb9aaf43821f732bc6b342c52e11a5d481d25f3dc37217"
+    },
+    {
+      "path": "src/main/java/com/hbm/main/ResourceManager.java",
+      "sha256": "3a5e07e5aa89b70044572d179e7b8ae8dee04e47c8c2e32b208f034c8494cd17"
+    },
+    {
+      "path": "src/main/java/com/hbm/module/ParseMSES1Ext1.java",
+      "sha256": "cfc0ce007d7caf1dec18c1e573b7a141ee36ca5b48ab88c5de74567c497699e3"
+    },
+    {
+      "path": "src/main/java/com/hbm/packet/toserver/ItemBobmazonPacket.java",
+      "sha256": "adf11c63f482628cde3016ed6c1b3ace4ceebb295346a74473bce7c9e7a2f818"
+    },
+    {
+      "path": "src/main/java/com/hbm/potion/HbmPotion.java",
+      "sha256": "528f6c91fb88c16e1d1a44d6a4ae0dd86d7a72b2ffea9bb3102295002d05245d"
+    },
+    {
+      "path": "src/main/java/com/hbm/render/item/ItemRenderLibrary.java",
+      "sha256": "e8b5da4a0d6b7672ad1083083735f1754f6076952060d54161a4b941b382a74e"
+    },
+    {
+      "path": "src/main/java/com/hbm/render/item/ItemRenderMissileGeneric.java",
+      "sha256": "f0dd2138034f060e04db8094a13ef924be09dd13d06494a080e2f16309ae5fb7"
+    },
+    {
+      "path": "src/main/java/com/hbm/render/item/weapon/ItemRenderCrucible.java",
+      "sha256": "ba9f1da036ea32981a4adfcf6a2e94bb7720fda8841df940be9d9b3f5ab7e43a"
+    },
+    {
+      "path": "src/main/java/com/hbm/render/item/weapon/ItemRenderGavel.java",
+      "sha256": "c10f742b2a4d7ef65e8b7567d9e20b618bb7b3349e982e85dad57848365c264f"
+    },
+    {
+      "path": "src/main/java/com/hbm/render/item/weapon/ItemRenderGunAnim.java",
+      "sha256": "81c624f98d81c5061baa4bc72a2f1f78193ab23d337ff74002f0386b53010748"
+    },
+    {
+      "path": "src/main/java/com/hbm/render/item/weapon/ItemRenderShim.java",
+      "sha256": "09da3c855e2e32530912d402fb952881f85cee473d96f743b1480ff68adc7f66"
+    },
+    {
+      "path": "src/main/java/com/hbm/render/loader/HFRWavefrontObject.java",
+      "sha256": "4786f0d79b35f68b2cc91e71e98044d19902e1331e5a150d013b02a710b74fda"
+    },
+    {
+      "path": "src/main/java/com/hbm/render/loader/HbmFace.java",
+      "sha256": "b1bdcca481d0a9e5210939c50c261585d38df20a6e1cfcab729d43a242673fa1"
+    },
+    {
+      "path": "src/main/java/com/hbm/render/loader/HbmModelObject.java",
+      "sha256": "26f225f12c5f8437a8cfa3c3ca20330a0e8cb4bdbea8cc1dc134c963d9cac86c"
+    },
+    {
+      "path": "src/main/java/com/hbm/render/loader/S_Face.java",
+      "sha256": "8c486959d24a0306f974860ec212c246a44dbbc680d33d69a3eedbf2d761f7a9"
+    },
+    {
+      "path": "src/main/java/com/hbm/render/model/ModelArmorDesh.java",
+      "sha256": "aeb4c8cf2c7510c929aa9a072c2885d6de298fbb9758d1f4d7368cd98364ed0f"
+    },
+    {
+      "path": "src/main/java/com/hbm/render/model/ModelArmorDiesel.java",
+      "sha256": "d207c072c6bc1b9867e0b6066dbd6ce388627f3053e875fbe091b862fd557b29"
+    },
+    {
+      "path": "src/main/java/com/hbm/render/model/ModelArmorDigamma.java",
+      "sha256": "7654d479a04ea98d2f8fd865b8c604bf9f71c67419855f4f3125db7663da14f4"
+    },
+    {
+      "path": "src/main/java/com/hbm/render/model/ModelArmorRPA.java",
+      "sha256": "3ec6c6d45b7055f7d8416c0e6019729e84940e1bb805a7b5d25616138b35047b"
+    },
+    {
+      "path": "src/main/java/com/hbm/render/model/ModelArmorTaurun.java",
+      "sha256": "578f5d5a3d5db67de172909cc7dd47a01eba85d8ea3451cc764b11456589c13e"
+    },
+    {
+      "path": "src/main/java/com/hbm/render/model/ModelArmorTrenchmaster.java",
+      "sha256": "049871d3bce2e52ace0a100dfa243302363643b90288e76ee77efa33f08d35dd"
+    },
+    {
+      "path": "src/main/java/com/hbm/render/model/ModelArmorWings.java",
+      "sha256": "f161dfe745a31c0c73dce90c1c227b1d154b12fc3603b832dad1f0b59eebddfa"
+    },
+    {
+      "path": "src/main/java/com/hbm/render/tileentity/RenderBobble.java",
+      "sha256": "cb117662adfad85ec34ad153dec5c5e767cef74150003b010a502014079cec75"
+    },
+    {
+      "path": "src/main/java/com/hbm/render/tileentity/RenderCatalyticReformer.java",
+      "sha256": "73e6152e8b7941330b02f3209ce0ef8267d2aad3b110426488e91c6ab9be9a96"
+    },
+    {
+      "path": "src/main/java/com/hbm/render/tileentity/RenderCrucible.java",
+      "sha256": "9b3a20ee8006510d86743ea1b4e243187ce9bf1d39630eb3a33ea1d5e089b2dd"
+    },
+    {
+      "path": "src/main/java/com/hbm/render/tileentity/RenderDecoBlock.java",
+      "sha256": "04c6ab80a1145faf67f0ffad677425ad542e301e70db976378b510fe04ff32e1"
+    },
+    {
+      "path": "src/main/java/com/hbm/render/tileentity/RenderLaunchpadSoyuz.java",
+      "sha256": "aedcf029bedd53e41db3d7d02fdb82349d84eb4eaefadb7687fa871b1a1175aa"
+    },
+    {
+      "path": "src/main/java/com/hbm/render/tileentity/RenderLoot.java",
+      "sha256": "633c2ab73b8c1a2389bb4c32df9acc60f3970f8b4a29059c14378d5036545f7d"
+    },
+    {
+      "path": "src/main/java/com/hbm/render/tileentity/RenderMultiblock.java",
+      "sha256": "14e65939ec33ffeba9e7e33dfd0ce9b43584c70f88ea75e7444cd24b293d9347"
+    },
+    {
+      "path": "src/main/java/com/hbm/render/tileentity/RenderNukeFleija.java",
+      "sha256": "454544e39010651dc8db0b37e0b03672eabb1d4fb2ef85f112ac2cc9391c92ca"
+    },
+    {
+      "path": "src/main/java/com/hbm/render/tileentity/RenderNukePrototype.java",
+      "sha256": "675c7813478aac97d09c66e65d410bae85ec74dbf726cae44ea55c87d5a6319b"
+    },
+    {
+      "path": "src/main/java/com/hbm/render/tileentity/RenderPlushie.java",
+      "sha256": "86673bbbeac103acfb29cfaba9a65988456c46bcfa611a822cb7ca79f828cd6d"
+    },
+    {
+      "path": "src/main/java/com/hbm/render/tileentity/RenderTurretMaxwell.java",
+      "sha256": "6f99cdeab2329393f3666d9b90b507ba0ed8ec08815547cd93b7abaec4b4dced"
+    },
+    {
+      "path": "src/main/java/com/hbm/render/tileentity/RenderTurretTauon.java",
+      "sha256": "e714ee540286850df0e4d45e1d56e3cd1707f58d5a3987ae5d814b22fd08d59b"
+    },
+    {
+      "path": "src/main/java/com/hbm/render/util/MissilePart.java",
+      "sha256": "b2c584aa1dedc0d2bfceae12db63259c26a2a9d17607217143694ba42f2a552d"
+    },
+    {
+      "path": "src/main/java/com/hbm/render/world/RenderNTMSkyboxChainloader.java",
+      "sha256": "6cc526ecc3acda263392ca692985aba1d640fc3e01892280fac60174dcc7691b"
+    },
+    {
+      "path": "src/main/java/com/hbm/saveddata/satellites/SatelliteHorizons.java",
+      "sha256": "2ee27d4402e4849c16da1d272e77e648ffaf1c0f29d538917c942eab553e9668"
+    },
+    {
+      "path": "src/main/java/com/hbm/saveddata/satellites/SatelliteResonator.java",
+      "sha256": "a53aa16705c6c9fc9e12d57a8c46ad93f702c2804dbd26e7289247ea7af391f4"
+    },
+    {
+      "path": "src/main/java/com/hbm/saveddata/satellites/XSatelliteRegistry.java",
+      "sha256": "20891d8e9ae0b7119be8c8ab9f07e81e767e341381ca32f832e18b78a783b4e0"
+    },
+    {
+      "path": "src/main/java/com/hbm/tileentity/bomb/TileEntityLaunchPadBase.java",
+      "sha256": "53388dfdb7288b47097a4e9502ba0655d17d7a279a61c377517f65569c083964"
+    },
+    {
+      "path": "src/main/java/com/hbm/tileentity/machine/TileEntityCrucible.java",
+      "sha256": "0c250c73aa78f48f05967e20addfc6b582106549093a61491ecee5484cdae340"
+    },
+    {
+      "path": "src/main/java/com/hbm/tileentity/machine/TileEntityForceField.java",
+      "sha256": "bc09c43f6408be2acd3b5800970a9b64cb2e1268a914a855af688a9848a42400"
+    },
+    {
+      "path": "src/main/java/com/hbm/tileentity/machine/TileEntityLaunchpadSoyuz.java",
+      "sha256": "c153015f10cde971cce83f06f490932fd441c6ddf30ea3671df30d57312ce049"
+    },
+    {
+      "path": "src/main/java/com/hbm/tileentity/machine/TileEntityMachineAssemblyMachine.java",
+      "sha256": "300a3bfb150f4e47d67311055a7a0fd1bb2637a3c84fda6594450bb91a2e3748"
+    },
+    {
+      "path": "src/main/java/com/hbm/tileentity/machine/TileEntityMachineChemicalPlant.java",
+      "sha256": "813ff6eb6b4be2e48b296a8343dc343cfee83a4dc5c11c54f98768b08d0ee965"
+    },
+    {
+      "path": "src/main/java/com/hbm/tileentity/machine/TileEntityMachineCyclotron.java",
+      "sha256": "f8d7c9d549f040bc234f0abac4b485c79dd10205960a0ceb2673a513750af4a4"
+    },
+    {
+      "path": "src/main/java/com/hbm/tileentity/machine/TileEntityMachineRadiolysis.java",
+      "sha256": "2ba7dfeabefc615903b20bd6278f75fe0a4af37a70962bbe03183c21047195e7"
+    },
+    {
+      "path": "src/main/java/com/hbm/tileentity/machine/TileEntityMultiblock.java",
+      "sha256": "0772812c36af3f3e8862d7616c84210b826de2554d8b6538fc1614f0b47ed204"
+    },
+    {
+      "path": "src/main/java/com/hbm/tileentity/machine/TileEntityReactorResearch.java",
+      "sha256": "3f0dfe37c4d11b0c51299626afe33d5503a7e7b86abeaa9d3e11a9c7cdd071ce"
+    },
+    {
+      "path": "src/main/java/com/hbm/tileentity/machine/TileEntityReactorZirnox.java",
+      "sha256": "0174300b2efb5eee43423e6e8283926d79d56520cd0f7f4896a1cf52465f90ae"
+    },
+    {
+      "path": "src/main/java/com/hbm/tileentity/machine/TileEntitySoyuzLauncher.java",
+      "sha256": "119b22966c2713909f7f1ce3f00cb760e82a2eca57459cb282d2da30ed4e8a4b"
+    },
+    {
+      "path": "src/main/java/com/hbm/tileentity/machine/fusion/TileEntityFusionBreeder.java",
+      "sha256": "0b563f261209e924fb4c5236617568105bf7653abf6e5be84fe3943e53ccca9e"
+    },
+    {
+      "path": "src/main/java/com/hbm/tileentity/machine/storage/TileEntityCrateTungsten.java",
+      "sha256": "986c72eda022bda37035482820bb54d3cd27c3f91df1cce228edc94a7cc993a4"
+    },
+    {
+      "path": "src/main/java/com/hbm/tileentity/turret/TileEntityTurretArty.java",
+      "sha256": "ef887072abcfaacac7e422408986955a9a1e0c1ca0bccfa33112bc877f805903"
+    },
+    {
+      "path": "src/main/java/com/hbm/tileentity/turret/TileEntityTurretFritz.java",
+      "sha256": "8497d499e1852ba70af62f6a757478225e2e05aee4994c05f8321a9e915f01a1"
+    },
+    {
+      "path": "src/main/java/com/hbm/tileentity/turret/TileEntityTurretHIMARS.java",
+      "sha256": "8e196dd486a69fb540db76d6bb343fd1ba2c7ccacbd0b288b6ccfbd9b8a9d7a9"
+    },
+    {
+      "path": "src/main/java/com/hbm/tileentity/turret/TileEntityTurretMaxwell.java",
+      "sha256": "820b93360b4a3c5d7b4d687fbebff572e32164630f34660254779afb3db70caf"
+    },
+    {
+      "path": "src/main/java/com/hbm/tileentity/turret/TileEntityTurretRichard.java",
+      "sha256": "e0c9c5ad3779451337a539f1f9ddc0bfd311a8ec1f684d0afe5d48aca8be1856"
+    },
+    {
+      "path": "src/main/java/com/hbm/util/AchievementHandler.java",
+      "sha256": "cf017bb80190911057da4a231552b1ac0738d164ea955eb7f85c5474bfd22dc8"
+    },
+    {
+      "path": "src/main/java/com/hbm/util/ArmorUtil.java",
+      "sha256": "e4c0d9d1944ea63ef6e7fa5f5652ee1bec4680de6ed9c8259235ce7b86fdd2f0"
+    },
+    {
+      "path": "src/main/java/com/hbm/util/CrucibleUtil.java",
+      "sha256": "7ee06f1be9d016b0aa604a87236838c871c05570fd72120a08bdd862a1dd245b"
+    },
+    {
+      "path": "src/main/java/com/hbm/util/DamageResistanceHandler.java",
+      "sha256": "c792381a20727dc638a1c840c9da2f548f8afd81ceb6e8c25901f0815e0e0e97"
+    },
+    {
+      "path": "src/main/java/com/hbm/util/EntityDamageUtil.java",
+      "sha256": "d07932431442b371a590fa185893b0ee024a67caaf3b44343ad13c6bfb31287d"
+    },
+    {
+      "path": "src/main/java/com/hbm/util/LootGenerator.java",
+      "sha256": "ecc6350ed05c015e0f8d287f93c4be6aabf845663652f0aa326b7200e8382e1f"
+    },
+    {
+      "path": "src/main/java/com/hbm/util/MobUtil.java",
+      "sha256": "656807e592afae60373920cd7b6855b718ba1ef06be05f10f288ea6ed6eec011"
+    },
+    {
+      "path": "src/main/java/com/hbm/wiaj/GuiWorldInAJar.java",
+      "sha256": "c1a839c538ac126d1cdf6962284dcaaed78402260240b4ac4d3eb5455352f820"
+    },
+    {
+      "path": "src/main/java/com/hbm/wiaj/cannery/CanneryCrucible.java",
+      "sha256": "6c6d6fa5c332b58b422b113040b150ae3b03748f881d9aaa72cc02ae760e9f6c"
+    },
+    {
+      "path": "src/main/java/com/hbm/world/feature/Meteorite.java",
+      "sha256": "69fee33923b25091f710b73a11718cc86413b072a9c743c4fe9f88a2fba8fdf4"
+    },
+    {
+      "path": "src/main/java/com/hbm/world/gen/component/SiloComponent.java",
+      "sha256": "e0ae6d20d15858664293e90833ddce033d6cb600d65a6e2553fcc4de188d774a"
+    },
+    {
+      "path": "src/main/java/com/hbm/world/gen/util/LogicBlockActions.java",
+      "sha256": "dcf3f60fdf9e54e2428bf922debb7c4c887d09aac341197d74618c3eef832676"
+    },
+    {
+      "path": "src/main/resources/assets/hbm/lang/en_US.lang",
+      "sha256": "b1504ccf6bc55a424063986b2ddc2747bd4535b11a1046ba6dddef8f45090501"
+    }
+  ],
+  "selection_only": true,
+  "registrations_changed": false,
+  "loot_changed": false,
+  "world_changed": false,
+  "user_policy": "Preserve intentionally omitted metadata/ammunition variants; do not broaden to whole shared parents.",
+  "nbt_identity_notes": "Full saved NBT is retained in chest-slots.csv and inventory.json; grenade semantic identity uses shell/filling/fuze/extra, not transient eqipped/animation flags.",
+  "verification": {
+    "chest_halves": 22,
+    "inferred_rack_pairs": 11,
+    "stacks": 513,
+    "variant_rows": 424,
+    "unresolved_registry_ids": 0,
+    "resolved_registration_sources": 287,
+    "resolved_initializers": 287,
+    "english_key_matches": 424,
+    "world_hashes_unchanged": true
+  },
+  "build_jar": {
+    "path": "/Users/rhysh/Documents/GitHub/HBM-Space-WDG-Edition/build/libs/HBM-NTM-[1.0.27_X5852_H261_WG2.4.0].jar",
+    "sha256": "5b672f78b6cf867f9fc7659f781ec290d76c44c4fb8d282861be9e471bce8014",
+    "en_US_matches_source_normalized_newlines": true
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "installed_jar": "/Users/rhysh/Library/Application Support/PrismLauncher/instances/Release Testing/minecraft/mods/HBM-NTM-[1.0.27_X5852_H261_WG2.4.0].jar",
+  "sha256": "ca716dd513a5efba0afc6fbb9b45b68df951a3a2e91e4fdef39b0cc412bb848e",
+  "previous_sha256": "5b672f78b6cf867f9fc7659f781ec290d76c44c4fb8d282861be9e471bce8014",
+  "jar_backup": "/Users/rhysh/Library/Application Support/PrismLauncher/instances/Release Testing/minecraft/.banitems-backups/jar-20261020-213101/HBM-NTM-[1.0.27_X5852_H261_WG2.4.0].jar",
+  "installed_at": "2026-10-20T21:31:01.776066",
+  "committed": false,
+  "worlds_modified": false,
+  "script_backup_directory": "/Users/rhysh/Library/Application Support/PrismLauncher/instances/Release Testing/minecraft/.banitems-backups/20261020-213101",
+  "scripts_verified": true,
+  "latest_followup": "FOLLOWUP-CAPS-BYPASS.json"
+}

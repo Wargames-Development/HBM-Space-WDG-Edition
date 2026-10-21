@@ -57,7 +57,7 @@ public class ConstructionHandler extends NEIUniversalHandler {
 		ItemStack[] launcher = new ItemStack[] { new ItemStack(ModBlocks.struct_launcher, 8) };
 
 		bufferedRecipes.put(launcher, new ItemStack(ModBlocks.compact_launcher));
-		bufferedTools.put(launcher, new ItemStack(ModBlocks.struct_launcher_core));
+		if(!com.hbm.config.BanItems.disabled(ModBlocks.struct_launcher_core)) bufferedTools.put(launcher, new ItemStack(ModBlocks.struct_launcher_core));
 		
 		/* LAUNCH TABLE */
 		ItemStack[] table = new ItemStack[] {
@@ -66,7 +66,7 @@ public class ConstructionHandler extends NEIUniversalHandler {
 				new ItemStack(ModBlocks.struct_scaffold, 11)};
 
 		bufferedRecipes.put(table, new ItemStack(ModBlocks.launch_table));
-		bufferedTools.put(table, new ItemStack(ModBlocks.struct_launcher_core_large));
+		if(!com.hbm.config.BanItems.disabled(ModBlocks.struct_launcher_core_large)) bufferedTools.put(table, new ItemStack(ModBlocks.struct_launcher_core_large));
 		
 		/* SOYUZ LAUNCHER */
 		ItemStack[] soysauce = new ItemStack[] {

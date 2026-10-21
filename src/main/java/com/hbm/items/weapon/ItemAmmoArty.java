@@ -82,16 +82,16 @@ public class ItemAmmoArty extends Item {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item, CreativeTabs tab, List list) {
-		list.add(new ItemStack(item, 1, NORMAL));
-		list.add(new ItemStack(item, 1, AIRBURST));
-		list.add(new ItemStack(item, 1, GUIDED));
-		list.add(new ItemStack(item, 1, MINI_NUKE));
-		list.add(new ItemStack(item, 1, NUKE));
-		list.add(new ItemStack(item, 1, PHOSPHORUS));
-		list.add(new ItemStack(item, 1, EMPTY));
-		list.add(new ItemStack(item, 1, CHLORINE));
-		list.add(new ItemStack(item, 1, PHOSGENE));
-		list.add(new ItemStack(item, 1, MUSTARD));
+		com.hbm.config.BanItems.addCreative(list, new ItemStack(item, 1, NORMAL));
+		com.hbm.config.BanItems.addCreative(list, new ItemStack(item, 1, AIRBURST));
+		com.hbm.config.BanItems.addCreative(list, new ItemStack(item, 1, GUIDED));
+		com.hbm.config.BanItems.addCreative(list, new ItemStack(item, 1, MINI_NUKE));
+		com.hbm.config.BanItems.addCreative(list, new ItemStack(item, 1, NUKE));
+		com.hbm.config.BanItems.addCreative(list, new ItemStack(item, 1, PHOSPHORUS));
+		com.hbm.config.BanItems.addCreative(list, new ItemStack(item, 1, EMPTY));
+		com.hbm.config.BanItems.addCreative(list, new ItemStack(item, 1, CHLORINE));
+		com.hbm.config.BanItems.addCreative(list, new ItemStack(item, 1, PHOSGENE));
+		com.hbm.config.BanItems.addCreative(list, new ItemStack(item, 1, MUSTARD));
 	}
 
 	@Override

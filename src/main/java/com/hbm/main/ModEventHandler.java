@@ -21,6 +21,7 @@ import com.hbm.blocks.generic.BlockAshes;
 import com.hbm.blocks.machine.BlockBeamBase;
 import com.hbm.blocks.generic.BlockPedestal;
 import com.hbm.config.GeneralConfig;
+import com.hbm.config.BanItemsConfig;
 import com.hbm.config.MobConfig;
 import com.hbm.config.RadiationConfig;
 import com.hbm.config.ServerConfig;
@@ -566,7 +567,7 @@ public class ModEventHandler {
 
 		WeightedRandomObject selected = (WeightedRandomObject) WeightedRandom.getRandomItem(rand, pool);
 
-		return selected.asStack();
+		return com.hbm.config.BanItems.copyAllowed(selected.asStack());
 	}
 
 	@SubscribeEvent
@@ -659,6 +660,12 @@ public class ModEventHandler {
 
 	@SubscribeEvent
 	public void onLivingDrop(LivingDropsEvent event) {
+        if(BanItemsConfig.disableSelectedBossRewards && BanItemsConfig.isSelectedBossType(event.entityLiving.getClass())) {
+            event.drops.clear();
+            event.setCanceled(true);
+            return;
+        }
+
 
 		if(!event.entityLiving.worldObj.isRemote) {
 			boolean contaminated = HbmLivingProps.getContagion(event.entityLiving) > 0;
@@ -1284,6 +1291,7 @@ public class ModEventHandler {
 
 	@SubscribeEvent
 	public void onPlayerTick(TickEvent.PlayerTickEvent event) {
+        if(event.phase == TickEvent.Phase.END && !event.player.worldObj.isRemote && event.player.ticksExisted % 20 == 0) com.hbm.config.BanItems.clean(event.player.inventory);
 
 		EntityPlayer player = event.player;
 		if(player.posY > CelestialAltitudeCompat.reentryHeatStartY(player.worldObj)
@@ -1659,7 +1667,10 @@ public class ModEventHandler {
 	public void onChunkLoad(ChunkEvent.Load event) {
 		if(event.world == null || event.world.isRemote) return;
 		for(Object object : new ArrayList<Object>(event.getChunk().chunkTileEntityMap.values())) {
-			if(object instanceof IInventory) ItemVOTVdrive.validateNormalStationDrives((IInventory)object, event.world);
+			if(object instanceof IInventory) {
+                com.hbm.config.BanItems.clean((IInventory)object);
+                ItemVOTVdrive.validateNormalStationDrives((IInventory)object, event.world);
+            }
 		}
 
 		//test for automatic in-world block replacement
@@ -1673,6 +1684,8 @@ public class ModEventHandler {
 
 	@SubscribeEvent
 	public void validateStationDrivesOnEntityLoad(EntityJoinWorldEvent event) {
+        if(event.entity instanceof EntityItem && com.hbm.config.BanItems.disabled(((EntityItem)event.entity).getEntityItem())) { event.setCanceled(true); return; }
+        if(event.entity instanceof IInventory && !event.world.isRemote) com.hbm.config.BanItems.clean((IInventory)event.entity);
 		if(event.world == null || event.world.isRemote || event.entity == null) return;
 		if(event.entity instanceof EntityItem) {
 			EntityItem entityItem = (EntityItem)event.entity;
@@ -1712,7 +1725,7 @@ public class ModEventHandler {
 	public void itemSmelted(PlayerEvent.ItemSmeltedEvent e) {
 		AchievementHandler.fire(e.player, e.smelting);
 
-		if(!e.player.worldObj.isRemote && e.smelting.getItem() == Items.iron_ingot && e.player.getRNG().nextInt(64) == 0) {
+		if(!BanItemsConfig.disableSmeltingBonusItems && !e.player.worldObj.isRemote && e.smelting.getItem() == Items.iron_ingot && e.player.getRNG().nextInt(64) == 0) {
 
 			if(!e.player.inventory.addItemStackToInventory(new ItemStack(ModItems.lodestone)))
 				e.player.dropPlayerItemWithRandomChoice(new ItemStack(ModItems.lodestone), false);
@@ -1720,7 +1733,7 @@ public class ModEventHandler {
 				e.player.inventoryContainer.detectAndSendChanges();
 		}
 
-		if(!e.player.worldObj.isRemote && e.smelting.getItem() == ModItems.ingot_uranium && e.player.getRNG().nextInt(64) == 0) {
+		if(!BanItemsConfig.disableSmeltingBonusItems && !e.player.worldObj.isRemote && e.smelting.getItem() == ModItems.ingot_uranium && e.player.getRNG().nextInt(64) == 0) {
 
 			if(!e.player.inventory.addItemStackToInventory(new ItemStack(ModItems.quartz_plutonium)))
 				e.player.dropPlayerItemWithRandomChoice(new ItemStack(ModItems.quartz_plutonium), false);
@@ -1950,6 +1963,25 @@ public class ModEventHandler {
 			for(WeightedRandomFishable fishable : overworldTreasure) FishingHooks.addTreasure(fishable);
 		}
 	}
+
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public void filterSelectedBoss(EntityJoinWorldEvent event) {
+        if(!event.world.isRemote && BanItemsConfig.blocksSpawn(event.entity)) event.setCanceled(true);
+    }
+
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public void blockSelectedInteraction(PlayerInteractEvent event) {
+        if(com.hbm.config.BanItems.disabled(event.entityPlayer.getHeldItem())) event.setCanceled(true);
+    }
+
+    @SubscribeEvent
+    public void cleanOpenedInventory(net.minecraftforge.event.entity.player.PlayerOpenContainerEvent event) {
+        if(event.entityPlayer.worldObj.isRemote || !com.hbm.config.BanItems.enabled) return;
+        for(Object object : event.entityPlayer.openContainer.inventorySlots) {
+            net.minecraft.inventory.Slot slot = (net.minecraft.inventory.Slot)object;
+            if(com.hbm.config.BanItems.disabled(slot.getStack())) slot.putStack(null);
+        }
+    }
 
 	@SubscribeEvent
 	public void filterBrokenEntity(EntityJoinWorldEvent event) {

@@ -307,7 +307,7 @@ public class EntityUFO extends EntityFlying implements IMob, IBossDisplayData, I
 
 			for(EntityPlayer player : players) {
 				player.triggerAchievement(MainRegistry.bossUFO);
-				player.inventory.addItemStackToInventory(new ItemStack(ModItems.coin_ufo));
+				if(!com.hbm.config.BanItemsConfig.disableSelectedBossRewards) player.inventory.addItemStackToInventory(new ItemStack(ModItems.coin_ufo));
 			}
 		}
 

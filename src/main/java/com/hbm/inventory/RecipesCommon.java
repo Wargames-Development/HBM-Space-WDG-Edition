@@ -186,6 +186,9 @@ public class RecipesCommon {
 				item = ModItems.nothing;
 			}
 
+            if(com.hbm.config.BanItems.disabled(item)) {
+                return 31 * (31 * (31 + com.hbm.config.BanItems.name(item).hashCode()) + meta) + stacksize;
+            }
 			String name = Item.itemRegistry.getNameForObject(item);
 
 			if(name == null) {
@@ -258,6 +261,7 @@ public class RecipesCommon {
 
 		@Override
 		public boolean matchesRecipe(ItemStack stack, boolean ignoreSize) {
+            if(com.hbm.config.BanItems.disabled(stack)) return false;
 
 			if(stack == null) return false;
 			if(stack.getItem() != this.item) return false;
@@ -321,6 +325,7 @@ public class RecipesCommon {
 		 */
 		@Override
 		public boolean matchesRecipe(ItemStack stack, boolean ignoreSize) {
+            if(com.hbm.config.BanItems.disabled(stack)) return false;
 
 			if(stack == null) return false;
 			if(stack.getItem() != this.item) return false;
@@ -431,6 +436,7 @@ public class RecipesCommon {
 
 		@Override
 		public boolean matchesRecipe(ItemStack stack, boolean ignoreSize) {
+            if(com.hbm.config.BanItems.disabled(stack)) return false;
 
 			if(stack == null)
 				return false;

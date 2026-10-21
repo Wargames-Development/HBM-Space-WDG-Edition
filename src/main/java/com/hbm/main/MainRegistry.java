@@ -345,18 +345,18 @@ public class MainRegistry {
 				GameRegistry.registerTileEntityWithAlternatives(e.getKey(), e.getValue()[0], e.getValue());
 		}
 
-		ChestGenHooks.addItem(ChestGenHooks.VILLAGE_BLACKSMITH, new WeightedRandomChestContent(new ItemStack(ModItems.armor_polish), 1, 1, 3));
-		ChestGenHooks.addItem(ChestGenHooks.VILLAGE_BLACKSMITH, new WeightedRandomChestContent(new ItemStack(ModItems.bathwater), 1, 1, 1));
-		ChestGenHooks.addItem(ChestGenHooks.MINESHAFT_CORRIDOR, new WeightedRandomChestContent(new ItemStack(ModItems.bathwater), 1, 1, 1));
-		ChestGenHooks.addItem(ChestGenHooks.MINESHAFT_CORRIDOR, new WeightedRandomChestContent(new ItemStack(ModItems.serum), 1, 1, 5));
+		ChestGenHooks.addItem(ChestGenHooks.VILLAGE_BLACKSMITH, com.hbm.config.BanItems.loot(new WeightedRandomChestContent(new ItemStack(ModItems.armor_polish), 1, 1, 3)));
+		ChestGenHooks.addItem(ChestGenHooks.VILLAGE_BLACKSMITH, com.hbm.config.BanItems.loot(new WeightedRandomChestContent(new ItemStack(ModItems.bathwater), 1, 1, 1)));
+		ChestGenHooks.addItem(ChestGenHooks.MINESHAFT_CORRIDOR, com.hbm.config.BanItems.loot(new WeightedRandomChestContent(new ItemStack(ModItems.bathwater), 1, 1, 1)));
+		ChestGenHooks.addItem(ChestGenHooks.MINESHAFT_CORRIDOR, com.hbm.config.BanItems.loot(new WeightedRandomChestContent(new ItemStack(ModItems.serum), 1, 1, 5)));
 		ChestGenHooks.addItem(ChestGenHooks.MINESHAFT_CORRIDOR, new WeightedRandomChestContent(new ItemStack(ModItems.no9), 1, 1, 5));
 		ChestGenHooks.addItem(ChestGenHooks.MINESHAFT_CORRIDOR, new WeightedRandomChestContent(new ItemStack(ModItems.key_red_cracked), 1, 1, 5));
-		ChestGenHooks.addItem(ChestGenHooks.DUNGEON_CHEST, new WeightedRandomChestContent(new ItemStack(ModItems.heart_piece), 1, 1, 1));
+		ChestGenHooks.addItem(ChestGenHooks.DUNGEON_CHEST, com.hbm.config.BanItems.loot(new WeightedRandomChestContent(new ItemStack(ModItems.heart_piece), 1, 1, 1)));
 		ChestGenHooks.addItem(ChestGenHooks.DUNGEON_CHEST, new WeightedRandomChestContent(new ItemStack(ModItems.key_red_cracked), 1, 1, 5));
-		ChestGenHooks.addItem(ChestGenHooks.PYRAMID_DESERT_CHEST, new WeightedRandomChestContent(new ItemStack(ModItems.heart_piece), 1, 1, 1));
-		ChestGenHooks.addItem(ChestGenHooks.PYRAMID_JUNGLE_CHEST, new WeightedRandomChestContent(new ItemStack(ModItems.heart_piece), 1, 1, 1));
-		ChestGenHooks.addItem(ChestGenHooks.DUNGEON_CHEST, new WeightedRandomChestContent(new ItemStack(ModItems.scrumpy), 1, 1, 1));
-		ChestGenHooks.addItem(ChestGenHooks.PYRAMID_DESERT_CHEST, new WeightedRandomChestContent(new ItemStack(ModItems.scrumpy), 1, 1, 1));
+		ChestGenHooks.addItem(ChestGenHooks.PYRAMID_DESERT_CHEST, com.hbm.config.BanItems.loot(new WeightedRandomChestContent(new ItemStack(ModItems.heart_piece), 1, 1, 1)));
+		ChestGenHooks.addItem(ChestGenHooks.PYRAMID_JUNGLE_CHEST, com.hbm.config.BanItems.loot(new WeightedRandomChestContent(new ItemStack(ModItems.heart_piece), 1, 1, 1)));
+		ChestGenHooks.addItem(ChestGenHooks.DUNGEON_CHEST, com.hbm.config.BanItems.loot(new WeightedRandomChestContent(new ItemStack(ModItems.scrumpy), 1, 1, 1)));
+		ChestGenHooks.addItem(ChestGenHooks.PYRAMID_DESERT_CHEST, com.hbm.config.BanItems.loot(new WeightedRandomChestContent(new ItemStack(ModItems.scrumpy), 1, 1, 1)));
 		ChestGenHooks.addItem(ChestGenHooks.BONUS_CHEST, new WeightedRandomChestContent(new ItemStack(ModItems.no9), 1, 1, 7));
 
 		EntityMappings.writeMappings();
@@ -398,8 +398,8 @@ public class MainRegistry {
 		achGoFish = new Achievement("achievement.goFish", "goFish", 5, 10, DictFrame.fromOne(ModItems.achievement_icon, EnumAchievementType.GOFISH), null).initIndependentStat().setSpecial().registerStat();
 		achPotato = new Achievement("achievement.potato", "potato", -2, -2, ModItems.battery_potatos, null).initIndependentStat().setSpecial().registerStat();
 		achC20_5 = new Achievement("achievement.c20_5", "c20_5", 3, 6, DictFrame.fromOne(ModItems.achievement_icon, EnumAchievementType.QUESTIONMARK), null).initIndependentStat().setSpecial().registerStat();
-		achFiend = new Achievement("achievement.fiend", "fiend", -6, 8, ModItems.shimmer_sledge, null).initIndependentStat().setSpecial().registerStat();
-		achFiend2 = new Achievement("achievement.fiend2", "fiend2", -4, 9, ModItems.shimmer_axe, null).initIndependentStat().setSpecial().registerStat();
+		achFiend = new Achievement("achievement.fiend", "fiend", -6, 8, com.hbm.config.BanItems.achievementIcon(ModItems.shimmer_sledge), null).initIndependentStat().setSpecial().registerStat();
+		achFiend2 = new Achievement("achievement.fiend2", "fiend2", -4, 9, com.hbm.config.BanItems.achievementIcon(ModItems.shimmer_axe), null).initIndependentStat().setSpecial().registerStat();
 		achStratum = new Achievement("achievement.stratum", "stratum", -4, -2, new ItemStack(ModBlocks.stone_gneiss), null).initIndependentStat().setSpecial().registerStat();
 		achOmega12 = new Achievement("achievement.omega12", "omega12", 17, -1, ModItems.particle_digamma, null).initIndependentStat().setSpecial().registerStat();
 
@@ -411,20 +411,20 @@ public class MainRegistry {
 
 		bobHidden = new Achievement("achievement.hidden", "hidden", 15, -4, DictFrame.fromOne(ModItems.achievement_icon, EnumAchievementType.QUESTIONMARK), null).initIndependentStat().registerStat();
 
-		horizonsStart = new Achievement("achievement.horizonsStart", "horizonsStart", -5, 4, ModItems.sat_gerald, null).initIndependentStat().registerStat();
-		horizonsEnd = new Achievement("achievement.horizonsEnd", "horizonsEnd", -3, 4, ModItems.sat_gerald, horizonsStart).initIndependentStat().registerStat();
-		horizonsBonus = new Achievement("achievement.horizonsBonus", "horizonsBonus", -1, 4, ModItems.sat_gerald, horizonsEnd).initIndependentStat().registerStat().setSpecial();
+		horizonsStart = new Achievement("achievement.horizonsStart", "horizonsStart", -5, 4, com.hbm.config.BanItems.achievementIcon(ModItems.sat_gerald), null).initIndependentStat().registerStat();
+		horizonsEnd = new Achievement("achievement.horizonsEnd", "horizonsEnd", -3, 4, com.hbm.config.BanItems.achievementIcon(ModItems.sat_gerald), horizonsStart).initIndependentStat().registerStat();
+		horizonsBonus = new Achievement("achievement.horizonsBonus", "horizonsBonus", -1, 4, com.hbm.config.BanItems.achievementIcon(ModItems.sat_gerald), horizonsEnd).initIndependentStat().registerStat().setSpecial();
 
-		bossCreeper = new Achievement("achievement.bossCreeper", "bossCreeper", -7, 1, ModItems.coin_creeper, null).initIndependentStat().registerStat();
-		bossMeltdown = new Achievement("achievement.bossMeltdown", "bossMeltdown", -8, 3, ModItems.coin_radiation, bossCreeper).initIndependentStat().registerStat();
-		bossMaskman = new Achievement("achievement.bossMaskman", "bossMaskman", -8, -1, ModItems.coin_maskman, bossCreeper).initIndependentStat().registerStat();
-		bossWorm = new Achievement("achievement.bossWorm", "bossWorm", -8, -3, ModItems.coin_worm, bossMaskman).initIndependentStat().registerStat().setSpecial();
-		bossUFO = new Achievement("achievement.bossUFO", "bossUFO", -6, -3, ModItems.coin_ufo, bossWorm).initIndependentStat().registerStat().setSpecial();
+		bossCreeper = new Achievement("achievement.bossCreeper", "bossCreeper", -7, 1, com.hbm.config.BanItems.achievementIcon(ModItems.coin_creeper), null).initIndependentStat().registerStat();
+		bossMeltdown = new Achievement("achievement.bossMeltdown", "bossMeltdown", -8, 3, com.hbm.config.BanItems.achievementIcon(ModItems.coin_radiation), bossCreeper).initIndependentStat().registerStat();
+		bossMaskman = new Achievement("achievement.bossMaskman", "bossMaskman", -8, -1, com.hbm.config.BanItems.achievementIcon(ModItems.coin_maskman), bossCreeper).initIndependentStat().registerStat();
+		bossWorm = new Achievement("achievement.bossWorm", "bossWorm", -8, -3, com.hbm.config.BanItems.achievementIcon(ModItems.coin_worm), bossMaskman).initIndependentStat().registerStat().setSpecial();
+		bossUFO = new Achievement("achievement.bossUFO", "bossUFO", -6, -3, com.hbm.config.BanItems.achievementIcon(ModItems.coin_ufo), bossWorm).initIndependentStat().registerStat().setSpecial();
 
 		achRadPoison = new Achievement("achievement.radPoison", "radPoison", -2, 6, ModItems.geiger_counter, null).initIndependentStat().registerStat();
 		achRadDeath = new Achievement("achievement.radDeath", "radDeath", 0, 6, Items.skull, achRadPoison).initIndependentStat().registerStat().setSpecial();
 
-		achSomeWounds = new Achievement("achievement.someWounds", "someWounds", -2, 10, ModItems.injector_knife, null).initIndependentStat().registerStat();
+		achSomeWounds = new Achievement("achievement.someWounds", "someWounds", -2, 10, com.hbm.config.BanItems.achievementIcon(ModItems.injector_knife), null).initIndependentStat().registerStat();
 
 		digammaSee = new Achievement("achievement.digammaSee", "digammaSee", -1, 8, DictFrame.fromOne(ModItems.achievement_icon, EnumAchievementType.DIGAMMASEE), null).initIndependentStat().registerStat();
 		digammaFeel = new Achievement("achievement.digammaFeel", "digammaFeel", 1, 8, DictFrame.fromOne(ModItems.achievement_icon, EnumAchievementType.DIGAMMAFEEL), digammaSee).initIndependentStat().registerStat();
@@ -450,7 +450,7 @@ public class MainRegistry {
 		achSpace = new Achievement("achievement.space", "space", 9, 7, ModItems.missile_soyuz, achDesh).initIndependentStat().setSpecial().registerStat();
 		achSchrab = new Achievement("achievement.schrab", "schrab", 11, 3, ModItems.ingot_schrabidium, achDesh).initIndependentStat().registerStat();
 		achAcidizer = new Achievement("achievement.acidizer", "acidizer", 11, 5, new ItemStack(ModBlocks.machine_crystallizer), achDesh).initIndependentStat().registerStat();
-		achRadium = new Achievement("achievement.radium", "radium", 13, -4, ModItems.coffee_radium, achCentrifuge).initIndependentStat().setSpecial().registerStat();
+		achRadium = new Achievement("achievement.radium", "radium", 13, -4, com.hbm.config.BanItems.achievementIcon(ModItems.coffee_radium), achCentrifuge).initIndependentStat().setSpecial().registerStat();
 		achTechnetium = new Achievement("achievement.technetium", "technetium", 15, -2, ModItems.ingot_tcalloy, achCentrifuge).initIndependentStat().registerStat();
 		achZIRNOXBoom = new Achievement("achievement.ZIRNOXBoom", "ZIRNOXBoom", 14, -1, ModItems.debris_element, achCentrifuge).initIndependentStat().setSpecial().registerStat();
 		achChicagoPile = new Achievement("achievement.chicagoPile", "chicagoPile", 13, 0, ModItems.pile_rod_plutonium, achCentrifuge).initIndependentStat().registerStat();
@@ -768,6 +768,7 @@ public class MainRegistry {
 		config.load();
 
 		GeneralConfig.loadFromConfig(config);
+		com.hbm.config.BanItemsConfig.loadFromConfig(config);
 		WorldConfig.loadFromConfig(config);
 		MachineConfig.loadFromConfig(config);
 		BombConfig.loadFromConfig(config);
@@ -793,6 +794,11 @@ public class MainRegistry {
 			}
 		} catch(ClassNotFoundException e) { }
 	}
+
+    @EventHandler
+    public void finishBanItems(cpw.mods.fml.common.event.FMLLoadCompleteEvent event) {
+        com.hbm.config.BanItemsRecipes.finish();
+    }
 
 	private static HashSet<String> ignoreMappings = new HashSet<String>();
 	private static HashMap<String, Item> remapItems = new HashMap<String, Item>();
@@ -1754,7 +1760,7 @@ public class MainRegistry {
 				continue;
 			}
 
-			if(ignoreMappings.contains(mapping.name)) {
+			if(ignoreMappings.contains(mapping.name) || com.hbm.config.BanItems.disabledName(mapping.name)) {
 				mapping.ignore();
 				continue;
 			}

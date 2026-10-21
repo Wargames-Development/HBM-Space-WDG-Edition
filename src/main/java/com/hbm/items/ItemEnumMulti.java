@@ -37,7 +37,7 @@ public class ItemEnumMulti extends Item {
 		if(order[0] instanceof IOrderedEnum) order = ((IOrderedEnum) order[0]).getOrder();
 		
 		for(int i = 0; i < order.length; i++) {
-			list.add(new ItemStack(item, 1, order[i].ordinal()));
+			com.hbm.config.BanItems.addCreative(list, new ItemStack(item, 1, order[i].ordinal()));
 		}
 	}
 	

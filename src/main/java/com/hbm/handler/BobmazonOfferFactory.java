@@ -169,6 +169,10 @@ public class BobmazonOfferFactory {
 
 	public static List<Offer> getOffers(ItemStack stack) {
 
+		if(com.hbm.config.BanItems.enabled) {
+            standard.removeIf(offer -> com.hbm.config.BanItems.disabled(offer.offer));
+            special.removeIf(offer -> com.hbm.config.BanItems.disabled(offer.offer));
+        }
 		if(stack != null) {
 			if(stack.getItem() == ModItems.bobmazon) return standard;
 			if(stack.getItem() == ModItems.bobmazon_hidden) return special;

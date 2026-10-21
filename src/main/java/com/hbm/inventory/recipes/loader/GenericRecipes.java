@@ -96,6 +96,7 @@ public abstract class GenericRecipes<T extends GenericRecipe> extends Serializab
 	}
 	
 	public void register(T recipe) {
+        if(com.hbm.config.BanItemsRecipes.contains(recipe)) return;
 		this.recipeOrderedList.add(recipe);
 		if(recipeNameMap.containsKey(recipe.name)) throw new IllegalStateException("Recipe " + recipe.name + " has been registered with a duplicate ID!");
 		this.recipeNameMap.put(recipe.name, recipe);

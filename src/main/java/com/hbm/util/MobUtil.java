@@ -238,7 +238,7 @@ public class MobUtil {
 			}
 
 			ItemStack stack = choice.asStack();
-			if (stack == null || stack.getItem() == null) {
+			if (stack == null || stack.getItem() == null || com.hbm.config.BanItems.disabled(stack)) {
 				continue;
 			}
 

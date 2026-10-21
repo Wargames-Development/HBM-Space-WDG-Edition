@@ -74,8 +74,17 @@ public class BlockPedestal extends BlockContainer {
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
 		if(player.isSneaking()) return false;
+        if(com.hbm.config.BanItems.disabled(player.getHeldItem())) return false;
 
 		TileEntityPedestal pedestal = (TileEntityPedestal) world.getTileEntity(x, y, z);
+        if(pedestal == null) return false;
+        if(com.hbm.config.BanItems.disabled(pedestal.item)) {
+            if(world.isRemote) return true;
+            pedestal.item = null;
+            pedestal.markDirty();
+            world.markBlockForUpdate(x, y, z);
+        }
+
 
 		if(pedestal.item == null && player.getHeldItem() != null) {
 			if(world.isRemote) return true;
@@ -101,7 +110,7 @@ public class BlockPedestal extends BlockContainer {
 
 		if(!world.isRemote) {
 			TileEntityPedestal entity = (TileEntityPedestal) world.getTileEntity(x, y, z);
-			if(entity != null && entity.item != null) {
+			if(entity != null && entity.item != null && !com.hbm.config.BanItems.disabled(entity.item)) {
 				EntityItem item = new EntityItem(world, x + 0.5, y, z + 0.5, entity.item.copy());
 				world.spawnEntityInWorld(item);
 			}
@@ -209,6 +218,12 @@ public class BlockPedestal extends BlockContainer {
 
 		@Override
 		public void updateEntity() {
+            if(!worldObj.isRemote && com.hbm.config.BanItems.disabled(this.item)) {
+                this.item = null;
+                this.markDirty();
+                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+            }
+
 			
 			if(!worldObj.isRemote && worldObj.getTotalWorldTime() % 20 == 0) {
 				
@@ -240,13 +255,14 @@ public class BlockPedestal extends BlockContainer {
 		@Override
 		public void readFromNBT(NBTTagCompound nbt) {
 			super.readFromNBT(nbt);
-			this.item = ItemStack.loadItemStackFromNBT(nbt.getCompoundTag("item"));
+			this.item = com.hbm.config.BanItems.copyAllowed(ItemStack.loadItemStackFromNBT(nbt.getCompoundTag("item")));
 		}
 
 		@Override
 		public void writeToNBT(NBTTagCompound nbt) {
 			super.writeToNBT(nbt);
-			if(this.item != null) {
+			nbt.removeTag("item");
+			if(this.item != null && !com.hbm.config.BanItems.disabled(this.item)) {
 				NBTTagCompound stack = new NBTTagCompound();
 				this.item.writeToNBT(stack);
 				nbt.setTag("item", stack);

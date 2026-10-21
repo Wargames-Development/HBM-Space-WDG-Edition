@@ -1,0 +1,34 @@
+{
+  "date": "2026-10-21",
+  "status": "review only; no live loot/configuration substitutions or commits",
+  "pool_count": 51,
+  "affected_pools": 31,
+  "removed_pool_entries": 132,
+  "supplemental_hook_rows": 9,
+  "fixed_grant_branches": 3,
+  "forge_lifecycle": [
+    "PASS: 9767 lifecycle assertions; profile=true",
+    "PASS: 645 lifecycle assertions; profile=false"
+  ],
+  "checks": [
+    "Pack saved restriction lists equal audited profile",
+    "Pack underscore template matches tested native defaults",
+    "All replacement identities are retained NTM items already in native pools",
+    "132 per-entry weights preserved; all pool totals preserved",
+    "Replacement quantities within target stack size",
+    "31 pool disclosures render and open; no JavaScript errors; no outer overflow at 736/360px"
+  ],
+  "remaining_limits": [
+    "No replacement choices approved",
+    "Direct pedestal and vanilla-hook restrictions need guards",
+    "Decorative dispatch fall-through needs explicit behavior review",
+    "Full modpack vanilla-hook percentages not measured",
+    "No real-world chest tests performed"
+  ],
+  "files_sha256": {
+    "tools/audit-banitems-loot.py": "626f1e4954bb0750359049d1052819003a33775873d6f5eb0d43e225524e7938",
+    "tools/tests/BanItemsLifecycleChecks.java": "6755d64699c7360664c66392ffc63cf53194ffd414b2c9c4bd6864beb5ca17d9",
+    "tools/test-banitems-lifecycle.py": "e5cddb790793ab6d00f4b120263dc32f0f111f9e4734d78dae1a1ead78a0acfd",
+    "src/main/resources/assets/hbm/banitems-default.json": "a6850894f41a58f4891118cbc297face6aac89f78c3579e33719f0960b34904a"
+  }
+}

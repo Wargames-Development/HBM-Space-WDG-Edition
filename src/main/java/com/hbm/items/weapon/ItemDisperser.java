@@ -28,6 +28,7 @@ public class ItemDisperser extends ItemFluidTank {
 
 		world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
 
+		if(com.hbm.config.BanItems.disabled(stack)) return stack;
 		if(!world.isRemote) {
 
 			EntityDisperserCanister canister = new EntityDisperserCanister(world, player);
@@ -48,9 +49,9 @@ public class ItemDisperser extends ItemFluidTank {
 			FluidType type = order[i];
 			int id = type.getID();
 			if(type.isDispersable() && this == ModItems.disperser_canister) {
-				list.add(new ItemStack(item, 1, id));
+				com.hbm.config.BanItems.addCreative(list, new ItemStack(item, 1, id));
 			} else if(type == Fluids.PHEROMONE || type == Fluids.SULFURIC_ACID && this == ModItems.glyphid_gland) {
-				list.add(new ItemStack(item, 1, id));
+				com.hbm.config.BanItems.addCreative(list, new ItemStack(item, 1, id));
 			}
 
 		}

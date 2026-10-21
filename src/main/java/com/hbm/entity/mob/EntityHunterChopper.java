@@ -338,6 +338,7 @@ public class EntityHunterChopper extends EntityFlying implements IMob, IBossDisp
 	 * kill this mob.
 	 */
 	protected void dropItems() {
+        if(com.hbm.config.BanItemsConfig.disableSelectedBossRewards) return;
 		this.dropItem(ModItems.combine_scrap, rand.nextInt(8) + 1);
 		this.dropItem(ModItems.plate_combine_steel, rand.nextInt(5) + 1);
 	}
@@ -397,6 +398,7 @@ public class EntityHunterChopper extends EntityFlying implements IMob, IBossDisp
 	}
 
 	public void dropDamageItem() {
+        if(com.hbm.config.BanItemsConfig.disableSelectedBossRewards) return;
 		int i = rand.nextInt(10);
 
 		if(i < 6)

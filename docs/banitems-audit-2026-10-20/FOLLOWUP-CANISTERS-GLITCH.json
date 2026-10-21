@@ -1,0 +1,15 @@
+{
+  "installed_at": "2026-10-20T22:19:28.116323+00:00",
+  "jar_sha256": "429e3024a939e6ff1c7e82dd8d237f717da700230b19b1826365d36f49f410f5",
+  "backup_directory": "/Users/rhysh/Library/Application Support/PrismLauncher/instances/Release Testing/minecraft/.banitems-backups/canisters-glitch-20261020-231927",
+  "config_sha256": "d221383421ccf3faea419c5a43c825342451c8c3f2750100137e99a66e77a2ea",
+  "whole_registrations": 313,
+  "metadata_rules": 87,
+  "lifecycle": [
+    "PASS: 9741 lifecycle assertions; profile=true",
+    "PASS: 619 lifecycle assertions; profile=false"
+  ],
+  "release_build": "passed",
+  "committed": false,
+  "worlds_modified": false
+}

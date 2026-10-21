@@ -46,6 +46,7 @@ public class ItemBombCaller extends Item {
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
 	{
+        if(com.hbm.config.BanItems.disabled(stack)) return stack;
 		MovingObjectPosition pos = Library.rayTrace(player, 500, 1);
 		int x = pos.blockX;
 		int y = pos.blockY;
@@ -88,12 +89,12 @@ public class ItemBombCaller extends Item {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item, CreativeTabs tab, List list) {
-		list.add(new ItemStack(item, 1, 0));
-		list.add(new ItemStack(item, 1, 1));
-		list.add(new ItemStack(item, 1, 2));
-		list.add(new ItemStack(item, 1, 3));
-		list.add(new ItemStack(item, 1, 4));
-		list.add(new ItemStack(item, 1, 8));
+		com.hbm.config.BanItems.addCreative(list, new ItemStack(item, 1, 0));
+		com.hbm.config.BanItems.addCreative(list, new ItemStack(item, 1, 1));
+		com.hbm.config.BanItems.addCreative(list, new ItemStack(item, 1, 2));
+		com.hbm.config.BanItems.addCreative(list, new ItemStack(item, 1, 3));
+		com.hbm.config.BanItems.addCreative(list, new ItemStack(item, 1, 4));
+		com.hbm.config.BanItems.addCreative(list, new ItemStack(item, 1, 8));
 	}
 
 	@Override

@@ -1,0 +1,133 @@
+pool,entry_index,removed_item,removed_min,removed_max,weight,chance_percent,suggested_item,suggested_min,suggested_max,decision
+POOL_OFFICE_TRASH,3,Coffee [hbm:item.coffee:0],1,1,4,7.6923,Raw Coffee Bean [hbm:item.bean_raw:0],1,2,UNAPPROVED
+POOL_OFFICE_TRASH,9,'Creature' Energy Drink [hbm:item.can_creature:0],1,2,2,3.8462,Empty Can [hbm:item.can_empty:0],1,1,UNAPPROVED
+POOL_OFFICE_TRASH,10,'Smart' Energy Drink [hbm:item.can_smart:0],1,3,2,3.8462,Empty Can [hbm:item.can_empty:0],1,1,UNAPPROVED
+POOL_OFFICE_TRASH,11,'Dr. Sugar' Soft Drink [hbm:item.can_mrsugar:0],1,2,2,3.8462,Empty Can [hbm:item.can_empty:0],1,1,UNAPPROVED
+POOL_VAULT_RUSTY,1,Heavy Revolver [hbm:item.gun_heavy_revolver:0],1,1,2,13.3333,Scrap [hbm:item.scrap:0],1,3,UNAPPROVED
+POOL_VAULT_RUSTY,3,.22 Submachine Gun [hbm:item.gun_am180:0],1,1,1,6.6667,Steel Plate [hbm:item.plate_steel:0],1,2,UNAPPROVED
+POOL_VAULT_RUSTY,4,Bottle of Nuka Cola Quantum [hbm:item.bottle_quantum:0],1,3,1,6.6667,Empty Can [hbm:item.can_empty:0],1,1,UNAPPROVED
+POOL_VAULT_RUSTY,7,9mm Round (Jacketed Hollow Point) [hbm:item.ammo_standard:22],48,64,2,13.3333,Copper Coil [hbm:item.coil_copper:0],1,2,UNAPPROVED
+POOL_VAULT_RUSTY,10,Grenade [hbm:item.grenade_universal:0],1,1,1,6.6667,Steel Plate [hbm:item.plate_steel:0],1,2,UNAPPROVED
+POOL_VAULT_RUSTY,11,Grenade [hbm:item.grenade_universal:0],1,1,1,6.6667,Copper Coil [hbm:item.coil_copper:0],1,2,UNAPPROVED
+POOL_FILING_CABINET,4,FFI-Brand Cigarette [hbm:item.cigarette:0],1,16,20,3.3841,Cloth [hbm:item.rag:0],1,2,UNAPPROVED
+POOL_FILING_CABINET,7,林 Ink [hbm:item.ink:0],1,1,1,0.1692,Dust [hbm:item.dust:0],1,1,UNAPPROVED
+POOL_VERTIBIRD,5,Break-Action Revolver [hbm:item.gun_light_revolver:0],1,1,4,3.125,Scrap [hbm:item.scrap:0],1,3,UNAPPROVED
+POOL_VERTIBIRD,7,.357 Magnum Round (Full Metal Jacket) [hbm:item.ammo_standard:6],1,24,4,3.125,Copper Coil [hbm:item.coil_copper:0],1,2,UNAPPROVED
+POOL_VERTIBIRD,8,"40mm Grenade, High-Explosive [hbm:item.ammo_standard:53]",1,6,3,2.3438,Steel Plate [hbm:item.plate_steel:0],1,2,UNAPPROVED
+POOL_VERTIBIRD,14,Bottle of Nuka Cola Quantum [hbm:item.bottle_quantum:0],1,1,3,2.3438,Empty Can [hbm:item.can_empty:0],1,1,UNAPPROVED
+POOL_VERTIBIRD,18,Grenade [hbm:item.grenade_universal:0],1,2,2,1.5625,Steel Plate [hbm:item.plate_steel:0],1,2,UNAPPROVED
+POOL_VAULT_LAB,4,Morning Glory [hbm:item.morning_glory:0],1,1,1,1.0638,Empty Cell [hbm:item.cell_empty:0],1,1,UNAPPROVED
+POOL_VAULT_UNBREAKABLE,0,Ammo Container [hbm:item.ammo_container:0],3,6,1,16.6667,Scrap [hbm:item.scrap:0],1,3,UNAPPROVED
+POOL_VAULT_UNBREAKABLE,2,Carbine [hbm:item.gun_carbine:0],1,1,1,16.6667,Steel Plate [hbm:item.plate_steel:0],1,2,UNAPPROVED
+POOL_VAULT_UNBREAKABLE,3,7.62mm Round (Depleted Uranium) [hbm:item.ammo_standard:32],16,32,1,16.6667,Copper Coil [hbm:item.coil_copper:0],1,2,UNAPPROVED
+POOL_VAULT_UNBREAKABLE,4,Congo Lake [hbm:item.gun_congolake:0],1,1,1,16.6667,Steel Plate [hbm:item.plate_steel:0],1,2,UNAPPROVED
+POOL_SUPPLIES,0,MRE [hbm:item.definitelyfood:0],3,10,25,43.1034,Twinkie [hbm:item.twinkie:0],1,2,UNAPPROVED
+POOL_SUPPLIES,1,Stimpak [hbm:item.syringe_metal_stimpak:0],1,3,10,17.2414,Cloth [hbm:item.rag:0],1,2,UNAPPROVED
+POOL_PILE_CAPS,1,Nuka Cola Quantum Bottle Cap [hbm:item.cap_quantum:0],4,4,3,12.5,Nuka Cola Bottle Cap [hbm:item.cap_nuka:0],1,2,UNAPPROVED
+POOL_PILE_CAPS,2,S~Cola Bottle Cap [hbm:item.cap_sparkle:0],4,4,1,4.1667,Nuka Cola Bottle Cap [hbm:item.cap_nuka:0],1,2,UNAPPROVED
+POOL_ANTENNA,18,Bottle of Nuka Cherry [hbm:item.bottle_cherry:0],1,1,2,1.9802,Empty Can [hbm:item.can_empty:0],1,1,UNAPPROVED
+POOL_GENERIC,7,Break-Action Revolver [hbm:item.gun_light_revolver:0],1,1,3,2.521,Scrap [hbm:item.scrap:0],1,3,UNAPPROVED
+POOL_GENERIC,8,.357 Magnum Round (Soft Point) [hbm:item.ammo_standard:5],2,6,4,3.3613,Steel Plate [hbm:item.plate_steel:0],1,2,UNAPPROVED
+POOL_GENERIC,9,12 Gauge Black Powder Buckshot [hbm:item.ammo_standard:41],3,6,3,2.521,Copper Coil [hbm:item.coil_copper:0],1,2,UNAPPROVED
+POOL_GENERIC,12,Lever Action Shotgun [hbm:item.gun_maresleg:0],1,1,1,0.8403,Scrap [hbm:item.scrap:0],1,3,UNAPPROVED
+POOL_GENERIC,21,Bottle of Nuka Cherry [hbm:item.bottle_cherry:0],1,1,2,1.6807,Empty Can [hbm:item.can_empty:0],1,1,UNAPPROVED
+POOL_NUKE_TRASH,6,Bottle of Nuka Cola Quantum [hbm:item.bottle_quantum:0],1,1,1,2.7778,Empty Can [hbm:item.can_empty:0],1,1,UNAPPROVED
+POOL_PILE_HIVE,9,Lever Action Shotgun [hbm:item.gun_maresleg:0],1,1,5,2.5381,Scrap [hbm:item.scrap:0],1,3,UNAPPROVED
+POOL_PILE_HIVE,10,Break-Action Revolver [hbm:item.gun_light_revolver:0],1,1,1,0.5076,Steel Plate [hbm:item.plate_steel:0],1,2,UNAPPROVED
+POOL_PILE_HIVE,11,Grenade [hbm:item.grenade_universal:0],1,2,5,2.5381,Cloth [hbm:item.rag:0],1,2,UNAPPROVED
+POOL_PILE_HIVE,12,Grenade [hbm:item.grenade_universal:0],1,2,3,1.5228,Copper Coil [hbm:item.coil_copper:0],1,2,UNAPPROVED
+POOL_PILE_HIVE,13,12 Gauge Buckshot [hbm:item.ammo_standard:44],4,4,10,5.0761,Steel Plate [hbm:item.plate_steel:0],1,2,UNAPPROVED
+POOL_PILE_HIVE,14,.357 Magnum Round (Soft Point) [hbm:item.ammo_standard:5],6,12,10,5.0761,Scrap [hbm:item.scrap:0],1,3,UNAPPROVED
+POOL_PILE_HIVE,15,"40mm Grenade, High-Explosive [hbm:item.ammo_standard:53]",1,1,2,1.0152,Empty Can [hbm:item.can_empty:0],1,1,UNAPPROVED
+POOL_PILE_HIVE,17,Bottle of Nuka Cola Quantum [hbm:item.bottle_quantum:0],1,2,1,0.5076,Empty Can [hbm:item.can_empty:0],1,1,UNAPPROVED
+POOL_PILE_HIVE,18,MRE [hbm:item.definitelyfood:0],5,12,20,10.1523,Raw Coffee Bean [hbm:item.bean_raw:0],1,2,UNAPPROVED
+POOL_PILE_HIVE,20,Stimpak [hbm:item.syringe_metal_stimpak:0],1,1,5,2.5381,Metal Syringe [hbm:item.syringe_metal_empty:0],1,1,UNAPPROVED
+POOL_PILE_HIVE,21,Blood Bag [hbm:item.iv_blood:0],1,1,10,5.0761,Cloth [hbm:item.rag:0],1,2,UNAPPROVED
+POOL_EXPENSIVE,6,Panzerschreck [hbm:item.gun_panzerschreck:0],1,1,4,4.6512,Steel Plate [hbm:item.plate_steel:0],1,2,UNAPPROVED
+POOL_EXPENSIVE,10,Grenade [hbm:item.grenade_universal:0],1,1,2,2.3256,Copper Coil [hbm:item.coil_copper:0],1,2,UNAPPROVED
+POOL_EXPENSIVE,11,Grenade [hbm:item.grenade_universal:0],1,3,3,3.4884,Steel Plate [hbm:item.plate_steel:0],1,2,UNAPPROVED
+POOL_EXPENSIVE,12,Grenade Extra - Triplex [hbm:item.grenade_extra:3],1,1,1,1.1628,Scrap [hbm:item.scrap:0],1,3,UNAPPROVED
+POOL_EXPENSIVE,15,AWESOME [hbm:item.syringe_awesome:0],1,1,1,1.1628,Metal Syringe [hbm:item.syringe_metal_empty:0],1,1,UNAPPROVED
+POOL_EXPENSIVE,18,Bottle of Nuka Cola Quantum [hbm:item.bottle_quantum:0],1,1,3,3.4884,Empty Can [hbm:item.can_empty:0],1,1,UNAPPROVED
+POOL_EXPENSIVE,28,An Old Classic [hbm:item.gun_double_barrel:0],1,1,1,1.1628,Scrap [hbm:item.scrap:0],1,3,UNAPPROVED
+POOL_VAULT_STANDARD,4,Ammo Container [hbm:item.ammo_container:0],1,1,1,9.0909,Scrap [hbm:item.scrap:0],1,3,UNAPPROVED
+POOL_VAULT_STANDARD,5,Grenade [hbm:item.grenade_universal:0],1,1,1,9.0909,Steel Plate [hbm:item.plate_steel:0],1,2,UNAPPROVED
+POOL_VAULT_STANDARD,6,Grenade [hbm:item.grenade_universal:0],1,6,1,9.0909,Copper Coil [hbm:item.coil_copper:0],1,2,UNAPPROVED
+POOL_VAULT_STANDARD,8,Uzi [hbm:item.gun_uzi:0],1,1,1,9.0909,Steel Plate [hbm:item.plate_steel:0],1,2,UNAPPROVED
+POOL_PILE_OF_GARBAGE,22,Canned Mystery Meat [hbm:item.canned_conserve:2],0,1,5,1.2195,Empty Can [hbm:item.can_empty:0],0,1,UNAPPROVED
+POOL_NUKE_MISC,19,Bottle of Nuka Cola Quantum [hbm:item.bottle_quantum:0],1,1,1,1.4925,Empty Can [hbm:item.can_empty:0],1,1,UNAPPROVED
+POOL_WEAPONS,0,Break-Action Revolver [hbm:item.gun_light_revolver:0],1,1,100,18.8324,Scrap [hbm:item.scrap:0],1,3,UNAPPROVED
+POOL_WEAPONS,1,Lever Action Rifle [hbm:item.gun_henry:0],1,1,100,18.8324,Steel Plate [hbm:item.plate_steel:0],1,2,UNAPPROVED
+POOL_WEAPONS,2,Lever Action Shotgun [hbm:item.gun_maresleg:0],1,1,100,18.8324,Copper Coil [hbm:item.coil_copper:0],1,2,UNAPPROVED
+POOL_WEAPONS,3,Grease Gun [hbm:item.gun_greasegun:0],1,1,100,18.8324,Scrap [hbm:item.scrap:0],1,3,UNAPPROVED
+POOL_WEAPONS,4,Carbine [hbm:item.gun_carbine:0],1,1,50,9.4162,Steel Plate [hbm:item.plate_steel:0],1,2,UNAPPROVED
+POOL_WEAPONS,5,Heavy Revolver [hbm:item.gun_heavy_revolver:0],1,1,50,9.4162,Copper Coil [hbm:item.coil_copper:0],1,2,UNAPPROVED
+POOL_WEAPONS,6,Panzerschreck [hbm:item.gun_panzerschreck:0],1,1,20,3.7665,Scrap [hbm:item.scrap:0],1,3,UNAPPROVED
+POOL_WEAPONS,7,An Old Classic [hbm:item.gun_double_barrel:0],1,1,10,1.8832,Steel Plate [hbm:item.plate_steel:0],1,2,UNAPPROVED
+POOL_WEAPONS,8,N I 4 N I [hbm:item.gun_n_i_4_n_i:0],1,1,1,0.1883,Copper Coil [hbm:item.coil_copper:0],1,2,UNAPPROVED
+POOL_METEORITE_TREASURE,9,MRE [hbm:item.definitelyfood:0],16,32,25,15.9236,Raw Coffee Bean [hbm:item.bean_raw:0],1,2,UNAPPROVED
+POOL_METEORITE_TREASURE,12,Serum [hbm:item.serum:0],1,1,5,3.1847,Cloth [hbm:item.rag:0],1,2,UNAPPROVED
+POOL_METEORITE_TREASURE,13,Heart Piece [hbm:item.heart_piece:0],1,1,5,3.1847,Empty Cell [hbm:item.cell_empty:0],1,1,UNAPPROVED
+POOL_METEORITE_TREASURE,14,Bottle of Scrumpy [hbm:item.scrumpy:0],1,1,5,3.1847,Empty Can [hbm:item.can_empty:0],1,1,UNAPPROVED
+POOL_PILE_MED_PILLS,2,Blood Bag [hbm:item.iv_blood:0],1,1,15,37.5,Cloth [hbm:item.rag:0],1,2,UNAPPROVED
+POOL_SUBMARINE,10,Carbine [hbm:item.gun_carbine:0],1,1,2,3.2787,Steel Plate [hbm:item.plate_steel:0],1,2,UNAPPROVED
+POOL_SUBMARINE,11,7.62mm Round (Full Metal Jacket) [hbm:item.ammo_standard:29],8,32,4,6.5574,Copper Coil [hbm:item.coil_copper:0],1,2,UNAPPROVED
+POOL_VAULT_REINFORCED,5,Ammo Container [hbm:item.ammo_container:0],1,4,1,8.3333,Scrap [hbm:item.scrap:0],1,3,UNAPPROVED
+POOL_VAULT_REINFORCED,6,Grenade [hbm:item.grenade_universal:0],1,2,1,8.3333,Steel Plate [hbm:item.plate_steel:0],1,2,UNAPPROVED
+POOL_VAULT_REINFORCED,7,Grenade [hbm:item.grenade_universal:0],1,1,1,8.3333,Copper Coil [hbm:item.coil_copper:0],1,2,UNAPPROVED
+POOL_VAULT_REINFORCED,9,Heavy Revolver [hbm:item.gun_heavy_revolver:0],1,1,1,8.3333,Steel Plate [hbm:item.plate_steel:0],1,2,UNAPPROVED
+POOL_PILE_GEAR,2,Stylish Flask [hbm:item.canteen_vodka:0],1,1,40,11.7647,Empty Can [hbm:item.can_empty:0],1,1,UNAPPROVED
+POOL_PILE_GEAR,6,Canned Beef [hbm:item.canned_conserve:0],2,5,40,11.7647,Raw Coffee Bean [hbm:item.bean_raw:0],1,2,UNAPPROVED
+POOL_PILE_GEAR,7,Taurun Helmet [hbm:item.taurun_helmet:0],1,1,20,5.8824,Cloth [hbm:item.rag:0],1,2,UNAPPROVED
+POOL_PILE_GEAR,8,Taurun Chestplate [hbm:item.taurun_plate:0],1,1,20,5.8824,Steel Plate [hbm:item.plate_steel:0],1,2,UNAPPROVED
+POOL_PILE_GEAR,9,Taurun Leggings [hbm:item.taurun_legs:0],1,1,20,5.8824,Cloth [hbm:item.rag:0],1,2,UNAPPROVED
+POOL_PILE_GEAR,10,Taurun Boots [hbm:item.taurun_boots:0],1,1,20,5.8824,Steel Plate [hbm:item.plate_steel:0],1,2,UNAPPROVED
+POOL_SODA,1,Bottle of Nuka Cherry [hbm:item.bottle_cherry:0],1,1,5,10.6383,Empty Can [hbm:item.can_empty:0],1,1,UNAPPROVED
+POOL_SODA,2,Bottle of Nuka Cola Quantum [hbm:item.bottle_quantum:0],1,1,1,2.1277,Empty Can [hbm:item.can_empty:0],1,1,UNAPPROVED
+POOL_SODA,3,Bepis [hbm:item.can_bepis:0],1,1,10,21.2766,Empty Can [hbm:item.can_empty:0],1,1,UNAPPROVED
+POOL_SODA,4,Black Mesa Luna - Dark Cola [hbm:item.can_luna:0],1,1,10,21.2766,Empty Can [hbm:item.can_empty:0],1,1,UNAPPROVED
+POOL_SODA,5,MUG Root Beer [hbm:item.can_mug:0],1,1,10,21.2766,Empty Can [hbm:item.can_empty:0],1,1,UNAPPROVED
+POOL_SODA,6,Dr>Breens Private Reserve [hbm:item.can_breen:0],1,1,1,2.1277,Empty Can [hbm:item.can_empty:0],1,1,UNAPPROVED
+POOL_AMMO,0,.357 Magnum Round (Soft Point) [hbm:item.ammo_standard:5],12,12,10,14.4928,Scrap [hbm:item.scrap:0],1,2,UNAPPROVED
+POOL_AMMO,1,.357 Magnum Round (Full Metal Jacket) [hbm:item.ammo_standard:6],6,6,10,14.4928,Steel Plate [hbm:item.plate_steel:0],1,1,UNAPPROVED
+POOL_AMMO,2,.44 Magnum Round (Soft Point) [hbm:item.ammo_standard:11],12,12,5,7.2464,Copper Coil [hbm:item.coil_copper:0],1,1,UNAPPROVED
+POOL_AMMO,3,.44 Magnum Round (Full Metal Jacket) [hbm:item.ammo_standard:12],6,6,5,7.2464,Scrap [hbm:item.scrap:0],1,2,UNAPPROVED
+POOL_AMMO,6,7.62mm Round (Soft Point) [hbm:item.ammo_standard:28],6,6,5,7.2464,Steel Plate [hbm:item.plate_steel:0],1,1,UNAPPROVED
+POOL_AMMO,7,12 Gauge Black Powder Buckshot [hbm:item.ammo_standard:41],6,6,10,14.4928,Copper Coil [hbm:item.coil_copper:0],1,1,UNAPPROVED
+POOL_AMMO,9,Ammo Container [hbm:item.ammo_container:0],1,1,1,1.4493,Scrap [hbm:item.scrap:0],1,2,UNAPPROVED
+POOL_PILE_MED_SYRINGE,0,Stimpak [hbm:item.syringe_metal_stimpak:0],1,1,10,50.0,Metal Syringe [hbm:item.syringe_metal_empty:0],1,1,UNAPPROVED
+POOL_PILE_MED_SYRINGE,1,Med-X [hbm:item.syringe_metal_medx:0],1,1,5,25.0,Metal Syringe [hbm:item.syringe_metal_empty:0],1,1,UNAPPROVED
+POOL_PILE_MED_SYRINGE,2,Psycho [hbm:item.syringe_metal_psycho:0],1,1,5,25.0,Metal Syringe [hbm:item.syringe_metal_empty:0],1,1,UNAPPROVED
+POOL_RED_PEDESTAL,0,Ballistic Gauntlet [hbm:item.ballistic_gauntlet:0],1,1,10,6.25,Vacuum Tube [hbm:item.circuit:0],1,1,UNAPPROVED
+POOL_RED_PEDESTAL,1,ShiningArmor™ Armor Polish [hbm:item.armor_polish:0],1,1,10,6.25,Copper Coil [hbm:item.coil_copper:0],1,1,UNAPPROVED
+POOL_RED_PEDESTAL,2,Velvet Band-Aid [hbm:item.bandaid:0],1,1,10,6.25,Steel Plate [hbm:item.plate_steel:0],1,1,UNAPPROVED
+POOL_RED_PEDESTAL,3,Serum [hbm:item.serum:0],1,1,10,6.25,Vacuum Tube [hbm:item.circuit:0],1,1,UNAPPROVED
+POOL_RED_PEDESTAL,4,Plutonic Quartz [hbm:item.quartz_plutonium:0],1,1,10,6.25,Copper Coil [hbm:item.coil_copper:0],1,1,UNAPPROVED
+POOL_RED_PEDESTAL,5,Morning Glory [hbm:item.morning_glory:0],1,1,10,6.25,Steel Plate [hbm:item.plate_steel:0],1,1,UNAPPROVED
+POOL_RED_PEDESTAL,6,Bottle of Spider Milk [hbm:item.spider_milk:0],1,1,10,6.25,Vacuum Tube [hbm:item.circuit:0],1,1,UNAPPROVED
+POOL_RED_PEDESTAL,7,林 Ink [hbm:item.ink:0],1,1,10,6.25,Copper Coil [hbm:item.coil_copper:0],1,1,UNAPPROVED
+POOL_RED_PEDESTAL,8,Heart Container [hbm:item.heart_container:0],1,1,10,6.25,Steel Plate [hbm:item.plate_steel:0],1,1,UNAPPROVED
+POOL_RED_PEDESTAL,9,Black Diamond [hbm:item.black_diamond:0],1,1,10,6.25,Vacuum Tube [hbm:item.circuit:0],1,1,UNAPPROVED
+POOL_RED_PEDESTAL,10,Bottle of Scrumpy [hbm:item.scrumpy:0],1,1,10,6.25,Copper Coil [hbm:item.coil_copper:0],1,1,UNAPPROVED
+POOL_RED_PEDESTAL,11,Wild Pegasus Dry Whiskey [hbm:item.wild_p:0],1,1,5,3.125,Steel Plate [hbm:item.plate_steel:0],1,1,UNAPPROVED
+POOL_RED_PEDESTAL,14,Starmetal Sword [hbm:item.starmetal_sword:0],1,1,5,3.125,Vacuum Tube [hbm:item.circuit:0],1,1,UNAPPROVED
+POOL_RED_PEDESTAL,16,Health Pipe [hbm:item.crackpipe:0],1,1,5,3.125,Copper Coil [hbm:item.coil_copper:0],1,1,UNAPPROVED
+POOL_RED_PEDESTAL,17,Shield Infusion [hbm:item.flask_infusion:0],1,1,5,3.125,Steel Plate [hbm:item.plate_steel:0],1,1,UNAPPROVED
+POOL_RED_PEDESTAL,20,Hangman [hbm:item.gun_hangman:0],1,1,1,0.625,Vacuum Tube [hbm:item.circuit:0],1,1,UNAPPROVED
+POOL_RED_PEDESTAL,21,South Star [hbm:item.gun_mas36:0],1,1,1,0.625,Copper Coil [hbm:item.coil_copper:0],1,1,UNAPPROVED
+POOL_PILE_MAKESHIFT_GUN,0,Lever Action Shotgun [hbm:item.gun_maresleg:0],1,1,10,100.0,Scrap [hbm:item.scrap:0],1,3,UNAPPROVED
+POOL_PILE_NUKE_STORAGE,2,"Mini Nuke, Tiny Tots [hbm:item.ammo_standard:76]",1,1,10,14.2857,Scrap [hbm:item.scrap:0],1,3,UNAPPROVED
+POOL_VAULT_LOCKERS,13,MRE [hbm:item.definitelyfood:0],2,7,5,6.1728,Raw Coffee Bean [hbm:item.bean_raw:0],1,2,UNAPPROVED
+POOL_VAULT_LOCKERS,14,FFI-Brand Cigarette [hbm:item.cigarette:0],1,8,5,6.1728,Cloth [hbm:item.rag:0],1,2,UNAPPROVED
+POOL_VAULT_LOCKERS,15,ShiningArmor™ Armor Polish [hbm:item.armor_polish:0],1,1,3,3.7037,Steel Plate [hbm:item.plate_steel:0],1,2,UNAPPROVED
+POOL_VAULT_LOCKERS,24,Ammo Container [hbm:item.ammo_container:0],1,1,1,1.2346,Scrap [hbm:item.scrap:0],1,3,UNAPPROVED
+POOL_SNACKS,0,MRE [hbm:item.definitelyfood:0],1,1,10,25.0,Raw Coffee Bean [hbm:item.bean_raw:0],1,2,UNAPPROVED
+POOL_SNACKS,1,Canned Beef [hbm:item.canned_conserve:0],1,1,5,12.5,Raw Coffee Bean [hbm:item.bean_raw:0],1,2,UNAPPROVED
+POOL_SNACKS,2,Astronaut Food Tube [hbm:item.canned_conserve:9],1,1,5,12.5,Raw Coffee Bean [hbm:item.bean_raw:0],1,2,UNAPPROVED
+POOL_SNACKS,4,Ithis-Brand Radium Chocolate [hbm:item.chocolate:0],1,1,10,25.0,Twinkie [hbm:item.twinkie:0],1,1,UNAPPROVED
+POOL_PILE_SUPPLIES,0,Grenade [hbm:item.grenade_universal:0],3,5,10,6.25,Steel Plate [hbm:item.plate_steel:0],1,2,UNAPPROVED
+POOL_PILE_SUPPLIES,1,Grenade [hbm:item.grenade_universal:0],3,5,10,6.25,Copper Coil [hbm:item.coil_copper:0],1,2,UNAPPROVED
+POOL_PILE_SUPPLIES,2,Grenade [hbm:item.grenade_universal:0],3,5,10,6.25,Scrap [hbm:item.scrap:0],1,3,UNAPPROVED
+POOL_PILE_SUPPLIES,3,Stimpak [hbm:item.syringe_metal_stimpak:0],3,5,30,18.75,Metal Syringe [hbm:item.syringe_metal_empty:0],1,1,UNAPPROVED
+POOL_PILE_SUPPLIES,4,Psycho [hbm:item.syringe_metal_psycho:0],3,5,30,18.75,Metal Syringe [hbm:item.syringe_metal_empty:0],1,1,UNAPPROVED
+POOL_PILE_SUPPLIES,6,Ammo Container [hbm:item.ammo_container:0],2,3,40,25.0,Scrap [hbm:item.scrap:0],1,3,UNAPPROVED

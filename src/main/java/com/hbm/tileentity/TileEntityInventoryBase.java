@@ -41,6 +41,7 @@ public abstract class TileEntityInventoryBase extends TileEntity implements ISid
 
 	@Override
 	public void setInventorySlotContents(int i, ItemStack itemStack) {
+		if(com.hbm.config.BanItems.disabled(itemStack)) itemStack = null;
 		slots[i] = itemStack;
 		if(itemStack != null && itemStack.stackSize > getInventoryStackLimit())
 		{
@@ -144,6 +145,7 @@ public abstract class TileEntityInventoryBase extends TileEntity implements ISid
 			if(b0 >= 0 && b0 < slots.length)
 			{
 				slots[b0] = ItemStack.loadItemStackFromNBT(nbt1);
+                if(com.hbm.config.BanItems.disabled(slots[b0])) slots[b0] = null;
 			}
 		}
 

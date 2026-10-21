@@ -1,0 +1,6 @@
+{
+  "correction": "cap means cola bottle cap, not capacitor; no industrial capacitor claim is supported by these six recipes",
+  "gameplay_changes": false,
+  "source": "src/main/java/com/hbm/inventory/recipes/AssemblyMachineRecipes.java",
+  "visual": "/Users/rhysh/.codex/visualizations/2026/10/15/01a1409a-cc15-7232-a380-8141d2695a4f/affected-ntm-recipes.png"
+}

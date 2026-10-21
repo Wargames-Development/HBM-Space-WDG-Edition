@@ -1,0 +1,1622 @@
+[
+  {
+    "identity": {
+      "extra": null,
+      "filling": 0,
+      "fuze": 0,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -306
+        ],
+        "slot": 0
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 0,
+      "filling": 0,
+      "fuze": 0,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -306
+        ],
+        "slot": 1
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 1,
+      "filling": 0,
+      "fuze": 0,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -306
+        ],
+        "slot": 2
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 2,
+      "filling": 0,
+      "fuze": 0,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -306
+        ],
+        "slot": 3
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 3,
+      "filling": 0,
+      "fuze": 0,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -306
+        ],
+        "slot": 4
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": null,
+      "filling": 0,
+      "fuze": 1,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -306
+        ],
+        "slot": 5
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 0,
+      "filling": 0,
+      "fuze": 1,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -306
+        ],
+        "slot": 6
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 1,
+      "filling": 0,
+      "fuze": 1,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -306
+        ],
+        "slot": 7
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 2,
+      "filling": 0,
+      "fuze": 1,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -306
+        ],
+        "slot": 8
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 3,
+      "filling": 0,
+      "fuze": 1,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -306
+        ],
+        "slot": 9
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": null,
+      "filling": 0,
+      "fuze": 2,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -306
+        ],
+        "slot": 10
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 0,
+      "filling": 0,
+      "fuze": 2,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -306
+        ],
+        "slot": 11
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 1,
+      "filling": 0,
+      "fuze": 2,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -306
+        ],
+        "slot": 12
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 2,
+      "filling": 0,
+      "fuze": 2,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -306
+        ],
+        "slot": 13
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 3,
+      "filling": 0,
+      "fuze": 2,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -306
+        ],
+        "slot": 14
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": null,
+      "filling": 0,
+      "fuze": 3,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -306
+        ],
+        "slot": 15
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 0,
+      "filling": 0,
+      "fuze": 3,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -306
+        ],
+        "slot": 16
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 1,
+      "filling": 0,
+      "fuze": 3,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -306
+        ],
+        "slot": 17
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 3,
+      "filling": 0,
+      "fuze": 3,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -306
+        ],
+        "slot": 18
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 2,
+      "filling": 0,
+      "fuze": 3,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -306
+        ],
+        "slot": 19
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": null,
+      "filling": 0,
+      "fuze": 4,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -306
+        ],
+        "slot": 20
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 0,
+      "filling": 0,
+      "fuze": 4,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -306
+        ],
+        "slot": 21
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 1,
+      "filling": 0,
+      "fuze": 4,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -306
+        ],
+        "slot": 22
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 2,
+      "filling": 0,
+      "fuze": 4,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -306
+        ],
+        "slot": 23
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 3,
+      "filling": 0,
+      "fuze": 4,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -306
+        ],
+        "slot": 24
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": null,
+      "filling": 1,
+      "fuze": 0,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -306
+        ],
+        "slot": 25
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 0,
+      "filling": 1,
+      "fuze": 0,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -306
+        ],
+        "slot": 26
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 3,
+      "filling": 2,
+      "fuze": 0,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          5,
+          -306
+        ],
+        "slot": 0
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": null,
+      "filling": 2,
+      "fuze": 1,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          5,
+          -306
+        ],
+        "slot": 1
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 0,
+      "filling": 2,
+      "fuze": 1,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          5,
+          -306
+        ],
+        "slot": 2
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 1,
+      "filling": 2,
+      "fuze": 1,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          5,
+          -306
+        ],
+        "slot": 3
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 2,
+      "filling": 2,
+      "fuze": 1,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          5,
+          -306
+        ],
+        "slot": 4
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 3,
+      "filling": 2,
+      "fuze": 1,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          5,
+          -306
+        ],
+        "slot": 5
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": null,
+      "filling": 2,
+      "fuze": 2,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          5,
+          -306
+        ],
+        "slot": 6
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 0,
+      "filling": 2,
+      "fuze": 2,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          5,
+          -306
+        ],
+        "slot": 7
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 1,
+      "filling": 2,
+      "fuze": 2,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          5,
+          -306
+        ],
+        "slot": 8
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 2,
+      "filling": 2,
+      "fuze": 2,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          5,
+          -306
+        ],
+        "slot": 9
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 3,
+      "filling": 2,
+      "fuze": 2,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          5,
+          -306
+        ],
+        "slot": 10
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": null,
+      "filling": 2,
+      "fuze": 3,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          5,
+          -306
+        ],
+        "slot": 11
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 0,
+      "filling": 2,
+      "fuze": 3,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          5,
+          -306
+        ],
+        "slot": 12
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 1,
+      "filling": 2,
+      "fuze": 3,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          5,
+          -306
+        ],
+        "slot": 13
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 2,
+      "filling": 2,
+      "fuze": 3,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          5,
+          -306
+        ],
+        "slot": 14
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 3,
+      "filling": 2,
+      "fuze": 3,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          5,
+          -306
+        ],
+        "slot": 15
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": null,
+      "filling": 2,
+      "fuze": 4,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          5,
+          -306
+        ],
+        "slot": 16
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 0,
+      "filling": 2,
+      "fuze": 4,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          5,
+          -306
+        ],
+        "slot": 17
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 3,
+      "filling": 3,
+      "fuze": 4,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          5,
+          -306
+        ],
+        "slot": 18
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": null,
+      "filling": 4,
+      "fuze": 0,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          5,
+          -306
+        ],
+        "slot": 19
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 0,
+      "filling": 4,
+      "fuze": 0,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          5,
+          -306
+        ],
+        "slot": 20
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 1,
+      "filling": 4,
+      "fuze": 0,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          5,
+          -306
+        ],
+        "slot": 21
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 2,
+      "filling": 4,
+      "fuze": 0,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          5,
+          -306
+        ],
+        "slot": 22
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 3,
+      "filling": 4,
+      "fuze": 0,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          5,
+          -306
+        ],
+        "slot": 23
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": null,
+      "filling": 4,
+      "fuze": 1,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          5,
+          -306
+        ],
+        "slot": 24
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 0,
+      "filling": 4,
+      "fuze": 1,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          5,
+          -306
+        ],
+        "slot": 25
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 1,
+      "filling": 4,
+      "fuze": 1,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          5,
+          -306
+        ],
+        "slot": 26
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 2,
+      "filling": 4,
+      "fuze": 1,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          5,
+          -305
+        ],
+        "slot": 0
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 3,
+      "filling": 4,
+      "fuze": 1,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          5,
+          -305
+        ],
+        "slot": 1
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": null,
+      "filling": 4,
+      "fuze": 2,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          5,
+          -305
+        ],
+        "slot": 2
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 0,
+      "filling": 4,
+      "fuze": 2,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          5,
+          -305
+        ],
+        "slot": 3
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 1,
+      "filling": 4,
+      "fuze": 2,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          5,
+          -305
+        ],
+        "slot": 4
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 2,
+      "filling": 4,
+      "fuze": 2,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          5,
+          -305
+        ],
+        "slot": 5
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 3,
+      "filling": 4,
+      "fuze": 2,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          5,
+          -305
+        ],
+        "slot": 6
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": null,
+      "filling": 4,
+      "fuze": 3,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          5,
+          -305
+        ],
+        "slot": 7
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 0,
+      "filling": 4,
+      "fuze": 3,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          5,
+          -305
+        ],
+        "slot": 8
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 1,
+      "filling": 1,
+      "fuze": 0,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -305
+        ],
+        "slot": 0
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 2,
+      "filling": 1,
+      "fuze": 0,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -305
+        ],
+        "slot": 1
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 3,
+      "filling": 1,
+      "fuze": 0,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -305
+        ],
+        "slot": 2
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": null,
+      "filling": 1,
+      "fuze": 1,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -305
+        ],
+        "slot": 3
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 0,
+      "filling": 1,
+      "fuze": 1,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -305
+        ],
+        "slot": 4
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 1,
+      "filling": 1,
+      "fuze": 1,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -305
+        ],
+        "slot": 5
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 2,
+      "filling": 1,
+      "fuze": 1,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -305
+        ],
+        "slot": 6
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 3,
+      "filling": 1,
+      "fuze": 1,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -305
+        ],
+        "slot": 7
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": null,
+      "filling": 1,
+      "fuze": 2,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -305
+        ],
+        "slot": 8
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 0,
+      "filling": 1,
+      "fuze": 2,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -305
+        ],
+        "slot": 9
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 1,
+      "filling": 1,
+      "fuze": 2,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -305
+        ],
+        "slot": 10
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 2,
+      "filling": 1,
+      "fuze": 2,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -305
+        ],
+        "slot": 11
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 3,
+      "filling": 1,
+      "fuze": 2,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -305
+        ],
+        "slot": 12
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": null,
+      "filling": 1,
+      "fuze": 3,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -305
+        ],
+        "slot": 13
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 0,
+      "filling": 1,
+      "fuze": 3,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -305
+        ],
+        "slot": 14
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 1,
+      "filling": 1,
+      "fuze": 3,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -305
+        ],
+        "slot": 15
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 2,
+      "filling": 1,
+      "fuze": 3,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -305
+        ],
+        "slot": 16
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 3,
+      "filling": 1,
+      "fuze": 3,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -305
+        ],
+        "slot": 17
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": null,
+      "filling": 1,
+      "fuze": 4,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -305
+        ],
+        "slot": 18
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 0,
+      "filling": 1,
+      "fuze": 4,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -305
+        ],
+        "slot": 19
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 1,
+      "filling": 1,
+      "fuze": 4,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -305
+        ],
+        "slot": 20
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 2,
+      "filling": 1,
+      "fuze": 4,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -305
+        ],
+        "slot": 21
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 3,
+      "filling": 1,
+      "fuze": 4,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -305
+        ],
+        "slot": 22
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": null,
+      "filling": 2,
+      "fuze": 0,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -305
+        ],
+        "slot": 23
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 0,
+      "filling": 2,
+      "fuze": 0,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -305
+        ],
+        "slot": 24
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 1,
+      "filling": 2,
+      "fuze": 0,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -305
+        ],
+        "slot": 25
+      }
+    ]
+  },
+  {
+    "identity": {
+      "extra": 2,
+      "filling": 2,
+      "fuze": 0,
+      "shell": 0
+    },
+    "locations": [
+      {
+        "chest": [
+          -1129,
+          4,
+          -305
+        ],
+        "slot": 26
+      }
+    ]
+  }
+]
