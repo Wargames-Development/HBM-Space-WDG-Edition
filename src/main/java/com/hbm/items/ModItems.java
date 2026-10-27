@@ -7075,7 +7075,7 @@ public class ModItems {
 		GameRegistry.registerItem(jetpack_break, jetpack_break.getUnlocalizedName());
 		com.hbm.config.BanItems.registerItem(jetpack_vector, jetpack_vector.getUnlocalizedName());
 		com.hbm.config.BanItems.registerItem(jetpack_boost, jetpack_boost.getUnlocalizedName());
-		GameRegistry.registerItem(wings_limp, wings_limp.getUnlocalizedName());
+		com.hbm.config.BanItems.registerItem(wings_limp, wings_limp.getUnlocalizedName());
 		com.hbm.config.BanItems.registerItem(wings_murk, wings_murk.getUnlocalizedName());
 		GameRegistry.registerItem(oxy_plss, oxy_plss.getUnlocalizedName());
 

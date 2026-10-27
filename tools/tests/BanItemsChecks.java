@@ -1,4 +1,5 @@
 import com.hbm.config.BanItemsConfig;
+import com.hbm.config.BanItems;
 import com.hbm.entity.mob.*;
 import com.hbm.entity.mob.botprime.*;
 import net.minecraft.entity.Entity;
@@ -31,6 +32,24 @@ public class BanItemsChecks {
         try {
             Configuration config = new Configuration(path);
             BanItemsConfig.loadFromConfig(config);
+            check(!BanItems.disabledName("hbm:item.wings_limp"), "optional wings remain enabled by default");
+            check(BanItems.supportedRegistrationNames().contains("hbm:item.wings_limp"), "optional hook appears in supported catalogue");
+            String[] initialNames = config.get("wdg_banitems", "disabledRegistrations", new String[0]).getStringList();
+            String[] withWings = java.util.Arrays.copyOf(initialNames, initialNames.length + 1);
+            withWings[initialNames.length] = "hbm:item.wings_limp";
+            config.get("wdg_banitems", "disabledRegistrations", initialNames).set(withWings);
+            BanItems.load(config);
+            check(BanItems.disabledName("hbm:item.wings_limp"), "adding supported optional name disables it");
+            config.get("wdg_banitems", "disabledRegistrations", initialNames).set(initialNames);
+            BanItems.load(config);
+            check(!BanItems.disabledName("hbm:item.wings_limp"), "removing optional name restores policy");
+            config.get("wdg_banitems", "disabledRegistrations", initialNames).set(new String[]{"hbm:item.unreviewed_example"});
+            boolean rejected = false;
+            try { BanItems.load(config); }
+            catch(IllegalArgumentException expected) { rejected = expected.getMessage().contains("Remove this entry") && expected.getMessage().contains("no audited removal hook"); }
+            check(rejected, "unsupported names produce actionable startup error");
+            config.get("wdg_banitems", "disabledRegistrations", initialNames).set(initialNames);
+            BanItems.load(config);
             check(BanItemsConfig.disableSelectedBosses, "boss suppression default");
             check(BanItemsConfig.disableSelectedBossRewards, "reward suppression default");
             check(BanItemsConfig.disableSmeltingBonusItems, "bonus suppression default");

@@ -17,7 +17,7 @@ with tempfile.TemporaryDirectory(prefix="hbm-integration-") as directory:
     classpath = work / "classpath.txt"
     init = work / "test.init.gradle"
     init.write_text("allprojects { afterEvaluate { task writeCompatibilityClasspath { doLast { new File(" + repr(str(classpath)) + ").text = sourceSets.main.runtimeClasspath.asPath } } } }")
-    subprocess.run([str(root / "gradlew"), "compileJava", "writeCompatibilityClasspath", "--offline", "--no-daemon", "--init-script", str(init)], cwd=root, check=True)
+    subprocess.run([str(root / "gradlew"), "classes", "writeCompatibilityClasspath", "--offline", "--no-daemon", "--init-script", str(init)], cwd=root, check=True)
     cp = classpath.read_text()
     subprocess.run([str(java / "javac"), "-cp", cp, "-d", str(work), str(root / "tools/tests/BanItemsChecks.java")], check=True)
     (work / "logs").mkdir()

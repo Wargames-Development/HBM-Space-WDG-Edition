@@ -17,13 +17,18 @@ with tempfile.TemporaryDirectory(prefix='hbm-banitems-lifecycle-') as temporary:
  subprocess.run([str(java/'javac'),'-cp',cp,'-d',str(classes),str(r/'tools/tests/BanItemsLifecycleChecks.java')],check=True)
  jar=work/'banitems-checks.jar';subprocess.run([str(java/'jar'),'cf',str(jar),'-C',str(classes),'.'],check=True)
  results=[]
- for enabled in (True,False):
-  world=work/('enabled' if enabled else 'disabled');world.mkdir();(world/'mods').mkdir();shutil.copy2(jar,world/'mods'/jar.name)
+ for mode, enabled, optional in [("enabled",True,False),("disabled",False,False),("optional",True,True)]:
+  world=work/mode;world.mkdir();(world/'mods').mkdir();shutil.copy2(jar,world/'mods'/jar.name)
   (world/'eula.txt').write_text('eula=true\n')
   (world/'server.properties').write_text('server-ip=127.0.0.1\nserver-port=0\nonline-mode=false\nlevel-type=FLAT\ngenerate-structures=false\nspawn-monsters=false\nspawn-animals=false\nspawn-npcs=false\nview-distance=2\n')
   for name in ['banned-players.json','banned-ips.json','ops.json','whitelist.json']:(world/name).write_text('[]')
   if not enabled:
    (world/'config').mkdir();(world/'config/hbm.cfg').write_text('wdg_banitems {\n B:enableItemProfile=false\n}\n')
+  if optional:
+   (world/'config').mkdir(exist_ok=True)
+   defaults=json.loads((r/'src/main/resources/assets/hbm/banitems-default.json').read_text())['disabled']
+   (world/'config/hbm.cfg').write_text('wdg_banitems {\n B:enableItemProfile=true\n S:disabledRegistrations <\n'+'\n'.join('  '+name for name in defaults+['hbm:item.wings_limp'])+'\n >\n}\n')
+   (world/'expect-wings-limp-disabled').write_text('test fixture\n')
   audit=r/'docs/banitems-audit-2026-10-20'
   shutil.copy2(audit/'unselected-variants-KEEP.csv',world/'keep-variants.csv');shutil.copy2(audit/'loot-pool-summary.csv',world/'pool-baseline.csv')
   log=world/'console.log'
@@ -37,12 +42,12 @@ with tempfile.TemporaryDirectory(prefix='hbm-banitems-lifecycle-') as temporary:
     raise RuntimeError('Lifecycle check timed out; log tail:\n'+log.read_text()[-14000:])
   result=world/'banitems-check-result.txt';result_text=result.read_text() if result.exists() else 'FAIL: no lifecycle marker'
   archive=r/'build/banitems-tests';archive.mkdir(exist_ok=True)
-  shutil.copy2(log,archive/('enabled.log' if enabled else 'disabled.log'))
-  if (world/'loot-audit.json').exists():shutil.copy2(world/'loot-audit.json',archive/('loot-audit-enabled.json' if enabled else 'loot-audit-disabled.json'))
+  shutil.copy2(log,archive/(mode+'.log'))
+  if (world/'loot-audit.json').exists():shutil.copy2(world/'loot-audit.json',archive/('loot-audit-'+mode+'.json'))
   if code!=0 or not result_text.startswith('PASS:'):raise RuntimeError(result_text+'; exit='+str(code)+'\n'+log.read_text()[-16000:])
   if 'Error while writing recipes' in log.read_text() or 'A broken ore dictionary registration' in log.read_text():raise RuntimeError('Recipe or ore registration errors; see '+str(archive))
   for folder in ['hbmRecipes','hbmConfig']:
-   target=archive/('enabled' if enabled else 'disabled')/folder
+   target=archive/mode/folder
    if target.exists():shutil.rmtree(target)
    shutil.copytree(world/'config'/folder,target)
   print(result_text,flush=True);results.append(result_text)

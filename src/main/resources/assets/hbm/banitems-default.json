@@ -1,5 +1,8 @@
 {
   "schema": 1,
+  "optionalRegistrations": [
+    "hbm:item.wings_limp"
+  ],
   "disabled": [
     "hbm:item.ammo_bag",
     "hbm:item.ammo_bag_infinite",

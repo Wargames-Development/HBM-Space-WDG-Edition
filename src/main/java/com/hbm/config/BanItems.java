@@ -17,6 +17,9 @@ public final class BanItems {
     public static boolean enabled = true;
     private static final Set<String> names = new HashSet<String>();
     private static final Set<String> defaultNames = new HashSet<String>();
+    // Supported hooks are deliberately independent of which items are disabled by default.
+    private static final Set<String> supportedNames = new HashSet<String>();
+    private static final Set<String> optionalNames = new TreeSet<String>();
     private static final List<String> defaultMetadata = new ArrayList<String>();
     private static final Map<Block, String> internalBlocks = new IdentityHashMap<Block, String>();
     private static final Map<String, Set<Integer>> metas = new HashMap<String, Set<Integer>>();
@@ -26,19 +29,29 @@ public final class BanItems {
         try(InputStreamReader reader = new InputStreamReader(BanItems.class.getResourceAsStream("/assets/hbm/banitems-default.json"), "UTF-8")) {
             JsonObject defaults = new JsonParser().parse(reader).getAsJsonObject();
             for(JsonElement e : defaults.getAsJsonArray("disabled")) { names.add(e.getAsString()); defaultNames.add(e.getAsString()); }
+            supportedNames.addAll(defaultNames);
+            if(defaults.has("optionalRegistrations")) for(JsonElement e : defaults.getAsJsonArray("optionalRegistrations")) {
+                String name = e.getAsString(); validateName(name);
+                if(!optionalNames.add(name) || defaultNames.contains(name))
+                    throw new IllegalArgumentException("Duplicate optional BanItems hook: " + name);
+                supportedNames.add(name);
+            }
             for(JsonElement e : defaults.getAsJsonArray("metadata")) { addMeta(e.getAsString()); defaultMetadata.add(e.getAsString()); }
         } catch(Exception e) { throw new ExceptionInInitializerError(e); }
     }
     public static void load(Configuration config) {
         enabled = config.get("wdg_banitems", "enableItemProfile", true,
-            "Startup-only BanItems registry/metadata policy. Match this on server and clients. Restore removed names and restart to re-enable content; back up saves before changing registrations.").getBoolean(true);
+            "Startup-only BanItems registry/metadata policy. Match this on server and clients. Remove individual names from disabledRegistrations and restart to re-enable their registrations. Deleting the category/file regenerates the default bans; use false to disable this item profile. Back up saves before changing registrations.").getBoolean(true);
         String[] defaults = defaultNames.toArray(new String[0]); Arrays.sort(defaults);
         String[] configured = config.get("wdg_banitems", "disabledRegistrations", defaults,
-            "Exact hbm registry names. Removing a name restores its registration on next launch. Block names suppress both Block and ItemBlock registration.").getStringList();
+            "Exact audit-supported hbm registry names only. Removing a name restores registration on next launch (it does not restore already deleted world contents). Block names suppress Block and ItemBlock registration. Additional supported opt-in names, enabled by default: " + optionalNames + ". Other names require a code hook and dependency audit before use.").getStringList();
         names.clear();
         for(String name : configured) {
             validateName(name);
-            if(!defaultNames.contains(name)) throw new IllegalArgumentException("Name outside curated BanItems registration hooks: " + name);
+            if(!supportedNames.contains(name)) throw new IllegalArgumentException(
+                "Unsupported BanItems registration: " + name + ". Remove this entry from wdg_banitems.disabledRegistrations to start. "
+                + "This name has no audited removal hook in this build; adding a registry name alone cannot safely unregister it. "
+                + "Additional supported opt-in names: " + optionalNames);
             names.add(name);
         }
         List<String> selected = new ArrayList<String>(defaultMetadata);
@@ -54,6 +67,10 @@ public final class BanItems {
             if(!supported) throw new IllegalArgumentException("Name outside audited metadata hooks: " + entry);
             addMeta(entry);
         }
+    }
+    /** Immutable catalogue for config tooling; membership does not disable an item. */
+    public static Set<String> supportedRegistrationNames() {
+        return Collections.unmodifiableSet(new TreeSet<String>(supportedNames));
     }
     private static void validateName(String name) {
         if(!name.matches("hbm:(item|tile)\\.[a-zA-Z0-9_]+")) throw new IllegalArgumentException("Invalid BanItems name: " + name);

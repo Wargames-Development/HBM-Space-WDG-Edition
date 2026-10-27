@@ -72,6 +72,15 @@ public class BanItemsLifecycleChecks {
             } else check(item != null, "shared parent remains " + parts[0]);
             check(BanItems.disabled(new ItemStack(item, 1, Integer.parseInt(parts[1]))) == BanItems.enabled, "selected exact metadata " + element);
         }
+        boolean wingsDisabled = BanItems.enabled && Files.exists(Paths.get("expect-wings-limp-disabled"));
+        check(BanItems.supportedRegistrationNames().contains("hbm:item.wings_limp"), "optional wings supported independently of defaults");
+        check(Item.itemRegistry.containsKey("hbm:item.wings_limp") != wingsDisabled, "optional wings actual registration follows selected config");
+        check(BanItems.disabled(new ItemStack(ModItems.wings_limp)) == wingsDisabled, "optional unregistered object retains disabled identity");
+        boolean wingsRecipe = false;
+        for(com.hbm.inventory.recipes.anvil.AnvilRecipes.AnvilConstructionRecipe recipe : com.hbm.inventory.recipes.anvil.AnvilRecipes.constructionRecipes)
+            for(com.hbm.inventory.recipes.anvil.AnvilRecipes.AnvilOutput output : recipe.output)
+                if(output.stack != null && output.stack.getItem() == ModItems.wings_limp) wingsRecipe = true;
+        check(wingsRecipe != wingsDisabled, "optional wings construction recipe removed and restored with registration");
         int retained = 0;
         for(String line : Files.readAllLines(Paths.get("keep-variants.csv"))) {
             if(line.startsWith("registry,") || line.trim().isEmpty()) continue;
