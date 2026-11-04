@@ -460,7 +460,7 @@ public abstract class EntityMissileBaseNT extends EntityThrowableInterp implemen
 			double impactX = mop.hitVec != null ? mop.hitVec.xCoord : mop.blockX + 0.5D;
 			double impactY = mop.hitVec != null ? mop.hitVec.yCoord : mop.blockY + 0.5D;
 			double impactZ = mop.hitVec != null ? mop.hitVec.zCoord : mop.blockZ + 0.5D;
-			if(this.canDetonateAt(impactX, impactY, impactZ)) this.onMissileImpact(mop);
+			if(this.canDetonateAt(impactX, impactY, impactZ)) com.hbm.lib.CombatDamageSource.impact(this, mop);
 			this.setDead();
 		}
 	}

@@ -281,7 +281,7 @@ public class ExplosionNT extends Explosion {
 						double d10 = (double)this.worldObj.getBlockDensity(vec3, entity.boundingBox);
 						double d11 = (1.0D - d4) * d10;
 
-						entity.attackEntityFrom(setExplosionSource(this), (float)((int)((d11 * d11 + d11) / 2.0D * 8.0D * (double)this.explosionSize + 1.0D)));
+						entity.attackEntityFrom(com.hbm.lib.CombatDamageSource.enrich(setExplosionSource(this), this.exploder, this.ownerParty, this.worldObj), (float)((int)((d11 * d11 + d11) / 2.0D * 8.0D * (double)this.explosionSize + 1.0D)));
 						double d8 = EnchantmentProtection.func_92092_a(entity, d11);
 						entity.motionX += currentX * d8;
 						entity.motionY += currentY * d8;

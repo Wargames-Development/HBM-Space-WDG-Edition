@@ -73,7 +73,7 @@ public class EntityNukeExplosionMK5 extends EntityExplosionChunkloading {
 			radiate(2_500_000F / (this.ticksExisted * 5 + 1), this.length * 2);
 		}
 
-		ExplosionNukeGeneric.dealDamage(ownedParty, this.worldObj, this.posX, this.posY, this.posZ, this.length * 2);
+		ExplosionNukeGeneric.dealDamage(ownedParty, this.worldObj, this.posX, this.posY, this.posZ, this.length * 2, 250F, this);
 
 		if (explosion == null) {
 			explosionStart = System.currentTimeMillis();
@@ -187,6 +187,7 @@ public class EntityNukeExplosionMK5 extends EntityExplosionChunkloading {
 		mk5.setPosition(x, y, z);
 		mk5.length = mk5.strength / 2;
 		mk5.ownedParty = party;
+        com.hbm.lib.CombatDamageSource.capture(mk5, party);
 		mk5.loadChunk((int) Math.floor(x / 16D), (int) Math.floor(z / 16D));
 		return mk5;
 	}

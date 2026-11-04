@@ -74,6 +74,10 @@ public class ExplosionNukeGeneric {
 	}
 
 	public static void dealDamage(UUID party, World world, double x, double y, double z, double radius, float maxDamage) {
+        dealDamage(party, world, x, y, z, radius, maxDamage, null);
+    }
+    public static void dealDamage(UUID party, World world, double x, double y, double z, double radius, float maxDamage, Entity source) {
+        net.minecraft.util.DamageSource damageSource = com.hbm.lib.CombatDamageSource.enrich(ModDamageSource.nuclearBlast, source, party, world);
 		List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(null,
 			AxisAlignedBB.getBoundingBox(x, y, z, x, y, z).expand(radius, radius, radius));
 
@@ -90,12 +94,13 @@ public class ExplosionNukeGeneric {
 					double damage = maxDamage * (radius - dist) / radius;
 					if(e instanceof EntityLivingBase && e.isEntityAlive()) {
 						EntityLivingBase living = (EntityLivingBase) e;
-						doKnockback = EntityDamageUtil.attackEntityFromNT(living, ModDamageSource.nuclearBlast, (float) damage, true, true, 0, 100F, 0);
-						if(!e.isEntityAlive()) ConfettiUtil.decideConfetti(living, ModDamageSource.nuclearBlast);
+						doKnockback = EntityDamageUtil.attackEntityFromNT(living, damageSource, (float) damage, true, true, 0, 100F, 0);
+						if(!e.isEntityAlive()) ConfettiUtil.decideConfetti(living, damageSource);
 					} else {
-						e.attackEntityFrom(ModDamageSource.nuclearBlast, (float) damage);
+						e.attackEntityFrom(damageSource, (float) damage);
 					}
 					e.setFire(5);
+                    com.hbm.lib.CombatDamageSource.ignite(e, damageSource.getSourceOfDamage(), 5);
 
 					if(doKnockback) {
 						double knockX = e.posX - x, knockY = e.posY + e.getEyeHeight() - y, knockZ = e.posZ - z;

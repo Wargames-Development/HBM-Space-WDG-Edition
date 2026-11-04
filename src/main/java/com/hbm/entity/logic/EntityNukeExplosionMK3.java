@@ -200,7 +200,7 @@ public class EntityNukeExplosionMK3 extends EntityExplosionChunkloading {
 			this.worldObj.playSoundEffect(this.posX, this.posY, this.posZ, "ambient.weather.thunder", 10000.0F, 0.8F + this.rand.nextFloat() * 0.2F);
 
 	if(waste || extType != 1) {
-		ExplosionNukeGeneric.dealDamage(ownedParty,this.worldObj, this.posX, this.posY, this.posZ, this.destructionRange * 2);
+		ExplosionNukeGeneric.dealDamage(ownedParty,this.worldObj, this.posX, this.posY, this.posZ, this.destructionRange * 2, 250F, this);
 	} else {
 				ExplosionHurtUtil.doRadiation(ownedParty, worldObj, posX, posY, posZ, 15000F, 250000F, this.destructionRange);
 	}
@@ -234,6 +234,7 @@ public class EntityNukeExplosionMK3 extends EntityExplosionChunkloading {
 
 		EntityNukeExplosionMK3 entity = new EntityNukeExplosionMK3(world);
 		entity.ownedParty = ownerParty;
+        com.hbm.lib.CombatDamageSource.capture(entity, ownerParty);
 		entity.posX = x;
 		entity.posY = y;
 		entity.posZ = z;

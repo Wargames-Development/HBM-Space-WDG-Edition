@@ -40,7 +40,7 @@ public class EntityProcessorCrossSmooth extends EntityProcessorCross {
 
 
 		if(source.exploder == entity) amount *= 0.5F;
-		DamageSource dmg = BulletConfig.getDamage(null, source.exploder instanceof EntityLivingBase ? (EntityLivingBase) source.exploder : null, clazz);
+		DamageSource dmg = com.hbm.lib.CombatDamageSource.enrich(BulletConfig.getDamage(null, source.exploder instanceof EntityLivingBase ? (EntityLivingBase) source.exploder : null, clazz), source.exploder, source.getOwnerParty(), entity.worldObj);
 		if(!(entity instanceof EntityLivingBase)) {
 			entity.attackEntityFrom(dmg, amount);
 		} else {

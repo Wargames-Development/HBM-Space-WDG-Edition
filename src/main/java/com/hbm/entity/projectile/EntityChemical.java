@@ -174,7 +174,8 @@ public class EntityChemical extends EntityThrowableNT {
 			EntityDamageUtil.attackEntityFromIgnoreIFrame(e, getDamage(ModDamageSource.s_boil), Math.min(0.25F + (type.temperature - 100) * 0.001F, 15F)); //.25 damage at 100°C with one extra damage every 1000°C
 
 			if(type.temperature >= 500) {
-				e.setFire(10); //afterburn for 10 seconds
+				e.setFire(10);
+			com.hbm.lib.CombatDamageSource.ignite(e, this, 10); //afterburn for 10 seconds
 			}
 		}
 
@@ -215,6 +216,7 @@ public class EntityChemical extends EntityThrowableNT {
 			FT_Combustible trait = type.getTrait(FT_Combustible.class);
 			EntityDamageUtil.attackEntityFromIgnoreIFrame(e, getDamage(ModDamageSource.s_flamethrower), 0.2F + (trait != null ? (Math.min(trait.getCombustionEnergy() / 100_000F, 15F)) : 0));
 			e.setFire(5);
+			com.hbm.lib.CombatDamageSource.ignite(e, this, 5);
 		}
 
 		if(style == ChemicalStyle.GASFLAME) {
@@ -225,6 +227,7 @@ public class EntityChemical extends EntityThrowableNT {
 			heat *= intensity;
 			EntityDamageUtil.attackEntityFromIgnoreIFrame(e, getDamage(ModDamageSource.s_flamethrower), (0.2F + heat) * (float) intensity);
 			e.setFire((int) Math.ceil(5 * intensity));
+			com.hbm.lib.CombatDamageSource.ignite(e, this, (int) Math.ceil(5 * intensity));
 		}
 
 		if(type.hasTrait(FT_Corrosive.class)) {

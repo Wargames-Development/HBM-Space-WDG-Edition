@@ -97,10 +97,10 @@ public abstract class EntityMissileTier3 extends EntityMissileBaseNT {
 				ExplosionChaos.cluster(ownerParty, this.worldObj, this.posX, this.posY, this.posZ, 100, this.rotationYaw, this.rotationPitch, (float) Math.PI * 0.25F, (float) Math.PI * 0.25F, 1F);
 			}
 		}
-		@Override public void cluster() { this.onMissileImpact(null); }
+		@Override public void cluster() { com.hbm.lib.CombatDamageSource.impact(this, null); }
 		@Override public void airburstCheck(Vec3 pos, Vec3 nextPos){
 			if(checkForAirburst(pos, nextPos, DETHEIGHT)) {
-				this.onMissileImpact(null);
+				com.hbm.lib.CombatDamageSource.impact(this, null);
 			}
 		}
 		@Override public ItemStack getDebrisRareDrop() { return new ItemStack(ModItems.warhead_cluster_large); }

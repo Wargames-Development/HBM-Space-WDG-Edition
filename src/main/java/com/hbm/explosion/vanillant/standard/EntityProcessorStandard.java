@@ -73,7 +73,7 @@ public class EntityProcessorStandard implements IEntityProcessor {
 					double density = world.getBlockDensity(vec3, entity.boundingBox);
 					double knockback = (1.0D - distanceScaled) * density;
 					if(!(entity instanceof EntityPlayer && !Integrations.canHarmPlayerWGC(party,entity.getUniqueID(),world)) ) {
-						entity.attackEntityFrom(setExplosionSource(explosion.compat), calculateDamage(distanceScaled, density, knockback, size));
+						entity.attackEntityFrom(com.hbm.lib.CombatDamageSource.enrich(setExplosionSource(explosion.compat), explosion.exploder, explosion.getOwnerParty(), world), calculateDamage(distanceScaled, density, knockback, size));
 					}
 
 					double enchKnockback = EnchantmentProtection.func_92092_a(entity, knockback);

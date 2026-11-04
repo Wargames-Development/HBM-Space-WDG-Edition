@@ -170,7 +170,7 @@ public class EntityProcessorCross implements IEntityProcessor {
 	}
 
 	public void attackEntity(Entity entity, ExplosionVNT source, float amount) {
-		entity.attackEntityFrom(setExplosionSource(source.compat), amount);
+		entity.attackEntityFrom(com.hbm.lib.CombatDamageSource.enrich(setExplosionSource(source.compat), source.exploder, source.getOwnerParty(), entity.worldObj), amount);
 	}
 
 	public float calculateDamage(double distanceScaled, double density, double knockback, float size) {

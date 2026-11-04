@@ -413,6 +413,7 @@ public class EntityBulletBaseNT extends EntityThrowableInterp implements IBullet
 
 		if(config.incendiary > 0 && !worldObj.isRemote) {
 			e.setFire(config.incendiary);
+			com.hbm.lib.CombatDamageSource.ignite(e, this, config.incendiary);
 		}
 
 		if(config.leadChance > 0 && !worldObj.isRemote && worldObj.rand.nextInt(100) < config.leadChance && e instanceof EntityLivingBase) {
