@@ -1,5 +1,6 @@
 package com.hbm.entity.particle;
 
+import api.hbm.wgc.Integrations;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.explosion.ExplosionChaos;
 
@@ -46,14 +47,15 @@ public class EntityPinkCloudFX extends EntityModFX {
 			maxAge = rand.nextInt(301) + 900;
 		}
 
-		if (!worldObj.isRemote && rand.nextInt(50) == 0)
-			ExplosionChaos.pc(owner,worldObj, (int) posX, (int) posY, (int) posZ, 2);
-
 		this.particleAge++;
 
 		if (this.particleAge >= maxAge) {
 			this.setDead();
+			return;
 		}
+
+		if (!worldObj.isRemote && rand.nextInt(50) == 0)
+			ExplosionChaos.pc(owner,worldObj, posX, posY, posZ, 2);
 
 		this.motionX *= 0.7599999785423279D;
 		this.motionY *= 0.7599999785423279D;
@@ -76,13 +78,20 @@ public class EntityPinkCloudFX extends EntityModFX {
 			this.posY += this.motionY/subdivisions;
 			this.posZ += this.motionZ/subdivisions;
 
-			if(worldObj.getBlock((int) posX, (int) posY, (int) posZ) == ModBlocks.radiorec) {
+			int x = MathHelper.floor_double(posX);
+			int y = MathHelper.floor_double(posY);
+			int z = MathHelper.floor_double(posZ);
+
+			if(worldObj.getBlock(x, y, z) == ModBlocks.radiorec) {
 				this.setDead();
-				int meta = worldObj.getBlockMetadata((int) posX, (int) posY, (int) posZ);
-				if(!com.hbm.config.BanItems.disabled(ModBlocks.broadcaster_pc)) worldObj.setBlock((int) posX, (int) posY, (int) posZ, ModBlocks.broadcaster_pc, meta, 2);
+				if(!worldObj.isRemote && Integrations.canContaminateBlockWGC(owner, worldObj, x, z)) {
+					int meta = worldObj.getBlockMetadata(x, y, z);
+					if(!com.hbm.config.BanItems.disabled(ModBlocks.broadcaster_pc)) worldObj.setBlock(x, y, z, ModBlocks.broadcaster_pc, meta, 2);
+				}
+				return;
 			}
 
-			if (worldObj.getBlock((int) posX, (int) posY, (int) posZ).isNormalCube()) {
+			if (worldObj.getBlock(x, y, z).isNormalCube()) {
 
 				if(rand.nextInt(5) != 0)
 					this.setDead();

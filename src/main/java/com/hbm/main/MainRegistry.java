@@ -256,6 +256,7 @@ public class MainRegistry {
 
 		startupTime = System.currentTimeMillis();
 		configDir = PreEvent.getModConfigurationDirectory();
+        com.hbm.util.NaturalHazardCertification.configure(new File(configDir, "hbm-natural-sources.json"));
 		configHbmDir = new File(configDir.getAbsolutePath() + File.separatorChar + "hbmConfig");
 
 		if(!configHbmDir.exists()) configHbmDir.mkdir();
@@ -741,6 +742,7 @@ public class MainRegistry {
 		event.registerServerCommand(new CommandDebugChunkLoad());
 		event.registerServerCommand(new CommandSatellites());
 		event.registerServerCommand(new CommandRadiation());
+        event.registerServerCommand(new com.hbm.commands.CommandNaturalHazard());
 		event.registerServerCommand(new CommandNTM());
 		event.registerServerCommand(new CommandPacketInfo());
 		event.registerServerCommand(new CommandReloadServer());

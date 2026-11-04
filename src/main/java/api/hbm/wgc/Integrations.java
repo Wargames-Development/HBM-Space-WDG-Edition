@@ -206,6 +206,18 @@ public final class Integrations {
         return backend().getPlayerFaction(world, player);
     }
 
+    public static boolean canNaturalHazardAffectWGC(World world, int sourceX, int sourceZ,
+            int targetX, int targetZ, String effect) {
+        if(world == null || world.isRemote) return false;
+        if(!isWGCoreActive()) return true;
+        try {
+            Class<?> access = Class.forName(WGCORE_API_CLASS, true, Integrations.class.getClassLoader());
+            return Boolean.TRUE.equals(access.getMethod("canNaturalHazardAffect", World.class,
+                    Integer.TYPE,Integer.TYPE,Integer.TYPE,Integer.TYPE,String.class)
+                    .invoke(null,world,sourceX,sourceZ,targetX,targetZ,effect));
+        } catch(ReflectiveOperationException | LinkageError error) { return false; }
+    }
+
     public static boolean isWGCoreActive() {
         return backend() instanceof WGCoreIntegrationBackend;
     }

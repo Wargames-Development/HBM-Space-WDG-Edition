@@ -204,9 +204,17 @@ public class ExplosionChaos { //TODO: destroy this entire class
 	public static void poison(World world, double x, double y, double z, double range) { poison(null, world, x, y, z, range); }
 
 	public static void poison(UUID ownerParty, World world, double x, double y, double z, double range) {
+        poison(null,ownerParty,world,x,y,z,range);
+    }
+
+    public static void poison(com.hbm.util.NaturalHazardSource naturalSource, UUID ownerParty,
+            World world, double x, double y, double z, double range) {
+		if(world.isRemote) return;
 		List<EntityLivingBase> affected = world.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(x - range, y - range, z - range, x + range, y + range, z + range));
 		for(EntityLivingBase entity : affected) {
-			if(entity instanceof EntityPlayer && !Integrations.canHarmPlayerWGC(ownerParty, entity.getUniqueID(), world)) continue;
+			if(ownerParty == null && naturalSource != null) {
+                if(!naturalSource.canAffect(world,MathHelper.floor_double(entity.posX),MathHelper.floor_double(entity.posZ),"DAMAGE")) continue;
+            } else if(entity instanceof EntityPlayer && !Integrations.canHarmPlayerWGC(ownerParty, entity.getUniqueID(), world)) continue;
 			if(entity.getDistance(x, y, z) > range) continue;
 			if(ArmorRegistry.hasAnyProtection(entity, 3, HazardClass.GAS_LUNG, HazardClass.GAS_BLISTERING)) ArmorUtil.damageGasMaskFilter(entity, 1);
 			else {
@@ -222,6 +230,7 @@ public class ExplosionChaos { //TODO: destroy this entire class
 	public static void pc(World world, double x, double y, double z, double range) { pc(null, world, x, y, z, range); }
 
 	public static void pc(UUID ownerParty, World world, double x, double y, double z, double range) {
+		if(world.isRemote) return;
 		List<EntityLivingBase> affected = world.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(x - range, y - range, z - range, x + range, y + range, z + range));
 		for(EntityLivingBase entity : affected) {
 			if(entity instanceof EntityPlayer && !Integrations.canHarmPlayerWGC(ownerParty, entity.getUniqueID(), world)) continue;
@@ -234,6 +243,7 @@ public class ExplosionChaos { //TODO: destroy this entire class
 	public static void c(World world, double x, double y, double z, double range) { c(null, world, x, y, z, range); }
 
 	public static void c(UUID ownerParty, World world, double x, double y, double z, double range) {
+		if(world.isRemote) return;
 		List<EntityLivingBase> affected = world.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(x - range, y - range, z - range, x + range, y + range, z + range));
 		for(EntityLivingBase entity : affected) {
 			if(entity instanceof EntityPlayer && !Integrations.canHarmPlayerWGC(ownerParty, entity.getUniqueID(), world)) continue;

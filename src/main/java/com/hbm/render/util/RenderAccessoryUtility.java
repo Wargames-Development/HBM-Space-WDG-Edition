@@ -1,5 +1,8 @@
 package com.hbm.render.util;
 
+import java.util.Map;
+import java.util.WeakHashMap;
+
 import com.hbm.lib.RefStrings;
 import com.hbm.main.MainRegistry;
 import com.hbm.render.model.ModelArmorTailPeep;
@@ -7,6 +10,9 @@ import com.hbm.render.model.ModelArmorWings;
 import com.hbm.render.model.ModelArmorWingsPheo;
 import com.hbm.util.ShadyUtil;
 
+import com.mojang.authlib.minecraft.MinecraftProfileTexture.Type;
+
+import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.entity.player.EntityPlayer;
@@ -48,6 +54,36 @@ public class RenderAccessoryUtility {
 	private static ResourceLocation rock = new ResourceLocation(RefStrings.MODID + ":textures/models/capes/CapeRockandFire.png");
 	private static ResourceLocation alcater = new ResourceLocation(RefStrings.MODID + ":textures/models/capes/CapeAlcater.png");
 	private static ResourceLocation jame = new ResourceLocation(RefStrings.MODID + ":textures/models/capes/CapeJame.png");
+
+	private static final Map<AbstractClientPlayer, CapeOverride> capeOverrides = new WeakHashMap<>();
+
+	/** Install NTM's cape for this render only, preserving downloaded/modded capes. */
+	public static void beginCapeRender(AbstractClientPlayer player, boolean capeVisible) {
+		endCapeRender(player);
+		if(!capeVisible) return;
+		ResourceLocation cloak = getCloakFromPlayer(player);
+		if(cloak == null) return;
+		capeOverrides.put(player, new CapeOverride(player.getLocationCape(), cloak));
+		player.func_152121_a(Type.CAPE, cloak);
+	}
+
+	public static void endCapeRender(AbstractClientPlayer player) {
+		CapeOverride override = capeOverrides.remove(player);
+		// Leave a texture installed by another mod or a completed skin download alone.
+		if(override != null && override.installed.equals(player.getLocationCape())) {
+			player.func_152121_a(Type.CAPE, override.original);
+		}
+	}
+
+	private static final class CapeOverride {
+		final ResourceLocation original;
+		final ResourceLocation installed;
+
+		CapeOverride(ResourceLocation original, ResourceLocation installed) {
+			this.original = original;
+			this.installed = installed;
+		}
+	}
 
 	public static ResourceLocation getCloakFromPlayer(EntityPlayer player) {
 

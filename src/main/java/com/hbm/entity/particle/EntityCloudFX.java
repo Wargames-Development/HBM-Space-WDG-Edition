@@ -49,14 +49,15 @@ public class EntityCloudFX extends EntityModFX {
 			maxAge = rand.nextInt(301) + 900;
 		}
 
-		if (!worldObj.isRemote && rand.nextInt(50) == 0)
-			ExplosionChaos.c(owner,worldObj, (int) posX, (int) posY, (int) posZ, 2);
-
 		this.particleAge++;
 
 		if (this.particleAge >= maxAge) {
 			this.setDead();
+			return;
 		}
+
+		if (!worldObj.isRemote && rand.nextInt(50) == 0)
+			ExplosionChaos.c(owner,worldObj, posX, posY, posZ, 2);
 
 		this.motionX *= 0.7599999785423279D;
 		this.motionY *= 0.7599999785423279D;
@@ -79,7 +80,7 @@ public class EntityCloudFX extends EntityModFX {
 			this.posY += this.motionY/subdivisions;
 			this.posZ += this.motionZ/subdivisions;
 
-			if (worldObj.getBlock((int) posX, (int) posY, (int) posZ).isNormalCube()) {
+			if (worldObj.getBlock(MathHelper.floor_double(posX), MathHelper.floor_double(posY), MathHelper.floor_double(posZ)).isNormalCube()) {
 
 				if(!worldObj.isRemote && rand.nextInt(5) != 0) {
 					this.setDead();

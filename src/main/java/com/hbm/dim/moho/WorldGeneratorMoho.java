@@ -106,6 +106,7 @@ public class WorldGeneratorMoho implements IWorldGenerator {
 				Block b = world.getBlock(x, y, z);
 				if(world.getBlock(x, y + 1, z) == Blocks.air && (b == ModBlocks.moho_stone || b == ModBlocks.moho_regolith)) {
 					world.setBlock(x, y, z, ModBlocks.geysir_nether);
+                    com.hbm.util.NaturalHazardSource.markGenerated(world,x,y,z);
 					world.setBlock(x+1, y, z, Blocks.netherrack);
 					world.setBlock(x-1, y, z, Blocks.netherrack);
 					world.setBlock(x, y, z+1, Blocks.netherrack);
@@ -132,6 +133,7 @@ public class WorldGeneratorMoho implements IWorldGenerator {
 						world.markBlockForUpdate(ox, y - 1, oz);
 					} else if(b == ModBlocks.volcano_core) {
 						world.setBlock(ox, y, oz, ModBlocks.volcano_core, BlockVolcano.META_STATIC_EXTINGUISHING, 0);
+                        com.hbm.util.NaturalHazardSource.markGenerated(world,ox,y,oz);
 						world.markBlockForUpdate(ox, y, oz);
 					}
 				}

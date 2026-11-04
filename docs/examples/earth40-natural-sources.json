@@ -1,0 +1,184 @@
+{
+  "schema_version": 1,
+  "purpose": "HBM WG2.5 verified natural-source certification",
+  "reference_report_sha256": "a5b3d0ce49f6de96e487bcf0df8ef99511169108930b0e7151bb22c104500dbc",
+  "source_family": "chlorine_geyser",
+  "sources": [
+    {
+      "dimension": 0,
+      "x": -11560,
+      "y": 143,
+      "z": -2732,
+      "block": "hbm:tile.geysir_chlorine",
+      "tile_entity": "tileentity_geysir"
+    },
+    {
+      "dimension": 0,
+      "x": -11527,
+      "y": 136,
+      "z": -4872,
+      "block": "hbm:tile.geysir_chlorine",
+      "tile_entity": "tileentity_geysir"
+    },
+    {
+      "dimension": 0,
+      "x": -7213,
+      "y": 126,
+      "z": 5904,
+      "block": "hbm:tile.geysir_chlorine",
+      "tile_entity": "tileentity_geysir"
+    },
+    {
+      "dimension": 0,
+      "x": -6981,
+      "y": 126,
+      "z": 4765,
+      "block": "hbm:tile.geysir_chlorine",
+      "tile_entity": "tileentity_geysir"
+    },
+    {
+      "dimension": 0,
+      "x": -6840,
+      "y": 126,
+      "z": 4284,
+      "block": "hbm:tile.geysir_chlorine",
+      "tile_entity": "tileentity_geysir"
+    },
+    {
+      "dimension": 0,
+      "x": -6606,
+      "y": 126,
+      "z": 4544,
+      "block": "hbm:tile.geysir_chlorine",
+      "tile_entity": "tileentity_geysir"
+    },
+    {
+      "dimension": 0,
+      "x": -5319,
+      "y": 131,
+      "z": 2035,
+      "block": "hbm:tile.geysir_chlorine",
+      "tile_entity": "tileentity_geysir"
+    },
+    {
+      "dimension": 0,
+      "x": 495,
+      "y": 128,
+      "z": -171,
+      "block": "hbm:tile.geysir_chlorine",
+      "tile_entity": "tileentity_geysir"
+    },
+    {
+      "dimension": 0,
+      "x": 993,
+      "y": 137,
+      "z": -121,
+      "block": "hbm:tile.geysir_chlorine",
+      "tile_entity": "tileentity_geysir"
+    },
+    {
+      "dimension": 0,
+      "x": 3104,
+      "y": 137,
+      "z": 1932,
+      "block": "hbm:tile.geysir_chlorine",
+      "tile_entity": "tileentity_geysir"
+    },
+    {
+      "dimension": 0,
+      "x": 3209,
+      "y": 146,
+      "z": 2535,
+      "block": "hbm:tile.geysir_chlorine",
+      "tile_entity": "tileentity_geysir"
+    },
+    {
+      "dimension": 0,
+      "x": 3375,
+      "y": 143,
+      "z": 3552,
+      "block": "hbm:tile.geysir_chlorine",
+      "tile_entity": "tileentity_geysir"
+    },
+    {
+      "dimension": 0,
+      "x": 3487,
+      "y": 126,
+      "z": -2257,
+      "block": "hbm:tile.geysir_chlorine",
+      "tile_entity": "tileentity_geysir"
+    },
+    {
+      "dimension": 0,
+      "x": 3784,
+      "y": 133,
+      "z": 3100,
+      "block": "hbm:tile.geysir_chlorine",
+      "tile_entity": "tileentity_geysir"
+    },
+    {
+      "dimension": 0,
+      "x": 4394,
+      "y": 126,
+      "z": -4509,
+      "block": "hbm:tile.geysir_chlorine",
+      "tile_entity": "tileentity_geysir"
+    },
+    {
+      "dimension": 0,
+      "x": 5181,
+      "y": 173,
+      "z": 3907,
+      "block": "hbm:tile.geysir_chlorine",
+      "tile_entity": "tileentity_geysir"
+    },
+    {
+      "dimension": 0,
+      "x": 5241,
+      "y": 126,
+      "z": -4989,
+      "block": "hbm:tile.geysir_chlorine",
+      "tile_entity": "tileentity_geysir"
+    },
+    {
+      "dimension": 0,
+      "x": 5334,
+      "y": 127,
+      "z": -5416,
+      "block": "hbm:tile.geysir_chlorine",
+      "tile_entity": "tileentity_geysir"
+    },
+    {
+      "dimension": 0,
+      "x": 5541,
+      "y": 126,
+      "z": -5614,
+      "block": "hbm:tile.geysir_chlorine",
+      "tile_entity": "tileentity_geysir"
+    },
+    {
+      "dimension": 0,
+      "x": 12842,
+      "y": 149,
+      "z": -3776,
+      "block": "hbm:tile.geysir_chlorine",
+      "tile_entity": "tileentity_geysir"
+    },
+    {
+      "dimension": 0,
+      "x": 13030,
+      "y": 141,
+      "z": -5040,
+      "block": "hbm:tile.geysir_chlorine",
+      "tile_entity": "tileentity_geysir"
+    },
+    {
+      "dimension": 0,
+      "x": 14218,
+      "y": 129,
+      "z": -4716,
+      "block": "hbm:tile.geysir_chlorine",
+      "tile_entity": "tileentity_geysir"
+    }
+  ]
+}

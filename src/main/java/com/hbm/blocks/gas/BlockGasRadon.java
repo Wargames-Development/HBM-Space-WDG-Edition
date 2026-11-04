@@ -23,6 +23,7 @@ public class BlockGasRadon extends BlockGasBase {
 
 	@Override
 	public void onEntityCollidedWithBlock(World world, int p_149670_2_, int p_149670_3_, int p_149670_4_, Entity entity) {
+		if(world.isRemote) return;
 		
 		if(!(entity instanceof EntityLivingBase))
 			return;

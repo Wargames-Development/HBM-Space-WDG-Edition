@@ -17,6 +17,7 @@ import java.util.UUID;
 
 public class EntityShrapnel extends EntityThrowable {
 	public UUID owner;
+    public com.hbm.util.NaturalHazardSource naturalSource;
 	public EntityShrapnel(World world) {
 		super(world);
 		this.isImmuneToFire = true;
@@ -45,21 +46,22 @@ public class EntityShrapnel extends EntityThrowable {
 
 	@Override
 	protected void onImpact(MovingObjectPosition mop) {
+		if(worldObj.isRemote) return;
 		if(mop.entityHit != null) {
 			byte b0 = 15;
-			if(!(mop.entityHit instanceof EntityPlayer && !Integrations.canHarmPlayerWGC(owner, mop.entityHit.getUniqueID(), worldObj))) {
-				mop.entityHit.attackEntityFrom(ModDamageSource.shrapnel, b0);
-			}
+            boolean canHarm = owner == null && naturalSource != null
+                    ? naturalSource.canAffect(worldObj,net.minecraft.util.MathHelper.floor_double(mop.entityHit.posX),net.minecraft.util.MathHelper.floor_double(mop.entityHit.posZ),"DAMAGE")
+                    : !(mop.entityHit instanceof EntityPlayer) || Integrations.canHarmPlayerWGC(owner,mop.entityHit.getUniqueID(),worldObj);
+            if(canHarm) mop.entityHit.attackEntityFrom(ModDamageSource.shrapnel,b0);
 		}
 
-		if(worldObj.isRemote) {
-			return;
-		}
+		if(this.ticksExisted <= 5) return;
+		// A protected impact must still consume the projectile.
+		this.setDead();
+		if(mop.entityHit != null) return;
 
-		boolean canExplodeBlock = Integrations.canExplodeBlockWGC(owner, worldObj, mop.blockX, mop.blockZ);
-		if(this.ticksExisted > 5 && canExplodeBlock) {
-
-			this.setDead();
+		boolean canExplodeBlock = owner == null && naturalSource != null ? naturalSource.canAffect(worldObj,mop.blockX,mop.blockZ,"DEBRIS") : Integrations.canExplodeBlockWGC(owner, worldObj, mop.blockX, mop.blockZ);
+		if(canExplodeBlock) {
 
 			int b = this.dataWatcher.getWatchableObjectByte(16);
 			if(b == 2 || b == 4) {
@@ -72,7 +74,7 @@ public class EntityShrapnel extends EntityThrowable {
 					for(int x = mop.blockX - 1; x <= mop.blockX + 1; x++) {
 						for(int y = mop.blockY; y <= mop.blockY + 2; y++) {
 							for(int z = mop.blockZ - 1; z <= mop.blockZ + 1; z++) {
-								if(worldObj.getBlock(x, y, z) == Blocks.air)
+								if((owner == null && naturalSource != null ? naturalSource.canAffect(worldObj,x,z,"CONTAMINATION") : Integrations.canContaminateBlockWGC(owner, worldObj, x, z)) && worldObj.getBlock(x, y, z) == Blocks.air)
 									worldObj.setBlock(x, y, z, ModBlocks.gas_monoxide);
 							}
 						}
@@ -81,7 +83,8 @@ public class EntityShrapnel extends EntityThrowable {
 
 				if(motionY > 0) {
 					ExplosionNT explosion = new ExplosionNT(worldObj, null, mop.blockX + 0.5, mop.blockY + 0.5, mop.blockZ + 0.5, 7);
-					explosion.addAttrib(ExAttrib.NODROP);
+					if(owner == null) explosion.setNaturalSource(naturalSource);
+                    explosion.addAttrib(ExAttrib.NODROP);
 					explosion.addAttrib(b == 2 ? ExAttrib.LAVA_V : ExAttrib.LAVA_R);
 					explosion.addAttrib(ExAttrib.NOSOUND);
 					explosion.addAttrib(ExAttrib.ALLMOD);

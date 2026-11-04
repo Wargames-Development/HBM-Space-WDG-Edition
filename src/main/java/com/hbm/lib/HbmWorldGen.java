@@ -564,8 +564,10 @@ public class HbmWorldGen implements IWorldGenerator {
 			int d = 16 + rand.nextInt(96);
 
 			for(int y = d - 5; y <= d; y++)
-				if(world.getBlock(x, y + 1, z) == Blocks.air && world.getBlock(x, y, z) == Blocks.netherrack)
+				if(world.getBlock(x, y + 1, z) == Blocks.air && world.getBlock(x, y, z) == Blocks.netherrack) {
 					world.setBlock(x, y, z, ModBlocks.geysir_nether);
+                    com.hbm.util.NaturalHazardSource.markGenerated(world,x,y,z);
+                }
 		}
 	}
 

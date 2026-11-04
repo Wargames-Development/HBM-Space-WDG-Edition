@@ -18,10 +18,36 @@ import net.minecraft.util.AxisAlignedBB;
 
 public class TileEntityGeysir extends TileEntity {
 
+    private com.hbm.util.NaturalHazardSource naturalOrigin;
+        private boolean naturalManifestChecked;
+        private boolean naturalCertificationDisabled;
+    public void setNaturalOrigin(com.hbm.util.NaturalHazardSource source) { naturalOrigin = source; naturalCertificationDisabled = source == null; markDirty(); }
+    public com.hbm.util.NaturalHazardSource getNaturalOrigin() {
+            if(!naturalManifestChecked && worldObj != null && !worldObj.isRemote) {
+                naturalManifestChecked = true;
+                if(!naturalCertificationDisabled && naturalOrigin == null) com.hbm.util.NaturalHazardCertification.certifyListed(this);
+            }
+        return naturalOrigin != null && naturalOrigin.isAt(worldObj,xCoord,yCoord,zCoord) ? naturalOrigin : null;
+    }
+    @Override public void writeToNBT(NBTTagCompound tag) {
+        super.writeToNBT(tag);
+        if(naturalCertificationDisabled) tag.setBoolean("NaturalOriginDisabled",true);
+        else tag.removeTag("NaturalOriginDisabled");
+        if(getNaturalOrigin() != null) tag.setTag("NaturalOrigin",naturalOrigin.write());
+        else tag.removeTag("NaturalOrigin");
+    }
+    @Override public void readFromNBT(NBTTagCompound tag) {
+        super.readFromNBT(tag);
+        naturalManifestChecked = false;
+        naturalCertificationDisabled = tag.getBoolean("NaturalOriginDisabled");
+        naturalOrigin = tag.hasKey("NaturalOrigin",10) ? com.hbm.util.NaturalHazardSource.read(tag.getCompoundTag("NaturalOrigin")) : null;
+    }
+
 	int timer;
 
 	@Override
 	public void updateEntity() {
+        getNaturalOrigin();
 
 		if (!this.worldObj.isRemote && worldObj.getBlock(xCoord, yCoord + 1, zCoord) == Blocks.air) {
 
@@ -49,6 +75,8 @@ public class TileEntityGeysir extends TileEntity {
 		for(int i = 0; i < 3; i++) {
 			EntityOrangeFX fx = new EntityOrangeFX(null,worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, 0.0, 0.0, 0.0);
 
+			fx.naturalSource = getNaturalOrigin();
+
 			fx.motionX = worldObj.rand.nextGaussian() * 0.45;
 			fx.motionZ = worldObj.rand.nextGaussian() * 0.45;
 			fx.motionY = timer * 0.3;
@@ -66,6 +94,8 @@ public class TileEntityGeysir extends TileEntity {
 
 		if(worldObj.rand.nextInt(3) == 0) {
 			EntityShrapnel fx = new EntityShrapnel(worldObj,xCoord + 0.5, yCoord + 1.5, zCoord + 0.5);
+			fx.naturalSource = getNaturalOrigin();
+
 			fx.motionX = worldObj.rand.nextGaussian() * 0.05;
 			fx.motionZ = worldObj.rand.nextGaussian() * 0.05;
 			fx.motionY = 0.5 + worldObj.rand.nextDouble() * timer * 0.01;

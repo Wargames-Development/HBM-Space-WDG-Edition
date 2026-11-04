@@ -41,6 +41,13 @@ public class ExplosionNT extends Explosion {
 	protected Map affectedEntities = new HashMap();
 
 	private java.util.UUID ownerParty;
+    private com.hbm.util.NaturalHazardSource naturalSource;
+    private final java.util.Map<net.minecraft.world.ChunkCoordIntPair,Boolean> naturalChunkPermissions = new java.util.HashMap<>();
+    public ExplosionNT setNaturalSource(com.hbm.util.NaturalHazardSource source) {
+        this.naturalSource = source; naturalChunkPermissions.clear();
+        if(source != null) addAttrib(ExAttrib.NOHURT);
+        return this;
+    }
 	private Set<net.minecraft.world.ChunkCoordIntPair> expProtectedChunks;
 
 	@Deprecated public static final List<ExAttrib> nukeAttribs = Arrays.asList(new ExAttrib[] { ExAttrib.FIRE, ExAttrib.NOPARTICLE, ExAttrib.NOSOUND, ExAttrib.NODROP, ExAttrib.NOHURT });
@@ -87,6 +94,16 @@ public class ExplosionNT extends Explosion {
 	}
 
 	private boolean isProtectedChunk(int blockX, int blockZ) {
+		if(ownerParty == null && naturalSource != null) {
+            net.minecraft.world.ChunkCoordIntPair chunk = new net.minecraft.world.ChunkCoordIntPair(blockX >> 4,blockZ >> 4);
+            Boolean allowed = naturalChunkPermissions.get(chunk);
+            if(allowed == null) {
+                allowed = worldObj.getChunkProvider().chunkExists(chunk.chunkXPos,chunk.chunkZPos)
+                        && naturalSource.canAffect(worldObj,blockX,blockZ,"DEBRIS");
+                naturalChunkPermissions.put(chunk,allowed);
+            }
+            return !allowed;
+        }
 		return this.expProtectedChunks != null
 			&& this.expProtectedChunks.contains(new net.minecraft.world.ChunkCoordIntPair(blockX >> 4, blockZ >> 4));
 	}
@@ -147,7 +164,8 @@ public class ExplosionNT extends Explosion {
 							int xPos = MathHelper.floor_double(currentX);
 							int yPos = MathHelper.floor_double(currentY);
 							int zPos = MathHelper.floor_double(currentZ);
-							Block block = this.worldObj.getBlock(xPos, yPos, zPos);
+							if(ownerParty == null && naturalSource != null && isProtectedChunk(xPos,zPos)) break;
+                            Block block = this.worldObj.getBlock(xPos, yPos, zPos);
 
 							if (block.getMaterial() != Material.air) {
 								float resistance = this.exploder != null
@@ -210,7 +228,14 @@ public class ExplosionNT extends Explosion {
 			wgcoreInputBlocks.addAll(this.affectedBlockPositions);
 		}
 
-		List<ChunkPosition> wgcoreFilteredBlocks = Integrations.filterExplosionAffectedBlocksWGC(
+		List<ChunkPosition> wgcoreFilteredBlocks;
+        if(ownerParty == null && naturalSource != null) {
+            wgcoreFilteredBlocks = new java.util.ArrayList<ChunkPosition>();
+            for(Object value : this.affectedBlockPositions) {
+                ChunkPosition block = (ChunkPosition)value;
+                if(!isProtectedChunk(block.chunkPosX,block.chunkPosZ)) wgcoreFilteredBlocks.add(block);
+            }
+        } else wgcoreFilteredBlocks = Integrations.filterExplosionAffectedBlocksWGC(
 			this.ownerParty,
 			this.worldObj,
 			this,

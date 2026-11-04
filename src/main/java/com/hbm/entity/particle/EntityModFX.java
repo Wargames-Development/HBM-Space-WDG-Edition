@@ -37,6 +37,7 @@ public class EntityModFX extends Entity
     public int particleAge;
     public int maxAge;
 	public UUID owner;
+    public com.hbm.util.NaturalHazardSource naturalSource;
 
     public EntityModFX(World world) {
     	super(world);
@@ -197,6 +198,7 @@ public class EntityModFX extends Entity
      */
     @Override
 	public void writeEntityToNBT(NBTTagCompound nbt) {
+        if(naturalSource != null) nbt.setTag("NaturalSource",naturalSource.write());
         nbt.setShort("age", (short)this.particleAge);
 		if (owner != null) {
 			nbt.setLong("ownerMost", owner.getMostSignificantBits());
@@ -209,6 +211,7 @@ public class EntityModFX extends Entity
      */
     @Override
 	public void readEntityFromNBT(NBTTagCompound nbt) {
+        naturalSource = nbt.hasKey("NaturalSource",10) ? com.hbm.util.NaturalHazardSource.read(nbt.getCompoundTag("NaturalSource")) : null;
         this.particleAge = nbt.getShort("age");
 		if(nbt.hasKey("ownerMost")&&nbt.hasKey("ownerLeast"))
 		{

@@ -76,7 +76,6 @@ import com.hbm.util.i18n.I18nUtil;
 import com.hbm.wiaj.GuiWorldInAJar;
 import com.hbm.wiaj.cannery.CanneryBase;
 import com.hbm.wiaj.cannery.Jars;
-import com.mojang.authlib.minecraft.MinecraftProfileTexture.Type;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
@@ -616,16 +615,25 @@ public class ModEventHandlerClient {
 			GL11.glPopMatrix();
 		}
 
-		ResourceLocation cloak = RenderAccessoryUtility.getCloakFromPlayer(player);
-
-		if(cloak != null)
-			player.func_152121_a(Type.CAPE, cloak);
-
 		if(player.getHeldItem() != null && player.getHeldItem().getItem() instanceof IHoldableWeapon) {
 			renderer.modelBipedMain.aimedBow = true;
 			renderer.modelArmor.aimedBow = true;
 			renderer.modelArmorChestplate.aimedBow = true;
 		}
+	}
+
+	@SubscribeEvent(priority = EventPriority.LOWEST, receiveCanceled = true)
+	public void onRenderCape(RenderPlayerEvent.Specials.Pre event) {
+		AbstractClientPlayer player = (AbstractClientPlayer) event.entityPlayer;
+		Minecraft mc = Minecraft.getMinecraft();
+		boolean visible = !player.getHideCape() && (player != mc.thePlayer || mc.gameSettings.showCape);
+		if(!visible) event.renderCape = false;
+		RenderAccessoryUtility.beginCapeRender(player, !event.isCanceled() && event.renderCape && visible);
+	}
+
+	@SubscribeEvent(priority = EventPriority.LOWEST)
+	public void onRenderedCape(RenderPlayerEvent.Specials.Post event) {
+		RenderAccessoryUtility.endCapeRender((AbstractClientPlayer) event.entityPlayer);
 	}
 
 	@SubscribeEvent

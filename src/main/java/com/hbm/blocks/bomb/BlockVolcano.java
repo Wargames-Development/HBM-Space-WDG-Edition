@@ -91,12 +91,28 @@ public class BlockVolcano extends BlockContainer implements ITooltipProvider, IB
 		private static List<ExAttrib> volcanoExplosion = Arrays.asList(new ExAttrib[] {ExAttrib.NODROP, ExAttrib.LAVA_V, ExAttrib.NOSOUND, ExAttrib.ALLMOD, ExAttrib.NOHURT});
 		private static List<ExAttrib> volcanoRadExplosion = Arrays.asList(new ExAttrib[] {ExAttrib.NODROP, ExAttrib.LAVA_R, ExAttrib.NOSOUND, ExAttrib.ALLMOD, ExAttrib.NOHURT});
 
+        private com.hbm.util.NaturalHazardSource naturalOrigin;
+        private boolean naturalManifestChecked;
+        private boolean naturalCertificationDisabled;
+        public void setNaturalOrigin(com.hbm.util.NaturalHazardSource source) { naturalOrigin = source; naturalCertificationDisabled = source == null; markDirty(); }
+        public com.hbm.util.NaturalHazardSource getNaturalOrigin() {
+            if(!naturalManifestChecked && worldObj != null && !worldObj.isRemote) {
+                naturalManifestChecked = true;
+                if(!naturalCertificationDisabled && naturalOrigin == null) com.hbm.util.NaturalHazardCertification.certifyListed(this);
+            }
+            return naturalOrigin != null && naturalOrigin.isAt(worldObj,xCoord,yCoord,zCoord) ? naturalOrigin : null;
+        }
+        private boolean canAlter(int x, int z) {
+            com.hbm.util.NaturalHazardSource source = getNaturalOrigin();
+            return source != null ? source.canAffect(worldObj,x,z,"DEBRIS") : api.hbm.wgc.Integrations.canExplodeBlockWGC(null,worldObj,x,z);
+        }
 		public int volcanoTimer;
 
 		@Override
 		public void updateEntity() {
 
 			if(!worldObj.isRemote) {
+                if(!canAlter(xCoord,zCoord)) return;
 				this.volcanoTimer++;
 
 				if(this.volcanoTimer % 10 == 0) {
@@ -125,6 +141,7 @@ public class BlockVolcano extends BlockContainer implements ITooltipProvider, IB
 
 					if(this.shouldGrow()) {
 						worldObj.setBlock(xCoord, yCoord + 1, zCoord, this.getBlockType(), this.getBlockMetadata(), 3);
+                        if(getNaturalOrigin() != null) com.hbm.util.NaturalHazardSource.markGenerated(worldObj,xCoord,yCoord + 1,zCoord);
 						worldObj.setBlock(xCoord, yCoord, zCoord, getLava());
 						return;
 					} else if(this.isExtinguishing()) {
@@ -151,13 +168,20 @@ public class BlockVolcano extends BlockContainer implements ITooltipProvider, IB
 		@Override
 		public void readFromNBT(NBTTagCompound nbt) {
 			super.readFromNBT(nbt);
+            naturalManifestChecked = false;
+            naturalCertificationDisabled = nbt.getBoolean("NaturalOriginDisabled");
 			this.volcanoTimer = nbt.getInteger("timer");
+            naturalOrigin = nbt.hasKey("NaturalOrigin",10) ? com.hbm.util.NaturalHazardSource.read(nbt.getCompoundTag("NaturalOrigin")) : null;
 		}
 
 		@Override
 		public void writeToNBT(NBTTagCompound nbt) {
 			super.writeToNBT(nbt);
+            if(naturalCertificationDisabled) nbt.setBoolean("NaturalOriginDisabled",true);
+            else nbt.removeTag("NaturalOriginDisabled");
 			nbt.setInteger("timer", this.volcanoTimer);
+            if(getNaturalOrigin() != null) nbt.setTag("NaturalOrigin",naturalOrigin.write());
+            else nbt.removeTag("NaturalOrigin");
 		}
 
 		private boolean shouldGrow() {
@@ -207,9 +231,9 @@ public class BlockVolcano extends BlockContainer implements ITooltipProvider, IB
 		/** Causes two magma explosions, one from bedrock to the core and one from the core to 15 blocks above. */
 		private void blastMagmaChannel() {
 			ExplosionNT explosion = new ExplosionNT(worldObj, null, xCoord + 0.5, yCoord + worldObj.rand.nextInt(15) + 1.5, zCoord + 0.5, 7);
-			explosion.addAllAttrib(getExpAttrb()).explode();
+			explosion.setNaturalSource(getNaturalOrigin()).addAllAttrib(getExpAttrb()).explode();
 			ExplosionNT explosion2 = new ExplosionNT(worldObj, null, xCoord + 0.5 + worldObj.rand.nextGaussian() * 3, worldObj.rand.nextInt(yCoord + 1), zCoord + 0.5 + worldObj.rand.nextGaussian() * 3, 10);
-			explosion2.addAllAttrib(getExpAttrb()).explode();
+			explosion2.setNaturalSource(getNaturalOrigin()).addAllAttrib(getExpAttrb()).explode();
 		}
 
 		/** Causes two magma explosions at a random position around the core, one at normal and one at half range. */
@@ -218,7 +242,7 @@ public class BlockVolcano extends BlockContainer implements ITooltipProvider, IB
 			for(int i = 0; i < 2; i++) {
 				double dist = size / (double) (i + 1);
 				ExplosionNT explosion = new ExplosionNT(worldObj, null, xCoord + 0.5 + worldObj.rand.nextGaussian() * dist, yCoord + 0.5 + worldObj.rand.nextGaussian() * dist, zCoord + 0.5 + worldObj.rand.nextGaussian() * dist, 7);
-				explosion.addAllAttrib(getExpAttrb()).explode();
+				explosion.setNaturalSource(getNaturalOrigin()).addAllAttrib(getExpAttrb()).explode();
 			}
 		}
 
@@ -228,7 +252,8 @@ public class BlockVolcano extends BlockContainer implements ITooltipProvider, IB
 			for(int i = 0; i < count; i++) {
 				int x = (int) Math.floor(xCoord + worldObj.rand.nextGaussian() * radius);
 				int z = (int) Math.floor(zCoord + worldObj.rand.nextGaussian() * radius);
-				//gaussian distribution makes conversions more likely on the surface and rarer at the bottom
+				if(!canAlter(x,z) || !worldObj.getChunkProvider().chunkExists(x >> 4,z >> 4)) continue;
+                //gaussian distribution makes conversions more likely on the surface and rarer at the bottom
 				int y = worldObj.getHeightValue(x, z) + 1 - (int) Math.floor(Math.abs(worldObj.rand.nextGaussian() * depth));
 
 				Block b = worldObj.getBlock(x, y, z);
@@ -247,7 +272,7 @@ public class BlockVolcano extends BlockContainer implements ITooltipProvider, IB
 			int rY = yCoord + worldObj.rand.nextInt(11);
 			int rZ = zCoord - 10 + worldObj.rand.nextInt(21);
 
-			if(worldObj.getBlock(rX, rY, rZ) == Blocks.air && worldObj.getBlock(rX, rY - 1, rZ) == this.getLava())
+			if(canAlter(rX,rZ) && worldObj.blockExists(rX,rY,rZ) && worldObj.getBlock(rX, rY, rZ) == Blocks.air && worldObj.getBlock(rX, rY - 1, rZ) == this.getLava())
 				worldObj.setBlock(rX, rY, rZ, this.getLava());
 		}
 
@@ -258,7 +283,7 @@ public class BlockVolcano extends BlockContainer implements ITooltipProvider, IB
 				for(int j = -1; j <= 1; j++) {
 					for(int k = -1; k <= 1; k++) {
 
-						if(i != 0 || j != 0 || k != 0) {
+						if((i != 0 || j != 0 || k != 0) && canAlter(xCoord + i,zCoord + k) && worldObj.blockExists(xCoord + i,yCoord + j,zCoord + k)) {
 							worldObj.setBlock(xCoord + i, yCoord + j, zCoord + k, this.getLava());
 						}
 					}
@@ -273,6 +298,7 @@ public class BlockVolcano extends BlockContainer implements ITooltipProvider, IB
 				EntityShrapnel frag = new EntityShrapnel(worldObj);
 				frag.setLocationAndAngles(xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, 0.0F, 0.0F);
 				frag.owner = null;
+                frag.naturalSource = getNaturalOrigin();
 				frag.motionY = 1D + worldObj.rand.nextDouble();
 				frag.motionX = worldObj.rand.nextGaussian() * 0.2D;
 				frag.motionZ = worldObj.rand.nextGaussian() * 0.2D;

@@ -28,6 +28,7 @@ public class BlockGasCoal extends BlockGasBase {
 
 	@Override
 	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
+		if(world.isRemote) return;
 		
 		if(entity instanceof EntityLivingBase) {
 			

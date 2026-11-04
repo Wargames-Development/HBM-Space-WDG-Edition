@@ -1,0 +1,40 @@
+EARTH40 NATURAL GEYSER CERTIFICATION — DROP-IN UPDATE
+HBM Space WDG Edition WG2.5.1
+
+No scripts, terminal commands or in-game command batches are required.
+
+SERVER
+1. Stop the server normally.
+2. Replace the existing HBM/NTM jar in mods with the WG2.5.1 jar from this bundle.
+   Keep only one HBM jar. WGCore and WGHangers do not need another update.
+3. Copy config/hbm-natural-sources.json into the server's config folder.
+4. Start the server normally.
+
+CLIENT
+Replace the existing HBM jar with the same WG2.5.1 jar and restart the client.
+The client does not need the JSON file. Keep the current WGCore/WGHangers jars.
+
+WHAT HAPPENS
+The config records 22 chlorine geysers in Overworld/dimension 0. Coordinates were
+extracted from the supplied earth40-reduced-structures conversion records and
+verified against its actual blocks and TileEntities, including the correct Y.
+
+On startup the server logs "Loaded 22 template-listed natural sources".
+Each listed geyser is certified when its loaded TileEntity first ticks. There is
+no need to visit all sites or keep their chunks loaded. Certification is saved
+with the world normally. Changed/missing blocks are skipped, and no chunks are
+forced to load. Claims and protected zones retain WGCore's natural-hazard rules.
+
+This file is for the Earth40 map with the same recorded structure positions.
+It does not copy terrain, inventories, entities, loot or other template data to
+the server. Gas bubbles, landmines and unrelated structures are not added to the
+natural-source allowlist.
+
+BUILD CHECKS
+Compilation and the environmental/cape regressions passed, including automatic
+certification, changed/unlisted source rejection, saved opt-outs and the actual
+22-source JSON (44 automated assertions). WG2.5.1 server startup and client join
+were confirmed on 4 November 2026. The user verified cape disabling and the geyser
+at 12842, 149, -3776 through wilderness -> safe zone -> wilderness: effects applied,
+were suppressed, and returned as expected, with repeated eruptions and no reported
+ticking-entity crash. Resource Node gameplay testing remains deferred.

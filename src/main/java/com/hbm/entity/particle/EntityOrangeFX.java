@@ -8,6 +8,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 import java.util.UUID;
@@ -48,14 +49,15 @@ public class EntityOrangeFX extends EntityModFX {
 			maxAge = rand.nextInt(301) + 900;
 		}
 
-		if(!worldObj.isRemote && rand.nextInt(50) == 0)
-			ExplosionChaos.poison(owner, worldObj, (int) posX, (int) posY, (int) posZ, 2);//TODO FIX
-
 		this.particleAge++;
 
 		if(this.particleAge >= maxAge) {
 			this.setDead();
+			return;
 		}
+
+		if(!worldObj.isRemote && rand.nextInt(50) == 0)
+			ExplosionChaos.poison(naturalSource, owner, worldObj, posX, posY, posZ, 2);
 
 		this.motionX *= 0.86D;
 		this.motionY *= 0.86D;
@@ -71,23 +73,36 @@ public class EntityOrangeFX extends EntityModFX {
 			this.posY += this.motionY / subdivisions;
 			this.posZ += this.motionZ / subdivisions;
 
-			if(worldObj.getBlock((int) posX, (int) posY, (int) posZ).getMaterial() != Material.air) {
+			int x = MathHelper.floor_double(posX);
+			int y = MathHelper.floor_double(posY);
+			int z = MathHelper.floor_double(posZ);
+
+			if(!worldObj.blockExists(x, y, z)) {
 				this.setDead();
+				return;
+			}
+
+			if(worldObj.getBlock(x, y, z).getMaterial() != Material.air) {
+				this.setDead();
+				// WGCore reads server territory data; clients only simulate the particle.
+				if(worldObj.isRemote) return;
 
 				for(int a = -1; a < 2; a++) {
 					for(int c = -1; c < 2; c++) {
-						if(!Integrations.canContaminateBlockWGC(owner,worldObj,posX+a,posZ+c)){continue;}
+						if(!(owner == null && naturalSource != null ? naturalSource.canAffect(worldObj,x + a,z + c,"CONTAMINATION") : Integrations.canContaminateBlockWGC(owner, worldObj, x + a, z + c))){continue;}
 						for(int b = -1; b < 2; b++) {
-							Block bl = worldObj.getBlock((int) posX + a, (int) posY + b, (int) posZ + c);
+							if(!worldObj.blockExists(x + a, y + b, z + c)) continue;
+							Block bl = worldObj.getBlock(x + a, y + b, z + c);
 
 							if(bl == Blocks.grass) {
-								worldObj.setBlock((int) posX + a, (int) posY + b, (int) posZ + c, Blocks.dirt, 1, 3);
+								worldObj.setBlock(x + a, y + b, z + c, Blocks.dirt, 1, 3);
 							} else {
-								ExplosionNukeGeneric.solinium(worldObj, (int) posX + a, (int) posY + b, (int) posZ + c);
+								ExplosionNukeGeneric.solinium(worldObj, x + a, y + b, z + c);
 							}
 						}
 					}
 				}
+				return;
 			}
 		}
 	}

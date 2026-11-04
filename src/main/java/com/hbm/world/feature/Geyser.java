@@ -142,6 +142,7 @@ public class Geyser extends WorldGenerator {
 		world.setBlock(x + 0, y + 10, z + 2, Blocks.stone, 0, 3);
 		world.setBlock(x + 1, y + 10, z + 2, Blocks.grass, 0, 3);
 		world.setBlock(x + 2, y + 10, z + 2, ModBlocks.geysir_chlorine, 0, 3);
+        com.hbm.util.NaturalHazardSource.markGenerated(world,x + 2,y + 10,z + 2);
 		world.setBlock(x + 3, y + 10, z + 2, Blocks.grass, 0, 3);
 		world.setBlock(x + 4, y + 10, z + 2, Blocks.gravel, 0, 3);
 		world.setBlock(x + 0, y + 10, z + 3, Blocks.grass, 0, 3);

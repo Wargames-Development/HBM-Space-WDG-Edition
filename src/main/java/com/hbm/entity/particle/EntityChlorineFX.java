@@ -52,14 +52,15 @@ public class EntityChlorineFX extends EntityModFX {
 			maxAge = rand.nextInt(101) + 700;
 		}
 
-		if (rand.nextInt(50) == 0)
-			ExplosionChaos.poison(owner,worldObj, (int) posX, (int) posY, (int) posZ, 2);
-
 		this.particleAge++;
 
 		if (this.particleAge >= maxAge) {
 			this.setDead();
+			return;
 		}
+
+		if (!worldObj.isRemote && rand.nextInt(50) == 0)
+			ExplosionChaos.poison(owner,worldObj, posX, posY, posZ, 2);
 
 		this.motionX *= 0.7599999785423279D;
 		this.motionY *= 0.7599999785423279D;
@@ -82,7 +83,7 @@ public class EntityChlorineFX extends EntityModFX {
 			this.posY += this.motionY/subdivisions;
 			this.posZ += this.motionZ/subdivisions;
 
-			if (worldObj.getBlock((int) posX, (int) posY, (int) posZ).isNormalCube()) {
+			if (worldObj.getBlock(MathHelper.floor_double(posX), MathHelper.floor_double(posY), MathHelper.floor_double(posZ)).isNormalCube()) {
 
 				if(rand.nextInt(5) != 0)
 					this.setDead();
