@@ -117,8 +117,12 @@ public class EntityMeteor extends Entity implements IRadarDetectableNT {
 
 		this.moveEntity(motionX, motionY, motionZ);
 
-		if(!this.worldObj.isRemote && this.posY < 260) {
-			clearMeteorPath(worldObj, (int) this.posX, (int) this.posY, (int) this.posZ);
+		if(!this.worldObj.isRemote) {
+			// Terrain can exceed vanilla Y=255 in extended-height worlds. A collision
+			// must resolve at any altitude instead of leaving a grounded meteor alive.
+			if(this.onGround || this.posY < this.worldObj.getHeight() + 4D) {
+				clearMeteorPath(worldObj, (int) this.posX, (int) this.posY, (int) this.posZ);
+			}
 			if(this.onGround) {
 				worldObj.createExplosion(this, this.posX, this.posY, this.posZ, 5 + rand.nextFloat(), !safe);
 
