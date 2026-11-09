@@ -1,6 +1,7 @@
 {
   "schema": 1,
   "optionalRegistrations": [
+    "hbm:item.gun_flaregun",
     "hbm:item.wings_limp"
   ],
   "disabled": [
@@ -140,7 +141,6 @@
     "hbm:item.gun_flamer",
     "hbm:item.gun_flamer_daybreaker",
     "hbm:item.gun_flamer_topaz",
-    "hbm:item.gun_flaregun",
     "hbm:item.gun_folly",
     "hbm:item.gun_g3",
     "hbm:item.gun_g3_zebra",

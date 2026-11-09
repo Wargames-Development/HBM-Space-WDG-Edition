@@ -56,7 +56,7 @@ public class BanItemsLifecycleChecks {
         try(Reader reader = new InputStreamReader(BanItems.class.getResourceAsStream("/assets/hbm/banitems-default.json"), "UTF-8")) {
             profile = new JsonParser().parse(reader).getAsJsonObject();
         }
-        check(profile.getAsJsonArray("disabled").size() == 313, "whole registration fixture count");
+        check(profile.getAsJsonArray("disabled").size() == 312, "whole registration fixture count");
         check(profile.getAsJsonArray("metadata").size() == 93, "exact metadata fixture count");
         for(JsonElement element : profile.getAsJsonArray("disabled")) {
             String name = element.getAsString();
@@ -81,6 +81,11 @@ public class BanItemsLifecycleChecks {
             for(com.hbm.inventory.recipes.anvil.AnvilRecipes.AnvilOutput output : recipe.output)
                 if(output.stack != null && output.stack.getItem() == ModItems.wings_limp) wingsRecipe = true;
         check(wingsRecipe != wingsDisabled, "optional wings construction recipe removed and restored with registration");
+        check(Item.itemRegistry.getObject("hbm:item.gun_flaregun") == ModItems.gun_flaregun, "flare gun stays registered for artillery flares");
+        check(!BanItems.disabled(new ItemStack(ModItems.gun_flaregun)), "flare gun remains available");
+        com.hbm.items.weapon.sedna.factory.GunFactory.EnumAmmo artillery = com.hbm.items.weapon.sedna.factory.GunFactory.EnumAmmo.G26_FLARE_ARTILLERY;
+        check(artillery.ordinal() == 95, "artillery flare keeps saved metadata identity");
+        check(!BanItems.disabled(new ItemStack(ModItems.ammo_standard, 1, artillery.ordinal())), "artillery flare remains available");
         int retained = 0;
         for(String line : Files.readAllLines(Paths.get("keep-variants.csv"))) {
             if(line.startsWith("registry,") || line.trim().isEmpty()) continue;

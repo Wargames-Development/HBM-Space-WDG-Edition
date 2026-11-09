@@ -32,9 +32,19 @@ public class BanItemsChecks {
         try {
             Configuration config = new Configuration(path);
             BanItemsConfig.loadFromConfig(config);
+            check(!BanItems.disabledName("hbm:item.gun_flaregun"), "flare gun remains enabled by default for artillery flares");
+            check(BanItems.supportedRegistrationNames().contains("hbm:item.gun_flaregun"), "legacy flare gun config remains supported");
             check(!BanItems.disabledName("hbm:item.wings_limp"), "optional wings remain enabled by default");
             check(BanItems.supportedRegistrationNames().contains("hbm:item.wings_limp"), "optional hook appears in supported catalogue");
             String[] initialNames = config.get("wdg_banitems", "disabledRegistrations", new String[0]).getStringList();
+            String[] legacyNames = java.util.Arrays.copyOf(initialNames, initialNames.length + 1);
+            legacyNames[initialNames.length] = "hbm:item.gun_flaregun";
+            config.get("wdg_banitems", "disabledRegistrations", initialNames).set(legacyNames);
+            BanItems.load(config);
+            check(BanItems.disabledName("hbm:item.gun_flaregun"), "legacy config still loads with explicit flare gun ban");
+            config.get("wdg_banitems", "disabledRegistrations", initialNames).set(initialNames);
+            BanItems.load(config);
+            check(!BanItems.disabledName("hbm:item.gun_flaregun"), "removing legacy flare gun ban restores availability");
             String[] withWings = java.util.Arrays.copyOf(initialNames, initialNames.length + 1);
             withWings[initialNames.length] = "hbm:item.wings_limp";
             config.get("wdg_banitems", "disabledRegistrations", initialNames).set(withWings);
