@@ -95,7 +95,8 @@ public class TileEntityMachineRadarNT extends TileEntityMachineBase implements I
 	public static int consumption = 500;
 	public static int radarRange = 1_000;
 	public static int radarBuffer = 30;
-	public static int radarAltitude = 55;
+	private static final int MIN_RADAR_ALTITUDE = 127;
+	public static int radarAltitude = MIN_RADAR_ALTITUDE;
 	public static int chunkLoadCap = 10;
 	public static boolean generateChunks = false;
 
@@ -115,7 +116,7 @@ public class TileEntityMachineRadarNT extends TileEntityMachineBase implements I
 		consumption = IConfigurableMachine.grab(obj, "L:consumption", consumption);
 		radarRange = IConfigurableMachine.grab(obj, "I:radarRange", radarRange);
 		radarBuffer = IConfigurableMachine.grab(obj, "I:radarBuffer", radarBuffer);
-		radarAltitude = IConfigurableMachine.grab(obj, "I:radarAltitude", radarAltitude);
+		radarAltitude = Math.max(MIN_RADAR_ALTITUDE, IConfigurableMachine.grab(obj, "I:radarAltitude", radarAltitude));
 		chunkLoadCap = IConfigurableMachine.grab(obj, "I:chunkLoadCap", chunkLoadCap);
 		generateChunks = IConfigurableMachine.grab(obj, "B:generateChunks", generateChunks);
 	}
