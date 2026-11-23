@@ -1,11 +1,13 @@
 package com.hbm.entity.missile;
 
+import api.hbm.wgc.Integrations;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 import com.hbm.entity.logic.EntityNukeExplosionMK5;
 import com.hbm.explosion.ExplosionChaos;
+import com.hbm.explosion.BunkerBusterTerrain;
 import com.hbm.explosion.ExplosionLarge;
 import com.hbm.explosion.ExplosionNT;
 import com.hbm.explosion.ExplosionNT.ExAttrib;
@@ -16,6 +18,8 @@ import api.hbm.entity.IRadarDetectableNT;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
+import net.minecraft.world.ChunkPosition;
+import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
 public abstract class EntityMissileTier3 extends EntityMissileBaseNT {
@@ -108,28 +112,38 @@ public abstract class EntityMissileTier3 extends EntityMissileBaseNT {
 	}
 
 	public static class EntityMissileDrill extends EntityMissileTier3 {
-		private static final double DEFPEN = 1000.0;
-		private static final int ARMDIST = 50;
-		private BBParams bbparams;
+		private static final int TERRAIN_STRENGTH = 65;
 		public EntityMissileDrill(World world) {
 			super(world);
-			bbparams = new BBParams(false, 0, ARMDIST, DEFPEN);
 		}
 		public EntityMissileDrill(World world, float x, float y, float z, int a, int b, UUID ownerParty) {
 			super(world, x, y, z, a, b, ownerParty);
-			bbparams = new BBParams(false, 0, ARMDIST, DEFPEN);
 		}
 		@Override public void onMissileImpact(MovingObjectPosition mop) {
-			worldObj.spawnEntityInWorld(EntityNukeExplosionMK5.statFacNoRad(worldObj, 45, this.posX, this.posY, this.posZ,ownerParty));
+			boolean deferredTerrain = Integrations.supportsBunkerBusterTerrain();
+			if(deferredTerrain) {
+				EntityNukeExplosionMK5 pulse = EntityNukeExplosionMK5.bunkerBusterPulse(worldObj,
+						TERRAIN_STRENGTH, posX, posY, posZ, ownerParty);
+				worldObj.spawnEntityInWorld(pulse);
+				Explosion explosion = new Explosion(worldObj, this, posX, posY, posZ, TERRAIN_STRENGTH);
+				BunkerBusterTerrain.enqueue(worldObj, ownerParty, explosion, TERRAIN_STRENGTH, false, blocks -> {
+					for (ChunkPosition block : blocks) {
+						worldObj.setBlockToAir(block.chunkPosX, block.chunkPosY, block.chunkPosZ);
+					}
+				});
+			} else {
+				worldObj.spawnEntityInWorld(EntityNukeExplosionMK5.statFacNoRad(worldObj, 45, posX, posY, posZ, ownerParty));
+			}
 			ExplosionLarge.spawnParticles(worldObj, this.posX, this.posY, this.posZ, 8);
 			ExplosionLarge.spawnShrapnels(worldObj, this.posX, this.posY, this.posZ, 8,ownerParty);
 			ExplosionLarge.spawnRubble(worldObj, this.posX, this.posY, this.posZ, 8);
-			ExplosionLarge.jolt(worldObj, this.posX, this.posY, this.posZ, 10, 50, 1);
+			if(deferredTerrain) {
+				ExplosionLarge.joltVisual(worldObj, posX, posY, posZ, 10, 50, 1);
+			} else {
+				ExplosionLarge.jolt(worldObj, posX, posY, posZ, 10, 50, 1);
+			}
 		}
-		@Override
-		public void onBlockCollide(MovingObjectPosition mop, Vec3 pos, Vec3 nextPos){
-			bbparams = onCollideBunkerBuster(mop,pos,nextPos, bbparams);
-		}
+		@Override protected double maxBunkerBusterHealth() { return 2000D; }
 		@Override public ItemStack getDebrisRareDrop() { return new ItemStack(ModItems.warhead_buster_large); }
 		@Override public ItemStack getMissileItemForInfo() { return new ItemStack(ModItems.missile_drill); }
 	}

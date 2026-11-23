@@ -22,7 +22,9 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
@@ -164,6 +166,23 @@ public final class Integrations {
                                                                              ExplosionVNT explosion,
                                                                              HashSet<ChunkPosition> affectedBlocks) {
         return backend().filterExplosionVNTAffectedBlocks(party, world, explosion, affectedBlocks);
+    }
+
+    public static boolean supportsBunkerBusterTerrain() {
+        return backend().supportsBunkerBusterTerrain();
+    }
+
+    public static double bunkerBusterResistance(World world, int x, int y, int z, double nativeResistance) {
+        return backend().bunkerBusterResistance(world, x, y, z, nativeResistance);
+    }
+
+    public static boolean isBunkerBusterProtected(World world, int x, int y, int z) {
+        return backend().isBunkerBusterProtected(world, x, y, z);
+    }
+
+    public static List<ChunkPosition> filterBunkerBusterTerrain(UUID party, World world, Explosion explosion,
+            Map<ChunkPosition, Double> damage) {
+        return backend().filterBunkerBusterTerrain(party, world, explosion, damage);
     }
 
     public static boolean canIrradiateWGC(UUID party, World world, int chunkX, int chunkZ) {
@@ -420,6 +439,11 @@ interface IntegrationBackend {
     Set<ChunkCoordIntPair> getExplosionProtectedChunks(UUID party, World world, int x, int z, int radius);
     List<ChunkPosition> filterExplosionAffectedBlocks(UUID party, World world, Explosion explosion, List affectedBlocks, String explosionTypeId);
     HashSet<ChunkPosition> filterExplosionVNTAffectedBlocks(UUID party, World world, ExplosionVNT explosion, HashSet<ChunkPosition> affectedBlocks);
+    boolean supportsBunkerBusterTerrain();
+    double bunkerBusterResistance(World world, int x, int y, int z, double nativeResistance);
+    boolean isBunkerBusterProtected(World world, int x, int y, int z);
+    List<ChunkPosition> filterBunkerBusterTerrain(UUID party, World world, Explosion explosion,
+            Map<ChunkPosition, Double> damage);
     boolean canIrradiate(UUID party, World world, int chunkX, int chunkZ);
     Set<ChunkCoordIntPair> getRadProtectedChunks(UUID party, World world, int chunkX, int chunkZ, int radius);
     boolean canContaminateChunk(UUID party, World world, int chunkX, int chunkZ);
@@ -444,6 +468,23 @@ interface IntegrationBackend {
 }
 
 final class NoOpIntegrationBackend implements IntegrationBackend {
+
+    public boolean supportsBunkerBusterTerrain() {
+        return false;
+    }
+
+    public double bunkerBusterResistance(World world, int x, int y, int z, double nativeResistance) {
+        return nativeResistance;
+    }
+
+    public boolean isBunkerBusterProtected(World world, int x, int y, int z) {
+        return false;
+    }
+
+    public List<ChunkPosition> filterBunkerBusterTerrain(UUID party, World world, Explosion explosion,
+            Map<ChunkPosition, Double> damage) {
+        return Collections.emptyList();
+    }
 
     public boolean canTargetPlayer(UUID party, UUID targetedPlayer, World world) {
         return true;
@@ -583,6 +624,66 @@ final class NoOpIntegrationBackend implements IntegrationBackend {
  * present, keeping the public facade loadable without WGCore at runtime.
  */
 final class WGCoreIntegrationBackend implements IntegrationBackend {
+    private final Method terrainImpact = optionalMethod("evaluateTerrainImpact", ExplosionActionContext.class, Map.class);
+    private final Method resistanceOverride = optionalMethod("getBlockResistanceOverride",
+            World.class, int.class, int.class, int.class, double.class);
+    private final Method absoluteProtection = optionalMethod("isExplosionProtectedBlock",
+            World.class, int.class, int.class, int.class);
+
+    private static Method optionalMethod(String name, Class<?>... parameters) {
+        try {
+            return requireMethod(name, parameters);
+        } catch (NoSuchMethodException unavailable) {
+            return null;
+        }
+    }
+
+    private static Object invokeTerrainMethod(Method method, Object... args) {
+        try {
+            return method.invoke(null, args);
+        } catch (ReflectiveOperationException failure) {
+            throw new IllegalStateException("WGCore bunker-buster integration failed: " + method.getName(), failure);
+        }
+    }
+
+    public boolean supportsBunkerBusterTerrain() {
+        return terrainImpact != null && resistanceOverride != null && absoluteProtection != null;
+    }
+
+    public double bunkerBusterResistance(World world, int x, int y, int z, double nativeResistance) {
+        return resistanceOverride == null ? nativeResistance
+                : (Double) invokeTerrainMethod(resistanceOverride, world, x, y, z, nativeResistance);
+    }
+
+    public boolean isBunkerBusterProtected(World world, int x, int y, int z) {
+        return BreachStationComputerInteractionHandler.isLockedTrackedStationComputer(world, x, y, z)
+                || (absoluteProtection != null && (Boolean) invokeTerrainMethod(absoluteProtection, world, x, y, z));
+    }
+
+    public List<ChunkPosition> filterBunkerBusterTerrain(UUID party, World world, Explosion explosion,
+            Map<ChunkPosition, Double> damage) {
+        if (!supportsBunkerBusterTerrain()) return Collections.emptyList();
+        Map<ChunkPosition, Double> permitted = new LinkedHashMap<>();
+        for (Map.Entry<ChunkPosition, Double> entry : damage.entrySet()) {
+            ChunkPosition position = entry.getKey();
+            if (!BreachStationComputerInteractionHandler.isLockedTrackedStationComputer(
+                    world, position.chunkPosX, position.chunkPosY, position.chunkPosZ)) {
+                permitted.put(position, entry.getValue());
+            }
+        }
+        if (permitted.isEmpty()) return Collections.emptyList();
+
+        List<ChunkPosition> candidates = new ArrayList<>(permitted.keySet());
+        ExplosionActionContext context = new ExplosionActionContext(world,
+                MathHelper.floor_double(explosion.explosionX), MathHelper.floor_double(explosion.explosionY),
+                MathHelper.floor_double(explosion.explosionZ), explosion, buildExplosionAttribution(party, world),
+                "hbm:explosion_vnt", candidates);
+        ExplosionDecision decision = (ExplosionDecision) invokeTerrainMethod(terrainImpact, context, permitted);
+        if (decision == null || !decision.isExplosionAllowed() || !decision.isBlockDamageAllowed()) {
+            return Collections.emptyList();
+        }
+        return decision.isFiltered() ? decision.getFilteredAffectedBlocks() : candidates;
+    }
 
     WGCoreIntegrationBackend() {
         verifyCompatibility();

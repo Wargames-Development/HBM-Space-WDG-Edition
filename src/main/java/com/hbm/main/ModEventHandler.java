@@ -11,6 +11,7 @@ import java.util.Random;
 import java.util.UUID;
 
 import api.hbm.wgc.Integrations;
+import com.hbm.explosion.BunkerBusterTerrain;
 
 import org.apache.commons.lang3.math.NumberUtils;
 
@@ -832,6 +833,7 @@ public class ModEventHandler {
 
 	@SubscribeEvent
 	public void onUnload(WorldEvent.Unload event) {
+		BunkerBusterTerrain.unload(event.world);
 		NeutronNodeWorld.streamWorlds.remove(event.world);
 	}
 
@@ -1550,6 +1552,7 @@ public class ModEventHandler {
 
 	@SubscribeEvent
 	public void onServerTick(TickEvent.ServerTickEvent event) {
+		if(event.phase == Phase.END) BunkerBusterTerrain.tick();
 
 		if(event.phase == Phase.START) {
 			CBT_Weather.updateGlobalWeather();

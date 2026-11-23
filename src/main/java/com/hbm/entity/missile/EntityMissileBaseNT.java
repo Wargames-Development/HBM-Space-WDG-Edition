@@ -8,6 +8,7 @@ import api.hbm.wgc.Integrations;
 import com.google.common.collect.ImmutableSet;
 import com.hbm.entity.logic.IChunkLoader;
 import com.hbm.entity.projectile.EntityThrowableInterp;
+import com.hbm.explosion.BunkerBusterTerrain;
 import com.hbm.explosion.ExplosionLarge;
 import com.hbm.explosion.vanillant.ExplosionVNT;
 import com.hbm.explosion.vanillant.standard.BlockAllocatorStandard;
@@ -52,6 +53,12 @@ public abstract class EntityMissileBaseNT extends EntityThrowableInterp implemen
 	private Ticket loaderTicket;
 	public int health = 50;
 	protected UUID ownerParty;
+	private static final double BUNKER_MAX_DEPTH = 100D;
+	private static final double BUNKER_HEALTH_EPSILON = 1.0E-9D;
+	// Keep the version-one disk scale so in-flight missiles preserve their remaining fraction.
+	private static final double BUNKER_SAVED_HEALTH_SCALE = 35D / 20D;
+	private double firstBunkerImpactY = Double.NaN;
+	private double remainingBunkerHealth;
 
 	public EntityMissileBaseNT(World world) {
 		super(world);
@@ -126,6 +133,7 @@ public abstract class EntityMissileBaseNT extends EntityThrowableInterp implemen
 		this.lastTickPosY = this.posY;
 		this.lastTickPosZ = this.posZ;
 		super.onUpdate();
+		if (isDead) return;
 
 		if(velocity < 4) velocity += MathHelper.clamp_double(this.ticksExisted / 60D * 0.05D, 0, 0.05);
 
@@ -177,144 +185,104 @@ public abstract class EntityMissileBaseNT extends EntityThrowableInterp implemen
 		while(this.rotationYaw - this.prevRotationYaw < -180.0F) this.prevRotationYaw -= 360.0F;
 		while(this.rotationYaw - this.prevRotationYaw >= 180.0F) this.prevRotationYaw += 360.0F;
 	}
-	protected class BBParams{
-		public boolean hasHit;
-		public int hitHeight;
-		public double pen;
-		public int armDistance;
-
-		BBParams(boolean hasHit, int hitHeight, int armDistance, double pen) {
-			this.hasHit = hasHit;
-			this.hitHeight = hitHeight;
-			this.pen = pen;
-			this.armDistance = armDistance;
-		}
-
-	}
-	public BBParams onCollideBunkerBuster(MovingObjectPosition mop, Vec3 pos, Vec3 nextPos, BBParams p) {
-
-		/*
-		 * The nextPos passed in by EntityThrowableNT is clipped to the first hit
-		 * position before this method is called. That makes the old code only
-		 * process roughly one block per tick, while the missile still advances by
-		 * its full motion afterward.
-		 *
-		 * For bunker busters, we need to scan the full movement segment for this
-		 * tick so every block crossed by the missile consumes penetration.
-		 */
-		Vec3 fullNextPos = Vec3.createVectorHelper(
-			pos.xCoord + this.motionX * this.motionMult(),
-			pos.yCoord + this.motionY * this.motionMult(),
-			pos.zCoord + this.motionZ * this.motionMult()
-		);
-
-		List<Vec3> explosionpositions = new ArrayList<Vec3>();
-
-		if(!p.hasHit) {
-			p.hitHeight = (int) pos.yCoord;
-			p.hasHit = true;
-		}
-
-		int safety = 0;
-
-		while(mop != null && !this.isDead && safety++ < 256) {
-
-			if(mop.typeOfHit != MovingObjectPosition.MovingObjectType.BLOCK) {
-				break;
-			}
-
-			int x = mop.blockX;
-			int y = mop.blockY;
-			int z = mop.blockZ;
-
-			Block collidedblock = worldObj.getBlock(x, y, z);
-
-			if(collidedblock == Blocks.portal) {
-				this.setInPortal();
-				break;
-			}
-
-			if(collidedblock == Blocks.air || collidedblock.isAir(worldObj, x, y, z)) {
-				mop = this.worldObj.func_147447_a(pos, fullNextPos, false, true, false);
-				continue;
-			}
-
-			UUID owner = this.getOwner();
-			ChunkCoordIntPair chunk = new ChunkCoordIntPair(x >> 4, z >> 4);
-
-			if(!Integrations.canTargetChunkWGC(owner, worldObj, chunk) || !Integrations.canExplodeBlockWGC(owner, worldObj, x, z)) {
-				this.onImpact(mop);
-				break;
-			}
-
-			/*
-			 * This is the actual bunker-buster penetration cost.
-			 * It is based on blast resistance, not mining hardness.
-			 */
-			p.pen -= getBunkerBusterPenetrationCost(collidedblock, x, y, z);
-
-			/*
-			 * Stop if penetration is depleted or if the missile has reached its
-			 * maximum arming/depth distance.
-			 */
-			if(p.pen <= 0.0D || y <= p.hitHeight - p.armDistance) {
-				this.onImpact(mop);
-				break;
-			}
-
-			explosionpositions.add(Vec3.createVectorHelper(x, y, z));
-			worldObj.setBlock(x, y, z, Blocks.air, 0, 3);
-
-			/*
-			 * Raytrace the full original movement segment again after removing
-			 * the block. This allows the missile to charge penetration for every
-			 * block crossed during this tick instead of skipping through blocks.
-			 */
-			mop = this.worldObj.func_147447_a(pos, fullNextPos, false, true, false);
-		}
-
-		for(Vec3 exppos : explosionpositions) {
-			this.explodeStandardAt(exppos.xCoord, exppos.yCoord, exppos.zCoord, 3F, 12, true);
-		}
-
-		return p;
+	protected double maxBunkerBusterHealth() {
+		return 0D;
 	}
 
-	private float getBunkerBusterPenetrationCost(Block block, int x, int y, int z) {
-
-		/*
-		 * Keep NTM's special masquerade behavior:
-		 * - sandstone acts like stone
-		 * - obsidian acts like stronger stone
-		 *
-		 * Everything else uses world-aware explosion resistance so NTM concrete,
-		 * reinforced concrete, ducrete, meteor blocks, etc. can correctly consume
-		 * more penetration than normal stone.
-		 */
-		if(block == Blocks.sandstone) {
-			return Blocks.stone.getExplosionResistance(null);
+	@Override
+	public void onBlockCollide(MovingObjectPosition hit, Vec3 start, Vec3 clippedEnd) {
+		double capacity = maxBunkerBusterHealth();
+		if (capacity == 0D) {
+			super.onBlockCollide(hit, start, clippedEnd);
+			return;
 		}
 
-		if(block == Blocks.obsidian) {
-			return Blocks.stone.getExplosionResistance(null) * 3.0F;
+		// The superclass endpoint is clipped to the first hit. Every block in the full step must be paid for.
+		Vec3 fullEnd = start.addVector(motionX * motionMult(), motionY * motionMult(), motionZ * motionMult());
+		List<Vec3> trail = new ArrayList<>();
+		for (int steps = 0; hit != null && hit.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK
+				&& !isDead && steps < 256; steps++) {
+			Vec3 impact = hit.hitVec;
+			if (impact.yCoord <= firstBunkerImpactY - BUNKER_MAX_DEPTH) break;
+
+			int x = hit.blockX;
+			int y = hit.blockY;
+			int z = hit.blockZ;
+			Block block = worldObj.getBlock(x, y, z);
+			if (block == Blocks.portal) {
+				setInPortal();
+				break;
+			}
+			if (!block.isAir(worldObj, x, y, z)) {
+				if (Double.isNaN(firstBunkerImpactY)) {
+					firstBunkerImpactY = impact.yCoord;
+					remainingBunkerHealth = capacity;
+				}
+
+				UUID owner = getOwner();
+				ChunkCoordIntPair chunk = new ChunkCoordIntPair(x >> 4, z >> 4);
+				if (!Integrations.canTargetChunkWGC(owner, worldObj, chunk)
+						|| !Integrations.canExplodeBlockWGC(owner, worldObj, x, z)
+						|| Integrations.isBunkerBusterProtected(worldObj, x, y, z)) {
+					detonateBunkerBuster(hit);
+					break;
+				}
+
+				double cost = getBunkerBusterCost(block, x, y, z);
+				if (!(cost > 0D && cost <= remainingBunkerHealth + BUNKER_HEALTH_EPSILON)
+						|| !worldObj.setBlockToAir(x, y, z)) {
+					detonateBunkerBuster(hit);
+					break;
+				}
+
+				remainingBunkerHealth -= cost;
+				trail.add(Vec3.createVectorHelper(x, y, z));
+				if (remainingBunkerHealth <= BUNKER_HEALTH_EPSILON) {
+					detonateBunkerBuster(hit);
+					break;
+				}
+			}
+
+			// World ray tracing mutates its start vector. Keep the original tick start for the depth fuse.
+			hit = worldObj.func_147447_a(Vec3.createVectorHelper(start.xCoord, start.yCoord, start.zCoord),
+					fullEnd, false, true, false);
 		}
 
-		float resistance = block.getExplosionResistance(
-			this,
-			worldObj,
-			x,
-			y,
-			z,
-			this.posX,
-			this.posY,
-			this.posZ
-		);
+		for (Vec3 position : trail) {
+			explodeStandardAt(position.xCoord, position.yCoord, position.zCoord, 3F, 12, true, 3F);
+		}
+	}
 
-		/*
-		 * Prevent weird zero-cost blocks from allowing infinite free penetration.
-		 * Air is filtered before this method is called.
-		 */
-		return Math.max(0.1F, resistance);
+	@Override
+	public void airburstCheck(Vec3 start, Vec3 clippedEnd) {
+		if (isDead || Double.isNaN(firstBunkerImpactY)) return;
+		double depthY = firstBunkerImpactY - BUNKER_MAX_DEPTH;
+		double verticalStep = motionY * motionMult();
+		if (verticalStep >= 0D || start.yCoord + verticalStep > depthY) return;
+
+		// Fuse at the depth plane even when the missile is crossing an air pocket.
+		double travel = Math.max(0D, (depthY - start.yCoord) / verticalStep) * motionMult();
+		Vec3 impact = start.addVector(motionX * travel, motionY * travel, motionZ * travel);
+		detonateBunkerBuster(new MovingObjectPosition(MathHelper.floor_double(impact.xCoord),
+				MathHelper.floor_double(impact.yCoord), MathHelper.floor_double(impact.zCoord), 1, impact));
+	}
+
+	private void detonateBunkerBuster(MovingObjectPosition impact) {
+		setPosition(impact.hitVec.xCoord, impact.hitVec.yCoord, impact.hitVec.zCoord);
+		onImpact(impact);
+	}
+
+	private double getBunkerBusterCost(Block block, int x, int y, int z) {
+		if (!(block.getBlockHardness(worldObj, x, y, z) >= 0F)) return Double.POSITIVE_INFINITY;
+		double resistance;
+		if (block == Blocks.sandstone) {
+			resistance = Blocks.stone.getExplosionResistance(null);
+		} else if (block == Blocks.obsidian) {
+			resistance = Blocks.stone.getExplosionResistance(null) * 3D;
+		} else {
+			resistance = block.getExplosionResistance(this, worldObj, x, y, z, posX, posY, posZ);
+		}
+		return Math.max(0.1D, Integrations.bunkerBusterResistance(worldObj, x, y, z, resistance));
 	}
 
 	public boolean checkForAirburst(Vec3 pos, Vec3 nextPos, int detHeight) {
@@ -378,6 +346,16 @@ public abstract class EntityMissileBaseNT extends EntityThrowableInterp implemen
 		startX = nbt.getInteger("sX");
 		startZ = nbt.getInteger("sZ");
 		velocity = nbt.getDouble("veloc");
+		if (nbt.hasKey("bunkerDrill", 10) && maxBunkerBusterHealth() > 0D) {
+			NBTTagCompound drill = nbt.getCompoundTag("bunkerDrill");
+			double firstImpact = drill.getDouble("firstImpactY");
+			double remaining = drill.getDouble("remainingHealth") / BUNKER_SAVED_HEALTH_SCALE;
+			if (drill.getInteger("version") == 1 && drill.hasKey("firstImpactY", 99)
+					&& Double.isFinite(firstImpact) && remaining > 0D && remaining <= maxBunkerBusterHealth()) {
+				firstBunkerImpactY = firstImpact;
+				remainingBunkerHealth = remaining;
+			}
+		}
 		if(nbt.hasKey("ownerPartyMost") && nbt.hasKey("ownerPartyLeast")) {
 			ownerParty = new UUID(nbt.getLong("ownerPartyMost"), nbt.getLong("ownerPartyLeast"));
 		}
@@ -399,6 +377,13 @@ public abstract class EntityMissileBaseNT extends EntityThrowableInterp implemen
 		nbt.setInteger("sX", startX);
 		nbt.setInteger("sZ", startZ);
 		nbt.setDouble("veloc", velocity);
+		if (!Double.isNaN(firstBunkerImpactY)) {
+			NBTTagCompound drill = new NBTTagCompound();
+			drill.setInteger("version", 1);
+			drill.setDouble("firstImpactY", firstBunkerImpactY);
+			drill.setDouble("remainingHealth", remainingBunkerHealth * BUNKER_SAVED_HEALTH_SCALE);
+			nbt.setTag("bunkerDrill", drill);
+		}
 		if(ownerParty != null) {
 			nbt.setLong("ownerPartyMost", ownerParty.getMostSignificantBits());
 			nbt.setLong("ownerPartyLeast", ownerParty.getLeastSignificantBits());
@@ -535,13 +520,31 @@ public abstract class EntityMissileBaseNT extends EntityThrowableInterp implemen
 	}
 
 	protected void explodeStandardAt(double x, double y, double z, float strength, int resolution, boolean fire) {
+		this.explodeStandardAt(x, y, z, strength, resolution, fire, 0F);
+	}
+
+	protected void explodeBunkerBuster(float strength, int resolution, float terrainStrength) {
+		this.explodeStandardAt(posX, posY, posZ, strength, resolution, false, terrainStrength);
+	}
+
+	private void explodeStandardAt(double x, double y, double z, float strength, int resolution, boolean fire,
+			float terrainStrength) {
 		if(!this.canDetonateAt(x, y, z)) return;
 		ExplosionVNT xnt = new ExplosionVNT(worldObj, x, y, z, strength, ownerParty, this);
-		xnt.setBlockAllocator(new BlockAllocatorStandard(resolution));
-		xnt.setBlockProcessor(new BlockProcessorStandard().setNoDrop().withBlockEffect(fire ? new BlockMutatorFire() : null));
+		BlockProcessorStandard processor = new BlockProcessorStandard().setNoDrop()
+				.withBlockEffect(fire ? new BlockMutatorFire() : null);
+		boolean deferredTerrain = terrainStrength > 0F && Integrations.supportsBunkerBusterTerrain();
+		if(!deferredTerrain) {
+			xnt.setBlockAllocator(new BlockAllocatorStandard(resolution));
+			xnt.setBlockProcessor(processor);
+		}
 		xnt.setEntityProcessor(new EntityProcessorCross(7.5D).withRangeMod(2));
 		xnt.setPlayerProcessor(new PlayerProcessorStandard());
 		xnt.explode();
+		if(deferredTerrain) {
+			BunkerBusterTerrain.enqueue(worldObj, ownerParty, xnt.compat, terrainStrength, fire,
+					blocks -> processor.process(xnt, worldObj, x, y, z, blocks));
+		}
 	}
 
 	protected void explodeEntityOnly(float strength) {

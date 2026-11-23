@@ -89,25 +89,17 @@ public abstract class EntityMissileTier2 extends EntityMissileBaseNT {
 	}
 
 	public static class EntityMissileBusterStrong extends EntityMissileTier2 {
-		private static final double DEFPEN = 500.0;
-		private static final int ARMDIST = 30;
-		private BBParams bbparams;
 		public EntityMissileBusterStrong(World world){
 			super(world);
-			bbparams = new BBParams(false, 0, ARMDIST, DEFPEN);
 		}
 		public EntityMissileBusterStrong(World world, float x, float y, float z, int a, int b, UUID ownerParty) {
 			super(world, x, y, z, a, b, ownerParty);
-			bbparams = new BBParams(false, 0, ARMDIST, DEFPEN);
 		}
 		@Override public void onMissileImpact(MovingObjectPosition mop) {
-			this.explodeStandard(30F, 32, false);
+			this.explodeBunkerBuster(30F, 32, 45F);
 			ExplosionCreator.composeEffectStandard(worldObj, posX, posY, posZ);
 		}
-		@Override
-		public void onBlockCollide(MovingObjectPosition mop, Vec3 pos, Vec3 nextPos){
-			bbparams = onCollideBunkerBuster(mop,pos,nextPos, bbparams);
-		}
+		@Override protected double maxBunkerBusterHealth() { return 1000D; }
 		@Override public ItemStack getDebrisRareDrop() { return new ItemStack(ModItems.warhead_buster_medium); }
 		@Override public ItemStack getMissileItemForInfo() { return new ItemStack(ModItems.missile_buster_strong); }
 	}

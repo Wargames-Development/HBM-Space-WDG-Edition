@@ -273,6 +273,15 @@ public class ExplosionLarge {
 	}
 
 	public static void jolt(World world, double posX, double posY, double posZ, double strength, int count, double vel) {
+		jolt(world, posX, posY, posZ, strength, count, vel, true);
+	}
+
+	public static void joltVisual(World world, double x, double y, double z, double strength, int count, double velocity) {
+		jolt(world, x, y, z, strength, count, velocity, false);
+	}
+
+	private static void jolt(World world, double posX, double posY, double posZ, double strength, int count, double vel,
+			boolean moveBlocks) {
 
 		for (int j = 0; j < count; j++) {
 			double phi = rand.nextDouble() * (Math.PI * 2);
@@ -294,8 +303,10 @@ public class ExplosionLarge {
 					int by = (int) y0;
 					int bz = (int) z0;
 
+					if (!moveBlocks && !world.blockExists(bx, by, bz)) continue;
 					if (world.getBlock(bx, by, bz).getMaterial().isLiquid()) {
-							world.setBlock(bx, by, bz, Blocks.air);
+						if (moveBlocks) world.setBlock(bx, by, bz, Blocks.air);
+						else continue;
 					}
 
 					if (world.getBlock(bx, by, bz) != Blocks.air) {
@@ -320,7 +331,7 @@ public class ExplosionLarge {
 						int rby = (int) Math.floor(rubble.posY);
 						int rbz = (int) Math.floor(rubble.posZ);
 							world.spawnEntityInWorld(rubble);
-							world.setBlock(bx, by, bz, Blocks.air);
+							if (moveBlocks) world.setBlock(bx, by, bz, Blocks.air);
 						break;
 					}
 				}

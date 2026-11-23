@@ -40,6 +40,7 @@ public class EntityNukeExplosionMK5 extends EntityExplosionChunkloading {
 	public UUID ownedParty;
 
 	private int falloutAdd = 0;
+	private int bunkerBusterPulseTicks;
 
 	private IExplosionRay explosion;
 
@@ -63,10 +64,18 @@ public class EntityNukeExplosionMK5 extends EntityExplosionChunkloading {
 			return;
 		}
 
-		if (!worldObj.isRemote) loadChunk((int) Math.floor(posX / 16D), (int) Math.floor(posZ / 16D));
+		if (!worldObj.isRemote && bunkerBusterPulseTicks == 0) loadChunk((int) Math.floor(posX / 16D), (int) Math.floor(posZ / 16D));
 
 		for (Object player : this.worldObj.playerEntities) {
 			((EntityPlayer) player).triggerAchievement(MainRegistry.achManhattan);
+		}
+
+		if (bunkerBusterPulseTicks > 0) {
+			if (!worldObj.isRemote) {
+				ExplosionNukeGeneric.dealDamage(ownedParty, worldObj, posX, posY, posZ, length * 2, 250F, this);
+				if (--bunkerBusterPulseTicks == 0) setDead();
+			}
+			return;
 		}
 
 		if (!worldObj.isRemote && fallout && explosion != null && this.ticksExisted < 10 && strength >= 75) {
@@ -172,6 +181,11 @@ public class EntityNukeExplosionMK5 extends EntityExplosionChunkloading {
 
 
 	public static EntityNukeExplosionMK5 statFac(World world, int r, double x, double y, double z, UUID party) {
+		return statFac(world, r, x, y, z, party, true);
+	}
+
+	private static EntityNukeExplosionMK5 statFac(World world, int r, double x, double y, double z, UUID party,
+			boolean loadCenterChunk) {
 
 		if(GeneralConfig.enableExtendedLogging && !world.isRemote)
 			MainRegistry.logger.log(Level.INFO, "[NUKE] Initialized explosion at {} / {} / {} with strength {}!", x, y, z, r);
@@ -188,7 +202,7 @@ public class EntityNukeExplosionMK5 extends EntityExplosionChunkloading {
 		mk5.length = mk5.strength / 2;
 		mk5.ownedParty = party;
         com.hbm.lib.CombatDamageSource.capture(mk5, party);
-		mk5.loadChunk((int) Math.floor(x / 16D), (int) Math.floor(z / 16D));
+		if (loadCenterChunk) mk5.loadChunk((int) Math.floor(x / 16D), (int) Math.floor(z / 16D));
 		return mk5;
 	}
 
@@ -196,6 +210,15 @@ public class EntityNukeExplosionMK5 extends EntityExplosionChunkloading {
 
 		EntityNukeExplosionMK5 mk5 = statFac(world, r, x, y ,z, party);
 		mk5.fallout = false;
+		return mk5;
+	}
+
+	public static EntityNukeExplosionMK5 bunkerBusterPulse(World world, int r, double x, double y, double z, UUID party) {
+		EntityNukeExplosionMK5 mk5 = statFac(world, r, x, y, z, party, false);
+		mk5.fallout = false;
+		// The former 45-strength crater took six ray batches and a completion tick at minimum.
+		mk5.bunkerBusterPulseTicks = 7;
+		if (!world.isRemote) SatelliteDetector.reportEvent(world, SatelliteDetector.DURATION_HIGH, BurstIntensity.HIGH, x, z);
 		return mk5;
 	}
 
