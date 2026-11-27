@@ -41,6 +41,7 @@ public class ServerProxy {
 
 	public void registerPreRenderInfo() { }
 	public void registerRenderInfo() { }
+	public void preloadSkyTexture() { }
 	public void registerTileEntitySpecialRenderer() { }
 	public void registerItemRenderer() { }
 	public void registerEntityRenderer() { }

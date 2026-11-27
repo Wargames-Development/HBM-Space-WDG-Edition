@@ -386,6 +386,8 @@ public class MainRegistry {
 
 	@EventHandler
 	public static void load(FMLInitializationEvent event) {
+		// Forge pre-initialization runs before Minecraft creates its texture manager.
+		proxy.preloadSkyTexture();
 
 		RodRecipes.registerInit();
 

@@ -53,7 +53,6 @@ public class SkyProviderCelestial extends IRenderHandler {
 
 	private static final ResourceLocation planetTexture = new ResourceLocation(RefStrings.MODID, "textures/misc/space/planet.png");
 	private static final ResourceLocation flareTexture = new ResourceLocation(RefStrings.MODID, "textures/misc/space/sunspike.png");
-	private static final ResourceLocation nightTexture = new ResourceLocation(RefStrings.MODID, "textures/misc/space/night.png");
 	private static final ResourceLocation digammaStar = new ResourceLocation(RefStrings.MODID, "textures/misc/space/star_digamma.png");
 	private static final ResourceLocation lodeStar = new ResourceLocation(RefStrings.MODID, "textures/misc/star_lode.png");
 	private static final ResourceLocation stationTexture = new ResourceLocation(RefStrings.MODID, "textures/misc/space/station.png");
@@ -643,7 +642,7 @@ public class SkyProviderCelestial extends IRenderHandler {
 
 					GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
 	
-					mc.renderEngine.bindTexture(nightTexture);
+					mc.renderEngine.bindTexture(ResourceManager.celestialNightSky);
 					float starBrightnessAlpha = starBrightness * 0.6f;
 					GL11.glColor4f(1.0F, 1.0F, 1.0F, starBrightnessAlpha);
 	

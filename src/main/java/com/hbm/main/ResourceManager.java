@@ -16,6 +16,7 @@ import net.minecraftforge.client.model.IModelCustom;
 import java.util.HashMap;
 
 public class ResourceManager {
+	public static final ResourceLocation celestialNightSky = new ResourceLocation(RefStrings.MODID, "textures/misc/space/night.png");
 
 	////Obj TEs
 

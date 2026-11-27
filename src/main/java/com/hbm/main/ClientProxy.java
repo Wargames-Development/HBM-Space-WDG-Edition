@@ -120,6 +120,7 @@ import net.minecraft.client.particle.*;
 import net.minecraft.client.renderer.entity.RenderMinecart;
 import net.minecraft.client.renderer.entity.RenderSnowball;
 import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.client.renderer.texture.SimpleTexture;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.resources.IReloadableResourceManager;
 import net.minecraft.client.resources.Language;
@@ -187,6 +188,14 @@ public class ClientProxy extends ServerProxy {
 		if(GeneralConfig.enableSoundExtension) {
 			SoundSystemConfig.setNumberNormalChannels(GeneralConfig.normalSoundChannels);
 			SoundSystemConfig.setNumberStreamingChannels(50);
+		}
+	}
+
+	@Override
+	public void preloadSkyTexture() {
+		TextureManager textures = Minecraft.getMinecraft().getTextureManager();
+		if(textures.getTexture(ResourceManager.celestialNightSky) == null) {
+			textures.loadTexture(ResourceManager.celestialNightSky, new SimpleTexture(ResourceManager.celestialNightSky));
 		}
 	}
 
