@@ -16,6 +16,10 @@ public class ItemBlockBlastInfo extends ItemBlockBase {
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
 		super.addInformation(stack, player, list, bool);
-		list.add(EnumChatFormatting.GOLD + "Blast Resistance: " + field_150939_a.getExplosionResistance(null));
+		addBlastResistance(list, field_150939_a.getExplosionResistance(null));
+	}
+
+	static void addBlastResistance(List list, float resistance) {
+		list.add(EnumChatFormatting.GOLD + "Blast Resistance: " + resistance);
 	}
 }

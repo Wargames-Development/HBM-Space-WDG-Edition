@@ -1,17 +1,29 @@
 package com.hbm.items.block;
 
+import java.util.List;
+
 import com.hbm.blocks.ModBlocks;
+import com.hbm.blocks.generic.BlockMultiSlab;
 import com.hbm.interfaces.NotableComments;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSlab;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemSlab;
+import net.minecraft.item.ItemStack;
 
 @NotableComments
 public class ItemModSlab extends ItemSlab {
 
 	public ItemModSlab(Block block) {
 		super(block, shittyFuckingHackSingle(block), shittyFuckingHackDouble(block), shittyFuckingHackDouble(block) == block);
+	}
+
+	@Override
+	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean advanced) {
+		super.addInformation(stack, player, list, advanced);
+		BlockMultiSlab slab = (BlockMultiSlab) field_150939_a;
+		ItemBlockBlastInfo.addBlastResistance(list, slab.getExplosionResistance(null, stack.getItemDamage()));
 	}
 	
 	public static BlockSlab shittyFuckingHackSingle(Block b) {

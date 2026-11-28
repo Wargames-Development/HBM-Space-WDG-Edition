@@ -3092,8 +3092,8 @@ public class ModBlocks {
 
 		//Lightstone and its stair/slab variants
 		register(lightstone);
-		register(lightstone_tile_stairs);
-		register(lightstone_bricks_stairs);
+		register(lightstone_tile_stairs, ItemBlockBlastInfo.class);
+		register(lightstone_bricks_stairs, ItemBlockBlastInfo.class);
 		register(stones_slab, ItemModSlab.class);
 		register(stones_double_slab, ItemModSlab.class);
 
@@ -3107,24 +3107,24 @@ public class ModBlocks {
 		GameRegistry.registerBlock(brick_slab, ItemModSlab.class, brick_slab.getUnlocalizedName());
 		GameRegistry.registerBlock(brick_double_slab, ItemModSlab.class, brick_double_slab.getUnlocalizedName());
 
-		GameRegistry.registerBlock(concrete_smooth_stairs, concrete_smooth_stairs.getUnlocalizedName());
-		GameRegistry.registerBlock(concrete_stairs, concrete_stairs.getUnlocalizedName());
-		GameRegistry.registerBlock(concrete_asbestos_stairs, concrete_asbestos_stairs.getUnlocalizedName());
-		GameRegistry.registerBlock(ducrete_smooth_stairs, ducrete_smooth_stairs.getUnlocalizedName());
-		GameRegistry.registerBlock(brick_concrete_stairs, brick_concrete_stairs.getUnlocalizedName());
-		GameRegistry.registerBlock(brick_concrete_mossy_stairs, brick_concrete_mossy_stairs.getUnlocalizedName());
-		GameRegistry.registerBlock(brick_concrete_cracked_stairs, brick_concrete_cracked_stairs.getUnlocalizedName());
-		GameRegistry.registerBlock(brick_concrete_broken_stairs, brick_concrete_broken_stairs.getUnlocalizedName());
-		GameRegistry.registerBlock(brick_ducrete_stairs, brick_ducrete_stairs.getUnlocalizedName());
-		GameRegistry.registerBlock(reinforced_stone_stairs, reinforced_stone_stairs.getUnlocalizedName());
-		GameRegistry.registerBlock(reinforced_brick_stairs, reinforced_brick_stairs.getUnlocalizedName());
-		GameRegistry.registerBlock(brick_obsidian_stairs, brick_obsidian_stairs.getUnlocalizedName());
-		GameRegistry.registerBlock(brick_light_stairs, brick_light_stairs.getUnlocalizedName());
-		GameRegistry.registerBlock(brick_compound_stairs, brick_compound_stairs.getUnlocalizedName());
-		GameRegistry.registerBlock(brick_asbestos_stairs, brick_asbestos_stairs.getUnlocalizedName());
-		GameRegistry.registerBlock(brick_fire_stairs, brick_fire_stairs.getUnlocalizedName());
-		GameRegistry.registerBlock(ducrete_stairs, ducrete_stairs.getUnlocalizedName());
-		GameRegistry.registerBlock(asphalt_stairs, asphalt_stairs.getUnlocalizedName());
+		register(concrete_smooth_stairs, ItemBlockBlastInfo.class);
+		register(concrete_stairs, ItemBlockBlastInfo.class);
+		register(concrete_asbestos_stairs, ItemBlockBlastInfo.class);
+		register(ducrete_smooth_stairs, ItemBlockBlastInfo.class);
+		register(brick_concrete_stairs, ItemBlockBlastInfo.class);
+		register(brick_concrete_mossy_stairs, ItemBlockBlastInfo.class);
+		register(brick_concrete_cracked_stairs, ItemBlockBlastInfo.class);
+		register(brick_concrete_broken_stairs, ItemBlockBlastInfo.class);
+		register(brick_ducrete_stairs, ItemBlockBlastInfo.class);
+		register(reinforced_stone_stairs, ItemBlockBlastInfo.class);
+		register(reinforced_brick_stairs, ItemBlockBlastInfo.class);
+		register(brick_obsidian_stairs, ItemBlockBlastInfo.class);
+		register(brick_light_stairs, ItemBlockBlastInfo.class);
+		register(brick_compound_stairs, ItemBlockBlastInfo.class);
+		register(brick_asbestos_stairs, ItemBlockBlastInfo.class);
+		register(brick_fire_stairs, ItemBlockBlastInfo.class);
+		register(ducrete_stairs, ItemBlockBlastInfo.class);
+		register(asphalt_stairs, ItemBlockBlastInfo.class);
 
 		//CMB Building Elements
 		GameRegistry.registerBlock(cmb_brick, ItemBlockBlastInfo.class, cmb_brick.getUnlocalizedName());

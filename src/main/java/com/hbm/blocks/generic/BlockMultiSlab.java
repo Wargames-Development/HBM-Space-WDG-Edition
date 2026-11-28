@@ -95,10 +95,11 @@ public class BlockMultiSlab extends BlockSlab implements IStepTickReceiver {
 	
 	@Override
 	public float getExplosionResistance(Entity entity, World world, int x, int y, int z, double explosionX, double explosionY, double explosionZ) {
-		int meta = world.getBlockMetadata(x, y, z);
-		meta = (meta & 7) % slabMaterials.length;
-		Block block = slabMaterials[meta];
-		return block.getExplosionResistance(entity);
+		return getExplosionResistance(entity, world.getBlockMetadata(x, y, z));
+	}
+
+	public float getExplosionResistance(Entity entity, int meta) {
+		return slabMaterials[(meta & 7) % slabMaterials.length].getExplosionResistance(entity);
 	}
 	
 	@Override
